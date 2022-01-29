@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="icon" href="favicon.ico">
+    <meta charset="utf-8" />
+    <title>Home</title>
+
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="Scripts/index.js"></script>
+
+    <link rel="stylesheet" href="Styles/app.css" />
+</head>
+<body>
+    <div class="container-lg">
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="index.html">
+                <img src="Pictures/MeFatterTransparent.png" width="30" height="30" alt="" loading="lazy">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="resume.html">Resume <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="contact.html">Contact <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <h4 class="text-center">Hello, I am Bryan Arriaga.</h4>
+        <p class="text-center">I am a full-stack web developer with over 5 years of experience making websites with Oracle/SQL databases, C# .NET backends, and front-ends in a variety of frameworks (plain Javascript, jQuery, Angular 1.x, React).</p>
+        <br />
+        <div id="workingOn">
+            <h5 class="text-center">Things I'm Working On</h5>
+            <ul>
+                <li>Android development tutorials</li>
+                <li>Game development in unity</li>
+                <li>Tutoring</li>
+            </ul>
+        </div>
+        <div id="workedOn">
+            <h5 class="text-center">Things I've Worked On</h5>
+            <div id="workedOnList">
+                <div>
+                    <a class="collapseText" data-toggle="collapse" href="#spellList" aria-expanded="true" aria-controls="spellList">
+                        <b class="collapseIcon">-</b>
+                        D&D random spell selector
+                    </a>
+                    <ul class="collapse show" id="spellList">
+                        <li>I like to play D&D, my current character is a Wizard, and during a delve in the Dungeon of the Mad Mage, he has managed to amass a dozen different spellbooks. The rulebook stated the following: <i>“To determine a particular spellbook’s contents, roll a d6. The book contains four wizard spells of each level up to and including the number rolled on the die. For example, on a roll of 3, a spellbook contains four spells of each level from 1st through 3rd. Pick spells from the wizard spell list.”</i></li>
+                        <li>After rolling a six sided die for each spellbook I saw that I needed to select a total of 160 different spells, this would take too long to manually so I decided to write an application that would select spells at random. The application would generate a unique list of spells for each level of spells the book contained, and then do this for each book, ultimately creating a string for each spell level one through six. The final list of spells would be condensed to only contain unique spells.</li>
+                        <li>Broke down the steps that needed to take place to generate the spells based on the numbers initially rolled.</li>
+                        <li>Wrote a jQuery call to be made in the console of a chrome window with the spells listed on the DnDBeyond website, in order to obtain a string containing all of the spells that exist for a Wizard.</li>
+                        <li>Created a Console Application and wrote out the logic in C#.</li>
+                    </ul>
+                </div>
+                <div>
+                    <a class="collapseText" data-toggle="collapse" href="#revalidationList" aria-expanded="true" aria-controls="revalidationList">
+                        <b class="collapseIcon">-</b>
+                        Revalidation Program
+                    </a>
+                    <ul class="collapse show" id="revalidationList">
+                        <li>The organization I was working for had a need to validate the roles that every employee had yearly, this was done by the manager of each employee. Before the creation of this application, there were several different groups that kept track of user roles, and each group had their own way of doing validations. My task was to meet with all the groups, find the commonality of each process, and come up with a singular solution for all of the groups.</li>
+                        <li>Developed a new application, with requirements from a variety of departments in order to standardize the existing process.</li>
+                        <li>Designed and created Database, Stored Procedures, and Database Links using Oracle.</li>
+                        <li>Wrote .NET Web Services that implemented and validated departments’ business logic.</li>
+                        <li>Created a responsive UI using Bootstrap and AngularJS 1.X, and conducted multiple tests to ensure high customer satisfaction.</li>
+                        <li>Technologies: C#, .NET, Oracle, PL/SQL, Entity Framework, JavaScript, AngularJS 1.X, Bootstrap</li>
+                    </ul>
+                </div>
+                <div>
+                    <a class="collapseText" data-toggle="collapse" href="#hazardList" aria-expanded="true" aria-controls="hazardList">
+                        <b class="collapseIcon">-</b>
+                        Hazard analysis program
+                    </a>
+                    <ul class="collapse show" id="hazardList">
+                        <li>This program consisted of a series of pages asking the user questions about a task that was to take place. Once all of the questions were answered, the application would find which hazards they might face, tell them what personal protective equipment was recommended, and who to contact if any additional information was needed.</li>
+                        <li>Worked with a team to rewrite legacy application to ASP.NET MVC 4 application</li>
+                        <li>Helped find new libraries and extensions to be used in the project to accelerate and ease the amount of work to be done.</li>
+                        <li>Added user functionality by implementing JavaScript, jQuery, and DataTables.</li>
+                        <li>Created MVC Razor Views, MVC Layout Pages for presentation layer.</li>
+                        <li>Used jQueryUI in order to enhance the design of the project.</li>
+                        <li>Technologies: C#, .NET, MVC 4, SQL, TSQL, Entity Framework, JavaScript, jQuery, Bootstrap</li>
+                    </ul>
+                </div>
+                <div>
+                    <a class="collapseText" data-toggle="collapse" href="#governanceList" aria-expanded="true" aria-controls="governanceList">
+                        <b class="collapseIcon">-</b>
+                        Governance System
+                    </a>
+                    <ul class="collapse show" id="governanceList">
+                        <li>This program helped streamline an existing paper process to an automated online process, by creating a new web application.</li>
+                        <li>Worked with a customer to gather requirements.</li>
+                        <li>Created back-end, including the oracle database, and .NET web services.</li>
+                        <li>Created UI and wrote front-end business logic using jQuery and Bootstrap.</li>
+                        <li>Technologies: C#, .NET, Oracle, Entity Framework, JavaScript, jQuery, Bootstrap</li>
+                    </ul>
+                </div>
+                <div>
+                    <a class="collapseText" data-toggle="collapse" href="#appConversionList" aria-expanded="true" aria-controls="appConversionList">
+                        <b class="collapseIcon">-</b> 
+                        Application Conversions
+                    </a>
+                    <ul class="collapse show" id="appConversionList">
+                        <li>As a full stack developer, converted 3 existing applications to web applications which conform to the clients’ existing Service Oriented Architecture.</li>
+                        <li>Worked with the customer to gather requirements.</li>
+                        <li>Migrated and optimized databases from Access to Oracle.</li>
+                        <li>Wrote RESTful web services to accomplish CRUD operations using Entity Framework.</li>
+                        <li>Created a responsive UI using Bootstrap and AngularJS 1.X, and conducted multiple tests to ensure high customer satisfaction.</li>
+                        <li>Technologies: C#, .NET, Entity Framework, Oracle, JavaScript, TypeScript, AngularJS 1.X, Bootstrap</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

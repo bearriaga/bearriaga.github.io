@@ -1,0 +1,17 @@
+﻿.nav-link {
+    color: #fff;
+}
+
+.collapseText, .collapseText:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+body {
+    color: #fff;
+    background-color: #333;
+}
+
+#workedOnList {
+    padding-left: 20px;
+}
