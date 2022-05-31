@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="icon" href="favicon.ico">
+    <meta charset="utf-8" />
+    <title>Character Sheet</title>
+
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="Styles/app.css" />
+</head>
+<body>
+    <div class="container-lg">
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="index.html">
+                <img src="Pictures/MeFatterTransparent.png" width="30" height="30" alt="" loading="lazy">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="resume.html">Resume <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="contact.html">Contact <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div>
+            <h4 class="text-center">Oatsys Chacter Sheet</h4>
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Name</label>
+                            <input id="name" name="name" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="race" class="col-form-label">Race</label>
+                            <input id="race" name="race" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="age" class="col-form-label">Age</label>
+                            <input id="age" name="age" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="col-form-label">
+                                Level
+                                <span data-toggle="tooltip" data-placement="top" title="Level = XP Total / 500 rounded down">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                </span>
+
+                            </label>
+                            <input id="level" name="level" type="text" class="form-control" disabled="disabled" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3 class="text-center">
+                            Characteristics
+                            <button type="button" id="characteristicsEdit" class="btn btn-sm btn-primary"><i class="bi bi-pencil-fill"></i></button>
+                        </h3>
+                        <div class="form-group row characteristic">
+                            <div class="col-2">
+                                <label for="strength" class="col-form-label">STR</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="strength" name="strength" class="form-control characteristicInput" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="strRoll" class="btn btn-primary form-control characteristicRoll"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row characteristic">
+                            <div class="col-2">
+                                <label for="dexterity" class="col-form-label">DEX</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="dexterity" name="dexterity" class="form-control characteristicInput" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="dexRoll" class="btn btn-primary form-control characteristicRoll"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row characteristic">
+                            <div class="col-2">
+                                <label for="speed" class="col-form-label">SPD</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="speed" name="speed" class="form-control characteristicInput" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="spdRoll" class="btn btn-primary form-control characteristicRoll"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row characteristic">
+                            <div class="col-2">
+                                <label for="intellect" class="col-form-label">INT</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="intellect" name="intellect" class="form-control characteristicInput" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="intRoll" class="btn btn-primary form-control characteristicRoll"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row characteristic">
+                            <div class="col-2">
+                                <label for="cunning" class="col-form-label">CUN</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="cunning" name="cunning" class="form-control characteristicInput" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="cunRoll" class="btn btn-primary form-control characteristicRoll"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row characteristic">
+                            <div class="col-2">
+                                <label for="resistance" class="col-form-label">RES</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="resistance" name="resistance" class="form-control characteristicInput" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="resRoll" class="btn btn-primary form-control characteristicRoll"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row characteristic">
+                            <div class="col-2">
+                                <label for="luck" class="col-form-label">LCK</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="luck" name="luck" class="form-control characteristicInput" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="lckRoll" class="btn btn-primary form-control characteristicRoll"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h3 class="text-center">
+                            Skills
+                            <button type="button" id="skillsEdit" class="btn btn-sm btn-primary"><i class="bi bi-pencil-fill"></i></button>
+                        </h3>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label for="luck" class="col-form-label">Skill</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="luck" name="luck" class="form-control" />
+                                <div class="input-group-append">
+                                    <button type="button" id="lckRoll" class="btn btn-primary form-control"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label for="luck" class="col-form-label">Skill</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="luck" name="luck" class="form-control" />
+                                <div class="input-group-append">
+                                    <button type="button" id="lckRoll" class="btn btn-primary form-control"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label for="luck" class="col-form-label">Skill</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="luck" name="luck" class="form-control" />
+                                <div class="input-group-append">
+                                    <button type="button" id="lckRoll" class="btn btn-primary form-control"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label for="luck" class="col-form-label">Skill</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="luck" name="luck" class="form-control" />
+                                <div class="input-group-append">
+                                    <button type="button" id="lckRoll" class="btn btn-primary form-control"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label for="luck" class="col-form-label">Skill</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="luck" name="luck" class="form-control" />
+                                <div class="input-group-append">
+                                    <button type="button" id="lckRoll" class="btn btn-primary form-control"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label for="luck" class="col-form-label">Skill</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="luck" name="luck" class="form-control" />
+                                <div class="input-group-append">
+                                    <button type="button" id="lckRoll" class="btn btn-primary form-control"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label for="luck" class="col-form-label">Skill</label>
+                            </div>
+                            <div class="col-10 input-group">
+                                <input type="number" id="luck" name="luck" class="form-control" />
+                                <div class="input-group-append">
+                                    <button type="button" id="lckRoll" class="btn btn-primary form-control"><i class="bi bi-dice-6-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h5 class="text-center">
+                            Health Points
+                        </h5>
+                        <div class="form-group row">
+                            <div class="col input-group">
+                                <input type="number" id="hp" name="hp" class="form-control" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">/</span>
+                                </div>
+                                <input type="number" id="hpMax" name="hpMax" class="form-control" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="hpEdit" class="btn btn-primary form-control" data-toggle="modal" data-target="#hpModal"><i class="bi bi-pencil-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="text-center">DC to Hit</h5>
+                        <div class="form-group row">
+                            <div class="col input-group">
+                                <input type="number" id="dc" name="dc" class="form-control" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="hpEdit" class="btn btn-primary form-control"><i class="bi bi-pencil-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="text-center">Action Points</h5>
+                        <div class="form-group row">
+                            <div class="col input-group">
+                                <input type="number" id="ap" name="ap" class="form-control" />
+                                <div class="input-group-append">
+                                    <button type="button" id="apAdd" class="btn btn-primary form-control"
+                                            data-toggle="tooltip" data-placement="top" title="Add AP Gain">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                    <span class="input-group-text">/</span>
+                                </div>
+                                <input type="number" id="apMax" name="apMax" class="form-control" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="apEdit" class="btn btn-primary form-control"><i class="bi bi-pencil-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="text-center">Breakthrough Points</h5>
+                        <div class="form-group row">
+                            <div class="col input-group">
+                                <input type="number" id="breakthroughs" name="breakthroughs" class="form-control" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">/</span>
+                                </div>
+                                <input type="number" id="breakthroughsMax" name="breakthroughsMax" class="form-control" disabled="disabled" />
+                                <div class="input-group-append">
+                                    <button type="button" id="breakthroughsEdit" class="btn btn-primary form-control"><i class="bi bi-pencil-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Movements
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                Class Resources/Max
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Size
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Attunement
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Rerolls/Max
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Damage Resistances
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3 class="text-center">
+                            Classes
+                            <button type="button" id="classessEdit" class="btn btn-sm btn-primary"><i class="bi bi-pencil-fill"></i></button>
+                        </h3>
+                    </div>
+                    <div class="col">
+                        <h3 class="text-center">
+                            Unlocked Classes
+                            <button type="button" id="unlockedClassessEdit" class="btn btn-sm btn-primary"><i class="bi bi-pencil-fill"></i></button>
+                        </h3>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                XP/Max
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Flaws
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        Money
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal fade" id="hpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Health Points Max Edit</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Health Points Max = (level * 5) + ((STR + RES) * 3) + purchased HP</p>
+                        <p>{hpMax} = ({level} * 5) + (({strength} + {resistance}) * 3) + {hpIncreases}</p>
+                        <form>
+                            <div class="form-group">
+                                <label for="hpIncreases">Purchased HP</label>
+                                <input type="number" class="form-control" id="hpIncreases" placeholder="Enter any purchased HP here and click Save changes" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var characterSheet = {
+            age: 0,
+            ap: 0,
+            apMax: 0,
+            attunementSlots: 0, //10 + attunementSlotsIncreases - attunements.sum(amount)
+            attunementSlotsIncreases: 0,
+            background: '',
+            breakthroughs: 0, //RES + breakthroughMax
+            breakthroughMax: 0,
+            breakthroughIncreases: 0,
+            //Characteristics Start
+            strength: 0,
+            dexterity: 0,
+            speed: 0,
+            intelligence: 0,
+            cunning: 0,
+            resistance: 0,
+            luck: 0,
+            luckFavored: false,
+            luckNothingToChance: false,
+            primayCharacteristic: '', //Selected from above
+            //Characteristics End
+            dcToHit: 0, //1 + (DEX/2 Rounded Down) + dcToHitIncreases
+            dcToHitIncreases: 0,
+            hp: 0,
+            hpMax: 0, //(level * 5) + ((STR+RES) * 3) + hpIncreases
+            hpIncreases: 0,
+            initiative: 0, //SPD + initiativeIncreases
+            initiativeIncreases: 0,
+            level: 0, //xpTotal/500 round down
+            name: '',
+            race: '',
+            rerolls: 0,
+            rerollIncreases: 0,
+            size: 1,
+            xp: 0, //xpTotal - abilities.where(!boughtForFree).sum(xpCost)
+            xpTotal: 0, //(classes.count * 300) + xpEntries sum + flaws sum
+            abilities: [
+                {
+                    apCost: '',
+                    areaOfEffect: '',
+                    boughtForFree: false,
+                    crCost: '',
+                    damage: '',
+                    description: '',
+                    duration: '',
+                    handedness: '',
+                    inClass: true,
+                    maxSizeCategoryOfMass: '',
+                    physMeta: '',
+                    range: '',
+                    xpCost: '',
+                    components: []
+                }
+            ],
+            armor: [
+                {
+                    effect: '',
+                    name: '',
+                    slot: '',
+                    drGroups: [],
+                    drTypes: []
+                }
+            ],
+            attunements: [
+                {
+                    amount: 0,
+                    name: ''
+                }
+            ],
+            classes: [
+                {
+                    description: '',
+                    name: '',
+                    type: ''
+                }
+            ],
+            classesUnlocked: [
+                {
+                    description: '',
+                    name: '',
+                    type: ''
+                }
+            ],
+            drGroups: [
+                {
+                    amount: 0,
+                    type: 'Physical'
+                }
+            ],
+            drTypes: [
+                {
+                    amount: 0,
+                    type: 'Slashing'
+                }
+            ],
+            flaws: [
+                {
+                    amount: 0,
+                    description: '',
+                    name: ''
+                }
+            ],
+            items: [
+                {
+                    amount: '',
+                    description: '',
+                    name: ''
+                }
+            ],
+            movements: [
+                //default entry
+                {
+                    default: true,
+                    distance: 0,
+                    distanceIncreases: 0,
+                    distanceMax: 0, // default ? DEX * 5 + distanceIncreases : distanceIncreases
+                    type: 'Land Speed'
+                }
+            ],
+            resources: [
+                //default first entry based on primayCharacteristic
+                {
+                    amount: 0,
+                    amountMax: 0, // default ? primayCharacteristic + resourceIncreases : 1 + resourceIncreases
+                    resourceIncreases: 0,
+                    name: '',
+                    default: true
+                }
+            ],
+            skills: [
+                {
+                    characteristic: '',
+                    name: '',
+                    skillIncrease: ''
+                }
+            ],
+            xpEntries: [
+                {
+                    amount: 500,
+                    description: 'Character Creation',
+                    date: null
+                },
+                {
+                    amount: 0,
+                    description: '',
+                    date: null
+                }
+            ]
+        };
+
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+        }
+
+        function determineSuccesses(dieResult) {
+            if (dieResult < 4)
+                return 0;
+            if (dieResult < 6)
+                return 1;
+            if (dieResult >= 6)
+                return 2;
+        }
+
+        function rollDiceCheck(diceToRoll) {
+            var result = {
+                diceResults: [],
+                successes: 0
+            };
+
+            if (diceToRoll > 0) {
+                for (var i = 0; i < diceToRoll; i++) {
+                    var dieResult = getRandomIntInclusive(1, 6);
+                    result.diceResults.push(dieResult);
+                    result.successes += determineSuccesses(dieResult);
+                }
+
+                if (!characterSheet.luckNothingToChance) {
+                    if (result.diceResults[0] == 6 || (characterSheet.luckFavored && result.diceResults[0] >= 5))
+                        result.successes += characterSheet.luck;
+                }
+            }
+
+
+            return result;
+        }
+
+        $(document).ready(() => {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('.characteristicRoll').click((x, y, z) => {
+                var value = $($(x.currentTarget).closest('.characteristic').find('.characteristicInput')[0]).val();
+
+                console.log(rollDiceCheck(value));
+            });
+        });
+    </script>
+</body>
+</html>
