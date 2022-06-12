@@ -3,7 +3,7 @@
         <h3 class="text-center">
             Skills
             <v-btn icon color="primary"
-                   @click="openAddDialog">
+                   @click="addDialog">
                 <v-icon>
                     mdi-plus
                 </v-icon>
@@ -13,8 +13,8 @@
             <SkillListItem v-for="skill in skills" :key="skill.key"
                            :characteristics="characteristics"
                            :skill="skill"
-                           @deleteEntryEmit="deleteEntry($event)"
-                           @updateEntryEmit="updateEntry($event)"
+                           @deleteEntryEmit="deleteDialog($event)"
+                           @updateEntryEmit="updateDialog($event)"
                            @rollDiceCheckEmit="rollDiceCheck($event)"></SkillListItem>
         </div>
 
@@ -22,25 +22,29 @@
             <v-dialog v-model="dialog.show" width="500">
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
-                        {{dialog.title}}
+                        {{dialog.type}} Skill
                     </v-card-title>
 
                     <v-card-text>
                         <v-container>
                             <v-form ref="form"
-                                    v-model="valid">
+                                    v-model="valid"
+                                    :disabled="dialog.type == 'Delete'">
                                 <v-text-field label="Name"
                                               v-model="name"
+                                              v-if="!skill.default"
                                               ref="name"
                                               :rules="textRules"
                                               required></v-text-field>
                                 <v-text-field label="Skill Purchases"
                                               type="number"
                                               v-model="skillIncreases"
+                                              ref="skillIncreases"
                                               :rules="numberRules"
                                               required></v-text-field>
                                 <v-select label="Characteristic"
                                           v-model="characteristic"
+                                          v-if="!skill.default"
                                           :items="characteristics"
                                           :rules="textRules"
                                           required></v-select>
@@ -53,10 +57,12 @@
                     <v-divider></v-divider>
 
                     <v-card-actions class="justify-end">
-                        <v-btn color="primary"
-                               v-if="dialog.type == 'add'"
-                               :disabled="!valid"
+                        <v-btn color="primary" v-if="dialog.type == 'Add'" :disabled="!valid"
                                @click="addEntry">Add</v-btn>
+                        <v-btn color="error" v-if="dialog.type == 'Delete'"
+                               @click="deleteEntry()">Delete</v-btn>
+                        <v-btn color="primary" v-if="dialog.type == 'Edit'" :disabled="!valid"
+                               @click="updateEntry()">Save</v-btn>
                         <v-btn color="secondary"
                                @click="dialog.show = false">Close</v-btn>
                     </v-card-actions>
@@ -80,14 +86,24 @@
         },
         data() {
             return {
-                characteristic: '',
                 dialog: {
                     show: false,
-                    title: '',
                     type: ''
                 },
+                // Input Fields Start
+                characteristic: '',
                 name: '',
                 skillIncreases: 0,
+                skill: {
+                    characteristic: '',
+                    default: false,
+                    id: '',
+                    name: '',
+                    skillIncreases: 0,
+                    value: 0
+                },
+                // Input Fields End
+                // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
                 ],
@@ -95,55 +111,78 @@
                     v => !isNaN(parseInt(v)) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
                 ],
                 valid: false
+                // Validation End
             }
         },
         methods: {
+            // CRUD Functions Start
             addEntry() {
                 if (this.validate()) {
-                    var object = {
-                        characteristic: this.characteristic,
-                        default: false,
-                        id: null,
-                        name: this.name,
-                        skillIncreases: this.skillIncreases,
-                        value: this.amount
-                    }
                     this.dialog.show = false
-                    this.reset()
-                    this.$emit('addEntryEmit', { arrayName: 'skills', object: object })
+                    this.setObject()
+                    this.$emit('addEntryEmit', { arrayName: 'skills', object: this.skill })
                 }
             },
-            deleteEntry(object) {
-                this.$emit('deleteEntryEmit', object)
+            deleteEntry() {
+                this.dialog.show = false
+                this.$emit('deleteEntryEmit', { arrayName: 'skills', object: this.skill })
             },
-            updateEntry(object) {
-                this.$emit('updateEntryEmit', object)
+            updateEntry() {
+                if (this.validate()) {
+                    this.dialog.show = false
+                    this.setObject()
+                    this.$emit('updateEntryEmit', { arrayName: 'skills', object: this.skill })
+                }
             },
+            setObject() {
+                this.skill.characteristic = this.characteristic
+                this.skill.name = this.name
+                this.skill.skillIncreases = this.skillIncreases
+            },
+            // CRUD Functions End
             rollDiceCheck(value) {
                 this.$emit('rollDiceCheckEmit', value)
             },
             // Open Dialog Functions
-            openAddDialog() {
-                this.dialog = {
-                    show: true,
-                    title: "Add Skill",
-                    type: 'add',
-                    skill: {}
+            addDialog() {
+                this.setDialog('Add')
+                this.skill = {
+                    characteristic: '',
+                    default: false,
+                    id: '',
+                    name: '',
+                    skillIncreases: 0,
+                    value: 0
                 }
-
+                this.setInputs(this.skill)
                 setTimeout(() => {
                     this.$refs.name.focus()
                 }, 200)
             },
+            deleteDialog(skill) {
+                this.skill = skill
+                this.setInputs(this.skill)
+                this.setDialog('Delete')
+            },
+            updateDialog(skill) {
+                this.skill = skill
+                this.setInputs(this.skill)
+                this.setDialog('Edit')
+            },
+            setDialog(type) {
+                this.dialog = {
+                    show: true,
+                    type: type
+                }
+            },
+            setInputs(skill) {
+                this.characteristic = skill.characteristic
+                this.name = skill.name
+                this.skillIncreases = skill.skillIncreases
+            },
             // Open Dialog Functions End
             validate() {
                 return this.$refs.form.validate()
-            },
-            reset() {
-                this.$refs.form.reset()
-            },
-            resetValidation() {
-                this.$refs.form.resetValidation()
             }
         }
     }
