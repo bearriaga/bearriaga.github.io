@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+//import HomeView from '../views/HomeView.vue'
 import CharacterSheetView from '../views/CharacterSheetView.vue'
 import InitiativeView from '../views/InitiativeView.vue'
 import ResumeView from '../views/ResumeView.vue'
@@ -11,7 +11,7 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: HomeView
+        component: ResumeView
     },
     {
         path: '/charactersheet',
