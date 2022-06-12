@@ -549,17 +549,11 @@
                             unlocked: true
                         }
                     ],
-                    resistances: [
-                        {
-                            amount: 0,
-                            id: '1654401755465',
-                            type: 'Physical'
-                        }
-                    ],
                     flaws: [
                         {
                             amount: 0,
                             description: '',
+                            id: '1655066475111',
                             name: ''
                         }
                     ],
@@ -576,6 +570,13 @@
                             description: '',
                             id: '1654453228548',
                             type: 'Flying'
+                        }
+                    ],
+                    resistances: [
+                        {
+                            amount: 0,
+                            id: '1654401755465',
+                            type: 'Physical'
                         }
                     ],
                     resources: [
@@ -1108,22 +1109,11 @@
                             unlocked: true
                         }
                     ],
-                    resistances: [
-                        {
-                            amount: 10,
-                            id: '1654401769902',
-                            type: 'Physical'
-                        },
-                        {
-                            amount: 10,
-                            id: '1654656967612',
-                            type: 'Dark'
-                        }
-                    ],
                     flaws: [
                         {
                             amount: 80,
                             description: 'It is hard for me to turn down anyone in authority.',
+                            id: '1655066483036',
                             name: 'Subservient'
                         }
                     ],
@@ -1135,6 +1125,18 @@
                         }
                     ],
                     movements: [
+                    ],
+                    resistances: [
+                        {
+                            amount: 10,
+                            id: '1654401769902',
+                            type: 'Physical'
+                        },
+                        {
+                            amount: 10,
+                            id: '1654656967612',
+                            type: 'Dark'
+                        }
                     ],
                     resources: [
                         //default first entry based on primaryCharacteristic
