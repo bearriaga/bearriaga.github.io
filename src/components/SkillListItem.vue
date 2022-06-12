@@ -15,7 +15,6 @@
     export default {
         name: 'SkillListItem',
         props: {
-            characteristics: Array,
             skill: Object
         },
         data() {
@@ -29,7 +28,6 @@
             },
             updateEntry() {
                 this.$emit('updateEntryEmit', this.skill)
-
             },
             rollDiceCheck() {
                 this.$emit('rollDiceCheckEmit', this.value)

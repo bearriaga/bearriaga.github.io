@@ -9,14 +9,11 @@
                 </v-icon>
             </v-btn>
         </h3>
-        <div>
-            <SkillListItem v-for="skill in skills" :key="skill.key"
-                           :characteristics="characteristics"
-                           :skill="skill"
-                           @deleteEntryEmit="deleteDialog($event)"
-                           @updateEntryEmit="updateDialog($event)"
-                           @rollDiceCheckEmit="rollDiceCheck($event)"></SkillListItem>
-        </div>
+        <SkillListItem v-for="skill in skills" :key="skill.key"
+                       :skill="skill"
+                       @deleteEntryEmit="deleteDialog($event)"
+                       @updateEntryEmit="updateDialog($event)"
+                       @rollDiceCheckEmit="rollDiceCheck($event)"></SkillListItem>
 
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
@@ -49,10 +46,8 @@
                                           :rules="textRules"
                                           required></v-select>
                             </v-form>
-
                         </v-container>
                     </v-card-text>
-
 
                     <v-divider></v-divider>
 
