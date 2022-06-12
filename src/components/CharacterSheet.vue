@@ -78,12 +78,12 @@
                                      @deleteEntryEmit="deleteEntry($event)"
                                      @updateEntryEmit="updateEntry($event)"></ResourceSection>
                     <ResistanceSection :resistances="characterSheet.resistances"
-                                       :damageTypes="damageTypes"
+                                       :damage-types="damageTypes"
                                        @addEntryEmit="addEntry($event)"
                                        @deleteEntryEmit="deleteEntry($event)"
                                        @updateEntryEmit="updateEntry($event)"></ResistanceSection>
                     <MovementSection :movements="characterSheet.movements"
-                                     :movementTypes="movementTypes"
+                                     :movement-types="movementTypes"
                                      @addEntryEmit="addEntry($event)"
                                      @deleteEntryEmit="deleteEntry($event)"
                                      @updateEntryEmit="updateEntry($event)"></MovementSection>
@@ -111,9 +111,9 @@
                     <v-text-field label="Available XP" v-model="characterSheet.xp" disabled></v-text-field>
 
                     <XPSection :xp="characterSheet.xp"
-                               :xpEarned="characterSheet.xpEarned"
-                               :xpTotal="characterSheet.xpTotal"
-                               :xpEntries="characterSheet.xpEntries"
+                               :xp-earned="characterSheet.xpEarned"
+                               :xp-total="characterSheet.xpTotal"
+                               :xp-entries="characterSheet.xpEntries"
                                @addEntryEmit="addEntry($event)"
                                @deleteEntryEmit="deleteEntry($event)"
                                @updateEntryEmit="updateEntry($event)"></XPSection>

@@ -11,7 +11,7 @@
         </h3>
         <MovementListItem v-for="entry in movements" :key="entry.id"
                           :movement="entry"
-                          :movementTypes="movementTypes"
+                          :movement-types="movementTypes"
                           @deleteEntryEmit="deleteDialog($event)"
                           @updateEntryEmit="updateEntry($event)"> </MovementListItem>
 

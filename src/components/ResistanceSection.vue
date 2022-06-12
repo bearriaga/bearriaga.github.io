@@ -11,7 +11,7 @@
         </h3>
         <ResistanceListItem v-for="resistance in resistances" :key="resistance.id"
                             :resistance="resistance"
-                            :damageTypes="damageTypes"
+                            :damage-types="damageTypes"
                             @deleteEntryEmit="deleteDialog($event)"
                             @updateEntryEmit="updateEntry($event)"></ResistanceListItem>
 
