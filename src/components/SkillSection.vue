@@ -3,7 +3,7 @@
         <h3 class="text-center">
             Skills
             <v-btn icon color="primary"
-                   @click="showDialog = true">
+                   @click="openDialog">
                 <v-icon>
                     mdi-plus
                 </v-icon>
@@ -27,13 +27,26 @@
 
                     <v-card-text>
                         <v-container>
-                            <v-row>
-                                <v-col cols="12">
-                                    <v-text-field label="Name" v-model="name"></v-text-field>
-                                    <v-text-field label="Skill Purchases" type="number" v-model="skillIncreases"></v-text-field>
-                                    <v-select label="Characteristic" v-model="characteristic" :items="characteristics"></v-select>
-                                </v-col>
-                            </v-row>
+                            <v-form ref="form"
+                                    v-model="valid"
+                                    lazy-validation>
+                                <v-text-field label="Name"
+                                              v-model="name"
+                                              ref="name"
+                                              :rules="nameRules"
+                                              required></v-text-field>
+                                <v-text-field label="Skill Purchases"
+                                              type="number"
+                                              v-model="skillIncreases"
+                                              :rules="skillIncreasesRules"
+                                              required></v-text-field>
+                                <v-select label="Characteristic"
+                                          v-model="characteristic"
+                                          :items="characteristics"
+                                          :rules="characteristicRules"
+                                          required></v-select>
+                            </v-form>
+
                         </v-container>
                     </v-card-text>
 
@@ -42,7 +55,8 @@
 
                     <v-card-actions class="justify-end">
                         <v-btn color="primary"
-                               @click="addEntry()">Add</v-btn>
+                               :disabled="!valid"
+                               @click="addEntry">Add</v-btn>
                         <v-btn color="secondary"
                                @click="showDialog = false">Close</v-btn>
                     </v-card-actions>
@@ -67,26 +81,38 @@
         data() {
             return {
                 characteristic: '',
+                characteristicRules: [
+                    v => !!v || 'Characteristic is required'
+                ],
                 name: '',
+                nameRules: [
+                    v => !!v || 'Name is required'
+                ],
                 skillIncreases: 0,
-                showDialog: false
+                skillIncreasesRules: [
+                    v => !!v || 'Skill Increases may not be empty'
+                ],
+                showDialog: false,
+                valid: false
             }
         },
         methods: {
-            addEntry() {
-                var object = {
-                    characteristic: this.characteristic,
-                    default: false,
-                    id: null,
-                    name: this.name,
-                    skillIncreases: this.skillIncreases,
-                    value: this.amount
+            addEntry() {                
+                if (this.$refs.form.validate()) {
+                    var object = {
+                        characteristic: this.characteristic,
+                        default: false,
+                        id: null,
+                        name: this.name,
+                        skillIncreases: this.skillIncreases,
+                        value: this.amount
+                    }
+                    this.showDialog = false
+                    this.characteristic = ''
+                    this.name = ''
+                    this.skillIncreases = 0
+                    this.$emit('addEntryEmit', { arrayName: 'skills', object: object })
                 }
-                this.showDialog = false
-                this.characteristic = ''
-                this.name = ''
-                this.skillIncreases = 0
-                this.$emit('addEntryEmit', { arrayName: 'skills', object: object })
             },
             deleteEntry(object) {
                 this.$emit('deleteEntryEmit', object)
@@ -96,6 +122,12 @@
             },
             rollDiceCheck(value) {
                 this.$emit('rollDiceCheckEmit', value)
+            },
+            openDialog() {
+                this.showDialog = true
+                setTimeout(() => {
+                    this.$refs.name.focus()
+                }, 200)
             }
         }
     }
