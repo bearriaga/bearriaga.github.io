@@ -82,7 +82,7 @@
                                        @addEntryEmit="addEntry($event)"
                                        @deleteEntryEmit="deleteEntry($event)"
                                        @updateEntryEmit="updateEntry($event)"></ResistanceSection>
-                    <MovementSection :characterMovements="characterSheet.movements"
+                    <MovementSection :movements="characterSheet.movements"
                                      :movementTypes="movementTypes"
                                      @addEntryEmit="addEntry($event)"
                                      @deleteEntryEmit="deleteEntry($event)"
