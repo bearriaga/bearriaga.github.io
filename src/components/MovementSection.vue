@@ -49,7 +49,7 @@
                         <v-btn color="primary" v-if="dialog.type == 'Add'" :disabled="!valid"
                                @click="addEntry">Add</v-btn>
                         <v-btn color="error" v-if="dialog.type == 'Delete'"
-                               @click="deleteEntry()">Delete</v-btn>
+                               @click="deleteEntry">Delete</v-btn>
                         <v-btn color="secondary"
                                @click="dialog.show = false">Close</v-btn>
                     </v-card-actions>
