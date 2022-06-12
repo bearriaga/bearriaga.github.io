@@ -64,7 +64,7 @@
                         <v-text-field label="Damage" type="number" v-model="damageToTake.amount">
                             <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
                         </v-text-field>
-                        <v-select label="Type" :items="damageResistances" v-model="damageToTake.type"></v-select>
+                        <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
                     </v-form>
 
                     <InputWithEditModal v-for="input in inputWithEditModals" :key="input.key"
@@ -77,8 +77,8 @@
                                      @addEntryEmit="addEntry($event)"
                                      @deleteEntryEmit="deleteEntry($event)"
                                      @updateEntryEmit="updateEntry($event)"></ResourceSection>
-                    <ResistanceSection :character-resistances="characterSheet.damageResistances"
-                                       :damageResistances="damageResistances"
+                    <ResistanceSection :resistances="characterSheet.resistances"
+                                       :damageTypes="damageTypes"
                                        @addEntryEmit="addEntry($event)"
                                        @deleteEntryEmit="deleteEntry($event)"
                                        @updateEntryEmit="updateEntry($event)"></ResistanceSection>
@@ -314,7 +314,7 @@
                     }
                 ]
             },
-            damageResistances() {
+            damageTypes() {
                 var resistances = []
                 this.damageGroups.forEach((group) => {
                     resistances.push(group.name)
@@ -515,7 +515,7 @@
                             effect: '',
                             name: '',
                             slot: '',
-                            damageResistances: [
+                            resistances: [
                                 {
                                     amount: 0,
                                     type: 'Physical'
@@ -549,7 +549,7 @@
                             unlocked: true
                         }
                     ],
-                    damageResistances: [
+                    resistances: [
                         {
                             amount: 0,
                             id: '1654401755465',
@@ -1065,7 +1065,7 @@
                             effect: '',
                             name: '',
                             slot: '',
-                            damageResistances: [
+                            resistances: [
                                 {
                                     amount: 0,
                                     type: 'Physical'
@@ -1108,7 +1108,7 @@
                             unlocked: true
                         }
                     ],
-                    damageResistances: [
+                    resistances: [
                         {
                             amount: 10,
                             id: '1654401769902',
@@ -1235,7 +1235,7 @@
                 this.damageGroups.forEach((group) => {
                     //check if type is in the group.types array
                     if (type == group.name || group.types.includes(type)) {
-                        resistanceAmount = this.characterSheet.damageResistances
+                        resistanceAmount = this.characterSheet.resistances
                             .filter(x => { return x.type == type || x.type == group.name })
                             .reduce((previousValue, entry) => {
                                 return parseInt(previousValue) + parseInt(entry.amount)
