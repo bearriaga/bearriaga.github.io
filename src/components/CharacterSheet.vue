@@ -117,18 +117,16 @@
                                @addEntryEmit="addEntry($event)"
                                @deleteEntryEmit="deleteEntry($event)"
                                @updateEntryEmit="updateEntry($event)"></XPSection>
-
-                    <h3>Flaws</h3>
-                    <v-row v-for="flaw in characterSheet.flaws" :key="flaw.name + flaw.description">
-                        <p>
-                            amount: {{flaw.amount}},
-                            description: {{flaw.description}}
-                            name: {{flaw.name}}
-                        </p>
-                    </v-row>
                 </v-col>
                 <v-col cols="6" md="3">
+                    <FlawSection :flaws="characterSheet.flaws"
+                               @addEntryEmit="addEntry($event)"
+                               @deleteEntryEmit="deleteEntry($event)"
+                               @updateEntryEmit="updateEntry($event)"></FlawSection>
                     <h3 class="text-center"> Money </h3>
+                    <v-text-field label="Money"
+                                  type="number"
+                                  v-model="characterSheet.money"></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -194,6 +192,7 @@
 <script>
     import CharacteristicViewItem from './CharacteristicViewItem.vue'
     import ClassSection from './ClassSection.vue'
+    import FlawSection from './FlawSection.vue'
     import InputWithEditModal from './InputWithEditModal.vue'
     import MovementSection from './MovementSection.vue'
     import ResistanceSection from './ResistanceSection.vue'
@@ -205,12 +204,13 @@
         name: 'CharacterSheet',
         components: {
             CharacteristicViewItem,
+            ClassSection,
+            FlawSection,
             InputWithEditModal,
             MovementSection,
             ResistanceSection,
             ResourceSection,
             SkillSection,
-            ClassSection,
             XPSection
         },
         computed: {
@@ -481,6 +481,7 @@
                     level: 0, //xpEarned/500 round down
                     luckFavored: false,
                     luckNothingToChance: false,
+                    money: 0,
                     movement: 0, // DEX + movements.where(land speed).sum
                     name: '',
                     race: '',
@@ -830,6 +831,7 @@
                     level: 0,
                     luckFavored: false,
                     luckNothingToChance: false,
+                    money: 0,
                     movement: 0,
                     name: 'Tupoc',
                     race: 'Human',
