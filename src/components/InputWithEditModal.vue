@@ -24,20 +24,16 @@
                     </v-card-text>
 
                     <v-card-text>
-                        <v-container>
-                            <v-row>
-                                <v-col cols="12">
-                                    <v-text-field v-if="propertyObject.valueIncreasesType == 'number' || propertyObject.valueIncreasesType == 'text'"
-                                                  :label="propertyObject.valueIncreasesLabel"
-                                                  :type="propertyObject.valueIncreasesType"
-                                                  v-model="valueIncreases"
-                                                  @keyup.enter="updateProp(propertyObject.valueIncreasesName, valueIncreases)"></v-text-field>
-                                    <v-checkbox v-else-if="propertyObject.valueIncreasesType == 'bool'"
-                                                :label="propertyObject.valueIncreasesLabel"
-                                                v-model="valueIncreases"></v-checkbox>
-                                </v-col>
-                            </v-row>
-                        </v-container>
+                        <v-form>
+                            <v-text-field v-if="propertyObject.valueIncreasesType == 'number' || propertyObject.valueIncreasesType == 'text'"
+                                          :label="propertyObject.valueIncreasesLabel"
+                                          :type="propertyObject.valueIncreasesType"
+                                          v-model="valueIncreases"
+                                          @keyup.enter="updateProp(propertyObject.valueIncreasesName, valueIncreases)"></v-text-field>
+                            <v-checkbox v-else-if="propertyObject.valueIncreasesType == 'bool'"
+                                        :label="propertyObject.valueIncreasesLabel"
+                                        v-model="valueIncreases"></v-checkbox>
+                        </v-form>
                     </v-card-text>
 
 

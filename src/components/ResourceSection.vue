@@ -22,27 +22,25 @@
                     </v-card-title>
 
                     <v-card-text>
-                        <v-container>
-                            <v-form ref="form"
-                                    v-model="valid"
-                                    :disabled="dialog.type == 'Delete'">
-                                <v-text-field label="Name"
-                                              v-model="name"
-                                              ref="name"
-                                              :rules="textRules"
-                                              required></v-text-field>
-                                <v-text-field label="Resoure Purchases"
-                                              type="number"
-                                              v-model="resourceIncreases"
-                                              :rules="numberRules"
-                                              required></v-text-field>
-                                <v-select label="Characteristic"
-                                          v-model="primaryCharacteristic"
-                                          :items="characteristics"
+                        <v-form ref="form"
+                                v-model="valid"
+                                :disabled="dialog.type == 'Delete'">
+                            <v-text-field label="Name"
+                                          v-model="name"
+                                          ref="name"
                                           :rules="textRules"
-                                          required></v-select>
-                            </v-form>
-                        </v-container>
+                                          required></v-text-field>
+                            <v-text-field label="Resoure Purchases"
+                                          type="number"
+                                          v-model="resourceIncreases"
+                                          :rules="numberRules"
+                                          required></v-text-field>
+                            <v-select label="Characteristic"
+                                      v-model="primaryCharacteristic"
+                                      :items="characteristics"
+                                      :rules="textRules"
+                                      required></v-select>
+                        </v-form>
                     </v-card-text>
 
 

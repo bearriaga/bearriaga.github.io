@@ -2,8 +2,10 @@
     <v-app>
         <NavbarSection></NavbarSection>
 
-        <v-main class="container">
-            <router-view />
+        <v-main>
+            <v-container>
+                <router-view />
+            </v-container>
         </v-main>
     </v-app>
 </template>

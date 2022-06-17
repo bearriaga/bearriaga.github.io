@@ -23,24 +23,21 @@
                     </v-card-title>
 
                     <v-card-text>
-                        <v-container>
-                            <v-form ref="form"
-                                    v-model="valid"
-                                    :disabled="dialog.type == 'Delete'">
-                                <v-text-field label="Amount"
-                                              type="number"
-                                              v-model="amount"
-                                              ref="amount"
-                                              :rules="numberRules"
-                                              required></v-text-field>
-                                <v-select label="Type"
-                                          :items="damageTypes"
-                                          v-model="type"
-                                          :rules="textRules"
-                                          required></v-select>
-                            </v-form>
-
-                        </v-container>
+                        <v-form ref="form"
+                                v-model="valid"
+                                :disabled="dialog.type == 'Delete'">
+                            <v-text-field label="Amount"
+                                          type="number"
+                                          v-model="amount"
+                                          ref="amount"
+                                          :rules="numberRules"
+                                          required></v-text-field>
+                            <v-select label="Type"
+                                      :items="damageTypes"
+                                      v-model="type"
+                                      :rules="textRules"
+                                      required></v-select>
+                        </v-form>
                     </v-card-text>
 
 

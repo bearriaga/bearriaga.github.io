@@ -1,4 +1,5 @@
 <template>
+    <!-- TODO: add star icon next to characteristics that are primary for any active classes -->
     <div>
         <v-row>
             <v-col>
@@ -6,8 +7,7 @@
                               :label="characteristic.abbreviation"
                               type="number"
                               v-model="value"
-                              @keyup.enter="rollDiceCheck"
-                              >
+                              @keyup.enter="rollDiceCheck">
                     <v-icon slot="append" @click="rollDiceCheck">mdi-dice-6</v-icon>
                 </v-text-field>                
             </v-col>

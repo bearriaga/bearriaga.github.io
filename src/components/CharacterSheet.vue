@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <div>
 
         <h4 class="text-center">Oatsys Chacter Sheet</h4>
         <form onsubmit="return false;">
@@ -41,24 +41,26 @@
             <v-row>
                 <v-col cols="6" md="3">
                     <h3 class="text-center"> Characteristics </h3>
-                    <CharacteristicViewItem v-for="char in characteristicViewItems" :key="char.key"
-                                            @updatePropEmit="updateProp($event)"
-                                            @rollDiceCheckEmit="rollDiceCheck($event)"
-                                            :characteristic="{
+                    <v-row>
+                        <v-col cols="6" md="4" v-for="char in characteristicViewItems" :key="char.key">
+                            <CharacteristicViewItem @updatePropEmit="updateProp($event)"
+                                                    @rollDiceCheckEmit="rollDiceCheck($event)"
+                                                    :characteristic="{
                                                 abbreviation: char.abbreviation,
                                                 name: char.name,
                                                 value: char.value}"></CharacteristicViewItem>
-                </v-col>
-                <v-col cols="6" md="3">
+                        </v-col>
+                    </v-row>
+
                     <SkillSection :characteristics="characteristics"
                                   :skills="skills"
                                   @addEntryEmit="addEntry($event)"
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"
                                   @rollDiceCheckEmit="rollDiceCheck($event)"></SkillSection>
-
                 </v-col>
                 <v-col cols="6" md="3">
+                    <!-- TODO: Add green plus or medical bag icon to heal -->
                     <h3> Take Damage </h3>
                     <v-form>
                         <v-text-field label="Damage" type="number" v-model="damageToTake.amount">
@@ -88,6 +90,23 @@
                                      @deleteEntryEmit="deleteEntry($event)"
                                      @updateEntryEmit="updateEntry($event)"></MovementSection>
                 </v-col>
+                <v-col cols="6" md="3">
+                    <h3 class="text-center"> Money </h3>
+                    <v-text-field label="Money"
+                                  type="number"
+                                  v-model="characterSheet.money"></v-text-field>
+
+                    <h3 class="text-center"> XP </h3>
+                    <v-text-field label="Available XP" v-model="characterSheet.xp" disabled></v-text-field>
+
+                    <XPSection :xp="characterSheet.xp"
+                               :xp-earned="characterSheet.xpEarned"
+                               :xp-total="characterSheet.xpTotal"
+                               :xp-entries="characterSheet.xpEntries"
+                               @addEntryEmit="addEntry($event)"
+                               @deleteEntryEmit="deleteEntry($event)"
+                               @updateEntryEmit="updateEntry($event)"></XPSection>
+                </v-col>
             </v-row>
             <v-row>
                 <v-col cols="6" md="3">
@@ -106,27 +125,12 @@
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"></ClassSection>
                 </v-col>
-                <v-col cols="6" md="3">
-                    <h3 class="text-center"> XP </h3>
-                    <v-text-field label="Available XP" v-model="characterSheet.xp" disabled></v-text-field>
-
-                    <XPSection :xp="characterSheet.xp"
-                               :xp-earned="characterSheet.xpEarned"
-                               :xp-total="characterSheet.xpTotal"
-                               :xp-entries="characterSheet.xpEntries"
-                               @addEntryEmit="addEntry($event)"
-                               @deleteEntryEmit="deleteEntry($event)"
-                               @updateEntryEmit="updateEntry($event)"></XPSection>
-                </v-col>
+                <v-col cols="6" md="3"></v-col>
                 <v-col cols="6" md="3">
                     <FlawSection :flaws="characterSheet.flaws"
-                               @addEntryEmit="addEntry($event)"
-                               @deleteEntryEmit="deleteEntry($event)"
-                               @updateEntryEmit="updateEntry($event)"></FlawSection>
-                    <h3 class="text-center"> Money </h3>
-                    <v-text-field label="Money"
-                                  type="number"
-                                  v-model="characterSheet.money"></v-text-field>
+                                 @addEntryEmit="addEntry($event)"
+                                 @deleteEntryEmit="deleteEntry($event)"
+                                 @updateEntryEmit="updateEntry($event)"></FlawSection>
                 </v-col>
             </v-row>
             <v-row>
@@ -186,7 +190,7 @@
                 </v-card>
             </v-dialog>
         </div>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -257,6 +261,7 @@
                     return parseInt(previousValue) + parseInt(entry.amount)
                 }, 0)
             },
+            /// TODO: remove logic adding xp for classes that are not unlocked
             xpTotal() {
                 var classXP = this.characterSheet.classes.filter(x => { return !x.unlocked }).length * 300
                 var flawsXP = this.characterSheet.flaws.reduce((previousValue, entry) => {
@@ -324,6 +329,9 @@
                 })
                 return resistances
             },
+            /// TODO: Break out DC to own component and make look like DND Beyond
+            /// TODO: Break out AP or modify it to have plus button in front to add AP gain
+            /// TODO: Add minus to BP, Rerolls to lower value by one
             inputWithEditModals() {
                 return [
                     {
@@ -492,7 +500,7 @@
                     speedPreperationIsKey: false,
                     xp: 0, //xpTotal - abilities.where(!boughtForFree).sum(xpCost)
                     xpEarned: 0, //xpEntries sum
-                    xpTotal: 0, //(classes.count * 300) + xpEntries sum + flaws sum
+                    xpTotal: 0, //xpEntries sum + flaws sum
                     abilities: [
                         {
                             apCost: '',

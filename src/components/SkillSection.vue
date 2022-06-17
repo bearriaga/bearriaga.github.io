@@ -1,19 +1,29 @@
 <template>
     <div>
-        <h3 class="text-center">
-            Skills
-            <v-btn icon color="primary"
-                   @click="addDialog">
-                <v-icon>
-                    mdi-plus
-                </v-icon>
-            </v-btn>
-        </h3>
-        <SkillListItem v-for="skill in skills" :key="skill.key"
-                       :skill="skill"
-                       @deleteEntryEmit="deleteDialog($event)"
-                       @updateEntryEmit="updateDialog($event)"
-                       @rollDiceCheckEmit="rollDiceCheck($event)"></SkillListItem>
+        <template>
+            <v-expansion-panels>
+                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                    <v-expansion-panel-header>
+                        <h3 class="text-center">
+                            Skills
+                            <v-btn icon color="primary"
+                                   @click.stop="addDialog">
+                                <v-icon>
+                                    mdi-plus
+                                </v-icon>
+                            </v-btn>
+                        </h3>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>                        
+                        <SkillListItem v-for="skill in skills" :key="skill.key"
+                                       :skill="skill"
+                                       @deleteEntryEmit="deleteDialog($event)"
+                                       @updateEntryEmit="updateDialog($event)"
+                                       @rollDiceCheckEmit="rollDiceCheck($event)"></SkillListItem>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </template>
 
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
@@ -23,30 +33,28 @@
                     </v-card-title>
 
                     <v-card-text>
-                        <v-container>
-                            <v-form ref="form"
-                                    v-model="valid"
-                                    :disabled="dialog.type == 'Delete'">
-                                <v-text-field label="Name"
-                                              v-model="name"
-                                              v-if="!skill.default"
-                                              ref="name"
-                                              :rules="textRules"
-                                              required></v-text-field>
-                                <v-text-field label="Skill Purchases"
-                                              type="number"
-                                              v-model="skillIncreases"
-                                              ref="skillIncreases"
-                                              :rules="numberRules"
-                                              required></v-text-field>
-                                <v-select label="Characteristic"
-                                          v-model="characteristic"
+                        <v-form ref="form"
+                                v-model="valid"
+                                :disabled="dialog.type == 'Delete'">
+                            <v-text-field label="Name"
+                                          v-model="name"
                                           v-if="!skill.default"
-                                          :items="characteristics"
+                                          ref="name"
                                           :rules="textRules"
-                                          required></v-select>
-                            </v-form>
-                        </v-container>
+                                          required></v-text-field>
+                            <v-text-field label="Skill Purchases"
+                                          type="number"
+                                          v-model="skillIncreases"
+                                          ref="skillIncreases"
+                                          :rules="numberRules"
+                                          required></v-text-field>
+                            <v-select label="Characteristic"
+                                      v-model="characteristic"
+                                      v-if="!skill.default"
+                                      :items="characteristics"
+                                      :rules="textRules"
+                                      required></v-select>
+                        </v-form>
                     </v-card-text>
 
                     <v-divider></v-divider>

@@ -11,9 +11,9 @@
                 </v-btn>
             </h3>
             <FlawListItem v-for="flaw in flaws" :key="flaw.id"
-                             :flaw="flaw"
-                             @deleteEntryEmit="deleteDialog($event)"
-                             @updateEntryEmit="updateEntry($event)"></FlawListItem>
+                          :flaw="flaw"
+                          @deleteEntryEmit="deleteDialog($event)"
+                          @updateEntryEmit="updateEntry($event)"></FlawListItem>
         </div>
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
@@ -23,25 +23,23 @@
                     </v-card-title>
 
                     <v-card-text>
-                        <v-container>
-                            <v-form ref="form"
-                                    v-model="valid"
-                                    :disabled="dialog.type == 'Delete'">
-                                <v-text-field label="Name"
-                                              v-model="name"
-                                              ref="name"
-                                              :rules="textRules"
-                                              required></v-text-field>
-                                <v-text-field label="Amount"
-                                              type="number"
-                                              v-model="amount"                                              
-                                              :rules="numberRules"
-                                              required></v-text-field>
-                                <v-textarea label="Description"
-                                              v-model="description"
-                                            auto-grow outlined rows="1"></v-textarea>
-                            </v-form>
-                        </v-container>
+                        <v-form ref="form"
+                                v-model="valid"
+                                :disabled="dialog.type == 'Delete'">
+                            <v-text-field label="Name"
+                                          v-model="name"
+                                          ref="name"
+                                          :rules="textRules"
+                                          required></v-text-field>
+                            <v-text-field label="Amount"
+                                          type="number"
+                                          v-model="amount"
+                                          :rules="numberRules"
+                                          required></v-text-field>
+                            <v-textarea label="Description"
+                                        v-model="description"
+                                        auto-grow outlined rows="1"></v-textarea>
+                        </v-form>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -68,7 +66,7 @@
         components: {
             FlawListItem
         },
-        props: {            
+        props: {
             flaws: Array
         },
         data() {
@@ -103,14 +101,14 @@
             // CRUD Functions Start
             addEntry() {
                 if (this.validate()) {
-                this.dialog.show = false
-                this.flaw = {
-                    amount: this.amount,
-                    description: this.description,
-                    id: null,
-                    name: this.name
-                }
-                this.$emit('addEntryEmit', { arrayName: 'flaws', object: this.flaw })
+                    this.dialog.show = false
+                    this.flaw = {
+                        amount: this.amount,
+                        description: this.description,
+                        id: null,
+                        name: this.name
+                    }
+                    this.$emit('addEntryEmit', { arrayName: 'flaws', object: this.flaw })
                 }
             },
             deleteEntry() {

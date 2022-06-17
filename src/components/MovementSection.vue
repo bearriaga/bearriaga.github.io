@@ -1,19 +1,29 @@
 <template>
     <div>
-        <h3 class="text-center">
-            Additional Movements
-            <v-btn icon color="primary"
-                   @click="addDialog">
-                <v-icon>
-                    mdi-plus
-                </v-icon>
-            </v-btn>
-        </h3>
-        <MovementListItem v-for="entry in movements" :key="entry.id"
-                          :movement="entry"
-                          :movement-types="movementTypes"
-                          @deleteEntryEmit="deleteDialog($event)"
-                          @updateEntryEmit="updateEntry($event)"> </MovementListItem>
+        <template>
+            <v-expansion-panels>
+                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                    <v-expansion-panel-header>
+                        <h3 class="text-center">
+                            Movements
+                            <v-btn icon color="primary"
+                                   @click.stop="addDialog">
+                                <v-icon>
+                                    mdi-plus
+                                </v-icon>
+                            </v-btn>
+                        </h3>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <MovementListItem v-for="entry in movements" :key="entry.id"
+                                          :movement="entry"
+                                          :movement-types="movementTypes"
+                                          @deleteEntryEmit="deleteDialog($event)"
+                                          @updateEntryEmit="updateEntry($event)"> </MovementListItem>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </template>
 
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">

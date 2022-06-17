@@ -1,4 +1,5 @@
 <template>
+    <!-- Update to be like the AC in DND Beyond to have the color of the matching damage, a small label on top,and the resistance amount below -->
     <div>
         <v-text-field label="Amount" v-model="amount" type="number">
             <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>

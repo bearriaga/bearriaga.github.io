@@ -23,23 +23,21 @@
                     </v-card-title>
 
                     <v-card-text>
-                        <v-container>
-                            <v-form ref="form"
-                                    v-model="valid"
-                                    :disabled="dialog.type == 'Delete'">
-                                <v-text-field label="Amount"
-                                              type="number"
-                                              v-model="amount"
-                                              ref="amount"
-                                              :rules="numberRules"
-                                              required></v-text-field>
-                                <v-text-field label="Date"
-                                              type="date"
-                                              v-model="date"></v-text-field>
-                                <v-text-field label="Description"
-                                              v-model="description"></v-text-field>
-                            </v-form>
-                        </v-container>
+                        <v-form ref="form"
+                                v-model="valid"
+                                :disabled="dialog.type == 'Delete'">
+                            <v-text-field label="Amount"
+                                          type="number"
+                                          v-model="amount"
+                                          ref="amount"
+                                          :rules="numberRules"
+                                          required></v-text-field>
+                            <v-text-field label="Date"
+                                          type="date"
+                                          v-model="date"></v-text-field>
+                            <v-text-field label="Description"
+                                          v-model="description"></v-text-field>
+                        </v-form>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -102,14 +100,14 @@
             // CRUD Functions Start
             addEntry() {
                 if (this.validate()) {
-                this.dialog.show = false
-                this.entry = {
-                    amount: this.amount,
-                    date: this.date,
-                    description: this.description,
-                    id: null
-                }
-                this.$emit('addEntryEmit', { arrayName: 'xpEntries', object: this.entry })
+                    this.dialog.show = false
+                    this.entry = {
+                        amount: this.amount,
+                        date: this.date,
+                        description: this.description,
+                        id: null
+                    }
+                    this.$emit('addEntryEmit', { arrayName: 'xpEntries', object: this.entry })
                 }
             },
             deleteEntry() {
