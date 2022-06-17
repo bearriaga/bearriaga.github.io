@@ -246,7 +246,10 @@
                 return this.characterSheet.speed + this.characterSheet.initiativeIncreases
             },
             level() {
-                return Math.floor(this.characterSheet.xpEarned / 500)
+                let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
+                    return parseInt(previousValue) + parseInt(entry.amount)
+                }, 0)
+                return Math.floor(nonClassXP / 500)
             },
             movement() {
                 return parseInt(this.characterSheet.dexterity) + this.characterSheet.movements.filter(x => { return x.type == 'Land Speed' }).reduce((previousValue, entry) => {
@@ -648,6 +651,7 @@
                     xpEntries: [
                         {
                             amount: 500,
+                            classXP: false,
                             description: 'Character Creation',
                             date: null,
                             id: '1654386228029'
@@ -745,6 +749,10 @@
                 this.characterSheet.dcToHit = 1 + (Math.floor(this.characterSheet.dexterity / 2)) + parseInt(this.characterSheet.dcToHitIncreases)
 
                 //hpMax start, handles xpEarned, level, hpMax
+                let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
+                    return parseInt(previousValue) + parseInt(entry.amount)
+                }, 0)
+                this.characterSheet.level = Math.floor(nonClassXP / 500)
                 this.characterSheet.xpEarned = this.characterSheet.xpEntries.reduce((previousValue, entry) => {
                     return parseInt(previousValue) + parseInt(entry.amount)
                 }, 0)
@@ -1230,18 +1238,21 @@
                     xpEntries: [
                         {
                             amount: 500,
+                            classXP: false,
                             description: 'Character Creation',
                             date: '2022-04-22',
                             id: '1654386228019'
                         },
                         {
                             amount: 310,
+                            classXP: false,
                             description: '',
                             date: '2022-05-06',
                             id: '1654386228018'
                         },
                         {
                             amount: 315,
+                            classXP: false,
                             description: '',
                             date: '2022-06-20',
                             id: '1654386228017'

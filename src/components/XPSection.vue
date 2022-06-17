@@ -41,6 +41,7 @@
                                           ref="amount"
                                           :rules="numberRules"
                                           required></v-text-field>
+                            <v-checkbox label="Class XP" v-model="classXP"></v-checkbox>
                             <v-text-field label="Date"
                                           type="date"
                                           v-model="date"></v-text-field>
@@ -88,6 +89,7 @@
                 availableXP: this.xp,
                 // Input Fields Start
                 amount: 1,
+                classXP: false,
                 date: null,
                 description: '',
                 entry: {
@@ -112,6 +114,7 @@
                     this.dialog.show = false
                     this.entry = {
                         amount: this.amount,
+                        classXP: this.classXP,
                         date: this.date,
                         description: this.description,
                         id: null

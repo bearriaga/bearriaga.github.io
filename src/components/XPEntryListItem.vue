@@ -10,6 +10,9 @@
                 <v-text-field label="Date" v-model="date" type="date"></v-text-field>
             </v-col>
             <v-col cols="12">
+                <v-checkbox label="Class XP" v-model="classXP"></v-checkbox>
+            </v-col>
+            <v-col cols="12">
                 <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
             </v-col>
         </v-row>        
@@ -25,6 +28,7 @@
         data() {
             return {
                 amount: this.entry.amount,
+                classXP: this.entry.classXP,
                 description: this.entry.description,
                 date: this.entry.date
             }
@@ -45,6 +49,9 @@
         },
         watch: {
             amount() {
+                this.updateEntry()
+            },
+            classXP() {
                 this.updateEntry()
             },
             description() {
