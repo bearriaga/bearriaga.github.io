@@ -39,7 +39,7 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="6" md="3">
+                <v-col cols="12" md="3">
                     <h3 class="text-center"> Characteristics </h3>
                     <v-row>
                         <v-col cols="6" md="4" v-for="char in characteristicViewItems" :key="char.key">
@@ -59,7 +59,7 @@
                                   @updateEntryEmit="updateEntry($event)"
                                   @rollDiceCheckEmit="rollDiceCheck($event)"></SkillSection>
                 </v-col>
-                <v-col cols="6" md="3">
+                <v-col cols="12" md="3">
                     <!-- TODO: Add green plus or medical bag icon to heal -->
                     <h3 class="text-center"> Health </h3>
                     <v-form>
@@ -80,13 +80,14 @@
                                         @updatePropEmit="updateProp($event)"
                                         :property-object="input"></InputWithEditModal>
                 </v-col>
-                <v-col cols="6" md="3">
+                <v-col cols="12" md="3">
                     <ResourceSection :resources="resources"
                                      :characteristics="characteristics"
                                      @addEntryEmit="addEntry($event)"
                                      @deleteEntryEmit="deleteEntry($event)"
                                      @updateEntryEmit="updateEntry($event)"></ResourceSection>
                     <ResistanceSection :resistances="characterSheet.resistances"
+                                       :damage-groups="damageGroups"
                                        :damage-types="damageTypes"
                                        @addEntryEmit="addEntry($event)"
                                        @deleteEntryEmit="deleteEntry($event)"
@@ -97,7 +98,7 @@
                                      @deleteEntryEmit="deleteEntry($event)"
                                      @updateEntryEmit="updateEntry($event)"></MovementSection>
                 </v-col>
-                <v-col cols="6" md="3">
+                <v-col cols="12" md="3">
                     <h3 class="text-center"> Money </h3>
                     <v-text-field label="Money"
                                   type="number"
@@ -331,7 +332,7 @@
                 this.damageGroups.forEach((group) => {
                     resistances.push(group.name)
                     group.types.forEach((type) => {
-                        resistances.push(type)
+                        resistances.push(type.name)
                     })
                 })
                 return resistances
@@ -664,32 +665,38 @@
                 },
                 damageGroups: [
                     {
+                        color: 'green lighten-3',
+                        icon: 'mdi-shield-sun',
                         name: 'Elemental',
                         types: [
-                            'Acid',
-                            'Cold',
-                            'Electric',
-                            'Fire',
-                            'Energy/Arcane'
+                            { name: 'Acid', icon: 'mdi-flask-outline' },
+                            { name: 'Cold', icon: 'mdi-snowflake' },
+                            { name: 'Electric', icon: 'mdi-lightning-bolt' },
+                            { name: 'Fire', icon: 'mdi-fire' },
+                            { name: 'Energy/Arcane', icon: 'mdi-laser-pointer' }
                         ]
                     },
                     {
+                        color: 'deep-purple lighten-3',
+                        icon: 'mdi-shield-cross',
                         name: 'Esoteric',
                         types: [
-                            'Dark',
-                            'Force',
-                            'Light',
-                            'Psionic',
-                            'Toxic'
+                            { name: 'Dark', icon: 'mdi-skull' },
+                            { name: 'Force', icon: 'mdi-rotate-orbit' },
+                            { name: 'Light', icon: 'mdi-centos' },
+                            { name: 'Psionic', icon: 'mdi-brain' },
+                            { name: 'Toxic', icon: 'mdi-biohazard' }
                         ]
                     },
                     {
+                        color: 'orange lighten-3',
+                        icon: 'mdi-shield-sword',
                         name: 'Physical',
                         types: [
-                            'Blunt',
-                            'Explosive',
-                            'Piercing',
-                            'Slashing'
+                            { name: 'Blunt', icon: 'mdi-gavel' },
+                            { name: 'Explosive', icon: 'mdi-bomb' },
+                            { name: 'Piercing', icon: 'mdi-arrow-projectile' },
+                            { name: 'Slashing', icon: 'mdi-sword' }
                         ]
                     }
                 ],
@@ -1259,7 +1266,7 @@
 
                 this.damageGroups.forEach((group) => {
                     //check if type is in the group.types array
-                    if (type == group.name || group.types.includes(type)) {
+                    if (type == group.name || group.types.some(x => x.name == type)) {
                         resistanceAmount = this.characterSheet.resistances
                             .filter(x => { return x.type == type || x.type == group.name })
                             .reduce((previousValue, entry) => {

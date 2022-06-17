@@ -1,19 +1,32 @@
 <template>
     <div>
-        <h3 class="text-center">
-            Damage Resistances
-            <v-btn icon color="primary"
-                   @click="addDialog">
-                <v-icon>
-                    mdi-plus
-                </v-icon>
-            </v-btn>
-        </h3>
-        <ResistanceListItem v-for="resistance in resistances" :key="resistance.id"
-                            :resistance="resistance"
-                            :damage-types="damageTypes"
-                            @deleteEntryEmit="deleteDialog($event)"
-                            @updateEntryEmit="updateEntry($event)"></ResistanceListItem>
+        <template>
+            <v-expansion-panels>
+                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                    <v-expansion-panel-header>
+                        <h3 class="text-center">
+                            Damage Resistances
+                            <v-btn icon color="primary"
+                                   @click.stop="addDialog">
+                                <v-icon>
+                                    mdi-plus
+                                </v-icon>
+                            </v-btn>                            
+                        </h3>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <v-row>
+                            <v-col cols="6" md="4" v-for="resistance in resistances" :key="resistance.id + resistance.amount">
+                                <ResistanceListItem :damage-groups="damageGroups"
+                                                    :damage-types="damageTypes"
+                                                    :resistance="resistance"
+                                                    @updateEntryEmit="updateDialog($event)"></ResistanceListItem>
+                            </v-col>
+                        </v-row>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </template>
 
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
@@ -24,8 +37,7 @@
 
                     <v-card-text>
                         <v-form ref="form"
-                                v-model="valid"
-                                :disabled="dialog.type == 'Delete'">
+                                v-model="valid">
                             <v-text-field label="Amount"
                                           type="number"
                                           v-model="amount"
@@ -46,7 +58,9 @@
                     <v-card-actions class="justify-end">
                         <v-btn color="primary" v-if="dialog.type == 'Add'" :disabled="!valid"
                                @click="addEntry">Add</v-btn>
-                        <v-btn color="error" v-if="dialog.type == 'Delete'"
+                        <v-btn color="primary" v-if="dialog.type == 'Update'"
+                               @click="updateEntry">Save</v-btn>
+                        <v-btn color="error" v-if="dialog.type == 'Update'"
                                @click="deleteEntry">Delete</v-btn>
                         <v-btn color="secondary"
                                @click="dialog.show = false">Close</v-btn>
@@ -67,6 +81,7 @@
         },
         props: {
             resistances: Array,
+            damageGroups: Array,
             damageTypes: Array
         },
         data() {
@@ -112,8 +127,14 @@
                 this.dialog.show = false
                 this.$emit('deleteEntryEmit', { arrayName: 'resistances', object: this.resistance })
             },
-            updateEntry(object) {
-                this.$emit('updateEntryEmit', { arrayName: 'resistances', object: object })
+            updateEntry() {
+                let resistance = {
+                    amount: this.amount,
+                    id: this.resistance.id,
+                    type: this.type
+                }
+                this.dialog.show = false
+                this.$emit('updateEntryEmit', { arrayName: 'resistances', object: resistance })
             },
             // CRUD Functions End
             // Open Dialog Functions
@@ -129,10 +150,10 @@
                     this.$refs.amount.focus()
                 }, 200)
             },
-            deleteDialog(resistance) {
+            updateDialog(resistance) {
                 this.resistance = this.resistances.find(x => { return x.id == resistance.id })
                 this.setInputs(this.resistance)
-                this.setDialog('Delete')
+                this.setDialog('Update')
             },
             setDialog(type) {
                 this.dialog = {

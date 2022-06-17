@@ -1,10 +1,8 @@
 <template>
-    <!-- Update to be like the AC in DND Beyond to have the color of the matching damage, a small label on top,and the resistance amount below -->
-    <div>
-        <v-text-field label="Amount" v-model="amount" type="number">
-            <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
+    <div @click="updateEntry">
+        <v-text-field :label="type" v-model="amount" type="number" disabled>
+            <v-icon :color="color" slot="append">{{icon}}</v-icon>
         </v-text-field>
-        <v-select label="Type" :items="damageTypes" v-model="type"></v-select>        
     </div>
 </template>
 
@@ -12,8 +10,33 @@
     export default {
         name: 'ResistanceListItem',
         props: {
+            damageGroups: Array,
             damageTypes: Array,
             resistance: Object
+        },
+        computed: {
+            color() {
+                let color = ''
+                this.damageGroups.forEach((group) => {
+                    if (this.resistance.type == group.name || group.types.some(x => x.name == this.resistance.type)) {
+                        color = group.color                        
+                    }
+                })
+                return color
+            },
+            icon() {
+                let icon = ''
+                this.damageGroups.forEach((group) => {
+                    if (this.resistance.type == group.name || group.types.some(x => x.name == this.resistance.type)) {
+                        if (this.resistance.type == group.name)
+                            icon = group.icon
+                        let damageType = group.types.find(type => type.name == this.resistance.type)
+                        if (damageType)
+                            icon = damageType.icon
+                    }
+                })
+                return icon
+            }
         },
         data() {
             return {
@@ -22,24 +45,8 @@
             }
         },
         methods: {
-            deleteEntry() {
-                this.$emit('deleteEntryEmit', this.resistance)
-            },
             updateEntry() {
-                var object = {
-                    amount: this.amount,
-                    id: this.resistance.id,
-                    type: this.type
-                }
-                this.$emit('updateEntryEmit', object)
-            }
-        },
-        watch: {
-            amount() {
-                this.updateEntry()
-            },
-            type() {
-                this.updateEntry()
+                this.$emit('updateEntryEmit', this.resistance)
             }
         }
     }
