@@ -65,7 +65,7 @@
                     <v-form>
                         <v-row>
                             <v-col cols="6">
-                                <v-text-field type="number" v-model="damageToTake.amount">
+                                <v-text-field type="number" min="0" v-model="damageToTake.amount">
                                     <v-icon color="success" slot="append" @click="heal">mdi-plus</v-icon>
                                     <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
                                 </v-text-field>
@@ -1247,8 +1247,10 @@
                 }
             },
             heal() {
-                this.characterSheet.hp = parseInt(this.characterSheet.hp) + parseInt(this.damageToTake.amount)
-                this.updateHP = this.updateHP + 1
+                if (this.damageToTake.amount > 0) {
+                    this.characterSheet.hp = parseInt(this.characterSheet.hp) + parseInt(this.damageToTake.amount)
+                    this.updateHP = this.updateHP + 1
+                }
             },
             takeDamage() {
                 var damage = this.damageToTake.amount
