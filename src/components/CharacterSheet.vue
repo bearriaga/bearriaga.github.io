@@ -61,12 +61,19 @@
                 </v-col>
                 <v-col cols="6" md="3">
                     <!-- TODO: Add green plus or medical bag icon to heal -->
-                    <h3> Take Damage </h3>
+                    <h3 class="text-center"> Health </h3>
                     <v-form>
-                        <v-text-field label="Damage" type="number" v-model="damageToTake.amount">
-                            <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
-                        </v-text-field>
-                        <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
+                        <v-row>
+                            <v-col cols="6">
+                                <v-text-field type="number" v-model="damageToTake.amount">
+                                    <v-icon color="success" slot="append" @click="heal">mdi-plus</v-icon>
+                                    <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
+                            </v-col>
+                        </v-row>
                     </v-form>
 
                     <InputWithEditModal v-for="input in inputWithEditModals" :key="input.key"
@@ -1238,6 +1245,10 @@
                         }
                     ]
                 }
+            },
+            heal() {
+                this.characterSheet.hp = parseInt(this.characterSheet.hp) + parseInt(this.damageToTake.amount)
+                this.updateHP = this.updateHP + 1
             },
             takeDamage() {
                 var damage = this.damageToTake.amount
