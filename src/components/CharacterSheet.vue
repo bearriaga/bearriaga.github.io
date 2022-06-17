@@ -271,14 +271,10 @@
             },
             /// TODO: remove logic adding xp for classes that are not unlocked
             xpTotal() {
-                var classXP = this.characterSheet.classes.filter(x => { return !x.unlocked }).length * 300
                 var flawsXP = this.characterSheet.flaws.reduce((previousValue, entry) => {
                     return parseInt(previousValue) + parseInt(entry.amount)
                 }, 0)
-                return (
-                    classXP +
-                    this.characterSheet.xpEarned +
-                    flawsXP)
+                return (this.characterSheet.xpEarned + flawsXP)
             },
             //Character Properties End
             characteristicViewItems() {
