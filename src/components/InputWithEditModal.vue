@@ -6,8 +6,23 @@
                               :type="propertyObject.type"
                               v-model="value"
                               :disabled="propertyObject.disabled">
-                    <v-icon v-if="propertyObject.valueMax != null" slot="append">/{{propertyObject.valueMax}} </v-icon>
-                    <v-icon color="primary" slot="append" @click="showDialog = true">mdi-pen</v-icon>
+                    <v-icon color="success"
+                            slot="append"
+                            v-if="propertyObject.valueName == 'ap'"
+                            @click="specialButton">mdi-refresh</v-icon>
+                    <v-icon color="success"
+                            slot="append"
+                            v-if="propertyObject.plus"
+                            @click="add">mdi-plus</v-icon>
+                    <v-icon color="error"
+                            slot="append"
+                            v-if="propertyObject.minus"
+                            @click="subtract">mdi-minus</v-icon>
+                    <v-icon v-if="propertyObject.valueMax != null"
+                            slot="append">/{{propertyObject.valueMax}} </v-icon>
+                    <v-icon color="primary"
+                            slot="append"
+                            @click="showDialog = true">mdi-pen</v-icon>
                 </v-text-field>
             </v-col>
         </v-row>
@@ -29,7 +44,7 @@
                                           :label="propertyObject.valueIncreasesLabel"
                                           :type="propertyObject.valueIncreasesType"
                                           v-model="valueIncreases"
-                                          @keyup.enter="updateProp(propertyObject.valueIncreasesName, valueIncreases)"></v-text-field>
+                                          @keyup.enter="updateProp"></v-text-field>
                             <v-checkbox v-else-if="propertyObject.valueIncreasesType == 'bool'"
                                         :label="propertyObject.valueIncreasesLabel"
                                         v-model="valueIncreases"></v-checkbox>
@@ -65,9 +80,25 @@
             }
         },
         methods: {
-            updateProp(propName, value) {
+            add() {
+                this.value += 1;
+            },
+            specialButton() {
+                if (this.propertyObject.valueName == 'ap') {
+                    let apGain = (this.propertyObject.valueIncreases) ? this.propertyObject.valueMax / 3 : this.propertyObject.valueMax / 2
+                    this.value += apGain
+                }
+            },
+            subtract() {
+                this.value -= 1;
+            },
+            updateProp() {
                 this.showDialog = false
-                this.$emit('updatePropEmit', { propName, value })
+                this.$emit('updatePropEmit', {
+                    propName: this.propertyObject.valueIncreasesName,
+                    type: this.propertyObject.valueIncreasesType,
+                    value: this.valueIncreases
+                })                
             }
         },
         watch: {

@@ -76,9 +76,12 @@
                         </v-row>
                     </v-form>
 
-                    <InputWithEditModal v-for="input in inputWithEditModals" :key="input.key"
-                                        @updatePropEmit="updateProp($event)"
-                                        :property-object="input"></InputWithEditModal>
+                    <v-row>
+                        <v-col cols="12" xl="6" v-for="input in inputWithEditModals" :key="input.key">
+                            <InputWithEditModal @updatePropEmit="updateProp($event)"
+                                                :property-object="input"></InputWithEditModal>
+                        </v-col>
+                    </v-row>
                 </v-col>
                 <v-col cols="12" md="3">
                     <ResourceSection :resources="resources"
@@ -353,7 +356,9 @@
                         valueIncreasesName: 'hpIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.hpMax,
-                        disabled: false
+                        disabled: false,
+                        plus: true,
+                        minus: true
                     },
                     {
                         dialogText: 'Your maximum AP pool is increased from 2x your AP generation to 3x your generation rate.',
@@ -367,7 +372,9 @@
                         valueIncreasesName: 'speedPreperationIsKey',
                         valueIncreasesType: 'bool',
                         valueMax: this.characterSheet.apMax,
-                        disabled: false
+                        disabled: false,
+                        plus: true,
+                        minus: true
                     },
                     {
                         dialogText: '',
@@ -375,13 +382,15 @@
                         label: 'DC to Hit',
                         type: 'number',
                         value: this.characterSheet.dcToHit,
-                        valueName: 'ap',
+                        valueName: 'dc',
                         valueIncreases: this.characterSheet.dcToHitIncreases,
                         valueIncreasesLabel: 'DC to Hit Purchases',
                         valueIncreasesName: 'dcToHitIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.dcToHit,
-                        disabled: false
+                        disabled: false,
+                        plus: false,
+                        minus: false
                     },
                     {
                         dialogText: '',
@@ -395,7 +404,9 @@
                         valueIncreasesName: 'bpIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.bpMax,
-                        disabled: false
+                        disabled: false,
+                        plus: false,
+                        minus: true
                     },
                     {
                         dialogText: '',
@@ -409,7 +420,9 @@
                         valueIncreasesName: 'rerollsIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.rerollsMax,
-                        disabled: false
+                        disabled: false,
+                        plus: false,
+                        minus: true
                     },
                     {
                         dialogText: '',
@@ -423,7 +436,9 @@
                         valueIncreasesName: 'attunementSlotsIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.attunementSlotsMax,
-                        disabled: false
+                        disabled: false,
+                        plus: false,
+                        minus: false
                     }
                 ]
             },
@@ -1292,7 +1307,10 @@
                 }
             },
             updateProp(prop) {
-                this.characterSheet[prop.propName] = parseInt(prop.value)
+                if (prop.type == 'number')
+                    this.characterSheet[prop.propName] = parseInt(prop.value)
+                else
+                    this.characterSheet[prop.propName] = prop.value
             }
         },
         watch: {

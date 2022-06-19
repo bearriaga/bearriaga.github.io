@@ -28,7 +28,7 @@
         },
         methods: {
             updateProp() {
-                this.$emit('updatePropEmit', { propName: this.characteristic.name, value: this.value })
+                this.$emit('updatePropEmit', { propName: this.characteristic.name, type: 'number', value: this.value })
             },
             rollDiceCheck() {
                 this.$emit('rollDiceCheckEmit', this.value)
