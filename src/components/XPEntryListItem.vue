@@ -40,6 +40,7 @@
             updateEntry() {
                 var object = {
                     amount: this.amount,
+                    classXP: this.classXP,
                     description: this.description,
                     date: this.date,
                     id: this.entry.id
