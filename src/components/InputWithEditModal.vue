@@ -9,7 +9,7 @@
                     <v-icon color="success"
                             slot="append"
                             v-if="propertyObject.valueName == 'ap'"
-                            @click="specialButton">mdi-refresh</v-icon>
+                            @click="specialButton">mdi-clock-plus-outline</v-icon>
                     <v-icon color="success"
                             slot="append"
                             v-if="propertyObject.plus"
