@@ -2,11 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\assets",
     "\\src\\components",
     "\\src\\plugins",
     "\\src\\router",
     "\\src\\views"
   ],
+  "SelectedNode": "\\src\\components\\ResistanceSection.vue",
   "PreviewInSolutionExplorer": false
 }
