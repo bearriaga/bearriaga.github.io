@@ -388,7 +388,7 @@
                         valueIncreasesName: 'dcToHitIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.dcToHit,
-                        disabled: false,
+                        disabled: true,
                         plus: false,
                         minus: false
                     },

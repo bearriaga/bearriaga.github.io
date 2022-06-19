@@ -1,15 +1,20 @@
 <template>
     <div>
-        <v-row>
-            <v-col>
-                <v-text-field :label="propertyObject.label"
-                              :type="propertyObject.type"
-                              v-model="value"
-                              :disabled="propertyObject.disabled">
+        <div @click="openDialog">
+            <v-text-field :label="propertyObject.label"
+                          :type="propertyObject.type"
+                          v-model="value"
+                          :disabled="propertyObject.disabled">
+                <template v-if="propertyObject.valueName == 'ap'">
                     <v-icon color="success"
                             slot="append"
-                            v-if="propertyObject.valueName == 'ap'"
                             @click="specialButton">mdi-clock-plus-outline</v-icon>
+                </template>
+                <template v-if="propertyObject.valueName == 'dc'">
+                    <v-icon slot="append"
+                            @click="specialButton">mdi-shield</v-icon>
+                </template>
+                <template v-if="!propertyObject.disabled">
                     <v-icon color="success"
                             slot="append"
                             v-if="propertyObject.plus"
@@ -22,10 +27,11 @@
                             slot="append">/{{propertyObject.valueMax}} </v-icon>
                     <v-icon color="primary"
                             slot="append"
+                            v-if="!propertyObject.disabled"
                             @click="showDialog = true">mdi-pen</v-icon>
-                </v-text-field>
-            </v-col>
-        </v-row>
+                </template>
+            </v-text-field>
+        </div>
 
         <div class="text-center">
             <v-dialog v-model="showDialog" width="500">
@@ -56,7 +62,7 @@
 
                     <v-card-actions class="justify-end">
                         <v-btn color="primary"
-                               @click="updateProp(propertyObject.valueIncreasesName, valueIncreases)">Save</v-btn>
+                               @click="updateProp">Save</v-btn>
                         <v-btn color="secondary"
                                @click="showDialog = false">Close</v-btn>
                     </v-card-actions>
@@ -83,6 +89,10 @@
             add() {
                 this.value += 1;
             },
+            openDialog() {
+                if (this.propertyObject.disabled)
+                    this.showDialog = true
+            },
             specialButton() {
                 if (this.propertyObject.valueName == 'ap') {
                     let apGain = (this.propertyObject.valueIncreases) ? this.propertyObject.valueMax / 3 : this.propertyObject.valueMax / 2
@@ -98,7 +108,7 @@
                     propName: this.propertyObject.valueIncreasesName,
                     type: this.propertyObject.valueIncreasesType,
                     value: this.valueIncreases
-                })                
+                })
             }
         },
         watch: {
