@@ -60,7 +60,6 @@
                                   @rollDiceCheckEmit="rollDiceCheck($event)"></SkillSection>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <!-- TODO: Add green plus or medical bag icon to heal -->
                     <h3 class="text-center"> Health </h3>
                     <v-form>
                         <v-row>
@@ -75,9 +74,24 @@
                             </v-col>
                         </v-row>
                     </v-form>
-
                     <v-row>
-                        <v-col cols="12" xl="6" v-for="input in inputWithEditModals" :key="input.key">
+                        <v-col cols="12" xl="6" v-for="input in defenseInputWithEditModals" :key="input.key">
+                            <InputWithEditModal @updatePropEmit="updateProp($event)"
+                                                :property-object="input"></InputWithEditModal>
+                        </v-col>
+                        <v-col cols="12">
+                            <ResistanceSection :resistances="characterSheet.resistances"
+                                               :damage-groups="damageGroups"
+                                               :damage-types="damageTypes"
+                                               @addEntryEmit="addEntry($event)"
+                                               @deleteEntryEmit="deleteEntry($event)"
+                                               @updateEntryEmit="updateEntry($event)"></ResistanceSection>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="12" md="3">
+                    <v-row>
+                        <v-col cols="12" v-for="input in inputWithEditModals" :key="input.key">
                             <InputWithEditModal @updatePropEmit="updateProp($event)"
                                                 :property-object="input"></InputWithEditModal>
                         </v-col>
@@ -89,34 +103,11 @@
                                      @addEntryEmit="addEntry($event)"
                                      @deleteEntryEmit="deleteEntry($event)"
                                      @updateEntryEmit="updateEntry($event)"></ResourceSection>
-                    <ResistanceSection :resistances="characterSheet.resistances"
-                                       :damage-groups="damageGroups"
-                                       :damage-types="damageTypes"
-                                       @addEntryEmit="addEntry($event)"
-                                       @deleteEntryEmit="deleteEntry($event)"
-                                       @updateEntryEmit="updateEntry($event)"></ResistanceSection>
                     <MovementSection :movements="characterSheet.movements"
                                      :movement-types="movementTypes"
                                      @addEntryEmit="addEntry($event)"
                                      @deleteEntryEmit="deleteEntry($event)"
                                      @updateEntryEmit="updateEntry($event)"></MovementSection>
-                </v-col>
-                <v-col cols="12" md="3">
-                    <h3 class="text-center"> Money </h3>
-                    <v-text-field label="Money"
-                                  type="number"
-                                  v-model="characterSheet.money"></v-text-field>
-
-                    <h3 class="text-center"> XP </h3>
-                    <v-text-field label="Available XP" v-model="characterSheet.xp" disabled></v-text-field>
-
-                    <XPSection :xp="characterSheet.xp"
-                               :xp-earned="characterSheet.xpEarned"
-                               :xp-total="characterSheet.xpTotal"
-                               :xp-entries="characterSheet.xpEntries"
-                               @addEntryEmit="addEntry($event)"
-                               @deleteEntryEmit="deleteEntry($event)"
-                               @updateEntryEmit="updateEntry($event)"></XPSection>
                 </v-col>
             </v-row>
             <v-row>
@@ -136,7 +127,23 @@
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"></ClassSection>
                 </v-col>
-                <v-col cols="6" md="3"></v-col>
+                <v-col cols="6" md="3">
+                    <h3 class="text-center"> Money </h3>
+                    <v-text-field label="Money"
+                                  type="number"
+                                  v-model="characterSheet.money"></v-text-field>
+
+                    <h3 class="text-center"> XP </h3>
+                    <v-text-field label="Available XP" v-model="characterSheet.xp" disabled></v-text-field>
+
+                    <XPSection :xp="characterSheet.xp"
+                               :xp-earned="characterSheet.xpEarned"
+                               :xp-total="characterSheet.xpTotal"
+                               :xp-entries="characterSheet.xpEntries"
+                               @addEntryEmit="addEntry($event)"
+                               @deleteEntryEmit="deleteEntry($event)"
+                               @updateEntryEmit="updateEntry($event)"></XPSection>
+                </v-col>
                 <v-col cols="6" md="3">
                     <FlawSection :flaws="characterSheet.flaws"
                                  @addEntryEmit="addEntry($event)"
@@ -275,7 +282,6 @@
                     return parseInt(previousValue) + parseInt(entry.amount)
                 }, 0)
             },
-            /// TODO: remove logic adding xp for classes that are not unlocked
             xpTotal() {
                 var flawsXP = this.characterSheet.flaws.reduce((previousValue, entry) => {
                     return parseInt(previousValue) + parseInt(entry.amount)
@@ -339,10 +345,7 @@
                 })
                 return resistances
             },
-            /// TODO: Break out DC to own component and make look like DND Beyond
-            /// TODO: Break out AP or modify it to have plus button in front to add AP gain
-            /// TODO: Add minus to BP, Rerolls to lower value by one
-            inputWithEditModals() {
+            defenseInputWithEditModals() {
                 return [
                     {
                         dialogText: 'Health Points Max = (level * 5) + ((STR + RES) * 3) + purchased HP',
@@ -356,22 +359,6 @@
                         valueIncreasesName: 'hpIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.hpMax,
-                        disabled: false,
-                        plus: true,
-                        minus: true
-                    },
-                    {
-                        dialogText: 'Your maximum AP pool is increased from 2x your AP generation to 3x your generation rate.',
-                        key: 'ap' + this.characterSheet.apMax,
-                        label: 'Action Points',
-                        type: 'number',
-                        value: this.characterSheet.ap,
-                        valueName: 'ap',
-                        valueIncreases: this.characterSheet.speedPreperationIsKey,
-                        valueIncreasesLabel: 'Speed: Preperation is Key',
-                        valueIncreasesName: 'speedPreperationIsKey',
-                        valueIncreasesType: 'bool',
-                        valueMax: this.characterSheet.apMax,
                         disabled: false,
                         plus: true,
                         minus: true
@@ -391,6 +378,26 @@
                         disabled: true,
                         plus: false,
                         minus: false
+                    }
+                ]
+            },
+            inputWithEditModals() {
+                return [
+                    {
+                        dialogText: 'Your maximum AP pool is increased from 2x your AP generation to 3x your generation rate.',
+                        key: 'ap' + this.characterSheet.apMax,
+                        label: 'Action Points',
+                        type: 'number',
+                        value: this.characterSheet.ap,
+                        valueName: 'ap',
+                        valueIncreases: this.characterSheet.speedPreperationIsKey,
+                        valueIncreasesLabel: 'Speed: Preperation is Key',
+                        valueIncreasesName: 'speedPreperationIsKey',
+                        valueIncreasesType: 'bool',
+                        valueMax: this.characterSheet.apMax,
+                        disabled: false,
+                        plus: true,
+                        minus: true
                     },
                     {
                         dialogText: '',

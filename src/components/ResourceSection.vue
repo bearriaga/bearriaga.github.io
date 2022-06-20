@@ -1,18 +1,28 @@
 <template>
     <div>
-        <h3 class="text-center">
-            Class Resources
-            <v-btn icon color="primary"
-                   @click="addDialog">
-                <v-icon>
-                    mdi-plus
-                </v-icon>
-            </v-btn>
-        </h3>
-        <ResourceListItem v-for="resource in resources" :key="resource.key"
-                          :resource="resource"
-                          @deleteEntryEmit="deleteDialog($event)"
-                          @updateEntryEmit="updateDialog($event)"></ResourceListItem>
+        <template>
+            <v-expansion-panels>
+                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                    <v-expansion-panel-header>
+                        <h3 class="text-center">
+                            Class Resources
+                            <v-btn icon color="primary"
+                                   @click.stop="addDialog">
+                                <v-icon>
+                                    mdi-plus
+                                </v-icon>
+                            </v-btn>
+                        </h3>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <ResourceListItem v-for="resource in resources" :key="resource.key"
+                                          :resource="resource"
+                                          @deleteEntryEmit="deleteDialog($event)"
+                                          @updateEntryEmit="updateDialog($event)"></ResourceListItem>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </template>
 
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">

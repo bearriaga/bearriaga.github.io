@@ -87,7 +87,7 @@
         },
         methods: {
             add() {
-                this.value += 1;
+                this.value = parseInt(this.value) + 1;
             },
             openDialog() {
                 if (this.propertyObject.disabled)
@@ -100,7 +100,7 @@
                 }
             },
             subtract() {
-                this.value -= 1;
+                this.value = parseInt(this.value) - 1;
             },
             updateProp() {
                 this.showDialog = false

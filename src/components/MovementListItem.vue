@@ -1,10 +1,18 @@
 <template>
     <div>
-        <v-text-field label="Amount" v-model="amount" type="number">
-            <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
-        </v-text-field>
-        <v-select label="Type" :items="movementTypes" v-model="type"></v-select>
-        <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>        
+        <v-row>
+            <v-col cols="6">
+                <v-text-field label="Amount" v-model="amount" type="number">
+                    <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
+                </v-text-field>
+            </v-col>
+            <v-col cols="6">
+                <v-select label="Type" :items="movementTypes" v-model="type"></v-select>
+            </v-col>
+            <v-col cols="12">
+                <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
