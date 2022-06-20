@@ -96,7 +96,7 @@
             specialButton() {
                 if (this.propertyObject.valueName == 'ap') {
                     let apGain = (this.propertyObject.valueIncreases) ? this.propertyObject.valueMax / 3 : this.propertyObject.valueMax / 2
-                    this.value += apGain
+                    this.value = parseInt(this.value) + apGain
                 }
             },
             subtract() {
