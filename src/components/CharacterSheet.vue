@@ -1295,7 +1295,7 @@
             },
             heal() {
                 if (this.damageToTake.amount > 0) {
-                    this.characterSheet.hp = parseInt(this.characterSheet.hp) + parseInt(this.damageToTake.amount)
+                    this.characterSheet.hp = +this.characterSheet.hp + +this.damageToTake.amount
                     this.updateHP = this.updateHP + 1
                 }
             },
