@@ -104,7 +104,7 @@
                     v => !!v || 'Field may not be empty'
                 ],
                 numberRules: [
-                    v => !isNaN(parseInt(v)) && v >= 1 || 'Field may not be empty and value must be 1 or higher'
+                    v => !isNaN(+v) && v >= 1 || 'Field may not be empty and value must be 1 or higher'
                 ],
                 valid: false
                 // Validation End

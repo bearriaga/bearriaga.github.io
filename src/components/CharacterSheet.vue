@@ -235,53 +235,53 @@
         computed: {
             //Character Properties
             apMax() {
-                return ((this.characterSheet.speedPreperationIsKey) ? 3 * (parseInt(this.characterSheet.speed) + 2) : 2 * (parseInt(this.characterSheet.speed) + 2))
+                return ((this.characterSheet.speedPreperationIsKey) ? 3 * (+this.characterSheet.speed + 2) : 2 * (+this.characterSheet.speed + 2))
             },
             attunementSlotsMax() {
-                return (10 + parseInt(this.characterSheet.attunementSlotsIncreases))
+                return (10 + +this.characterSheet.attunementSlotsIncreases)
             },
             bpMax() {
-                return parseInt(this.characterSheet.resistance) + parseInt(this.characterSheet.bpIncreases)
+                return +this.characterSheet.resistance + +this.characterSheet.bpIncreases
             },
             dcToHit() {
-                return 1 + (Math.floor(this.characterSheet.dexterity / 2)) + parseInt(this.characterSheet.dcToHitIncreases)
+                return 1 + (Math.floor(this.characterSheet.dexterity / 2)) + +this.characterSheet.dcToHitIncreases
             },
             hpMax() {
-                return ((this.characterSheet.level * 5) + ((parseInt(this.characterSheet.strength) + parseInt(this.characterSheet.resistance)) * 3) + parseInt(this.characterSheet.hpIncreases))
+                return ((this.characterSheet.level * 5) + ((+this.characterSheet.strength + +this.characterSheet.resistance) * 3) + +this.characterSheet.hpIncreases)
             },
             initiative() {
                 return this.characterSheet.speed + this.characterSheet.initiativeIncreases
             },
             level() {
                 let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
-                    return parseInt(previousValue) + parseInt(entry.amount)
+                    return +previousValue + +entry.amount
                 }, 0)
                 return Math.floor(nonClassXP / 500)
             },
             movement() {
-                return parseInt(this.characterSheet.dexterity) + this.characterSheet.movements.filter(x => { return x.type == 'Land Speed' }).reduce((previousValue, entry) => {
-                    return parseInt(previousValue) + parseInt(entry.amount)
+                return +this.characterSheet.dexterity + this.characterSheet.movements.filter(x => { return x.type == 'Land Speed' }).reduce((previousValue, entry) => {
+                    return +previousValue + +entry.amount
                 }, 0)
             },
             rerollsMax() {
-                return parseInt(this.characterSheet.luck) + parseInt(this.characterSheet.rerollsIncreases)
+                return +this.characterSheet.luck + +this.characterSheet.rerollsIncreases
             },
             xp() {
                 return this.characterSheet.xpTotal - this.characterSheet.abilities.reduce((previousValue, entry) => {
                     if (!entry.boughtForFree)
-                        return parseInt(previousValue) + parseInt(entry.xpCost)
+                        return +previousValue + +entry.xpCost
                     else
-                        return parseInt(previousValue)
+                        return +previousValue
                 }, 0)
             },
             xpEarned() {
                 return this.characterSheet.xpEntries.reduce((previousValue, entry) => {
-                    return parseInt(previousValue) + parseInt(entry.amount)
+                    return +previousValue + +entry.amount
                 }, 0)
             },
             xpTotal() {
                 var flawsXP = this.characterSheet.flaws.reduce((previousValue, entry) => {
-                    return parseInt(previousValue) + parseInt(entry.amount)
+                    return +previousValue + +entry.amount
                 }, 0)
                 return (this.characterSheet.xpEarned + flawsXP)
             },
@@ -459,7 +459,7 @@
 
                 this.characterSheet.resources.forEach((resource) => {
                     let primaryCharValue = this.characterSheet[resource.primaryCharacteristic]
-                    resource.amountMax = parseInt(primaryCharValue) + parseInt(resource.resourceIncreases)
+                    resource.amountMax = +primaryCharValue + +resource.resourceIncreases
                     resource.key = resource.name + resource.primaryCharacteristic + resource.resourceIncreases + primaryCharValue
                     resources.push(resource)
                 })
@@ -470,7 +470,7 @@
                 let skills = []
 
                 this.characterSheet.skills.forEach((skill) => {
-                    skill.value = parseInt(skill.skillIncreases) + parseInt(this.characterSheet[skill.characteristic])
+                    skill.value = +skill.skillIncreases + +this.characterSheet[skill.characteristic]
                     skill.key = skill.name + skill.characteristic + skill.skillIncreases + this.characterSheet[skill.characteristic]
                     skills.push(skill)
                 })
@@ -769,29 +769,29 @@
             },
             //Array CRUD Functions End
             characterInit() {
-                this.characterSheet.apMax = (this.characterSheet.speedPreperationIsKey) ? 3 * (parseInt(this.characterSheet.speed) + 2) : 2 * (parseInt(this.characterSheet.speed) + 2)
-                this.characterSheet.attunementSlotsMax = 10 + parseInt(this.characterSheet.attunementSlotsIncreases)
+                this.characterSheet.apMax = (this.characterSheet.speedPreperationIsKey) ? 3 * (+this.characterSheet.speed + 2) : 2 * (+this.characterSheet.speed + 2)
+                this.characterSheet.attunementSlotsMax = 10 + +this.characterSheet.attunementSlotsIncreases
                 /// TODO: attunement slots
-                this.characterSheet.bpMax = parseInt(this.characterSheet.resistance) + parseInt(this.characterSheet.bpIncreases)
-                this.characterSheet.dcToHit = 1 + (Math.floor(this.characterSheet.dexterity / 2)) + parseInt(this.characterSheet.dcToHitIncreases)
+                this.characterSheet.bpMax = +this.characterSheet.resistance + +this.characterSheet.bpIncreases
+                this.characterSheet.dcToHit = 1 + (Math.floor(this.characterSheet.dexterity / 2)) + +this.characterSheet.dcToHitIncreases
 
                 //hpMax start, handles xpEarned, level, hpMax
                 let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
-                    return parseInt(previousValue) + parseInt(entry.amount)
+                    return +previousValue + +entry.amount
                 }, 0)
                 this.characterSheet.level = Math.floor(nonClassXP / 500)
                 this.characterSheet.xpEarned = this.characterSheet.xpEntries.reduce((previousValue, entry) => {
-                    return parseInt(previousValue) + parseInt(entry.amount)
+                    return +previousValue + +entry.amount
                 }, 0)
                 //hpMax end
                 this.characterSheet.initiative = this.characterSheet.speed + this.characterSheet.initiativeIncreases
-                this.characterSheet.rerollsMax = parseInt(this.characterSheet.luck) + parseInt(this.characterSheet.rerollsIncreases)
+                this.characterSheet.rerollsMax = +this.characterSheet.luck + +this.characterSheet.rerollsIncreases
 
                 this.characterSheet.xp = this.characterSheet.xpTotal - this.characterSheet.abilities.reduce((previousValue, entry) => {
                     if (!entry.boughtForFree)
-                        return parseInt(previousValue) + parseInt(entry.xpCost)
+                        return +previousValue + +entry.xpCost
                     else
-                        return parseInt(previousValue)
+                        return +previousValue
                 }, 0)
 
                 var resourcesDup = this.characterSheet.resources
@@ -824,7 +824,7 @@
                 }
 
                 if (diceToRoll > 0) {
-                    diceToRoll = parseInt(diceToRoll) + Math.floor(this.characterSheet.intelligence / 2)
+                    diceToRoll = +diceToRoll + Math.floor(this.characterSheet.intelligence / 2)
 
                     for (var i = 0; i < diceToRoll; i++) {
                         var dieResult = this.getRandomIntInclusive(1, 6)
@@ -1289,7 +1289,7 @@
             },
             heal() {
                 if (this.damageToTake.amount > 0) {
-                    this.characterSheet.hp = parseInt(this.characterSheet.hp) + parseInt(this.damageToTake.amount)
+                    this.characterSheet.hp = +this.characterSheet.hp + +this.damageToTake.amount
                     this.updateHP = this.updateHP + 1
                 }
             },
@@ -1304,11 +1304,11 @@
                         resistanceAmount = this.characterSheet.resistances
                             .filter(x => { return x.type == type || x.type == group.name })
                             .reduce((previousValue, entry) => {
-                                return parseInt(previousValue) + parseInt(entry.amount)
+                                return +previousValue + +entry.amount
                             }, 0)
 
                         if (group.name == 'Physical')
-                            resistanceAmount += parseInt(this.characterSheet.strength)
+                            resistanceAmount += +this.characterSheet.strength
                     }
                 })
 
@@ -1320,7 +1320,7 @@
             },
             updateProp(prop) {
                 if (prop.type == 'number')
-                    this.characterSheet[prop.propName] = parseInt(prop.value)
+                    this.characterSheet[prop.propName] = +prop.value
                 else
                     this.characterSheet[prop.propName] = prop.value
             }

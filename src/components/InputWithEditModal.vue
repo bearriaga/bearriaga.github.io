@@ -87,7 +87,7 @@
         },
         methods: {
             add() {
-                this.value = parseInt(this.value) + 1;
+                this.value = +this.value + 1;
             },
             openDialog() {
                 if (this.propertyObject.disabled)
@@ -96,11 +96,11 @@
             specialButton() {
                 if (this.propertyObject.valueName == 'ap') {
                     let apGain = (this.propertyObject.valueIncreases) ? this.propertyObject.valueMax / 3 : this.propertyObject.valueMax / 2
-                    this.value = parseInt(this.value) + apGain
+                    this.value = +this.value + apGain
                 }
             },
             subtract() {
-                this.value = parseInt(this.value) - 1;
+                this.value = +this.value - 1;
             },
             updateProp() {
                 this.showDialog = false

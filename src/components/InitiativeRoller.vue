@@ -255,7 +255,7 @@
                 return Math.floor(Math.random() * max) + 1;
             },
             rollInitiative(modifier) {
-                return this.getRandomInt(20) + parseInt(modifier);
+                return this.getRandomInt(20) + +modifier
             },
             rollPeopleInitiatives() {
                 let peopleDup = this.people
