@@ -208,7 +208,10 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import Vue from 'vue';
+    //import type { PropType } from 'vue';
+
     import CharacteristicViewItem from './CharacteristicViewItem.vue'
     import ClassSection from './ClassSection.vue'
     import FlawSection from './FlawSection.vue'
@@ -219,7 +222,7 @@
     import SkillSection from './SkillSection.vue'
     import XPSection from './XPSection.vue'
 
-    export default {
+    export default Vue.extend({
         name: 'CharacterSheet',
         components: {
             CharacteristicViewItem,
@@ -286,7 +289,7 @@
                 return (this.characterSheet.xpEarned + flawsXP)
             },
             //Character Properties End
-            characteristicViewItems() {
+            characteristicViewItems(): Characteristic[] {
                 let primaryChars = this.characterSheet.classes.filter(x => { return x.active && !x.unlocked }).map(x => x.primaryCharacteristic)
                 return [
                     {
@@ -561,6 +564,7 @@
                             resistances: [
                                 {
                                     amount: 0,
+                                    id: '',
                                     type: 'Physical'
                                 }
                             ],
@@ -680,16 +684,16 @@
                             amount: 500,
                             classXP: false,
                             description: 'Character Creation',
-                            date: null,
+                            date: new Date(),
                             id: '1654386228029'
                         }
                     ]
-                },
+                } as CharacterSheet,
                 checkDialog: {
                     show: false,
                     diceResults: [],
                     successes: 0
-                },
+                } as DiceCheckResult,
                 damageGroups: [
                     {
                         color: 'green lighten-3',
@@ -753,16 +757,16 @@
         },
         methods: {
             //Array CRUD Functions
-            addEntry(object) {
+            addEntry(object: any): void {
                 object.object.id = new Date().getTime().toString()
                 this.characterSheet[object.arrayName].push(object.object)
             },
-            deleteEntry(object) {
+            deleteEntry(object: any): void {
                 this.characterSheet[object.arrayName] = this.characterSheet[object.arrayName].filter(x => { return x.id != object.object.id })
             },
-            updateEntry(object) {
-                var entriesDup = this.characterSheet[object.arrayName]
-                var index = entriesDup.findIndex(x => x.id == object.object.id)
+            updateEntry(object: any): void {
+                let entriesDup = this.characterSheet[object.arrayName]
+                let index = entriesDup.findIndex(x => x.id == object.object.id)
                 entriesDup[index] = object.object
                 this.characterSheet[object.arrayName] = []
                 this.characterSheet[object.arrayName] = entriesDup
@@ -803,31 +807,32 @@
                 this.characterSheet.resources = resourcesDup
             },
             //Dice Roll Functions
-            determineSuccesses(dieResult) {
+            determineSuccesses(dieResult: number): number {
                 if (dieResult < 4)
                     return 0
                 if (dieResult < 6)
                     return 1
                 if (dieResult >= 6)
                     return 2
+                return 0
             },
-            getRandomIntInclusive(min, max) {
+            getRandomIntInclusive(min: number, max: number) {
                 min = Math.ceil(min)
                 max = Math.floor(max)
                 return Math.floor(Math.random() * (max - min + 1) + min) //The maximum is inclusive and the minimum is inclusive
             },
-            rollDiceCheck(diceToRoll) {
-                var result = {
+            rollDiceCheck(diceToRoll: number): void {
+                var result: DiceCheckResult = {
                     show: true,
                     diceResults: [],
                     successes: 0
                 }
 
                 if (diceToRoll > 0) {
-                    diceToRoll = parseInt(diceToRoll) + Math.floor(this.characterSheet.intelligence / 2)
+                    diceToRoll = diceToRoll + Math.floor(this.characterSheet.intelligence / 2)
 
                     for (var i = 0; i < diceToRoll; i++) {
-                        var dieResult = this.getRandomIntInclusive(1, 6)
+                        var dieResult: number = this.getRandomIntInclusive(1, 6)
                         result.diceResults.push(dieResult)
                         result.successes += this.determineSuccesses(dieResult)
                     }
@@ -1124,6 +1129,7 @@
                             resistances: [
                                 {
                                     amount: 0,
+                                    id: '',
                                     type: 'Physical'
                                 }
                             ],
@@ -1363,5 +1369,173 @@
                 this.characterSheet.xpTotal = this.xpTotal
             }
         }
+    })
+
+    interface Characteristic {
+        abbreviation: string,
+        key: string,
+        name: string,
+        value: number,
+        primaryCharacteristic: boolean
     }
+
+    interface DiceCheckResult {
+        show: boolean,
+        diceResults: number[],
+        successes: number
+    }
+
+    interface CharacterSheet {
+        id: string,
+        age: number,
+        ap: number,
+        apMax: number,
+        attunementSlots: number,
+        attunementSlotsIncreases: number,
+        attunementSlotsMax: number,
+        background: string,
+        bp: number,
+        bpMax: number,
+        bpIncreases: number,
+        //Characteristics Start
+        strength: number,
+        dexterity: number,
+        speed: number,
+        intelligence: number,
+        cunning: number,
+        resistance: number,
+        luck: number,
+        //Characteristics End
+        dcToHit: number,
+        dcToHitIncreases: number,
+        hp: number,
+        hpMax: number,
+        hpIncreases: number,
+        initiative: number,
+        initiativeIncreases: number,
+        level: number,
+        luckFavored: boolean,
+        luckNothingToChance: boolean,
+        money: number,
+        movement: number,
+        name: string,
+        race: string,
+        rerolls: number,
+        rerollsMax: number,
+        rerollsIncreases: number,
+        size: number,
+        speedPreperationIsKey: boolean,
+        xp: number,
+        xpEarned: number,
+        xpTotal: number,
+        abilities: Ability[],
+        armor: Armor[],
+        attunements: Attunement[],
+        classes: Class[],
+        flaws: Flaw[],
+        items: Item[],
+        movements: Movement[],
+        resistances: Resistance[],
+        resources: Resource[],
+        skills: Skill[],
+        xpEntries: XPEntry[]
+    }
+
+    interface Ability {
+        apCost: string,
+        areaOfEffect: string,
+        boughtForFree: boolean,
+        crCost: string,
+        damage: string,
+        description: string,
+        duration: string,
+        handedness: string,
+        inClass: boolean,
+        maxSizeCategoryOfMass: string,
+        physMeta: string,
+        range: string,
+        xpCost: number,
+        components: Component[]
+    }
+
+
+    interface Armor {
+        effect: string,
+        name: string,
+        slot: string,
+        resistances: Resistance[]
+    }
+
+    interface Attunement {
+        amount: number,
+        name: string
+    }
+
+    interface Class {
+        active: boolean,
+        advanceRank: number,
+        description: string,
+        id: string,
+        name: string,
+        primaryCharacteristic: string,
+        unlocked: boolean
+    }
+
+    /// TODO: fill out component
+    interface Component {
+        name: string
+    }
+
+    interface Flaw {
+        amount: number,
+        description: string,
+        id: string,
+        name: string
+    }
+
+    interface Item {
+        amount: number,
+        description: string,
+        name: string
+    }
+
+    interface Movement {
+        amount: number,
+        description: string,
+        id: string,
+        type: string
+    }
+
+    interface Resistance {
+        amount: number,
+        id: string,
+        type: string
+    }
+
+    interface Resource {
+        amount: number,
+        amountMax: number,
+        id: string,
+        name: string,
+        primaryCharacteristic: string,
+        resourceIncreases: number
+    }
+
+    interface Skill {
+        characteristic: string,
+        default: boolean,
+        id: string,
+        name: string,
+        skillIncreases: number,
+        value: number
+    }
+
+    interface XPEntry {
+        amount: number,
+        classXP: boolean,
+        description: string,
+        date: Date,
+        id: string
+    }
+
 </script>

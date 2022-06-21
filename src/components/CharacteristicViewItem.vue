@@ -6,25 +6,28 @@
                               type="number"
                               v-model="value"
                               @keyup.enter="rollDiceCheck">
-                    <v-icon slot="append" 
+                    <v-icon slot="append"
                             color="yellow accent-4"
                             v-if="characteristic.primaryCharacteristic">mdi-star</v-icon>
                     <v-icon slot="append" @click="rollDiceCheck">mdi-dice-6</v-icon>
-                </v-text-field>                
+                </v-text-field>
             </v-col>
         </v-row>
     </div>
 </template>
 
-<script>
-    export default {
+<script lang="ts">
+    import Vue from 'vue';
+    import type { PropType } from 'vue'
+
+    export default Vue.extend({
         name: 'CharacteristicViewItem',
         props: {
-            characteristic: Object
+            characteristic: Object as PropType<Characteristic>
         },
         data() {
             return {
-                value: Number(this.characteristic.value)
+                value: this.characteristic.value as number
             }
         },
         methods: {
@@ -40,5 +43,13 @@
                 this.updateProp()
             }
         }
+    })
+
+    interface Characteristic {
+        abbreviation: string,
+        key: string,
+        name: string,
+        value: number,
+        primaryCharacteristic: boolean
     }
 </script>
