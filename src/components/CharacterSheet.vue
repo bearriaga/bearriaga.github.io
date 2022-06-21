@@ -45,10 +45,7 @@
                         <v-col cols="6" md="4" v-for="char in characteristicViewItems" :key="char.key">
                             <CharacteristicViewItem @updatePropEmit="updateProp($event)"
                                                     @rollDiceCheckEmit="rollDiceCheck($event)"
-                                                    :characteristic="{
-                                                abbreviation: char.abbreviation,
-                                                name: char.name,
-                                                value: char.value}"></CharacteristicViewItem>
+                                                    :characteristic="char"></CharacteristicViewItem>
                         </v-col>
                     </v-row>
 
@@ -290,48 +287,56 @@
             },
             //Character Properties End
             characteristicViewItems() {
+                let primaryChars = this.characterSheet.classes.filter(x => { return x.active && !x.unlocked }).map(x => x.primaryCharacteristic)
                 return [
                     {
                         abbreviation: 'STR',
                         key: 'str' + this.characterSheet.id,
                         name: 'strength',
-                        value: this.characterSheet.strength
+                        value: this.characterSheet.strength,
+                        primaryCharacteristic: primaryChars.includes('strength')
                     },
                     {
                         abbreviation: 'DEX',
                         key: 'dex' + this.characterSheet.id,
                         name: 'dexterity',
-                        value: this.characterSheet.dexterity
+                        value: this.characterSheet.dexterity,
+                        primaryCharacteristic: primaryChars.includes('dexterity')
                     },
                     {
                         abbreviation: 'SPD',
                         key: 'spd' + this.characterSheet.id,
                         name: 'speed',
-                        value: this.characterSheet.speed
+                        value: this.characterSheet.speed,
+                        primaryCharacteristic: primaryChars.includes('speed')
                     },
                     {
                         abbreviation: 'INT',
                         key: 'int' + this.characterSheet.id,
                         name: 'intelligence',
-                        value: this.characterSheet.intelligence
+                        value: this.characterSheet.intelligence,
+                        primaryCharacteristic: primaryChars.includes('intelligence')
                     },
                     {
                         abbreviation: 'CUN',
                         key: 'cun' + this.characterSheet.id,
                         name: 'cunning',
-                        value: this.characterSheet.cunning
+                        value: this.characterSheet.cunning,
+                        primaryCharacteristic: primaryChars.includes('cunning')
                     },
                     {
                         abbreviation: 'RES',
                         key: 'res' + this.characterSheet.id,
                         name: 'resistance',
-                        value: this.characterSheet.resistance
+                        value: this.characterSheet.resistance,
+                        primaryCharacteristic: primaryChars.includes('resistance')
                     },
                     {
                         abbreviation: 'LCK',
                         key: 'lck' + this.characterSheet.id,
                         name: 'luck',
-                        value: this.characterSheet.luck
+                        value: this.characterSheet.luck,
+                        primaryCharacteristic: primaryChars.includes('luck')
                     }
                 ]
             },

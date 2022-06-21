@@ -1,13 +1,14 @@
 <template>
-    <!-- TODO: add star icon next to characteristics that are primary for any active classes -->
     <div>
         <v-row>
             <v-col>
-                <v-text-field 
-                              :label="characteristic.abbreviation"
+                <v-text-field :label="characteristic.abbreviation"
                               type="number"
                               v-model="value"
                               @keyup.enter="rollDiceCheck">
+                    <v-icon slot="append" 
+                            color="yellow accent-4"
+                            v-if="characteristic.primaryCharacteristic">mdi-star</v-icon>
                     <v-icon slot="append" @click="rollDiceCheck">mdi-dice-6</v-icon>
                 </v-text-field>                
             </v-col>
