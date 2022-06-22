@@ -1,11 +1,15 @@
 <template>
-    <!-- Add Bars to Class resource showing how full they are-->
-    <!-- <div class="progressBar red" ng-style="{'width': Char.HP / Char.MaxHP * 100 + '%'}">{{Char.HP / Char.MaxHP * 100}}%</div> -->
     <div>
+        <v-progress-linear v-model="bar"
+                           height="25">
+            {{amount}}/{{resource.amountMax}}
+        </v-progress-linear>
         <v-text-field :label="resource.name"
                       type="number"
+                      min="0"
                       v-model="amount">
-            <v-icon slot="append">/{{resource.amountMax}} </v-icon>
+            <v-icon color="green" slot="append" @click="add">mdi-plus</v-icon>
+            <v-icon color="red" slot="append" @click="subtract">mdi-minus</v-icon>
             <v-icon color="primary" slot="append" @click="updateEntry">mdi-pen</v-icon>
             <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
         </v-text-field>
@@ -18,14 +22,26 @@
         props: {
             resource: Object
         },
-        data() {
-            return {
-                amount: this.resource.amount                
+        computed: {
+            bar() {
+                return this.amount * 100 / this.resource.amountMax
             }
         },
-        methods: {            
+        data() {
+            return {
+                amount: this.resource.amount
+            }
+        },
+        methods: {
+            add() {
+                this.amount = +this.amount + 1
+            },
             deleteEntry() {
                 this.$emit('deleteEntryEmit', this.resource)
+            },
+            subtract() {
+                if (this.amount > 0)
+                    this.amount = +this.amount - 1
             },
             updateEntry() {
                 this.$emit('updateEntryEmit', this.resource)
