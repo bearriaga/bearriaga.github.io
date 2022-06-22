@@ -1,6 +1,11 @@
 <template>
     <div>
         <div @click="openDialog">
+            <v-progress-linear v-model="bar"
+                               v-if="!propertyObject.disabled"
+                               height="25">
+                {{value}}/{{propertyObject.valueMax}}
+            </v-progress-linear>
             <v-text-field :label="propertyObject.label"
                           :type="propertyObject.type"
                           v-model="value"
@@ -23,8 +28,6 @@
                             slot="append"
                             v-if="propertyObject.minus"
                             @click="subtract">mdi-minus</v-icon>
-                    <v-icon v-if="propertyObject.valueMax != null"
-                            slot="append">/{{propertyObject.valueMax}} </v-icon>
                     <v-icon color="primary"
                             slot="append"
                             v-if="!propertyObject.disabled"
@@ -77,6 +80,11 @@
         name: 'InputWithEditModal',
         props: {
             propertyObject: Object
+        },
+        computed: {
+            bar() {
+                return this.value * 100 / this.propertyObject.valueMax
+            }
         },
         data() {
             return {
