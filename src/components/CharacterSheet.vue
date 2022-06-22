@@ -173,6 +173,18 @@
                     </v-card-text>
 
                     <v-card-text>
+                        Fate: {{checkDialog.fate}}
+
+                        <template v-if="checkDialog.advantage">
+                            , Advantage, LCK added to successes
+                        </template>
+
+                        <template v-if="checkDialog.threat">
+                            , Threat
+                        </template>
+                    </v-card-text>
+
+                    <v-card-text>
                         Successes: {{checkDialog.successes}}
                     </v-card-text>
 
@@ -522,6 +534,7 @@
                     initiativeIncreases: 0,
                     level: 0, //xpEarned/500 round down
                     luckFavored: false,
+                    luckIllFavored: false,
                     luckNothingToChance: false,
                     money: 0,
                     movement: 0, // DEX + movements.where(land speed).sum
@@ -623,7 +636,6 @@
                         }
                     ],
                     resources: [
-                        //default first entry based on primaryCharacteristic
                         {
                             amount: 0,
                             amountMax: 0, // default ? primaryCharacteristic + resourceIncreases : 1 + resourceIncreases
@@ -686,9 +698,12 @@
                     ]
                 },
                 checkDialog: {
-                    show: false,
+                    advantage: false,
                     diceResults: [],
-                    successes: 0
+                    fate: 0,
+                    show: false,
+                    successes: 0,
+                    threat: false
                 },
                 damageGroups: [
                     {
@@ -818,9 +833,12 @@
             },
             rollDiceCheck(diceToRoll) {
                 var result = {
-                    show: true,
+                    advantage: false,
                     diceResults: [],
-                    successes: 0
+                    fate: 0,
+                    show: true,
+                    successes: 0,
+                    threat: false
                 }
 
                 if (diceToRoll > 0) {
@@ -829,12 +847,18 @@
                     for (var i = 0; i < diceToRoll; i++) {
                         var dieResult = this.getRandomIntInclusive(1, 6)
                         result.diceResults.push(dieResult)
+                        if (i == 0)
+                            result.fate = dieResult
                         result.successes += this.determineSuccesses(dieResult)
                     }
 
                     if (!this.characterSheet.luckNothingToChance) {
-                        if (result.diceResults[0] == 6 || (this.characterSheet.luckFavored && result.diceResults[0] >= 5))
+                        if (result.fate == 6 || (this.characterSheet.luckFavored && result.fate >= 5)) {
+                            result.advantage = true
                             result.successes += this.characterSheet.luck
+                        } else if (result.fate == 1 || (this.characterSheet.luckIllFavored && result.fate <= 2)) {
+                            result.threat = true
+                        }
                     }
                 }
 
@@ -883,6 +907,7 @@
                     initiativeIncreases: 0,
                     level: 0,
                     luckFavored: false,
+                    luckIllFavored: false,
                     luckNothingToChance: false,
                     money: 0,
                     movement: 0,
