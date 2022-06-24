@@ -40,7 +40,7 @@
             </v-row>
             <v-row>
                 <v-col cols="12" md="3">
-                    <div class="charColumn mainColumn">
+                    <div class="charColumn mainColumn elevation-3" elevation="3">
                         <h3 class="text-center"> Characteristics </h3>
                         <v-row>
                             <v-col cols="6" md="4" v-for="char in characteristicViewItems" :key="char.key">
@@ -59,7 +59,7 @@
                     </div>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <div class="hpColumn mainColumn">
+                    <div class="hpColumn mainColumn elevation-3">
                         <v-form>
                             <h3 class="text-center"> Health </h3>
                             <v-row>
@@ -95,7 +95,7 @@
                     </div>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <div class="resourcesColumn mainColumn">
+                    <div class="resourcesColumn mainColumn elevation-3">
                         <h3 class="text-center"> Resources </h3>
                         <v-row>
                             <v-col cols="12" v-for="input in inputWithEditModals" :key="input.key">
@@ -106,7 +106,7 @@
                     </div>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <div class="classResourcesColumn mainColumn">
+                    <div class="classResourcesColumn mainColumn elevation-3">
                         <ResourceSection :resources="resources"
                                          :characteristics="characteristics"
                                          @addEntryEmit="addEntry($event)"
