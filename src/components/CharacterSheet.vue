@@ -40,71 +40,84 @@
             </v-row>
             <v-row>
                 <v-col cols="12" md="3">
-                    <h3 class="text-center"> Characteristics </h3>
-                    <v-row>
-                        <v-col cols="6" md="4" v-for="char in characteristicViewItems" :key="char.key">
-                            <CharacteristicViewItem @updatePropEmit="updateProp($event)"
-                                                    @rollDiceCheckEmit="rollDiceCheck($event)"
-                                                    :characteristic="char"></CharacteristicViewItem>
-                        </v-col>
-                    </v-row>
-
-                    <SkillSection :characteristics="characteristics"
-                                  :skills="skills"
-                                  @addEntryEmit="addEntry($event)"
-                                  @deleteEntryEmit="deleteEntry($event)"
-                                  @updateEntryEmit="updateEntry($event)"
-                                  @rollDiceCheckEmit="rollDiceCheck($event)"></SkillSection>
-                </v-col>
-                <v-col cols="12" md="3">
-                    <h3 class="text-center"> Health </h3>
-                    <v-form>
+                    <div class="charColumn mainColumn">
+                        <h3 class="text-center"> Characteristics </h3>
                         <v-row>
-                            <v-col cols="6">
-                                <v-text-field type="number" min="0" v-model="damageToTake.amount">
-                                    <v-icon color="success" slot="append" @click="heal">mdi-plus</v-icon>
-                                    <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="6">
-                                <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
+                            <v-col cols="6" md="4" v-for="char in characteristicViewItems" :key="char.key">
+                                <CharacteristicViewItem @updatePropEmit="updateProp($event)"
+                                                        @rollDiceCheckEmit="rollDiceCheck($event)"
+                                                        :characteristic="char"></CharacteristicViewItem>
                             </v-col>
                         </v-row>
-                    </v-form>
-                    <v-row>
-                        <v-col cols="12" xl="6" v-for="input in defenseInputWithEditModals" :key="input.key">
-                            <InputWithEditModal @updatePropEmit="updateProp($event)"
-                                                :property-object="input"></InputWithEditModal>
-                        </v-col>
-                        <v-col cols="12">
-                            <ResistanceSection :resistances="characterSheet.resistances"
-                                               :damage-groups="damageGroups"
-                                               :damage-types="damageTypes"
-                                               @addEntryEmit="addEntry($event)"
-                                               @deleteEntryEmit="deleteEntry($event)"
-                                               @updateEntryEmit="updateEntry($event)"></ResistanceSection>
-                        </v-col>
-                    </v-row>
+
+                        <SkillSection :characteristics="characteristics"
+                                      :skills="skills"
+                                      @addEntryEmit="addEntry($event)"
+                                      @deleteEntryEmit="deleteEntry($event)"
+                                      @updateEntryEmit="updateEntry($event)"
+                                      @rollDiceCheckEmit="rollDiceCheck($event)"></SkillSection>
+                    </div>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-row>
-                        <v-col cols="12" v-for="input in inputWithEditModals" :key="input.key">
-                            <InputWithEditModal @updatePropEmit="updateProp($event)"
-                                                :property-object="input"></InputWithEditModal>
-                        </v-col>
-                    </v-row>
+                    <div class="hpColumn mainColumn">
+                        <v-form>
+                            <h3 class="text-center"> Health </h3>
+                            <v-row>
+                                <v-col cols="6">
+                                    <v-text-field type="number" min="0" v-model="damageToTake.amount">
+                                        <v-icon color="success" slot="append" @click="heal">mdi-plus</v-icon>
+                                        <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="6">
+                                    <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
+                                </v-col>
+                                <v-col cols="12" v-for="input in healthInputWithEditModals" :key="input.key">
+                                    <InputWithEditModal @updatePropEmit="updateProp($event)"
+                                                        :property-object="input"></InputWithEditModal>
+                                </v-col>
+                            </v-row>
+                        </v-form>
+                        <v-row>
+                            <v-col cols="12" v-for="input in defenseInputWithEditModals" :key="input.key">
+                                <InputWithEditModal @updatePropEmit="updateProp($event)"
+                                                    :property-object="input"></InputWithEditModal>
+                            </v-col>
+                            <v-col cols="12">
+                                <ResistanceSection :resistances="characterSheet.resistances"
+                                                   :damage-groups="damageGroups"
+                                                   :damage-types="damageTypes"
+                                                   @addEntryEmit="addEntry($event)"
+                                                   @deleteEntryEmit="deleteEntry($event)"
+                                                   @updateEntryEmit="updateEntry($event)"></ResistanceSection>
+                            </v-col>
+                        </v-row>
+                    </div>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <ResourceSection :resources="resources"
-                                     :characteristics="characteristics"
-                                     @addEntryEmit="addEntry($event)"
-                                     @deleteEntryEmit="deleteEntry($event)"
-                                     @updateEntryEmit="updateEntry($event)"></ResourceSection>
-                    <MovementSection :movements="characterSheet.movements"
-                                     :movement-types="movementTypes"
-                                     @addEntryEmit="addEntry($event)"
-                                     @deleteEntryEmit="deleteEntry($event)"
-                                     @updateEntryEmit="updateEntry($event)"></MovementSection>
+                    <div class="resourcesColumn mainColumn">
+                        <h3 class="text-center"> Resources </h3>
+                        <v-row>
+                            <v-col cols="12" v-for="input in inputWithEditModals" :key="input.key">
+                                <InputWithEditModal @updatePropEmit="updateProp($event)"
+                                                    :property-object="input"></InputWithEditModal>
+                            </v-col>
+                        </v-row>
+                    </div>
+                </v-col>
+                <v-col cols="12" md="3">
+                    <div class="classResourcesColumn mainColumn">
+                        <ResourceSection :resources="resources"
+                                         :characteristics="characteristics"
+                                         @addEntryEmit="addEntry($event)"
+                                         @deleteEntryEmit="deleteEntry($event)"
+                                         @updateEntryEmit="updateEntry($event)"></ResourceSection>
+                        <MovementSection :movements="characterSheet.movements"
+                                         :movement-types="movementTypes"
+                                         @addEntryEmit="addEntry($event)"
+                                         @deleteEntryEmit="deleteEntry($event)"
+                                         @updateEntryEmit="updateEntry($event)"></MovementSection>
+                    </div>
                 </v-col>
             </v-row>
             <v-row>
@@ -362,24 +375,29 @@
                 })
                 return resistances
             },
-            defenseInputWithEditModals() {
+            healthInputWithEditModals() {
                 return [
                     {
+                        color: 'red',
                         dialogText: 'Health Points Max = (level * 5) + ((STR + RES) * 3) + purchased HP',
+                        disabled: false,
                         key: 'hp' + this.characterSheet.hpMax + this.updateHP.toString(),
                         label: 'Health Points',
+                        minus: true,
+                        plus: true,
                         type: 'number',
                         value: this.characterSheet.hp,
-                        valueName: 'hp',
                         valueIncreases: this.characterSheet.hpIncreases,
                         valueIncreasesLabel: 'HP Purchases',
                         valueIncreasesName: 'hpIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.hpMax,
-                        disabled: false,
-                        plus: true,
-                        minus: true
-                    },
+                        valueName: 'hp'
+                    }
+                ]
+            },
+            defenseInputWithEditModals() {
+                return [
                     {
                         dialogText: '',
                         key: 'dc' + this.characterSheet.dcToHit,
@@ -401,9 +419,13 @@
             inputWithEditModals() {
                 return [
                     {
+                        color: 'green',
                         dialogText: 'Your maximum AP pool is increased from 2x your AP generation to 3x your generation rate.',
+                        disabled: false,
                         key: 'ap' + this.characterSheet.apMax,
                         label: 'Action Points',
+                        minus: true,
+                        plus: true,
                         type: 'number',
                         value: this.characterSheet.ap,
                         valueName: 'ap',
@@ -411,15 +433,16 @@
                         valueIncreasesLabel: 'Speed: Preperation is Key',
                         valueIncreasesName: 'speedPreperationIsKey',
                         valueIncreasesType: 'bool',
-                        valueMax: this.characterSheet.apMax,
-                        disabled: false,
-                        plus: true,
-                        minus: true
+                        valueMax: this.characterSheet.apMax
                     },
                     {
+                        color: 'brown lighten-2',
                         dialogText: '',
+                        disabled: false,
                         key: 'bp' + this.characterSheet.bpMax,
                         label: 'Breakthrough Points',
+                        minus: true,
+                        plus: false,
                         type: 'number',
                         value: this.characterSheet.bp,
                         valueName: 'bp',
@@ -427,15 +450,16 @@
                         valueIncreasesLabel: 'Breakthrough Points Purchases',
                         valueIncreasesName: 'bpIncreases',
                         valueIncreasesType: 'number',
-                        valueMax: this.characterSheet.bpMax,
-                        disabled: false,
-                        plus: false,
-                        minus: true
+                        valueMax: this.characterSheet.bpMax
                     },
                     {
+                        color: 'yellow',
                         dialogText: '',
+                        disabled: false,
                         key: 'rerolls' + this.characterSheet.rerollsMax,
                         label: 'Rerolls',
+                        minus: true,
+                        plus: false,
                         type: 'number',
                         value: this.characterSheet.rerolls,
                         valueName: 'rerolls',
@@ -443,10 +467,7 @@
                         valueIncreasesLabel: 'Rerolls Purchases',
                         valueIncreasesName: 'rerollsIncreases',
                         valueIncreasesType: 'number',
-                        valueMax: this.characterSheet.rerollsMax,
-                        disabled: false,
-                        plus: false,
-                        minus: true
+                        valueMax: this.characterSheet.rerollsMax
                     },
                     {
                         dialogText: '',

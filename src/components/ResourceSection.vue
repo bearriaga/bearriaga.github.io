@@ -1,7 +1,8 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels>
+            <v-expansion-panels v-model="panel"
+                                    multiple>
                 <v-expansion-panel v-for="(item,i) in 1" :key="i">
                     <v-expansion-panel-header>
                         <h3 class="text-center">
@@ -104,6 +105,7 @@
                     resourceIncreases: 0
                 },
                 // Input Fields End
+                panel: [0],
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'

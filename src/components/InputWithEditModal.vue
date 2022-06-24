@@ -3,7 +3,8 @@
         <div @click="openDialog">
             <v-progress-linear v-model="bar"
                                v-if="!propertyObject.disabled"
-                               height="25">
+                               height="25"
+                               :color="propertyObject.color">
                 {{value}}/{{propertyObject.valueMax}}
             </v-progress-linear>
             <v-text-field :label="propertyObject.label"
