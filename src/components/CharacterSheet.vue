@@ -582,7 +582,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -592,8 +591,11 @@
                             maxSizeCategoryOfMass: '',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 0,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                     ],
                     armor: [
@@ -956,8 +958,7 @@
                             apCost: '0',
                             areaOfEffect: '',
                             boughtForFree: false,
-                            crCost: '0',
-                            damage: '',
+                            crCost: '0',                            
                             description: 'Ability Array holding Animal Aspect Elements.',
                             duration: '',
                             handedness: '',
@@ -968,15 +969,126 @@
                             name: 'Animal Attacks',
                             physMeta: 'Meta',
                             range: '',
+                            successes: 0,
                             xpCost: 270,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: [
+                                {
+                                    apCost: '4',
+                                    areaOfEffect: '',
+                                    boughtForFree: false,
+                                    crCost: '1',
+                                    description: 'Glide toward your enemies, can fly 30 feet. +1 Success.',
+                                    duration: '',
+                                    handedness: '',
+                                    id: '1656642986259',
+                                    inClass: true,
+                                    isAbilityArray: false,
+                                    maxSizeCategoryOfMass: '',
+                                    name: 'Eagle Glide',
+                                    physMeta: 'Physical',
+                                    range: '',
+                                    successes: 1,
+                                    xpCost: 190,
+                                    components: [],
+                                    damage: [
+                                        {
+                                            dice: '2d6',
+                                            flat: 0,
+                                            percentage: '',
+                                            type: 'Piercing'
+                                        }
+                                    ]
+                                },
+                                {
+                                    apCost: '5',
+                                    areaOfEffect: '',
+                                    boughtForFree: false,
+                                    crCost: '2',
+                                    description: 'Heal, Overheal, Cleanse All, and Regenerate body to "Normal" state.',
+                                    duration: '',
+                                    handedness: '',
+                                    id: '1656642986159',
+                                    inClass: true,
+                                    isAbilityArray: false,
+                                    maxSizeCategoryOfMass: '',
+                                    name: 'Iguana Regeneration',
+                                    physMeta: 'Physical',
+                                    range: '',
+                                    successes: 0,
+                                    xpCost: 188,
+                                    components: [],
+                                    damage: [
+                                        {
+                                            dice: '6d6',
+                                            flat: 0,
+                                            percentage: '',
+                                            type: 'Healing'
+                                        }
+                                    ]
+                                },
+                                {
+                                    apCost: '4',
+                                    areaOfEffect: '',
+                                    boughtForFree: false,
+                                    crCost: '1',
+                                    description: 'Jump forward crushing an enemy underfoot, can leap 30 feet. +1 Success.',
+                                    duration: '',
+                                    handedness: '',
+                                    id: '1656642986359',
+                                    inClass: true,
+                                    isAbilityArray: false,
+                                    maxSizeCategoryOfMass: '',
+                                    name: 'Jaguar Pounce',
+                                    physMeta: 'Physical',
+                                    range: '',
+                                    successes: 1,
+                                    xpCost: 185,
+                                    components: [],
+                                    damage: [
+                                        {
+                                            dice: '2d6',
+                                            flat: 0,
+                                            percentage: '',
+                                            type: 'Force'
+                                        }
+                                    ]
+                                },
+                                {
+                                    apCost: '4',
+                                    areaOfEffect: '',
+                                    boughtForFree: false,
+                                    crCost: '1',
+                                    description: 'Glide toward your enemies, can fly 30 feet. +1 Success.',
+                                    duration: '',
+                                    handedness: '',
+                                    id: '1656642986459',
+                                    inClass: true,
+                                    isAbilityArray: false,
+                                    maxSizeCategoryOfMass: '',
+                                    name: 'Eagle Glide',
+                                    physMeta: '',
+                                    range: '',
+                                    successes: 1,
+                                    xpCost: 190,
+                                    components: [],
+                                    damage: [
+                                        {
+                                            dice: '2d6',
+                                            flat: 0,
+                                            percentage: '',
+                                            type: 'Piercing'
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             apCost: '',
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -987,15 +1099,17 @@
                             name: 'Attacks of Opportunities',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 60,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         },
                         {
                             apCost: '',
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1006,8 +1120,11 @@
                             name: 'Cleaving Strike',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 45,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                         ,
                         {
@@ -1015,7 +1132,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1026,8 +1142,11 @@
                             name: 'Jungle Stalker',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 10,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                         ,
                         {
@@ -1035,7 +1154,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1046,8 +1164,11 @@
                             name: 'Meaty',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 100,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                         ,
                         {
@@ -1055,7 +1176,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1066,8 +1186,11 @@
                             name: 'Parry',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 30,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                         ,
                         {
@@ -1075,7 +1198,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1086,8 +1208,11 @@
                             name: 'Summon Spirit Animal',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 10,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                         ,
                         {
@@ -1095,7 +1220,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1106,8 +1230,11 @@
                             name: 'Turtle Shell',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 150,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                         ,
                         {
@@ -1115,7 +1242,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1126,8 +1252,11 @@
                             name: 'Vampire Bat Strike',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 200,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                         ,
                         {
@@ -1135,7 +1264,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1146,8 +1274,11 @@
                             name: 'Big Game Tracking',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 30,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                         ,
                         {
@@ -1155,7 +1286,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1166,8 +1296,11 @@
                             name: 'RES +1',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 250,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                         ,
                         {
@@ -1175,7 +1308,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1186,8 +1318,11 @@
                             name: 'Tlacalhuazcuahuitl',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 230,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                         ,
                         {
@@ -1195,7 +1330,6 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '',
-                            damage: '',
                             description: '',
                             duration: '',
                             handedness: '',
@@ -1206,8 +1340,11 @@
                             name: 'Harverster',
                             physMeta: '',
                             range: '',
+                            successes: 0,
                             xpCost: 40,
-                            components: []
+                            components: [],
+                            damage: [],
+                            subEffects: []
                         }
                     ],
                     armor: [
