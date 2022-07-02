@@ -4,18 +4,18 @@
     padding: 5px;
 }
 
-.hpColumn {
-    border-color: red;
-}
-
-.charColumn {    
+.abilityColumn, .charColumn {
     border-color: black;
-}
-
-.resourcesColumn {
-    border-color: green;
 }
 
 .classResourcesColumn {
     border-color: purple;
+}
+
+.hpColumn {
+    border-color: red;
+}
+
+.resourcesColumn {
+    border-color: green;
 }

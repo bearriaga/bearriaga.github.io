@@ -122,6 +122,7 @@
             </v-row>
             <v-row>
                 <v-col cols="12">
+                    <h3 class="text-center">Abilities</h3>
                     <AbilitySection :abilities="characterSheet.abilities"></AbilitySection>
                 </v-col>
             </v-row>
@@ -585,10 +586,11 @@
                             description: '',
                             duration: '',
                             handedness: '',
-                            id: '',
+                            id: '1',
                             inClass: true,
                             isAbilityArray: false,
                             maxSizeCategoryOfMass: '',
+                            name: '',
                             physMeta: '',
                             range: '',
                             successes: 0,
@@ -958,7 +960,7 @@
                             apCost: '0',
                             areaOfEffect: '',
                             boughtForFree: false,
-                            crCost: '0',                            
+                            crCost: '0',
                             description: 'Ability Array holding Animal Aspect Elements.',
                             duration: '',
                             handedness: '',
