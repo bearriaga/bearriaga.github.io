@@ -5,20 +5,26 @@
                 <v-col cols="6">
                     <v-text-field label="Name" v-model="name"></v-text-field>
                 </v-col>
-                <v-col cols="6">
-                    <v-text-field label="XP" v-model="xpCost"></v-text-field>
-                </v-col>
                 <v-col cols="12">
                     <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                 </v-col>
                 <v-col cols="4">
                     <v-text-field label="Action Points" v-model="apCost"></v-text-field>
                 </v-col>
-                <v-col cols="4">
+                <v-col cols="4" v-if="crCost">
                     <v-text-field label="Class Resource" v-model="crCost"></v-text-field>
                 </v-col>
                 <v-col cols="4">
+                    <v-text-field label="Duration" v-model="duration"></v-text-field>
+                </v-col>
+                <v-col cols="4">
                     <v-text-field label="Range" v-model="range"></v-text-field>
+                </v-col>
+                <v-col cols="4" v-if="areaOfEffect">
+                    <v-text-field label="Area of Effect" v-model="areaOfEffect"></v-text-field>
+                </v-col>
+                <v-col cols="4" v-if="maxSizeCategoryOfMass">
+                    <v-text-field label="Max Size Category Of Mass" v-model="maxSizeCategoryOfMass"></v-text-field>
                 </v-col>
             </v-row>
         </v-form>
