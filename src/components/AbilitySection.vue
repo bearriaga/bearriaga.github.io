@@ -19,7 +19,7 @@
             <v-dialog v-model="dialog.show" width="500">
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
-                        {{dialog.type}} Skill
+                        {{dialog.type}} Ability
                     </v-card-title>
 
                     <v-card-text>
