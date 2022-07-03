@@ -122,8 +122,10 @@
             </v-row>
             <v-row>
                 <v-col cols="12">
-                    <h3 class="text-center">Abilities</h3>
-                    <AbilitySection :abilities="characterSheet.abilities"></AbilitySection>
+                    <AbilitySection :abilities="characterSheet.abilities"
+                                    @addEntryEmit="addEntry($event)"
+                                    @deleteEntryEmit="deleteEntry($event)"
+                                    @updateEntryEmit="updateEntry($event)"></AbilitySection>
                 </v-col>
             </v-row>
             <v-row>
