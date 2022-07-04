@@ -10,8 +10,11 @@
             </v-btn>
         </h3>
         <v-row>
-            <v-col cols="12" md="4" v-for="ability in abilities" :key="ability.id">
-                <AbilityListItem :ability="ability"></AbilityListItem>
+            <v-col cols="12" md="4" v-for="ability in abilities" :key="ability.key">
+                <AbilityListItem :ability="ability"
+                                 @updateEntryEmit="updateDialog($event)"
+                                 @deleteEntryEmit="deleteDialog($event)"
+                                 @subtractAP="subtractAP($event)"></AbilityListItem>
             </v-col>
         </v-row>
 
@@ -36,7 +39,8 @@
                                 </v-col>
                                 <v-col cols="6" md="3">
                                     <v-text-field label="XP Cost"
-                                                  v-model="ability.xp"
+                                                  v-model="ability.xpCost"
+                                                  type="number"
                                                   :rules="numberRules"
                                                   required></v-text-field>
                                 </v-col>
@@ -47,10 +51,10 @@
                                     <v-textarea label="Description" v-model="ability.description" auto-grow outlined rows="1"></v-textarea>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Action Points" v-model="ability.apCost"></v-text-field>
+                                    <v-text-field label="Action Points" type="number" v-model="ability.apCost"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Class Resource" v-model="ability.crCost"></v-text-field>
+                                    <v-text-field label="Class Resource" type="number" v-model="ability.crCost"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Duration" v-model="ability.duration"></v-text-field>
@@ -75,13 +79,13 @@
                                     <v-text-field label="Successes" type="number" v-model="ability.successes"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Handedness" v-model="ability.handedness"></v-text-field>
+                                    <v-text-field label="Handedness" type="number" v-model="ability.handedness"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-checkbox label="Ability Array" v-model="ability.isAbilityArray"></v-checkbox>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Max Size Category Of Mass" v-model="ability.maxSizeCategoryOfMass"></v-text-field>
+                                    <v-text-field label="Max Size Category Of Mass" type="number" v-model="ability.maxSizeCategoryOfMass"></v-text-field>
                                 </v-col>
                             </v-row>
                         </v-form>
@@ -140,7 +144,7 @@
                     damage: [],
                     subEffects: []
                 },
-                physMetaOptions: ['Physical', 'Meta','Both'],
+                physMetaOptions: ['Physical', 'Meta', 'Both'],
                 // Input Fields End
                 dialog: {
                     show: false,
@@ -172,7 +176,7 @@
             updateEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.setObject()
+                    //this.setObject()
                     this.$emit('updateEntryEmit', { arrayName: 'abilities', object: this.ability })
                 }
             },
@@ -201,7 +205,7 @@
                     physMeta: '',
                     range: 'Melee',
                     successes: 0,
-                    xpCost: 0,
+                    xpCost: 10,
                     components: [],
                     damage: [],
                     subEffects: []
@@ -210,6 +214,14 @@
                     this.$refs.name.focus()
                 }, 200)
             },
+            deleteDialog(ability) {
+                this.ability = this.abilities.find(x => { return x.id == ability.id })
+                this.setDialog('Delete')
+            },
+            updateDialog(ability) {
+                this.ability = ability
+                this.setDialog('Edit')
+            },
             setDialog(type) {
                 this.dialog = {
                     show: true,
@@ -217,6 +229,9 @@
                 }
             },
             // Open Dialog Functions End
+            subtractAP(apCost) {
+                this.$emit('subtractAP', apCost)
+            },
             validate() {
                 return this.$refs.form.validate()
             }

@@ -122,10 +122,11 @@
             </v-row>
             <v-row>
                 <v-col cols="12">
-                    <AbilitySection :abilities="characterSheet.abilities"
+                    <AbilitySection :abilities="abilities"
                                     @addEntryEmit="addEntry($event)"
                                     @deleteEntryEmit="deleteEntry($event)"
-                                    @updateEntryEmit="updateEntry($event)"></AbilitySection>
+                                    @updateEntryEmit="updateEntry($event)"
+                                    @subtractAP="subtractAP($event)"></AbilitySection>
                 </v-col>
             </v-row>
             <v-row>
@@ -321,6 +322,35 @@
                 return (this.characterSheet.xpEarned + flawsXP)
             },
             //Character Properties End
+            abilities() {
+                let abilities = []
+
+                this.characterSheet.abilities.forEach((ability) => {
+                    ability.key =
+                        ability.apCost +
+                        ability.areaOfEffect +
+                        ability.boughtForFree +
+                        ability.crCost +
+                        ability.description +
+                        ability.duration +
+                        ability.handedness +
+                        ability.id +
+                        ability.inClass +
+                        ability.isAbilityArray +
+                        ability.maxSizeCategoryOfMass +
+                        ability.name +
+                        ability.physMeta +
+                        ability.range +
+                        ability.successe +
+                        ability.xpCost +
+                        ability.components.toString() +
+                        ability.damage.toString() +
+                        ability.subEffects.toString();
+                    abilities.push(ability)
+                })
+
+                return abilities
+            },
             characteristicViewItems() {
                 let primaryChars = this.characterSheet.classes.filter(x => { return x.active && !x.unlocked }).map(x => x.primaryCharacteristic)
                 return [
@@ -385,6 +415,26 @@
                 })
                 return resistances
             },
+            defenseInputWithEditModals() {
+                return [
+                    {
+                        dialogText: '',
+                        key: 'dc' + this.characterSheet.dcToHit,
+                        label: 'DC to Hit',
+                        type: 'number',
+                        value: this.characterSheet.dcToHit,
+                        valueName: 'dc',
+                        valueIncreases: this.characterSheet.dcToHitIncreases,
+                        valueIncreasesLabel: 'DC to Hit Purchases',
+                        valueIncreasesName: 'dcToHitIncreases',
+                        valueIncreasesType: 'number',
+                        valueMax: this.characterSheet.dcToHit,
+                        disabled: true,
+                        plus: false,
+                        minus: false
+                    }
+                ]
+            },
             healthInputWithEditModals() {
                 return [
                     {
@@ -406,33 +456,13 @@
                     }
                 ]
             },
-            defenseInputWithEditModals() {
-                return [
-                    {
-                        dialogText: '',
-                        key: 'dc' + this.characterSheet.dcToHit,
-                        label: 'DC to Hit',
-                        type: 'number',
-                        value: this.characterSheet.dcToHit,
-                        valueName: 'dc',
-                        valueIncreases: this.characterSheet.dcToHitIncreases,
-                        valueIncreasesLabel: 'DC to Hit Purchases',
-                        valueIncreasesName: 'dcToHitIncreases',
-                        valueIncreasesType: 'number',
-                        valueMax: this.characterSheet.dcToHit,
-                        disabled: true,
-                        plus: false,
-                        minus: false
-                    }
-                ]
-            },
             inputWithEditModals() {
                 return [
                     {
                         color: 'green',
                         dialogText: 'Your maximum AP pool is increased from 2x your AP generation to 3x your generation rate.',
                         disabled: false,
-                        key: 'ap' + this.characterSheet.apMax,
+                        key: 'ap' + this.characterSheet.apMax + this.updateAP.toString(),
                         label: 'Action Points',
                         minus: true,
                         plus: true,
@@ -581,22 +611,22 @@
                     xpTotal: 0, //xpEntries sum + flaws sum
                     abilities: [
                         {
-                            apCost: '',
+                            apCost: '3',
                             areaOfEffect: '',
                             boughtForFree: false,
-                            crCost: '',
-                            description: '',
-                            duration: '',
-                            handedness: '',
+                            crCost: '0',
+                            description: 'Test Ability Description',
+                            duration: 'Instant',
+                            handedness: '0',
                             id: '1',
                             inClass: true,
                             isAbilityArray: false,
                             maxSizeCategoryOfMass: '',
-                            name: '',
-                            physMeta: '',
-                            range: '',
+                            name: 'Test Ability',
+                            physMeta: 'Physical',
+                            range: 'Melee',
                             successes: 0,
-                            xpCost: 0,
+                            xpCost: 10,
                             components: [],
                             damage: [],
                             subEffects: []
@@ -799,6 +829,7 @@
                     'Swim Speed',
                     'Teleport'
                 ],
+                updateAP: 0,
                 updateHP: 0
             }
         },
@@ -812,6 +843,7 @@
                 this.characterSheet[object.arrayName] = this.characterSheet[object.arrayName].filter(x => { return x.id != object.object.id })
             },
             updateEntry(object) {
+                console.log(object)
                 var entriesDup = this.characterSheet[object.arrayName]
                 var index = entriesDup.findIndex(x => x.id == object.object.id)
                 entriesDup[index] = object.object
@@ -911,6 +943,37 @@
                 localStorage.setItem('character', JSON.stringify(character))
             },
             //Local Storage Functions End
+            heal() {
+                if (this.damageToTake.amount > 0) {
+                    this.characterSheet.hp = +this.characterSheet.hp + +this.damageToTake.amount
+                    this.updateHP = this.updateHP + 1
+                }
+            },
+            takeDamage() {
+                var damage = this.damageToTake.amount
+                var type = this.damageToTake.type
+                var resistanceAmount = 0;
+
+                this.damageGroups.forEach((group) => {
+                    //check if type is in the group.types array
+                    if (type == group.name || group.types.some(x => x.name == type)) {
+                        resistanceAmount = this.characterSheet.resistances
+                            .filter(x => { return x.type == type || x.type == group.name })
+                            .reduce((previousValue, entry) => {
+                                return +previousValue + +entry.amount
+                            }, 0)
+
+                        if (group.name == 'Physical')
+                            resistanceAmount += +this.characterSheet.strength
+                    }
+                })
+
+                var damageToTake = damage - resistanceAmount
+                if (damageToTake > 0) {
+                    this.characterSheet.hp = this.characterSheet.hp - damageToTake
+                    this.updateHP = this.updateHP + 1
+                }
+            },
             setCharacterAsTupoc() {
                 this.characterSheet =
                 {
@@ -1522,36 +1585,9 @@
                     ]
                 }
             },
-            heal() {
-                if (this.damageToTake.amount > 0) {
-                    this.characterSheet.hp = +this.characterSheet.hp + +this.damageToTake.amount
-                    this.updateHP = this.updateHP + 1
-                }
-            },
-            takeDamage() {
-                var damage = this.damageToTake.amount
-                var type = this.damageToTake.type
-                var resistanceAmount = 0;
-
-                this.damageGroups.forEach((group) => {
-                    //check if type is in the group.types array
-                    if (type == group.name || group.types.some(x => x.name == type)) {
-                        resistanceAmount = this.characterSheet.resistances
-                            .filter(x => { return x.type == type || x.type == group.name })
-                            .reduce((previousValue, entry) => {
-                                return +previousValue + +entry.amount
-                            }, 0)
-
-                        if (group.name == 'Physical')
-                            resistanceAmount += +this.characterSheet.strength
-                    }
-                })
-
-                var damageToTake = damage - resistanceAmount
-                if (damageToTake > 0) {
-                    this.characterSheet.hp = this.characterSheet.hp - damageToTake
-                    this.updateHP = this.updateHP + 1
-                }
+            subtractAP(apCost) {                
+                this.characterSheet.ap -= apCost
+                this.updateAP++
             },
             updateProp(prop) {
                 if (prop.type == 'number')
