@@ -1537,7 +1537,7 @@
                                                             dice: '2d6',
                                                             flat: 0,
                                                             percentage: '',
-                                                            type: 'Poison'
+                                                            type: 'Toxic'
                                                         }
                                                     ],
                                                     subEffects: []
@@ -1565,7 +1565,7 @@
                                                             dice: '1d6',
                                                             flat: 0,
                                                             percentage: '',
-                                                            type: 'Poison'
+                                                            type: 'Toxic'
                                                         }
                                                     ],
                                                     subEffects: []
@@ -1683,7 +1683,7 @@
                                     dice: '3d6',
                                     flat: 0,
                                     percentage: '',
-                                    type: 'Poison'
+                                    type: 'Toxic'
                                 }
                             ],
                             subEffects: []

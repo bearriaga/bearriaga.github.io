@@ -11,8 +11,20 @@
                 <v-col cols="6">
                     <v-text-field label="XP" v-model="xpCost"></v-text-field>
                 </v-col>
-                <v-col cols="12">
+                <v-col cols="12" v-if="description">
                     <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+                </v-col>
+                <v-col cols="12" v-if="damage.length > 0">
+                    <h4 class="text-center">Damage</h4>
+                    <v-row>
+                        <v-col cols="6" v-for="d in damage" :key="d.dice + d.flat + d.percentage + d.type">
+                            <v-form>
+                                <v-text-field :label="d.type" v-model="d.dice" v-if="d.dice"></v-text-field>
+                                <v-text-field :label="d.type" type="for" v-model="d.flat" v-if="d.flat"></v-text-field>
+                                <v-text-field :label="d.type" v-model="d.percentage" v-if="d.percentage"></v-text-field>
+                            </v-form>
+                        </v-col>
+                    </v-row>
                 </v-col>
                 <v-col cols="4">
                     <v-text-field label="Action Points" type="number" v-model="apCost">
