@@ -2,11 +2,14 @@
     <div>
         <v-form class="abilityColumn mainColumn elevation-3">
             <v-row>
-                <v-col cols="12">
+                <v-col cols="6">
                     <v-text-field label="Name" v-model="name">
                         <v-icon color="primary" slot="append" @click="updateEntry">mdi-pen</v-icon>
                         <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
                     </v-text-field>
+                </v-col>
+                <v-col cols="6">
+                    <v-text-field label="XP" v-model="xpCost"></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
