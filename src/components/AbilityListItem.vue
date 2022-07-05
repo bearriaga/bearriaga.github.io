@@ -30,7 +30,7 @@
                     <v-text-field label="Action Points" type="number" v-model="dataAbility.apCost">
                         <v-icon color="error"
                                 slot="append"
-                                @click="subtractAP">mdi-clock-minus-outline</v-icon>
+                                @click="subtractAP(dataAbility.apCost)">mdi-clock-minus-outline</v-icon>
                     </v-text-field>
                 </v-col>
                 <v-col cols="4" v-if="dataAbility.crCost">
@@ -126,8 +126,8 @@
             deleteEntry() {
                 this.$emit('deleteEntryEmit', this.ability)
             },
-            subtractAP() {
-                this.$emit('subtractAP', this.dataAbility.apCost)
+            subtractAP(apCost) {
+                this.$emit('subtractAP', apCost)
             },
             updateEntry(object) {                
                 this.$emit('updateEntryEmit', object)

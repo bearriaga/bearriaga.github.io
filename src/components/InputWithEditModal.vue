@@ -97,6 +97,11 @@
         methods: {
             add() {
                 this.value = +this.value + 1;
+                this.$emit('updatePropEmit', {
+                    propName: this.propertyObject.valueName,
+                    type: 'number',
+                    value: this.value
+                })
             },
             openDialog() {
                 if (this.propertyObject.disabled)
@@ -106,10 +111,20 @@
                 if (this.propertyObject.valueName == 'ap') {
                     let apGain = (this.propertyObject.valueIncreases) ? this.propertyObject.valueMax / 3 : this.propertyObject.valueMax / 2
                     this.value = +this.value + apGain
+                    this.$emit('updatePropEmit', {
+                        propName: this.propertyObject.valueName,
+                        type: 'number',
+                        value: this.value
+                    })
                 }
             },
             subtract() {
                 this.value = +this.value - 1;
+                this.$emit('updatePropEmit', {
+                    propName: this.propertyObject.valueName,
+                    type: 'number',
+                    value: this.value
+                })
             },
             updateProp() {
                 this.showDialog = false
