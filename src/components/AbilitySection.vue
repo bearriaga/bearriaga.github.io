@@ -10,7 +10,7 @@
             </v-btn>
         </h3>
         <v-row>
-            <v-col cols="12" md="4" v-for="ability in abilities" :key="ability.key">
+            <v-col cols="12" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
                 <AbilityListItem :ability="ability"
                                  @updateEntryEmit="updateDialog($event)"
                                  @deleteEntryEmit="deleteDialog($event)"
@@ -186,6 +186,11 @@
                 this.skill.skillIncreases = this.skillIncreases
             },
             // CRUD Functions End
+            mediumColumns(ability) {
+                if (ability.subEffects.length)
+                    return 6
+                else return 3
+            },
             // Open Dialog Functions
             addDialog() {
                 this.setDialog('Add')

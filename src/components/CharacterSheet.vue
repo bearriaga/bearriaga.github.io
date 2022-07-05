@@ -843,7 +843,6 @@
                 this.characterSheet[object.arrayName] = this.characterSheet[object.arrayName].filter(x => { return x.id != object.object.id })
             },
             updateEntry(object) {
-                console.log(object)
                 var entriesDup = this.characterSheet[object.arrayName]
                 var index = entriesDup.findIndex(x => x.id == object.object.id)
                 entriesDup[index] = object.object
@@ -1066,7 +1065,8 @@
                                             percentage: '',
                                             type: 'Piercing'
                                         }
-                                    ]
+                                    ],
+                                    subEffects: []
                                 },
                                 {
                                     apCost: 5,
@@ -1093,7 +1093,8 @@
                                             percentage: '',
                                             type: 'Healing'
                                         }
-                                    ]
+                                    ],
+                                    subEffects: []
                                 },
                                 {
                                     apCost: 4,
@@ -1120,7 +1121,8 @@
                                             percentage: '',
                                             type: 'Force'
                                         }
-                                    ]
+                                    ],
+                                    subEffects: []
                                 },
                                 {
                                     apCost: 4,
@@ -1134,7 +1136,7 @@
                                     inClass: true,
                                     isAbilityArray: false,
                                     maxSizeCategoryOfMass: 0,
-                                    name: 'Eagle Glide',
+                                    name: 'Serpent Strike',
                                     physMeta: 'Physical',
                                     range: 'Melee',
                                     successes: 1,
@@ -1147,7 +1149,8 @@
                                             percentage: '',
                                             type: 'Piercing'
                                         }
-                                    ]
+                                    ],
+                                    subEffects: []
                                 }
                             ]
                         },
