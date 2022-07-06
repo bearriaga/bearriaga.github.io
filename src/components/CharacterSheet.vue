@@ -123,6 +123,7 @@
             <v-row>
                 <v-col cols="12">
                     <AbilitySection :abilities="abilities"
+                                    :damage-types="damageTypes"
                                     @addEntryEmit="addEntry($event)"
                                     @deleteEntryEmit="deleteEntry($event)"
                                     @updateEntryEmit="updateEntry($event)"
@@ -806,6 +807,12 @@
                             { name: 'Piercing', icon: 'mdi-arrow-projectile' },
                             { name: 'Slashing', icon: 'mdi-sword' }
                         ]
+                    },
+                    {
+                        color: 'yellow lighted-3',
+                        icon: 'mdi-decagram',
+                        name: 'True Damage',
+                        types: []
                     }
                 ],
                 damageToTake:
@@ -1062,7 +1069,7 @@
                                         {
                                             dice: '2d6',
                                             flat: 0,
-                                            percentage: '',
+                                            percentage: 0,
                                             type: 'Piercing'
                                         }
                                     ],
@@ -1090,7 +1097,7 @@
                                         {
                                             dice: '6d6',
                                             flat: 0,
-                                            percentage: '',
+                                            percentage: 0,
                                             type: 'Healing'
                                         }
                                     ],
@@ -1118,7 +1125,7 @@
                                         {
                                             dice: '2d6',
                                             flat: 0,
-                                            percentage: '',
+                                            percentage: 0,
                                             type: 'Force'
                                         }
                                     ],
@@ -1146,7 +1153,7 @@
                                         {
                                             dice: '2d6',
                                             flat: 0,
-                                            percentage: '',
+                                            percentage: 0,
                                             type: 'Piercing'
                                         }
                                     ],
@@ -1383,7 +1390,7 @@
                                                         {
                                                             dice: '2d6',
                                                             flat: 0,
-                                                            percentage: '',
+                                                            percentage: 0,
                                                             type: 'Slashing'
                                                         }
                                                     ],
@@ -1411,7 +1418,7 @@
                                                         {
                                                             dice: '1d6',
                                                             flat: 0,
-                                                            percentage: '',
+                                                            percentage: 0,
                                                             type: 'Force'
                                                         }
                                                     ],
@@ -1461,7 +1468,7 @@
                                                         {
                                                             dice: '1d4',
                                                             flat: 0,
-                                                            percentage: '',
+                                                            percentage: 0,
                                                             type: 'Healing'
                                                         }
                                                     ],
@@ -1489,7 +1496,7 @@
                                                         {
                                                             dice: '1d6',
                                                             flat: 0,
-                                                            percentage: '',
+                                                            percentage: 0,
                                                             type: 'Piercing'
                                                         }
                                                     ],
@@ -1539,7 +1546,7 @@
                                                         {
                                                             dice: '2d6',
                                                             flat: 0,
-                                                            percentage: '',
+                                                            percentage: 0,
                                                             type: 'Toxic'
                                                         }
                                                     ],
@@ -1567,7 +1574,7 @@
                                                         {
                                                             dice: '1d6',
                                                             flat: 0,
-                                                            percentage: '',
+                                                            percentage: 0,
                                                             type: 'Toxic'
                                                         }
                                                     ],
@@ -1685,7 +1692,7 @@
                                 {
                                     dice: '3d6',
                                     flat: 0,
-                                    percentage: '',
+                                    percentage: 0,
                                     type: 'Toxic'
                                 }
                             ],
