@@ -3,21 +3,21 @@
         <v-form class="abilityColumn mainColumn elevation-3">
             <v-row>
                 <v-col cols="6">
-                    <v-text-field label="Name" v-model="dataAbility.name">
-                        <v-icon color="primary" slot="append" @click="updateEntry(dataAbility)">mdi-pen</v-icon>
+                    <v-text-field label="Name" v-model="name">
+                        <v-icon color="primary" slot="append" @click="updateEntry(ability)">mdi-pen</v-icon>
                         <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
                     </v-text-field>
                 </v-col>
                 <v-col cols="6">
-                    <v-text-field label="XP" v-model="dataAbility.xpCost"></v-text-field>
+                    <v-text-field label="XP" v-model="xpCost"></v-text-field>
                 </v-col>
-                <v-col cols="12" v-if="dataAbility.description">
-                    <v-textarea label="Description" v-model="dataAbility.description" auto-grow outlined rows="1"></v-textarea>
+                <v-col cols="12" v-if="description">
+                    <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                 </v-col>
-                <v-col cols="12" v-if="dataAbility.damage.length > 0">
+                <v-col cols="12" v-if="damage.length > 0">
                     <h4 class="text-center">Damage</h4>
                     <v-row>
-                        <v-col cols="6" v-for="d in dataAbility.damage" :key="d.dice + d.flat + d.percentage + d.type">
+                        <v-col cols="6" v-for="d in damage" :key="d.dice + d.flat + d.percentage + d.type">
                             <v-form>
                                 <v-text-field :label="d.type" v-model="d.dice" v-if="d.dice"></v-text-field>
                                 <v-text-field :label="d.type" type="for" v-model="d.flat" v-if="d.flat"></v-text-field>
@@ -27,37 +27,47 @@
                     </v-row>
                 </v-col>
                 <v-col cols="4">
-                    <v-text-field label="Action Points" type="number" v-model="dataAbility.apCost">
+                    <v-text-field label="Action Points" type="number" v-model="apCost">
                         <v-icon color="error"
                                 slot="append"
-                                @click="subtractAP(dataAbility.apCost)">mdi-clock-minus-outline</v-icon>
+                                @click="subtractAP(apCost)">mdi-clock-minus-outline</v-icon>
                     </v-text-field>
                 </v-col>
-                <v-col cols="4" v-if="dataAbility.crCost">
-                    <v-text-field label="Class Resource" type="number" v-model="dataAbility.crCost"></v-text-field>
+                <v-col cols="4" v-if="crCost">
+                    <v-text-field label="Class Resource" type="number" v-model="crCost"></v-text-field>
                 </v-col>
                 <v-col cols="4">
-                    <v-text-field label="Duration" v-model="dataAbility.duration"></v-text-field>
+                    <v-text-field label="Duration" v-model="duration"></v-text-field>
                 </v-col>
                 <v-col cols="4">
-                    <v-text-field label="Range" v-model="dataAbility.range"></v-text-field>
+                    <v-text-field label="Range" v-model="range"></v-text-field>
                 </v-col>
-                <v-col cols="4" v-if="dataAbility.areaOfEffect">
-                    <v-text-field label="Area of Effect" v-model="dataAbility.areaOfEffect"></v-text-field>
+                <v-col cols="4" v-if="areaOfEffect">
+                    <v-text-field label="Area of Effect" v-model="areaOfEffect"></v-text-field>
                 </v-col>
                 <v-col cols="4">
-                    <v-text-field label="Physical/Meta" v-model="dataAbility.physMeta"></v-text-field>
+                    <v-text-field label="Physical/Meta" v-model="physMeta"></v-text-field>
                 </v-col>
-                <v-col cols="4" v-if="dataAbility.successes">
-                    <v-text-field label="Successes" type="number" v-model="dataAbility.successes"></v-text-field>
+                <v-col cols="4" v-if="successes">
+                    <v-text-field label="Successes" type="number" v-model="successes"></v-text-field>
                 </v-col>
-                <v-col cols="4" v-if="dataAbility.handedness">
-                    <v-text-field label="Handedness" type="number" v-model="dataAbility.handedness"></v-text-field>
+                <v-col cols="4" v-if="handedness">
+                    <v-text-field label="Handedness" type="number" v-model="handedness"></v-text-field>
                 </v-col>
-                <v-col cols="4" v-if="dataAbility.maxSizeCategoryOfMass">
-                    <v-text-field label="Max Size Category Of Mass" v-model="dataAbility.maxSizeCategoryOfMass"></v-text-field>
+                <v-col cols="4" v-if="maxSizeCategoryOfMass">
+                    <v-text-field label="Max Size Category Of Mass" v-model="maxSizeCategoryOfMass"></v-text-field>
                 </v-col>
-                <v-col cols="12" v-if="dataAbility.subEffects.length > 0">
+                <v-col cols="12" v-if="components.length > 0">
+                    <h4 class="text-center">Components</h4>
+                    <v-row>
+                        <v-col cols="6" v-for="c in components" :key="c.name">
+                            <v-form>
+                                <v-text-field label="Name" v-model="c.name"></v-text-field>
+                            </v-form>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="12" v-if="subEffects.length > 0">
                     <template>
                         <v-expansion-panels>
                             <v-expansion-panel v-for="(item,i) in 1" :key="i">
@@ -90,7 +100,7 @@
             abilities() {
                 let abilities = []
 
-                this.dataAbility.subEffects.forEach((ability) => {
+                this.subEffects.forEach((ability) => {
                     ability.key =
                         ability.apCost +
                         ability.areaOfEffect +
@@ -106,7 +116,7 @@
                         ability.name +
                         ability.physMeta +
                         ability.range +
-                        ability.successe +
+                        ability.successes +
                         ability.xpCost +
                         ability.components.toString() +
                         ability.damage.toString() +
@@ -119,7 +129,25 @@
         },
         data() {
             return {
-                dataAbility: this.ability
+                apCost: this.ability.apCost,
+                areaOfEffect: this.ability.areaOfEffect,
+                boughtForFree: this.ability.boughtForFree,
+                crCost: this.ability.crCost,
+                description: this.ability.description,
+                duration: this.ability.duration,
+                handedness: this.ability.handedness,
+                id: this.ability.id,
+                inClass: this.ability.inClass,
+                isAbilityArray: this.ability.isAbilityArray,
+                maxSizeCategoryOfMass: this.ability.maxSizeCategoryOfMass,
+                name: this.ability.name,
+                physMeta: this.ability.physMeta,
+                range: this.ability.range,
+                successes: this.ability.successes,
+                xpCost: this.ability.xpCost,
+                components: this.ability.components,
+                damage: this.ability.damage,
+                subEffects: this.ability.subEffects
             }
         },
         methods: {
@@ -129,8 +157,8 @@
             subtractAP(apCost) {
                 this.$emit('subtractAP', apCost)
             },
-            updateEntry(object) {                
-                this.$emit('updateEntryEmit', object)
+            updateEntry(object) {
+                this.$emit('updateEntryEmit', JSON.parse(JSON.stringify(object)))
             }
         }
     }

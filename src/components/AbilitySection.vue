@@ -75,7 +75,9 @@
                                                       :items="damageTypes"
                                                       v-model="d.type"
                                                       :rules="textRules"
-                                                      required></v-select>
+                                                      required>
+                                                <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
+                                            </v-select>
                                         </v-col>
                                     </v-row>
                                 </v-col>
@@ -115,6 +117,22 @@
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Max Size Category Of Mass" type="number" v-model="maxSizeCategoryOfMass"></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                    <h3 class="text-center">
+                                        Components
+                                        <v-btn icon color="primary"
+                                               @click.stop="addComponent">
+                                            <v-icon>
+                                                mdi-plus
+                                            </v-icon>
+                                        </v-btn>
+                                    </h3>
+                                    <v-row v-for="(c, index) in damage" :key="index">
+                                        <v-col cols="12" md="4">
+                                            <v-text-field label="Name" v-model="c.name"></v-text-field>
+                                        </v-col>
+                                    </v-row>
                                 </v-col>
                             </v-row>
                         </v-form>
@@ -211,6 +229,11 @@
             }
         },
         methods: {
+            addComponent() {
+                this.components.push({
+                    name: ''
+                })
+            },
             addDamage() {
                 this.damage.push({
                     dice: '',
@@ -218,6 +241,9 @@
                     percentage: 0,
                     type: ''
                 });
+            },
+            deleteDamage(i) {
+                this.damage.splice(i, 1)
             },
             // CRUD Functions Start
             addEntry() {
