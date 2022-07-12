@@ -64,7 +64,7 @@
                                 <v-col cols="12">
                                     <h3 class="text-center">
                                         Damage
-                                        <v-btn icon color="primary"
+                                        <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
                                                @click.stop="addDamage">
                                             <v-icon>
                                                 mdi-plus

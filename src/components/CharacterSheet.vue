@@ -342,11 +342,11 @@
                         ability.name +
                         ability.physMeta +
                         ability.range +
-                        ability.successe +
+                        ability.successes +
                         ability.xpCost +
-                        ability.components.toString() +
-                        ability.damage.toString() +
-                        ability.subEffects.toString();
+                        JSON.stringify(ability.components) +
+                        JSON.stringify(ability.damage) +
+                        JSON.stringify(ability.subEffects);
                     abilities.push(ability)
                 })
 
