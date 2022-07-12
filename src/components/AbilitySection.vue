@@ -1,22 +1,33 @@
 <template>
     <div>
-        <h3 class="text-center">
-            Abilities
-            <v-btn icon color="primary"
-                   @click.stop="addDialog">
-                <v-icon>
-                    mdi-plus
-                </v-icon>
-            </v-btn>
-        </h3>
-        <v-row>
-            <v-col cols="12" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
-                <AbilityListItem :ability="ability"
-                                 @updateEntryEmit="updateDialog($event)"
-                                 @deleteEntryEmit="deleteDialog($event)"
-                                 @subtractAP="subtractAP($event)"></AbilityListItem>
-            </v-col>
-        </v-row>
+        <template>
+            <v-expansion-panels>
+                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                    <v-expansion-panel-header>
+                        <h3 class="text-center">
+                            Abilities
+                            <v-btn icon color="primary"
+                                   @click.stop="addDialog">
+                                <v-icon>
+                                    mdi-plus
+                                </v-icon>
+                            </v-btn>
+                        </h3>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <v-row>
+                            <v-col cols="12" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
+                                <AbilityListItem :ability="ability"
+                                                 @updateEntryEmit="updateDialog($event)"
+                                                 @deleteEntryEmit="deleteDialog($event)"
+                                                 @subtractAP="subtractAP($event)"></AbilityListItem>
+                            </v-col>
+                        </v-row>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </template>
+
 
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
