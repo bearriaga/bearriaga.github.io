@@ -15,16 +15,26 @@
                     <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                 </v-col>
                 <v-col cols="12" v-if="damage.length > 0">
-                    <h4 class="text-center">Damage</h4>
-                    <v-row>
-                        <v-col cols="6" v-for="d in damage" :key="d.dice + d.flat + d.percentage + d.type">
-                            <v-form>
-                                <v-text-field :label="d.type" v-model="d.dice" v-if="d.dice"></v-text-field>
-                                <v-text-field :label="d.type" type="for" v-model="d.flat" v-if="d.flat"></v-text-field>
-                                <v-text-field :label="d.type" v-model="d.percentage" v-if="d.percentage"></v-text-field>
-                            </v-form>
-                        </v-col>
-                    </v-row>
+                    <h4 class="text-center">
+                        Damage
+                        <v-icon @click="rollDamage">mdi-dice-6</v-icon>
+                    </h4>
+                    <div v-for="d in damage" :key="d.dice + d.flat + d.percentage + d.type">
+                        <v-row>
+                            <v-col cols="12" md="6" v-if="d.dice">
+                                <v-text-field label="Dice" v-model="d.dice"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6" v-if="d.flat">
+                                <v-text-field label="Flat" type="for" v-model="d.flat"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6" v-if="d.percentage">
+                                <v-text-field label="Percentage" v-model="d.percentage"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Type" v-model="d.type"></v-text-field>
+                            </v-col>
+                        </v-row>
+                    </div>
                 </v-col>
                 <v-col cols="4">
                     <v-text-field label="Action Points" type="number" v-model="apCost">
@@ -153,6 +163,9 @@
         methods: {
             deleteEntry() {
                 this.$emit('deleteEntryEmit', this.ability)
+            },
+            rollDamage() {
+                this.$emit('rollDamageEmit', this.ability)
             },
             subtractAP(apCost) {
                 this.$emit('subtractAP', apCost)

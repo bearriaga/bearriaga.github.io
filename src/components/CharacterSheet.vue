@@ -126,8 +126,9 @@
                                     :damage-types="damageTypes"
                                     @addEntryEmit="addEntry($event)"
                                     @deleteEntryEmit="deleteEntry($event)"
-                                    @updateEntryEmit="updateEntry($event)"
-                                    @subtractAP="subtractAP($event)"></AbilitySection>
+                                    @rollDamageEmit="rollDamage($event)"
+                                    @subtractAPEmit="subtractAP($event)"
+                                    @updateEntryEmit="updateEntry($event)"></AbilitySection>
                 </v-col>
             </v-row>
             <v-row>
@@ -216,6 +217,36 @@
                     <v-card-actions class="justify-end">
                         <v-btn color="secondary"
                                @click="checkDialog.show = false">Close</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </div>
+        <div class="text-center">
+            <v-dialog v-model="damageDialog.show" width="500">
+                <v-card>
+                    <v-card-title class="text-h5 grey lighten-2">
+                        Damage Results
+                    </v-card-title>
+
+                    <v-card-text>
+                        <div v-for="(damage, index) in damageDialog.damages" :key="index">
+                            <div v-if="damage.damage.dice">
+                                Die Results:  {{damage.damage.dice}} {{damage.results}}
+                            </div>
+                            <div v-if="damage.damage.flat">
+                                Flat Damage: {{damage.damage.flat}}
+                            </div>
+                            <div>
+                                <b>Damage: {{damage.sum}} {{damage.type}}</b>
+                            </div>
+                        </div>
+                    </v-card-text>
+
+                    <v-divider></v-divider>
+
+                    <v-card-actions class="justify-end">
+                        <v-btn color="secondary"
+                               @click="damageDialog.show = false">Close</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -629,7 +660,14 @@
                             successes: 0,
                             xpCost: 10,
                             components: [],
-                            damage: [],
+                            damage: [
+                                {
+                                    dice: '2d6',
+                                    flat: 0,
+                                    percentage: 0,
+                                    type: 'Piercing'
+                                }
+                            ],
                             subEffects: []
                         }
                     ],
@@ -771,6 +809,10 @@
                     show: false,
                     successes: 0,
                     threat: false
+                },
+                damageDialog: {
+                    damages: [],
+                    show: false
                 },
                 damageGroups: [
                     {
@@ -979,6 +1021,39 @@
                     this.characterSheet.hp = this.characterSheet.hp - damageToTake
                     this.updateHP = this.updateHP + 1
                 }
+            },
+            rollDamage(ability) {
+                this.damageDialog.damages = []
+                ability.damage.forEach((d) => {
+                    let sum = 0
+                    let results = [];
+
+                    if (d.dice) {
+                        let splitterArray = d.dice.split('d');
+                        let dice = +splitterArray[0];
+                        let sides = +splitterArray[1];
+                        for (var i = 0; i < dice; i++) {
+                            results.push(this.getRandomIntInclusive(1, sides))
+                        }
+                        sum += results.reduce((previousValue, entry) => {
+                            return +previousValue + +entry
+                        }, 0)
+
+                    }
+                    if (d.flat)
+                        sum += +d.flat
+
+                    this.damageDialog.damages.push(
+                        {
+                            damage: d,
+                            percentage: d.percentage,
+                            results: results,
+                            sum: sum,
+                            type: d.type
+                        }
+                    )
+                })
+                this.damageDialog.show = true
             },
             setCharacterAsTupoc() {
                 this.characterSheet =

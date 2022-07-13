@@ -18,9 +18,10 @@
                         <v-row>
                             <v-col cols="12" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
                                 <AbilityListItem :ability="ability"
-                                                 @updateEntryEmit="updateDialog($event)"
-                                                 @deleteEntryEmit="deleteDialog($event)"
-                                                 @subtractAP="subtractAP($event)"></AbilityListItem>
+                                                 @deleteEntryEmit="deleteDialog($event)"                                                 
+                                                 @rollDamageEmit="rollDamage($event)"
+                                                 @subtractAP="subtractAP($event)"
+                                                 @updateEntryEmit="updateDialog($event)"></AbilityListItem>
                             </v-col>
                         </v-row>
                     </v-expansion-panel-content>
@@ -79,7 +80,7 @@
                                             <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" md="4">
-                                            <v-text-field label="Dice" type="number" v-model="d.percentage"></v-text-field>
+                                            <v-text-field label="Percentage" type="number" v-model="d.percentage"></v-text-field>
                                         </v-col>
                                         <v-col cols="12">
                                             <v-select label="Type"
@@ -369,8 +370,11 @@
                 this.subEffects = ability.subEffects
             },
             // Open Dialog Functions End
+            rollDamage(ability) {
+                this.$emit('rollDamageEmit', ability)
+            },
             subtractAP(apCost) {
-                this.$emit('subtractAP', apCost)
+                this.$emit('subtractAPEmit', apCost)
             },
             validate() {
                 return this.$refs.form.validate()
