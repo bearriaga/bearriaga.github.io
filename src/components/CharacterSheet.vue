@@ -236,6 +236,9 @@
                             <div v-if="damage.damage.flat">
                                 Flat Damage: {{damage.damage.flat}}
                             </div>
+                            <div v-if="damage.damage.percentage">
+                                <b>Percentage Damage: {{damage.damage.percentage}}% {{damage.type}}</b>
+                            </div>
                             <div>
                                 <b>Damage: {{damage.sum}} {{damage.type}}</b>
                             </div>
@@ -663,9 +666,21 @@
                             damage: [
                                 {
                                     dice: '2d6',
-                                    flat: 0,
+                                    flat: 4,
                                     percentage: 0,
                                     type: 'Piercing'
+                                },
+                                {
+                                    dice: '',
+                                    flat: 1,
+                                    percentage: 0,
+                                    type: 'Acid'
+                                },
+                                {
+                                    dice: '2d6',
+                                    flat: 4,
+                                    percentage: 20,
+                                    type: 'Fire'
                                 }
                             ],
                             subEffects: []
