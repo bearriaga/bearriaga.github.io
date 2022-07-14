@@ -34,7 +34,7 @@
                             <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                             <v-select label="Primary Characteristic"
                                       :items="characteristics"
-                                      v-model="primaryCharacteristic"
+                                      v-model="characteristic"
                                       :rules="textRules"
                                       required></v-select>
                         </v-form>
@@ -85,14 +85,14 @@
                 advanceRank: 0,
                 description: '',
                 name: '',
-                primaryCharacteristic: '',
+                characteristic: '',
                 classObj: {
                     active: this.active,
                     advanceRank: 0,
                     description: '',
                     id: '',
                     name: '',
-                    primaryCharacteristic: '',
+                    characteristic: '',
                     unlocked: this.unlocked
                 },
                 // Input Fields End
@@ -115,7 +115,7 @@
                         description: this.description,
                         id: null,
                         name: this.name,
-                        primaryCharacteristic: this.primaryCharacteristic,
+                        characteristic: this.characteristic,
                         unlocked: this.unlocked
                     }
                     this.$emit('addEntryEmit', { arrayName: 'classes', object: this.classObj })
@@ -138,7 +138,7 @@
                     description: '',
                     id: '',
                     name: '',
-                    primaryCharacteristic: '',
+                    characteristic: '',
                     unlocked: this.unlocked
                 }
                 this.setInputs(this.classObj)
@@ -160,7 +160,7 @@
             setInputs(classObj) {
                 this.description = classObj.description
                 this.name = classObj.name
-                this.primaryCharacteristic = classObj.primaryCharacteristic
+                this.characteristic = classObj.characteristic
             },
             // Open Dialog Functions End
             validate() {

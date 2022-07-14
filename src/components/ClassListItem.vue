@@ -9,7 +9,7 @@
             </v-col>
         </v-row>
         <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" :disabled="!active && !unlocked"></v-textarea>
-        <v-select label="Primary Characteristic" v-model="primaryCharacteristic" :items="characteristics" :disabled="!active && !unlocked"></v-select>
+        <v-select label="Primary Characteristic" v-model="characteristic" :items="characteristics" :disabled="!active && !unlocked"></v-select>
         <v-select label="Type" v-model="advanceRank" :items="advanceRanks" item-text="text" item-value="value" v-if="!unlocked" :disabled="!active && !unlocked"></v-select>
         <v-btn @click="updateType">{{unlockedBtnText}}</v-btn>
     </div>
@@ -44,7 +44,7 @@
                 ],
                 description: this.classObj.description,
                 name: this.classObj.name,
-                primaryCharacteristic: this.classObj.primaryCharacteristic,
+                characteristic: this.classObj.characteristic,
                 unlocked: this.classObj.unlocked
             }
         },
@@ -59,7 +59,7 @@
                     description: this.description,
                     id: this.classObj.id,
                     name: this.name,
-                    primaryCharacteristic: this.primaryCharacteristic,
+                    characteristic: this.characteristic,
                     unlocked: this.unlocked
                 }
                 this.$emit('updateEntryEmit', object)
@@ -81,7 +81,7 @@
             name() {
                 this.updateEntry()
             },
-            primaryCharacteristic() {
+            characteristic() {
                 this.updateEntry()
             }
         }

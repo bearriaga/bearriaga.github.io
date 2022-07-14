@@ -8,7 +8,7 @@
                               @keyup.enter="rollDiceCheck">
                     <v-icon slot="append" 
                             color="yellow accent-4"
-                            v-if="characteristic.primaryCharacteristic">mdi-star</v-icon>
+                            v-if="characteristic.characteristic">mdi-star</v-icon>
                     <v-icon slot="append" @click="rollDiceCheck">mdi-dice-6</v-icon>
                 </v-text-field>                
             </v-col>

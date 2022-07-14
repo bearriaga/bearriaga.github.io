@@ -400,56 +400,56 @@
                 return abilities
             },
             characteristicViewItems() {
-                let primaryChars = this.characterSheet.classes.filter(x => { return x.active && !x.unlocked }).map(x => x.primaryCharacteristic)
+                let chars = this.characterSheet.classes.filter(x => { return x.active && !x.unlocked }).map(x => x.characteristic)
                 return [
                     {
                         abbreviation: 'STR',
                         key: 'str' + this.characterSheet.id,
                         name: 'strength',
                         value: this.characterSheet.strength,
-                        primaryCharacteristic: primaryChars.includes('strength')
+                        characteristic: chars.includes('strength')
                     },
                     {
                         abbreviation: 'DEX',
                         key: 'dex' + this.characterSheet.id,
                         name: 'dexterity',
                         value: this.characterSheet.dexterity,
-                        primaryCharacteristic: primaryChars.includes('dexterity')
+                        characteristic: chars.includes('dexterity')
                     },
                     {
                         abbreviation: 'SPD',
                         key: 'spd' + this.characterSheet.id,
                         name: 'speed',
                         value: this.characterSheet.speed,
-                        primaryCharacteristic: primaryChars.includes('speed')
+                        characteristic: chars.includes('speed')
                     },
                     {
                         abbreviation: 'INT',
                         key: 'int' + this.characterSheet.id,
                         name: 'intelligence',
                         value: this.characterSheet.intelligence,
-                        primaryCharacteristic: primaryChars.includes('intelligence')
+                        characteristic: chars.includes('intelligence')
                     },
                     {
                         abbreviation: 'CUN',
                         key: 'cun' + this.characterSheet.id,
                         name: 'cunning',
                         value: this.characterSheet.cunning,
-                        primaryCharacteristic: primaryChars.includes('cunning')
+                        characteristic: chars.includes('cunning')
                     },
                     {
                         abbreviation: 'RES',
                         key: 'res' + this.characterSheet.id,
                         name: 'resistance',
                         value: this.characterSheet.resistance,
-                        primaryCharacteristic: primaryChars.includes('resistance')
+                        characteristic: chars.includes('resistance')
                     },
                     {
                         abbreviation: 'LCK',
                         key: 'lck' + this.characterSheet.id,
                         name: 'luck',
                         value: this.characterSheet.luck,
-                        primaryCharacteristic: primaryChars.includes('luck')
+                        characteristic: chars.includes('luck')
                     }
                 ]
             },
@@ -579,9 +579,9 @@
                 let resources = []
 
                 this.characterSheet.resources.forEach((resource) => {
-                    let primaryCharValue = this.characterSheet[resource.primaryCharacteristic]
+                    let primaryCharValue = this.characterSheet[resource.characteristic]
                     resource.amountMax = +primaryCharValue + +resource.resourceIncreases
-                    resource.key = resource.name + resource.primaryCharacteristic + resource.resourceIncreases + primaryCharValue
+                    resource.key = resource.name + resource.characteristic + resource.resourceIncreases + primaryCharValue
                     resources.push(resource)
                 })
 
@@ -725,7 +725,7 @@
                             description: 'Class 1',
                             id: '058a51e2-b2d1-420b-9a95-85794b03b3a5',
                             name: '',
-                            primaryCharacteristic: 'strength', //Selected from above characteristics
+                            characteristic: 'strength', //Selected from above characteristics
                             unlocked: false
                         },
                         {
@@ -734,7 +734,7 @@
                             description: 'Unlocked Class 1',
                             id: '988d5a1e-a994-4ecc-b61c-191d5e85c6d9',
                             name: '',
-                            primaryCharacteristic: 'strength', //Selected from above characteristics
+                            characteristic: 'strength', //Selected from above characteristics
                             unlocked: true
                         }
                     ],
@@ -771,10 +771,10 @@
                     resources: [
                         {
                             amount: 0,
-                            amountMax: 0, // default ? primaryCharacteristic + resourceIncreases : 1 + resourceIncreases
+                            amountMax: 0, // default ? characteristic + resourceIncreases : 1 + resourceIncreases
                             id: '1654827507939',
                             name: 'Default Resource',
-                            primaryCharacteristic: 'strength',
+                            characteristic: 'strength',
                             resourceIncreases: 0
                         }
                     ],
@@ -955,7 +955,7 @@
 
                 var resourcesDup = this.characterSheet.resources
                 resourcesDup.forEach((resource) => {
-                    var primaryCharValue = this.characterSheet[resource.primaryCharacteristic]
+                    var primaryCharValue = this.characterSheet[resource.characteristic]
                     resource.amountMax = primaryCharValue + resource.resourceIncreases
                 })
                 this.characterSheet.resources = []
@@ -1846,7 +1846,7 @@
                             description: '',
                             id: '97ed5125-220f-45b6-8af4-8138742681d8',
                             name: 'Totem Warrior',
-                            primaryCharacteristic: 'strength',
+                            characteristic: 'strength',
                             unlocked: false
                         },
                         {
@@ -1855,7 +1855,7 @@
                             description: '',
                             id: 'e93df7c1-0bf0-459f-9a73-6f92e628bb30',
                             name: 'Game Hunter',
-                            primaryCharacteristic: 'strength',
+                            characteristic: 'strength',
                             unlocked: false
                         },
                         {
@@ -1864,7 +1864,7 @@
                             description: '',
                             id: '9edd8ab9-20f1-44c4-9d4d-aad4c61005d2',
                             name: 'Necromancer',
-                            primaryCharacteristic: '',
+                            characteristic: '',
                             unlocked: true
                         }
                     ],
@@ -1898,21 +1898,21 @@
                         }
                     ],
                     resources: [
-                        //default first entry based on primaryCharacteristic
+                        //default first entry based on characteristic
                         {
                             amount: 0,
-                            amountMax: 0, // default ? primaryCharacteristic + resourceIncreases : 1 + resourceIncreases
+                            amountMax: 0, // default ? characteristic + resourceIncreases : 1 + resourceIncreases
                             id: '1654827508408',
                             name: 'Stamina',
-                            primaryCharacteristic: 'strength',
+                            characteristic: 'strength',
                             resourceIncreases: 0
                         },
                         {
                             amount: 0,
-                            amountMax: 0, // default ? primaryCharacteristic + resourceIncreases : 1 + resourceIncreases
+                            amountMax: 0, // default ? characteristic + resourceIncreases : 1 + resourceIncreases
                             id: '1654827539670',
                             name: 'Hunter Sense',
-                            primaryCharacteristic: 'cunning',
+                            characteristic: 'cunning',
                             resourceIncreases: 0
                         }
                     ],

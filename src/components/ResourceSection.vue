@@ -47,7 +47,7 @@
                                           :rules="numberRules"
                                           required></v-text-field>
                             <v-select label="Characteristic"
-                                      v-model="primaryCharacteristic"
+                                      v-model="characteristic"
                                       :items="characteristics"
                                       :rules="textRules"
                                       required></v-select>
@@ -94,14 +94,14 @@
                 },
                 // Input Fields Start
                 name: '',
-                primaryCharacteristic: '',
+                characteristic: '',
                 resourceIncreases: 0,
                 resource: {
                     amount: 0,
                     amountMax: 0,
                     id: '',
                     name: '',
-                    primaryCharacteristic: '',
+                    characteristic: '',
                     resourceIncreases: 0
                 },
                 // Input Fields End
@@ -139,7 +139,7 @@
             },
             setObject() {
                 this.resource.name = this.name
-                this.resource.primaryCharacteristic = this.primaryCharacteristic
+                this.resource.characteristic = this.characteristic
                 this.resource.resourceIncreases = this.resourceIncreases
             },
             // CRUD Functions End
@@ -151,7 +151,7 @@
                     amountMax: 0,
                     id: '',
                     name: '',
-                    primaryCharacteristic: '',
+                    characteristic: '',
                     resourceIncreases: 0
                 }
                 this.setInputs(this.resource)
@@ -176,7 +176,7 @@
                 }
             },
             setInputs(resource) {
-                this.primaryCharacteristic = resource.primaryCharacteristic
+                this.characteristic = resource.characteristic
                 this.name = resource.name
                 this.resourceIncreases = resource.resourceIncreases
             },
