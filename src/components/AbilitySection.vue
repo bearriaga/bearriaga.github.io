@@ -74,7 +74,7 @@
                                     </h3>
                                     <v-row v-for="(d, index) in damage" :key="index">
                                         <v-col cols="12" md="4">
-                                            <v-text-field label="Dice" placeholder="ex: 1d6" v-model="d.dice"></v-text-field>
+                                            <v-text-field label="Dice" placeholder="ex: 1d6" v-model="d.dice" :rules="diceRules"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" md="4">
                                             <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
@@ -140,7 +140,7 @@
                                             </v-icon>
                                         </v-btn>
                                     </h3>
-                                    <v-row v-for="(c, index) in damage" :key="index">
+                                    <v-row v-for="(c, index) in components" :key="index">
                                         <v-col cols="12" md="4">
                                             <v-text-field label="Name" v-model="c.name"></v-text-field>
                                         </v-col>
@@ -230,11 +230,14 @@
                     type: ''
                 },
                 // Validation Start
-                textRules: [
-                    v => !!v || 'Field may not be empty'
+                diceRules: [                    
+                    v => !v || /^(\d+)d(\d+)$/ig.test(v) || 'Field must be in proper format {number}d{number}'
                 ],
                 numberRules: [
                     v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
+                ],
+                textRules: [
+                    v => !!v || 'Field may not be empty'
                 ],
                 valid: false
                 // Validation End
