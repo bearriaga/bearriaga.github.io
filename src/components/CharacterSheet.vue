@@ -230,6 +230,20 @@
 
                     <v-card-text>
                         <div v-for="(damage, index) in damageDialog.damages" :key="index">
+                            <div>
+                                <b>{{damage.sum}} {{damage.type}}</b>
+                            </div>
+                            <div v-if="damage.damage.percentage">
+                                <b>{{damage.damage.percentage}}% {{damage.type}}</b>
+                            </div>
+                        </div>
+                    </v-card-text>
+
+                    <v-card-text>
+                        <div v-for="(damage, index) in damageDialog.damages" :key="index">
+                            <div>
+                                <b>{{damage.damage.type}}</b>
+                            </div>
                             <div v-if="damage.damage.dice">
                                 Die Results:  {{damage.damage.dice}} {{damage.results}}
                             </div>
@@ -237,10 +251,7 @@
                                 Flat Damage: {{damage.damage.flat}}
                             </div>
                             <div v-if="damage.damage.percentage">
-                                <b>Percentage Damage: {{damage.damage.percentage}}% {{damage.type}}</b>
-                            </div>
-                            <div>
-                                <b>Damage: {{damage.sum}} {{damage.type}}</b>
+                                Percentage: {{damage.damage.percentage}}
                             </div>
                         </div>
                     </v-card-text>
