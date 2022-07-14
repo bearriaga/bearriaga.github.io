@@ -19,6 +19,7 @@
                             <v-col cols="12" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
                                 <AbilityListItem :ability="ability"
                                                  @deleteEntryEmit="deleteDialog($event)"                                                 
+                                                 @rollAbilityEmit="rollAbility($event)"
                                                  @rollDamageEmit="rollDamage($event)"
                                                  @subtractAP="subtractAP($event)"
                                                  @updateEntryEmit="updateDialog($event)"></AbilityListItem>
@@ -61,6 +62,11 @@
                                 </v-col>
                                 <v-col cols="12">
                                     <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-select label="Characteristic"
+                                              :items="characteristics"
+                                              v-model="characteristic"></v-select>
                                 </v-col>
                                 <v-col cols="12">
                                     <h3 class="text-center">
@@ -178,6 +184,7 @@
         },
         props: {
             abilities: Array,
+            characteristics: Array,
             damageTypes: Array
         },
         data() {
@@ -188,6 +195,7 @@
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
                     crCost: 0,
+                    characteristic: '',
                     description: '',
                     duration: 'Instant',
                     handedness: 0,
@@ -208,6 +216,7 @@
                 areaOfEffect: 'Single Target',
                 boughtForFree: false,
                 crCost: 0,
+                characteristic: '',
                 description: '',
                 duration: 'Instant',
                 handedness: 0,
@@ -284,6 +293,7 @@
                 this.ability.areaOfEffect = this.areaOfEffect
                 this.ability.boughtForFree = this.boughtForFree
                 this.ability.crCost = this.crCost
+                this.ability.characteristic = this.characteristic
                 this.ability.description = this.description
                 this.ability.duration = this.duration
                 this.ability.handedness = this.handedness
@@ -314,6 +324,7 @@
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
                     crCost: 0,
+                    characteristic: '',
                     description: '',
                     duration: 'Instant',
                     handedness: 0,
@@ -356,6 +367,7 @@
                 this.areaOfEffect = ability.areaOfEffect
                 this.boughtForFree = ability.boughtForFree
                 this.crCost = ability.crCost
+                this.characteristic = ability.characteristic
                 this.description = ability.description
                 this.duration = ability.duration
                 this.handedness = ability.handedness
@@ -373,6 +385,9 @@
                 this.subEffects = ability.subEffects
             },
             // Open Dialog Functions End
+            rollAbility(ability) {
+                this.$emit('rollAbilityEmit', ability)
+            },
             rollDamage(ability) {
                 this.$emit('rollDamageEmit', ability)
             },

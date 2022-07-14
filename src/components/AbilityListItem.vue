@@ -14,10 +14,15 @@
                 <v-col cols="12" v-if="description">
                     <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                 </v-col>
+                <v-col cols="12" v-if="characteristic">
+                    <v-text-field label="Characteristic" v-model="characteristic">
+                        <v-icon slot="append" @click="rollAbility(ability)">mdi-dice-6</v-icon>
+                    </v-text-field>
+                </v-col>
                 <v-col cols="12" v-if="damage.length > 0">
                     <h4 class="text-center">
                         Damage
-                        <v-icon @click="rollDamage">mdi-dice-6</v-icon>
+                        <v-icon @click="rollDamage(ability)">mdi-dice-6</v-icon>
                     </h4>
                     <div v-for="d in damage" :key="d.dice + d.flat + d.percentage + d.type">
                         <v-row>
@@ -87,8 +92,10 @@
                                 <v-expansion-panel-content>
                                     <AbilityListItem v-for="s in abilities" :key="s.key"
                                                      :ability="s"
-                                                     @updateEntryEmit="updateEntry($event)"
                                                      @deleteEntryEmit="deleteDialog($event)"
+                                                     @updateEntryEmit="updateEntry($event)"
+                                                     @rollAbilityEmit="rollAbility($event)"
+                                                     @rollDamageEmit="rollDamage($event)"
                                                      @subtractAP="subtractAP($event)"></AbilityListItem>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
@@ -116,6 +123,7 @@
                         ability.areaOfEffect +
                         ability.boughtForFree +
                         ability.crCost +
+                        ability.characteristic +
                         ability.description +
                         ability.duration +
                         ability.handedness +
@@ -143,6 +151,7 @@
                 areaOfEffect: this.ability.areaOfEffect,
                 boughtForFree: this.ability.boughtForFree,
                 crCost: this.ability.crCost,
+                characteristic: this.ability.characteristic,
                 description: this.ability.description,
                 duration: this.ability.duration,
                 handedness: this.ability.handedness,
@@ -164,8 +173,11 @@
             deleteEntry() {
                 this.$emit('deleteEntryEmit', this.ability)
             },
-            rollDamage() {
-                this.$emit('rollDamageEmit', this.ability)
+            rollAbility(ability) {
+                this.$emit('rollAbilityEmit', ability)
+            },
+            rollDamage(ability) {
+                this.$emit('rollDamageEmit', ability)
             },
             subtractAP(apCost) {
                 this.$emit('subtractAP', apCost)

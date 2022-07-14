@@ -32,7 +32,7 @@
                 this.$emit('updatePropEmit', { propName: this.characteristic.name, type: 'number', value: this.value })
             },
             rollDiceCheck() {
-                this.$emit('rollDiceCheckEmit', this.value)
+                this.$emit('rollDiceCheckEmit', { diceToRoll: this.value, isSave: false, successes: 0 })
             }
         },
         watch: {

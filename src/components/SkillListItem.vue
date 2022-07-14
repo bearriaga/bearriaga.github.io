@@ -30,7 +30,7 @@
                 this.$emit('updateEntryEmit', this.skill)
             },
             rollDiceCheck() {
-                this.$emit('rollDiceCheckEmit', this.value)
+                this.$emit('rollDiceCheckEmit', { diceToRoll: this.value, isSave: false, successes: 0 })
             }
         }
     }

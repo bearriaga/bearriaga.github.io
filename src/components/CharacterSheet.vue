@@ -123,9 +123,11 @@
             <v-row>
                 <v-col cols="12">
                     <AbilitySection :abilities="abilities"
+                                    :characteristics="characteristics"
                                     :damage-types="damageTypes"
                                     @addEntryEmit="addEntry($event)"
                                     @deleteEntryEmit="deleteEntry($event)"
+                                    @rollAbilityEmit="rollAbility($event)"
                                     @rollDamageEmit="rollDamage($event)"
                                     @subtractAPEmit="subtractAP($event)"
                                     @updateEntryEmit="updateEntry($event)"></AbilitySection>
@@ -379,6 +381,7 @@
                         ability.areaOfEffect +
                         ability.boughtForFree +
                         ability.crCost +
+                        ability.characteristic +
                         ability.description +
                         ability.duration +
                         ability.handedness +
@@ -663,6 +666,7 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '0',
+                            characteristic: '',
                             description: 'Test Ability Description',
                             duration: 'Instant',
                             handedness: '0',
@@ -975,7 +979,7 @@
                 max = Math.floor(max)
                 return Math.floor(Math.random() * (max - min + 1) + min) //The maximum is inclusive and the minimum is inclusive
             },
-            rollDiceCheck(diceToRoll) {
+            rollDiceCheck(object) {
                 var result = {
                     advantage: false,
                     diceResults: [],
@@ -985,16 +989,20 @@
                     threat: false
                 }
 
-                if (diceToRoll > 0) {
-                    diceToRoll = +diceToRoll + Math.floor(this.characterSheet.intelligence / 2)
+                if (object.diceToRoll > 0) {
+                    if (!object.isSave)
+                        object.diceToRoll = +object.diceToRoll + Math.floor(this.characterSheet.intelligence / 2)
 
-                    for (var i = 0; i < diceToRoll; i++) {
+                    for (var i = 0; i < object.diceToRoll; i++) {
                         var dieResult = this.getRandomIntInclusive(1, 6)
                         result.diceResults.push(dieResult)
                         if (i == 0)
                             result.fate = dieResult
                         result.successes += this.determineSuccesses(dieResult)
                     }
+
+                    if (object.successes)
+                        result.successes += +object.successes
 
                     if (!this.characterSheet.luckNothingToChance) {
                         if (result.fate == 6 || (this.characterSheet.luckFavored && result.fate >= 5)) {
@@ -1049,6 +1057,10 @@
                     this.characterSheet.hp = this.characterSheet.hp - damageToTake
                     this.updateHP = this.updateHP + 1
                 }
+            },
+            rollAbility(ability) {
+                let char = this.characterSheet[ability.characteristic]
+                this.rollDiceCheck({ diceToRoll: char, isSave: false, successes: ability.successes })                
             },
             rollDamage(ability) {
                 this.damageDialog.damages = []
@@ -1153,6 +1165,7 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: 'Ability Array holding Animal Aspect Elements.',
                             duration: 'Instant',
                             handedness: 0,
@@ -1173,6 +1186,7 @@
                                     areaOfEffect: 'Single Target',
                                     boughtForFree: false,
                                     crCost: 1,
+                                    characteristic: '',
                                     description: 'Glide toward your enemies and attack, can fly 6 sq.',
                                     duration: 'Instant',
                                     handedness: 0,
@@ -1201,6 +1215,7 @@
                                     areaOfEffect: 'Single Target',
                                     boughtForFree: false,
                                     crCost: 2,
+                                    characteristic: '',
                                     description: 'Heal, Overheal, and Regenerate body to "Normal" state.',
                                     duration: 'Instant',
                                     handedness: 0,
@@ -1229,6 +1244,7 @@
                                     areaOfEffect: 'Single Target',
                                     boughtForFree: false,
                                     crCost: 1,
+                                    characteristic: '',
                                     description: 'Jump forward crushing an enemy underfoot, can leap 30 feet.',
                                     duration: 'Instant',
                                     handedness: 0,
@@ -1257,6 +1273,7 @@
                                     areaOfEffect: 'Single Target',
                                     boughtForFree: false,
                                     crCost: 1,
+                                    characteristic: '',
                                     description: 'Glide toward your enemies, can fly 30 feet.',
                                     duration: 'Instant',
                                     handedness: 0,
@@ -1287,6 +1304,7 @@
                             areaOfEffect: 'Single Target',
                             boughtForFree: false,
                             crCost: 1,
+                            characteristic: '',
                             description: 'Eat the heart of a dead creature and gain an ability. Can buy ability on rest.',
                             duration: 'Instant',
                             handedness: 0,
@@ -1308,6 +1326,7 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: 'Can use attacks of opportunity',
                             duration: 'Passive',
                             handedness: 0,
@@ -1329,6 +1348,7 @@
                             areaOfEffect: 'Adjacent',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: 'Attack all adjacent creatures',
                             duration: 'Instant',
                             handedness: 0,
@@ -1350,6 +1370,7 @@
                             areaOfEffect: 'Single Target',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: 'Can become hidden when in Jungle and Wooded terrain.',
                             duration: '1 Round',
                             handedness: 0,
@@ -1371,6 +1392,7 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: 'Increase Max Health',
                             duration: 'Passive',
                             handedness: 0,
@@ -1392,6 +1414,7 @@
                             areaOfEffect: 'Single Target',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: 'Reaction, Hyper Reaction, Requires',
                             duration: 'Instant',
                             handedness: 0,
@@ -1413,6 +1436,7 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: '',
                             duration: 'Passive',
                             handedness: 0,
@@ -1434,6 +1458,7 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: '',
                             duration: 'Instant',
                             handedness: 0,
@@ -1454,6 +1479,7 @@
                                     areaOfEffect: '',
                                     boughtForFree: false,
                                     crCost: 0,
+                                    characteristic: '',
                                     description: '',
                                     duration: 'Instant',
                                     handedness: 0,
@@ -1474,6 +1500,7 @@
                                             areaOfEffect: '',
                                             boughtForFree: false,
                                             crCost: 0,
+                                            characteristic: '',
                                             description: '',
                                             duration: 'Instant',
                                             handedness: 0,
@@ -1494,6 +1521,7 @@
                                                     areaOfEffect: 'Single Target',
                                                     boughtForFree: false,
                                                     crCost: 0,
+                                                    characteristic: '',
                                                     description: '',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1522,6 +1550,7 @@
                                                     areaOfEffect: 'Single Target',
                                                     boughtForFree: false,
                                                     crCost: 0,
+                                                    characteristic: '',
                                                     description: 'Can jump 6 sq as part of the attack.',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1552,6 +1581,7 @@
                                             areaOfEffect: '',
                                             boughtForFree: false,
                                             crCost: 0,
+                                            characteristic: '',
                                             description: '',
                                             duration: 'Instant',
                                             handedness: 0,
@@ -1572,6 +1602,7 @@
                                                     areaOfEffect: '45 degree cone, 6 sq.',
                                                     boughtForFree: false,
                                                     crCost: 0,
+                                                    characteristic: '',
                                                     description: '',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1600,6 +1631,7 @@
                                                     areaOfEffect: 'Single Target',
                                                     boughtForFree: false,
                                                     crCost: 0,
+                                                    characteristic: '',
                                                     description: '',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1630,6 +1662,7 @@
                                             areaOfEffect: '',
                                             boughtForFree: false,
                                             crCost: 0,
+                                            characteristic: '',
                                             description: '',
                                             duration: 'Instant',
                                             handedness: 0,
@@ -1650,6 +1683,7 @@
                                                     areaOfEffect: 'Single Target',
                                                     boughtForFree: false,
                                                     crCost: 0,
+                                                    characteristic: '',
                                                     description: '',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1678,6 +1712,7 @@
                                                     areaOfEffect: 'Single Target',
                                                     boughtForFree: false,
                                                     crCost: 0,
+                                                    characteristic: '',
                                                     description: '',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1712,6 +1747,7 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: '',
                             duration: 'Passive',
                             handedness: 0,
@@ -1733,6 +1769,7 @@
                             areaOfEffect: 'Single Target',
                             boughtForFree: false,
                             crCost: -3,
+                            characteristic: '',
                             description: 'Vampirism Full, Requires Bleed 3',
                             duration: 'Instant',
                             handedness: 0,
@@ -1754,6 +1791,7 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: '+2d6 to Tracking',
                             duration: 'Passive',
                             handedness: 0,
@@ -1775,6 +1813,7 @@
                             areaOfEffect: 'Single Target',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: '',
                             description: 'Increase Value of Natural Creatures and Monsters by 55%.',
                             duration: 'Instant',
                             handedness: 0,
@@ -1796,6 +1835,7 @@
                             areaOfEffect: 'Single Target',
                             boughtForFree: false,
                             crCost: 0,
+                            characteristic: 'strength',
                             description: 'Blow Dart',
                             duration: 'Instant',
                             handedness: 1,
