@@ -231,9 +231,11 @@
                     <v-card-text>
                         <div v-for="(damage, index) in damageDialog.damages" :key="index">
                             <div>
+                                <v-icon :color="damage.color">{{damage.icon}}</v-icon>
                                 <b>{{damage.sum}} {{damage.type}}</b>
                             </div>
                             <div v-if="damage.damage.percentage">
+                                <v-icon :color="damage.color">{{damage.icon}}</v-icon>
                                 <b>{{damage.damage.percentage}}% {{damage.type}}</b>
                             </div>
                         </div>
@@ -1069,9 +1071,27 @@
                     if (d.flat)
                         sum += +d.flat
 
+                    let color = ''
+                    this.damageGroups.forEach((group) => {
+                        if (d.type == group.name || group.types.some(x => x.name == d.type)) {
+                            color = group.color
+                        }
+                    })
+                    let icon = ''
+                    this.damageGroups.forEach((group) => {
+                        if (d.type == group.name || group.types.some(x => x.name == d.type)) {
+                            if (d.type == group.name)
+                                icon = group.icon
+                            let damageType = group.types.find(type => type.name == d.type)
+                            if (damageType)
+                                icon = damageType.icon
+                        }
+                    })
                     this.damageDialog.damages.push(
                         {
+                            color: color,
                             damage: d,
+                            icon: icon,
                             percentage: d.percentage,
                             results: results,
                             sum: sum,
