@@ -6,10 +6,11 @@
                               type="number"
                               v-model="value"
                               @keyup.enter="rollDiceCheck">
-                    <v-icon slot="append" 
+                    <v-icon slot="append"
                             color="yellow accent-4"
                             v-if="characteristic.characteristic">mdi-star</v-icon>
-                    <v-icon slot="append" @click="rollDiceCheck">mdi-dice-6</v-icon>
+                    <v-icon slot="append" @click="rollCharCheck">mdi-dice-6</v-icon>
+                    <v-icon slot="append" @click="rollSaveCheck">mdi-shield</v-icon>
                 </v-text-field>                
             </v-col>
         </v-row>
@@ -31,8 +32,11 @@
             updateProp() {
                 this.$emit('updatePropEmit', { propName: this.characteristic.name, type: 'number', value: this.value })
             },
-            rollDiceCheck() {
+            rollCharCheck() {
                 this.$emit('rollDiceCheckEmit', { diceToRoll: this.value, isSave: false, successes: 0 })
+            },
+            rollSaveCheck() {
+                this.$emit('rollDiceCheckEmit', { diceToRoll: this.value, isSave: true, successes: 0 })
             }
         },
         watch: {
