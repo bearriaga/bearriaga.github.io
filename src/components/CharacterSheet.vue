@@ -461,14 +461,14 @@
                 ]
             },
             damageTypes() {
-                var resistances = []
+                var damageTypes = []
                 this.damageGroups.forEach((group) => {
-                    resistances.push(group.name)
+                    damageTypes.push(group.name)
                     group.types.forEach((type) => {
-                        resistances.push(type.name)
+                        damageTypes.push(type.name)
                     })
                 })
-                return resistances
+                return damageTypes
             },
             defenseInputWithEditModals() {
                 return [
@@ -896,6 +896,13 @@
                         name: 'True Damage',
                         types: []
                     }
+                    ,
+                    {
+                        color: 'green lighted-3',
+                        icon: 'mdi-plus',
+                        name: 'Healing',
+                        types: []
+                    }
                 ],
                 damageToTake:
                 {
@@ -1092,7 +1099,7 @@
                         sum += +d.flat
 
                     let charDamage = 0
-                    if (d.addChar && ability.characteristic) {
+                    if (d.addChar && ability.characteristic && d.type != 'Healing') {
                         let char = this.characterSheet[ability.characteristic]
                         charDamage += +char
                     }
@@ -1208,7 +1215,7 @@
                                     areaOfEffect: 'Single Target',
                                     boughtForFree: false,
                                     crCost: 1,
-                                    characteristic: '',
+                                    characteristic: 'strength',
                                     description: 'Glide toward your enemies and attack, can fly 6 sq.',
                                     duration: 'Instant',
                                     handedness: 0,
@@ -1239,7 +1246,7 @@
                                     areaOfEffect: 'Single Target',
                                     boughtForFree: false,
                                     crCost: 2,
-                                    characteristic: '',
+                                    characteristic: 'strength',
                                     description: 'Heal, Overheal, and Regenerate body to "Normal" state.',
                                     duration: 'Instant',
                                     handedness: 0,
@@ -1270,7 +1277,7 @@
                                     areaOfEffect: 'Single Target',
                                     boughtForFree: false,
                                     crCost: 1,
-                                    characteristic: '',
+                                    characteristic: 'strength',
                                     description: 'Jump forward crushing an enemy underfoot, can leap 30 feet.',
                                     duration: 'Instant',
                                     handedness: 0,
@@ -1301,7 +1308,7 @@
                                     areaOfEffect: 'Single Target',
                                     boughtForFree: false,
                                     crCost: 1,
-                                    characteristic: '',
+                                    characteristic: 'strength',
                                     description: 'Glide toward your enemies, can fly 30 feet.',
                                     duration: 'Instant',
                                     handedness: 0,
@@ -1561,7 +1568,7 @@
                                                     areaOfEffect: 'Single Target',
                                                     boughtForFree: false,
                                                     crCost: 0,
-                                                    characteristic: '',
+                                                    characteristic: 'strength',
                                                     description: '',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1592,7 +1599,7 @@
                                                     areaOfEffect: 'Single Target',
                                                     boughtForFree: false,
                                                     crCost: 0,
-                                                    characteristic: '',
+                                                    characteristic: 'strength',
                                                     description: 'Can jump 6 sq as part of the attack.',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1647,7 +1654,7 @@
                                                     areaOfEffect: '45 degree cone, 6 sq.',
                                                     boughtForFree: false,
                                                     crCost: 0,
-                                                    characteristic: '',
+                                                    characteristic: 'cunning',
                                                     description: '',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1678,7 +1685,7 @@
                                                     areaOfEffect: 'Single Target',
                                                     boughtForFree: false,
                                                     crCost: 0,
-                                                    characteristic: '',
+                                                    characteristic: 'strength',
                                                     description: '',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1733,7 +1740,7 @@
                                                     areaOfEffect: 'Single Target',
                                                     boughtForFree: false,
                                                     crCost: 0,
-                                                    characteristic: '',
+                                                    characteristic: 'strength',
                                                     description: '',
                                                     duration: 'Instant',
                                                     handedness: 0,
@@ -1764,7 +1771,7 @@
                                                     areaOfEffect: 'Single Target',
                                                     boughtForFree: false,
                                                     crCost: 0,
-                                                    characteristic: '',
+                                                    characteristic: 'dexterity',
                                                     description: '',
                                                     duration: 'Instant',
                                                     handedness: 0,

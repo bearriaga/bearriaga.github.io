@@ -72,6 +72,7 @@
                                     <h3 class="text-center">
                                         Damage
                                         <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
+                                               :disabled="!characteristic"
                                                @click.stop="addDamage">
                                             <v-icon>
                                                 mdi-plus
@@ -97,7 +98,7 @@
                                                 <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
                                             </v-select>
                                         </v-col>
-                                        <v-col cols="6">
+                                        <v-col cols="6" v-if="d.type != 'Healing'">
                                             <v-checkbox label="Add CHAR to damage" v-model="d.addChar" @click.stop="addChar(index)"></v-checkbox>
                                         </v-col>
                                     </v-row>
