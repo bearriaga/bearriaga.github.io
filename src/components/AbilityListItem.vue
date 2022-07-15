@@ -130,6 +130,7 @@
                         ability.id +
                         ability.inClass +
                         ability.isAbilityArray +
+                        ability.isMeleeAttack +
                         ability.maxSizeCategoryOfMass +
                         ability.name +
                         ability.physMeta +
@@ -158,6 +159,7 @@
                 id: this.ability.id,
                 inClass: this.ability.inClass,
                 isAbilityArray: this.ability.isAbilityArray,
+                isMeleeAttack: this.ability.isMeleeAttack,
                 maxSizeCategoryOfMass: this.ability.maxSizeCategoryOfMass,
                 name: this.ability.name,
                 physMeta: this.ability.physMeta,

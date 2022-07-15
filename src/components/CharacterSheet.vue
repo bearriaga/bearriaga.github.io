@@ -251,6 +251,9 @@
                             <div v-if="damage.damage.dice">
                                 Die Results:  {{damage.damage.dice}} {{damage.results}}
                             </div>
+                            <div v-if="damage.charDamage">
+                                CHAR damage: {{damage.charDamage}}
+                            </div>
                             <div v-if="damage.damage.flat">
                                 Flat Damage: {{damage.damage.flat}}
                             </div>
@@ -388,6 +391,7 @@
                         ability.id +
                         ability.inClass +
                         ability.isAbilityArray +
+                        ability.isMeleeAttack +
                         ability.maxSizeCategoryOfMass +
                         ability.name +
                         ability.physMeta +
@@ -666,34 +670,38 @@
                             areaOfEffect: '',
                             boughtForFree: false,
                             crCost: '0',
-                            characteristic: '',
+                            characteristic: 'dexterity',
                             description: 'Test Ability Description',
                             duration: 'Instant',
                             handedness: '0',
                             id: '1',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Test Ability',
                             physMeta: 'Physical',
-                            range: 'Melee',
+                            range: 0,
                             successes: 0,
                             xpCost: 10,
                             components: [],
                             damage: [
                                 {
+                                    addChar: true,
                                     dice: '2d6',
                                     flat: 4,
                                     percentage: 0,
                                     type: 'Piercing'
                                 },
                                 {
+                                    addChar: false,
                                     dice: '',
                                     flat: 1,
                                     percentage: 0,
                                     type: 'Acid'
                                 },
                                 {
+                                    addChar: false,
                                     dice: '2d6',
                                     flat: 4,
                                     percentage: 20,
@@ -1060,7 +1068,7 @@
             },
             rollAbility(ability) {
                 let char = this.characterSheet[ability.characteristic]
-                this.rollDiceCheck({ diceToRoll: char, isSave: false, successes: ability.successes })                
+                this.rollDiceCheck({ diceToRoll: char, isSave: false, successes: ability.successes })
             },
             rollDamage(ability) {
                 this.damageDialog.damages = []
@@ -1083,6 +1091,18 @@
                     if (d.flat)
                         sum += +d.flat
 
+                    let charDamage = 0
+                    if (d.addChar && ability.characteristic) {
+                        let char = this.characterSheet[ability.characteristic]
+                        charDamage += +char
+                    }
+                    if (ability.isMeleeAttack) {
+                        let char = this.characterSheet['strength']
+                        charDamage += +char
+                    }
+
+                    sum += +charDamage
+
                     let color = ''
                     this.damageGroups.forEach((group) => {
                         if (d.type == group.name || group.types.some(x => x.name == d.type)) {
@@ -1099,17 +1119,18 @@
                                 icon = damageType.icon
                         }
                     })
-                    this.damageDialog.damages.push(
-                        {
-                            color: color,
-                            damage: d,
-                            icon: icon,
-                            percentage: d.percentage,
-                            results: results,
-                            sum: sum,
-                            type: d.type
-                        }
-                    )
+
+                    let damage = {
+                        charDamage: charDamage,
+                        color: color,
+                        damage: d,
+                        icon: icon,
+                        percentage: d.percentage,
+                        results: results,
+                        sum: sum,
+                        type: d.type
+                    }
+                    this.damageDialog.damages.push(damage)
                 })
                 this.damageDialog.show = true
             },
@@ -1172,10 +1193,11 @@
                             id: '1656642986599',
                             inClass: true,
                             isAbilityArray: true,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Animal Attacks',
                             physMeta: 'Meta',
-                            range: 'Self',
+                            range: 0,
                             successes: 0,
                             xpCost: 344,
                             components: [],
@@ -1193,15 +1215,17 @@
                                     id: '1656642986259',
                                     inClass: true,
                                     isAbilityArray: false,
+                                    isMeleeAttack: true,
                                     maxSizeCategoryOfMass: 0,
                                     name: 'Eagle Glide',
                                     physMeta: 'Physical',
-                                    range: 'Melee',
+                                    range: 0,
                                     successes: 1,
                                     xpCost: 183,
                                     components: [],
                                     damage: [
                                         {
+                                            addChar: true,
                                             dice: '2d6',
                                             flat: 0,
                                             percentage: 0,
@@ -1222,15 +1246,17 @@
                                     id: '1656642986159',
                                     inClass: true,
                                     isAbilityArray: false,
+                                    isMeleeAttack: false,
                                     maxSizeCategoryOfMass: 0,
                                     name: 'Iguana Regeneration',
                                     physMeta: 'Physical',
-                                    range: 'Melee',
+                                    range: 0,
                                     successes: 0,
                                     xpCost: 264,
                                     components: [],
                                     damage: [
                                         {
+                                            addChar: false,
                                             dice: '6d6',
                                             flat: 0,
                                             percentage: 0,
@@ -1251,15 +1277,17 @@
                                     id: '1656642986359',
                                     inClass: true,
                                     isAbilityArray: false,
+                                    isMeleeAttack: true,
                                     maxSizeCategoryOfMass: 0,
                                     name: 'Jaguar Pounce',
                                     physMeta: 'Physical',
-                                    range: 'Melee',
+                                    range: 0,
                                     successes: 1,
                                     xpCost: 176,
                                     components: [],
                                     damage: [
                                         {
+                                            addChar: true,
                                             dice: '2d6',
                                             flat: 0,
                                             percentage: 0,
@@ -1280,15 +1308,17 @@
                                     id: '1656642986459',
                                     inClass: true,
                                     isAbilityArray: false,
+                                    isMeleeAttack: true,
                                     maxSizeCategoryOfMass: 0,
                                     name: 'Serpent Strike',
                                     physMeta: 'Physical',
-                                    range: 'Melee',
+                                    range: 0,
                                     successes: 1,
                                     xpCost: 182,
                                     components: [],
                                     damage: [
                                         {
+                                            addChar: true,
                                             dice: '2d6',
                                             flat: 0,
                                             percentage: 0,
@@ -1311,10 +1341,11 @@
                             id: '1656642986559',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Assimilate',
                             physMeta: 'Meta',
-                            range: 'Melee',
+                            range: 0,
                             successes: 0,
                             xpCost: 188,
                             components: [],
@@ -1333,10 +1364,11 @@
                             id: '1646642986559',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Attacks of Opportunity',
                             physMeta: 'Meta',
-                            range: 'Self',
+                            range: 0,
                             successes: 0,
                             xpCost: 60,
                             components: [],
@@ -1355,10 +1387,11 @@
                             id: '1656642986569',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Cleaving Strike',
                             physMeta: 'Physical',
-                            range: 'Melee',
+                            range: 0,
                             successes: 0,
                             xpCost: 75,
                             components: [],
@@ -1377,10 +1410,11 @@
                             id: '1656642986579',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Jungle Stalker',
                             physMeta: 'Physical',
-                            range: 'Self',
+                            range: 0,
                             successes: 0,
                             xpCost: 10,
                             components: [],
@@ -1399,10 +1433,11 @@
                             id: '1656642986589',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Meaty',
                             physMeta: 'Meta',
-                            range: 'Self',
+                            range: 0,
                             successes: 0,
                             xpCost: 100,
                             components: [],
@@ -1421,10 +1456,11 @@
                             id: '1656642986591',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Parry',
                             physMeta: 'Physical',
-                            range: 'Melee',
+                            range: 0,
                             successes: 0,
                             xpCost: 210,
                             components: [],
@@ -1443,10 +1479,11 @@
                             id: '1656642986596',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'RES +1',
                             physMeta: 'Meta',
-                            range: 'Self',
+                            range: 0,
                             successes: 0,
                             xpCost: 250,
                             components: [],
@@ -1465,10 +1502,11 @@
                             id: '1656642986592',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Summon Spirit Animal',
                             physMeta: 'Physical',
-                            range: 'Melee',
+                            range: 0,
                             successes: 0,
                             xpCost: 100,
                             components: [],
@@ -1486,10 +1524,11 @@
                                     id: '1256642986592',
                                     inClass: true,
                                     isAbilityArray: true,
+                                    isMeleeAttack: false,
                                     maxSizeCategoryOfMass: 0,
                                     name: 'Spirit Animal Array',
                                     physMeta: 'Meta',
-                                    range: 'Self',
+                                    range: 0,
                                     successes: 0,
                                     xpCost: 10,
                                     components: [],
@@ -1507,10 +1546,11 @@
                                             id: '1',
                                             inClass: true,
                                             isAbilityArray: false,
+                                            isMeleeAttack: false,
                                             maxSizeCategoryOfMass: 0,
                                             name: 'Big Cat',
                                             physMeta: 'Meta',
-                                            range: 'Melee',
+                                            range: 0,
                                             successes: 0,
                                             xpCost: 25,
                                             components: [],
@@ -1528,15 +1568,17 @@
                                                     id: '1',
                                                     inClass: true,
                                                     isAbilityArray: false,
+                                                    isMeleeAttack: true,
                                                     maxSizeCategoryOfMass: 0,
                                                     name: 'Claw Attack',
                                                     physMeta: 'Physical',
-                                                    range: 'Melee',
+                                                    range: 0,
                                                     successes: 0,
                                                     xpCost: 140,
                                                     components: [],
                                                     damage: [
                                                         {
+                                                            addChar: true,
                                                             dice: '2d6',
                                                             flat: 0,
                                                             percentage: 0,
@@ -1557,15 +1599,17 @@
                                                     id: '2',
                                                     inClass: true,
                                                     isAbilityArray: false,
+                                                    isMeleeAttack: true,
                                                     maxSizeCategoryOfMass: 0,
                                                     name: 'Pounce',
                                                     physMeta: 'Physical',
-                                                    range: 'Melee',
+                                                    range: 0,
                                                     successes: 0,
                                                     xpCost: 135,
                                                     components: [],
                                                     damage: [
                                                         {
+                                                            addChar: true,
                                                             dice: '1d6',
                                                             flat: 0,
                                                             percentage: 0,
@@ -1588,10 +1632,11 @@
                                             id: '2',
                                             inClass: true,
                                             isAbilityArray: false,
+                                            isMeleeAttack: false,
                                             maxSizeCategoryOfMass: 0,
                                             name: 'Bird',
                                             physMeta: 'Meta',
-                                            range: 'Melee',
+                                            range: 0,
                                             successes: 0,
                                             xpCost: 70,
                                             components: [],
@@ -1609,15 +1654,17 @@
                                                     id: '1',
                                                     inClass: true,
                                                     isAbilityArray: false,
+                                                    isMeleeAttack: false,
                                                     maxSizeCategoryOfMass: 0,
                                                     name: 'Bird Song',
                                                     physMeta: 'Physical',
-                                                    range: 'AoE',
+                                                    range: 6,
                                                     successes: 0,
                                                     xpCost: 50,
                                                     components: [],
                                                     damage: [
                                                         {
+                                                            addChar: false,
                                                             dice: '1d4',
                                                             flat: 0,
                                                             percentage: 0,
@@ -1638,15 +1685,17 @@
                                                     id: '2',
                                                     inClass: true,
                                                     isAbilityArray: false,
+                                                    isMeleeAttack: true,
                                                     maxSizeCategoryOfMass: 0,
                                                     name: 'Claw Attack',
                                                     physMeta: 'Physical',
-                                                    range: 'Melee',
+                                                    range: 0,
                                                     successes: 0,
                                                     xpCost: 70,
                                                     components: [],
                                                     damage: [
                                                         {
+                                                            addChar: true,
                                                             dice: '1d6',
                                                             flat: 0,
                                                             percentage: 0,
@@ -1669,10 +1718,11 @@
                                             id: '3',
                                             inClass: true,
                                             isAbilityArray: false,
+                                            isMeleeAttack: false,
                                             maxSizeCategoryOfMass: 0,
                                             name: 'Reptile',
                                             physMeta: 'Meta',
-                                            range: 'Melee',
+                                            range: 0,
                                             successes: 0,
                                             xpCost: 60,
                                             components: [],
@@ -1690,15 +1740,17 @@
                                                     id: '1',
                                                     inClass: true,
                                                     isAbilityArray: false,
+                                                    isMeleeAttack: true,
                                                     maxSizeCategoryOfMass: 0,
                                                     name: 'Bite',
                                                     physMeta: 'Physical',
-                                                    range: 'Melee',
+                                                    range: 0,
                                                     successes: 0,
                                                     xpCost: 140,
                                                     components: [],
                                                     damage: [
                                                         {
+                                                            addChar: true,
                                                             dice: '2d6',
                                                             flat: 0,
                                                             percentage: 0,
@@ -1719,15 +1771,17 @@
                                                     id: '2',
                                                     inClass: true,
                                                     isAbilityArray: false,
+                                                    isMeleeAttack: false,
                                                     maxSizeCategoryOfMass: 0,
                                                     name: 'Spit',
                                                     physMeta: 'Physical',
-                                                    range: '6 Squares',
+                                                    range: 6,
                                                     successes: 0,
                                                     xpCost: 100,
                                                     components: [],
                                                     damage: [
                                                         {
+                                                            addChar: false,
                                                             dice: '1d6',
                                                             flat: 0,
                                                             percentage: 0,
@@ -1754,10 +1808,11 @@
                             id: '1656642986593',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Turtle Shell',
                             physMeta: 'Meta',
-                            range: 'Melee',
+                            range: 0,
                             successes: 0,
                             xpCost: 80,
                             components: [],
@@ -1776,10 +1831,11 @@
                             id: '1656642986594',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Vampire Bat Strike',
                             physMeta: 'Physical',
-                            range: 'Melee',
+                            range: 0,
                             successes: 0,
                             xpCost: 280,
                             components: [],
@@ -1798,10 +1854,11 @@
                             id: '1656642986595',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Big Game Tracking',
                             physMeta: 'Meta',
-                            range: 'Self',
+                            range: 0,
                             successes: 0,
                             xpCost: 30,
                             components: [],
@@ -1820,10 +1877,11 @@
                             id: '1656642986598',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Harverster',
                             physMeta: 'Physical',
-                            range: 'Melee',
+                            range: 0,
                             successes: 0,
                             xpCost: 40,
                             components: [],
@@ -1842,15 +1900,17 @@
                             id: '1656642986597',
                             inClass: true,
                             isAbilityArray: false,
+                            isMeleeAttack: false,
                             maxSizeCategoryOfMass: 0,
                             name: 'Tlacalhuazcuahuitl',
                             physMeta: 'Physical',
-                            range: '10 Squares',
+                            range: 10,
                             successes: 0,
                             xpCost: 210,
                             components: [],
                             damage: [
                                 {
+                                    addChar: false,
                                     dice: '3d6',
                                     flat: 0,
                                     percentage: 0,

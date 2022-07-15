@@ -18,7 +18,7 @@
                         <v-row>
                             <v-col cols="12" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
                                 <AbilityListItem :ability="ability"
-                                                 @deleteEntryEmit="deleteDialog($event)"                                                 
+                                                 @deleteEntryEmit="deleteDialog($event)"
                                                  @rollAbilityEmit="rollAbility($event)"
                                                  @rollDamageEmit="rollDamage($event)"
                                                  @subtractAP="subtractAP($event)"
@@ -78,7 +78,7 @@
                                             </v-icon>
                                         </v-btn>
                                     </h3>
-                                    <v-row v-for="(d, index) in damage" :key="index">
+                                    <v-row v-for="(d, index) in compDamage" :key="d.key">
                                         <v-col cols="12" md="4">
                                             <v-text-field label="Dice" placeholder="ex: 1d6" v-model="d.dice" :rules="diceRules"></v-text-field>
                                         </v-col>
@@ -88,7 +88,7 @@
                                         <v-col cols="12" md="4">
                                             <v-text-field label="Percentage" type="number" v-model="d.percentage"></v-text-field>
                                         </v-col>
-                                        <v-col cols="12">
+                                        <v-col cols="6">
                                             <v-select label="Type"
                                                       :items="damageTypes"
                                                       v-model="d.type"
@@ -96,6 +96,9 @@
                                                       required>
                                                 <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
                                             </v-select>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <v-checkbox label="Add CHAR to damage" v-model="d.addChar" @click.stop="addChar(index)"></v-checkbox>
                                         </v-col>
                                     </v-row>
                                 </v-col>
@@ -109,7 +112,10 @@
                                     <v-text-field label="Duration" v-model="duration"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Range" v-model="range"></v-text-field>
+                                    <v-checkbox label="Is Melee Attack" v-model="isMeleeAttack"></v-checkbox>
+                                </v-col>
+                                <v-col cols="6" md="4">
+                                    <v-text-field label="Range" type="number" v-model="range"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Area of Effect" v-model="areaOfEffect"></v-text-field>
@@ -187,6 +193,18 @@
             characteristics: Array,
             damageTypes: Array
         },
+        computed: {
+            compDamage() {
+                let damages = []
+
+                this.damage.forEach((damage, index) => {
+                    damage.key = index.toString() + damage.addChar
+                    damages.push(damage)
+                })
+
+                return damages
+            }
+        },
         data() {
             return {
                 // Input Fields Start
@@ -202,10 +220,11 @@
                     id: '',
                     inClass: true,
                     isAbilityArray: false,
+                    isMeleeAttack: true,
                     maxSizeCategoryOfMass: 0,
                     name: '',
                     physMeta: '',
-                    range: 'Melee',
+                    range: 0,
                     successes: 0,
                     xpCost: 0,
                     components: [],
@@ -223,10 +242,11 @@
                 id: '',
                 inClass: true,
                 isAbilityArray: false,
+                isMeleeAttack: true,
                 maxSizeCategoryOfMass: 0,
                 name: '',
                 physMeta: '',
-                range: 'Melee',
+                range: 0,
                 successes: 0,
                 xpCost: 0,
                 components: [],
@@ -239,7 +259,7 @@
                     type: ''
                 },
                 // Validation Start
-                diceRules: [                    
+                diceRules: [
                     v => !v || /^(\d+)d(\d+)$/ig.test(v) || 'Field must be in proper format {number}d{number}'
                 ],
                 numberRules: [
@@ -258,8 +278,16 @@
                     name: ''
                 })
             },
+            addChar(index) {
+                this.damage.forEach((damage) => {
+                    damage.addChar = false
+                })
+                this.damage[index].addChar = true
+            },
             addDamage() {
+                let addChar = this.damage.length == 0
                 this.damage.push({
+                    addChar: addChar,
                     dice: '',
                     flat: 0,
                     percentage: 0,
@@ -300,6 +328,7 @@
                 this.ability.id = this.id
                 this.ability.inClass = this.inClass
                 this.ability.isAbilityArray = this.isAbilityArray
+                this.ability.isMeleeAttack = this.isMeleeAttack
                 this.ability.maxSizeCategoryOfMass = this.maxSizeCategoryOfMass
                 this.ability.name = this.name
                 this.ability.physMeta = this.physMeta
@@ -331,10 +360,11 @@
                     id: '',
                     inClass: true,
                     isAbilityArray: false,
+                    isMeleeAttack: true,
                     maxSizeCategoryOfMass: 0,
                     name: '',
                     physMeta: '',
-                    range: 'Melee',
+                    range: 0,
                     successes: 0,
                     xpCost: 10,
                     components: [],
@@ -374,6 +404,7 @@
                 this.id = ability.id
                 this.inClass = ability.inClass
                 this.isAbilityArray = ability.isAbilityArray
+                this.isMeleeAttack = ability.isMeleeAttack
                 this.maxSizeCategoryOfMass = ability.maxSizeCategoryOfMass
                 this.name = ability.name
                 this.physMeta = ability.physMeta
