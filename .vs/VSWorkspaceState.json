@@ -3,10 +3,7 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\plugins",
-    "\\src\\router",
     "\\src\\views"
   ],
-  "SelectedNode": "\\src\\components\\CharacterSheet.vue",
   "PreviewInSolutionExplorer": false
 }
