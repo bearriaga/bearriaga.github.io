@@ -137,7 +137,11 @@
         },
         watch: {
             value() {
-                this.updateProp(this.propertyObject.valueName, this.value)
+                this.$emit('updatePropEmit', {
+                    propName: this.propertyObject.valueName,
+                    type: 'number',
+                    value: this.value
+                })
             }
         }
     }

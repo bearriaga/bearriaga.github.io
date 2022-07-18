@@ -45,7 +45,7 @@
                         <v-row>
                             <v-col cols="6" md="4" v-for="char in characteristicViewItems" :key="char.key">
                                 <CharacteristicViewItem @updatePropEmit="updateProp($event)"
-                                                        @rollDiceCheckEmit="rollDiceCheck($event)"
+                                                        @rollDiceCheckEmit="rollCheck($event)"
                                                         :characteristic="char"></CharacteristicViewItem>
                             </v-col>
                         </v-row>
@@ -55,7 +55,7 @@
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"
-                                      @rollDiceCheckEmit="rollDiceCheck($event)"></SkillSection>
+                                      @rollDiceCheckEmit="rollCheck($event)"></SkillSection>
                     </div>
                 </v-col>
                 <v-col cols="12" md="3">
@@ -195,23 +195,32 @@
                     </v-card-title>
 
                     <v-card-text>
-                        Dice Results: {{checkDialog.diceResults}}
-                    </v-card-text>
+                        <div>
+                            <b>Successes: {{checkDialog.successes}}</b>
+                        </div>
+                        <div>
+                            Fate: {{checkDialog.fate}}
 
-                    <v-card-text>
-                        Fate: {{checkDialog.fate}}
+                            <template v-if="checkDialog.advantage">
+                                , Advantage, LCK added to successes
+                            </template>
 
-                        <template v-if="checkDialog.advantage">
-                            , Advantage, LCK added to successes
-                        </template>
+                            <template v-if="checkDialog.threat">
+                                , Threat
+                            </template>
+                        </div>
+                        <div>
+                            Dice Results: {{checkDialog.diceResults}}
+                        </div>
 
-                        <template v-if="checkDialog.threat">
-                            , Threat
-                        </template>
-                    </v-card-text>
-
-                    <v-card-text>
-                        Successes: {{checkDialog.successes}}
+                        <div>
+                            <v-btn @click="rerollWholeHand(checkDialog.diceCheckObject)"
+                                   :disabled="characterSheet.rerolls <= 0">Reroll Hand</v-btn>
+                        </div>
+                        <div>
+                            <v-btn @click="rerollFailures()"
+                                   :disabled="characterSheet.rerolls <= 0">Reroll Failures</v-btn>
+                        </div>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -551,7 +560,7 @@
                         color: 'yellow',
                         dialogText: '',
                         disabled: false,
-                        key: 'rerolls' + this.characterSheet.rerollsMax,
+                        key: 'rerolls' + this.characterSheet.rerollsMax + this.updateRerolls.toString(),
                         label: 'Rerolls',
                         minus: true,
                         plus: false,
@@ -844,6 +853,7 @@
                 },
                 checkDialog: {
                     advantage: false,
+                    diceCheckObject: {},
                     diceResults: [],
                     fate: 0,
                     show: false,
@@ -926,7 +936,8 @@
                     'Teleport'
                 ],
                 updateAP: 0,
-                updateHP: 0
+                updateHP: 0,
+                updateRerolls: 0,
             }
         },
         methods: {
@@ -994,9 +1005,48 @@
                 max = Math.floor(max)
                 return Math.floor(Math.random() * (max - min + 1) + min) //The maximum is inclusive and the minimum is inclusive
             },
-            rollDiceCheck(object) {
+            rerollFailures() {
+                var failureCount = this.checkDialog.diceResults.filter(x => { return x < 4 }).length
+                let successDiceResults = this.checkDialog.diceResults.filter(x => { return x > 3 })
+                let rdResults = this.rollDice(failureCount)
+
+                this.checkDialog.diceResults = successDiceResults.concat(rdResults.diceResults)
+                this.checkDialog.successes += +rdResults.successes
+
+                this.characterSheet.rerolls--
+                this.updateRerolls++
+            },
+            rerollWholeHand(diceCheckObject) {
+                this.rollCheck(diceCheckObject)
+                this.characterSheet.rerolls--
+                this.updateRerolls++
+            },
+            rollAbility(ability) {
+                let char = this.characterSheet[ability.characteristic]
+                this.rollCheck({
+                    diceToRoll: char,
+                    isSave: false,
+                    successes: ability.successes
+                })
+            },
+            rollDice(diceToRoll) {
+                let result = {
+                    diceResults: [],
+                    successes: 0
+                }
+
+                for (var i = 0; i < diceToRoll; i++) {
+                    var dieResult = this.getRandomIntInclusive(1, 6)
+                    result.diceResults.push(dieResult)
+                    result.successes += this.determineSuccesses(dieResult)
+                }
+
+                return result
+            },
+            rollCheck(diceCheckObject) {
                 var result = {
                     advantage: false,
+                    diceCheckObject: diceCheckObject,
                     diceResults: [],
                     fate: 0,
                     show: true,
@@ -1004,20 +1054,19 @@
                     threat: false
                 }
 
-                if (object.diceToRoll > 0) {
-                    if (!object.isSave)
-                        object.diceToRoll = +object.diceToRoll + Math.floor(this.characterSheet.intelligence / 2)
+                let diceToRoll = diceCheckObject.diceToRoll
+                if (diceToRoll > 0) {
+                    if (!diceCheckObject.isSave)
+                        diceToRoll = +diceCheckObject.diceToRoll + Math.floor(this.characterSheet.intelligence / 2)
 
-                    for (var i = 0; i < object.diceToRoll; i++) {
-                        var dieResult = this.getRandomIntInclusive(1, 6)
-                        result.diceResults.push(dieResult)
-                        if (i == 0)
-                            result.fate = dieResult
-                        result.successes += this.determineSuccesses(dieResult)
-                    }
+                    let rdResult = this.rollDice(diceToRoll)
 
-                    if (object.successes)
-                        result.successes += +object.successes
+                    result.diceResults = rdResult.diceResults;
+                    result.successes += +rdResult.successes
+                    result.fate = result.diceResults[0]
+
+                    if (diceCheckObject.successes)
+                        result.successes += +diceCheckObject.successes
 
                     if (!this.characterSheet.luckNothingToChance) {
                         if (result.fate == 6 || (this.characterSheet.luckFavored && result.fate >= 5)) {
@@ -1072,10 +1121,6 @@
                     this.characterSheet.hp = this.characterSheet.hp - damageToTake
                     this.updateHP = this.updateHP + 1
                 }
-            },
-            rollAbility(ability) {
-                let char = this.characterSheet[ability.characteristic]
-                this.rollDiceCheck({ diceToRoll: char, isSave: false, successes: ability.successes })
             },
             rollDamage(ability) {
                 this.damageDialog.damages = []
@@ -2138,6 +2183,7 @@
                 this.updateAP++
             },
             updateProp(prop) {
+                console.log(prop)
                 if (prop.type == 'number')
                     this.characterSheet[prop.propName] = +prop.value
                 else
