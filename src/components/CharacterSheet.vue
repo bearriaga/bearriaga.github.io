@@ -213,14 +213,32 @@
                             Dice Results: {{checkDialog.diceResults}}
                         </div>
 
-                        <div>
-                            <v-btn @click="rerollWholeHand(checkDialog.diceCheckObject)"
-                                   :disabled="characterSheet.rerolls <= 0">Reroll Hand</v-btn>
-                        </div>
-                        <div>
-                            <v-btn @click="rerollFailures()"
-                                   :disabled="characterSheet.rerolls <= 0">Reroll Failures</v-btn>
-                        </div>
+                        <v-row>
+                            <v-col cols="6">
+                                <v-btn @click="rerollWholeHand"
+                                       :disabled="characterSheet.rerolls <= 0"
+                                       width="200">Reroll Hand</v-btn>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-btn @click="rerollFailures"
+                                       :disabled="characterSheet.rerolls <= 0"
+                                       width="200">Reroll Failures</v-btn>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-select v-model="checkDialog.selectedRerolls"
+                                          :items="checkDialog.diceResults.map((x, i) => ({ value: i, text: x}))"
+                                          label="Select Rerolls"
+                                          multiple
+                                          :disabled="characterSheet.rerolls <= 0">
+                                    <v-icon color="primary"
+                                            slot="prepend"
+                                            @click.stop="rerollSelected"
+                                            :disabled="characterSheet.rerolls <= 0 || checkDialog.selectedRerolls.length == 0">
+                                        mdi-dice-6
+                                    </v-icon>
+                                </v-select>
+                            </v-col>
+                        </v-row>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -856,6 +874,7 @@
                     diceCheckObject: {},
                     diceResults: [],
                     fate: 0,
+                    selectedRerolls: [],
                     show: false,
                     successes: 0,
                     threat: false
@@ -1010,13 +1029,36 @@
                 let successDiceResults = this.checkDialog.diceResults.filter(x => { return x > 3 })
                 let rdResults = this.rollDice(failureCount)
 
+                this.checkDialog.selectedRerolls = []
                 this.checkDialog.diceResults = successDiceResults.concat(rdResults.diceResults)
                 this.checkDialog.successes += +rdResults.successes
 
                 this.characterSheet.rerolls--
                 this.updateRerolls++
             },
-            rerollWholeHand(diceCheckObject) {
+            rerollSelected() {
+                let indexes = this.checkDialog.selectedRerolls.sort().reverse()
+
+                indexes.forEach(i => {
+                    this.checkDialog.diceResults.splice(i, 1)
+                })
+
+                let rdResults = this.rollDice(indexes.length)
+                this.checkDialog.diceResults = this.checkDialog.diceResults.concat(rdResults.diceResults)
+
+                this.checkDialog.successes = 0
+
+                this.checkDialog.diceResults.forEach(d => {
+                    this.checkDialog.successes += +this.determineSuccesses(d)
+                })
+
+                this.checkDialog.selectedRerolls = []
+
+                this.characterSheet.rerolls--
+                this.updateRerolls++
+            },
+            rerollWholeHand() {
+                let diceCheckObject = this.checkDialog.diceCheckObject
                 this.rollCheck(diceCheckObject)
                 this.characterSheet.rerolls--
                 this.updateRerolls++
@@ -1050,6 +1092,7 @@
                     diceResults: [],
                     fate: 0,
                     show: true,
+                    selectedRerolls: [],
                     successes: 0,
                     threat: false
                 }
@@ -2183,7 +2226,6 @@
                 this.updateAP++
             },
             updateProp(prop) {
-                console.log(prop)
                 if (prop.type == 'number')
                     this.characterSheet[prop.propName] = +prop.value
                 else
