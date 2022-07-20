@@ -221,7 +221,7 @@
                             </v-col>
                             <v-col cols="6">
                                 <v-btn @click="rerollFailures"
-                                       :disabled="characterSheet.rerolls <= 0"
+                                       :disabled="characterSheet.rerolls <= 0 || checkDialog.diceResults.filter(x=>{ return x < 4 }).length == 0"
                                        width="200">Reroll Failures</v-btn>
                             </v-col>
                             <v-col cols="12">
