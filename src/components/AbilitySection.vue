@@ -71,8 +71,7 @@
                                 <v-col cols="12">
                                     <h3 class="text-center">
                                         Damage
-                                        <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
-                                               :disabled="!characteristic"
+                                        <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"                                               
                                                @click.stop="addDamage">
                                             <v-icon>
                                                 mdi-plus
@@ -80,14 +79,11 @@
                                         </v-btn>
                                     </h3>
                                     <v-row v-for="(d, index) in compDamage" :key="d.key">
-                                        <v-col cols="12" md="4">
-                                            <v-text-field label="Dice" placeholder="ex: 1d6" v-model="d.dice" :rules="diceRules"></v-text-field>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field label="Dice" type="number" v-model="d.dice"></v-text-field>
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col cols="12" md="6">
                                             <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" md="4">
-                                            <v-text-field label="Percentage" type="number" v-model="d.percentage"></v-text-field>
                                         </v-col>
                                         <v-col cols="6">
                                             <v-select label="Type"
@@ -98,7 +94,7 @@
                                                 <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
                                             </v-select>
                                         </v-col>
-                                        <v-col cols="6" v-if="d.type != 'Healing'">
+                                        <v-col cols="6" v-if="d.type != 'Healing' && (characteristic || isMeleeAttack)">
                                             <v-checkbox label="Add CHAR to damage" v-model="d.addChar" @click.stop="addChar(index)"></v-checkbox>
                                         </v-col>
                                     </v-row>
@@ -260,9 +256,6 @@
                     type: ''
                 },
                 // Validation Start
-                diceRules: [
-                    v => !v || /^(\d+)d(\d+)$/ig.test(v) || 'Field must be in proper format {number}d{number}'
-                ],
                 numberRules: [
                     v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
                 ],
@@ -289,9 +282,8 @@
                 let addChar = this.damage.length == 0
                 this.damage.push({
                     addChar: addChar,
-                    dice: '',
+                    dice: 0,
                     flat: 0,
-                    percentage: 0,
                     type: ''
                 });
             },

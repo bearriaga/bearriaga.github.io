@@ -214,6 +214,14 @@
                         </div>
 
                         <v-row>
+                            <v-col cols="12">
+                                <v-btn icon color="primary"
+                                       @click="copyCheck">
+                                    <v-icon>
+                                        mdi-content-copy
+                                    </v-icon>
+                                </v-btn>
+                            </v-col>
                             <v-col cols="6">
                                 <v-btn @click="rerollWholeHand"
                                        :disabled="characterSheet.rerolls <= 0"
@@ -263,10 +271,6 @@
                                 <v-icon :color="damage.color">{{damage.icon}}</v-icon>
                                 <b>{{damage.sum}} {{damage.type}}</b>
                             </div>
-                            <div v-if="damage.damage.percentage">
-                                <v-icon :color="damage.color">{{damage.icon}}</v-icon>
-                                <b>{{damage.damage.percentage}}% {{damage.type}}</b>
-                            </div>
                         </div>
                     </v-card-text>
 
@@ -276,16 +280,13 @@
                                 <b>{{damage.damage.type}}</b>
                             </div>
                             <div v-if="damage.damage.dice">
-                                Die Results:  {{damage.damage.dice}} {{damage.results}}
+                                Die Results:  {{damage.damage.dice}}d6 {{damage.results}}
                             </div>
                             <div v-if="damage.charDamage">
                                 CHAR damage: {{damage.charDamage}}
                             </div>
                             <div v-if="damage.damage.flat">
                                 Flat Damage: {{damage.damage.flat}}
-                            </div>
-                            <div v-if="damage.damage.percentage">
-                                Percentage: {{damage.damage.percentage}}
                             </div>
                         </div>
                     </v-card-text>
@@ -715,23 +716,20 @@
                             damage: [
                                 {
                                     addChar: true,
-                                    dice: '2d6',
+                                    dice: 2,
                                     flat: 4,
-                                    percentage: 0,
                                     type: 'Piercing'
                                 },
                                 {
                                     addChar: false,
-                                    dice: '',
+                                    dice: 0,
                                     flat: 1,
-                                    percentage: 0,
                                     type: 'Acid'
                                 },
                                 {
                                     addChar: false,
-                                    dice: '2d6',
+                                    dice: 2,
                                     flat: 4,
-                                    percentage: 20,
                                     type: 'Fire'
                                 }
                             ],
@@ -1010,6 +1008,14 @@
                 this.characterSheet.resources = []
                 this.characterSheet.resources = resourcesDup
             },
+            copyCheck() {
+                var copyText =
+                    'Successes: ' + this.checkDialog.successes + '\n' +
+                    'Fate: ' + this.checkDialog.fate + ((this.checkDialog.advantage) ? ', Advantage' : '') + ((this.checkDialog.threat) ? ', Threat' : '') + '\n' +
+                    'Dice Results: [' + this.checkDialog.diceResults + ']';
+
+                navigator.clipboard.writeText(copyText)
+            },
             //Dice Roll Functions
             determineSuccesses(dieResult) {
                 if (dieResult < 4)
@@ -1172,11 +1178,8 @@
                     let results = [];
 
                     if (d.dice) {
-                        let splitterArray = d.dice.split('d');
-                        let dice = +splitterArray[0];
-                        let sides = +splitterArray[1];
-                        for (var i = 0; i < dice; i++) {
-                            results.push(this.getRandomIntInclusive(1, sides))
+                        for (var i = 0; i < d.dice; i++) {
+                            results.push(this.getRandomIntInclusive(1, 6))
                         }
                         sum += results.reduce((previousValue, entry) => {
                             return +previousValue + +entry
@@ -1187,13 +1190,16 @@
                         sum += +d.flat
 
                     let charDamage = 0
-                    if (d.addChar && ability.characteristic && d.type != 'Healing') {
-                        let char = this.characterSheet[ability.characteristic]
-                        charDamage += +char
-                    }
-                    if (ability.isMeleeAttack) {
-                        let char = this.characterSheet['strength']
-                        charDamage += +char
+                    if (d.addChar && d.type != 'Healing') {
+                        if (ability.characteristic) {
+                            let char = this.characterSheet[ability.characteristic]
+                            charDamage += +char
+                        }
+
+                        if (ability.isMeleeAttack) {
+                            let char = this.characterSheet['strength']
+                            charDamage += +char
+                        }
                     }
 
                     sum += +charDamage
@@ -1220,7 +1226,6 @@
                         color: color,
                         damage: d,
                         icon: icon,
-                        percentage: d.percentage,
                         results: results,
                         sum: sum,
                         type: d.type
@@ -1323,7 +1328,6 @@
                                             addChar: true,
                                             dice: '2d6',
                                             flat: 0,
-                                            percentage: 0,
                                             type: 'Piercing'
                                         }
                                     ],
@@ -1352,9 +1356,8 @@
                                     damage: [
                                         {
                                             addChar: false,
-                                            dice: '6d6',
+                                            dice: 6,
                                             flat: 0,
-                                            percentage: 0,
                                             type: 'Healing'
                                         }
                                     ],
@@ -1383,9 +1386,8 @@
                                     damage: [
                                         {
                                             addChar: true,
-                                            dice: '2d6',
+                                            dice: 2,
                                             flat: 0,
-                                            percentage: 0,
                                             type: 'Force'
                                         }
                                     ],
@@ -1414,9 +1416,8 @@
                                     damage: [
                                         {
                                             addChar: true,
-                                            dice: '2d6',
+                                            dice: 2,
                                             flat: 0,
-                                            percentage: 0,
                                             type: 'Piercing'
                                         }
                                     ],
@@ -1674,9 +1675,8 @@
                                                     damage: [
                                                         {
                                                             addChar: true,
-                                                            dice: '2d6',
+                                                            dice: 2,
                                                             flat: 0,
-                                                            percentage: 0,
                                                             type: 'Slashing'
                                                         }
                                                     ],
@@ -1705,9 +1705,8 @@
                                                     damage: [
                                                         {
                                                             addChar: true,
-                                                            dice: '1d6',
+                                                            dice: 1,
                                                             flat: 0,
-                                                            percentage: 0,
                                                             type: 'Force'
                                                         }
                                                     ],
@@ -1760,9 +1759,8 @@
                                                     damage: [
                                                         {
                                                             addChar: false,
-                                                            dice: '1d4',
+                                                            dice: 1,
                                                             flat: 0,
-                                                            percentage: 0,
                                                             type: 'Healing'
                                                         }
                                                     ],
@@ -1791,9 +1789,8 @@
                                                     damage: [
                                                         {
                                                             addChar: true,
-                                                            dice: '1d6',
+                                                            dice: 1,
                                                             flat: 0,
-                                                            percentage: 0,
                                                             type: 'Piercing'
                                                         }
                                                     ],
@@ -1846,9 +1843,8 @@
                                                     damage: [
                                                         {
                                                             addChar: true,
-                                                            dice: '2d6',
+                                                            dice: 2,
                                                             flat: 0,
-                                                            percentage: 0,
                                                             type: 'Toxic'
                                                         }
                                                     ],
@@ -1877,9 +1873,8 @@
                                                     damage: [
                                                         {
                                                             addChar: false,
-                                                            dice: '1d6',
+                                                            dice: 1,
                                                             flat: 0,
-                                                            percentage: 0,
                                                             type: 'Toxic'
                                                         }
                                                     ],
@@ -2006,9 +2001,8 @@
                             damage: [
                                 {
                                     addChar: false,
-                                    dice: '3d6',
+                                    dice: 3,
                                     flat: 0,
-                                    percentage: 0,
                                     type: 'Toxic'
                                 }
                             ],

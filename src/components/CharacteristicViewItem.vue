@@ -5,7 +5,7 @@
                 <v-text-field :label="characteristic.abbreviation"
                               type="number"
                               v-model="value"
-                              @keyup.enter="rollDiceCheck">
+                              @keyup.enter="rollCharCheck">
                     <v-icon slot="append"
                             color="yellow accent-4"
                             v-if="characteristic.characteristic">mdi-star</v-icon>
