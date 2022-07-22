@@ -294,7 +294,7 @@
                                                   :items="damage.diceResults.map((x, i) => ({ value: i, text: x}))"
                                                   label="Select Rerolls"
                                                   multiple
-                                                  :disabled="characterSheet.rerolls <= 0">                                             
+                                                  :disabled="characterSheet.rerolls <= 0">
                                         </v-select>
                                     </v-col>
                                 </v-row>
@@ -314,8 +314,8 @@
                                        width="200">Reroll Hand</v-btn>
                             </v-col>
                             <v-col cols="6">
-                                <v-btn @click="rerollWholeDamage"
-                                       :disabled="characterSheet.rerolls <= 0"
+                                <v-btn @click="rerollSelectedDamage"
+                                       :disabled="characterSheet.rerolls <= 0 || !damageSelected"
                                        width="200">Reroll Selected</v-btn>
                             </v-col>
                         </v-row>
@@ -517,6 +517,10 @@
                         characteristic: chars.includes('luck')
                     }
                 ]
+            },
+            damageSelected() {
+                const hasSelected = (obj) => obj.selectedRerolls.length
+                return this.damageDialog.damages.some(hasSelected)
             },
             damageTypes() {
                 var damageTypes = []
@@ -1209,6 +1213,28 @@
                 if (damageToTake > 0) {
                     this.characterSheet.hp = this.characterSheet.hp - damageToTake
                     this.updateHP = this.updateHP + 1
+                }
+            },
+            rerollSelectedDamage() {
+                const hasSelected = (obj) => obj.selectedRerolls.length
+                if (this.damageDialog.damages.some(hasSelected)) {
+                    this.damageDialog.damages.forEach((damage) => {
+                        if (damage.selectedRerolls.length) {
+                            let indexes = damage.selectedRerolls.sort().reverse()
+                            indexes.forEach(i => {
+                                damage.sum -= +damage.diceResults[i]
+                                damage.diceResults.splice(i, 1)
+                            })
+                            for (var i = 0; i < indexes.length; i++) {
+                                let dieResult = this.getRandomIntInclusive(1, 6)
+                                damage.sum += +dieResult
+                                damage.diceResults.push(dieResult)
+                            }
+                            damage.selectedRerolls = []
+                        }
+                    })
+                    this.characterSheet.rerolls--
+                    this.updateRerolls++
                 }
             },
             rerollWholeDamage() {
