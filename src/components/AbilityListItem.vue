@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-form class="mainColumn elevation-3" v-bind:style="{ borderColor: color.hexa }">
+        <v-form class="mainColumn elevation-3" v-bind:style="{ borderColor: (color)? color.hexa : 'black' }">
             <v-row>
                 <v-col cols="6">
                     <v-text-field label="Name" v-model="name">
@@ -49,7 +49,7 @@
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
                         </v-expansion-panels>
-                    </template>                    
+                    </template>
                 </v-col>
                 <v-col cols="4">
                     <v-text-field label="Action Points" type="number" v-model="apCost">
@@ -148,9 +148,9 @@
                         ability.range +
                         ability.successes +
                         ability.xpCost +
-                        ability.components.toString() +
-                        ability.damage.toString() +
-                        ability.subEffects.toString();
+                        JSON.stringify(ability.components) +
+                        JSON.stringify(ability.damage) +
+                        JSON.stringify(ability.subEffects);
                     abilities.push(ability)
                 })
 
