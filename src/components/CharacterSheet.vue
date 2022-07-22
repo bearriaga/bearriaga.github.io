@@ -223,7 +223,7 @@
                                 </v-btn>
                             </v-col>
                             <v-col cols="6">
-                                <v-btn @click="rerollWholeHand"
+                                <v-btn @click="rerollWholeCheck"
                                        :disabled="characterSheet.rerolls <= 0"
                                        width="200">Reroll Hand</v-btn>
                             </v-col>
@@ -272,6 +272,13 @@
                                 <b>{{damage.sum}} {{damage.type}}</b>
                             </div>
                         </div>
+                        <v-btn icon color="primary"
+                               @click="copyDamage">
+                            <v-icon>
+                                mdi-content-copy
+                            </v-icon>
+                        </v-btn>
+
                     </v-card-text>
 
                     <v-card-text>
@@ -280,7 +287,17 @@
                                 <b>{{damage.damage.type}}</b>
                             </div>
                             <div v-if="damage.damage.dice">
-                                Die Results:  {{damage.damage.dice}}d6 {{damage.results}}
+                                Die Results:  {{damage.damage.dice}}d6 {{damage.diceResults}}
+                                <v-row>
+                                    <v-col cols="12">
+                                        <v-select v-model="damage.selectedRerolls"
+                                                  :items="damage.diceResults.map((x, i) => ({ value: i, text: x}))"
+                                                  label="Select Rerolls"
+                                                  multiple
+                                                  :disabled="characterSheet.rerolls <= 0">                                             
+                                        </v-select>
+                                    </v-col>
+                                </v-row>
                             </div>
                             <div v-if="damage.charDamage">
                                 CHAR damage: {{damage.charDamage}}
@@ -289,6 +306,19 @@
                                 Flat Damage: {{damage.damage.flat}}
                             </div>
                         </div>
+
+                        <v-row>
+                            <v-col cols="6">
+                                <v-btn @click="rerollWholeDamage"
+                                       :disabled="characterSheet.rerolls <= 0"
+                                       width="200">Reroll Hand</v-btn>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-btn @click="rerollWholeDamage"
+                                       :disabled="characterSheet.rerolls <= 0"
+                                       width="200">Reroll Selected</v-btn>
+                            </v-col>
+                        </v-row>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -878,6 +908,7 @@
                     threat: false
                 },
                 damageDialog: {
+                    ability: {},
                     damages: [],
                     show: false
                 },
@@ -1016,6 +1047,16 @@
 
                 navigator.clipboard.writeText(copyText)
             },
+            copyDamage() {
+                var copyText =
+                    'Damage \n';
+
+                this.damageDialog.damages.forEach((damage) => {
+                    copyText += damage.sum + ' ' + damage.type + '\n'
+                })
+
+                navigator.clipboard.writeText(copyText)
+            },
             //Dice Roll Functions
             determineSuccesses(dieResult) {
                 if (dieResult < 4)
@@ -1063,9 +1104,8 @@
                 this.characterSheet.rerolls--
                 this.updateRerolls++
             },
-            rerollWholeHand() {
-                let diceCheckObject = this.checkDialog.diceCheckObject
-                this.rollCheck(diceCheckObject)
+            rerollWholeCheck() {
+                this.rollCheck(this.checkDialog.diceCheckObject)
                 this.characterSheet.rerolls--
                 this.updateRerolls++
             },
@@ -1171,17 +1211,27 @@
                     this.updateHP = this.updateHP + 1
                 }
             },
+            rerollWholeDamage() {
+                this.rollDamage(this.damageDialog.ability)
+                this.characterSheet.rerolls--
+                this.updateRerolls++
+            },
             rollDamage(ability) {
-                this.damageDialog.damages = []
+                let result = {
+                    ability: ability,
+                    damages: [],
+                    show: true
+                }
+
                 ability.damage.forEach((d) => {
                     let sum = 0
-                    let results = [];
+                    let diceResults = [];
 
                     if (d.dice) {
                         for (var i = 0; i < d.dice; i++) {
-                            results.push(this.getRandomIntInclusive(1, 6))
+                            diceResults.push(this.getRandomIntInclusive(1, 6))
                         }
-                        sum += results.reduce((previousValue, entry) => {
+                        sum += diceResults.reduce((previousValue, entry) => {
                             return +previousValue + +entry
                         }, 0)
 
@@ -1226,13 +1276,14 @@
                         color: color,
                         damage: d,
                         icon: icon,
-                        results: results,
+                        diceResults: diceResults,
+                        selectedRerolls: [],
                         sum: sum,
                         type: d.type
                     }
-                    this.damageDialog.damages.push(damage)
+                    result.damages.push(damage)
                 })
-                this.damageDialog.show = true
+                this.damageDialog = result
             },
             setCharacterAsTupoc() {
                 this.characterSheet =
