@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-form class="abilityColumn mainColumn elevation-3">
+        <v-form class="mainColumn elevation-3" v-bind:style="{ borderColor: color.hexa }">
             <v-row>
                 <v-col cols="6">
                     <v-text-field label="Name" v-model="name">
@@ -20,26 +20,36 @@
                     </v-text-field>
                 </v-col>
                 <v-col cols="12" v-if="damage.length > 0">
-                    <h4 class="text-center">
-                        Damage
-                        <v-icon @click="rollDamage(ability)">mdi-dice-6</v-icon>
-                    </h4>
-                    <div v-for="d in damage" :key="d.dice + d.flat + d.percentage + d.type">
-                        <v-row>
-                            <v-col cols="12" md="6" v-if="d.dice">
-                                <v-text-field label="Dice" v-model="d.dice"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6" v-if="d.flat">
-                                <v-text-field label="Flat" type="for" v-model="d.flat"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6" v-if="d.percentage">
-                                <v-text-field label="Percentage" v-model="d.percentage"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Type" v-model="d.type"></v-text-field>
-                            </v-col>
-                        </v-row>
-                    </div>
+                    <template>
+                        <v-expansion-panels>
+                            <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                                <v-expansion-panel-header>
+                                    <h3 class="text-center">
+                                        Damage
+                                        <v-icon @click.stop="rollDamage(ability)">mdi-dice-6</v-icon>
+                                    </h3>
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <div v-for="d in damage" :key="d.dice + d.flat + d.percentage + d.type">
+                                        <v-row>
+                                            <v-col cols="12" md="6" v-if="d.dice">
+                                                <v-text-field label="Dice" v-model="d.dice"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="6" v-if="d.flat">
+                                                <v-text-field label="Flat" type="for" v-model="d.flat"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="6" v-if="d.percentage">
+                                                <v-text-field label="Percentage" v-model="d.percentage"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="6">
+                                                <v-text-field label="Type" v-model="d.type"></v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                    </div>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                    </template>                    
                 </v-col>
                 <v-col cols="4">
                     <v-text-field label="Action Points" type="number" v-model="apCost">
@@ -122,6 +132,7 @@
                         ability.apCost +
                         ability.areaOfEffect +
                         ability.boughtForFree +
+                        JSON.stringify(ability.color) +
                         ability.crCost +
                         ability.characteristic +
                         ability.description +
@@ -151,6 +162,7 @@
                 apCost: this.ability.apCost,
                 areaOfEffect: this.ability.areaOfEffect,
                 boughtForFree: this.ability.boughtForFree,
+                color: this.ability.color,
                 crCost: this.ability.crCost,
                 characteristic: this.ability.characteristic,
                 description: this.ability.description,

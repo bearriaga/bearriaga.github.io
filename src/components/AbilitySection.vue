@@ -69,35 +69,45 @@
                                               v-model="characteristic"></v-select>
                                 </v-col>
                                 <v-col cols="12">
-                                    <h3 class="text-center">
-                                        Damage
-                                        <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"                                               
-                                               @click.stop="addDamage">
-                                            <v-icon>
-                                                mdi-plus
-                                            </v-icon>
-                                        </v-btn>
-                                    </h3>
-                                    <v-row v-for="(d, index) in compDamage" :key="d.key">
-                                        <v-col cols="12" md="6">
-                                            <v-text-field label="Dice" type="number" v-model="d.dice"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" md="6">
-                                            <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="6">
-                                            <v-select label="Type"
-                                                      :items="damageTypes"
-                                                      v-model="d.type"
-                                                      :rules="textRules"
-                                                      required>
-                                                <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
-                                            </v-select>
-                                        </v-col>
-                                        <v-col cols="6" v-if="d.type != 'Healing' && (characteristic || isMeleeAttack)">
-                                            <v-checkbox label="Add CHAR to damage" v-model="d.addChar" @click.stop="addChar(index)"></v-checkbox>
-                                        </v-col>
-                                    </v-row>
+                                    <template>
+                                        <v-expansion-panels>
+                                            <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                                                <v-expansion-panel-header>
+                                                    <h3 class="text-center">
+                                                        Damage
+                                                        <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
+                                                               @click.stop="addDamage">
+                                                            <v-icon>
+                                                                mdi-plus
+                                                            </v-icon>
+                                                        </v-btn>
+                                                    </h3>
+                                                </v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <v-row v-for="(d, index) in compDamage" :key="d.key">
+                                                        <v-col cols="12" md="6">
+                                                            <v-text-field label="Dice" type="number" v-model="d.dice"></v-text-field>
+                                                        </v-col>
+                                                        <v-col cols="12" md="6">
+                                                            <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
+                                                        </v-col>
+                                                        <v-col cols="6">
+                                                            <v-select label="Type"
+                                                                      :items="damageTypes"
+                                                                      v-model="d.type"
+                                                                      :rules="textRules"
+                                                                      required>
+                                                                <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
+                                                            </v-select>
+                                                        </v-col>
+                                                        <v-col cols="6" v-if="d.type != 'Healing' && (characteristic || isMeleeAttack)">
+                                                            <v-checkbox label="Add CHAR to damage" v-model="d.addChar" @click.stop="addChar(index)"></v-checkbox>
+                                                        </v-col>
+                                                    </v-row>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                        </v-expansion-panels>
+                                    </template>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Action Points" type="number" v-model="apCost"></v-text-field>
@@ -155,6 +165,14 @@
                                         </v-col>
                                     </v-row>
                                 </v-col>
+                                <v-col cols="12" class="text-center">
+                                    <label>
+                                        Border Color
+                                        <v-color-picker dot-size="15"
+                                                        hide-inputs
+                                                        v-model="color"></v-color-picker>
+                                    </label>
+                                </v-col>
                             </v-row>
                         </v-form>
                     </v-card-text>
@@ -209,6 +227,7 @@
                     apCost: 3,
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
+                    color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
                     crCost: 0,
                     characteristic: '',
                     description: '',
@@ -231,6 +250,7 @@
                 apCost: 3,
                 areaOfEffect: 'Single Target',
                 boughtForFree: false,
+                color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
                 crCost: 0,
                 characteristic: '',
                 description: '',
@@ -313,6 +333,7 @@
                 this.ability.apCost = this.apCost
                 this.ability.areaOfEffect = this.areaOfEffect
                 this.ability.boughtForFree = this.boughtForFree
+                this.ability.color = this.color
                 this.ability.crCost = this.crCost
                 this.ability.characteristic = this.characteristic
                 this.ability.description = this.description
@@ -345,6 +366,7 @@
                     apCost: 3,
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
+                    color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
                     crCost: 0,
                     characteristic: '',
                     description: '',
@@ -389,6 +411,7 @@
                 this.apCost = ability.apCost
                 this.areaOfEffect = ability.areaOfEffect
                 this.boughtForFree = ability.boughtForFree
+                this.color = ability.color
                 this.crCost = ability.crCost
                 this.characteristic = ability.characteristic
                 this.description = ability.description
