@@ -796,9 +796,28 @@
             updateEntry(object) {
                 var entriesDup = this.characterSheet[object.arrayName]
                 var index = entriesDup.findIndex(x => x.id == object.object.id)
-                entriesDup[index] = object.object
+
+                if (index == -1 && object.arrayName == 'abilities')
+                    this.updateEntryRecursive(entriesDup, object.object)
+
+                if (index > -1)
+                    entriesDup[index] = object.object
+
                 this.characterSheet[object.arrayName] = []
                 this.characterSheet[object.arrayName] = entriesDup
+            },
+            updateEntryRecursive(array, object) {
+                array.filter(x => { return x.subEffects.length > 0; }).forEach(ability => {
+                    if (JSON.stringify(ability).includes(object.id)) {
+                        let index = ability.subEffects.findIndex(x => x.id == object.id)
+                        if (index == -1)
+                            this.updateEntryRecursive(ability.subEffects, object)
+                        else {
+                            ability.subEffects[index] = object
+                            return
+                        }
+                    }
+                })
             },
             //Array CRUD Functions End
             characterInit() {
