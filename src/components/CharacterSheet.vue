@@ -791,11 +791,29 @@
                 this.characterSheet[object.arrayName].push(object.object)
             },
             deleteEntry(object) {
+                let index = this.characterSheet[object.arrayName].findIndex(x => x.id == object.object.id)
+
+                if (index == -1 && object.arrayName == 'abilities')
+                    this.deleteEntryRecursive(this.characterSheet[object.arrayName], object.object)
+
                 this.characterSheet[object.arrayName] = this.characterSheet[object.arrayName].filter(x => { return x.id != object.object.id })
             },
+            deleteEntryRecursive(array, object) {
+                array.filter(x => { return x.subEffects.length > 0; }).forEach(ability => {
+                    if (JSON.stringify(ability).includes(object.id)) {
+                        let index = ability.subEffects.findIndex(x => x.id == object.id)
+                        if (index == -1)
+                            this.deleteEntryRecursive(ability.subEffects, object)
+                        else {
+                            ability.subEffects = ability.subEffects.filter(x => { return x.id != object.id })
+                            return
+                        }
+                    }
+                })
+            },
             updateEntry(object) {
-                var entriesDup = this.characterSheet[object.arrayName]
-                var index = entriesDup.findIndex(x => x.id == object.object.id)
+                let entriesDup = this.characterSheet[object.arrayName]
+                let index = entriesDup.findIndex(x => x.id == object.object.id)
 
                 if (index == -1 && object.arrayName == 'abilities')
                     this.updateEntryRecursive(entriesDup, object.object)

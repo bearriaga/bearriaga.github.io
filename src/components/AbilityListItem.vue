@@ -5,7 +5,7 @@
                 <v-col cols="6">
                     <v-text-field label="Name" v-model="name">
                         <v-icon color="primary" slot="append" @click="updateEntry(ability)">mdi-pen</v-icon>
-                        <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
+                        <v-icon color="error" slot="append" @click="deleteEntry(ability)">mdi-delete</v-icon>
                     </v-text-field>
                 </v-col>
                 <v-col cols="6">
@@ -102,7 +102,7 @@
                                 <v-expansion-panel-content>
                                     <AbilityListItem v-for="s in abilities" :key="s.key"
                                                      :ability="s"
-                                                     @deleteEntryEmit="deleteDialog($event)"
+                                                     @deleteEntryEmit="deleteEntry($event)"
                                                      @updateEntryEmit="updateEntry($event)"
                                                      @rollAbilityEmit="rollAbility($event)"
                                                      @rollDamageEmit="rollDamage($event)"
@@ -184,8 +184,8 @@
             }
         },
         methods: {
-            deleteEntry() {
-                this.$emit('deleteEntryEmit', this.ability)
+            deleteEntry(object) {
+                this.$emit('deleteEntryEmit', JSON.parse(JSON.stringify(object)))
             },
             rollAbility(ability) {
                 this.$emit('rollAbilityEmit', ability)

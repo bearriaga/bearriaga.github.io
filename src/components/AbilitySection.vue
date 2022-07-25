@@ -165,13 +165,51 @@
                                         </v-col>
                                     </v-row>
                                 </v-col>
+                                <v-col cols="12">
+                                    <template>
+                                        <v-expansion-panels>
+                                            <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                                                <v-expansion-panel-header>
+                                                    <h3 class="text-center">
+                                                        Sub Effects
+                                                        <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
+                                                               @click.stop="addSubEffect">
+                                                            <v-icon>
+                                                                mdi-plus
+                                                            </v-icon>
+                                                        </v-btn>
+                                                    </h3>
+                                                </v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <v-row v-for="(s, index) in subEffects" :key="index">
+                                                        <v-col cols="12">
+                                                            <v-text-field label="Name" v-model="s.name">
+                                                                <v-icon color="error" slot="append" @click="deleteSubEffect(index)">mdi-delete</v-icon>
+                                                            </v-text-field>
+                                                        </v-col>                                                        
+                                                    </v-row>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                        </v-expansion-panels>
+                                    </template>
+                                </v-col>
                                 <v-col cols="12" class="text-center">
-                                    <label>
-                                        Border Color
-                                        <v-color-picker dot-size="15"
-                                                        hide-inputs
-                                                        v-model="color"></v-color-picker>
-                                    </label>
+                                    <template>
+                                        <v-expansion-panels>
+                                            <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                                                <v-expansion-panel-header>
+                                                    <h3 class="text-center">
+                                                        Border Color
+                                                    </h3>
+                                                </v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <v-color-picker dot-size="15"
+                                                                    hide-inputs
+                                                                    v-model="color"></v-color-picker>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                        </v-expansion-panels>
+                                    </template>
                                 </v-col>
                             </v-row>
                         </v-form>
@@ -307,8 +345,37 @@
                     type: ''
                 });
             },
+            addSubEffect() {
+                this.subEffects.push({
+                    apCost: 3,
+                    areaOfEffect: 'Single Target',
+                    boughtForFree: false,
+                    color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
+                    crCost: 0,
+                    characteristic: '',
+                    description: '',
+                    duration: 'Instant',
+                    handedness: 0,
+                    id: new Date().getTime().toString(),
+                    inClass: true,
+                    isAbilityArray: false,
+                    isMeleeAttack: true,
+                    maxSizeCategoryOfMass: 0,
+                    name: '',
+                    physMeta: '',
+                    range: 0,
+                    successes: 0,
+                    xpCost: 10,
+                    components: [],
+                    damage: [],
+                    subEffects: []
+                })
+            },
             deleteDamage(i) {
                 this.damage.splice(i, 1)
+            },
+            deleteSubEffect(i) {
+                this.subEffects.splice(i, 1)
             },
             // CRUD Functions Start
             addEntry() {
@@ -392,7 +459,7 @@
                 }, 200)
             },
             deleteDialog(ability) {
-                this.ability = this.abilities.find(x => { return x.id == ability.id })
+                this.ability = ability
                 this.setInputs(this.ability)
                 this.setDialog('Delete')
             },
