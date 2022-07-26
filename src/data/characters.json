@@ -230,6 +230,7 @@
         "value": 0
       }
     ],
+    "statuses": [],
     "xpEntries": [
       {
         "amount": 500,
@@ -352,7 +353,7 @@
             "damage": [
               {
                 "addChar": true,
-                "dice": "2d6",
+                "dice": 2,
                 "flat": 0,
                 "type": "Piercing"
               }
@@ -1804,6 +1805,7 @@
         "value": 0
       }
     ],
+    "statuses": [],
     "xpEntries": [
       {
         "amount": 500,

@@ -175,6 +175,15 @@
                 </v-col>
             </v-row>
             <v-row>
+                <v-col cols="4">
+                    <StatusSection :statuses="statuses"
+                                   :character-statuses="characterSheet.statuses"
+                                   @addEntryEmit="addEntry($event)"
+                                   @deleteEntryEmit="deleteEntry($event)"
+                                   @updateEntryEmit="updateEntry($event)"></StatusSection>
+                </v-col>
+            </v-row>
+            <v-row>
                 <v-col>
                     <v-btn color="primary" @click="setCharacterAsTupoc">Set as Tupoc</v-btn>
                 </v-col>
@@ -363,8 +372,10 @@
     import ResistanceSection from './ResistanceSection.vue'
     import ResourceSection from './ResourceSection.vue'
     import SkillSection from './SkillSection.vue'
+    import StatusSection from './StatusSection.vue'
     import XPSection from './XPSection.vue'
     import { useCharacterStore } from '@/stores/CharacterStore'
+    import { useGameDataStore } from '@/stores/GameDataStore'
 
     export default {
         name: 'CharacterSheet',
@@ -378,14 +389,18 @@
             ResistanceSection,
             ResourceSection,
             SkillSection,
+            StatusSection,
             XPSection
         },
         setup() {
             const characterStore = useCharacterStore()
             characterStore.fill()
 
+            const gameDataStore = useGameDataStore()
+            gameDataStore.fill()
+
             return {
-                characterStore
+                characterStore, gameDataStore
             }
         },
         computed: {
@@ -779,6 +794,7 @@
                     'Swim Speed',
                     'Teleport'
                 ],
+                statuses: this.gameDataStore.statuses,
                 updateAP: 0,
                 updateHP: 0,
                 updateRerolls: 0,

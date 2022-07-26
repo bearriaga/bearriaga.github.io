@@ -30,7 +30,6 @@
             </v-expansion-panels>
         </template>
 
-
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
                 <v-card>
