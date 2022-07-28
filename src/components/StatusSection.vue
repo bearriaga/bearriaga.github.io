@@ -15,7 +15,7 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <StatusListItem v-for="s in characterStatuses" :key="s.id"
+                        <StatusListItem v-for="s in characterStatuses" :key="s.key"
                                         @deleteEntryEmit="deleteDialog($event)"
                                         @updateEntryEmit="updateEntry($event)"
                                         :status="s"
@@ -36,13 +36,13 @@
                         <v-form ref="form"
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
-                            <v-select label="Status"
+                            <v-autocomplete label="Status"
                                       :items="statuses.map((x) => ({ value: x, text: x.name }))"
                                       v-model="selectedStatus"
                                       ref="status"
                                       :rules="notNull"
                                       required>
-                            </v-select>
+                            </v-autocomplete>
                             <v-textarea label="Effect"
                                         v-model="selectedStatus.effect"
                                         :disabled="selectedStatus.name != 'Other'"
@@ -53,11 +53,13 @@
                             <v-text-field label="Ranks"
                                           v-model="ranks"
                                           type="number"
+                                          min="0"
                                           v-if="selectedStatus.name.includes('rank')"
                                           required></v-text-field>
                             <v-text-field label="Duration (Rounds)"
                                           v-model="duration"
                                           type="number"
+                                          min="0"
                                           required></v-text-field>
                             <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" required></v-textarea>
                         </v-form>
@@ -115,7 +117,7 @@
                 },
                 // Input Fields End
                 notNull: [
-                    v => !!v || 'Field may not be empty'
+                    v => !!v.name || 'Field may not be empty'
                 ],
                 valid: false
             }
@@ -130,7 +132,12 @@
                         duration: this.duration,
                         id: null,
                         ranks: this.ranks,
-                        status: this.selectedStatus
+                        status: {
+                            cost: this.selectedStatus.cost,
+                            effect: this.selectedStatus.effect,
+                            name: this.selectedStatus.name,
+                            type: this.selectedStatus.type
+                        }
                     }
                     this.$emit('addEntryEmit', { arrayName: 'statuses', object: this.status })
                 }

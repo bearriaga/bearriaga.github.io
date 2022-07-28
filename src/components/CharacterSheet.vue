@@ -99,7 +99,8 @@
                         <h3 class="text-center"> Resources </h3>
                         <v-row>
                             <v-col cols="12" v-for="input in inputWithEditModals" :key="input.key">
-                                <InputWithEditModal @updatePropEmit="updateProp($event)"
+                                <InputWithEditModal @apGainEmit="apGain($event)"
+                                                    @updatePropEmit="updateProp($event)"
                                                     :property-object="input"></InputWithEditModal>
                             </v-col>
                         </v-row>
@@ -177,7 +178,7 @@
             <v-row>
                 <v-col cols="4">
                     <StatusSection :statuses="statuses"
-                                   :character-statuses="characterSheet.statuses"
+                                   :character-statuses="characterStatuses"
                                    @addEntryEmit="addEntry($event)"
                                    @deleteEntryEmit="deleteEntry($event)"
                                    @updateEntryEmit="updateEntry($event)"></StatusSection>
@@ -489,6 +490,18 @@
 
                 return abilities
             },
+            characterStatuses() {
+                let statuses = []
+
+                this.characterSheet.statuses.forEach((status) => {
+                    status.key =
+                        JSON.stringify(status.status) +
+                        this.updateStatus;
+                    statuses.push(status)
+                })
+
+                return statuses
+            },
             characteristicViewItems() {
                 let chars = this.characterSheet.classes.filter(x => { return x.active && !x.unlocked }).map(x => x.characteristic)
                 return [
@@ -797,10 +810,19 @@
                 statuses: this.gameDataStore.statuses,
                 updateAP: 0,
                 updateHP: 0,
+                updateStatus: 0,
                 updateRerolls: 0,
             }
         },
         methods: {
+            apGain() {
+                this.characterSheet.statuses.forEach(status => {
+                    if (status.duration > 0) {
+                        status.duration--
+                    }
+                })
+                this.updateStatus++
+            },
             //Array CRUD Functions
             addEntry(object) {
                 object.object.id = new Date().getTime().toString()

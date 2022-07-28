@@ -21,10 +21,12 @@
                 <v-text-field label="Ranks"
                               v-model="ranks"
                               type="number"
+                              min="0"
                               v-if="selectedStatus.name.includes('rank')"></v-text-field>
                 <v-text-field label="Duration (Rounds)"
                               v-model="duration"
-                              type="number"></v-text-field>
+                              type="number"
+                              min="0"></v-text-field>
                 <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
             </v-col>
         </v-row>
@@ -54,9 +56,9 @@
                 let status = {
                     description: this.description,
                     duration: this.duration,
+                    id: this.status.id,
                     ranks: this.ranks,
                     status: this.selectedStatus,
-                    id: this.status.id,
                 }
                 this.$emit('updateEntryEmit', status)
             }
