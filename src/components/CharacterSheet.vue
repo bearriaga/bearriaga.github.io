@@ -79,8 +79,9 @@
                             </v-row>
                         </v-form>
                         <v-row>
-                            <v-col cols="12" v-for="input in defenseInputWithEditModals" :key="input.key">
-                                <InputWithEditModal @updatePropEmit="updateProp($event)"
+                            <v-col cols="12" md="6" v-for="input in defenseInputWithEditModals" :key="input.key">
+                                <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                                    @updatePropEmit="updateProp($event)"
                                                     :property-object="input"></InputWithEditModal>
                             </v-col>
                             <v-col cols="12">
@@ -421,9 +422,6 @@
             hpMax() {
                 return ((this.characterSheet.level * 5) + ((+this.characterSheet.strength + +this.characterSheet.resistance) * 3) + +this.characterSheet.hpIncreases)
             },
-            initiative() {
-                return this.characterSheet.speed + this.characterSheet.initiativeIncreases
-            },
             level() {
                 let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
@@ -584,7 +582,25 @@
                         valueIncreasesName: 'dcToHitIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.dcToHit,
+                        bar: false,
                         disabled: true,
+                        plus: false,
+                        minus: false
+                    },
+                    {
+                        dialogText: 'Initiative = 1d6 + SPD + Initiative Purchases',
+                        key: 'initiative' + this.characterSheet.initiative + this.updateInitiative,
+                        label: 'Initiative',
+                        type: 'number',
+                        value: this.characterSheet.initiative,
+                        valueName: 'initiative',
+                        valueIncreases: this.characterSheet.initiativeIncreases,
+                        valueIncreasesLabel: 'Initiative Purchases',
+                        valueIncreasesName: 'initiativeIncreases',
+                        valueIncreasesType: 'number',
+                        valueMax: this.characterSheet.initiative,
+                        bar: false,
+                        disabled: false,
                         plus: false,
                         minus: false
                     }
@@ -593,6 +609,7 @@
             healthInputWithEditModals() {
                 return [
                     {
+                        bar: true,
                         color: 'red',
                         dialogText: 'Health Points Max = (level * 5) + ((STR + RES) * 3) + purchased HP',
                         disabled: false,
@@ -614,6 +631,7 @@
             inputWithEditModals() {
                 return [
                     {
+                        bar: true,
                         color: 'green',
                         dialogText: 'Your maximum AP pool is increased from 2x your AP generation to 3x your generation rate.',
                         disabled: false,
@@ -631,6 +649,7 @@
                         valueMax: this.characterSheet.apMax
                     },
                     {
+                        bar: true,
                         color: 'brown lighten-2',
                         dialogText: '',
                         disabled: false,
@@ -648,6 +667,7 @@
                         valueMax: this.characterSheet.bpMax
                     },
                     {
+                        bar: true,
                         color: 'yellow',
                         dialogText: '',
                         disabled: false,
@@ -665,6 +685,7 @@
                         valueMax: this.characterSheet.rerollsMax
                     },
                     {
+                        bar: true,
                         dialogText: '',
                         key: 'attunementSlots' + this.characterSheet.attunementSlotsMax,
                         label: 'Attunement Slots',
@@ -810,6 +831,7 @@
                 statuses: this.gameDataStore.statuses,
                 updateAP: 0,
                 updateHP: 0,
+                updateInitiative: 0,
                 updateStatus: 0,
                 updateRerolls: 0,
             }
@@ -892,7 +914,6 @@
                     return +previousValue + +entry.amount
                 }, 0)
                 //hpMax end
-                this.characterSheet.initiative = this.characterSheet.speed + this.characterSheet.initiativeIncreases
                 this.characterSheet.rerollsMax = +this.characterSheet.luck + +this.characterSheet.rerollsIncreases
 
                 this.characterSheet.xp = this.characterSheet.xpTotal - this.characterSheet.abilities.reduce((previousValue, entry) => {
@@ -1181,6 +1202,10 @@
             setCharacterAsTupoc() {
                 this.characterSheet = this.characterStore.getCharacterById('tupoc')
             },
+            specialInputWithEditModal() {
+                this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.characterSheet.speed + +this.characterSheet.initiativeIncreases
+                this.updateInitiative++
+            },
             subtractAP(apCost) {
                 this.characterSheet.ap -= apCost
                 this.updateAP++
@@ -1207,9 +1232,6 @@
             },
             hpMax() {
                 this.characterSheet.hpMax = this.hpMax
-            },
-            initiative() {
-                this.characterSheet.initiative = this.initiative
             },
             level() {
                 this.characterSheet.level = this.level

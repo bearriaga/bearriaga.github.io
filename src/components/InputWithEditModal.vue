@@ -2,7 +2,7 @@
     <div>
         <div @click="openDialog">
             <v-progress-linear v-model="bar"
-                               v-if="!propertyObject.disabled"
+                               v-if="propertyObject.bar"
                                height="25"
                                :color="propertyObject.color">
                 {{value}}/{{propertyObject.valueMax}}
@@ -17,8 +17,11 @@
                             @click="specialButton">mdi-clock-plus-outline</v-icon>
                 </template>
                 <template v-if="propertyObject.valueName == 'dc'">
+                    <v-icon slot="append">mdi-shield</v-icon>
+                </template>
+                <template v-if="propertyObject.valueName == 'initiative'">
                     <v-icon slot="append"
-                            @click="specialButton">mdi-shield</v-icon>
+                            @click="specialButton">mdi-dice-6</v-icon>
                 </template>
                 <template v-if="!propertyObject.disabled">
                     <v-icon color="success"
@@ -107,6 +110,9 @@
                     let apGain = (this.propertyObject.valueIncreases) ? this.propertyObject.valueMax / 3 : this.propertyObject.valueMax / 2
                     this.value = +this.value + apGain
                     this.$emit('apGainEmit')
+                }
+                if (this.propertyObject.valueName == 'initiative') {
+                    this.$emit('specialInputWithEditModalEmit')                    
                 }
             },
             subtract() {
