@@ -1,7 +1,7 @@
 <template>
     <div>
         <div @click="openDialog">
-            <v-progress-linear v-model="bar"
+            <v-progress-linear :value="bar"
                                v-if="propertyObject.bar"
                                height="25"
                                :color="propertyObject.color">
