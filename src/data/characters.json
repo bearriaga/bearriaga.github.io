@@ -262,16 +262,16 @@
     "luck": 3,
     "dcToHit": 4,
     "dcToHitIncreases": 1,
-    "hp": 68,
-    "hpMax": 68,
-    "hpIncreases": 20,
+    "hp": 58,
+    "hpMax": 58,
+    "hpIncreases": 10,
     "initiative": 0,
     "initiativeIncreases": 0,
     "level": 3,
     "luckFavored": false,
     "luckIllFavored": false,
     "luckNothingToChance": false,
-    "money": "34.15",
+    "money": "30.45",
     "movement": 4,
     "name": "Tupoc",
     "race": "Human",
@@ -280,7 +280,7 @@
     "rerollsIncreases": 0,
     "size": 1,
     "speedPreperationIsKey": 0,
-    "xp": 428,
+    "xp": 386,
     "xpEarned": 2335,
     "xpTotal": 2415,
     "abilities": [
@@ -359,7 +359,7 @@
               }
             ],
             "subEffects": [],
-            "key": "4Single Targetfalseundefined1strengthGlide toward your enemies and attack, can fly 6 sq.Instant01656642986259truefalsetrue0Eagle GlidePhysical01183[object Object]"
+            "key": "4Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}1strengthGlide toward your enemies and attack, can fly 6 sq.Instant01656642986259truefalsetrue0Eagle GlidePhysical01183[][{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Piercing\"}][]"
           },
           {
             "apCost": 5,
@@ -408,13 +408,14 @@
             "damage": [
               {
                 "addChar": false,
-                "dice": 6,
+                "dice": "4",
                 "flat": 0,
-                "type": "Healing"
+                "type": "Healing",
+                "key": "0false"
               }
             ],
             "subEffects": [],
-            "key": "5Single Targetfalseundefined2strengthHeal, Overheal, and Regenerate body to \"Normal\" state.Instant01656642986159truefalsefalse0Iguana RegenerationPhysical00264[object Object]"
+            "key": "5Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}2strengthHeal, Overheal, and Regenerate body to \"Normal\" state.Instant01656642986159truefalsefalse0Iguana RegenerationPhysical00264[][{\"addChar\":false,\"dice\":\"4\",\"flat\":0,\"type\":\"Healing\",\"key\":\"0false\"}][]"
           },
           {
             "apCost": 4,
@@ -469,7 +470,7 @@
               }
             ],
             "subEffects": [],
-            "key": "4Single Targetfalseundefined1strengthJump forward crushing an enemy underfoot, can leap 30 feet.Instant01656642986359truefalsetrue0Jaguar PouncePhysical01176[object Object]"
+            "key": "4Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}1strengthJump forward crushing an enemy underfoot, can leap 30 feet.Instant01656642986359truefalsetrue0Jaguar PouncePhysical01176[][{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Force\"}][]"
           },
           {
             "apCost": 4,
@@ -524,31 +525,31 @@
               }
             ],
             "subEffects": [],
-            "key": "4Single Targetfalseundefined1strengthGlide toward your enemies, can fly 30 feet.Instant01656642986459truefalsetrue0Serpent StrikePhysical01182[object Object]"
+            "key": "4Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}1strengthGlide toward your enemies, can fly 30 feet.Instant01656642986459truefalsetrue0Serpent StrikePhysical01182[][{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Piercing\"}][]"
           }
         ],
-        "key": "0false{\"alpha\":1,\"hex\":\"#00FF25\",\"hexa\":\"#00FF25FF\",\"hsla\":{\"h\":128.69158878504675,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":128.69158878504675,\"s\":1,\"v\":1,\"a\":1},\"hue\":128.69158878504675,\"rgba\":{\"r\":0,\"g\":255,\"b\":37,\"a\":1}}0Ability Array holding Animal Aspect Elements.Instant01656642986599truetruefalse0Animal AttacksMeta00344[][][{\"apCost\":4,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":1,\"characteristic\":\"strength\",\"description\":\"Glide toward your enemies and attack, can fly 6 sq.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986259\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Eagle Glide\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":1,\"xpCost\":183,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\"}],\"subEffects\":[],\"key\":\"4Single Targetfalseundefined1strengthGlide toward your enemies and attack, can fly 6 sq.Instant01656642986259truefalsetrue0Eagle GlidePhysical01183[object Object]\"},{\"apCost\":5,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":2,\"characteristic\":\"strength\",\"description\":\"Heal, Overheal, and Regenerate body to \\\"Normal\\\" state.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986159\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Iguana Regeneration\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":264,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":\"6d6\",\"flat\":0,\"percentage\":0,\"type\":\"Healing\"}],\"subEffects\":[],\"key\":\"5Single Targetfalseundefined2strengthHeal, Overheal, and Regenerate body to \\\"Normal\\\" state.Instant01656642986159truefalsefalse0Iguana RegenerationPhysical00264[object Object]\"},{\"apCost\":4,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":1,\"characteristic\":\"strength\",\"description\":\"Jump forward crushing an enemy underfoot, can leap 30 feet.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986359\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Jaguar Pounce\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":1,\"xpCost\":176,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Force\"}],\"subEffects\":[],\"key\":\"4Single Targetfalseundefined1strengthJump forward crushing an enemy underfoot, can leap 30 feet.Instant01656642986359truefalsetrue0Jaguar PouncePhysical01176[object Object]\"},{\"apCost\":4,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":1,\"characteristic\":\"strength\",\"description\":\"Glide toward your enemies, can fly 30 feet.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986459\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Serpent Strike\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":1,\"xpCost\":182,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\"}],\"subEffects\":[],\"key\":\"4Single Targetfalseundefined1strengthGlide toward your enemies, can fly 30 feet.Instant01656642986459truefalsetrue0Serpent StrikePhysical01182[object Object]\"}]",
+        "key": "0false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":128.69158878504675,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":128.69158878504675,\"s\":0,\"v\":0,\"a\":1},\"hue\":128.69158878504675,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Ability Array holding Animal Aspect Elements.Instant01656642986599truetruefalse0Animal AttacksMeta00344[][][{\"apCost\":4,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":1,\"characteristic\":\"strength\",\"description\":\"Glide toward your enemies and attack, can fly 6 sq.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986259\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Eagle Glide\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":1,\"xpCost\":183,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Piercing\"}],\"subEffects\":[],\"key\":\"4Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}1strengthGlide toward your enemies and attack, can fly 6 sq.Instant01656642986259truefalsetrue0Eagle GlidePhysical01183[][{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Piercing\\\"}][]\"},{\"apCost\":5,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":2,\"characteristic\":\"strength\",\"description\":\"Heal, Overheal, and Regenerate body to \\\"Normal\\\" state.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986159\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Iguana Regeneration\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":264,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":\"4\",\"flat\":0,\"type\":\"Healing\",\"key\":\"0false\"}],\"subEffects\":[],\"key\":\"5Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}2strengthHeal, Overheal, and Regenerate body to \\\"Normal\\\" state.Instant01656642986159truefalsefalse0Iguana RegenerationPhysical00264[][{\\\"addChar\\\":false,\\\"dice\\\":\\\"4\\\",\\\"flat\\\":0,\\\"type\\\":\\\"Healing\\\",\\\"key\\\":\\\"0false\\\"}][]\"},{\"apCost\":4,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":1,\"characteristic\":\"strength\",\"description\":\"Jump forward crushing an enemy underfoot, can leap 30 feet.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986359\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Jaguar Pounce\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":1,\"xpCost\":176,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Force\"}],\"subEffects\":[],\"key\":\"4Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}1strengthJump forward crushing an enemy underfoot, can leap 30 feet.Instant01656642986359truefalsetrue0Jaguar PouncePhysical01176[][{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Force\\\"}][]\"},{\"apCost\":4,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":1,\"characteristic\":\"strength\",\"description\":\"Glide toward your enemies, can fly 30 feet.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986459\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Serpent Strike\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":1,\"xpCost\":182,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Piercing\"}],\"subEffects\":[],\"key\":\"4Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}1strengthGlide toward your enemies, can fly 30 feet.Instant01656642986459truefalsetrue0Serpent StrikePhysical01182[][{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Piercing\\\"}][]\"}]",
         "color": {
           "alpha": 1,
-          "hex": "#00FF25",
-          "hexa": "#00FF25FF",
+          "hex": "#000000",
+          "hexa": "#000000FF",
           "hsla": {
             "h": 128.69158878504675,
-            "s": 1,
-            "l": 0.5,
+            "s": 0,
+            "l": 0,
             "a": 1
           },
           "hsva": {
             "h": 128.69158878504675,
-            "s": 1,
-            "v": 1,
+            "s": 0,
+            "v": 0,
             "a": 1
           },
           "hue": 128.69158878504675,
           "rgba": {
             "r": 0,
-            "g": 255,
-            "b": 37,
+            "g": 0,
+            "b": 0,
             "a": 1
           }
         }
@@ -571,11 +572,35 @@
         "physMeta": "Meta",
         "range": 0,
         "successes": 0,
-        "xpCost": 188,
+        "xpCost": "250",
         "components": [],
         "damage": [],
         "subEffects": [],
-        "key": "4Single Targetfalseundefined1Eat the heart of a dead creature and gain an ability. Can buy ability on rest.Instant01656642986559truefalsefalse0AssimilateMeta00188[][][]"
+        "key": "4Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}1Eat the heart of a dead creature and gain an ability. Can buy ability on rest.Instant01656642986559truefalsefalse0AssimilateMeta00250[][][]",
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        }
       },
       {
         "apCost": 0,
@@ -623,7 +648,7 @@
         "components": [],
         "damage": [],
         "subEffects": [],
-        "key": "0falseundefined0Can use attacks of opportunityPassive01646642986559truefalsefalse0Attacks of OpportunityMeta0060[][][]"
+        "key": "0false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Can use attacks of opportunityPassive01646642986559truefalsefalse0Attacks of OpportunityMeta0060[][][]"
       },
       {
         "apCost": 3,
@@ -671,7 +696,7 @@
         "components": [],
         "damage": [],
         "subEffects": [],
-        "key": "3Adjacentfalseundefined0Attack all adjacent creaturesInstant01656642986569truefalsefalse0Cleaving StrikePhysical0075[][][]"
+        "key": "3Adjacentfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Attack all adjacent creaturesInstant01656642986569truefalsefalse0Cleaving StrikePhysical0075[][][]"
       },
       {
         "apCost": 3,
@@ -719,7 +744,7 @@
         "components": [],
         "damage": [],
         "subEffects": [],
-        "key": "3Single Targetfalseundefined0Can become hidden when in Jungle and Wooded terrain.1 Round01656642986579truefalsefalse0Jungle StalkerPhysical0010[][][]"
+        "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Can become hidden when in Jungle and Wooded terrain.1 Round01656642986579truefalsefalse0Jungle StalkerPhysical0010[][][]"
       },
       {
         "apCost": 0,
@@ -751,7 +776,7 @@
         },
         "crCost": 0,
         "characteristic": "",
-        "description": "Increase Max Health",
+        "description": "10 Purchase HP",
         "duration": "Passive",
         "handedness": 0,
         "id": "1656642986589",
@@ -763,59 +788,11 @@
         "physMeta": "Meta",
         "range": 0,
         "successes": 0,
-        "xpCost": 100,
+        "xpCost": "275",
         "components": [],
         "damage": [],
         "subEffects": [],
-        "key": "0falseundefined0Increase Max HealthPassive01656642986589truefalsefalse0MeatyMeta00100[][][]"
-      },
-      {
-        "apCost": 0,
-        "areaOfEffect": "Single Target",
-        "boughtForFree": false,
-        "color": {
-          "alpha": 1,
-          "hex": "#000000",
-          "hexa": "#000000FF",
-          "hsla": {
-            "h": 0,
-            "s": 0,
-            "l": 0,
-            "a": 1
-          },
-          "hsva": {
-            "h": 0,
-            "s": 0,
-            "v": 0,
-            "a": 1
-          },
-          "hue": 0,
-          "rgba": {
-            "r": 0,
-            "g": 0,
-            "b": 0,
-            "a": 1
-          }
-        },
-        "crCost": 0,
-        "characteristic": "",
-        "description": "Reaction, Hyper Reaction, Requires",
-        "duration": "Instant",
-        "handedness": 0,
-        "id": "1656642986591",
-        "inClass": true,
-        "isAbilityArray": false,
-        "isMeleeAttack": false,
-        "maxSizeCategoryOfMass": 0,
-        "name": "Parry",
-        "physMeta": "Physical",
-        "range": 0,
-        "successes": 0,
-        "xpCost": 210,
-        "components": [],
-        "damage": [],
-        "subEffects": [],
-        "key": "0Single Targetfalseundefined0Reaction, Hyper Reaction, RequiresInstant01656642986591truefalsefalse0ParryPhysical00210[][][]"
+        "key": "0false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}010 Purchase HPPassive01656642986589truefalsefalse0MeatyMeta00275[][][]"
       },
       {
         "apCost": 0,
@@ -863,7 +840,7 @@
         "components": [],
         "damage": [],
         "subEffects": [],
-        "key": "0falseundefined0Passive01656642986596truefalsefalse0RES +1Meta00250[][][]"
+        "key": "0false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Passive01656642986596truefalsefalse0RES +1Meta00250[][][]"
       },
       {
         "apCost": 3,
@@ -1055,7 +1032,8 @@
                         "type": "Slashing"
                       }
                     ],
-                    "subEffects": []
+                    "subEffects": [],
+                    "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0strengthInstant01truefalsetrue0Claw AttackPhysical00140[][{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Slashing\"}][]"
                   },
                   {
                     "apCost": 3,
@@ -1109,9 +1087,11 @@
                         "type": "Force"
                       }
                     ],
-                    "subEffects": []
+                    "subEffects": [],
+                    "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0strengthCan jump 6 sq as part of the attack.Instant02truefalsetrue0PouncePhysical00135[][{\"addChar\":true,\"dice\":1,\"flat\":0,\"type\":\"Force\"}][]"
                   }
-                ]
+                ],
+                "key": "0false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Instant01truefalsefalse0Big CatMeta0025[][][{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Claw Attack\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":140,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Slashing\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthInstant01truefalsetrue0Claw AttackPhysical00140[][{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Slashing\\\"}][]\"},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"Can jump 6 sq as part of the attack.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Pounce\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":135,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":1,\"flat\":0,\"type\":\"Force\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthCan jump 6 sq as part of the attack.Instant02truefalsetrue0PouncePhysical00135[][{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Force\\\"}][]\"}]"
               },
               {
                 "apCost": 0,
@@ -1211,7 +1191,8 @@
                         "type": "Healing"
                       }
                     ],
-                    "subEffects": []
+                    "subEffects": [],
+                    "key": "345 degree cone, 6 sq.false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0cunningInstant01truefalsefalse0Bird SongPhysical6050[][{\"addChar\":false,\"dice\":1,\"flat\":0,\"type\":\"Healing\"}][]"
                   },
                   {
                     "apCost": 3,
@@ -1265,9 +1246,11 @@
                         "type": "Piercing"
                       }
                     ],
-                    "subEffects": []
+                    "subEffects": [],
+                    "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0strengthInstant02truefalsetrue0Claw AttackPhysical0070[][{\"addChar\":true,\"dice\":1,\"flat\":0,\"type\":\"Piercing\"}][]"
                   }
-                ]
+                ],
+                "key": "0false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Instant02truefalsefalse0BirdMeta0070[][][{\"apCost\":3,\"areaOfEffect\":\"45 degree cone, 6 sq.\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"cunning\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Bird Song\",\"physMeta\":\"Physical\",\"range\":6,\"successes\":0,\"xpCost\":50,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":1,\"flat\":0,\"type\":\"Healing\"}],\"subEffects\":[],\"key\":\"345 degree cone, 6 sq.false{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0cunningInstant01truefalsefalse0Bird SongPhysical6050[][{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Healing\\\"}][]\"},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Claw Attack\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":70,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":1,\"flat\":0,\"type\":\"Piercing\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthInstant02truefalsetrue0Claw AttackPhysical0070[][{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Piercing\\\"}][]\"}]"
               },
               {
                 "apCost": 0,
@@ -1367,7 +1350,8 @@
                         "type": "Toxic"
                       }
                     ],
-                    "subEffects": []
+                    "subEffects": [],
+                    "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0strengthInstant01truefalsetrue0BitePhysical00140[][{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Toxic\"}][]"
                   },
                   {
                     "apCost": 3,
@@ -1421,15 +1405,17 @@
                         "type": "Toxic"
                       }
                     ],
-                    "subEffects": []
+                    "subEffects": [],
+                    "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0dexterityInstant02truefalsefalse0SpitPhysical60100[][{\"addChar\":false,\"dice\":1,\"flat\":0,\"type\":\"Toxic\"}][]"
                   }
-                ]
+                ],
+                "key": "0false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Instant03truefalsefalse0ReptileMeta0060[][][{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Bite\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":140,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Toxic\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthInstant01truefalsetrue0BitePhysical00140[][{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}][]\"},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"dexterity\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Spit\",\"physMeta\":\"Physical\",\"range\":6,\"successes\":0,\"xpCost\":100,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":1,\"flat\":0,\"type\":\"Toxic\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0dexterityInstant02truefalsefalse0SpitPhysical60100[][{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}][]\"}]"
               }
             ],
-            "key": "0falseundefined0Instant01256642986592truetruefalse0Spirit Animal ArrayMeta0010[object Object],[object Object],[object Object]"
+            "key": "0false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Instant01256642986592truetruefalse0Spirit Animal ArrayMeta0010[][][{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Big Cat\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":25,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Claw Attack\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":140,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Slashing\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthInstant01truefalsetrue0Claw AttackPhysical00140[][{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Slashing\\\"}][]\"},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"Can jump 6 sq as part of the attack.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Pounce\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":135,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":1,\"flat\":0,\"type\":\"Force\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthCan jump 6 sq as part of the attack.Instant02truefalsetrue0PouncePhysical00135[][{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Force\\\"}][]\"}],\"key\":\"0false{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0Instant01truefalsefalse0Big CatMeta0025[][][{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"1\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Claw Attack\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":140,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Slashing\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthInstant01truefalsetrue0Claw AttackPhysical00140[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":2,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Slashing\\\\\\\"}][]\\\"},{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"Can jump 6 sq as part of the attack.\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"2\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Pounce\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":135,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Force\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthCan jump 6 sq as part of the attack.Instant02truefalsetrue0PouncePhysical00135[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Force\\\\\\\"}][]\\\"}]\"},{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Bird\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":70,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"45 degree cone, 6 sq.\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"cunning\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Bird Song\",\"physMeta\":\"Physical\",\"range\":6,\"successes\":0,\"xpCost\":50,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":1,\"flat\":0,\"type\":\"Healing\"}],\"subEffects\":[],\"key\":\"345 degree cone, 6 sq.false{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0cunningInstant01truefalsefalse0Bird SongPhysical6050[][{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Healing\\\"}][]\"},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Claw Attack\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":70,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":1,\"flat\":0,\"type\":\"Piercing\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthInstant02truefalsetrue0Claw AttackPhysical0070[][{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Piercing\\\"}][]\"}],\"key\":\"0false{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0Instant02truefalsefalse0BirdMeta0070[][][{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"45 degree cone, 6 sq.\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"cunning\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"1\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":false,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Bird Song\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":6,\\\"successes\\\":0,\\\"xpCost\\\":50,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Healing\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"345 degree cone, 6 sq.false{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0cunningInstant01truefalsefalse0Bird SongPhysical6050[][{\\\\\\\"addChar\\\\\\\":false,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Healing\\\\\\\"}][]\\\"},{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"2\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Claw Attack\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":70,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Piercing\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthInstant02truefalsetrue0Claw AttackPhysical0070[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Piercing\\\\\\\"}][]\\\"}]\"},{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"3\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Reptile\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":60,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Bite\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":140,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Toxic\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthInstant01truefalsetrue0BitePhysical00140[][{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}][]\"},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"dexterity\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Spit\",\"physMeta\":\"Physical\",\"range\":6,\"successes\":0,\"xpCost\":100,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":1,\"flat\":0,\"type\":\"Toxic\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0dexterityInstant02truefalsefalse0SpitPhysical60100[][{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}][]\"}],\"key\":\"0false{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0Instant03truefalsefalse0ReptileMeta0060[][][{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"1\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Bite\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":140,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthInstant01truefalsetrue0BitePhysical00140[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":2,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Toxic\\\\\\\"}][]\\\"},{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"dexterity\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"2\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":false,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Spit\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":6,\\\"successes\\\":0,\\\"xpCost\\\":100,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0dexterityInstant02truefalsefalse0SpitPhysical60100[][{\\\\\\\"addChar\\\\\\\":false,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Toxic\\\\\\\"}][]\\\"}]\"}]"
           }
         ],
-        "key": "3falseundefined0Instant01656642986592truefalsefalse0Summon Spirit AnimalPhysical00100[][][{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1256642986592\",\"inClass\":true,\"isAbilityArray\":true,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Spirit Animal Array\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":10,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Big Cat\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":25,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Claw Attack\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":140,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\"}],\"subEffects\":[]},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"Can jump 6 sq as part of the attack.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Pounce\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":135,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"1d6\",\"flat\":0,\"percentage\":0,\"type\":\"Force\"}],\"subEffects\":[]}]},{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Bird\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":70,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"45 degree cone, 6 sq.\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"cunning\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Bird Song\",\"physMeta\":\"Physical\",\"range\":6,\"successes\":0,\"xpCost\":50,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":\"1d4\",\"flat\":0,\"percentage\":0,\"type\":\"Healing\"}],\"subEffects\":[]},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Claw Attack\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":70,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"1d6\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\"}],\"subEffects\":[]}]},{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"3\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Reptile\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":60,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Bite\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":140,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\"}],\"subEffects\":[]},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"dexterity\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Spit\",\"physMeta\":\"Physical\",\"range\":6,\"successes\":0,\"xpCost\":100,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":\"1d6\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\"}],\"subEffects\":[]}]}],\"key\":\"0falseundefined0Instant01256642986592truetruefalse0Spirit Animal ArrayMeta0010[object Object],[object Object],[object Object]\"}]"
+        "key": "3false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Instant01656642986592truefalsefalse0Summon Spirit AnimalPhysical00100[][][{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1256642986592\",\"inClass\":true,\"isAbilityArray\":true,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Spirit Animal Array\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":10,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Big Cat\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":25,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Claw Attack\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":140,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Slashing\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthInstant01truefalsetrue0Claw AttackPhysical00140[][{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Slashing\\\"}][]\"},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"Can jump 6 sq as part of the attack.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Pounce\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":135,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":1,\"flat\":0,\"type\":\"Force\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthCan jump 6 sq as part of the attack.Instant02truefalsetrue0PouncePhysical00135[][{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Force\\\"}][]\"}],\"key\":\"0false{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0Instant01truefalsefalse0Big CatMeta0025[][][{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"1\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Claw Attack\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":140,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Slashing\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthInstant01truefalsetrue0Claw AttackPhysical00140[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":2,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Slashing\\\\\\\"}][]\\\"},{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"Can jump 6 sq as part of the attack.\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"2\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Pounce\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":135,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Force\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthCan jump 6 sq as part of the attack.Instant02truefalsetrue0PouncePhysical00135[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Force\\\\\\\"}][]\\\"}]\"},{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Bird\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":70,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"45 degree cone, 6 sq.\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"cunning\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Bird Song\",\"physMeta\":\"Physical\",\"range\":6,\"successes\":0,\"xpCost\":50,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":1,\"flat\":0,\"type\":\"Healing\"}],\"subEffects\":[],\"key\":\"345 degree cone, 6 sq.false{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0cunningInstant01truefalsefalse0Bird SongPhysical6050[][{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Healing\\\"}][]\"},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Claw Attack\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":70,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":1,\"flat\":0,\"type\":\"Piercing\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthInstant02truefalsetrue0Claw AttackPhysical0070[][{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Piercing\\\"}][]\"}],\"key\":\"0false{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0Instant02truefalsefalse0BirdMeta0070[][][{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"45 degree cone, 6 sq.\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"cunning\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"1\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":false,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Bird Song\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":6,\\\"successes\\\":0,\\\"xpCost\\\":50,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Healing\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"345 degree cone, 6 sq.false{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0cunningInstant01truefalsefalse0Bird SongPhysical6050[][{\\\\\\\"addChar\\\\\\\":false,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Healing\\\\\\\"}][]\\\"},{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"2\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Claw Attack\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":70,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Piercing\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthInstant02truefalsetrue0Claw AttackPhysical0070[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Piercing\\\\\\\"}][]\\\"}]\"},{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"3\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Reptile\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":60,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Bite\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":140,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":2,\"flat\":0,\"type\":\"Toxic\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0strengthInstant01truefalsetrue0BitePhysical00140[][{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}][]\"},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":0,\"characteristic\":\"dexterity\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Spit\",\"physMeta\":\"Physical\",\"range\":6,\"successes\":0,\"xpCost\":100,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":1,\"flat\":0,\"type\":\"Toxic\"}],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0dexterityInstant02truefalsefalse0SpitPhysical60100[][{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}][]\"}],\"key\":\"0false{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0Instant03truefalsefalse0ReptileMeta0060[][][{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"1\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Bite\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":140,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthInstant01truefalsetrue0BitePhysical00140[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":2,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Toxic\\\\\\\"}][]\\\"},{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"dexterity\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"2\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":false,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Spit\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":6,\\\"successes\\\":0,\\\"xpCost\\\":100,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0dexterityInstant02truefalsefalse0SpitPhysical60100[][{\\\\\\\"addChar\\\\\\\":false,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Toxic\\\\\\\"}][]\\\"}]\"}],\"key\":\"0false{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}0Instant01256642986592truetruefalse0Spirit Animal ArrayMeta0010[][][{\\\"apCost\\\":0,\\\"areaOfEffect\\\":\\\"\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"1\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":false,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Big Cat\\\",\\\"physMeta\\\":\\\"Meta\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":25,\\\"components\\\":[],\\\"damage\\\":[],\\\"subEffects\\\":[{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"1\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Claw Attack\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":140,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Slashing\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthInstant01truefalsetrue0Claw AttackPhysical00140[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":2,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Slashing\\\\\\\"}][]\\\"},{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"Can jump 6 sq as part of the attack.\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"2\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Pounce\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":135,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Force\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthCan jump 6 sq as part of the attack.Instant02truefalsetrue0PouncePhysical00135[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Force\\\\\\\"}][]\\\"}],\\\"key\\\":\\\"0false{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0Instant01truefalsefalse0Big CatMeta0025[][][{\\\\\\\"apCost\\\\\\\":3,\\\\\\\"areaOfEffect\\\\\\\":\\\\\\\"Single Target\\\\\\\",\\\\\\\"boughtForFree\\\\\\\":false,\\\\\\\"color\\\\\\\":{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}},\\\\\\\"crCost\\\\\\\":0,\\\\\\\"characteristic\\\\\\\":\\\\\\\"strength\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"duration\\\\\\\":\\\\\\\"Instant\\\\\\\",\\\\\\\"handedness\\\\\\\":0,\\\\\\\"id\\\\\\\":\\\\\\\"1\\\\\\\",\\\\\\\"inClass\\\\\\\":true,\\\\\\\"isAbilityArray\\\\\\\":false,\\\\\\\"isMeleeAttack\\\\\\\":true,\\\\\\\"maxSizeCategoryOfMass\\\\\\\":0,\\\\\\\"name\\\\\\\":\\\\\\\"Claw Attack\\\\\\\",\\\\\\\"physMeta\\\\\\\":\\\\\\\"Physical\\\\\\\",\\\\\\\"range\\\\\\\":0,\\\\\\\"successes\\\\\\\":0,\\\\\\\"xpCost\\\\\\\":140,\\\\\\\"components\\\\\\\":[],\\\\\\\"damage\\\\\\\":[{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":2,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Slashing\\\\\\\"}],\\\\\\\"subEffects\\\\\\\":[],\\\\\\\"key\\\\\\\":\\\\\\\"3Single Targetfalse{\\\\\\\\\\\\\\\"alpha\\\\\\\\\\\\\\\":1,\\\\\\\\\\\\\\\"hex\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hexa\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000FF\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hsla\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"l\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hsva\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"v\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hue\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"rgba\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"r\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"g\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"b\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1}}0strengthInstant01truefalsetrue0Claw AttackPhysical00140[][{\\\\\\\\\\\\\\\"addChar\\\\\\\\\\\\\\\":true,\\\\\\\\\\\\\\\"dice\\\\\\\\\\\\\\\":2,\\\\\\\\\\\\\\\"flat\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"type\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"Slashing\\\\\\\\\\\\\\\"}][]\\\\\\\"},{\\\\\\\"apCost\\\\\\\":3,\\\\\\\"areaOfEffect\\\\\\\":\\\\\\\"Single Target\\\\\\\",\\\\\\\"boughtForFree\\\\\\\":false,\\\\\\\"color\\\\\\\":{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}},\\\\\\\"crCost\\\\\\\":0,\\\\\\\"characteristic\\\\\\\":\\\\\\\"strength\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"Can jump 6 sq as part of the attack.\\\\\\\",\\\\\\\"duration\\\\\\\":\\\\\\\"Instant\\\\\\\",\\\\\\\"handedness\\\\\\\":0,\\\\\\\"id\\\\\\\":\\\\\\\"2\\\\\\\",\\\\\\\"inClass\\\\\\\":true,\\\\\\\"isAbilityArray\\\\\\\":false,\\\\\\\"isMeleeAttack\\\\\\\":true,\\\\\\\"maxSizeCategoryOfMass\\\\\\\":0,\\\\\\\"name\\\\\\\":\\\\\\\"Pounce\\\\\\\",\\\\\\\"physMeta\\\\\\\":\\\\\\\"Physical\\\\\\\",\\\\\\\"range\\\\\\\":0,\\\\\\\"successes\\\\\\\":0,\\\\\\\"xpCost\\\\\\\":135,\\\\\\\"components\\\\\\\":[],\\\\\\\"damage\\\\\\\":[{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Force\\\\\\\"}],\\\\\\\"subEffects\\\\\\\":[],\\\\\\\"key\\\\\\\":\\\\\\\"3Single Targetfalse{\\\\\\\\\\\\\\\"alpha\\\\\\\\\\\\\\\":1,\\\\\\\\\\\\\\\"hex\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hexa\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000FF\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hsla\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"l\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hsva\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"v\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hue\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"rgba\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"r\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"g\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"b\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1}}0strengthCan jump 6 sq as part of the attack.Instant02truefalsetrue0PouncePhysical00135[][{\\\\\\\\\\\\\\\"addChar\\\\\\\\\\\\\\\":true,\\\\\\\\\\\\\\\"dice\\\\\\\\\\\\\\\":1,\\\\\\\\\\\\\\\"flat\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"type\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"Force\\\\\\\\\\\\\\\"}][]\\\\\\\"}]\\\"},{\\\"apCost\\\":0,\\\"areaOfEffect\\\":\\\"\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"2\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":false,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Bird\\\",\\\"physMeta\\\":\\\"Meta\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":70,\\\"components\\\":[],\\\"damage\\\":[],\\\"subEffects\\\":[{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"45 degree cone, 6 sq.\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"cunning\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"1\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":false,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Bird Song\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":6,\\\"successes\\\":0,\\\"xpCost\\\":50,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Healing\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"345 degree cone, 6 sq.false{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0cunningInstant01truefalsefalse0Bird SongPhysical6050[][{\\\\\\\"addChar\\\\\\\":false,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Healing\\\\\\\"}][]\\\"},{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"2\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Claw Attack\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":70,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Piercing\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthInstant02truefalsetrue0Claw AttackPhysical0070[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Piercing\\\\\\\"}][]\\\"}],\\\"key\\\":\\\"0false{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0Instant02truefalsefalse0BirdMeta0070[][][{\\\\\\\"apCost\\\\\\\":3,\\\\\\\"areaOfEffect\\\\\\\":\\\\\\\"45 degree cone, 6 sq.\\\\\\\",\\\\\\\"boughtForFree\\\\\\\":false,\\\\\\\"color\\\\\\\":{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}},\\\\\\\"crCost\\\\\\\":0,\\\\\\\"characteristic\\\\\\\":\\\\\\\"cunning\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"duration\\\\\\\":\\\\\\\"Instant\\\\\\\",\\\\\\\"handedness\\\\\\\":0,\\\\\\\"id\\\\\\\":\\\\\\\"1\\\\\\\",\\\\\\\"inClass\\\\\\\":true,\\\\\\\"isAbilityArray\\\\\\\":false,\\\\\\\"isMeleeAttack\\\\\\\":false,\\\\\\\"maxSizeCategoryOfMass\\\\\\\":0,\\\\\\\"name\\\\\\\":\\\\\\\"Bird Song\\\\\\\",\\\\\\\"physMeta\\\\\\\":\\\\\\\"Physical\\\\\\\",\\\\\\\"range\\\\\\\":6,\\\\\\\"successes\\\\\\\":0,\\\\\\\"xpCost\\\\\\\":50,\\\\\\\"components\\\\\\\":[],\\\\\\\"damage\\\\\\\":[{\\\\\\\"addChar\\\\\\\":false,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Healing\\\\\\\"}],\\\\\\\"subEffects\\\\\\\":[],\\\\\\\"key\\\\\\\":\\\\\\\"345 degree cone, 6 sq.false{\\\\\\\\\\\\\\\"alpha\\\\\\\\\\\\\\\":1,\\\\\\\\\\\\\\\"hex\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hexa\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000FF\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hsla\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"l\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hsva\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"v\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hue\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"rgba\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"r\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"g\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"b\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1}}0cunningInstant01truefalsefalse0Bird SongPhysical6050[][{\\\\\\\\\\\\\\\"addChar\\\\\\\\\\\\\\\":false,\\\\\\\\\\\\\\\"dice\\\\\\\\\\\\\\\":1,\\\\\\\\\\\\\\\"flat\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"type\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"Healing\\\\\\\\\\\\\\\"}][]\\\\\\\"},{\\\\\\\"apCost\\\\\\\":3,\\\\\\\"areaOfEffect\\\\\\\":\\\\\\\"Single Target\\\\\\\",\\\\\\\"boughtForFree\\\\\\\":false,\\\\\\\"color\\\\\\\":{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}},\\\\\\\"crCost\\\\\\\":0,\\\\\\\"characteristic\\\\\\\":\\\\\\\"strength\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"duration\\\\\\\":\\\\\\\"Instant\\\\\\\",\\\\\\\"handedness\\\\\\\":0,\\\\\\\"id\\\\\\\":\\\\\\\"2\\\\\\\",\\\\\\\"inClass\\\\\\\":true,\\\\\\\"isAbilityArray\\\\\\\":false,\\\\\\\"isMeleeAttack\\\\\\\":true,\\\\\\\"maxSizeCategoryOfMass\\\\\\\":0,\\\\\\\"name\\\\\\\":\\\\\\\"Claw Attack\\\\\\\",\\\\\\\"physMeta\\\\\\\":\\\\\\\"Physical\\\\\\\",\\\\\\\"range\\\\\\\":0,\\\\\\\"successes\\\\\\\":0,\\\\\\\"xpCost\\\\\\\":70,\\\\\\\"components\\\\\\\":[],\\\\\\\"damage\\\\\\\":[{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Piercing\\\\\\\"}],\\\\\\\"subEffects\\\\\\\":[],\\\\\\\"key\\\\\\\":\\\\\\\"3Single Targetfalse{\\\\\\\\\\\\\\\"alpha\\\\\\\\\\\\\\\":1,\\\\\\\\\\\\\\\"hex\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hexa\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000FF\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hsla\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"l\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hsva\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"v\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hue\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"rgba\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"r\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"g\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"b\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1}}0strengthInstant02truefalsetrue0Claw AttackPhysical0070[][{\\\\\\\\\\\\\\\"addChar\\\\\\\\\\\\\\\":true,\\\\\\\\\\\\\\\"dice\\\\\\\\\\\\\\\":1,\\\\\\\\\\\\\\\"flat\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"type\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"Piercing\\\\\\\\\\\\\\\"}][]\\\\\\\"}]\\\"},{\\\"apCost\\\":0,\\\"areaOfEffect\\\":\\\"\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"3\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":false,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Reptile\\\",\\\"physMeta\\\":\\\"Meta\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":60,\\\"components\\\":[],\\\"damage\\\":[],\\\"subEffects\\\":[{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"strength\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"1\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":true,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Bite\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":0,\\\"successes\\\":0,\\\"xpCost\\\":140,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":true,\\\"dice\\\":2,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0strengthInstant01truefalsetrue0BitePhysical00140[][{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":2,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Toxic\\\\\\\"}][]\\\"},{\\\"apCost\\\":3,\\\"areaOfEffect\\\":\\\"Single Target\\\",\\\"boughtForFree\\\":false,\\\"color\\\":{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}},\\\"crCost\\\":0,\\\"characteristic\\\":\\\"dexterity\\\",\\\"description\\\":\\\"\\\",\\\"duration\\\":\\\"Instant\\\",\\\"handedness\\\":0,\\\"id\\\":\\\"2\\\",\\\"inClass\\\":true,\\\"isAbilityArray\\\":false,\\\"isMeleeAttack\\\":false,\\\"maxSizeCategoryOfMass\\\":0,\\\"name\\\":\\\"Spit\\\",\\\"physMeta\\\":\\\"Physical\\\",\\\"range\\\":6,\\\"successes\\\":0,\\\"xpCost\\\":100,\\\"components\\\":[],\\\"damage\\\":[{\\\"addChar\\\":false,\\\"dice\\\":1,\\\"flat\\\":0,\\\"type\\\":\\\"Toxic\\\"}],\\\"subEffects\\\":[],\\\"key\\\":\\\"3Single Targetfalse{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0dexterityInstant02truefalsefalse0SpitPhysical60100[][{\\\\\\\"addChar\\\\\\\":false,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Toxic\\\\\\\"}][]\\\"}],\\\"key\\\":\\\"0false{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}}0Instant03truefalsefalse0ReptileMeta0060[][][{\\\\\\\"apCost\\\\\\\":3,\\\\\\\"areaOfEffect\\\\\\\":\\\\\\\"Single Target\\\\\\\",\\\\\\\"boughtForFree\\\\\\\":false,\\\\\\\"color\\\\\\\":{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}},\\\\\\\"crCost\\\\\\\":0,\\\\\\\"characteristic\\\\\\\":\\\\\\\"strength\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"duration\\\\\\\":\\\\\\\"Instant\\\\\\\",\\\\\\\"handedness\\\\\\\":0,\\\\\\\"id\\\\\\\":\\\\\\\"1\\\\\\\",\\\\\\\"inClass\\\\\\\":true,\\\\\\\"isAbilityArray\\\\\\\":false,\\\\\\\"isMeleeAttack\\\\\\\":true,\\\\\\\"maxSizeCategoryOfMass\\\\\\\":0,\\\\\\\"name\\\\\\\":\\\\\\\"Bite\\\\\\\",\\\\\\\"physMeta\\\\\\\":\\\\\\\"Physical\\\\\\\",\\\\\\\"range\\\\\\\":0,\\\\\\\"successes\\\\\\\":0,\\\\\\\"xpCost\\\\\\\":140,\\\\\\\"components\\\\\\\":[],\\\\\\\"damage\\\\\\\":[{\\\\\\\"addChar\\\\\\\":true,\\\\\\\"dice\\\\\\\":2,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Toxic\\\\\\\"}],\\\\\\\"subEffects\\\\\\\":[],\\\\\\\"key\\\\\\\":\\\\\\\"3Single Targetfalse{\\\\\\\\\\\\\\\"alpha\\\\\\\\\\\\\\\":1,\\\\\\\\\\\\\\\"hex\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hexa\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000FF\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hsla\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"l\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hsva\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"v\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hue\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"rgba\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"r\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"g\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"b\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1}}0strengthInstant01truefalsetrue0BitePhysical00140[][{\\\\\\\\\\\\\\\"addChar\\\\\\\\\\\\\\\":true,\\\\\\\\\\\\\\\"dice\\\\\\\\\\\\\\\":2,\\\\\\\\\\\\\\\"flat\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"type\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"Toxic\\\\\\\\\\\\\\\"}][]\\\\\\\"},{\\\\\\\"apCost\\\\\\\":3,\\\\\\\"areaOfEffect\\\\\\\":\\\\\\\"Single Target\\\\\\\",\\\\\\\"boughtForFree\\\\\\\":false,\\\\\\\"color\\\\\\\":{\\\\\\\"alpha\\\\\\\":1,\\\\\\\"hex\\\\\\\":\\\\\\\"#000000\\\\\\\",\\\\\\\"hexa\\\\\\\":\\\\\\\"#000000FF\\\\\\\",\\\\\\\"hsla\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"l\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hsva\\\\\\\":{\\\\\\\"h\\\\\\\":0,\\\\\\\"s\\\\\\\":0,\\\\\\\"v\\\\\\\":0,\\\\\\\"a\\\\\\\":1},\\\\\\\"hue\\\\\\\":0,\\\\\\\"rgba\\\\\\\":{\\\\\\\"r\\\\\\\":0,\\\\\\\"g\\\\\\\":0,\\\\\\\"b\\\\\\\":0,\\\\\\\"a\\\\\\\":1}},\\\\\\\"crCost\\\\\\\":0,\\\\\\\"characteristic\\\\\\\":\\\\\\\"dexterity\\\\\\\",\\\\\\\"description\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"duration\\\\\\\":\\\\\\\"Instant\\\\\\\",\\\\\\\"handedness\\\\\\\":0,\\\\\\\"id\\\\\\\":\\\\\\\"2\\\\\\\",\\\\\\\"inClass\\\\\\\":true,\\\\\\\"isAbilityArray\\\\\\\":false,\\\\\\\"isMeleeAttack\\\\\\\":false,\\\\\\\"maxSizeCategoryOfMass\\\\\\\":0,\\\\\\\"name\\\\\\\":\\\\\\\"Spit\\\\\\\",\\\\\\\"physMeta\\\\\\\":\\\\\\\"Physical\\\\\\\",\\\\\\\"range\\\\\\\":6,\\\\\\\"successes\\\\\\\":0,\\\\\\\"xpCost\\\\\\\":100,\\\\\\\"components\\\\\\\":[],\\\\\\\"damage\\\\\\\":[{\\\\\\\"addChar\\\\\\\":false,\\\\\\\"dice\\\\\\\":1,\\\\\\\"flat\\\\\\\":0,\\\\\\\"type\\\\\\\":\\\\\\\"Toxic\\\\\\\"}],\\\\\\\"subEffects\\\\\\\":[],\\\\\\\"key\\\\\\\":\\\\\\\"3Single Targetfalse{\\\\\\\\\\\\\\\"alpha\\\\\\\\\\\\\\\":1,\\\\\\\\\\\\\\\"hex\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hexa\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"#000000FF\\\\\\\\\\\\\\\",\\\\\\\\\\\\\\\"hsla\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"l\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hsva\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"h\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"s\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"v\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1},\\\\\\\\\\\\\\\"hue\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"rgba\\\\\\\\\\\\\\\":{\\\\\\\\\\\\\\\"r\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"g\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"b\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"a\\\\\\\\\\\\\\\":1}}0dexterityInstant02truefalsefalse0SpitPhysical60100[][{\\\\\\\\\\\\\\\"addChar\\\\\\\\\\\\\\\":false,\\\\\\\\\\\\\\\"dice\\\\\\\\\\\\\\\":1,\\\\\\\\\\\\\\\"flat\\\\\\\\\\\\\\\":0,\\\\\\\\\\\\\\\"type\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"Toxic\\\\\\\\\\\\\\\"}][]\\\\\\\"}]\\\"}]\"}]"
       },
       {
         "apCost": 0,
@@ -1477,55 +1463,7 @@
         "components": [],
         "damage": [],
         "subEffects": [],
-        "key": "0falseundefined0Passive01656642986593truefalsefalse0Turtle ShellMeta0080[][][]"
-      },
-      {
-        "apCost": 3,
-        "areaOfEffect": "Single Target",
-        "boughtForFree": false,
-        "color": {
-          "alpha": 1,
-          "hex": "#000000",
-          "hexa": "#000000FF",
-          "hsla": {
-            "h": 0,
-            "s": 0,
-            "l": 0,
-            "a": 1
-          },
-          "hsva": {
-            "h": 0,
-            "s": 0,
-            "v": 0,
-            "a": 1
-          },
-          "hue": 0,
-          "rgba": {
-            "r": 0,
-            "g": 0,
-            "b": 0,
-            "a": 1
-          }
-        },
-        "crCost": -3,
-        "characteristic": "",
-        "description": "Vampirism Full, Requires Bleed 3",
-        "duration": "Instant",
-        "handedness": 0,
-        "id": "1656642986594",
-        "inClass": true,
-        "isAbilityArray": false,
-        "isMeleeAttack": false,
-        "maxSizeCategoryOfMass": 0,
-        "name": "Vampire Bat Strike",
-        "physMeta": "Physical",
-        "range": 0,
-        "successes": 0,
-        "xpCost": 280,
-        "components": [],
-        "damage": [],
-        "subEffects": [],
-        "key": "3Single Targetfalseundefined-3Vampirism Full, Requires Bleed 3Instant01656642986594truefalsefalse0Vampire Bat StrikePhysical00280[][][]"
+        "key": "0false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Passive01656642986593truefalsefalse0Turtle ShellMeta0080[][][]"
       },
       {
         "apCost": 0,
@@ -1569,11 +1507,11 @@
         "physMeta": "Meta",
         "range": 0,
         "successes": 0,
-        "xpCost": 30,
+        "xpCost": "90",
         "components": [],
         "damage": [],
         "subEffects": [],
-        "key": "0falseundefined0+2d6 to TrackingPassive01656642986595truefalsefalse0Big Game TrackingMeta0030[][][]"
+        "key": "0false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0+2d6 to TrackingPassive01656642986595truefalsefalse0Big Game TrackingMeta0090[][][]"
       },
       {
         "apCost": 0,
@@ -1621,7 +1559,7 @@
         "components": [],
         "damage": [],
         "subEffects": [],
-        "key": "0Single Targetfalseundefined0Increase Value of Natural Creatures and Monsters by 55%.Instant01656642986598truefalsefalse0HarversterPhysical0040[][][]"
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Increase Value of Natural Creatures and Monsters by 55%.Instant01656642986598truefalsefalse0HarversterPhysical0040[][][]"
       },
       {
         "apCost": 3,
@@ -1665,18 +1603,68 @@
         "physMeta": "Physical",
         "range": 10,
         "successes": 0,
-        "xpCost": 210,
+        "xpCost": "455",
         "components": [],
         "damage": [
           {
             "addChar": false,
             "dice": 3,
             "flat": 0,
-            "type": "Toxic"
+            "type": "Toxic",
+            "key": "0false"
           }
         ],
-        "subEffects": [],
-        "key": "3Single Targetfalseundefined0strengthBlow DartInstant11656642986597truefalsefalse0TlacalhuazcuahuitlPhysical100210[][{\"addChar\":false,\"dice\":\"3d6\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\"}][]"
+        "subEffects": [
+          {
+            "apCost": 3,
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#FF0000",
+              "hexa": "#FF0000FF",
+              "hsla": {
+                "h": 0,
+                "s": 1,
+                "l": 0.5,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 1,
+                "v": 1,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 255,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "crCost": "-3",
+            "characteristic": "",
+            "description": "Vampirism Full, Requires Bleed 3",
+            "duration": "Instant",
+            "handedness": 0,
+            "id": "1659070482250",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": false,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Vampire Bat Strike",
+            "physMeta": "Physical",
+            "range": 0,
+            "successes": 0,
+            "xpCost": "280",
+            "components": [],
+            "damage": [],
+            "subEffects": [],
+            "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#FF0000\",\"hexa\":\"#FF0000FF\",\"hsla\":{\"h\":0,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":0,\"s\":1,\"v\":1,\"a\":1},\"hue\":0,\"rgba\":{\"r\":255,\"g\":0,\"b\":0,\"a\":1}}-3Vampirism Full, Requires Bleed 3Instant01659070482250truefalsefalse0Vampire Bat StrikePhysical00280[][][]"
+          }
+        ],
+        "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0strengthBlow DartInstant11656642986597truefalsefalse0TlacalhuazcuahuitlPhysical100455[][{\"addChar\":false,\"dice\":3,\"flat\":0,\"type\":\"Toxic\",\"key\":\"0false\"}][{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#FF0000\",\"hexa\":\"#FF0000FF\",\"hsla\":{\"h\":0,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":0,\"s\":1,\"v\":1,\"a\":1},\"hue\":0,\"rgba\":{\"r\":255,\"g\":0,\"b\":0,\"a\":1}},\"crCost\":\"-3\",\"characteristic\":\"\",\"description\":\"Vampirism Full, Requires Bleed 3\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1659070482250\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Vampire Bat Strike\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":\"280\",\"components\":[],\"damage\":[],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#FF0000\\\",\\\"hexa\\\":\\\"#FF0000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":1,\\\"l\\\":0.5,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":1,\\\"v\\\":1,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":255,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}-3Vampirism Full, Requires Bleed 3Instant01659070482250truefalsefalse0Vampire Bat StrikePhysical00280[][][]\"}]"
       },
       {
         "apCost": 3,
@@ -1701,7 +1689,7 @@
         "damage": [
           {
             "addChar": true,
-            "dice": "2d8",
+            "dice": "2",
             "flat": 0,
             "percentage": 0,
             "type": "Slashing",
@@ -1709,130 +1697,31 @@
           }
         ],
         "subEffects": [],
-        "key": "3Single Targettrueundefined0strengthInstant01657926893932truefalsetrue0MacuahuitlPhysical00180[][{\"addChar\":true,\"dice\":\"2d8\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"0true\"}][]"
-      },
-      {
-        "apCost": "4",
-        "areaOfEffect": "Single Target",
-        "boughtForFree": true,
-        "crCost": "1",
-        "characteristic": "strength",
-        "description": "Glide toward your enemies and attack, can fly 6 sq.",
-        "duration": "Instant",
-        "handedness": 0,
-        "id": "1657927119962",
-        "inClass": true,
-        "isAbilityArray": false,
-        "isMeleeAttack": true,
-        "maxSizeCategoryOfMass": 0,
-        "name": "Eagle Glide",
-        "physMeta": "Physical",
-        "range": 0,
-        "successes": "1",
-        "xpCost": "183",
-        "components": [],
-        "damage": [
-          {
-            "addChar": true,
-            "dice": "2d8",
-            "flat": 0,
-            "percentage": 0,
-            "type": "Slashing",
-            "key": "0true"
+        "key": "3Single Targettrue{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0strengthInstant01657926893932truefalsetrue0MacuahuitlPhysical00180[][{\"addChar\":true,\"dice\":\"2\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"0true\"}][]",
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
           },
-          {
-            "addChar": false,
-            "dice": "2d6",
-            "flat": 0,
-            "percentage": 0,
-            "type": "Piercing",
-            "key": "1false"
-          }
-        ],
-        "subEffects": [],
-        "key": "4Single Targettrueundefined1strengthGlide toward your enemies and attack, can fly 6 sq.Instant01657927119962truefalsetrue0Eagle GlidePhysical01183[][{\"addChar\":true,\"dice\":\"2d8\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"0true\"},{\"addChar\":false,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\",\"key\":\"1false\"}][]"
-      },
-      {
-        "apCost": "4",
-        "areaOfEffect": "Single Target",
-        "boughtForFree": true,
-        "crCost": "1",
-        "characteristic": "strength",
-        "description": "Jump forward crushing an enemy underfoot, can leap 30 feet.",
-        "duration": "Instant",
-        "handedness": 0,
-        "id": "1657927163347",
-        "inClass": true,
-        "isAbilityArray": false,
-        "isMeleeAttack": true,
-        "maxSizeCategoryOfMass": 0,
-        "name": "Jaguar Pounce",
-        "physMeta": "Physical",
-        "range": 0,
-        "successes": "1",
-        "xpCost": "176",
-        "components": [],
-        "damage": [
-          {
-            "addChar": false,
-            "dice": "2d6",
-            "flat": 0,
-            "percentage": 0,
-            "type": "Force",
-            "key": "0false"
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
           },
-          {
-            "addChar": true,
-            "dice": "2d8",
-            "flat": 0,
-            "percentage": 0,
-            "type": "Slashing",
-            "key": "1true"
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
           }
-        ],
-        "subEffects": [],
-        "key": "4Single Targettrueundefined1strengthJump forward crushing an enemy underfoot, can leap 30 feet.Instant01657927163347truefalsetrue0Jaguar PouncePhysical01176[][{\"addChar\":false,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Force\",\"key\":\"0false\"},{\"addChar\":true,\"dice\":\"2d8\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"1true\"}][]"
-      },
-      {
-        "apCost": "4",
-        "areaOfEffect": "Single Target",
-        "boughtForFree": false,
-        "crCost": "1",
-        "characteristic": "strength",
-        "description": "Run toward your enemies, can run 30 feet. Doesn't provoke opportunity attacks",
-        "duration": "Instant",
-        "handedness": 0,
-        "id": "1657927352759",
-        "inClass": true,
-        "isAbilityArray": false,
-        "isMeleeAttack": true,
-        "maxSizeCategoryOfMass": 0,
-        "name": "Serpent Strike",
-        "physMeta": "Physical",
-        "range": 0,
-        "successes": "1",
-        "xpCost": 10,
-        "components": [],
-        "damage": [
-          {
-            "addChar": true,
-            "dice": "2d8",
-            "flat": 0,
-            "percentage": 0,
-            "type": "Slashing",
-            "key": "0true"
-          },
-          {
-            "addChar": false,
-            "dice": "2d6",
-            "flat": 0,
-            "percentage": 0,
-            "type": "Toxic",
-            "key": "1false"
-          }
-        ],
-        "subEffects": [],
-        "key": "4Single Targetfalseundefined1strengthRun toward your enemies, can run 30 feet. Doesn't provoke opportunity attacksInstant01657927352759truefalsetrue0Serpent StrikePhysical0110[][{\"addChar\":true,\"dice\":\"2d8\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"0true\"},{\"addChar\":false,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\",\"key\":\"1false\"}][]"
+        }
       },
       {
         "apCost": "4",
@@ -1857,7 +1746,7 @@
         "damage": [
           {
             "addChar": true,
-            "dice": "3d8",
+            "dice": "2",
             "flat": 0,
             "percentage": 0,
             "type": "Piercing",
@@ -1865,7 +1754,31 @@
           }
         ],
         "subEffects": [],
-        "key": "4Single Targettrueundefined0strengthMade of a combination of chitin, plant matter, bone, and tendonInstant01657927715580truefalsefalse0Thorn BowPhysical40010[][{\"addChar\":true,\"dice\":\"3d8\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\",\"key\":\"0true\"}][]"
+        "key": "4Single Targettrue{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0strengthMade of a combination of chitin, plant matter, bone, and tendonInstant01657927715580truefalsefalse0Thorn BowPhysical40010[][{\"addChar\":true,\"dice\":\"2\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\",\"key\":\"0true\"}][]",
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        }
       },
       {
         "apCost": 3,
@@ -1890,7 +1803,7 @@
         "damage": [
           {
             "addChar": true,
-            "dice": "1d8",
+            "dice": "1",
             "flat": 0,
             "percentage": 0,
             "type": "Slashing",
@@ -1898,7 +1811,31 @@
           }
         ],
         "subEffects": [],
-        "key": "3Single Targettrueundefined0strengthInstant01657927780903truefalsetrue0Thorn Bow MeleePhysical0010[][{\"addChar\":true,\"dice\":\"1d8\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"0true\"}][]"
+        "key": "3Single Targettrue{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0strengthInstant01657927780903truefalsetrue0Thorn Bow MeleePhysical0010[][{\"addChar\":true,\"dice\":\"1\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"0true\"}][]",
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        }
       },
       {
         "apCost": "4",
@@ -1923,7 +1860,7 @@
         "damage": [
           {
             "addChar": true,
-            "dice": "4d8",
+            "dice": "2",
             "flat": 0,
             "percentage": 0,
             "type": "Piercing",
@@ -1931,7 +1868,7 @@
           },
           {
             "addChar": false,
-            "dice": "4d12",
+            "dice": "2",
             "flat": 0,
             "percentage": 0,
             "type": "Toxic",
@@ -1939,7 +1876,31 @@
           }
         ],
         "subEffects": [],
-        "key": "4Single Targettrueundefined0strengthInstant01657927937352truefalsefalse0Thorn Bow w Blood ArrowPhysical40210[][{\"addChar\":true,\"dice\":\"4d8\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\",\"key\":\"0true\"},{\"addChar\":false,\"dice\":\"4d12\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\",\"key\":\"1false\"}][]"
+        "key": "4Single Targettrue{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0strengthInstant01657927937352truefalsefalse0Thorn Bow w Blood ArrowPhysical40210[][{\"addChar\":true,\"dice\":\"2\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\",\"key\":\"0true\"},{\"addChar\":false,\"dice\":\"2\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\",\"key\":\"1false\"}][]",
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        }
       }
     ],
     "armor": [
