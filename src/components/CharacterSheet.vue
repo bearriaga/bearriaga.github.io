@@ -290,11 +290,11 @@
                                           multiple
                                           :disabled="characterSheet.bp <= 0"
                                           :rules="cleanseDialog.selectRules">
-                                    <v-icon color="primary"
+                                    <v-icon color="brown"
                                             slot="prepend"
                                             @click.stop="cleanseStatuses"
                                             :disabled="characterSheet.bp <= 0 || cleanseDialog.selectedStatuses.length == 0 || cleanseDialog.selectedStatuses.length > characterSheet.bp">
-                                        mdi-arm-flex
+                                        mdi-hospital-box
                                     </v-icon>
                                 </v-select>
                             </v-col>

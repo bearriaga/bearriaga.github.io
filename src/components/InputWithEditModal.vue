@@ -12,10 +12,10 @@
                           v-model="value"
                           :disabled="propertyObject.disabled">
                 <template v-if="propertyObject.valueName == 'bp'">
-                    <v-icon color="primary"
+                    <v-icon color="brown"
                             slot="append"
                             :disabled="propertyObject.value < 1"
-                            @click="specialButton">mdi-arm-flex</v-icon>
+                            @click="specialButton">mdi-hospital-box</v-icon>
                 </template>
                 <template v-if="propertyObject.valueName == 'ap'">
                     <v-icon color="success"
