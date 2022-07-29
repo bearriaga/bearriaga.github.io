@@ -43,14 +43,14 @@
                                 :disabled="dialog.type == 'Delete'">
                             <v-row>
                                 <v-col cols="12" md="6">
-                                    <v-text-field label="Name"
+                                    <v-text-field label="Name *"
                                                   v-model="name"
                                                   ref="name"
                                                   :rules="textRules"
                                                   required></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="3">
-                                    <v-text-field label="XP Cost"
+                                    <v-text-field label="XP Cost *"
                                                   v-model="xpCost"
                                                   type="number"
                                                   :rules="numberRules"
@@ -91,7 +91,7 @@
                                                             <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
                                                         </v-col>
                                                         <v-col cols="6">
-                                                            <v-select label="Type"
+                                                            <v-select label="Type *"
                                                                       :items="damageTypes"
                                                                       v-model="d.type"
                                                                       :rules="textRules"
@@ -130,7 +130,7 @@
                                     <v-checkbox label="In Class" v-model="inClass"></v-checkbox>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-select label="Physical/Meta"
+                                    <v-select label="Physical/Meta *"
                                               :items="physMetaOptions"
                                               v-model="physMeta"
                                               :rules="textRules"
@@ -276,7 +276,7 @@
                     isMeleeAttack: true,
                     maxSizeCategoryOfMass: 0,
                     name: '',
-                    physMeta: '',
+                    physMeta: 'Physical',
                     range: 0,
                     successes: 0,
                     xpCost: 0,
@@ -299,7 +299,7 @@
                 isMeleeAttack: true,
                 maxSizeCategoryOfMass: 0,
                 name: '',
-                physMeta: '',
+                physMeta: 'Physical',
                 range: 0,
                 successes: 0,
                 xpCost: 0,
@@ -361,7 +361,7 @@
                     isMeleeAttack: true,
                     maxSizeCategoryOfMass: 0,
                     name: '',
-                    physMeta: '',
+                    physMeta: 'Physical',
                     range: 0,
                     successes: 0,
                     xpCost: 10,
@@ -444,7 +444,7 @@
                     isMeleeAttack: true,
                     maxSizeCategoryOfMass: 0,
                     name: '',
-                    physMeta: '',
+                    physMeta: 'Physical',
                     range: 0,
                     successes: 0,
                     xpCost: 10,
