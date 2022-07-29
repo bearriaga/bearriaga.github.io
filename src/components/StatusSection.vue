@@ -102,6 +102,7 @@
                 // Input Fields Start
                 description: '',
                 duration: 0,
+                isActive: true,
                 ranks: 0,
                 selectedStatus: {
                     cost: '',
@@ -112,6 +113,7 @@
                 status: {
                     description: '',
                     duration: 1,
+                    isActive: true,
                     ranks: 1,
                     status: {}
                 },
@@ -131,6 +133,7 @@
                         description: this.description,
                         duration: this.duration,
                         id: null,
+                        isActive: this.isActive,
                         ranks: this.ranks,
                         status: {
                             cost: this.selectedStatus.cost,
@@ -157,6 +160,7 @@
                     description: '',
                     duration: 1,
                     id: '',
+                    isActive: true,
                     ranks: 1,
                     status: {
                         cost: '',
@@ -184,6 +188,7 @@
             setInputs(status) {
                 this.description = status.description
                 this.duration = status.duration
+                this.isActive = status.isActive
                 this.ranks = status.ranks
                 this.selectedStatus = status.status
             },

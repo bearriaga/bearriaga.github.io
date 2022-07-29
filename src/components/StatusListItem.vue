@@ -2,6 +2,8 @@
     <div>
         <v-row>
             <v-col cols="12">
+                <v-checkbox label="Is Active"
+                            v-model="isActive"></v-checkbox>
                 <v-select label="Status"
                           :items="statuses.map((x) => ({ value: x, text: x.name }))"
                           v-model="selectedStatus"
@@ -44,6 +46,7 @@
             return {
                 description: this.status.description,
                 duration: this.status.duration,
+                isActive: this.status.isActive,
                 ranks: this.status.ranks,
                 selectedStatus: this.status.status
             }
@@ -56,6 +59,7 @@
                 let status = {
                     description: this.description,
                     duration: this.duration,
+                    isActive: this.isActive,
                     id: this.status.id,
                     ranks: this.ranks,
                     status: this.selectedStatus,
@@ -68,6 +72,9 @@
                 this.updateEntry()
             },
             duration() {
+                this.updateEntry()
+            },
+            isActive() {
                 this.updateEntry()
             },
             ranks() {

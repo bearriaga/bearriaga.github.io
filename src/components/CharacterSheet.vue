@@ -73,7 +73,8 @@
                                     <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
                                 </v-col>
                                 <v-col cols="12" v-for="input in healthInputWithEditModals" :key="input.key">
-                                    <InputWithEditModal @updatePropEmit="updateProp($event)"
+                                    <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                                        @updatePropEmit="updateProp($event)"
                                                         :property-object="input"></InputWithEditModal>
                                 </v-col>
                             </v-row>
@@ -100,7 +101,8 @@
                         <h3 class="text-center"> Resources </h3>
                         <v-row>
                             <v-col cols="12" v-for="input in inputWithEditModals" :key="input.key">
-                                <InputWithEditModal @apGainEmit="apGain($event)"
+                                <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                                    @apGainEmit="apGain($event)"
                                                     @updatePropEmit="updateProp($event)"
                                                     :property-object="input"></InputWithEditModal>
                             </v-col>
@@ -198,6 +200,7 @@
             </v-row>
         </form>
 
+        <!-- Check Dialog -->
         <div class="text-center">
             <v-dialog v-model="checkDialog.show" width="500">
                 <v-card>
@@ -269,6 +272,46 @@
                 </v-card>
             </v-dialog>
         </div>
+        <!-- Check Dialog End -->
+        <!-- Cleanse Dialog -->
+        <div class="text-center">
+            <v-dialog v-model="cleanseDialog.show" width="500">
+                <v-card>
+                    <v-card-title class="text-h5 grey lighten-2">
+                        Cleanse
+                    </v-card-title>
+
+                    <v-card-text>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-select v-model="cleanseDialog.selectedStatuses"
+                                          :items="characterSheet.statuses.filter(x => { return x.isActive && x.status.type == 'Condition' }).map(x => ({ value: x, text: x.status.name}))"
+                                          label="Selected Conditions"
+                                          multiple
+                                          :disabled="characterSheet.bp <= 0"
+                                          :rules="cleanseDialog.selectRules">
+                                    <v-icon color="primary"
+                                            slot="prepend"
+                                            @click.stop="cleanseStatuses"
+                                            :disabled="characterSheet.bp <= 0 || cleanseDialog.selectedStatuses.length == 0 || cleanseDialog.selectedStatuses.length > characterSheet.bp">
+                                        mdi-arm-flex
+                                    </v-icon>
+                                </v-select>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
+
+                    <v-divider></v-divider>
+
+                    <v-card-actions class="justify-end">
+                        <v-btn color="secondary"
+                               @click="cleanseDialog.show = false">Close</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </div>
+        <!-- Cleanse Dialog End -->
+        <!-- Damage Results Dialog -->
         <div class="text-center">
             <v-dialog v-model="damageDialog.show" width="500">
                 <v-card>
@@ -341,6 +384,7 @@
                 </v-card>
             </v-dialog>
         </div>
+        <!-- Damage Results Dialog End -->
         <div class="text-center">
             <v-dialog v-model="generalDialog.show" width="500">
                 <v-card>
@@ -494,6 +538,7 @@
                 this.characterSheet.statuses.forEach((status) => {
                     status.key =
                         JSON.stringify(status.status) +
+                        status.isActive.toString() +
                         this.updateStatus;
                     statuses.push(status)
                 })
@@ -653,7 +698,7 @@
                         color: 'brown lighten-2',
                         dialogText: '',
                         disabled: false,
-                        key: 'bp' + this.characterSheet.bpMax,
+                        key: 'bp' + this.characterSheet.bpMax + this.updateBP.toString(),
                         label: 'Breakthrough Points',
                         minus: true,
                         plus: false,
@@ -752,6 +797,13 @@
                     successes: 0,
                     threat: false
                 },
+                cleanseDialog: {
+                    selectedStatuses: [],
+                    selectRules: [
+                        v => v.length <= this.characterSheet.bp || 'Not enough Breakthrough Points'
+                    ],
+                    show: false
+                },
                 damageDialog: {
                     ability: {},
                     damages: [],
@@ -830,6 +882,7 @@
                 ],
                 statuses: this.gameDataStore.statuses,
                 updateAP: 0,
+                updateBP: 0,
                 updateHP: 0,
                 updateInitiative: 0,
                 updateStatus: 0,
@@ -930,6 +983,20 @@
                 })
                 this.characterSheet.resources = []
                 this.characterSheet.resources = resourcesDup
+            },
+            cleanseStatuses() {
+                if (this.cleanseDialog.selectedStatuses.length <= this.characterSheet.bp) {
+                    this.cleanseDialog.selectedStatuses.forEach(status => {
+                        status.isActive = false
+                        this.updateEntry({ arrayName: 'statuses', object: status })
+
+                        this.characterSheet.bp--
+                        this.updateBP++
+                    })
+
+                    this.cleanseDialog.show = false
+                    this.cleanseDialog.selectedStatuses = []
+                }
             },
             copyCheck() {
                 var copyText =
@@ -1202,9 +1269,14 @@
             setCharacterAsTupoc() {
                 this.characterSheet = this.characterStore.getCharacterById('tupoc')
             },
-            specialInputWithEditModal() {
-                this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.characterSheet.speed + +this.characterSheet.initiativeIncreases
-                this.updateInitiative++
+            specialInputWithEditModal(valueName) {
+                if (valueName == 'initiative') {
+                    this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.characterSheet.speed + +this.characterSheet.initiativeIncreases
+                    this.updateInitiative++
+                }
+                if (valueName == 'bp') {
+                    this.cleanseDialog.show = true
+                }
             },
             subtractAP(apCost) {
                 this.characterSheet.ap -= apCost

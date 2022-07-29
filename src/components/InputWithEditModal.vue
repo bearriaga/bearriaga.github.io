@@ -11,6 +11,12 @@
                           :type="propertyObject.type"
                           v-model="value"
                           :disabled="propertyObject.disabled">
+                <template v-if="propertyObject.valueName == 'bp'">
+                    <v-icon color="primary"
+                            slot="append"
+                            :disabled="propertyObject.value < 1"
+                            @click="specialButton">mdi-arm-flex</v-icon>
+                </template>
                 <template v-if="propertyObject.valueName == 'ap'">
                     <v-icon color="success"
                             slot="append"
@@ -112,7 +118,10 @@
                     this.$emit('apGainEmit')
                 }
                 if (this.propertyObject.valueName == 'initiative') {
-                    this.$emit('specialInputWithEditModalEmit')                    
+                    this.$emit('specialInputWithEditModalEmit', this.propertyObject.valueName)
+                }
+                if (this.propertyObject.valueName == 'bp') {
+                    this.$emit('specialInputWithEditModalEmit', this.propertyObject.valueName)
                 }
             },
             subtract() {
