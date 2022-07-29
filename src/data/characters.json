@@ -244,14 +244,14 @@
   {
     "id": "tupoc",
     "age": 30,
-    "ap": 0,
-    "apMax": 0,
+    "ap": 3,
+    "apMax": 14,
     "attunementSlots": 0,
     "attunementSlotsIncreases": 0,
     "attunementSlotsMax": 0,
     "background": "Slave Warrior",
-    "bp": 0,
-    "bpMax": 0,
+    "bp": 5,
+    "bpMax": 5,
     "bpIncreases": 0,
     "strength": 6,
     "dexterity": 4,
@@ -260,29 +260,29 @@
     "cunning": 2,
     "resistance": 5,
     "luck": 3,
-    "dcToHit": 0,
+    "dcToHit": 4,
     "dcToHitIncreases": 1,
-    "hp": 0,
-    "hpMax": 0,
+    "hp": 68,
+    "hpMax": 68,
     "hpIncreases": 20,
     "initiative": 0,
     "initiativeIncreases": 0,
-    "level": 0,
+    "level": 3,
     "luckFavored": false,
     "luckIllFavored": false,
     "luckNothingToChance": false,
-    "money": 0,
-    "movement": 0,
+    "money": "34.15",
+    "movement": 4,
     "name": "Tupoc",
     "race": "Human",
     "rerolls": 0,
-    "rerollsMax": 0,
+    "rerollsMax": 3,
     "rerollsIncreases": 0,
     "size": 1,
-    "speedPreperationIsKey": false,
-    "xp": 0,
-    "xpEarned": 0,
-    "xpTotal": 0,
+    "speedPreperationIsKey": 0,
+    "xp": 428,
+    "xpEarned": 2335,
+    "xpTotal": 2415,
     "abilities": [
       {
         "apCost": 0,
@@ -358,7 +358,8 @@
                 "type": "Piercing"
               }
             ],
-            "subEffects": []
+            "subEffects": [],
+            "key": "4Single Targetfalseundefined1strengthGlide toward your enemies and attack, can fly 6 sq.Instant01656642986259truefalsetrue0Eagle GlidePhysical01183[object Object]"
           },
           {
             "apCost": 5,
@@ -412,7 +413,8 @@
                 "type": "Healing"
               }
             ],
-            "subEffects": []
+            "subEffects": [],
+            "key": "5Single Targetfalseundefined2strengthHeal, Overheal, and Regenerate body to \"Normal\" state.Instant01656642986159truefalsefalse0Iguana RegenerationPhysical00264[object Object]"
           },
           {
             "apCost": 4,
@@ -466,7 +468,8 @@
                 "type": "Force"
               }
             ],
-            "subEffects": []
+            "subEffects": [],
+            "key": "4Single Targetfalseundefined1strengthJump forward crushing an enemy underfoot, can leap 30 feet.Instant01656642986359truefalsetrue0Jaguar PouncePhysical01176[object Object]"
           },
           {
             "apCost": 4,
@@ -520,38 +523,40 @@
                 "type": "Piercing"
               }
             ],
-            "subEffects": []
+            "subEffects": [],
+            "key": "4Single Targetfalseundefined1strengthGlide toward your enemies, can fly 30 feet.Instant01656642986459truefalsetrue0Serpent StrikePhysical01182[object Object]"
           }
-        ]
+        ],
+        "key": "0false{\"alpha\":1,\"hex\":\"#00FF25\",\"hexa\":\"#00FF25FF\",\"hsla\":{\"h\":128.69158878504675,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":128.69158878504675,\"s\":1,\"v\":1,\"a\":1},\"hue\":128.69158878504675,\"rgba\":{\"r\":0,\"g\":255,\"b\":37,\"a\":1}}0Ability Array holding Animal Aspect Elements.Instant01656642986599truetruefalse0Animal AttacksMeta00344[][][{\"apCost\":4,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":1,\"characteristic\":\"strength\",\"description\":\"Glide toward your enemies and attack, can fly 6 sq.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986259\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Eagle Glide\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":1,\"xpCost\":183,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\"}],\"subEffects\":[],\"key\":\"4Single Targetfalseundefined1strengthGlide toward your enemies and attack, can fly 6 sq.Instant01656642986259truefalsetrue0Eagle GlidePhysical01183[object Object]\"},{\"apCost\":5,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":2,\"characteristic\":\"strength\",\"description\":\"Heal, Overheal, and Regenerate body to \\\"Normal\\\" state.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986159\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Iguana Regeneration\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":264,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":\"6d6\",\"flat\":0,\"percentage\":0,\"type\":\"Healing\"}],\"subEffects\":[],\"key\":\"5Single Targetfalseundefined2strengthHeal, Overheal, and Regenerate body to \\\"Normal\\\" state.Instant01656642986159truefalsefalse0Iguana RegenerationPhysical00264[object Object]\"},{\"apCost\":4,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":1,\"characteristic\":\"strength\",\"description\":\"Jump forward crushing an enemy underfoot, can leap 30 feet.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986359\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Jaguar Pounce\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":1,\"xpCost\":176,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Force\"}],\"subEffects\":[],\"key\":\"4Single Targetfalseundefined1strengthJump forward crushing an enemy underfoot, can leap 30 feet.Instant01656642986359truefalsetrue0Jaguar PouncePhysical01176[object Object]\"},{\"apCost\":4,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":1,\"characteristic\":\"strength\",\"description\":\"Glide toward your enemies, can fly 30 feet.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1656642986459\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Serpent Strike\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":1,\"xpCost\":182,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\"}],\"subEffects\":[],\"key\":\"4Single Targetfalseundefined1strengthGlide toward your enemies, can fly 30 feet.Instant01656642986459truefalsetrue0Serpent StrikePhysical01182[object Object]\"}]",
+        "color": {
+          "alpha": 1,
+          "hex": "#00FF25",
+          "hexa": "#00FF25FF",
+          "hsla": {
+            "h": 128.69158878504675,
+            "s": 1,
+            "l": 0.5,
+            "a": 1
+          },
+          "hsva": {
+            "h": 128.69158878504675,
+            "s": 1,
+            "v": 1,
+            "a": 1
+          },
+          "hue": 128.69158878504675,
+          "rgba": {
+            "r": 0,
+            "g": 255,
+            "b": 37,
+            "a": 1
+          }
+        }
       },
       {
         "apCost": 4,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
-        "color": {
-          "alpha": 1,
-          "hex": "#000000",
-          "hexa": "#000000FF",
-          "hsla": {
-            "h": 0,
-            "s": 0,
-            "l": 0,
-            "a": 1
-          },
-          "hsva": {
-            "h": 0,
-            "s": 0,
-            "v": 0,
-            "a": 1
-          },
-          "hue": 0,
-          "rgba": {
-            "r": 0,
-            "g": 0,
-            "b": 0,
-            "a": 1
-          }
-        },
         "crCost": 1,
         "characteristic": "",
         "description": "Eat the heart of a dead creature and gain an ability. Can buy ability on rest.",
@@ -569,7 +574,8 @@
         "xpCost": 188,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "4Single Targetfalseundefined1Eat the heart of a dead creature and gain an ability. Can buy ability on rest.Instant01656642986559truefalsefalse0AssimilateMeta00188[][][]"
       },
       {
         "apCost": 0,
@@ -616,7 +622,8 @@
         "xpCost": 60,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "0falseundefined0Can use attacks of opportunityPassive01646642986559truefalsefalse0Attacks of OpportunityMeta0060[][][]"
       },
       {
         "apCost": 3,
@@ -663,7 +670,8 @@
         "xpCost": 75,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "3Adjacentfalseundefined0Attack all adjacent creaturesInstant01656642986569truefalsefalse0Cleaving StrikePhysical0075[][][]"
       },
       {
         "apCost": 3,
@@ -710,7 +718,8 @@
         "xpCost": 10,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "3Single Targetfalseundefined0Can become hidden when in Jungle and Wooded terrain.1 Round01656642986579truefalsefalse0Jungle StalkerPhysical0010[][][]"
       },
       {
         "apCost": 0,
@@ -757,7 +766,8 @@
         "xpCost": 100,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "0falseundefined0Increase Max HealthPassive01656642986589truefalsefalse0MeatyMeta00100[][][]"
       },
       {
         "apCost": 0,
@@ -804,7 +814,8 @@
         "xpCost": 210,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "0Single Targetfalseundefined0Reaction, Hyper Reaction, RequiresInstant01656642986591truefalsefalse0ParryPhysical00210[][][]"
       },
       {
         "apCost": 0,
@@ -851,7 +862,8 @@
         "xpCost": 250,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "0falseundefined0Passive01656642986596truefalsefalse0RES +1Meta00250[][][]"
       },
       {
         "apCost": 3,
@@ -1413,9 +1425,11 @@
                   }
                 ]
               }
-            ]
+            ],
+            "key": "0falseundefined0Instant01256642986592truetruefalse0Spirit Animal ArrayMeta0010[object Object],[object Object],[object Object]"
           }
-        ]
+        ],
+        "key": "3falseundefined0Instant01656642986592truefalsefalse0Summon Spirit AnimalPhysical00100[][][{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1256642986592\",\"inClass\":true,\"isAbilityArray\":true,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Spirit Animal Array\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":10,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Big Cat\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":25,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Claw Attack\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":140,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\"}],\"subEffects\":[]},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"Can jump 6 sq as part of the attack.\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Pounce\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":135,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"1d6\",\"flat\":0,\"percentage\":0,\"type\":\"Force\"}],\"subEffects\":[]}]},{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Bird\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":70,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"45 degree cone, 6 sq.\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"cunning\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Bird Song\",\"physMeta\":\"Physical\",\"range\":6,\"successes\":0,\"xpCost\":50,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":\"1d4\",\"flat\":0,\"percentage\":0,\"type\":\"Healing\"}],\"subEffects\":[]},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Claw Attack\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":70,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"1d6\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\"}],\"subEffects\":[]}]},{\"apCost\":0,\"areaOfEffect\":\"\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"3\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Reptile\",\"physMeta\":\"Meta\",\"range\":0,\"successes\":0,\"xpCost\":60,\"components\":[],\"damage\":[],\"subEffects\":[{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"strength\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"1\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Bite\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":140,\"components\":[],\"damage\":[{\"addChar\":true,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\"}],\"subEffects\":[]},{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"crCost\":0,\"characteristic\":\"dexterity\",\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"2\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"Spit\",\"physMeta\":\"Physical\",\"range\":6,\"successes\":0,\"xpCost\":100,\"components\":[],\"damage\":[{\"addChar\":false,\"dice\":\"1d6\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\"}],\"subEffects\":[]}]}],\"key\":\"0falseundefined0Instant01256642986592truetruefalse0Spirit Animal ArrayMeta0010[object Object],[object Object],[object Object]\"}]"
       },
       {
         "apCost": 0,
@@ -1462,7 +1476,8 @@
         "xpCost": 80,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "0falseundefined0Passive01656642986593truefalsefalse0Turtle ShellMeta0080[][][]"
       },
       {
         "apCost": 3,
@@ -1509,7 +1524,8 @@
         "xpCost": 280,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "3Single Targetfalseundefined-3Vampirism Full, Requires Bleed 3Instant01656642986594truefalsefalse0Vampire Bat StrikePhysical00280[][][]"
       },
       {
         "apCost": 0,
@@ -1556,7 +1572,8 @@
         "xpCost": 30,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "0falseundefined0+2d6 to TrackingPassive01656642986595truefalsefalse0Big Game TrackingMeta0030[][][]"
       },
       {
         "apCost": 0,
@@ -1603,7 +1620,8 @@
         "xpCost": 40,
         "components": [],
         "damage": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "0Single Targetfalseundefined0Increase Value of Natural Creatures and Monsters by 55%.Instant01656642986598truefalsefalse0HarversterPhysical0040[][][]"
       },
       {
         "apCost": 3,
@@ -1657,7 +1675,271 @@
             "type": "Toxic"
           }
         ],
-        "subEffects": []
+        "subEffects": [],
+        "key": "3Single Targetfalseundefined0strengthBlow DartInstant11656642986597truefalsefalse0TlacalhuazcuahuitlPhysical100210[][{\"addChar\":false,\"dice\":\"3d6\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\"}][]"
+      },
+      {
+        "apCost": 3,
+        "areaOfEffect": "Single Target",
+        "boughtForFree": true,
+        "crCost": 0,
+        "characteristic": "strength",
+        "description": "",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1657926893932",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Macuahuitl",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": 0,
+        "xpCost": "180",
+        "components": [],
+        "damage": [
+          {
+            "addChar": true,
+            "dice": "2d8",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Slashing",
+            "key": "0true"
+          }
+        ],
+        "subEffects": [],
+        "key": "3Single Targettrueundefined0strengthInstant01657926893932truefalsetrue0MacuahuitlPhysical00180[][{\"addChar\":true,\"dice\":\"2d8\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"0true\"}][]"
+      },
+      {
+        "apCost": "4",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": true,
+        "crCost": "1",
+        "characteristic": "strength",
+        "description": "Glide toward your enemies and attack, can fly 6 sq.",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1657927119962",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Eagle Glide",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": "1",
+        "xpCost": "183",
+        "components": [],
+        "damage": [
+          {
+            "addChar": true,
+            "dice": "2d8",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Slashing",
+            "key": "0true"
+          },
+          {
+            "addChar": false,
+            "dice": "2d6",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Piercing",
+            "key": "1false"
+          }
+        ],
+        "subEffects": [],
+        "key": "4Single Targettrueundefined1strengthGlide toward your enemies and attack, can fly 6 sq.Instant01657927119962truefalsetrue0Eagle GlidePhysical01183[][{\"addChar\":true,\"dice\":\"2d8\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"0true\"},{\"addChar\":false,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\",\"key\":\"1false\"}][]"
+      },
+      {
+        "apCost": "4",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": true,
+        "crCost": "1",
+        "characteristic": "strength",
+        "description": "Jump forward crushing an enemy underfoot, can leap 30 feet.",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1657927163347",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Jaguar Pounce",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": "1",
+        "xpCost": "176",
+        "components": [],
+        "damage": [
+          {
+            "addChar": false,
+            "dice": "2d6",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Force",
+            "key": "0false"
+          },
+          {
+            "addChar": true,
+            "dice": "2d8",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Slashing",
+            "key": "1true"
+          }
+        ],
+        "subEffects": [],
+        "key": "4Single Targettrueundefined1strengthJump forward crushing an enemy underfoot, can leap 30 feet.Instant01657927163347truefalsetrue0Jaguar PouncePhysical01176[][{\"addChar\":false,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Force\",\"key\":\"0false\"},{\"addChar\":true,\"dice\":\"2d8\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"1true\"}][]"
+      },
+      {
+        "apCost": "4",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "crCost": "1",
+        "characteristic": "strength",
+        "description": "Run toward your enemies, can run 30 feet. Doesn't provoke opportunity attacks",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1657927352759",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Serpent Strike",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": "1",
+        "xpCost": 10,
+        "components": [],
+        "damage": [
+          {
+            "addChar": true,
+            "dice": "2d8",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Slashing",
+            "key": "0true"
+          },
+          {
+            "addChar": false,
+            "dice": "2d6",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Toxic",
+            "key": "1false"
+          }
+        ],
+        "subEffects": [],
+        "key": "4Single Targetfalseundefined1strengthRun toward your enemies, can run 30 feet. Doesn't provoke opportunity attacksInstant01657927352759truefalsetrue0Serpent StrikePhysical0110[][{\"addChar\":true,\"dice\":\"2d8\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"0true\"},{\"addChar\":false,\"dice\":\"2d6\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\",\"key\":\"1false\"}][]"
+      },
+      {
+        "apCost": "4",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": true,
+        "crCost": 0,
+        "characteristic": "strength",
+        "description": "Made of a combination of chitin, plant matter, bone, and tendon",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1657927715580",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Thorn Bow",
+        "physMeta": "Physical",
+        "range": "40",
+        "successes": 0,
+        "xpCost": 10,
+        "components": [],
+        "damage": [
+          {
+            "addChar": true,
+            "dice": "3d8",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Piercing",
+            "key": "0true"
+          }
+        ],
+        "subEffects": [],
+        "key": "4Single Targettrueundefined0strengthMade of a combination of chitin, plant matter, bone, and tendonInstant01657927715580truefalsefalse0Thorn BowPhysical40010[][{\"addChar\":true,\"dice\":\"3d8\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\",\"key\":\"0true\"}][]"
+      },
+      {
+        "apCost": 3,
+        "areaOfEffect": "Single Target",
+        "boughtForFree": true,
+        "crCost": 0,
+        "characteristic": "strength",
+        "description": "",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1657927780903",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Thorn Bow Melee",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": 0,
+        "xpCost": 10,
+        "components": [],
+        "damage": [
+          {
+            "addChar": true,
+            "dice": "1d8",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Slashing",
+            "key": "0true"
+          }
+        ],
+        "subEffects": [],
+        "key": "3Single Targettrueundefined0strengthInstant01657927780903truefalsetrue0Thorn Bow MeleePhysical0010[][{\"addChar\":true,\"dice\":\"1d8\",\"flat\":0,\"percentage\":0,\"type\":\"Slashing\",\"key\":\"0true\"}][]"
+      },
+      {
+        "apCost": "4",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": true,
+        "crCost": 0,
+        "characteristic": "strength",
+        "description": "",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1657927937352",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Thorn Bow w Blood Arrow",
+        "physMeta": "Physical",
+        "range": "40",
+        "successes": "2",
+        "xpCost": 10,
+        "components": [],
+        "damage": [
+          {
+            "addChar": true,
+            "dice": "4d8",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Piercing",
+            "key": "0true"
+          },
+          {
+            "addChar": false,
+            "dice": "4d12",
+            "flat": 0,
+            "percentage": 0,
+            "type": "Toxic",
+            "key": "1false"
+          }
+        ],
+        "subEffects": [],
+        "key": "4Single Targettrueundefined0strengthInstant01657927937352truefalsefalse0Thorn Bow w Blood ArrowPhysical40210[][{\"addChar\":true,\"dice\":\"4d8\",\"flat\":0,\"percentage\":0,\"type\":\"Piercing\",\"key\":\"0true\"},{\"addChar\":false,\"dice\":\"4d12\",\"flat\":0,\"percentage\":0,\"type\":\"Toxic\",\"key\":\"1false\"}][]"
       }
     ],
     "armor": [
@@ -1723,8 +2005,7 @@
         "name": ""
       }
     ],
-    "movements": [
-    ],
+    "movements": [],
     "resistances": [
       {
         "amount": 10,
@@ -1740,19 +2021,12 @@
     "resources": [
       {
         "amount": 0,
-        "amountMax": 0,
+        "amountMax": 6,
         "id": "1654827508408",
         "name": "Stamina",
         "characteristic": "strength",
-        "resourceIncreases": 0
-      },
-      {
-        "amount": 0,
-        "amountMax": 0,
-        "id": "1654827539670",
-        "name": "Hunter Sense",
-        "characteristic": "cunning",
-        "resourceIncreases": 0
+        "resourceIncreases": 0,
+        "key": "Staminastrength06"
       }
     ],
     "skills": [
@@ -1762,7 +2036,8 @@
         "id": "1654717712607",
         "name": "Athletics",
         "skillIncreases": 0,
-        "value": 0
+        "value": 6,
+        "key": "Athleticsstrength06"
       },
       {
         "characteristic": "cunning",
@@ -1770,7 +2045,8 @@
         "id": "1654717713076",
         "name": "Deception",
         "skillIncreases": 0,
-        "value": 0
+        "value": 2,
+        "key": "Deceptioncunning02"
       },
       {
         "characteristic": "cunning",
@@ -1778,7 +2054,8 @@
         "id": "1654717713536",
         "name": "Perception",
         "skillIncreases": 0,
-        "value": 0
+        "value": 2,
+        "key": "Perceptioncunning02"
       },
       {
         "characteristic": "cunning",
@@ -1786,7 +2063,8 @@
         "id": "1654717713981",
         "name": "Persuasion",
         "skillIncreases": 0,
-        "value": 0
+        "value": 2,
+        "key": "Persuasioncunning02"
       },
       {
         "characteristic": "dexterity",
@@ -1794,7 +2072,8 @@
         "id": "1654717715257",
         "name": "Stealth",
         "skillIncreases": 0,
-        "value": 0
+        "value": 4,
+        "key": "Stealthdexterity04"
       },
       {
         "characteristic": "cunning",
@@ -1802,7 +2081,8 @@
         "id": "1654740071550",
         "name": "Big Game Tracking",
         "skillIncreases": 2,
-        "value": 0
+        "value": 4,
+        "key": "Big Game Trackingcunning22"
       }
     ],
     "statuses": [],
@@ -1862,6 +2142,13 @@
         "description": "Session 5 XP",
         "date": "2022-07-02",
         "id": "1654386228017"
+      },
+      {
+        "amount": "150",
+        "classXP": false,
+        "date": "2022-07-15",
+        "description": "Session 6",
+        "id": "1659067608875"
       }
     ]
   }
