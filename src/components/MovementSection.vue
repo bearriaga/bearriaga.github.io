@@ -16,6 +16,7 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <MovementListItem v-for="entry in movements" :key="entry.id"
+                                          :ap="ap"
                                           :movement="entry"
                                           :movement-types="movementTypes"
                                           @deleteEntryEmit="deleteDialog($event)"
@@ -79,6 +80,7 @@
             MovementListItem
         },
         props: {
+            ap: Number,
             movements: Array,
             movementTypes: Array
 

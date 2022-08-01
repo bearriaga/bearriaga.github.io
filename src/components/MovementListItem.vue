@@ -5,7 +5,7 @@
                 <v-text-field label="Amount" v-model="amount" type="number">
                     <v-icon color="error"
                             slot="append"
-                            @click="subtractAP()">mdi-clock-minus-outline</v-icon>
+                            @click="subtractAP()">{{apIcon}}</v-icon>
                     <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
                 </v-text-field>
             </v-col>
@@ -23,8 +23,21 @@
     export default {
         name: 'MovementListItem',
         props: {
+            ap: Number,
             movementTypes: Array,
             movement: Object
+        },
+        computed: {
+            apIcon() {
+                let icon = ''
+
+                if (this.ap > 0)
+                    icon = 'mdi-clock-minus-outline'
+                else
+                    icon = 'mdi-clock-alert-outline'
+
+                return icon
+            }
         },
         data() {
             return {

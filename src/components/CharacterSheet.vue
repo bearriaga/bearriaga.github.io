@@ -116,7 +116,8 @@
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
                                          @updateEntryEmit="updateEntry($event)"></ResourceSection>
-                        <MovementSection :movements="characterSheet.movements"
+                        <MovementSection :ap="characterSheet.ap"
+                                         :movements="characterSheet.movements"
                                          :movement-types="movementTypes"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
