@@ -19,6 +19,7 @@
                                           :movement="entry"
                                           :movement-types="movementTypes"
                                           @deleteEntryEmit="deleteDialog($event)"
+                                          @subtractAP="subtractAP($event)"
                                           @updateEntryEmit="updateEntry($event)"> </MovementListItem>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
@@ -163,6 +164,9 @@
                 this.type = movement.type
             },
             // Open Dialog Functions End
+            subtractAP(apCost) {
+                this.$emit('subtractAPEmit', apCost)
+            },
             validate() {
                 return this.$refs.form.validate()
             }

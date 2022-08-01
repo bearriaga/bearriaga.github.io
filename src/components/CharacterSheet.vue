@@ -120,6 +120,7 @@
                                          :movement-types="movementTypes"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
+                                         @subtractAPEmit="subtractAP($event)"
                                          @updateEntryEmit="updateEntry($event)"></MovementSection>
                     </div>
                 </v-col>
