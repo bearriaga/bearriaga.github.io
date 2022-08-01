@@ -342,16 +342,6 @@
                             </div>
                             <div v-if="damage.damage.dice">
                                 Die Results:  {{damage.damage.dice}}d6 {{damage.diceResults}}
-                                <v-row>
-                                    <v-col cols="12">
-                                        <v-select v-model="damage.selectedRerolls"
-                                                  :items="damage.diceResults.map((x, i) => ({ value: i, text: x}))"
-                                                  label="Select Rerolls"
-                                                  multiple
-                                                  :disabled="characterSheet.rerolls <= 0">
-                                        </v-select>
-                                    </v-col>
-                                </v-row>
                             </div>
                             <div v-if="damage.charDamage">
                                 CHAR damage: {{damage.charDamage}}
@@ -359,6 +349,13 @@
                             <div v-if="damage.damage.flat">
                                 Flat Damage: {{damage.damage.flat}}
                             </div>
+                            <v-select v-model="damage.selectedRerolls"
+                                      v-if="damage.diceResults.length > 0"
+                                      :items="damage.diceResults.map((x, i) => ({ value: i, text: x}))"
+                                      label="Select Rerolls"
+                                      multiple
+                                      :disabled="characterSheet.rerolls <= 0">
+                            </v-select>
                         </div>
 
                         <v-row>
