@@ -52,10 +52,11 @@
                     </template>
                 </v-col>
                 <v-col cols="4">
-                    <v-text-field label="Action Points" type="number" v-model="apCost">
-                        <v-icon color="error"
+                    <v-text-field label="AP Cost" type="number" v-model="apCost">
+                        <v-icon :color="apIconColor"
                                 slot="append"
-                                @click="subtractAP(apCost)">mdi-clock-minus-outline</v-icon>
+                                @click="subtractAP(apCost)"
+                                v-if="apCost">{{apIcon}}</v-icon>
                     </v-text-field>
                 </v-col>
                 <v-col cols="4" v-if="crCost">
@@ -102,6 +103,7 @@
                                 <v-expansion-panel-content>
                                     <AbilityListItem v-for="s in abilities" :key="s.key"
                                                      :ability="s"
+                                                     :ap="ap"
                                                      @deleteEntryEmit="deleteEntry($event)"
                                                      @updateEntryEmit="updateEntry($event)"
                                                      @rollAbilityEmit="rollAbility($event)"
@@ -121,7 +123,8 @@
     export default {
         name: 'AbilityListItem',
         props: {
-            ability: Object
+            ability: Object,
+            ap: Number
         },
         computed: {
             abilities() {
@@ -155,6 +158,30 @@
                 })
 
                 return abilities
+            },
+            apIcon() {
+                let icon = ''
+
+                if (this.apCost > 0) {
+                    if (this.apCost > this.ap)
+                        icon = 'mdi-clock-alert-outline'
+                    else
+                        icon = 'mdi-clock-minus-outline'
+                }
+                if (this.apCost < 0)
+                    icon = 'mdi-clock-plus-outline'
+
+                return icon
+            },
+            apIconColor() {
+                let color = ''
+
+                if (this.apCost > -1)
+                    color = 'error'
+                if (this.apCost <= -1)
+                    color = 'success'
+
+                return color
             }
         },
         data() {

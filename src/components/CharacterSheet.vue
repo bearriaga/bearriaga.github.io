@@ -127,6 +127,7 @@
             <v-row>
                 <v-col cols="12">
                     <AbilitySection :abilities="abilities"
+                                    :ap="characterSheet.ap"
                                     :characteristics="characteristics"
                                     :damage-types="damageTypes"
                                     @addEntryEmit="addEntry($event)"

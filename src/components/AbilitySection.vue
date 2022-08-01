@@ -18,6 +18,7 @@
                         <v-row>
                             <v-col cols="12" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
                                 <AbilityListItem :ability="ability"
+                                                 :ap="ap"
                                                  @deleteEntryEmit="deleteDialog($event)"
                                                  @rollAbilityEmit="rollAbility($event)"
                                                  @rollDamageEmit="rollDamage($event)"
@@ -109,7 +110,7 @@
                                     </template>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Action Points" type="number" v-model="apCost"></v-text-field>
+                                    <v-text-field label="AP Cost" type="number" v-model="apCost"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Class Resource" type="number" v-model="crCost"></v-text-field>
@@ -185,7 +186,7 @@
                                                             <v-text-field label="Name" v-model="s.name">
                                                                 <v-icon color="error" slot="append" @click="deleteSubEffect(index)">mdi-delete</v-icon>
                                                             </v-text-field>
-                                                        </v-col>                                                        
+                                                        </v-col>
                                                     </v-row>
                                                 </v-expansion-panel-content>
                                             </v-expansion-panel>
@@ -242,6 +243,7 @@
         },
         props: {
             abilities: Array,
+            ap: Number,
             characteristics: Array,
             damageTypes: Array
         },
