@@ -2,9 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\assets",
+    "\\src\\components",
     "\\src\\data",
     "\\src\\stores",
     "\\src\\views"
   ],
+  "SelectedNode": "\\src\\components",
   "PreviewInSolutionExplorer": false
 }

@@ -32,7 +32,8 @@
         </template>
 
         <div class="text-center">
-            <v-dialog v-model="dialog.show" width="500">
+            <v-dialog v-model="dialog.show" width="500"
+                      scrollable>
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
                         {{dialog.type}} Ability
