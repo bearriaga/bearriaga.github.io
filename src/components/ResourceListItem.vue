@@ -10,7 +10,7 @@
                       v-model="amount">
             <v-icon color="green" slot="append" @click="add">mdi-plus</v-icon>
             <v-icon color="red" slot="append" @click="subtract">mdi-minus</v-icon>
-            <v-icon color="primary" slot="append" @click="updateEntry">mdi-pen</v-icon>
+            <v-icon color="primary" slot="append" @click="updateDialog">mdi-pen</v-icon>
             <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
         </v-text-field>
     </div>
@@ -44,8 +44,16 @@
                     this.amount = +this.amount - 1
             },
             updateEntry() {
-                this.$emit('updateEntryEmit', this.resource)
+                let resource = JSON.parse(JSON.stringify(this.resource))
+                resource.amount = +this.amount
+                this.$emit('updateEntryEmit', resource)
+            },
+            updateDialog() {
+                this.$emit('updateDialogEmit', this.resource)
             }
+        },
+        watch: {
+            amount() { this.updateEntry() }
         }
     }
 </script>

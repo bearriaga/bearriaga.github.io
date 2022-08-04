@@ -4,7 +4,7 @@
             <v-row>
                 <v-col cols="6">
                     <v-text-field label="Name" v-model="name">
-                        <v-icon color="primary" slot="append" @click="updateEntry(ability)">mdi-pen</v-icon>
+                        <v-icon color="primary" slot="append" @click="updateDialog(ability)">mdi-pen</v-icon>
                         <v-icon color="error" slot="append" @click="deleteEntry(ability)">mdi-delete</v-icon>
                     </v-text-field>
                 </v-col>
@@ -15,9 +15,11 @@
                     <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                 </v-col>
                 <v-col cols="12" v-if="characteristic">
-                    <v-text-field label="Characteristic" v-model="characteristic">
-                        <v-icon slot="append" @click="rollAbility(ability)">mdi-dice-6</v-icon>
-                    </v-text-field>
+                    <v-select label="Characteristic"
+                              :items="characteristics"
+                              v-model="characteristic">
+                        <v-icon slot="prepend" @click="rollAbility(ability)">mdi-dice-6</v-icon>
+                    </v-select>
                 </v-col>
                 <v-col cols="12" v-if="damage.length > 0">
                     <template>
@@ -59,8 +61,12 @@
                                 v-if="apCost">{{apIcon}}</v-icon>
                     </v-text-field>
                 </v-col>
-                <v-col cols="4" v-if="crCost">
-                    <v-text-field label="Class Resource" type="number" v-model="crCost"></v-text-field>
+                <v-col cols="4" v-if="crCost && classResource">
+                    <v-text-field :label="classResource.name" type="number" v-model="crCost">
+                        <v-icon :color="crcIconColor"
+                                slot="append"
+                                @click="subtractCR({crCost:crCost, classResource: classResource})">{{crcIcon}}</v-icon>
+                    </v-text-field>
                 </v-col>
                 <v-col cols="4">
                     <v-text-field label="Duration" v-model="duration"></v-text-field>
@@ -72,7 +78,10 @@
                     <v-text-field label="Area of Effect" v-model="areaOfEffect"></v-text-field>
                 </v-col>
                 <v-col cols="4">
-                    <v-text-field label="Physical/Meta" v-model="physMeta"></v-text-field>
+                    <v-select label="Physical/Meta"
+                              :items="physMetaOptions"
+                              v-model="physMeta"
+                              required></v-select>
                 </v-col>
                 <v-col cols="4" v-if="successes">
                     <v-text-field label="Successes" type="number" v-model="successes"></v-text-field>
@@ -104,11 +113,16 @@
                                     <AbilityListItem v-for="s in abilities" :key="s.key"
                                                      :ability="s"
                                                      :ap="ap"
+                                                     :characteristics="characteristics"
+                                                     :damage-types="damageTypes"
+                                                     :resources="resources"
                                                      @deleteEntryEmit="deleteEntry($event)"
+                                                     @updateDialogEmit="updateDialog($event)"
                                                      @updateEntryEmit="updateEntry($event)"
                                                      @rollAbilityEmit="rollAbility($event)"
                                                      @rollDamageEmit="rollDamage($event)"
-                                                     @subtractAP="subtractAP($event)"></AbilityListItem>
+                                                     @subtractAP="subtractAP($event)"
+                                                     @subtractCR="subtractCR($event)"></AbilityListItem>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
                         </v-expansion-panels>
@@ -124,7 +138,10 @@
         name: 'AbilityListItem',
         props: {
             ability: Object,
-            ap: Number
+            ap: Number,
+            characteristics: Array,
+            damageTypes: Array,
+            resources: Array
         },
         computed: {
             abilities() {
@@ -136,6 +153,7 @@
                         ability.areaOfEffect +
                         ability.boughtForFree +
                         JSON.stringify(ability.color) +
+                        JSON.stringify(ability.classResource) +
                         ability.crCost +
                         ability.characteristic +
                         ability.description +
@@ -182,6 +200,31 @@
                     color = 'success'
 
                 return color
+            },
+            crcIcon() {
+                let icon = ''
+
+                if (this.crCost > 0) {
+                    let resource = this.resources.find(x => { return x.id == this.classResource.id })
+                    if (resource && this.crCost > resource.amount)
+                        icon = 'mdi-battery-alert-variant-outline'
+                    else
+                        icon = 'mdi-battery-minus-outline'
+                }
+                if (this.crCost < 0)
+                    icon = 'mdi-battery-plus-outline'
+
+                return icon
+            },
+            crcIconColor() {
+                let color = ''
+
+                if (this.crCost > 0)
+                    color = 'error'
+                if (this.crCost < 0)
+                    color = 'success'
+
+                return color
             }
         },
         data() {
@@ -190,6 +233,7 @@
                 areaOfEffect: this.ability.areaOfEffect,
                 boughtForFree: this.ability.boughtForFree,
                 color: this.ability.color,
+                classResource: this.ability.classResource,
                 crCost: this.ability.crCost,
                 characteristic: this.ability.characteristic,
                 description: this.ability.description,
@@ -207,7 +251,8 @@
                 xpCost: this.ability.xpCost,
                 components: this.ability.components,
                 damage: this.ability.damage,
-                subEffects: this.ability.subEffects
+                subEffects: this.ability.subEffects,
+                physMetaOptions: ['Physical', 'Meta', 'Both']
             }
         },
         methods: {
@@ -223,9 +268,65 @@
             subtractAP(apCost) {
                 this.$emit('subtractAP', apCost)
             },
-            updateEntry(object) {
-                this.$emit('updateEntryEmit', JSON.parse(JSON.stringify(object)))
+            subtractCR(crCost) {
+                this.$emit('subtractCR', crCost)
+            },
+            updateDialog(object) {
+                this.$emit('updateDialogEmit', JSON.parse(JSON.stringify(object)))
+            },
+            updateEntry() {
+                let object = {
+                    apCost: this.apCost,
+                    areaOfEffect: this.areaOfEffect,
+                    boughtForFree: this.boughtForFree,
+                    color: this.color,
+                    classResource: this.classResource,
+                    crCost: this.crCost,
+                    characteristic: this.characteristic,
+                    description: this.description,
+                    duration: this.duration,
+                    handedness: this.handedness,
+                    id: this.id,
+                    inClass: this.inClass,
+                    isAbilityArray: this.isAbilityArray,
+                    isMeleeAttack: this.isMeleeAttack,
+                    maxSizeCategoryOfMass: this.maxSizeCategoryOfMass,
+                    name: this.name,
+                    physMeta: this.physMeta,
+                    range: this.range,
+                    successes: this.successes,
+                    xpCost: this.xpCost,
+                    components: this.components,
+                    damage: this.damage,
+                    subEffects: this.subEffects
+                }
+
+                this.$emit('updateEntryEmit', object)
             }
+        },
+        watch: {
+            apCost() { this.updateEntry() },
+            areaOfEffect() { this.updateEntry() },
+            boughtForFree() { this.updateEntry() },
+            color() { this.updateEntry() },
+            classResource() { this.updateEntry() },
+            crCost() { this.updateEntry() },
+            characteristic() { this.updateEntry() },
+            description() { this.updateEntry() },
+            duration() { this.updateEntry() },
+            handedness() { this.updateEntry() },
+            inClass() { this.updateEntry() },
+            isAbilityArray() { this.updateEntry() },
+            isMeleeAttack() { this.updateEntry() },
+            maxSizeCategoryOfMass() { this.updateEntry() },
+            name() { this.updateEntry() },
+            physMeta() { this.updateEntry() },
+            range() { this.updateEntry() },
+            successes() { this.updateEntry() },
+            xpCost() { this.updateEntry() },
+            components() { this.updateEntry() },
+            damage() { this.updateEntry() },
+            subEffects() { this.updateEntry() }
         }
     }
 </script>

@@ -2,15 +2,22 @@
     <div>
         <template>
             <v-expansion-panels v-model="panel"
-                                    multiple>
+                                multiple>
                 <v-expansion-panel v-for="(item,i) in 1" :key="i">
                     <v-expansion-panel-header>
                         <h3 class="text-center">
+                            <v-icon color="purple">mdi-battery-50</v-icon>
                             Class Resources
                             <v-btn icon color="primary"
                                    @click.stop="addDialog">
                                 <v-icon>
                                     mdi-plus
+                                </v-icon>
+                            </v-btn>
+                            <v-btn icon color="primary"
+                                   @click.stop="fillResources">
+                                <v-icon>
+                                    mdi-battery-sync
                                 </v-icon>
                             </v-btn>
                         </h3>
@@ -19,7 +26,8 @@
                         <ResourceListItem v-for="resource in resources" :key="resource.key"
                                           :resource="resource"
                                           @deleteEntryEmit="deleteDialog($event)"
-                                          @updateEntryEmit="updateDialog($event)"></ResourceListItem>
+                                          @updateEntryEmit="updateEntry($event)"
+                                          @updateDialogEmit="updateDialog($event)"></ResourceListItem>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -63,7 +71,7 @@
                         <v-btn color="error" v-if="dialog.type == 'Delete'"
                                @click="deleteEntry()">Delete</v-btn>
                         <v-btn color="primary" v-if="dialog.type == 'Edit'" :disabled="!valid"
-                               @click="updateEntry()">Save</v-btn>
+                               @click="saveEntry()">Save</v-btn>
                         <v-btn color="secondary"
                                @click="dialog.show = false">Close</v-btn>
                     </v-card-actions>
@@ -130,11 +138,14 @@
                 this.dialog.show = false
                 this.$emit('deleteEntryEmit', { arrayName: 'resources', object: this.resource })
             },
-            updateEntry() {
+            updateEntry(resource) {
+                this.$emit('updateEntryEmit', { arrayName: 'resources', object: resource })
+            },
+            saveEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
                     this.setObject()
-                    this.$emit('updateEntryEmit', { arrayName: 'resources', object: this.resource })
+                    this.updateEntry(this.resource)
                 }
             },
             setObject() {
@@ -143,6 +154,9 @@
                 this.resource.resourceIncreases = this.resourceIncreases
             },
             // CRUD Functions End
+            fillResources() {
+                this.$emit('fillResourcesEmit')
+            },
             // Open Dialog Functions
             addDialog() {
                 this.setDialog('Add')

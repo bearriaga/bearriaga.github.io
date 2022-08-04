@@ -19,11 +19,16 @@
                             <v-col cols="12" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
                                 <AbilityListItem :ability="ability"
                                                  :ap="ap"
+                                                 :characteristics="characteristics"
+                                                 :damage-types="damageTypes"
+                                                 :resources="resources"
                                                  @deleteEntryEmit="deleteDialog($event)"
                                                  @rollAbilityEmit="rollAbility($event)"
                                                  @rollDamageEmit="rollDamage($event)"
                                                  @subtractAP="subtractAP($event)"
-                                                 @updateEntryEmit="updateDialog($event)"></AbilityListItem>
+                                                 @subtractCR="subtractCR($event)"
+                                                 @updateDialogEmit="updateDialog($event)"
+                                                 @updateEntryEmit="updateEntryBypass($event)"></AbilityListItem>
                             </v-col>
                         </v-row>
                     </v-expansion-panel-content>
@@ -67,7 +72,8 @@
                                 <v-col cols="12">
                                     <v-select label="Characteristic"
                                               :items="characteristics"
-                                              v-model="characteristic"></v-select>
+                                              v-model="characteristic"
+                                              clearable></v-select>
                                 </v-col>
                                 <v-col cols="12">
                                     <template>
@@ -114,7 +120,13 @@
                                     <v-text-field label="AP Cost" type="number" v-model="apCost"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Class Resource" type="number" v-model="crCost"></v-text-field>
+                                    <v-select label="Class Resource"
+                                              :items="resources.map((x) => ({ value: x, text: x.name }))"
+                                              v-model="classResource"
+                                              clearable></v-select>
+                                </v-col>
+                                <v-col cols="6" md="4" v-if="classResource">
+                                    <v-text-field label="Class Resource Cost" type="number" v-model="crCost"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Duration" v-model="duration"></v-text-field>
@@ -246,7 +258,8 @@
             abilities: Array,
             ap: Number,
             characteristics: Array,
-            damageTypes: Array
+            damageTypes: Array,
+            resources: Array
         },
         computed: {
             compDamage() {
@@ -268,6 +281,7 @@
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
                     color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
+                    classResource: '',
                     crCost: 0,
                     characteristic: '',
                     description: '',
@@ -291,6 +305,7 @@
                 areaOfEffect: 'Single Target',
                 boughtForFree: false,
                 color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
+                classResource: '',
                 crCost: 0,
                 characteristic: '',
                 description: '',
@@ -353,6 +368,7 @@
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
                     color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
+                    classResource: '',
                     crCost: 0,
                     characteristic: '',
                     description: '',
@@ -398,11 +414,18 @@
                     this.$emit('updateEntryEmit', { arrayName: 'abilities', object: this.ability })
                 }
             },
+            updateEntryBypass(ability) {
+                this.ability = ability
+                this.setInputs(this.ability)
+                this.setObject()
+                this.$emit('updateEntryEmit', { arrayName: 'abilities', object: this.ability })
+            },
             setObject() {
                 this.ability.apCost = this.apCost
                 this.ability.areaOfEffect = this.areaOfEffect
                 this.ability.boughtForFree = this.boughtForFree
                 this.ability.color = this.color
+                this.ability.classResource = this.classResource
                 this.ability.crCost = this.crCost
                 this.ability.characteristic = this.characteristic
                 this.ability.description = this.description
@@ -436,6 +459,7 @@
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
                     color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
+                    classResource: '',
                     crCost: 0,
                     characteristic: '',
                     description: '',
@@ -481,6 +505,7 @@
                 this.areaOfEffect = ability.areaOfEffect
                 this.boughtForFree = ability.boughtForFree
                 this.color = ability.color
+                this.classResource = ability.classResource
                 this.crCost = ability.crCost
                 this.characteristic = ability.characteristic
                 this.description = ability.description
@@ -509,6 +534,9 @@
             },
             subtractAP(apCost) {
                 this.$emit('subtractAPEmit', apCost)
+            },
+            subtractCR(crCost) {
+                this.$emit('subtractCREmit', crCost)
             },
             validate() {
                 return this.$refs.form.validate()

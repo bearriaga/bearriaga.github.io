@@ -115,6 +115,7 @@
                                          :characteristics="characteristics"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
+                                         @fillResourcesEmit="fillResources($event)"
                                          @updateEntryEmit="updateEntry($event)"></ResourceSection>
                         <MovementSection :ap="characterSheet.ap"
                                          :movements="characterSheet.movements"
@@ -132,11 +133,13 @@
                                     :ap="characterSheet.ap"
                                     :characteristics="characteristics"
                                     :damage-types="damageTypes"
+                                    :resources="resources"
                                     @addEntryEmit="addEntry($event)"
                                     @deleteEntryEmit="deleteEntry($event)"
                                     @rollAbilityEmit="rollAbility($event)"
                                     @rollDamageEmit="rollDamage($event)"
                                     @subtractAPEmit="subtractAP($event)"
+                                    @subtractCREmit="subtractCR($event)"
                                     @updateEntryEmit="updateEntry($event)"></AbilitySection>
                 </v-col>
             </v-row>
@@ -754,7 +757,7 @@
                 this.characterSheet.resources.forEach((resource) => {
                     let primaryCharValue = this.characterSheet[resource.characteristic]
                     resource.amountMax = +primaryCharValue + +resource.resourceIncreases
-                    resource.key = resource.name + resource.characteristic + resource.resourceIncreases + primaryCharValue
+                    resource.key = resource.name + resource.characteristic + resource.resourceIncreases + primaryCharValue + this.updateCR
                     resources.push(resource)
                 })
 
@@ -883,6 +886,7 @@
                 statuses: this.gameDataStore.statuses,
                 updateAP: 0,
                 updateBP: 0,
+                updateCR: 0,
                 updateHP: 0,
                 updateInitiative: 0,
                 updateStatus: 0,
@@ -1129,6 +1133,13 @@
                 this.checkDialog = result
             },
             //Dice Roll Functions End
+            fillResources() {
+                this.characterSheet.resources.forEach(r => {
+                    if (r.amount < r.amountMax)
+                        r.amount = r.amountMax
+                })
+                this.updateCR++
+            },
             //Local Storage Functions
             loadCharacter() {
                 this.characterSheet = JSON.parse(localStorage.getItem('character'))
@@ -1281,6 +1292,13 @@
             subtractAP(apCost) {
                 this.characterSheet.ap -= apCost
                 this.updateAP++
+            },
+            subtractCR(crCost) {
+                let resource = this.characterSheet.resources.find(x => x.id == crCost.classResource.id)
+                if (resource) {
+                    resource.amount -= +crCost.crCost
+                    this.updateCR++
+                }
             },
             updateProp(prop) {
                 if (prop.type == 'number')
