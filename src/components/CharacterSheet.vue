@@ -464,10 +464,10 @@
                 return +this.characterSheet.resistance + +this.characterSheet.bpIncreases
             },
             dcToHit() {
-                return 1 + (Math.floor(this.characterSheet.dexterity / 2)) + +this.characterSheet.dcToHitIncreases
+                return 3 + +this.characterSheet.dcToHitIncreases
             },
             hpMax() {
-                return ((this.characterSheet.level * 5) + ((+this.characterSheet.strength + +this.characterSheet.resistance) * 3) + +this.characterSheet.hpIncreases)
+                return ((this.characterSheet.level * 5) + (+this.characterSheet.resistance * 3) + +this.characterSheet.hpIncreases)
             },
             level() {
                 let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
@@ -659,7 +659,7 @@
                     {
                         bar: true,
                         color: 'red',
-                        dialogText: 'Health Points Max = (level * 5) + ((STR + RES) * 3) + purchased HP',
+                        dialogText: 'Health Points Max = (level * 5) + (RES * 3) + purchased HP',
                         disabled: false,
                         key: 'hp' + this.characterSheet.hpMax + this.updateHP.toString(),
                         label: 'Health Points',
@@ -960,7 +960,7 @@
                 this.characterSheet.attunementSlotsMax = 10 + +this.characterSheet.attunementSlotsIncreases
                 /// TODO: attunement slots
                 this.characterSheet.bpMax = +this.characterSheet.resistance + +this.characterSheet.bpIncreases
-                this.characterSheet.dcToHit = 1 + (Math.floor(this.characterSheet.dexterity / 2)) + +this.characterSheet.dcToHitIncreases
+                this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases
 
                 //hpMax start, handles xpEarned, level, hpMax
                 let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
