@@ -1106,12 +1106,11 @@
                     threat: false
                 }
 
-                let diceToRoll = diceCheckObject.diceToRoll
-                if (diceToRoll > 0) {
+                if (diceCheckObject.diceToRoll > 0) {
                     if (!diceCheckObject.isSave)
-                        diceToRoll = +diceCheckObject.diceToRoll + Math.floor(this.characterSheet.intelligence / 2)
+                        result.successes += Math.floor(this.characterSheet.intelligence / 3)
 
-                    let rdResult = this.rollDice(diceToRoll)
+                    let rdResult = this.rollDice(diceCheckObject.diceToRoll)
 
                     result.diceResults = rdResult.diceResults;
                     result.successes += +rdResult.successes
