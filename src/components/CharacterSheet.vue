@@ -1197,9 +1197,9 @@
             //Local Storage Functions End
             moneyAddSubtract(add) {
                 if (add)
-                    this.characterSheet.money += +this.moneyModifyAmount
+                    this.characterSheet.money = +this.characterSheet.money + +this.moneyModifyAmount
                 else
-                    this.characterSheet.money -= this.moneyModifyAmount
+                    this.characterSheet.money = +this.characterSheet.money - +this.moneyModifyAmount
                 this.moneyModifyAmount = 0
             },
             //Reroll Functions
