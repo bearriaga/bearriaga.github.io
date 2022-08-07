@@ -144,7 +144,7 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="6" md="3">
+                <v-col cols="12" md="3">
                     <ClassSection :unlocked="false"
                                   :characteristics="characteristics"
                                   :classes="characterSheet.classes.filter(x => { return !x.unlocked })"
@@ -152,7 +152,7 @@
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"></ClassSection>
                 </v-col>
-                <v-col cols="6" md="3">
+                <v-col cols="12" md="3">
                     <ClassSection :unlocked="true"
                                   :characteristics="characteristics"
                                   :classes="characterSheet.classes.filter(x => { return x.unlocked })"
@@ -160,11 +160,23 @@
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"></ClassSection>
                 </v-col>
-                <v-col cols="6" md="3">
+                <v-col cols="12" md="3">
                     <h3 class="text-center"> Money </h3>
-                    <v-text-field label="Money"
-                                  type="number"
-                                  v-model="characterSheet.money"></v-text-field>
+                    <v-row>
+                        <v-col col="12" md="6">
+                            <v-text-field label="Money"
+                                          type="number"
+                                          v-model="characterSheet.money"></v-text-field>
+                        </v-col>
+                        <v-col col="12" md="6">
+                            <v-text-field type="number" min="0"
+                                          v-model="moneyModifyAmount"
+                                          label="Add/Subtract Money">
+                                <v-icon color="success" slot="append" @click="moneyAddSubtract(true)">mdi-plus</v-icon>
+                                <v-icon color="error" slot="append" @click="moneyAddSubtract(false)">mdi-minus</v-icon>
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
 
                     <h3 class="text-center"> XP </h3>
                     <v-text-field label="Available XP" v-model="characterSheet.xp" disabled></v-text-field>
@@ -177,7 +189,7 @@
                                @deleteEntryEmit="deleteEntry($event)"
                                @updateEntryEmit="updateEntry($event)"></XPSection>
                 </v-col>
-                <v-col cols="6" md="3">
+                <v-col cols="12" md="3">
                     <FlawSection :flaws="characterSheet.flaws"
                                  @addEntryEmit="addEntry($event)"
                                  @deleteEntryEmit="deleteEntry($event)"
@@ -185,7 +197,7 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="4">
+                <v-col cols="12" md="3">
                     <StatusSection :statuses="statuses"
                                    :character-statuses="characterStatuses"
                                    @addEntryEmit="addEntry($event)"
@@ -872,6 +884,7 @@
                     text: '',
                     title: ''
                 },
+                moneyModifyAmount: 0,
                 movementTypes: [
                     'Burrowing',
                     'Flying',
@@ -1139,16 +1152,7 @@
                 })
                 this.updateCR++
             },
-            //Local Storage Functions
-            loadCharacter() {
-                this.characterSheet = JSON.parse(localStorage.getItem('character'))
-            },
-            saveCharacter() {
-                var character = this.characterSheet
-                character.id = new Date().getTime().toString()
-                localStorage.setItem('character', JSON.stringify(character))
-            },
-            //Local Storage Functions End
+            //Health Funcitons
             heal() {
                 if (this.damageToTake.amount > 0) {
                     this.characterSheet.hp = +this.characterSheet.hp + +this.damageToTake.amount
@@ -1180,6 +1184,25 @@
                     this.updateHP = this.updateHP + 1
                 }
             },
+            //Health Funcitons End
+            //Local Storage Functions
+            loadCharacter() {
+                this.characterSheet = JSON.parse(localStorage.getItem('character'))
+            },
+            saveCharacter() {
+                var character = this.characterSheet
+                character.id = new Date().getTime().toString()
+                localStorage.setItem('character', JSON.stringify(character))
+            },
+            //Local Storage Functions End
+            moneyAddSubtract(add) {
+                if (add)
+                    this.characterSheet.money += +this.moneyModifyAmount
+                else
+                    this.characterSheet.money -= this.moneyModifyAmount
+                this.moneyModifyAmount = 0
+            },
+            //Reroll Functions
             rerollSelectedDamage() {
                 const hasSelected = (obj) => obj.selectedRerolls.length
                 if (this.damageDialog.damages.some(hasSelected)) {
@@ -1276,6 +1299,7 @@
                 })
                 this.damageDialog = result
             },
+            //Reroll Functions End
             setCharacterAsTupoc() {
                 this.characterSheet = this.characterStore.getCharacterById('tupoc')
             },
