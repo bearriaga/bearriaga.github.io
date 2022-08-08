@@ -8,6 +8,12 @@
                    src="@/assets/MeFatterTransparent.png"
                    transition="scale-transition"
                    width="40" />
+
+            <v-spacer></v-spacer>
+
+            <v-switch v-model="$vuetify.theme.dark"
+                      inset
+                      label="Dark Theme"></v-switch>
         </v-app-bar>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
