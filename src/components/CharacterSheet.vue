@@ -564,18 +564,18 @@
                 let chars = this.characterSheet.classes.filter(x => { return x.active && !x.unlocked }).map(x => x.characteristic)
                 return [
                     {
-                        abbreviation: 'STR',
-                        key: 'str' + this.characterSheet.id,
-                        name: 'strength',
-                        value: this.characterSheet.strength,
-                        characteristic: chars.includes('strength')
+                        abbreviation: 'FIT',
+                        key: 'fit' + this.characterSheet.id,
+                        name: 'fitness',
+                        value: this.characterSheet.fitness,
+                        characteristic: chars.includes('fitness')
                     },
                     {
-                        abbreviation: 'DEX',
-                        key: 'dex' + this.characterSheet.id,
-                        name: 'dexterity',
-                        value: this.characterSheet.dexterity,
-                        characteristic: chars.includes('dexterity')
+                        abbreviation: 'RES',
+                        key: 'res' + this.characterSheet.id,
+                        name: 'resistance',
+                        value: this.characterSheet.resistance,
+                        characteristic: chars.includes('resistance')
                     },
                     {
                         abbreviation: 'SPD',
@@ -597,13 +597,6 @@
                         name: 'cunning',
                         value: this.characterSheet.cunning,
                         characteristic: chars.includes('cunning')
-                    },
-                    {
-                        abbreviation: 'RES',
-                        key: 'res' + this.characterSheet.id,
-                        name: 'resistance',
-                        value: this.characterSheet.resistance,
-                        characteristic: chars.includes('resistance')
                     },
                     {
                         abbreviation: 'LCK',
@@ -793,8 +786,7 @@
         data() {
             return {
                 characteristics: [
-                    'strength',
-                    'dexterity',
+                    'fitness',
                     'speed',
                     'intelligence',
                     'cunning',
@@ -1172,9 +1164,6 @@
                             .reduce((previousValue, entry) => {
                                 return +previousValue + +entry.amount
                             }, 0)
-
-                        if (group.name == 'Physical')
-                            resistanceAmount += +this.characterSheet.strength
                     }
                 })
 
@@ -1261,7 +1250,7 @@
                         }
 
                         if (ability.isMeleeAttack) {
-                            let char = this.characterSheet['strength']
+                            let char = this.characterSheet['fitness']
                             charDamage += +char
                         }
                     }

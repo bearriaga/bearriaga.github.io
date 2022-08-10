@@ -200,7 +200,7 @@
   {
     "name": "Intangible",
     "cost": "100 xp",
-    "effect": "The creature’s movement is not impeded by physical objects",
+    "effect": "The creatureï¿½s movement is not impeded by physical objects",
     "type": "Boon"
   },
   {
@@ -278,7 +278,7 @@
   {
     "name": "Rooted",
     "cost": "100 xp",
-    "effect": "The creature’s movement speed is reduced to 0",
+    "effect": "The creatureï¿½s movement speed is reduced to 0",
     "type": "Condition"
   },
   {
