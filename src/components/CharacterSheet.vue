@@ -478,6 +478,24 @@
         computed: {
             //Character Properties
             //CHAR Adjustments
+            cunning() {
+                return this.characterSheet.cunnning + this.characterSheet.cunningAdjustment
+            },
+            fitness() {
+                return this.characterSheet.fitness + this.characterSheet.fitnessAdjustment
+            },
+            intelligence() {
+                return this.characterSheet.intelligence + this.characterSheet.intelligenceAdjustment
+            },
+            luck() {
+                return this.characterSheet.luck + this.characterSheet.luckAdjustment
+            },
+            resistance() {
+                return this.characterSheet.resistance + this.characterSheet.resistanceAdjustment
+            },
+            speed() {
+                return this.characterSheet.speed + this.characterSheet.speedAdjustment
+            },
             cunningAdjustment() {
                 return this.charBuff('cunning')
             },
@@ -498,19 +516,19 @@
             },
             //CHAR Adjustments End
             apMax() {
-                return ((this.characterSheet.speedPreperationIsKey) ? 3 * (+this.characterSheet.speed + 2) : 2 * (+this.characterSheet.speed + 2))
+                return ((this.characterSheet.speedPreperationIsKey) ? 3 * (+this.speed + 2) : 2 * (+this.speed + 2))
             },
             attunementSlotsMax() {
                 return (10 + +this.characterSheet.attunementSlotsIncreases)
             },
             bpMax() {
-                return +this.characterSheet.resistance + +this.characterSheet.bpIncreases
+                return +this.resistance + +this.characterSheet.bpIncreases
             },
             dcToHit() {
                 return 3 + +this.characterSheet.dcToHitIncreases
             },
             hpMax() {
-                return ((this.characterSheet.level * 5) + (+this.characterSheet.resistance * 3) + +this.characterSheet.hpIncreases)
+                return ((this.characterSheet.level * 5) + (+this.resistance * 3) + +this.characterSheet.hpIncreases)
             },
             level() {
                 let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
@@ -519,7 +537,7 @@
                 return Math.floor(nonClassXP / 500)
             },
             movement() {
-                return +this.characterSheet.fitness + this.characterSheet.movements.filter(x => { return x.type == 'Land Speed' }).reduce((previousValue, entry) => {
+                return +this.fitness + this.characterSheet.movements.filter(x => { return x.type == 'Land Speed' }).reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
             },
@@ -810,7 +828,7 @@
                 let resources = []
 
                 this.characterSheet.resources.forEach((resource) => {
-                    let primaryCharValue = this.characterSheet[resource.characteristic]
+                    let primaryCharValue = +this[resource.characteristic]
                     resource.amountMax = +primaryCharValue + +resource.resourceIncreases
                     resource.key = resource.name + resource.characteristic + resource.resourceIncreases + primaryCharValue + this.updateCR
                     resources.push(resource)
@@ -822,8 +840,8 @@
                 let skills = []
 
                 this.characterSheet.skills.forEach((skill) => {
-                    skill.value = +skill.skillIncreases + +this.characterSheet[skill.characteristic]
-                    skill.key = skill.name + skill.characteristic + skill.skillIncreases + this.characterSheet[skill.characteristic]
+                    skill.value = +skill.skillIncreases + +this[skill.characteristic]
+                    skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value
                     skills.push(skill)
                 })
 
@@ -1021,10 +1039,10 @@
                 return adj
             },
             characterInit() {
-                this.characterSheet.apMax = (this.characterSheet.speedPreperationIsKey) ? 3 * (+this.characterSheet.speed + 2) : 2 * (+this.characterSheet.speed + 2)
+                this.characterSheet.apMax = (this.characterSheet.speedPreperationIsKey) ? 3 * (+this.speed + 2) : 2 * (+this.speed + 2)
                 this.characterSheet.attunementSlotsMax = 10 + +this.characterSheet.attunementSlotsIncreases
                 /// TODO: attunement slots
-                this.characterSheet.bpMax = +this.characterSheet.resistance + +this.characterSheet.bpIncreases
+                this.characterSheet.bpMax = +this.resistance + +this.characterSheet.bpIncreases
                 this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases
 
                 //hpMax start, handles xpEarned, level, hpMax
@@ -1047,7 +1065,7 @@
 
                 var resourcesDup = this.characterSheet.resources
                 resourcesDup.forEach((resource) => {
-                    var primaryCharValue = this.characterSheet[resource.characteristic]
+                    var primaryCharValue = +this[resource.characteristic]
                     resource.amountMax = primaryCharValue + resource.resourceIncreases
                 })
                 this.characterSheet.resources = []
@@ -1138,7 +1156,7 @@
                 this.updateRerolls++
             },
             rollAbility(ability) {
-                let char = +this.characterSheet[ability.characteristic] + +this.characterSheet[ability.characteristic + 'Adjustment']
+                let char = +this[ability.characteristic]
                 this.rollCheck({
                     diceToRoll: char,
                     isSave: false,
@@ -1173,7 +1191,7 @@
 
                 if (diceCheckObject.diceToRoll > 0) {
                     if (!diceCheckObject.isSave)
-                        result.successes += Math.floor(this.characterSheet.intelligence / 3)
+                        result.successes += Math.floor(this.intelligence / 3)
 
                     let rdResult = this.rollDice(diceCheckObject.diceToRoll)
 
@@ -1305,12 +1323,12 @@
                     let charDamage = 0
                     if (d.addChar && d.type != 'Healing') {
                         if (ability.characteristic) {
-                            let char = +this.characterSheet[ability.characteristic] + +this.characterSheet[ability.characteristic + 'Adjustment']
+                            let char = +this[ability.characteristic]
                             charDamage += +char
                         }
 
                         if (ability.isMeleeAttack) {
-                            let char = +this.characterSheet['fitness'] + +this.characterSheet['fitnessAdjustment']
+                            let char = +this.fitness
                             charDamage += +char
                         }
                     }
@@ -1354,7 +1372,7 @@
             },
             specialInputWithEditModal(valueName) {
                 if (valueName == 'initiative') {
-                    this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.characterSheet.speed + +this.characterSheet.initiativeIncreases
+                    this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.speed + +this.characterSheet.initiativeIncreases
                     this.updateInitiative++
                 }
                 if (valueName == 'bp') {
