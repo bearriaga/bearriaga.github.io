@@ -19,3 +19,11 @@
 .resourcesColumn {
     border-color: green;
 }
+
+.text-red input, .text-red label {
+    color: red !important;
+}
+
+.text-green input, .text-green label {
+    color: green !important;
+}

@@ -43,7 +43,7 @@
                     <div class="charColumn mainColumn elevation-3" elevation="3">
                         <h3 class="text-center"> Characteristics </h3>
                         <v-row>
-                            <v-col cols="6" md="4" v-for="char in characteristicViewItems" :key="char.key">
+                            <v-col cols="6" v-for="char in characteristicViewItems" :key="char.key">
                                 <CharacteristicViewItem @updatePropEmit="updateProp($event)"
                                                         @rollDiceCheckEmit="rollCheck($event)"
                                                         :characteristic="char"></CharacteristicViewItem>
@@ -477,6 +477,26 @@
         },
         computed: {
             //Character Properties
+            //CHAR Adjustments
+            cunningAdjustment() {
+                return this.charBuff('cunning')
+            },
+            fitnessAdjustment() {
+                return this.charBuff('fitness')
+            },
+            intelligenceAdjustment() {
+                return this.charBuff('intelligence')
+            },
+            luckAdjustment() {
+                return this.charBuff('luck')
+            },
+            resistanceAdjustment() {
+                return this.charBuff('resistance')
+            },
+            speedAdjustment() {
+                return this.charBuff('speed')
+            },
+            //CHAR Adjustments End
             apMax() {
                 return ((this.characterSheet.speedPreperationIsKey) ? 3 * (+this.characterSheet.speed + 2) : 2 * (+this.characterSheet.speed + 2))
             },
@@ -589,34 +609,39 @@
                 return [
                     {
                         abbreviation: 'FIT',
-                        key: 'fit' + this.characterSheet.id,
+                        adjustment: this.characterSheet.fitnessAdjustment,
+                        key: 'fit' + this.characterSheet.id + this.characterSheet.fitnessAdjustment,
                         name: 'fitness',
                         value: this.characterSheet.fitness,
                         characteristic: chars.includes('fitness')
                     },
                     {
                         abbreviation: 'RES',
-                        key: 'res' + this.characterSheet.id,
+                        adjustment: this.characterSheet.resistanceAdjustment,
+                        key: 'res' + this.characterSheet.id + this.characterSheet.resistanceAdjustment,
                         name: 'resistance',
                         value: this.characterSheet.resistance,
                         characteristic: chars.includes('resistance')
                     },
                     {
                         abbreviation: 'SPD',
-                        key: 'spd' + this.characterSheet.id,
+                        adjustment: this.characterSheet.speedAdjustment,
+                        key: 'spd' + this.characterSheet.id + this.characterSheet.speedAdjustment,
                         name: 'speed',
                         value: this.characterSheet.speed,
                         characteristic: chars.includes('speed')
                     },
                     {
                         abbreviation: 'INT',
-                        key: 'int' + this.characterSheet.id,
+                        adjustment: this.characterSheet.intelligenceAdjustment,
+                        key: 'int' + this.characterSheet.id + this.characterSheet.intelligenceAdjustment,
                         name: 'intelligence',
                         value: this.characterSheet.intelligence,
                         characteristic: chars.includes('intelligence')
                     },
                     {
                         abbreviation: 'CUN',
+                        adjustment: this.characterSheet.cunningAdjustment + this.characterSheet.cunningAdjustment,
                         key: 'cun' + this.characterSheet.id,
                         name: 'cunning',
                         value: this.characterSheet.cunning,
@@ -624,6 +649,7 @@
                     },
                     {
                         abbreviation: 'LCK',
+                        adjustment: this.characterSheet.luckAdjustment + this.characterSheet.luckAdjustment,
                         key: 'lck' + this.characterSheet.id,
                         name: 'luck',
                         value: this.characterSheet.luck,
@@ -985,6 +1011,15 @@
                 })
             },
             //Array CRUD Functions End
+            charBuff(characteristic) {
+                let adj = 0
+                this.characterSheet.buffs.filter(buff => { return buff.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'CHAR' && a.characteristic == characteristic }).forEach(a => {
+                        adj += +a.amount
+                    })
+                })
+                return adj
+            },
             characterInit() {
                 this.characterSheet.apMax = (this.characterSheet.speedPreperationIsKey) ? 3 * (+this.characterSheet.speed + 2) : 2 * (+this.characterSheet.speed + 2)
                 this.characterSheet.attunementSlotsMax = 10 + +this.characterSheet.attunementSlotsIncreases
@@ -1103,7 +1138,7 @@
                 this.updateRerolls++
             },
             rollAbility(ability) {
-                let char = this.characterSheet[ability.characteristic]
+                let char = +this.characterSheet[ability.characteristic] + +this.characterSheet[ability.characteristic + 'Adjustment']
                 this.rollCheck({
                     diceToRoll: char,
                     isSave: false,
@@ -1270,12 +1305,12 @@
                     let charDamage = 0
                     if (d.addChar && d.type != 'Healing') {
                         if (ability.characteristic) {
-                            let char = this.characterSheet[ability.characteristic]
+                            let char = +this.characterSheet[ability.characteristic] + +this.characterSheet[ability.characteristic + 'Adjustment']
                             charDamage += +char
                         }
 
                         if (ability.isMeleeAttack) {
-                            let char = this.characterSheet['fitness']
+                            let char = +this.characterSheet['fitness'] + +this.characterSheet['fitnessAdjustment']
                             charDamage += +char
                         }
                     }
@@ -1358,20 +1393,38 @@
             bpMax() {
                 this.characterSheet.bpMax = this.bpMax
             },
+            cunningAdjustment() {
+                this.characterSheet.cunningAdjustment = this.cunningAdjustment
+            },
             dcToHit() {
                 this.characterSheet.dcToHit = this.dcToHit
+            },
+            fitnessAdjustment() {
+                this.characterSheet.fitnessAdjustment = this.fitnessAdjustment
             },
             hpMax() {
                 this.characterSheet.hpMax = this.hpMax
             },
+            intelligenceAdjustment() {
+                this.characterSheet.intelligenceAdjustment = this.intelligenceAdjustment
+            },
             level() {
                 this.characterSheet.level = this.level
+            },
+            luckAdjustment() {
+                this.characterSheet.luckAdjustment = this.luckAdjustment
             },
             movement() {
                 this.characterSheet.movement = this.movement
             },
             rerollsMax() {
                 this.characterSheet.rerollsMax = this.rerollsMax
+            },
+            resistanceAdjustment() {
+                this.characterSheet.resistanceAdjustment = this.resistanceAdjustment
+            },
+            speedAdjustment() {
+                this.characterSheet.speedAdjustment = this.speedAdjustment
             },
             xp() {
                 this.characterSheet.xp = this.xp
