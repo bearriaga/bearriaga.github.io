@@ -112,7 +112,7 @@
         },
         data() {
             return {
-                buffOptions: ['Action Points', 'CHAR', 'Damage Resistance', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Other'],
+                buffOptions: ['CHAR', 'Damage Resistance', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
                 dialog: {
                     show: false,
                     type: ''
