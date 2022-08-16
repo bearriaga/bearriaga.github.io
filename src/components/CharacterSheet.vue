@@ -499,7 +499,7 @@
                 return Math.floor(nonClassXP / 500)
             },
             movement() {
-                return +this.characterSheet.dexterity + this.characterSheet.movements.filter(x => { return x.type == 'Land Speed' }).reduce((previousValue, entry) => {
+                return +this.characterSheet.fitness + this.characterSheet.movements.filter(x => { return x.type == 'Land Speed' }).reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
             },

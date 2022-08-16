@@ -70,7 +70,7 @@
           }
         },
         "crCost": "0",
-        "characteristic": "dexterity",
+        "characteristic": "fitness",
         "description": "Test Ability Description",
         "duration": "Instant",
         "handedness": "0",
@@ -222,7 +222,7 @@
         "value": 0
       },
       {
-        "characteristic": "dexterity",
+        "characteristic": "fitness",
         "default": true,
         "id": "1654717715257",
         "name": "Stealth",
@@ -1381,7 +1381,7 @@
                       }
                     },
                     "crCost": 0,
-                    "characteristic": "dexterity",
+                    "characteristic": "fitness",
                     "description": "",
                     "duration": "Instant",
                     "handedness": 0,
@@ -2028,13 +2028,13 @@
         "key": "Persuasioncunning02"
       },
       {
-        "characteristic": "dexterity",
+        "characteristic": "fitness",
         "default": true,
         "id": "1654717715257",
         "name": "Stealth",
         "skillIncreases": 0,
         "value": 4,
-        "key": "Stealthdexterity04"
+        "key": "Stealthfitness04"
       },
       {
         "characteristic": "cunning",
