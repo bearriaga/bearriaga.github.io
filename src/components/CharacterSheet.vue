@@ -497,22 +497,22 @@
                 return this.characterSheet.speed + this.characterSheet.speedAdjustment
             },
             cunningAdjustment() {
-                return this.charBuff('cunning')
+                return this.buffAmount({ type: 'CHAR', characteristic: 'cunning'})
             },
             fitnessAdjustment() {
-                return this.charBuff('fitness')
+                return this.buffAmount({ type: 'CHAR', characteristic: 'fitness' })
             },
             intelligenceAdjustment() {
-                return this.charBuff('intelligence')
+                return this.buffAmount({ type: 'CHAR', characteristic: 'intelligence' })
             },
             luckAdjustment() {
-                return this.charBuff('luck')
+                return this.buffAmount({ type: 'CHAR', characteristic: 'luck' })
             },
             resistanceAdjustment() {
-                return this.charBuff('resistance')
+                return this.buffAmount({ type: 'CHAR', characteristic: 'resistance' })
             },
             speedAdjustment() {
-                return this.charBuff('speed')
+                return this.buffAmount({ type: 'CHAR', characteristic: 'speed' })
             },
             //CHAR Adjustments End
             apMax() {
@@ -528,7 +528,9 @@
                 return 3 + +this.characterSheet.dcToHitIncreases
             },
             hpMax() {
-                return ((this.characterSheet.level * 5) + (+this.resistance * 3) + +this.characterSheet.hpIncreases)
+                let adj = this.buffAmount({ type: 'Health' })                
+                let hp = ((this.characterSheet.level * 5) + (+this.resistance * 3) + +this.characterSheet.hpIncreases + +adj)
+                return (hp > 1) ? hp : 1
             },
             level() {
                 let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
@@ -732,7 +734,7 @@
                     {
                         bar: true,
                         color: 'red',
-                        dialogText: 'Health Points Max = (level * 5) + (RES * 3) + purchased HP',
+                        dialogText: 'Health Points Max = (level * 5) + (RES * 3) + purchased HP + Buffs',
                         disabled: false,
                         key: 'hp' + this.characterSheet.hpMax + this.updateHP.toString(),
                         label: 'Health Points',
@@ -1029,10 +1031,15 @@
                 })
             },
             //Array CRUD Functions End
-            charBuff(characteristic) {
+            buffAmount(options) {
                 let adj = 0
                 this.characterSheet.buffs.filter(buff => { return buff.isActive }).forEach(buff => {
-                    buff.adjustments.filter(a => { return a.type == 'CHAR' && a.characteristic == characteristic }).forEach(a => {
+                    buff.adjustments.filter(a => {
+                        if (options.type == 'CHAR')
+                            return a.type == 'CHAR' && a.characteristic == options.characteristic
+                        else
+                            return a.type == options.type
+                    }).forEach(a => {
                         adj += +a.amount
                     })
                 })
@@ -1045,7 +1052,7 @@
                 this.characterSheet.bpMax = +this.resistance + +this.characterSheet.bpIncreases
                 this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases
 
-                //hpMax start, handles xpEarned, level, hpMax
+                //handles xpEarned, level
                 let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
@@ -1053,7 +1060,7 @@
                 this.characterSheet.xpEarned = this.characterSheet.xpEntries.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
-                //hpMax end
+                //end
                 this.characterSheet.rerollsMax = +this.characterSheet.luck + +this.characterSheet.rerollsIncreases
 
                 this.characterSheet.xp = this.characterSheet.xpTotal - this.characterSheet.abilities.reduce((previousValue, entry) => {
