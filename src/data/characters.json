@@ -127,6 +127,7 @@
         "name": ""
       }
     ],
+    "buffs": [],
     "classes": [
       {
         "active": true,
@@ -1920,6 +1921,7 @@
         "name": ""
       }
     ],
+    "buffs": [],
     "classes": [
       {
         "active": true,

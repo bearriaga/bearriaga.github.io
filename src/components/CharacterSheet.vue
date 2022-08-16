@@ -204,6 +204,15 @@
                                    @deleteEntryEmit="deleteEntry($event)"
                                    @updateEntryEmit="updateEntry($event)"></StatusSection>
                 </v-col>
+                <v-col cols="12" md="3">
+                    <BuffSection :buffs="buffs"
+                                 :characteristics="characteristics"
+                                 :damage-types="damageTypes"
+                                 @addEntryEmit="addEntry($event)"
+                                 @deleteEntryEmit="deleteEntry($event)"
+                                 @updateEntryEmit="updateBuffEntry($event)"
+                                 @updateEntryBypassEmit="updateEntry($event)"></BuffSection>
+                </v-col>
             </v-row>
             <v-row>
                 <v-col>
@@ -425,6 +434,7 @@
 
 <script>
     import AbilitySection from './AbilitySection.vue'
+    import BuffSection from './BuffSection.vue'
     import CharacteristicViewItem from './CharacteristicViewItem.vue'
     import ClassSection from './ClassSection.vue'
     import FlawSection from './FlawSection.vue'
@@ -442,6 +452,7 @@
         name: 'CharacterSheet',
         components: {
             AbilitySection,
+            BuffSection,
             CharacteristicViewItem,
             ClassSection,
             FlawSection,
@@ -559,6 +570,19 @@
                 })
 
                 return statuses
+            },
+            buffs() {
+                let buffs = []
+
+                this.characterSheet.buffs.forEach((buff) => {
+                    buff.key =
+                        buff.id +
+                        this.updateBuff +
+                        JSON.stringify(buff.adjustments)
+                    buffs.push(buff)
+                })
+
+                return buffs
             },
             characteristicViewItems() {
                 let chars = this.characterSheet.classes.filter(x => { return x.active && !x.unlocked }).map(x => x.characteristic)
@@ -891,6 +915,7 @@
                 statuses: this.gameDataStore.statuses,
                 updateAP: 0,
                 updateBP: 0,
+                updateBuff: 0,
                 updateCR: 0,
                 updateHP: 0,
                 updateInitiative: 0,
@@ -1311,6 +1336,10 @@
                     resource.amount -= +crCost.crCost
                     this.updateCR++
                 }
+            },
+            updateBuffEntry(object) {
+                this.updateBuff++
+                this.updateEntry(object)
             },
             updateProp(prop) {
                 if (prop.type == 'number')
