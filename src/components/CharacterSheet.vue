@@ -497,7 +497,7 @@
                 return this.characterSheet.speed + this.characterSheet.speedAdjustment
             },
             cunningAdjustment() {
-                return this.buffAmount({ type: 'CHAR', characteristic: 'cunning'})
+                return this.buffAmount({ type: 'CHAR', characteristic: 'cunning' })
             },
             fitnessAdjustment() {
                 return this.buffAmount({ type: 'CHAR', characteristic: 'fitness' })
@@ -525,10 +525,12 @@
                 return +this.resistance + +this.characterSheet.bpIncreases
             },
             dcToHit() {
-                return 3 + +this.characterSheet.dcToHitIncreases
+                let adj = this.buffAmount({ type: 'DC to Hit' })
+                let dc = 3 + +this.characterSheet.dcToHitIncreases + +adj
+                return (dc > 0) ? dc : 0
             },
             hpMax() {
-                let adj = this.buffAmount({ type: 'Health' })                
+                let adj = this.buffAmount({ type: 'Health' })
                 let hp = ((this.characterSheet.level * 5) + (+this.resistance * 3) + +this.characterSheet.hpIncreases + +adj)
                 return (hp > 1) ? hp : 1
             },
@@ -1049,8 +1051,8 @@
                 this.characterSheet.apMax = (this.characterSheet.speedPreperationIsKey) ? 3 * (+this.speed + 2) : 2 * (+this.speed + 2)
                 this.characterSheet.attunementSlotsMax = 10 + +this.characterSheet.attunementSlotsIncreases
                 /// TODO: attunement slots
-                this.characterSheet.bpMax = +this.resistance + +this.characterSheet.bpIncreases
-                this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases
+                this.characterSheet.bpMax = +this.resistance + +this.characterSheet.bpIncreases                
+                this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases + +this.buffAmount({ type: 'DC to Hit' })
 
                 //handles xpEarned, level
                 let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
