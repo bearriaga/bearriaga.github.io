@@ -24,9 +24,14 @@
         props: {
             characteristic: Object
         },
+        computed: {
+            adjustedAmount() {
+                let amount = +this.characteristic.value + +this.characteristic.adjustment
+                return (amount > 0) ? amount : 0
+            }
+        },
         data() {
-            return {
-                adjustedAmount: +this.characteristic.value + +this.characteristic.adjustment,
+            return {                
                 value: +this.characteristic.value
             }
         },

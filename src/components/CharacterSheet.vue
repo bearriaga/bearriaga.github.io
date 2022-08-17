@@ -43,7 +43,7 @@
                     <div class="charColumn mainColumn elevation-3" elevation="3">
                         <h3 class="text-center"> Characteristics </h3>
                         <v-row>
-                            <v-col cols="6" v-for="char in characteristicViewItems" :key="char.key">
+                            <v-col cols="6" lg="4" v-for="char in characteristicViewItems" :key="char.key">
                                 <CharacteristicViewItem @updatePropEmit="updateProp($event)"
                                                         @rollDiceCheckEmit="rollCheck($event)"
                                                         :characteristic="char"></CharacteristicViewItem>
@@ -479,22 +479,28 @@
             //Character Properties
             //CHAR Adjustments
             cunning() {
-                return this.characterSheet.cunnning + this.characterSheet.cunningAdjustment
+                let char = this.characterSheet.cunnning + this.characterSheet.cunningAdjustment
+                return (char > 0) ? char : 0
             },
             fitness() {
-                return this.characterSheet.fitness + this.characterSheet.fitnessAdjustment
+                let char = this.characterSheet.fitness + this.characterSheet.fitnessAdjustment
+                return (char > 0) ? char : 0
             },
             intelligence() {
-                return this.characterSheet.intelligence + this.characterSheet.intelligenceAdjustment
+                let char = this.characterSheet.intelligence + this.characterSheet.intelligenceAdjustment
+                return (char > 0) ? char : 0
             },
             luck() {
-                return this.characterSheet.luck + this.characterSheet.luckAdjustment
+                let char = this.characterSheet.luck + this.characterSheet.luckAdjustment
+                return (char > 0) ? char : 0
             },
             resistance() {
-                return this.characterSheet.resistance + this.characterSheet.resistanceAdjustment
+                let char = this.characterSheet.resistance + this.characterSheet.resistanceAdjustment
+                return (char > 0) ? char : 0
             },
             speed() {
-                return this.characterSheet.speed + this.characterSheet.speedAdjustment
+                let char = this.characterSheet.speed + this.characterSheet.speedAdjustment
+                return (char > 0) ? char : 0
             },
             cunningAdjustment() {
                 return this.buffAmount({ type: 'CHAR', characteristic: 'cunning' })
