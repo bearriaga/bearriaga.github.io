@@ -479,7 +479,7 @@
             //Character Properties
             //CHAR Adjustments
             cunning() {
-                let char = this.characterSheet.cunnning + this.characterSheet.cunningAdjustment
+                let char = this.characterSheet.cunning + this.characterSheet.cunningAdjustment
                 return (char > 0) ? char : 0
             },
             fitness() {
@@ -669,16 +669,16 @@
                     },
                     {
                         abbreviation: 'CUN',
-                        adjustment: this.characterSheet.cunningAdjustment + this.characterSheet.cunningAdjustment,
-                        key: 'cun' + this.characterSheet.id,
+                        adjustment: this.characterSheet.cunningAdjustment,
+                        key: 'cun' + this.characterSheet.id + this.characterSheet.cunningAdjustment,
                         name: 'cunning',
                         value: this.characterSheet.cunning,
                         characteristic: chars.includes('cunning')
                     },
                     {
                         abbreviation: 'LCK',
-                        adjustment: this.characterSheet.luckAdjustment + this.characterSheet.luckAdjustment,
-                        key: 'lck' + this.characterSheet.id,
+                        adjustment: this.characterSheet.luckAdjustment,
+                        key: 'lck' + this.characterSheet.id + this.characterSheet.luckAdjustment,
                         name: 'luck',
                         value: this.characterSheet.luck,
                         characteristic: chars.includes('luck')
