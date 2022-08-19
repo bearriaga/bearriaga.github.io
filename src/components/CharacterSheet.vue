@@ -552,7 +552,7 @@
                 }, 0)
             },
             rerollsMax() {
-                return +this.characterSheet.luck + +this.characterSheet.rerollsIncreases
+                return +this.luck + +this.characterSheet.rerollsIncreases
             },
             xp() {
                 return this.characterSheet.xpTotal - this.characterSheet.abilities.reduce((previousValue, entry) => {
@@ -1069,7 +1069,7 @@
                     return +previousValue + +entry.amount
                 }, 0)
                 //end
-                this.characterSheet.rerollsMax = +this.characterSheet.luck + +this.characterSheet.rerollsIncreases
+                this.characterSheet.rerollsMax = +this.luck + +this.characterSheet.rerollsIncreases
 
                 this.characterSheet.xp = this.characterSheet.xpTotal - this.characterSheet.abilities.reduce((previousValue, entry) => {
                     if (!entry.boughtForFree)
@@ -1220,7 +1220,7 @@
                     if (!this.characterSheet.luckNothingToChance) {
                         if (result.fate == 6 || (this.characterSheet.luckFavored && result.fate >= 5)) {
                             result.advantage = true
-                            result.successes += this.characterSheet.luck
+                            result.successes += this.luck
                         } else if (result.fate == 1 || (this.characterSheet.luckIllFavored && result.fate <= 2)) {
                             result.threat = true
                         }
