@@ -55,7 +55,8 @@
                 if (adjustment.type == 'Status') {
                     label += ' - ' + adjustment.status.status.name
                     if (adjustment.status.status.name.includes('{rank}'))
-                        label += ' ' + adjustment.status.ranks + ' Duration'
+                        label += ' ' + adjustment.status.ranks
+                    label += ' Duration'
                 }
 
                 return label
