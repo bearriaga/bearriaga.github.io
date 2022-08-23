@@ -54,7 +54,7 @@
                                           v-model="ranks"
                                           type="number"
                                           min="0"
-                                          v-if="selectedStatus.name.includes('rank')"
+                                          v-if="selectedStatus.name.includes('{rank}')"
                                           required></v-text-field>
                             <v-text-field label="Duration (Rounds)"
                                           v-model="duration"

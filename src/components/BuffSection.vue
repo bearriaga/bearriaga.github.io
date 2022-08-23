@@ -65,15 +65,37 @@
                                           v-if="a.type == 'CHAR'"
                                           :rules="notNull"
                                           required></v-select>
-                                <v-select label="Resistance Type"
-                                          v-model="a.resistanceType"
-                                          :items="damageTypes"
-                                          v-if="a.type == 'Damage Resistance'"
-                                          :rules="notNull"
-                                          required></v-select>
+                                <v-autocomplete label="Resistance Type"
+                                                v-model="a.resistanceType"
+                                                :items="damageTypes"
+                                                v-if="a.type == 'Damage Resistance'"
+                                                :rules="notNull"
+                                                required></v-autocomplete>
                                 <v-text-field label="Amount"
                                               v-model="a.amount"
+                                              v-if="a.type != 'Status'"
                                               type="number"></v-text-field>
+                                <!-- Status Fields -->
+                                <v-autocomplete label="Status"
+                                                :items="statuses.map((x) => ({ value: x, text: x.name }))"
+                                                v-model="a.status.status"
+                                                v-if="a.type == 'Status'"
+                                                :rules="notNull"
+                                                required>
+                                </v-autocomplete>
+                                <v-text-field label="Ranks"
+                                              v-model="a.status.ranks"
+                                              type="number"
+                                              min="0"
+                                              v-if="a.type == 'Status' && a.status.status.name.includes('{rank}')"
+                                              required></v-text-field>
+                                <v-text-field label="Duration (Rounds)"
+                                              v-model="a.status.duration"
+                                              v-if="a.type == 'Status'"
+                                              type="number"
+                                              min="0"
+                                              required></v-text-field>
+                                <!-- Status Fields End -->
                                 <hr v-if="index != (adjustments.length - 1)" />
                             </div>
                         </v-form>
@@ -108,7 +130,8 @@
         props: {
             buffs: Array,
             characteristics: Array,
-            damageTypes: Array
+            damageTypes: Array,
+            statuses: Array
         },
         data() {
             return {
@@ -127,6 +150,18 @@
                         amount: 0,
                         characteristic: '',
                         resistanceType: '',
+                        status: {
+                            description: '',
+                            duration: 1,
+                            isActive: true,
+                            ranks: 1,
+                            status: {
+                                cost: '',
+                                effect: '',
+                                name: '',
+                                type: ''
+                            }
+                        },
                         type: ''
                     }
                 ],
@@ -140,6 +175,18 @@
                             amount: 0,
                             characteristic: '',
                             resistanceType: '',
+                            status: {
+                                description: '',
+                                duration: 1,
+                                isActive: true,
+                                ranks: 1,
+                                status: {
+                                    cost: '',
+                                    effect: '',
+                                    name: '',
+                                    type: ''
+                                }
+                            },
                             type: ''
                         }
                     ]
@@ -158,6 +205,18 @@
                     amount: 0,
                     characteristic: '',
                     resistanceType: '',
+                    status: {
+                        description: '',
+                        duration: 1,
+                        isActive: true,
+                        ranks: 1,
+                        status: {
+                            cost: '',
+                            effect: '',
+                            name: '',
+                            type: ''
+                        }
+                    },
                     type: ''
                 })
             },
@@ -211,6 +270,18 @@
                             amount: 0,
                             characteristic: '',
                             resistanceType: '',
+                            status: {
+                                description: '',
+                                duration: 1,
+                                isActive: true,
+                                ranks: 1,
+                                status: {
+                                    cost: '',
+                                    effect: '',
+                                    name: '',
+                                    type: ''
+                                }
+                            },
                             type: ''
                         }
                     ]

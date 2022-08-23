@@ -211,6 +211,7 @@
                     <BuffSection :buffs="buffs"
                                  :characteristics="characteristics"
                                  :damage-types="damageTypes"
+                                 :statuses="statuses"
                                  @addEntryEmit="addEntry($event)"
                                  @deleteEntryEmit="deleteEntry($event)"
                                  @updateEntryEmit="updateBuffEntry($event)"

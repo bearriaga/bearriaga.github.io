@@ -14,6 +14,12 @@
             <div v-for="a, index in adjustments" :key="index">
                 <v-text-field :label="returnLabel(a)"
                               v-model="a.amount"
+                              v-if="a.type != 'Status'"
+                              type="number"
+                              disabled></v-text-field>
+                <v-text-field :label="returnLabel(a)"
+                              v-model="a.status.duration"
+                              v-if="a.type == 'Status'"
                               type="number"
                               disabled></v-text-field>
             </div>
@@ -46,6 +52,11 @@
                     label += ' - ' + adjustment.characteristic
                 if (adjustment.type == 'Damage Resistance')
                     label += ' - ' + adjustment.resistanceType
+                if (adjustment.type == 'Status') {
+                    label += ' - ' + adjustment.status.status.name
+                    if (adjustment.status.status.name.includes('{rank}'))
+                        label += ' ' + adjustment.status.ranks + ' Duration'
+                }
 
                 return label
             },
