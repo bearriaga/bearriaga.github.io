@@ -48,8 +48,11 @@
                                                         @rollDiceCheckEmit="rollCheck($event)"
                                                         :characteristic="char"></CharacteristicViewItem>
                             </v-col>
+                            <v-col cols="12">
+                                <CharacteristicViewItem @rollDiceCheckEmit="rollCheck($event)"
+                                                        :characteristic="genericCharacteristic"></CharacteristicViewItem>
+                            </v-col>
                         </v-row>
-
                         <SkillSection :characteristics="characteristics"
                                       :skills="skills"
                                       @addEntryEmit="addEntry($event)"
@@ -243,7 +246,7 @@
                             Fate: {{checkDialog.fate}}
 
                             <template v-if="checkDialog.advantage">
-                                , Advantage, LCK added to successes
+                                , Advantage
                             </template>
 
                             <template v-if="checkDialog.threat">
@@ -252,6 +255,12 @@
                         </div>
                         <div>
                             Dice Results: {{checkDialog.diceResults}}
+                        </div>
+                        <div v-if="checkDialog.successesFromIntelligence">
+                            Successes From INT: {{checkDialog.successesFromIntelligence}}
+                        </div>
+                        <div v-if="checkDialog.successesFromLuck">
+                            Successes From LCK: {{checkDialog.successesFromLuck}}
                         </div>
 
                         <v-row>
@@ -880,6 +889,8 @@
                     selectedRerolls: [],
                     show: false,
                     successes: 0,
+                    successesFromIntelligence: 0,
+                    successesFromLuck: 0,
                     threat: false
                 },
                 cleanseDialog: {
@@ -953,6 +964,13 @@
                     show: false,
                     text: '',
                     title: ''
+                },
+                genericCharacteristic: {
+                    abbreviation: 'Generic Roller',
+                    adjustment: 0,
+                    name: '',
+                    value: 0,
+                    characteristic: false
                 },
                 moneyModifyAmount: 0,
                 movementTypes: [
@@ -1106,6 +1124,12 @@
                     'Fate: ' + this.checkDialog.fate + ((this.checkDialog.advantage) ? ', Advantage' : '') + ((this.checkDialog.threat) ? ', Threat' : '') + '\n' +
                     'Dice Results: [' + this.checkDialog.diceResults + ']';
 
+                if (this.checkDialog.successesFromIntelligence)
+                    copyText += '\nSuccesses From INT: ' + this.checkDialog.successesFromIntelligence
+
+                if (this.checkDialog.successesFromLuck)
+                    copyText += '\nSuccesses From LCK: ' + this.checkDialog.successesFromLuck
+
                 navigator.clipboard.writeText(copyText)
             },
             copyDamage() {
@@ -1201,12 +1225,17 @@
                     show: true,
                     selectedRerolls: [],
                     successes: 0,
+                    successesFromIntelligence: 0,
+                    successesFromLuck: 0,
                     threat: false
                 }
 
                 if (diceCheckObject.diceToRoll > 0) {
-                    if (!diceCheckObject.isSave)
-                        result.successes += Math.floor(this.intelligence / 3)
+                    if (!diceCheckObject.isSave) {
+                        result.successesFromIntelligence = Math.floor(this.intelligence / 3)
+                        result.successes += +result.successesFromIntelligence
+
+                    }
 
                     let rdResult = this.rollDice(diceCheckObject.diceToRoll)
 
@@ -1220,7 +1249,8 @@
                     if (!this.characterSheet.luckNothingToChance) {
                         if (result.fate == 6 || (this.characterSheet.luckFavored && result.fate >= 5)) {
                             result.advantage = true
-                            result.successes += this.luck
+                            result.successesFromLuck = this.luck
+                            result.successes += +result.successesFromLuck
                         } else if (result.fate == 1 || (this.characterSheet.luckIllFavored && result.fate <= 2)) {
                             result.threat = true
                         }
