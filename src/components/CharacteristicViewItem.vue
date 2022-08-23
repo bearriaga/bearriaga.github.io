@@ -7,6 +7,8 @@
                       disabled></v-text-field>
         <v-text-field :label="characteristic.abbreviation"
                       type="number"
+                      min="0"
+                      max="10"
                       v-model="value"
                       @keyup.enter="rollCharCheck">
             <v-icon slot="append"
@@ -26,12 +28,12 @@
         },
         computed: {
             adjustedAmount() {
-                let amount = +this.characteristic.value + +this.characteristic.adjustment
-                return (amount > 0) ? amount : 0
+                let amount = +this.value + +this.characteristic.adjustment
+                return (amount > 10) ? 10 : (amount < 0) ? 0 : amount
             }
         },
         data() {
-            return {                
+            return {
                 value: +this.characteristic.value
             }
         },
@@ -55,12 +57,17 @@
                 return label
             },
             rollCharCheck() {
-                this.$emit('rollDiceCheckEmit', { diceToRoll: +this.value + +this.characteristic.adjustment, isSave: false, successes: 0 })
+                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSave: false, successes: 0 })
             },
             rollSaveCheck() {
-                this.$emit('rollDiceCheckEmit', { diceToRoll: +this.value + +this.characteristic.adjustment, isSave: true, successes: 0 })
+                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSave: true, successes: 0 })
             },
             updateProp() {
+                if (this.value < 0)
+                    this.value = 0
+                if (this.value > 10)
+                    this.value = 10
+
                 this.$emit('updatePropEmit', { propName: this.characteristic.name, type: 'number', value: this.value })
             }
         },
