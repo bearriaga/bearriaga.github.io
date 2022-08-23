@@ -46,7 +46,12 @@
                     </v-subheader>
                 </v-col>
                 <v-col cols="9">
-                    <v-btn color="primary" @click="rollPeopleInitiatives">
+                    <v-btn color="primary" @click="rollPeopleInitiatives(20)">
+                        <v-icon>
+                            mdi-dice-d20
+                        </v-icon>
+                    </v-btn>
+                    <v-btn color="primary" @click="rollPeopleInitiatives(6)">
                         <v-icon>
                             mdi-dice-6
                         </v-icon>
@@ -254,13 +259,13 @@
             getRandomInt(max) {
                 return Math.floor(Math.random() * max) + 1;
             },
-            rollInitiative(modifier) {
-                return this.getRandomInt(20) + +modifier
+            rollInitiative(diceMaxNumber, modifier) {
+                return this.getRandomInt(diceMaxNumber) + +modifier
             },
-            rollPeopleInitiatives() {
+            rollPeopleInitiatives(diceMaxNumber) {
                 let peopleDup = this.people
                 peopleDup.forEach((person, index) => {
-                    peopleDup[index].initiative = (!isNaN(person.modifier) && !person.lock) ? this.rollInitiative(person.modifier) : (!isNaN(person.initiative)) ? person.initiative : 0
+                    peopleDup[index].initiative = (!isNaN(person.modifier) && !person.lock) ? this.rollInitiative(diceMaxNumber, person.modifier) : (!isNaN(person.initiative)) ? person.initiative : 0
                 })
                 peopleDup = peopleDup.sort(({ initiative: a }, { initiative: b }) => b - a)
                 this.people = []
