@@ -323,7 +323,7 @@
                         <v-row>
                             <v-col cols="12">
                                 <v-select v-model="cleanseDialog.selectedStatuses"
-                                          :items="characterSheet.statuses.filter(x => { return x.isActive && x.status.type == 'Condition' }).map(x => ({ value: x, text: x.status.name}))"
+                                          :items="characterStatuses.filter(x => { return x.isActive && x.status.type == 'Condition' }).map(x => ({ value: x, text: x.status.name}))"
                                           label="Selected Conditions"
                                           multiple
                                           :disabled="characterSheet.bp <= 0"
@@ -1136,10 +1136,12 @@
                 if (this.cleanseDialog.selectedStatuses.length <= this.characterSheet.bp) {
                     this.cleanseDialog.selectedStatuses.forEach(status => {
                         status.isActive = false
-                        this.updateEntry({ arrayName: 'statuses', object: status })
-
-                        this.characterSheet.bp--
+                        if (!status.buffId)
+                            this.updateEntry({ arrayName: 'statuses', object: status })
+                        else
+                            this.updateBuffStatus({ status: status, buffId: status.buffId })
                         this.updateBP++
+                        this.characterSheet.bp--
                     })
 
                     this.cleanseDialog.show = false
