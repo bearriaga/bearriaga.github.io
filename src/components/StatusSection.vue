@@ -17,6 +17,7 @@
                     <v-expansion-panel-content>
                         <StatusListItem v-for="s in characterStatuses" :key="s.key"
                                         @deleteEntryEmit="deleteDialog($event)"
+                                        @updateBuffEntryEmit="updateBuffEntry($event)"
                                         @updateEntryEmit="updateEntry($event)"
                                         :status="s"
                                         :statuses="statuses"></StatusListItem>
@@ -130,6 +131,8 @@
                 if (this.validate()) {
                     this.dialog.show = false
                     this.status = {
+                        buffId: null,
+                        buffName: '',
                         description: this.description,
                         duration: this.duration,
                         id: null,
@@ -149,6 +152,9 @@
                 this.dialog.show = false
                 this.$emit('deleteEntryEmit', { arrayName: 'statuses', object: this.status })
             },
+            updateBuffEntry(object) {
+                this.$emit('updateBuffEntryEmit', object)
+            },
             updateEntry(object) {
                 this.$emit('updateEntryEmit', { arrayName: 'statuses', object: object })
             },
@@ -157,6 +163,8 @@
             addDialog() {
                 this.setDialog('Add')
                 this.status = {
+                    buffId: '',
+                    buffName: '',
                     description: '',
                     duration: 1,
                     id: '',

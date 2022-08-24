@@ -4,15 +4,17 @@
             <v-col cols="12">
                 <v-checkbox label="Is Active"
                             v-model="isActive"></v-checkbox>
-                <v-select label="Status"
-                          :items="statuses.map((x) => ({ value: x, text: x.name }))"
-                          v-model="selectedStatus"
-                          required>
+                <v-autocomplete label="Status"
+                                :items="statuses.map((x) => ({ value: x, text: x.name }))"
+                                v-model="selectedStatus"
+                                :disabled="isBuff()"
+                                required>
                     <v-icon slot="prepend" color="error"
+                            v-if="!isBuff()"
                             @click="deleteEntry">
                         mdi-delete
                     </v-icon>
-                </v-select>
+                </v-autocomplete>
                 <v-textarea label="Effect"
                             v-model="selectedStatus.effect"
                             :disabled="selectedStatus.name != 'Other'"
@@ -29,7 +31,9 @@
                               v-model="duration"
                               type="number"
                               min="0"></v-text-field>
-                <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+                <v-textarea label="Description" v-model="description"
+                            auto-grow outlined rows="1"
+                            :disabled="isBuff()"></v-textarea>
             </v-col>
         </v-row>
     </div>
@@ -55,8 +59,14 @@
             deleteEntry() {
                 this.$emit('deleteEntryEmit', this.status)
             },
+            isBuff() {
+                if (this.status.buffId)
+                    return true
+                return false
+            },
             updateEntry() {
                 let status = {
+                    buffId: this.status.buffId,
                     description: this.description,
                     duration: this.duration,
                     isActive: this.isActive,
@@ -64,7 +74,10 @@
                     ranks: this.ranks,
                     status: this.selectedStatus,
                 }
-                this.$emit('updateEntryEmit', status)
+                if (!this.status.buffId)
+                    this.$emit('updateEntryEmit', status)
+                else
+                    this.$emit('updateBuffEntryEmit', { status: status, buffId: this.status.buffId })
             }
         },
         watch: {

@@ -205,6 +205,7 @@
                                    :character-statuses="characterStatuses"
                                    @addEntryEmit="addEntry($event)"
                                    @deleteEntryEmit="deleteEntry($event)"
+                                   @updateBuffEntryEmit="updateBuffStatus($event)"
                                    @updateEntryEmit="updateEntry($event)"></StatusSection>
                 </v-col>
                 <v-col cols="12" md="3">
@@ -616,19 +617,6 @@
 
                 return abilities
             },
-            characterStatuses() {
-                let statuses = []
-
-                this.characterSheet.statuses.forEach((status) => {
-                    status.key =
-                        JSON.stringify(status.status) +
-                        status.isActive.toString() +
-                        this.updateStatus;
-                    statuses.push(status)
-                })
-
-                return statuses
-            },
             buffs() {
                 let buffs = []
 
@@ -641,6 +629,34 @@
                 })
 
                 return buffs
+            },
+            characterStatuses() {
+                let statuses = []
+
+                this.characterSheet.statuses.forEach((status) => {
+                    status.key =
+                        JSON.stringify(status.status) +
+                        status.isActive.toString() +
+                        this.updateStatus
+                    statuses.push(status)
+                })
+
+                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Status') && b.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
+                        let status = JSON.parse(JSON.stringify(adjustment.status))
+                        status.buffId = buff.id
+                        status.buffName = buff.name
+                        status.description = buff.name + ' Buff Status'
+                        status.key =
+                            buff.name +
+                            JSON.stringify(status.status) +
+                            status.isActive.toString() +
+                            this.updateStatus
+                        statuses.push(status)
+                    })
+                })
+
+                return statuses
             },
             characteristicViewItems() {
                 let chars = this.characterSheet.classes.filter(x => { return x.active && !x.unlocked }).map(x => x.characteristic)
@@ -1003,7 +1019,18 @@
                         status.duration--
                     }
                 })
+
+                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Status') && b.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
+                        let status = adjustment.status
+                        if (status.duration > 0) {
+                            status.duration--
+                        }
+                    })
+                })
+
                 this.updateStatus++
+                this.updateBuff++
             },
             //Array CRUD Functions
             addEntry(object) {
@@ -1437,8 +1464,15 @@
                 }
             },
             updateBuffEntry(object) {
-                this.updateBuff++
+                this.updateStatus++
                 this.updateEntry(object)
+            },
+            updateBuffStatus(object) {
+                let buff = JSON.parse(JSON.stringify(this.characterSheet.buffs.find(x => x.id == object.buffId)))
+                let adjustment = buff.adjustments.find(x => x.status.id == object.status.id)
+                adjustment.status = object.status
+
+                this.updateEntry({ arrayName: 'buffs', object: buff })
             },
             updateProp(prop) {
                 if (prop.type == 'number')

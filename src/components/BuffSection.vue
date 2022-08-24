@@ -153,6 +153,7 @@
                         status: {
                             description: '',
                             duration: 1,
+                            id: '',
                             isActive: true,
                             ranks: 1,
                             status: {
@@ -178,6 +179,7 @@
                             status: {
                                 description: '',
                                 duration: 1,
+                                id: '',
                                 isActive: true,
                                 ranks: 1,
                                 status: {
@@ -204,10 +206,12 @@
                 this.adjustments.push({
                     amount: 0,
                     characteristic: '',
+                    id: new Date().getTime().toString() + 0,
                     resistanceType: '',
                     status: {
                         description: '',
                         duration: 1,
+                        id: new Date().getTime().toString() + 1,
                         isActive: true,
                         ranks: 1,
                         status: {
@@ -269,10 +273,12 @@
                         {
                             amount: 0,
                             characteristic: '',
+                            id: new Date().getTime().toString() + 0,
                             resistanceType: '',
                             status: {
                                 description: '',
                                 duration: 1,
+                                id: new Date().getTime().toString() + 1,
                                 isActive: true,
                                 ranks: 1,
                                 status: {
