@@ -151,6 +151,9 @@
                         characteristic: '',
                         resistanceType: '',
                         status: {
+                            currentDuration: 1,
+                            currentIsActive: true,
+                            currentRanks: 1,
                             description: '',
                             duration: 1,
                             id: '',
@@ -177,6 +180,9 @@
                             characteristic: '',
                             resistanceType: '',
                             status: {
+                                currentDuration: 1,
+                                currentIsActive: true,
+                                currentRanks: 1,
                                 description: '',
                                 duration: 1,
                                 id: '',
@@ -209,6 +215,9 @@
                     id: new Date().getTime().toString() + 0,
                     resistanceType: '',
                     status: {
+                        currentDuration: 1,
+                        currentIsActive: true,
+                        currentRanks: 1,
                         description: '',
                         duration: 1,
                         id: new Date().getTime().toString() + 1,
@@ -258,7 +267,15 @@
                 this.buff.id = this.id
                 this.buff.isActive = this.isActive
                 this.buff.name = this.name
-                this.buff.adjustments = JSON.parse(JSON.stringify(this.adjustments))
+                let adjustments = JSON.parse(JSON.stringify(this.adjustments))
+                adjustments.forEach(a => {
+                    if (a.type == 'Status') {
+                        a.status.currentDuration = a.status.duration
+                        a.status.currentIsActive = a.status.isActive
+                        a.status.currentRanks = a.status.ranks
+                    }
+                })
+                this.buff.adjustments = adjustments
             },
             // CRUD Functions End
             // Open Dialog Functions
@@ -276,6 +293,9 @@
                             id: new Date().getTime().toString() + 0,
                             resistanceType: '',
                             status: {
+                                currentDuration: 1,
+                                currentIsActive: true,
+                                currentRanks: 1,
                                 description: '',
                                 duration: 1,
                                 id: new Date().getTime().toString() + 1,

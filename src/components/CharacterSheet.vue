@@ -644,6 +644,9 @@
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Status') && b.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
                         let status = JSON.parse(JSON.stringify(adjustment.status))
+                        status.duration = status.currentDuration
+                        status.isActive = status.currentIsActive
+                        status.ranks = status.currentRanks
                         status.buffId = buff.id
                         status.buffName = buff.name
                         status.description = buff.name + ' Buff Status'
@@ -1024,7 +1027,7 @@
                     buff.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
                         let status = adjustment.status
                         if (status.duration > 0) {
-                            status.duration--
+                            status.currentDuration--
                         }
                     })
                 })
@@ -1472,7 +1475,9 @@
             updateBuffStatus(object) {
                 let buff = JSON.parse(JSON.stringify(this.characterSheet.buffs.find(x => x.id == object.buffId)))
                 let adjustment = buff.adjustments.find(x => x.status.id == object.status.id)
-                adjustment.status = object.status
+                adjustment.status.currentDuration = object.status.duration
+                adjustment.status.currentIsActive = object.status.isActive
+                adjustment.status.currentRanks = object.status.ranks
 
                 this.updateEntry({ arrayName: 'buffs', object: buff })
             },

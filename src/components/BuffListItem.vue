@@ -80,13 +80,23 @@
                     adjustments: JSON.parse(JSON.stringify(this.adjustments)),
                 }
                 this.$emit('updateEntryEmit', buff)
+            },
+            updateStatuses() {
+                if (this.isActive && JSON.stringify(this.adjustments).includes('Status')) {
+                    this.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
+                        adjustment.status.currentDuration = adjustment.status.duration
+                        adjustment.status.currentIsActive = adjustment.status.isActive
+                        adjustment.status.currentRanks = adjustment.status.ranks
+                    })
+                }
             }
         },
         watch: {
             description() {
                 this.updateEntry()
             },
-            isActive() {
+            isActive() {                
+                this.updateStatuses()
                 this.updateEntry()
             },
             name() {
