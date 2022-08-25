@@ -121,7 +121,7 @@
         "slot": "",
         "resistances": [
           {
-            "amount": 0,
+            "amount": 1,
             "type": "Physical"
           }
         ]
@@ -179,7 +179,7 @@
     ],
     "resistances": [
       {
-        "amount": 0,
+        "amount": 1,
         "id": "1654401755465",
         "type": "Physical"
       }

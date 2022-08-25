@@ -89,7 +89,7 @@
                                                     :property-object="input"></InputWithEditModal>
                             </v-col>
                             <v-col cols="12">
-                                <ResistanceSection :resistances="characterSheet.resistances"
+                                <ResistanceSection :resistances="resistances"
                                                    :damage-groups="damageGroups"
                                                    :damage-types="damageTypes"
                                                    @addEntryEmit="addEntry($event)"
@@ -863,6 +863,29 @@
                     }
                 ]
             },
+            resistances() {
+                let resistances = []
+
+                this.characterSheet.resistances.forEach(resistance => {
+                    resistance.key = resistance.id + resistance.amount
+                    resistances.push(resistance)
+                })
+
+                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Damage Resistance') && b.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'Damage Resistance' }).forEach(adjustment => {
+                        let resistance = {
+                            amount: adjustment.amount,
+                            id: adjustment.id,
+                            isBuff: true,
+                            key: adjustment.amount + adjustment.id,
+                            type: adjustment.resistanceType
+                        }
+                        resistances.push(resistance)
+                    })
+                })
+
+                return resistances
+            },
             resources() {
                 let resources = []
 
@@ -1315,7 +1338,7 @@
                 this.damageGroups.forEach((group) => {
                     //check if type is in the group.types array
                     if (type == group.name || group.types.some(x => x.name == type)) {
-                        resistanceAmount = this.characterSheet.resistances
+                        resistanceAmount = this.resistances
                             .filter(x => { return x.type == type || x.type == group.name })
                             .reduce((previousValue, entry) => {
                                 return +previousValue + +entry.amount

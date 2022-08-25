@@ -11,12 +11,12 @@
                                 <v-icon>
                                     mdi-plus
                                 </v-icon>
-                            </v-btn>                            
+                            </v-btn>
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <v-row>
-                            <v-col cols="6" md="4" v-for="resistance in resistances" :key="resistance.id + resistance.amount">
+                            <v-col cols="6" v-for="resistance in resistances" :key="resistance.key">
                                 <ResistanceListItem :damage-groups="damageGroups"
                                                     :damage-types="damageTypes"
                                                     :resistance="resistance"
@@ -44,11 +44,11 @@
                                           ref="amount"
                                           :rules="numberRules"
                                           required></v-text-field>
-                            <v-select label="Type"
-                                      :items="damageTypes"
-                                      v-model="type"
-                                      :rules="textRules"
-                                      required></v-select>
+                            <v-autocomplete label="Type"
+                                            :items="damageTypes"
+                                            v-model="type"
+                                            :rules="textRules"
+                                            required></v-autocomplete>
                         </v-form>
                     </v-card-text>
 
@@ -58,7 +58,7 @@
                     <v-card-actions class="justify-end">
                         <v-btn color="primary" v-if="dialog.type == 'Add'" :disabled="!valid"
                                @click="addEntry">Add</v-btn>
-                        <v-btn color="primary" v-if="dialog.type == 'Update'"
+                        <v-btn color="primary" v-if="dialog.type == 'Update'" :disabled="!valid"
                                @click="updateEntry">Save</v-btn>
                         <v-btn color="error" v-if="dialog.type == 'Update'"
                                @click="deleteEntry">Delete</v-btn>
@@ -104,7 +104,7 @@
                     v => !!v || 'Field may not be empty'
                 ],
                 numberRules: [
-                    v => !isNaN(+v) && v >= 1 || 'Field may not be empty and value must be 1 or higher'
+                    v => !isNaN(+v) && v != 0 || 'Field may not be empty and value must not be 0'
                 ],
                 valid: false
                 // Validation End

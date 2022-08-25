@@ -1,7 +1,11 @@
 <template>
     <div @click="updateEntry">
-        <v-text-field :label="type" v-model="amount" type="number" disabled>
-            <v-icon :color="color" slot="append">{{icon}}</v-icon>
+        <v-text-field :label="label"
+                      v-model="amount"
+                      type="number"
+                      :class="classColor"
+                      disabled>
+            <v-icon :color="iconColor" slot="append">{{icon}}</v-icon>
         </v-text-field>
     </div>
 </template>
@@ -15,11 +19,23 @@
             resistance: Object
         },
         computed: {
-            color() {
+            classColor() {
+                let classColor = ''
+
+                if (this.resistance.isBuff) {
+                    if (this.amount > 0)
+                        classColor += 'text-green'
+                    if (this.amount < 0)
+                        classColor += 'text-red'
+                }
+
+                return classColor
+            },
+            iconColor() {
                 let color = ''
                 this.damageGroups.forEach((group) => {
                     if (this.resistance.type == group.name || group.types.some(x => x.name == this.resistance.type)) {
-                        color = group.color                        
+                        color = group.color
                     }
                 })
                 return color
@@ -36,17 +52,29 @@
                     }
                 })
                 return icon
+            },
+            label() {
+                let label = this.resistance.type
+
+                if (this.resistance.isBuff) {
+                    if (this.amount > 0)
+                        label += ' - Buff'
+                    if (this.amount < 0)
+                        label += ' - Debuff'
+                }
+
+                return label
             }
         },
         data() {
             return {
-                amount: this.resistance.amount,
-                type: this.resistance.type
+                amount: this.resistance.amount
             }
         },
         methods: {
             updateEntry() {
-                this.$emit('updateEntryEmit', this.resistance)
+                if (!this.resistance.isBuff)
+                    this.$emit('updateEntryEmit', this.resistance)
             }
         }
     }

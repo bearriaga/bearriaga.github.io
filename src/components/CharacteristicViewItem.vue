@@ -1,9 +1,9 @@
 <template>
     <div>
-        <v-text-field :label="adjustedAmountLabel()"
+        <v-text-field :label="adjustedAmountLabel"
                       v-model="adjustedAmount"
                       v-if="characteristic.adjustment != 0"
-                      :class="adjustedAmountClass()"
+                      :class="adjustedAmountClass"
                       disabled></v-text-field>
         <v-text-field :label="characteristic.abbreviation"
                       type="number"
@@ -30,19 +30,16 @@
             adjustedAmount() {
                 let amount = +this.value + +this.characteristic.adjustment
                 return (amount > 10) ? 10 : (amount < 0) ? 0 : amount
-            }
-        },
-        data() {
-            return {
-                value: +this.characteristic.value
-            }
-        },
-        methods: {
+            },
             adjustedAmountClass() {
+                let amountClass = ''
+
                 if (this.characteristic.adjustment > 0)
-                    return 'text-green'
+                    amountClass = 'text-green'
                 if (this.characteristic.adjustment < 0)
-                    return 'text-red'
+                    amountClass = 'text-red'
+
+                return amountClass
             },
             adjustedAmountLabel() {
                 let label = ''
@@ -55,7 +52,14 @@
                 label += this.characteristic.abbreviation
 
                 return label
-            },
+            }
+        },
+        data() {
+            return {
+                value: +this.characteristic.value
+            }
+        },
+        methods: {
             rollCharCheck() {
                 this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSave: false, successes: 0 })
             },
