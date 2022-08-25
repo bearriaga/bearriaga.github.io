@@ -23,7 +23,3 @@
         }),
     };
 </script>
-
-<style>
-    @import './css/characterSheet.css'
-</style>
