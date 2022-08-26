@@ -59,6 +59,36 @@
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"
                                       @rollDiceCheckEmit="rollCheck($event)"></SkillSection>
+                        <v-expansion-panels>
+                            <v-expansion-panel>
+                                <v-expansion-panel-header>
+                                    <h3 class="text-center">
+                                        Mass Roller
+                                    </h3>
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <v-row>
+                                        <v-col cols="6">
+                                            <v-text-field label="Enemies*" v-model="massRoller.enemies" type="number"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <v-text-field label="Dice*" v-model="massRoller.dice" type="number"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <v-text-field label="LCK*" v-model="massRoller.luck" type="number"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <v-text-field label="Successes Required" v-model="massRoller.successesRequired" type="number"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" class="text-center">
+                                            <v-btn @click="rollMassRoller()">
+                                                <v-icon>mdi-dice-6</v-icon>
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>                        
                     </div>
                 </v-col>
                 <v-col cols="12" md="3">
@@ -431,6 +461,7 @@
 
                     <v-card-text>
                         {{generalDialog.text}}
+                        <div v-html="generalDialog.html"></div>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -1052,6 +1083,7 @@
                     type: ''
                 },
                 generalDialog: {
+                    html: '',
                     show: false,
                     text: '',
                     title: ''
@@ -1062,6 +1094,14 @@
                     name: '',
                     value: 0,
                     characteristic: false
+                },
+                massRoller: {
+                    dice: 0,
+                    enemies: 0,
+                    luck: 0,
+                    results: [],
+                    show: false,
+                    successesRequired: 0
                 },
                 moneyModifyAmount: 0,
                 movementTypes: [
@@ -1410,6 +1450,57 @@
                 localStorage.setItem('character', JSON.stringify(character))
             },
             //Local Storage Functions End
+            rollMassRoller() {
+                if (!isNaN(this.massRoller.dice) && !isNaN(this.massRoller.enemies) && !isNaN(this.massRoller.luck)) {
+                    this.generalDialog = {
+                        html: '',
+                        show: false,
+                        text: '',
+                        title: 'Mass Roller'
+                    }
+                    this.massRoller.results = []
+                    for (var i = 0; i < this.massRoller.enemies; i++) {
+                        let result = {
+                            advantage: false,
+                            diceResults: [],
+                            fate: 0,
+                            show: true,
+                            selectedRerolls: [],
+                            succeded: false,
+                            successes: 0,
+                            successesFromIntelligence: 0,
+                            successesFromLuck: 0,
+                            threat: false
+                        }
+                        let rdResult = this.rollDice(this.massRoller.dice)
+
+                        result.diceResults = rdResult.diceResults;
+                        result.successes += +rdResult.successes
+                        result.fate = result.diceResults[0]
+                        if (result.fate == 6) {
+                            result.advantage = true
+                            result.successesFromLuck = this.massRoller.luck
+                            result.successes += +result.successesFromLuck
+                        } else if (result.fate == 1) {
+                            result.threat = true
+                        }
+
+                        if (!isNaN(this.massRoller.successesRequired) && this.massRoller.successesRequired > 0)
+                            result.succeded = result.successes >= this.massRoller.successesRequired
+
+                        this.generalDialog.html += '<div><div><b>Successes: ' + result.successes + '</b></div>' +
+                            '<div> Fate: ' + result.fate + '</div>' +
+                            '<div> Dice Results: [' + result.diceResults.join(', ') + ']</div>';
+
+                        this.massRoller.results.push(result)
+                    }
+                    let successes = this.massRoller.results.filter(x => { return x.succeded }).length
+                    if (successes)
+                        this.generalDialog.html = '<div><b>Enemies Succeded ' + successes + '</b></div>' + this.generalDialog.html
+
+                    this.generalDialog.show = true
+                }
+            },
             moneyAddSubtract(add) {
                 if (add)
                     this.characterSheet.money = +this.characterSheet.money + +this.moneyModifyAmount
