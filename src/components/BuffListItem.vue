@@ -54,6 +54,8 @@
                     label += ' - ' + adjustment.resistanceType
                 if (adjustment.type == 'Movement')
                     label += ' - ' + adjustment.movementType
+                if (adjustment.type == 'Skill')
+                    label += ' - ' + adjustment.skill
                 if (adjustment.type == 'Status') {
                     label += ' - ' + adjustment.status.status.name
                     if (adjustment.status.status.name.includes('{rank}'))

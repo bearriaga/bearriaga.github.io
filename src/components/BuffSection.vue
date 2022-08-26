@@ -62,7 +62,7 @@
                                 <v-select label="Characteristic"
                                           v-model="a.characteristic"
                                           :items="characteristics"
-                                          v-if="a.type == 'CHAR'"
+                                          v-if="a.type == 'CHAR' || a.type == 'Skill'"
                                           :rules="notNull"
                                           required></v-select>
                                 <v-autocomplete label="Movement Type"
@@ -77,6 +77,10 @@
                                                 v-if="a.type == 'Damage Resistance'"
                                                 :rules="notNull"
                                                 required></v-autocomplete>
+                                <v-combobox label="Skill"
+                                                v-model="a.skill"
+                                                :items="skills.map((x) => (x.name))"
+                                                v-if="a.type == 'Skill'"></v-combobox>
                                 <v-text-field label="Amount"
                                               v-model="a.amount"
                                               v-if="a.type != 'Status'"
@@ -138,6 +142,7 @@
             characteristics: Array,
             damageTypes: Array,
             movementTypes: Array,
+            skills: Array,
             statuses: Array
         },
         data() {
@@ -158,6 +163,7 @@
                         characteristic: '',
                         movementType: '',
                         resistanceType: '',
+                        skill: '',
                         status: {
                             currentDuration: 1,
                             currentIsActive: true,
@@ -188,6 +194,7 @@
                             characteristic: '',
                             movementType: '',
                             resistanceType: '',
+                            skill: '',
                             status: {
                                 currentDuration: 1,
                                 currentIsActive: true,
@@ -224,6 +231,7 @@
                     movementType: '',
                     id: new Date().getTime().toString() + 0,
                     resistanceType: '',
+                    skill: '',
                     status: {
                         currentDuration: 1,
                         currentIsActive: true,
@@ -303,6 +311,7 @@
                             movementType: '',
                             id: new Date().getTime().toString() + 0,
                             resistanceType: '',
+                            skill: '',
                             status: {
                                 currentDuration: 1,
                                 currentIsActive: true,

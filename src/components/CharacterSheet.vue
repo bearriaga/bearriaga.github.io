@@ -213,6 +213,7 @@
                                  :characteristics="characteristics"
                                  :damage-types="damageTypes"
                                  :movement-types="movementTypes"
+                                 :skills="characterSheet.skills"
                                  :statuses="statuses"
                                  @addEntryEmit="addEntry($event)"
                                  @deleteEntryEmit="deleteEntry($event)"
@@ -515,22 +516,22 @@
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             cunningAdjustment() {
-                return this.buffAmount({ type: 'CHAR', characteristic: 'cunning' })
+                return this.buffAmount({ type: 'CHAR', propName: 'characteristic', propValue: 'cunning' })
             },
             fitnessAdjustment() {
-                return this.buffAmount({ type: 'CHAR', characteristic: 'fitness' })
+                return this.buffAmount({ type: 'CHAR', propName: 'characteristic', propValue: 'fitness' })
             },
             intelligenceAdjustment() {
-                return this.buffAmount({ type: 'CHAR', characteristic: 'intelligence' })
+                return this.buffAmount({ type: 'CHAR', propName: 'characteristic', propValue: 'intelligence' })
             },
             luckAdjustment() {
-                return this.buffAmount({ type: 'CHAR', characteristic: 'luck' })
+                return this.buffAmount({ type: 'CHAR', propName: 'characteristic', propValue: 'luck' })
             },
             resistanceAdjustment() {
-                return this.buffAmount({ type: 'CHAR', characteristic: 'resistance' })
+                return this.buffAmount({ type: 'CHAR', propName: 'characteristic', propValue: 'resistance' })
             },
             speedAdjustment() {
-                return this.buffAmount({ type: 'CHAR', characteristic: 'speed' })
+                return this.buffAmount({ type: 'CHAR', propName: 'characteristic', propValue: 'speed' })
             },
             //CHAR Adjustments End
             apMax() {
@@ -925,8 +926,32 @@
                 let skills = []
 
                 this.characterSheet.skills.forEach((skill) => {
+                    skill.adjustment = this.buffAmount({ type: 'Skill', propName: 'skill', propValue: skill.name })
                     skill.value = +skill.skillIncreases + +this[skill.characteristic]
-                    skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value
+                    skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value + skill.adjustment
+                    skills.push(skill)
+                })
+
+                let newSkills = []
+                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Skill') && b.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'Skill' && !this.characterSheet.skills.map(x => x.name).includes(a.skill) }).forEach(adjustment => {
+                        if (!newSkills.includes(adjustment.skill))
+                            newSkills.push({ characteristic: adjustment.characteristic, id: adjustment.id, name: adjustment.skill })
+                    })
+                })
+
+                newSkills.forEach(newSkill => {
+                    let skill = {
+                        adjustment: this.buffAmount({ type: 'Skill', propName: newSkill.name }),
+                        characteristic: newSkill.characteristic,
+                        default: false,
+                        id: newSkill.id,
+                        isBuff: true,
+                        name: newSkill.name,
+                        skillIncreases: 0,
+                        value: +this[newSkill.characteristic]
+                    }
+                    skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value + skill.adjustment
                     skills.push(skill)
                 })
 
@@ -1136,15 +1161,14 @@
             //Array CRUD Functions End
             buffAmount(options) {
                 let adj = 0
-                this.characterSheet.buffs.filter(buff => { return buff.isActive }).forEach(buff => {
-                    buff.adjustments.filter(a => {
-                        if (options.type == 'CHAR')
-                            return a.type == 'CHAR' && a.characteristic == options.characteristic
-                        else
-                            return a.type == options.type
-                    }).forEach(a => {
-                        adj += +a.amount
-                    })
+                this.characterSheet.buffs.filter(buff => { return JSON.stringify(buff.adjustments).includes(options.type) && buff.isActive }).forEach(buff => {
+                    adj += +buff.adjustments.filter(a => {
+                        if (options.propName && options.propValue)
+                            return a.type == options.type && a[options.propName] == options.propValue
+                        return a.type == options.type
+                    }).reduce((previousValue, entry) => {
+                        return +previousValue + +entry.amount
+                    }, 0)
                 })
                 return adj
             },
