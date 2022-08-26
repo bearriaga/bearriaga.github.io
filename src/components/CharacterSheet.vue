@@ -1520,7 +1520,7 @@
             },
             specialInputWithEditModal(valueName) {
                 if (valueName == 'initiative') {
-                    this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.speed + +this.characterSheet.initiativeIncreases
+                    this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.speed + +this.characterSheet.initiativeIncreases + +this.buffAmount({ type: 'Initiative' })
                     this.updateInitiative++
                 }
                 if (valueName == 'bp') {
