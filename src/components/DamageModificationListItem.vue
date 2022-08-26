@@ -12,17 +12,17 @@
 
 <script>
     export default {
-        name: 'ResistanceListItem',
+        name: 'DamageModificationListItem',
         props: {
             damageGroups: Array,
             damageTypes: Array,
-            resistance: Object
+            damageModification: Object
         },
         computed: {
             classColor() {
                 let classColor = ''
 
-                if (this.resistance.isBuff) {
+                if (this.damageModification.isBuff) {
                     if (this.amount > 0)
                         classColor += 'text-green'
                     if (this.amount < 0)
@@ -34,7 +34,7 @@
             iconColor() {
                 let color = ''
                 this.damageGroups.forEach((group) => {
-                    if (this.resistance.type == group.name || group.types.some(x => x.name == this.resistance.type)) {
+                    if (this.damageModification.type == group.name || group.types.some(x => x.name == this.damageModification.type)) {
                         color = group.color
                     }
                 })
@@ -43,10 +43,10 @@
             icon() {
                 let icon = ''
                 this.damageGroups.forEach((group) => {
-                    if (this.resistance.type == group.name || group.types.some(x => x.name == this.resistance.type)) {
-                        if (this.resistance.type == group.name)
+                    if (this.damageModification.type == group.name || group.types.some(x => x.name == this.damageModification.type)) {
+                        if (this.damageModification.type == group.name)
                             icon = group.icon
-                        let damageType = group.types.find(type => type.name == this.resistance.type)
+                        let damageType = group.types.find(type => type.name == this.damageModification.type)
                         if (damageType)
                             icon = damageType.icon
                     }
@@ -54,9 +54,9 @@
                 return icon
             },
             label() {
-                let label = this.resistance.type
+                let label = this.damageModification.type
 
-                if (this.resistance.isBuff) {
+                if (this.damageModification.isBuff) {
                     if (this.amount > 0)
                         label += ' - Buff'
                     if (this.amount < 0)
@@ -68,7 +68,7 @@
             wrapperClass() {
                 let wrapperClass = ''
 
-                if (!this.resistance.isBuff)
+                if (!this.damageModification.isBuff)
                     wrapperClass = 'cursorPointer'
 
                 return wrapperClass
@@ -76,13 +76,13 @@
         },
         data() {
             return {
-                amount: this.resistance.amount
+                amount: this.damageModification.amount
             }
         },
         methods: {
             updateDialog() {
-                if (!this.resistance.isBuff)
-                    this.$emit('updateDialogEmit', this.resistance)
+                if (!this.damageModification.isBuff)
+                    this.$emit('updateDialogEmit', this.damageModification)
             }
         }
     }

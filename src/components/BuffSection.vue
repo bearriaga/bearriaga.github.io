@@ -71,12 +71,18 @@
                                                 v-if="a.type == 'Movement'"
                                                 :rules="notNull"
                                                 required></v-autocomplete>
-                                <v-autocomplete label="Resistance Type"
-                                                v-model="a.resistanceType"
+                                <v-autocomplete label="Damage Modification Type"
+                                                v-model="a.damageModification.type"
                                                 :items="damageTypes"
-                                                v-if="a.type == 'Damage Resistance'"
+                                                v-if="a.type == 'Damage Modification'"
                                                 :rules="notNull"
                                                 required></v-autocomplete>
+                                <v-checkbox label="Resistance"
+                                            v-model="a.damageModification.isResistance"
+                                            v-if="a.type == 'Damage Modification'"></v-checkbox>
+                                <v-checkbox label="Vulnerability"
+                                            v-model="a.damageModification.isVulnerability"
+                                            v-if="a.type == 'Damage Modification'"></v-checkbox>
                                 <v-combobox label="Skill"
                                             v-model="a.skill"
                                             :items="skills.map((x) => (x.name))"
@@ -151,7 +157,7 @@
         },
         data() {
             return {
-                buffOptions: ['CHAR', 'Damage Resistance', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
+                buffOptions: ['CHAR', 'Damage Modification', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
                 dialog: {
                     show: false,
                     type: ''
@@ -167,7 +173,7 @@
                         characteristic: '',
                         description: '',
                         movementType: '',
-                        resistanceType: '',
+                        damageModificationType: '',
                         skill: '',
                         status: {
                             currentDuration: 1,
@@ -199,7 +205,7 @@
                             characteristic: '',
                             description: '',
                             movementType: '',
-                            resistanceType: '',
+                            damageModificationType: '',
                             skill: '',
                             status: {
                                 currentDuration: 1,
@@ -237,7 +243,7 @@
                     description: '',
                     movementType: '',
                     id: new Date().getTime().toString() + 0,
-                    resistanceType: '',
+                    damageModificationType: '',
                     skill: '',
                     status: {
                         currentDuration: 1,
@@ -318,7 +324,11 @@
                             description: '',
                             movementType: '',
                             id: new Date().getTime().toString() + 0,
-                            resistanceType: '',
+                            damageModification: {
+                                isVulnerability: false,
+                                isResistance: false,
+                                type: ''
+                            },
                             skill: '',
                             status: {
                                 currentDuration: 1,

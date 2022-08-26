@@ -119,9 +119,11 @@
         "effect": "",
         "name": "",
         "slot": "",
-        "resistances": [
+        "damageModifications": [
           {
             "amount": 1,
+            "isResistance": false,
+            "isVulnerability": false,
             "type": "Physical"
           }
         ]
@@ -177,10 +179,12 @@
         "type": "Flying"
       }
     ],
-    "resistances": [
+    "damageModifications": [
       {
         "amount": 1,
         "id": "1654401755465",
+        "isResistance": false,
+        "isVulnerability": false,
         "type": "Physical"
       }
     ],
@@ -1919,9 +1923,11 @@
         "effect": "",
         "name": "",
         "slot": "",
-        "resistances": [
+        "damageModifications": [
           {
             "amount": 0,
+            "isResistance": false,
+            "isVulnerability": false,
             "type": "Physical"
           }
         ]
@@ -1979,15 +1985,19 @@
       }
     ],
     "movements": [],
-    "resistances": [
+    "damageModifications": [
       {
         "amount": 10,
         "id": "1654401769902",
+        "isResistance": false,
+        "isVulnerability": false,
         "type": "Physical"
       },
       {
         "amount": 10,
         "id": "1654656967612",
+        "isResistance": false,
+        "isVulnerability": false,
         "type": "Dark"
       }
     ],

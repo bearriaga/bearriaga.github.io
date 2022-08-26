@@ -119,12 +119,12 @@
                                                     :property-object="input"></InputWithEditModal>
                             </v-col>
                             <v-col cols="12">
-                                <ResistanceSection :resistances="resistances"
+                                <DamageModificationSection :damage-modifications="damageModifications"
                                                    :damage-groups="damageGroups"
                                                    :damage-types="damageTypes"
                                                    @addEntryEmit="addEntry($event)"
                                                    @deleteEntryEmit="deleteEntry($event)"
-                                                   @updateEntryEmit="updateEntry($event)"></ResistanceSection>
+                                                   @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
                             </v-col>
                         </v-row>
                     </div>
@@ -481,10 +481,10 @@
     import BuffSection from './BuffSection.vue'
     import CharacteristicViewItem from './CharacteristicViewItem.vue'
     import ClassSection from './ClassSection.vue'
+    import DamageModificationSection from './DamageModificationSection.vue'
     import FlawSection from './FlawSection.vue'
     import InputWithEditModal from './InputWithEditModal.vue'
     import MovementSection from './MovementSection.vue'
-    import ResistanceSection from './ResistanceSection.vue'
     import ResourceSection from './ResourceSection.vue'
     import SkillSection from './SkillSection.vue'
     import StatusSection from './StatusSection.vue'
@@ -499,10 +499,10 @@
             BuffSection,
             CharacteristicViewItem,
             ClassSection,
+            DamageModificationSection,
             FlawSection,
             InputWithEditModal,
             MovementSection,
-            ResistanceSection,
             ResourceSection,
             SkillSection,
             StatusSection,
@@ -918,28 +918,30 @@
 
                 return movements
             },
-            resistances() {
-                let resistances = []
+            damageModifications() {
+                let damageModifications = []
 
-                this.characterSheet.resistances.forEach(resistance => {
-                    resistance.key = resistance.id + resistance.amount
-                    resistances.push(resistance)
+                this.characterSheet.damageModifications.forEach(dm => {
+                    dm.key = dm.id + dm.amount
+                    damageModifications.push(dm)
                 })
 
-                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Damage Resistance') && b.isActive }).forEach(buff => {
-                    buff.adjustments.filter(a => { return a.type == 'Damage Resistance' }).forEach(adjustment => {
-                        let resistance = {
+                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Damage Modification') && b.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'Damage Modification' }).forEach(adjustment => {
+                        let damageModification = {
                             amount: adjustment.amount,
                             id: adjustment.id,
                             isBuff: true,
+                            isResistance: adjustment.damageModification.isResistance,
+                            isVulnerability: adjustment.damageModification.isVulnerability,
                             key: adjustment.amount + adjustment.id,
-                            type: adjustment.resistanceType
+                            type: adjustment.damageModification.type
                         }
-                        resistances.push(resistance)
+                        damageModifications.push(damageModification)
                     })
                 })
 
-                return resistances
+                return damageModifications
             },
             resources() {
                 let resources = []
@@ -1420,20 +1422,30 @@
             takeDamage() {
                 var damage = this.damageToTake.amount
                 var type = this.damageToTake.type
-                var resistanceAmount = 0;
+                var damageReductionAmount = 0;
+                var isResistant = false
+                var isVulnerable = false
 
                 this.damageGroups.forEach((group) => {
                     //check if type is in the group.types array
                     if (type == group.name || group.types.some(x => x.name == type)) {
-                        resistanceAmount = this.resistances
+                        let damageModifications = this.damageModifications
                             .filter(x => { return x.type == type || x.type == group.name })
+                        isResistant = damageModifications.some(x => x.isResistance)
+                        isVulnerable = damageModifications.some(x => x.isVulnerability)
+                        damageReductionAmount = damageModifications
                             .reduce((previousValue, entry) => {
                                 return +previousValue + +entry.amount
                             }, 0)
                     }
                 })
 
-                var damageToTake = damage - resistanceAmount
+                var damageToTake = damage - damageReductionAmount
+                if (isResistant)
+                    damageToTake = Math.floor(damageToTake / 2)
+                if (isVulnerable)
+                    damageToTake = damageToTake * 2
+
                 if (damageToTake > 0) {
                     this.characterSheet.hp = this.characterSheet.hp - damageToTake
                     this.updateHP = this.updateHP + 1

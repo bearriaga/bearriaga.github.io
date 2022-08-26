@@ -2,10 +2,10 @@
     <div>
         <template>
             <v-expansion-panels>
-                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
-                            Damage Resistances
+                            Damage Modifications
                             <v-btn icon color="primary"
                                    @click.stop="addDialog">
                                 <v-icon>
@@ -16,11 +16,11 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <v-row>
-                            <v-col cols="6" v-for="resistance in resistances" :key="resistance.key">
-                                <ResistanceListItem :damage-groups="damageGroups"
+                            <v-col cols="6" v-for="damageModification in damageModifications" :key="damageModification.key">
+                                <DamageModificationListItem :damage-groups="damageGroups"
                                                     :damage-types="damageTypes"
-                                                    :resistance="resistance"
-                                                    @updateDialogEmit="updateDialog($event)"></ResistanceListItem>
+                                                    :damage-modification="damageModification"
+                                                    @updateDialogEmit="updateDialog($event)"></DamageModificationListItem>
                             </v-col>
                         </v-row>
                     </v-expansion-panel-content>
@@ -32,23 +32,27 @@
             <v-dialog v-model="dialog.show" width="500">
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
-                        {{dialog.type}} Resistance
+                        {{dialog.type}} Damage Modification
                     </v-card-title>
 
                     <v-card-text>
                         <v-form ref="form"
                                 v-model="valid">
+                            <v-autocomplete label="Type"
+                                            :items="damageTypes"
+                                            v-model="type"
+                                            :rules="textRules"
+                                            required></v-autocomplete>
                             <v-text-field label="Amount"
                                           type="number"
                                           v-model="amount"
                                           ref="amount"
                                           :rules="numberRules"
                                           required></v-text-field>
-                            <v-autocomplete label="Type"
-                                            :items="damageTypes"
-                                            v-model="type"
-                                            :rules="textRules"
-                                            required></v-autocomplete>
+                            <v-checkbox label="Resistance"
+                                        v-model="isResistance"></v-checkbox>
+                            <v-checkbox label="Vulnerability"
+                                        v-model="isVulnerability"></v-checkbox>
                         </v-form>
                     </v-card-text>
 
@@ -72,15 +76,15 @@
 </template>
 
 <script>
-    import ResistanceListItem from './ResistanceListItem.vue'
+    import DamageModificationListItem from './DamageModificationListItem.vue'
 
     export default {
-        name: 'ResistanceSection',
+        name: 'DamageModificationSection',
         components: {
-            ResistanceListItem
+            DamageModificationListItem
         },
         props: {
-            resistances: Array,
+            damageModifications: Array,
             damageGroups: Array,
             damageTypes: Array
         },
@@ -92,10 +96,14 @@
                 },
                 // Input Fields Start
                 amount: 1,
+                isVulnerability: false,
+                isResistance: false,
                 type: '',
-                resistance: {
+                damageModification: {
                     amount: 1,
                     id: '',
+                    isVulnerability: false,
+                    isResistance: false,
                     type: ''
                 },
                 // Input Fields End
@@ -115,44 +123,50 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.resistance = {
+                    this.damageModification = {
                         amount: this.amount,
                         id: null,
+                        isVulnerability: this.isVulnerability,
+                        isResistance: this.isResistance,
                         type: this.type
                     }
-                    this.$emit('addEntryEmit', { arrayName: 'resistances', object: this.resistance })
+                    this.$emit('addEntryEmit', { arrayName: 'damageModifications', object: this.damageModification })
                 }
             },
             deleteEntry() {
                 this.dialog.show = false
-                this.$emit('deleteEntryEmit', { arrayName: 'resistances', object: this.resistance })
+                this.$emit('deleteEntryEmit', { arrayName: 'damageModifications', object: this.damageModification })
             },
             updateEntry() {
-                let resistance = {
+                let damageModification = {
                     amount: this.amount,
-                    id: this.resistance.id,
+                    id: this.damageModification.id,
+                    isVulnerability: this.isVulnerability,
+                    isResistance: this.isResistance,
                     type: this.type
                 }
                 this.dialog.show = false
-                this.$emit('updateEntryEmit', { arrayName: 'resistances', object: resistance })
+                this.$emit('updateEntryEmit', { arrayName: 'damageModifications', object: damageModification })
             },
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
                 this.setDialog('Add')
-                this.resistance = {
+                this.damageModification = {
                     amount: 1,
                     id: '',
+                    isVulnerability: false,
+                    isResistance: false,
                     type: ''
                 }
-                this.setInputs(this.resistance)
+                this.setInputs(this.damageModification)
                 setTimeout(() => {
                     this.$refs.amount.focus()
                 }, 200)
             },
-            updateDialog(resistance) {
-                this.resistance = this.resistances.find(x => { return x.id == resistance.id })
-                this.setInputs(this.resistance)
+            updateDialog(damageModification) {
+                this.damageModification = this.damageModifications.find(x => { return x.id == damageModification.id })
+                this.setInputs(this.damageModification)
                 this.setDialog('Update')
             },
             setDialog(type) {
@@ -161,9 +175,11 @@
                     type: type
                 }
             },
-            setInputs(resistance) {
-                this.amount = resistance.amount
-                this.type = resistance.type
+            setInputs(damageModification) {
+                this.amount = damageModification.amount
+                this.type = damageModification.type
+                this.isVulnerability = damageModification.isVulnerability
+                this.isResistance = damageModification.isResistance
             },
             // Open Dialog Functions End
             validate() {

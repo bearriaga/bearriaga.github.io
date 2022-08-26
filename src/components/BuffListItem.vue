@@ -54,8 +54,8 @@
 
                 if (adjustment.type == 'CHAR')
                     label += ' - ' + adjustment.characteristic
-                if (adjustment.type == 'Damage Resistance')
-                    label += ' - ' + adjustment.resistanceType
+                if (adjustment.type == 'Damage Modification')
+                    label += ' - ' + adjustment.damageModification.type
                 if (adjustment.type == 'Movement')
                     label += ' - ' + adjustment.movementType
                 if (adjustment.type == 'Skill')
