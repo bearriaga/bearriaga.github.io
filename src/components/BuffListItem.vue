@@ -14,7 +14,7 @@
             <div v-for="a, index in adjustments" :key="index">
                 <v-text-field :label="returnLabel(a)"
                               v-model="a.amount"
-                              v-if="a.type != 'Status'"
+                              v-if="a.type != 'Status' && a.type != 'Other'"
                               type="number"
                               disabled></v-text-field>
                 <v-text-field :label="returnLabel(a)"
@@ -22,6 +22,10 @@
                               v-if="a.type == 'Status'"
                               type="number"
                               disabled></v-text-field>
+                <v-textarea label="Other"
+                            v-model="a.description"
+                            v-if="a.type == 'Other'"
+                            auto-grow outlined rows="1" disabled></v-textarea>
             </div>
         </v-form>
     </div>

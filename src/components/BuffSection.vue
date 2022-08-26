@@ -78,12 +78,12 @@
                                                 :rules="notNull"
                                                 required></v-autocomplete>
                                 <v-combobox label="Skill"
-                                                v-model="a.skill"
-                                                :items="skills.map((x) => (x.name))"
-                                                v-if="a.type == 'Skill'"></v-combobox>
+                                            v-model="a.skill"
+                                            :items="skills.map((x) => (x.name))"
+                                            v-if="a.type == 'Skill'"></v-combobox>
                                 <v-text-field label="Amount"
                                               v-model="a.amount"
-                                              v-if="a.type != 'Status'"
+                                              v-if="a.type != 'Status' && a.type != 'Other'"
                                               type="number"></v-text-field>
                                 <!-- Status Fields -->
                                 <v-autocomplete label="Status"
@@ -106,6 +106,10 @@
                                               min="0"
                                               required></v-text-field>
                                 <!-- Status Fields End -->
+                                <v-textarea label="Description"
+                                            v-model="a.description"
+                                            v-if="a.type == 'Other'"
+                                            auto-grow outlined rows="1" required></v-textarea>
                                 <hr v-if="index != (adjustments.length - 1)" />
                             </div>
                         </v-form>
@@ -161,6 +165,7 @@
                     {
                         amount: 0,
                         characteristic: '',
+                        description: '',
                         movementType: '',
                         resistanceType: '',
                         skill: '',
@@ -192,6 +197,7 @@
                         {
                             amount: 0,
                             characteristic: '',
+                            description: '',
                             movementType: '',
                             resistanceType: '',
                             skill: '',
@@ -228,6 +234,7 @@
                 this.adjustments.push({
                     amount: 0,
                     characteristic: '',
+                    description: '',
                     movementType: '',
                     id: new Date().getTime().toString() + 0,
                     resistanceType: '',
@@ -308,6 +315,7 @@
                         {
                             amount: 0,
                             characteristic: '',
+                            description: '',
                             movementType: '',
                             id: new Date().getTime().toString() + 0,
                             resistanceType: '',
