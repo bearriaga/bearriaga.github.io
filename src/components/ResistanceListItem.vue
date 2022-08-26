@@ -1,5 +1,5 @@
 <template>
-    <div @click="updateEntry">
+    <div @click="updateDialog" :class="wrapperClass">
         <v-text-field :label="label"
                       v-model="amount"
                       type="number"
@@ -64,6 +64,14 @@
                 }
 
                 return label
+            },
+            wrapperClass() {
+                let wrapperClass = ''
+
+                if (!this.resistance.isBuff)
+                    wrapperClass = 'cursorPointer'
+
+                return wrapperClass
             }
         },
         data() {
@@ -72,9 +80,9 @@
             }
         },
         methods: {
-            updateEntry() {
+            updateDialog() {
                 if (!this.resistance.isBuff)
-                    this.$emit('updateEntryEmit', this.resistance)
+                    this.$emit('updateDialogEmit', this.resistance)
             }
         }
     }

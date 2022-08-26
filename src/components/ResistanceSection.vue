@@ -20,7 +20,7 @@
                                 <ResistanceListItem :damage-groups="damageGroups"
                                                     :damage-types="damageTypes"
                                                     :resistance="resistance"
-                                                    @updateEntryEmit="updateDialog($event)"></ResistanceListItem>
+                                                    @updateDialogEmit="updateDialog($event)"></ResistanceListItem>
                             </v-col>
                         </v-row>
                     </v-expansion-panel-content>

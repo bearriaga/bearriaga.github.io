@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div @click="openDialog">
+        <div @click="openDialog" :class="wrapperClass">
             <v-progress-linear :value="bar"
                                v-if="propertyObject.bar"
                                height="25"
@@ -94,6 +94,14 @@
         computed: {
             bar() {
                 return this.value * 100 / this.propertyObject.valueMax
+            },
+            wrapperClass() {
+                let wrapperClass = ''
+
+                if (this.propertyObject.disabled)
+                    wrapperClass = 'cursorPointer'
+
+                return wrapperClass
             }
         },
         data() {

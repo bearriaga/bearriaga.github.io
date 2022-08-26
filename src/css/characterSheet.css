@@ -20,6 +20,10 @@
     border-color: green;
 }
 
+.cursorPointer {
+    cursor: pointer;
+}
+
 .text-red input, .text-red label {
     color: red !important;
 }
