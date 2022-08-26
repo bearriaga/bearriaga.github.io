@@ -52,6 +52,8 @@
                     label += ' - ' + adjustment.characteristic
                 if (adjustment.type == 'Damage Resistance')
                     label += ' - ' + adjustment.resistanceType
+                if (adjustment.type == 'Movement')
+                    label += ' - ' + adjustment.movementType
                 if (adjustment.type == 'Status') {
                     label += ' - ' + adjustment.status.status.name
                     if (adjustment.status.status.name.includes('{rank}'))

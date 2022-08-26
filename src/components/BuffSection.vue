@@ -65,6 +65,12 @@
                                           v-if="a.type == 'CHAR'"
                                           :rules="notNull"
                                           required></v-select>
+                                <v-autocomplete label="Movement Type"
+                                                v-model="a.movementType"
+                                                :items="movementTypes"
+                                                v-if="a.type == 'Movement'"
+                                                :rules="notNull"
+                                                required></v-autocomplete>
                                 <v-autocomplete label="Resistance Type"
                                                 v-model="a.resistanceType"
                                                 :items="damageTypes"
@@ -131,6 +137,7 @@
             buffs: Array,
             characteristics: Array,
             damageTypes: Array,
+            movementTypes: Array,
             statuses: Array
         },
         data() {
@@ -149,6 +156,7 @@
                     {
                         amount: 0,
                         characteristic: '',
+                        movementType: '',
                         resistanceType: '',
                         status: {
                             currentDuration: 1,
@@ -178,6 +186,7 @@
                         {
                             amount: 0,
                             characteristic: '',
+                            movementType: '',
                             resistanceType: '',
                             status: {
                                 currentDuration: 1,
@@ -212,6 +221,7 @@
                 this.adjustments.push({
                     amount: 0,
                     characteristic: '',
+                    movementType: '',
                     id: new Date().getTime().toString() + 0,
                     resistanceType: '',
                     status: {
@@ -290,6 +300,7 @@
                         {
                             amount: 0,
                             characteristic: '',
+                            movementType: '',
                             id: new Date().getTime().toString() + 0,
                             resistanceType: '',
                             status: {

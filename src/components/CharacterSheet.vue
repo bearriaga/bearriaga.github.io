@@ -121,7 +121,7 @@
                                          @fillResourcesEmit="fillResources($event)"
                                          @updateEntryEmit="updateEntry($event)"></ResourceSection>
                         <MovementSection :ap="characterSheet.ap"
-                                         :movements="characterSheet.movements"
+                                         :movements="movements"
                                          :movement-types="movementTypes"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
@@ -212,6 +212,7 @@
                     <BuffSection :buffs="buffs"
                                  :characteristics="characteristics"
                                  :damage-types="damageTypes"
+                                 :movement-types="movementTypes"
                                  :statuses="statuses"
                                  @addEntryEmit="addEntry($event)"
                                  @deleteEntryEmit="deleteEntry($event)"
@@ -862,6 +863,28 @@
                         minus: false
                     }
                 ]
+            },
+            movements() {
+                let movements = []
+
+                this.characterSheet.movements.forEach(movement => {
+                    movements.push(movement)
+                })
+
+                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Movement') && b.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'Movement' }).forEach(adjustment => {
+                        let movement = {
+                            amount: adjustment.amount,
+                            description: buff.name + ' Buff Movement',
+                            id: adjustment.id,
+                            isBuff: true,
+                            type: adjustment.movementType
+                        }
+                        movements.push(movement)
+                    })
+                })
+
+                return movements
             },
             resistances() {
                 let resistances = []

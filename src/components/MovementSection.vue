@@ -44,11 +44,11 @@
                                           ref="amount"
                                           :rules="numberRules"
                                           required></v-text-field>
-                            <v-select label="Type"
+                            <v-autocomplete label="Type"
                                       v-model="type"
                                       :items="movementTypes"
                                       :rules="textRules"
-                                      required></v-select>
+                                      required></v-autocomplete>
                             <v-text-field label="Description"
                                           v-model="description"></v-text-field>
                         </v-form>

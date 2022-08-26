@@ -6,14 +6,23 @@
                     <v-icon color="error"
                             slot="append"
                             @click="subtractAP()">{{apIcon}}</v-icon>
-                    <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
+                    <v-icon color="error"
+                            slot="append"
+                            @click="deleteEntry"
+                            v-if="!movement.isBuff">mdi-delete</v-icon>
                 </v-text-field>
             </v-col>
             <v-col cols="6">
-                <v-select label="Type" :items="movementTypes" v-model="type"></v-select>
+                <v-autocomplete label="Type"
+                                :items="movementTypes"
+                                v-model="type"
+                                :disabled="movement.isBuff"></v-autocomplete>
             </v-col>
             <v-col cols="12">
-                <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+                <v-textarea label="Description"
+                            v-model="description"
+                            :disabled="movement.isBuff"
+                            auto-grow outlined rows="1"></v-textarea>
             </v-col>
         </v-row>
     </div>
@@ -54,13 +63,15 @@
                 this.$emit('subtractAP', 1)
             },
             updateEntry() {
-                var object = {
-                    amount: this.amount,
-                    description: this.description,
-                    id: this.movement.id,
-                    type: this.type
+                if (!this.movement.isBuff) {
+                    var object = {
+                        amount: this.amount,
+                        description: this.description,
+                        id: this.movement.id,
+                        type: this.type
+                    }
+                    this.$emit('updateEntryEmit', object)
                 }
-                this.$emit('updateEntryEmit', object)
             }
         },
         watch: {
