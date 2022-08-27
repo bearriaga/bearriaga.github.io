@@ -1507,8 +1507,8 @@
                         this.massRoller.results.push(result)
                     }
                     let successes = this.massRoller.results.filter(x => { return x.succeded }).length
-                    if (successes)
-                        this.generalDialog.html = '<div><b>Enemies Succeded ' + successes + '</b></div>' + this.generalDialog.html
+                    if (!isNaN(this.massRoller.successesRequired) && this.massRoller.successesRequired > 0)
+                        this.generalDialog.html = '<div><b>Enemies Succeded: ' + successes + '</b></div>' + this.generalDialog.html
 
                     this.generalDialog.show = true
                 }

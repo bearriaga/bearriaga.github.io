@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\css"
+    "\\src\\components"
   ],
-  "SelectedNode": "\\src\\main.js",
+  "SelectedNode": "\\src\\components\\DamageModificationSection.vue",
   "PreviewInSolutionExplorer": false
 }
