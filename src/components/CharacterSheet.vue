@@ -909,7 +909,7 @@
                         let movement = {
                             amount: adjustment.amount,
                             description: buff.name + ' Buff Movement',
-                            id: adjustment.id,
+                            id: adjustment.id + JSON.stringify(buff),
                             isBuff: true,
                             type: adjustment.movementType
                         }
@@ -1684,6 +1684,7 @@
             },
             updateBuffEntry(object) {
                 this.updateStatus++
+                this.updateBuff++
                 this.updateEntry(object)
             },
             updateBuffStatus(object) {

@@ -289,8 +289,6 @@
             },
             updateEntryBypass(buff) {
                 this.buff = buff
-                this.setInputs(this.buff)
-                this.setObject()
                 this.$emit('updateEntryBypassEmit', { arrayName: 'buffs', object: this.buff })
             },
             setObject() {
