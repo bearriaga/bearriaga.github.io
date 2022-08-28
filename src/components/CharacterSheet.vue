@@ -88,7 +88,7 @@
                                     </v-row>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
-                        </v-expansion-panels>                        
+                        </v-expansion-panels>
                     </div>
                 </v-col>
                 <v-col cols="12" md="3">
@@ -120,11 +120,11 @@
                             </v-col>
                             <v-col cols="12">
                                 <DamageModificationSection :damage-modifications="damageModifications"
-                                                   :damage-groups="damageGroups"
-                                                   :damage-types="damageTypes"
-                                                   @addEntryEmit="addEntry($event)"
-                                                   @deleteEntryEmit="deleteEntry($event)"
-                                                   @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
+                                                           :damage-groups="damageGroups"
+                                                           :damage-types="damageTypes"
+                                                           @addEntryEmit="addEntry($event)"
+                                                           @deleteEntryEmit="deleteEntry($event)"
+                                                           @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
                             </v-col>
                         </v-row>
                     </div>
@@ -259,7 +259,7 @@
                     <v-btn color="primary" @click="loadCharacter">Load Character</v-btn>
                 </v-col>
                 <v-col>
-                    <v-btn color="primary" @click="saveCharacter">Save Character</v-btn>
+                    <v-btn color="primary" @click="saveCharacterConfirm">Save Character</v-btn>
                 </v-col>
             </v-row>
         </form>
@@ -467,6 +467,7 @@
                     <v-divider></v-divider>
 
                     <v-card-actions class="justify-end">
+                        <v-btn v-if="generalDialog.buttonText && generalDialog.buttonType" @click="generalDialogFunction">{{generalDialog.buttonText}}</v-btn>
                         <v-btn color="secondary"
                                @click="generalDialog.show = false">Close</v-btn>
                     </v-card-actions>
@@ -1085,6 +1086,8 @@
                     type: ''
                 },
                 generalDialog: {
+                    buttonText: '',
+                    buttonType: '',
                     html: '',
                     show: false,
                     text: '',
@@ -1412,6 +1415,14 @@
                 })
                 this.updateCR++
             },
+            generalDialogFunction() {
+                if (this.generalDialog.buttonType) {
+                    if (this.generalDialog.buttonType == 'confirmCharacter') {
+                        this.saveCharacter()
+                        this.generalDialog.show = false
+                    }
+                }
+            },
             //Health Funcitons
             heal() {
                 if (this.damageToTake.amount > 0) {
@@ -1453,18 +1464,48 @@
             },
             //Health Funcitons End
             //Local Storage Functions
+            isCharacterSet() {
+                let character = localStorage.getItem('character')
+                return (character != null)
+            },
             loadCharacter() {
-                this.characterSheet = JSON.parse(localStorage.getItem('character'))
+                if (this.isCharacterSet())
+                    this.characterSheet = JSON.parse(localStorage.getItem('character'))
+                else
+                    this.generalDialog = {
+                        buttonText: '',
+                        buttonType: '',
+                        html: '',
+                        show: true,
+                        text: 'No Character saved in Local Storage',
+                        title: 'Error Loading Character'
+                    }
+            },
+            saveCharacterConfirm() {
+                if (!this.isCharacterSet())
+                    this.saveCharacter()
+                else
+                    this.generalDialog = {
+                        buttonText: 'Overwrite Character',
+                        buttonType: 'confirmCharacter',
+                        html: '',
+                        show: true,
+                        text: 'Overwrite Character saved in Local Storage',
+                        title: 'Confirm Character Overwrite'
+                    }
             },
             saveCharacter() {
-                var character = this.characterSheet
-                character.id = new Date().getTime().toString()
+                let character = JSON.parse(JSON.stringify(this.characterSheet))
+                if (character.id == 'default')
+                    character.id = new Date().getTime().toString()
                 localStorage.setItem('character', JSON.stringify(character))
             },
             //Local Storage Functions End
             rollMassRoller() {
                 if (!isNaN(this.massRoller.dice) && !isNaN(this.massRoller.enemies) && !isNaN(this.massRoller.luck)) {
                     this.generalDialog = {
+                        buttonText: '',
+                        buttonType: '',
                         html: '',
                         show: false,
                         text: '',
