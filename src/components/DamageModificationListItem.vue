@@ -5,6 +5,8 @@
                       type="number"
                       :class="classColor"
                       disabled>
+            <v-icon v-if="damageModification.isVulnerability" color="error" slot="append">mdi-shield-remove</v-icon>
+            <v-icon v-if="damageModification.isResistance" color="success" slot="append">mdi-shield-plus</v-icon>
             <v-icon :color="iconColor" slot="append">{{icon}}</v-icon>
         </v-text-field>
     </div>

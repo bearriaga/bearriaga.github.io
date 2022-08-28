@@ -47,7 +47,6 @@
                                           type="number"
                                           v-model="amount"
                                           ref="amount"
-                                          :rules="numberRules"
                                           required></v-text-field>
                             <v-checkbox label="Resistance"
                                         v-model="isResistance"></v-checkbox>
@@ -110,9 +109,6 @@
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
-                ],
-                numberRules: [
-                    v => !isNaN(+v) && v != 0 || 'Field may not be empty and value must not be 0'
                 ],
                 valid: false
                 // Validation End
