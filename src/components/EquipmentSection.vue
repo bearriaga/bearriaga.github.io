@@ -138,7 +138,13 @@
                                             </v-expansion-panel-header>
                                             <v-expansion-panel-content>
                                                 <v-row v-for="(d, index) in ability.damage" :key="index">
-                                                    <v-col cols="12">
+                                                    <v-col cols="12" md="6">
+                                                        <v-text-field label="Dice" type="number" v-model="d.dice"></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="12" md="6">
+                                                        <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="12" md="6">
                                                         <v-autocomplete label="Type *"
                                                                         :items="damageTypes"
                                                                         v-model="d.type"
@@ -147,11 +153,8 @@
                                                             <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
                                                         </v-autocomplete>
                                                     </v-col>
-                                                    <v-col cols="12" md="6">
-                                                        <v-text-field label="Dice" type="number" v-model="d.dice"></v-text-field>
-                                                    </v-col>
-                                                    <v-col cols="12" md="6">
-                                                        <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
+                                                    <v-col cols="6" v-if="d.type != 'Healing' && (ability.characteristic || ability.isMeleeAttack)">
+                                                        <v-checkbox label="Add CHAR to damage" v-model="d.addChar" @click.stop="addChar(index)"></v-checkbox>
                                                     </v-col>
                                                 </v-row>
                                             </v-expansion-panel-content>
@@ -343,6 +346,12 @@
             }
         },
         methods: {
+            addChar(index) {
+                this.ability.damage.forEach((damage) => {
+                    damage.addChar = false
+                })
+                this.ability.damage[index].addChar = true
+            },
             addDamage() {
                 this.ability.damage.push({
                     dice: 0,
