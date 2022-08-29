@@ -17,25 +17,19 @@
                     <v-text-field label="Size" v-model="characterSheet.size" type="number"></v-text-field>
                 </v-col>
                 <v-col cols="4" md="2">
-                    <v-row>
-                        <v-col cols="10">
-                            <v-text-field label="Level" v-model="characterSheet.level" disabled></v-text-field>
-                        </v-col>
-                        <v-col cols="2">
-                            <v-tooltip top>
-                                <template v-slot:activator="{ on }">
-                                    <v-icon v-on="on" color="primary" dark>
-                                        mdi-information
-                                    </v-icon>
-                                </template>
-                                <span>Level = XP Earned / 500 round down</span>
-                            </v-tooltip>
-
-                        </v-col>
-                    </v-row>
+                    <v-text-field label="Level" v-model="characterSheet.level" disabled readonly>
+                        <v-tooltip top slot="append">
+                            <template v-slot:activator="{ on }">
+                                <v-icon v-on="on" color="primary" dark>
+                                    mdi-information
+                                </v-icon>
+                            </template>
+                            <span>Level = XP Earned / 500 round down</span>
+                        </v-tooltip>
+                    </v-text-field>
                 </v-col>
                 <v-col cols="4" md="2">
-                    <v-text-field label="Movement in Squares" v-model="characterSheet.movement" type="number" disabled></v-text-field>
+                    <v-text-field label="Movement in Squares (Land Speed)" v-model="characterSheet.movement" type="number" disabled></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
