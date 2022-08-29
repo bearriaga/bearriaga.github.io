@@ -589,8 +589,22 @@
                 return +this.resistance + +this.characterSheet.bpIncreases
             },
             dcToHit() {
-                let adj = this.buffAmount({ type: 'DC to Hit' })
-                let dc = 3 + +this.characterSheet.dcToHitIncreases + +adj
+                let adj = 0
+                this.characterSheet.buffs.filter(buff => { return JSON.stringify(buff.adjustments).includes('DC to Hit') && buff.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'DC to Hit' }).forEach(adjustment => {
+                        if (adjustment.amount > adj)
+                            adj = adjustment.amount
+                    })
+                })
+                let armor = 0
+                let shield = 0
+                this.characterSheet.equipment.filter(equipment => { return equipment.isActive && equipment.armorType && equipment.dcToHit > 0 }).forEach(equipment => {
+                    if (equipment.armorType == 'armor' && equipment.dcToHit > armor)
+                        armor = equipment.dcToHit
+                    if (equipment.armorType == 'shield' && equipment.dcToHit > shield)
+                        shield = equipment.dcToHit
+                })
+                let dc = 3 + +this.characterSheet.dcToHitIncreases + +adj + +armor + +shield
                 return (dc > 0) ? dc : 0
             },
             hpMax() {
