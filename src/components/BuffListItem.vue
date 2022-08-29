@@ -7,7 +7,7 @@
                 <v-icon slot="append" color="primary"
                         @click="updateDialog">mdi-pen</v-icon>
                 <v-icon slot="append" color="error"
-                        @click="deleteEntry">mdi-delete</v-icon>
+                        @click="deleteDialog">mdi-delete</v-icon>
             </v-text-field>
             <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
             <h3 class="text-center">Adjustments</h3>
@@ -46,8 +46,8 @@
             }
         },
         methods: {
-            deleteEntry() {
-                this.$emit('deleteEntryEmit', this.buff)
+            deleteDialog() {
+                this.$emit('deleteDialogEmit', this.buff)
             },
             returnLabel(adjustment) {
                 let label = adjustment.type

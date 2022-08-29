@@ -16,6 +16,7 @@
     export default {
         name: 'DamageModificationListItem',
         props: {
+            canEdit: Boolean,
             damageGroups: Array,
             damageTypes: Array,
             damageModification: Object
@@ -70,7 +71,7 @@
             wrapperClass() {
                 let wrapperClass = ''
 
-                if (!this.damageModification.isBuff)
+                if (this.canEdit && !this.damageModification.isBuff)
                     wrapperClass = 'cursorPointer'
 
                 return wrapperClass
@@ -83,7 +84,7 @@
         },
         methods: {
             updateDialog() {
-                if (!this.damageModification.isBuff)
+                if (this.canEdit && !this.damageModification.isBuff)
                     this.$emit('updateDialogEmit', this.damageModification)
             }
         }

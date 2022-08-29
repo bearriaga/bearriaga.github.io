@@ -32,16 +32,13 @@
                                     </h3>
                                 </v-expansion-panel-header>
                                 <v-expansion-panel-content>
-                                    <div v-for="d in damage" :key="d.dice + d.flat + d.percentage + d.type">
+                                    <div v-for="d in damage" :key="d.dice + d.flat + d.type">
                                         <v-row>
                                             <v-col cols="12" md="6" v-if="d.dice">
                                                 <v-text-field label="Dice" v-model="d.dice"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" md="6" v-if="d.flat">
                                                 <v-text-field label="Flat" type="for" v-model="d.flat"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" md="6" v-if="d.percentage">
-                                                <v-text-field label="Percentage" v-model="d.percentage"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" md="6">
                                                 <v-text-field label="Type" v-model="d.type"></v-text-field>

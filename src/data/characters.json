@@ -156,18 +156,12 @@
         "unlocked": true
       }
     ],
+    "equipment": [],
     "flaws": [
       {
         "amount": 0,
         "description": "",
         "id": "1655066475111",
-        "name": ""
-      }
-    ],
-    "items": [
-      {
-        "amount": 0,
-        "description": "",
         "name": ""
       }
     ],
@@ -1706,7 +1700,6 @@
             "addChar": true,
             "dice": "2",
             "flat": 0,
-            "percentage": 0,
             "type": "Slashing",
             "key": "0true"
           }
@@ -1763,7 +1756,6 @@
             "addChar": true,
             "dice": "2",
             "flat": 0,
-            "percentage": 0,
             "type": "Piercing",
             "key": "0true"
           }
@@ -1820,7 +1812,6 @@
             "addChar": true,
             "dice": "1",
             "flat": 0,
-            "percentage": 0,
             "type": "Slashing",
             "key": "0true"
           }
@@ -1877,7 +1868,6 @@
             "addChar": true,
             "dice": "2",
             "flat": 0,
-            "percentage": 0,
             "type": "Piercing",
             "key": "0true"
           },
@@ -1885,7 +1875,6 @@
             "addChar": false,
             "dice": "2",
             "flat": 0,
-            "percentage": 0,
             "type": "Toxic",
             "key": "1false"
           }
@@ -1969,19 +1958,13 @@
         "unlocked": true
       }
     ],
+    "equipment": [],
     "flaws": [
       {
         "amount": 80,
         "description": "It is hard for me to turn down anyone in authority.",
         "id": "1655066483036",
         "name": "Subservient"
-      }
-    ],
-    "items": [
-      {
-        "amount": 0,
-        "description": "",
-        "name": ""
       }
     ],
     "movements": [],

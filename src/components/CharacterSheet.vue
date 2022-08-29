@@ -119,7 +119,8 @@
                                                     :property-object="input"></InputWithEditModal>
                             </v-col>
                             <v-col cols="12">
-                                <DamageModificationSection :damage-modifications="damageModifications"
+                                <DamageModificationSection :can-edit="true"
+                                                           :damage-modifications="damageModifications"
                                                            :damage-groups="damageGroups"
                                                            :damage-types="damageTypes"
                                                            @addEntryEmit="addEntry($event)"
@@ -249,6 +250,15 @@
                                  @deleteEntryEmit="deleteEntry($event)"
                                  @updateEntryEmit="updateBuffEntry($event)"
                                  @updateEntryBypassEmit="updateEntry($event)"></BuffSection>
+                </v-col>
+                <v-col cols="12" md="3">
+                    <EquipmentSection :characteristics="characteristics"
+                                      :character-equipment="characterEquipment"
+                                      :damage-groups="damageGroups"
+                                      :damage-types="damageTypes"
+                                      @addEntryEmit="addEntry($event)"
+                                      @deleteEntryEmit="deleteEntry($event)"
+                                      @updateEntryEmit="updateEntry($event)"></EquipmentSection>
                 </v-col>
             </v-row>
             <v-row>
@@ -483,6 +493,7 @@
     import CharacteristicViewItem from './CharacteristicViewItem.vue'
     import ClassSection from './ClassSection.vue'
     import DamageModificationSection from './DamageModificationSection.vue'
+    import EquipmentSection from './EquipmentSection.vue'
     import FlawSection from './FlawSection.vue'
     import InputWithEditModal from './InputWithEditModal.vue'
     import MovementSection from './MovementSection.vue'
@@ -501,6 +512,7 @@
             CharacteristicViewItem,
             ClassSection,
             DamageModificationSection,
+            EquipmentSection,
             FlawSection,
             InputWithEditModal,
             MovementSection,
@@ -663,6 +675,28 @@
                 })
 
                 return buffs
+            },
+            characterEquipment() {
+                let equipment = []
+
+                this.characterSheet.equipment.forEach(e => {
+                    e.key = e.id +
+                        e.armorType +
+                        e.ap +
+                        e.characteristic +
+                        e.dcToHit +
+                        e.description +
+                        e.handedness +
+                        e.isWeapon +
+                        e.name +
+                        e.range +
+                        e.slot +
+                        JSON.stringify(e.damage) +
+                        JSON.stringify(e.damageModifications);
+                    equipment.push(e)
+                })
+
+                return equipment
             },
             characterStatuses() {
                 let statuses = []

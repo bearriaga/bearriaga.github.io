@@ -17,7 +17,7 @@
                     <v-expansion-panel-content>
                         <BuffListItem v-for="b in buffs" :key="b.key"
                                       :buff="b"
-                                      @deleteEntryEmit="deleteDialog($event)"
+                                      @deleteDialogEmit="deleteDialog($event)"
                                       @updateDialogEmit="updateDialog($event)"
                                       @updateEntryEmit="updateEntryBypass($event)"></BuffListItem>
                     </v-expansion-panel-content>
@@ -71,6 +71,7 @@
                                                 v-if="a.type == 'Movement'"
                                                 :rules="notNull"
                                                 required></v-autocomplete>
+                                <!-- Damage Modification Fields -->
                                 <v-autocomplete label="Damage Modification Type"
                                                 v-model="a.damageModification.type"
                                                 :items="damageTypes"
@@ -83,6 +84,7 @@
                                 <v-checkbox label="Vulnerability"
                                             v-model="a.damageModification.isVulnerability"
                                             v-if="a.type == 'Damage Modification'"></v-checkbox>
+                                <!-- Damage Modification Fields End -->
                                 <v-combobox label="Skill"
                                             v-model="a.skill"
                                             :items="skills.map((x) => (x.name))"
@@ -287,9 +289,8 @@
                     this.$emit('updateEntryEmit', { arrayName: 'buffs', object: this.buff })
                 }
             },
-            updateEntryBypass(buff) {
-                this.buff = buff
-                this.$emit('updateEntryBypassEmit', { arrayName: 'buffs', object: this.buff })
+            updateEntryBypass(object) {
+                this.$emit('updateEntryBypassEmit', { arrayName: 'buffs', object: object })
             },
             setObject() {
                 this.buff.description = this.description
