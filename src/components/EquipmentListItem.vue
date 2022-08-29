@@ -31,19 +31,14 @@
                                        :damage-types="damageTypes"
                                        @addEntryEmit="addEntry($event)"
                                        @deleteEntryEmit="deleteEntry($event)"
-                                       @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
-
-            <v-text-field label="Handedness"
-                          type="number"
-                          v-model="handedness"
-                          v-if="handedness"></v-text-field>
+                                       @updateEntryEmit="updateEntry($event)"></DamageModificationSection>            
             <v-combobox label="Body Slot"
                         :items="slots"
                         v-model="slot"
                         v-if="slot"></v-combobox>
             <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" v-if="description"></v-textarea>
             <AbilityLIstItem v-if="!equipment.isItem && isActive"
-                             :ability="ability"
+                             :ability="equipment.ability"
                              :ap="ap"
                              :can-edit="false"
                              :characteristics="characteristics"
@@ -78,31 +73,6 @@
         computed: {},
         data() {
             return {
-                ability: {
-                    apCost: this.equipment.apCost,
-                    areaOfEffect: '',
-                    boughtForFree: true,
-                    color: {},
-                    classResource: '',
-                    crCost: 0,
-                    characteristic: this.equipment.characteristic,
-                    description: '',
-                    duration: '',
-                    handedness: this.equipment.handedness,
-                    id: '',
-                    inClass: true,
-                    isAbilityArray: false,
-                    isMeleeAttack: true,
-                    maxSizeCategoryOfMass: 0,
-                    name: this.equipment.name,
-                    physMeta: 'Physical',
-                    range: this.equipment.range,
-                    successes: 0,
-                    xpCost: 0,
-                    components: [],
-                    damage: this.equipment.damage,
-                    subEffects: []
-                },
                 amount: this.equipment.amount,
                 dcToHit: this.equipment.dcToHit,
                 description: this.equipment.description,
@@ -116,7 +86,6 @@
                 this.$emit('deleteDialogEmit', this.equipment)
             },
             rollAbility(ability) {
-                console.log(ability)
                 this.$emit('rollAbilityEmit', ability)
             },
             rollDamage(ability) {

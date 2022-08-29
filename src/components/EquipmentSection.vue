@@ -69,9 +69,9 @@
                             <template v-if="!isItem">
                                 <v-text-field label="AP Cost"
                                               type="number"
-                                              v-model="apCost"></v-text-field>
+                                              v-model="ability.apCost"></v-text-field>
                                 <v-select label="Characteristic"
-                                          v-model="characteristic"
+                                          v-model="ability.characteristic"
                                           :items="characteristics"></v-select>
                                 <!-- Armor Inputs -->
                                 <v-checkbox label="Is Armor/Shield" v-model="isArmorShied"></v-checkbox>
@@ -119,7 +119,7 @@
                                 <!-- Weapon Inputs -->
                                 <v-checkbox label="Is Weapon" v-model="isWeapon"></v-checkbox>
                                 <v-text-field label="Range"
-                                              v-model="range"
+                                              v-model="ability.range"
                                               type="number"
                                               v-if="isWeapon"></v-text-field>
                                 <template v-if="isWeapon">
@@ -137,7 +137,7 @@
                                                 </h3>
                                             </v-expansion-panel-header>
                                             <v-expansion-panel-content>
-                                                <v-row v-for="(d, index) in damage" :key="index">
+                                                <v-row v-for="(d, index) in ability.damage" :key="index">
                                                     <v-col cols="12">
                                                         <v-autocomplete label="Type *"
                                                                         :items="damageTypes"
@@ -158,10 +158,39 @@
                                         </v-expansion-panel>
                                     </v-expansion-panels>
                                 </template>
+                                <!-- Additional Ability Inputs -->
+                                <template>
+                                    <v-expansion-panels>
+                                        <v-expansion-panel>
+                                            <v-expansion-panel-header>
+                                                <h3 class="text-center">Additional Ability Inputs</h3>
+                                            </v-expansion-panel-header>
+                                            <v-expansion-panel-content>
+
+                                                <v-select label="Class Resource"
+                                                          :items="resources.map((x) => ({ value: x, text: x.name }))"
+                                                          v-model="ability.classResource"
+                                                          clearable></v-select>
+                                                <v-text-field label="Class Resource Cost" type="number" v-model="ability.crCost"></v-text-field>
+                                                <v-text-field label="Duration" v-model="ability.duration"></v-text-field>
+                                                <v-checkbox label="Is Melee Attack" v-model="ability.isMeleeAttack"></v-checkbox>
+                                                <v-text-field label="Area of Effect" v-model="ability.areaOfEffect"></v-text-field>
+                                                <v-select label="Physical/Meta *"
+                                                          :items="physMetaOptions"
+                                                          v-model="ability.physMeta"
+                                                          :rules="textRules"
+                                                          required></v-select>
+                                                <v-text-field label="Successes" type="number" v-model="ability.successes"></v-text-field>
+                                                <v-text-field label="Handedness"
+                                                              type="number"
+                                                              v-model="ability.handedness"></v-text-field>
+
+                                            </v-expansion-panel-content>
+                                        </v-expansion-panel>
+                                    </v-expansion-panels>
+                                </template>
+                                <!-- Additional Ability Inputs End -->
                                 <!-- Weapon Inputs End -->
-                                <v-text-field label="Handedness"
-                                              type="number"
-                                              v-model="handedness"></v-text-field>
                                 <v-combobox label="Body Slot"
                                             :items="slots"
                                             v-model="slot"></v-combobox>
@@ -209,42 +238,83 @@
                 // Input Fields Start
                 equipment: {
                     amount: 1,
-                    apCost: 3,
-                    characteristic: '',
                     dcToHit: 1,
                     description: '',
-                    handedness: 0,
                     isActive: true,
                     isArmorShield: false,
                     isItem: false,
                     isWeapon: false,
                     name: '',
-                    range: 0,
                     slot: '',
-                    damage: [],
+                    ability: {
+                        apCost: 3,
+                        areaOfEffect: 'Single Target',
+                        boughtForFree: true,
+                        color: {},
+                        classResource: '',
+                        crCost: 0,
+                        characteristic: '',
+                        description: '',
+                        duration: 'Instant',
+                        handedness: 0,
+                        id: '',
+                        inClass: true,
+                        isAbilityArray: false,
+                        isMeleeAttack: true,
+                        maxSizeCategoryOfMass: 0,
+                        name: '',
+                        physMeta: 'Physical',
+                        range: 0,
+                        successes: 0,
+                        xpCost: 0,
+                        components: [],
+                        damage: [],
+                        subEffects: []
+                    },
                     damageModifications: []
                 },
                 amount: 1,
-                apCost: 3,
-                characteristic: '',
                 dcToHit: 1,
                 description: '',
-                handedness: 0,
                 id: null,
                 isActive: true,
                 isArmorShied: false,
                 isItem: false,
                 isWeapon: false,
                 name: '',
-                range: 0,
                 slot: '',
-                damage: [],
+                ability: {
+                    apCost: 3,
+                    areaOfEffect: 'Single Target',
+                    boughtForFree: true,
+                    color: {},
+                    classResource: '',
+                    crCost: 0,
+                    characteristic: '',
+                    description: '',
+                    duration: 'Instant',
+                    handedness: 0,
+                    id: '',
+                    inClass: true,
+                    isAbilityArray: false,
+                    isMeleeAttack: true,
+                    maxSizeCategoryOfMass: 0,
+                    name: '',
+                    physMeta: 'Physical',
+                    range: 0,
+                    successes: 0,
+                    xpCost: 0,
+                    components: [],
+                    damage: [],
+                    subEffects: []
+                },
                 damageModifications: [],
                 // Input Fields End
                 dialog: {
                     show: false,
                     type: ''
                 },
+                physMetaOptions: ['Physical', 'Meta', 'Both'],
                 rollAbility(ability) {
                     this.$emit('rollAbilityEmit', ability)
                 },
@@ -274,7 +344,7 @@
         },
         methods: {
             addDamage() {
-                this.damage.push({
+                this.ability.damage.push({
                     dice: 0,
                     flat: 0,
                     type: ''
@@ -290,7 +360,7 @@
                 })
             },
             deleteDamage(i) {
-                this.damage.splice(i, 1)
+                this.ability.damage.splice(i, 1)
             },
             deleteDamageModification(i) {
                 this.damageModifications.splice(i, 1)
@@ -321,22 +391,19 @@
             setObject() {
                 this.equipment = {
                     amount: this.amount,
-                    apCost: this.apCost,
-                    characteristic: this.characteristic,
                     dcToHit: this.dcToHit,
                     description: this.description,
-                    handedness: this.handedness,
                     id: this.id,
                     isActive: this.isActive,
                     isArmorShied: this.isArmorShied,
                     isItem: this.isItem,
                     isWeapon: this.isWeapon,
                     name: this.name,
-                    range: this.range,
                     slot: this.slot,
-                    damage: this.damage,
+                    ability: this.ability,
                     damageModifications: this.damageModifications
                 }
+                this.equipment.ability.name = this.name
             },
             // CRUD Functions End
             // Open Dialog Functions
@@ -344,19 +411,39 @@
                 this.setDialog('Add')
                 this.equipment = {
                     amount: 1,
-                    apCost: 3,
-                    characteristic: '',
                     dcToHit: 1,
                     description: '',
-                    handedness: 0,
                     isActive: true,
                     isArmorShied: false,
                     isItem: false,
                     isWeapon: false,
                     name: '',
-                    range: 0,
                     slot: '',
-                    damage: [],
+                    ability: {
+                        apCost: 3,
+                        areaOfEffect: 'Single Target',
+                        boughtForFree: true,
+                        color: {},
+                        classResource: '',
+                        crCost: 0,
+                        characteristic: '',
+                        description: '',
+                        duration: 'Instant',
+                        handedness: 0,
+                        id: '',
+                        inClass: true,
+                        isAbilityArray: false,
+                        isMeleeAttack: true,
+                        maxSizeCategoryOfMass: 0,
+                        name: '',
+                        physMeta: 'Physical',
+                        range: 0,
+                        successes: 0,
+                        xpCost: 0,
+                        components: [],
+                        damage: [],
+                        subEffects: []
+                    },
                     damageModifications: []
                 }
                 this.setInputs(this.equipment)
@@ -381,20 +468,16 @@
             },
             setInputs(equipment) {
                 this.amount = equipment.amount
-                this.apCost = equipment.apCost
-                this.characteristic = equipment.characteristic
                 this.dcToHit = equipment.dcToHit
                 this.description = equipment.description
-                this.handedness = equipment.handedness
                 this.id = equipment.id
                 this.isActive = equipment.isActive
                 this.isArmorShied = equipment.isArmorShied
                 this.isItem = equipment.isItem
                 this.isWeapon = equipment.isWeapon
                 this.name = equipment.name
-                this.range = equipment.range
                 this.slot = equipment.slot
-                this.damage = equipment.damage
+                this.ability = equipment.ability
                 this.damageModifications = equipment.damageModifications
             },
             // Open Dialog Functions End
