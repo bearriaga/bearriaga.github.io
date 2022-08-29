@@ -13,7 +13,7 @@
                         </v-btn>
                     </h3>
                 </v-expansion-panel-header>
-                <v-expansion-panel-content>
+                <v-expansion-panel-content class="equipmentExpansionContent">
                     <EquipmentListItem v-for="e in characterEquipment" :key="e.key"
                                        :ap="ap"
                                        :characteristics="characteristics"
