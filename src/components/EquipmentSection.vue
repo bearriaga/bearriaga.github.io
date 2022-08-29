@@ -55,104 +55,117 @@
                                           v-model="amount"
                                           min="0"
                                           required></v-text-field>
-                            <v-text-field label="AP Cost"
-                                          type="number"
-                                          v-model="apCost"></v-text-field>
-                            <v-select label="Characteristic"
-                                      v-model="characteristic"
-                                      :items="characteristics"></v-select>
-                            <!-- Armor Inputs -->
-                            <v-checkbox label="Is Armor/Shield" v-model="isArmorShied"></v-checkbox>
-                            <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="isArmorShied"></v-text-field>
-                            <!-- Armor Inputs End -->
-                            <!-- Damage Modification Inputs -->
-                            <template>
-                                <v-expansion-panels>
-                                    <v-expansion-panel>
-                                        <v-expansion-panel-header>
-                                            <h3 class="text-center">
-                                                Damage Modifications
-                                                <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
-                                                       @click.stop="addDamageModification">
-                                                    <v-icon>
-                                                        mdi-plus
-                                                    </v-icon>
-                                                </v-btn>
-                                            </h3>
-                                        </v-expansion-panel-header>
-                                        <v-expansion-panel-content>
-                                            <div v-for="(dm, index) in damageModifications" :key="index">
-                                                <v-autocomplete label="Damage Modification Type"
-                                                                v-model="dm.type"
-                                                                :items="damageTypes"
-                                                                :rules="notNull"
-                                                                required>
-                                                    <v-icon color="error" slot="append" @click="deleteDamageModification(index)">mdi-delete</v-icon>
-                                                </v-autocomplete>
-                                                <v-text-field label="Amount"
-                                                              type="number"
-                                                              v-model="dm.amount"
-                                                              ref="amount"
-                                                              required></v-text-field>
-                                                <v-checkbox label="Resistance"
-                                                            v-model="dm.isResistance"></v-checkbox>
-                                                <v-checkbox label="Vulnerability"
-                                                            v-model="dm.isVulnerability"></v-checkbox>
-                                            </div>
-                                        </v-expansion-panel-content>
-                                    </v-expansion-panel>
-                                </v-expansion-panels>
-                            </template>
-                            <!-- Damage Modification Inputs End -->
-                            <!-- Weapon Inputs -->
-                            <v-checkbox label="Is Weapon" v-model="isWeapon"></v-checkbox>
-                            <v-text-field label="Range"
-                                          v-model="range"
-                                          type="number"
-                                          v-if="isWeapon"></v-text-field>
-                            <template v-if="isWeapon">
-                                <v-expansion-panels>
-                                    <v-expansion-panel>
-                                        <v-expansion-panel-header>
-                                            <h3 class="text-center">
-                                                Damage
-                                                <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
-                                                       @click.stop="addDamage">
-                                                    <v-icon>
-                                                        mdi-plus
-                                                    </v-icon>
-                                                </v-btn>
-                                            </h3>
-                                        </v-expansion-panel-header>
-                                        <v-expansion-panel-content>
-                                            <v-row v-for="(d, index) in damage" :key="index">
-                                                <v-col cols="12">
-                                                    <v-autocomplete label="Type *"
+                            <v-checkbox label="Is Item"
+                                        v-model="isItem">
+                                <v-tooltip top slot="prepend">
+                                    <template v-slot:activator="{ on }">
+                                        <v-icon v-on="on" color="primary" dark>
+                                            mdi-information
+                                        </v-icon>
+                                    </template>
+                                    <span>Limits fields and hides ability section</span>
+                                </v-tooltip>
+                            </v-checkbox>
+                            <template v-if="!isItem">
+                                <v-text-field label="AP Cost"
+                                              type="number"
+                                              v-model="apCost"></v-text-field>
+                                <v-select label="Characteristic"
+                                          v-model="characteristic"
+                                          :items="characteristics"></v-select>
+                                <!-- Armor Inputs -->
+                                <v-checkbox label="Is Armor/Shield" v-model="isArmorShied"></v-checkbox>
+                                <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="isArmorShied"></v-text-field>
+                                <!-- Armor Inputs End -->
+                                <!-- Damage Modification Inputs -->
+                                <template>
+                                    <v-expansion-panels>
+                                        <v-expansion-panel>
+                                            <v-expansion-panel-header>
+                                                <h3 class="text-center">
+                                                    Damage Modifications
+                                                    <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
+                                                           @click.stop="addDamageModification">
+                                                        <v-icon>
+                                                            mdi-plus
+                                                        </v-icon>
+                                                    </v-btn>
+                                                </h3>
+                                            </v-expansion-panel-header>
+                                            <v-expansion-panel-content>
+                                                <div v-for="(dm, index) in damageModifications" :key="index">
+                                                    <v-autocomplete label="Damage Modification Type"
+                                                                    v-model="dm.type"
                                                                     :items="damageTypes"
-                                                                    v-model="d.type"
-                                                                    :rules="textRules"
+                                                                    :rules="notNull"
                                                                     required>
-                                                        <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
+                                                        <v-icon color="error" slot="append" @click="deleteDamageModification(index)">mdi-delete</v-icon>
                                                     </v-autocomplete>
-                                                </v-col>
-                                                <v-col cols="12" md="6">
-                                                    <v-text-field label="Dice" type="number" v-model="d.dice"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" md="6">
-                                                    <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
-                                                </v-col>
-                                            </v-row>
-                                        </v-expansion-panel-content>
-                                    </v-expansion-panel>
-                                </v-expansion-panels>
+                                                    <v-text-field label="Amount"
+                                                                  type="number"
+                                                                  v-model="dm.amount"
+                                                                  ref="amount"
+                                                                  required></v-text-field>
+                                                    <v-checkbox label="Resistance"
+                                                                v-model="dm.isResistance"></v-checkbox>
+                                                    <v-checkbox label="Vulnerability"
+                                                                v-model="dm.isVulnerability"></v-checkbox>
+                                                </div>
+                                            </v-expansion-panel-content>
+                                        </v-expansion-panel>
+                                    </v-expansion-panels>
+                                </template>
+                                <!-- Damage Modification Inputs End -->
+                                <!-- Weapon Inputs -->
+                                <v-checkbox label="Is Weapon" v-model="isWeapon"></v-checkbox>
+                                <v-text-field label="Range"
+                                              v-model="range"
+                                              type="number"
+                                              v-if="isWeapon"></v-text-field>
+                                <template v-if="isWeapon">
+                                    <v-expansion-panels>
+                                        <v-expansion-panel>
+                                            <v-expansion-panel-header>
+                                                <h3 class="text-center">
+                                                    Damage
+                                                    <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
+                                                           @click.stop="addDamage">
+                                                        <v-icon>
+                                                            mdi-plus
+                                                        </v-icon>
+                                                    </v-btn>
+                                                </h3>
+                                            </v-expansion-panel-header>
+                                            <v-expansion-panel-content>
+                                                <v-row v-for="(d, index) in damage" :key="index">
+                                                    <v-col cols="12">
+                                                        <v-autocomplete label="Type *"
+                                                                        :items="damageTypes"
+                                                                        v-model="d.type"
+                                                                        :rules="textRules"
+                                                                        required>
+                                                            <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
+                                                        </v-autocomplete>
+                                                    </v-col>
+                                                    <v-col cols="12" md="6">
+                                                        <v-text-field label="Dice" type="number" v-model="d.dice"></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="12" md="6">
+                                                        <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
+                                                    </v-col>
+                                                </v-row>
+                                            </v-expansion-panel-content>
+                                        </v-expansion-panel>
+                                    </v-expansion-panels>
+                                </template>
+                                <!-- Weapon Inputs End -->
+                                <v-text-field label="Handedness"
+                                              type="number"
+                                              v-model="handedness"></v-text-field>
+                                <v-combobox label="Body Slot"
+                                            :items="slots"
+                                            v-model="slot"></v-combobox>
                             </template>
-                            <!-- Weapon Inputs End -->
-                            <v-text-field label="Handedness"
-                                          type="number"
-                                          v-model="handedness"></v-text-field>
-                            <v-combobox label="Body Slot"
-                                        :items="slots"
-                                        v-model="slot"></v-combobox>
                             <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                         </v-form>
                     </v-card-text>
@@ -203,6 +216,7 @@
                     handedness: 0,
                     isActive: true,
                     isArmorShield: false,
+                    isItem: false,
                     isWeapon: false,
                     name: '',
                     range: 0,
@@ -219,6 +233,7 @@
                 id: null,
                 isActive: true,
                 isArmorShied: false,
+                isItem: false,
                 isWeapon: false,
                 name: '',
                 range: 0,
@@ -284,6 +299,7 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
+                    this.isActive = !this.isItem
                     this.setObject()
                     this.$emit('addEntryEmit', { arrayName: 'equipment', object: this.equipment })
                 }
@@ -313,6 +329,7 @@
                     id: this.id,
                     isActive: this.isActive,
                     isArmorShied: this.isArmorShied,
+                    isItem: this.isItem,
                     isWeapon: this.isWeapon,
                     name: this.name,
                     range: this.range,
@@ -334,6 +351,7 @@
                     handedness: 0,
                     isActive: true,
                     isArmorShied: false,
+                    isItem: false,
                     isWeapon: false,
                     name: '',
                     range: 0,
@@ -364,13 +382,14 @@
             setInputs(equipment) {
                 this.amount = equipment.amount
                 this.apCost = equipment.apCost
-                this.characteristic = equipment.characteristic,
-                    this.dcToHit = equipment.dcToHit
+                this.characteristic = equipment.characteristic
+                this.dcToHit = equipment.dcToHit
                 this.description = equipment.description
                 this.handedness = equipment.handedness
                 this.id = equipment.id
                 this.isActive = equipment.isActive
                 this.isArmorShied = equipment.isArmorShied
+                this.isItem = equipment.isItem
                 this.isWeapon = equipment.isWeapon
                 this.name = equipment.name
                 this.range = equipment.range

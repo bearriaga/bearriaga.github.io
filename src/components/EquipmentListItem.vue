@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3 class="text-center">{{name}}</h3>
+        <h3 class="text-center">{{equipment.name}}</h3>
         <v-row>
             <v-col class="text-center">
                 <v-btn color="primary" @click="updateDialog">
@@ -14,23 +14,24 @@
             </v-col>
         </v-row>
         <v-checkbox label="Is Equipped"
-                    v-model="isActive"></v-checkbox>
+                    v-model="isActive"
+                    v-if="!equipment.isItem"></v-checkbox>
         <v-text-field label="Amount"
                       type="number"
                       v-model="amount"
                       min="0"></v-text-field>
         <v-form disabled>
-            <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="isArmorShied">
+            <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="equipment.isArmorShied">
                 <v-icon slot="append">mdi-shield</v-icon>
             </v-text-field>
-            <DamageModificationSection v-if="damageModifications.length > 0"
+            <DamageModificationSection v-if="equipment.damageModifications.length > 0"
                                        :can-edit="false"
-                                       :damage-modifications="damageModifications"
+                                       :damage-modifications="equipment.damageModifications"
                                        :damage-groups="damageGroups"
                                        :damage-types="damageTypes"
                                        @addEntryEmit="addEntry($event)"
                                        @deleteEntryEmit="deleteEntry($event)"
-                                       @updateEntryEmit="updateEntry($event)"></DamageModificationSection>            
+                                       @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
 
             <v-text-field label="Handedness"
                           type="number"
@@ -40,8 +41,9 @@
                         :items="slots"
                         v-model="slot"
                         v-if="slot"></v-combobox>
-            <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
-            <AbilityLIstItem :ability="ability"
+            <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" v-if="description"></v-textarea>
+            <AbilityLIstItem v-if="!equipment.isItem && isActive"
+                             :ability="ability"
                              :ap="ap"
                              :can-edit="false"
                              :characteristics="characteristics"
@@ -102,19 +104,11 @@
                     subEffects: []
                 },
                 amount: this.equipment.amount,
-                apCost: this.equipment.apCost,
-                characteristic: this.equipment.characteristic,
                 dcToHit: this.equipment.dcToHit,
                 description: this.equipment.description,
                 handedness: this.equipment.handedness,
                 isActive: this.equipment.isActive,
-                isArmorShied: this.equipment.isArmorShied,
-                isWeapon: this.equipment.isWeapon,
-                name: this.equipment.name,
-                range: this.equipment.range,
-                slot: this.equipment.slot,
-                damage: this.equipment.damage,
-                damageModifications: this.equipment.damageModifications,
+                slot: this.equipment.slot
             }
         },
         methods: {
@@ -129,23 +123,9 @@
                 this.$emit('rollDamageEmit', ability)
             },
             setObject() {
-                let equipment = {
-                    amount: this.amount,
-                    apCost: this.apCost,
-                    characteristic: this.characteristic,
-                    dcToHit: this.dcToHit,
-                    description: this.description,
-                    handedness: this.handedness,
-                    id: this.equipment.id,
-                    isActive: this.isActive,
-                    isArmorShied: this.isArmorShied,
-                    isWeapon: this.isWeapon,
-                    name: this.name,
-                    range: this.range,
-                    slot: this.slot,
-                    damage: JSON.parse(JSON.stringify(this.damage)),
-                    damageModifications: JSON.parse(JSON.stringify(this.damageModifications))
-                }
+                let equipment = JSON.parse(JSON.stringify(this.equipment))
+                equipment.isActive = this.isActive
+                equipment.amount = this.amount
                 return equipment
             },
             subtractAP(apCost) {

@@ -699,6 +699,7 @@
                         e.description +
                         e.handedness +
                         e.isArmorShied +
+                        e.isItem +
                         e.isWeapon +
                         e.name +
                         e.range +
