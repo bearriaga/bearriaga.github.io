@@ -15,11 +15,18 @@
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                     <EquipmentListItem v-for="e in characterEquipment" :key="e.key"
+                                       :ap="ap"
+                                       :characteristics="characteristics"
                                        :damage-groups="damageGroups"
                                        :damage-types="damageTypes"
                                        :equipment="e"
+                                       :resources="resources"
                                        :slots="slots"
                                        @deleteDialogEmit="deleteDialog($event)"
+                                       @rollAbilityEmit="rollAbility($event)"
+                                       @rollDamageEmit="rollDamage($event)"
+                                       @subtractAPEmit="subtractAP($event)"
+                                       @subtractCREmit="subtractCR($event)"
                                        @updateDialogEmit="updateDialog($event)"
                                        @updateEntryEmit="updateEntryBypass($event)"></EquipmentListItem>
                     <v-row>
@@ -50,17 +57,13 @@
                                           required></v-text-field>
                             <v-text-field label="AP Cost"
                                           type="number"
-                                          v-model="ap"></v-text-field>
+                                          v-model="apCost"></v-text-field>
                             <v-select label="Characteristic"
                                       v-model="characteristic"
                                       :items="characteristics"></v-select>
                             <!-- Armor Inputs -->
-                            <v-radio-group v-model="armorType">
-                                <v-radio label="Not armor/shield" value=""></v-radio>
-                                <v-radio label="Is Armor" value="armor"></v-radio>
-                                <v-radio label="Is Shield" value="shield"></v-radio>
-                            </v-radio-group>
-                            <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="armorType"></v-text-field>
+                            <v-checkbox label="Is Armor/Shield" v-model="isArmorShied"></v-checkbox>
+                            <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="isArmorShied"></v-text-field>
                             <!-- Armor Inputs End -->
                             <!-- Damage Modification Inputs -->
                             <template>
@@ -103,6 +106,10 @@
                             <!-- Damage Modification Inputs End -->
                             <!-- Weapon Inputs -->
                             <v-checkbox label="Is Weapon" v-model="isWeapon"></v-checkbox>
+                            <v-text-field label="Range"
+                                          v-model="range"
+                                          type="number"
+                                          v-if="isWeapon"></v-text-field>
                             <template v-if="isWeapon">
                                 <v-expansion-panels>
                                     <v-expansion-panel>
@@ -177,23 +184,25 @@
             EquipmentListItem
         },
         props: {
+            ap: Number,
             characteristics: Array,
             characterEquipment: Array,
             damageGroups: Array,
-            damageTypes: Array
+            damageTypes: Array,
+            resources: Array
         },
         data() {
             return {
                 // Input Fields Start
                 equipment: {
                     amount: 1,
-                    armorType: '',
-                    ap: 0,
+                    apCost: 3,
                     characteristic: '',
                     dcToHit: 1,
                     description: '',
                     handedness: 0,
                     isActive: true,
+                    isArmorShield: false,
                     isWeapon: false,
                     name: '',
                     range: 0,
@@ -202,14 +211,14 @@
                     damageModifications: []
                 },
                 amount: 1,
-                armorType: '',
-                ap: 0,
+                apCost: 3,
                 characteristic: '',
                 dcToHit: 1,
                 description: '',
                 handedness: 0,
                 id: null,
                 isActive: true,
+                isArmorShied: false,
                 isWeapon: false,
                 name: '',
                 range: 0,
@@ -221,7 +230,19 @@
                     show: false,
                     type: ''
                 },
+                rollAbility(ability) {
+                    this.$emit('rollAbilityEmit', ability)
+                },
+                rollDamage(ability) {
+                    this.$emit('rollDamageEmit', ability)
+                },
                 slots: ['Head', 'Body', 'Arms', 'Legs', 'Boots', 'Clothes'],
+                subtractAP(apCost) {
+                    this.$emit('subtractAPEmit', apCost)
+                },
+                subtractCR(crCost) {
+                    this.$emit('subtractCREmit', crCost)
+                },
                 // Validation Start
                 numberRules: [
                     v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
@@ -284,14 +305,14 @@
             setObject() {
                 this.equipment = {
                     amount: this.amount,
-                    armorType: this.armorType,
-                    ap: this.ap,
+                    apCost: this.apCost,
                     characteristic: this.characteristic,
                     dcToHit: this.dcToHit,
                     description: this.description,
                     handedness: this.handedness,
                     id: this.id,
                     isActive: this.isActive,
+                    isArmorShied: this.isArmorShied,
                     isWeapon: this.isWeapon,
                     name: this.name,
                     range: this.range,
@@ -306,13 +327,13 @@
                 this.setDialog('Add')
                 this.equipment = {
                     amount: 1,
-                    armorType: '',
-                    ap: 0,
+                    apCost: 3,
                     characteristic: '',
                     dcToHit: 1,
                     description: '',
                     handedness: 0,
                     isActive: true,
+                    isArmorShied: false,
                     isWeapon: false,
                     name: '',
                     range: 0,
@@ -342,14 +363,14 @@
             },
             setInputs(equipment) {
                 this.amount = equipment.amount
-                this.armorType = equipment.armorType
-                this.ap = equipment.ap
+                this.apCost = equipment.apCost
                 this.characteristic = equipment.characteristic,
-                this.dcToHit = equipment.dcToHit
+                    this.dcToHit = equipment.dcToHit
                 this.description = equipment.description
                 this.handedness = equipment.handedness
                 this.id = equipment.id
                 this.isActive = equipment.isActive
+                this.isArmorShied = equipment.isArmorShied
                 this.isWeapon = equipment.isWeapon
                 this.name = equipment.name
                 this.range = equipment.range

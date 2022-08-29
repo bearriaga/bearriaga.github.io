@@ -252,12 +252,18 @@
                                  @updateEntryBypassEmit="updateEntry($event)"></BuffSection>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <EquipmentSection :characteristics="characteristics"
+                    <EquipmentSection :ap="characterSheet.ap"
+                                      :characteristics="characteristics"
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
+                                      :resources="resources"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
+                                      @rollAbilityEmit="rollAbility($event)"
+                                      @rollDamageEmit="rollDamage($event)"
+                                      @subtractAPEmit="subtractAP($event)"
+                                      @subtractCREmit="subtractCR($event)"
                                       @updateEntryEmit="updateEntry($event)"
                                       @updateEntryBypassEmit="updateEntry($event)"></EquipmentSection>
                 </v-col>
@@ -596,15 +602,12 @@
                             adj = adjustment.amount
                     })
                 })
-                let armor = 0
-                let shield = 0
-                this.characterSheet.equipment.filter(equipment => { return equipment.isActive && equipment.armorType && equipment.dcToHit > 0 }).forEach(equipment => {
-                    if (equipment.armorType == 'armor' && equipment.dcToHit > armor)
-                        armor = equipment.dcToHit
-                    if (equipment.armorType == 'shield' && equipment.dcToHit > shield)
-                        shield = equipment.dcToHit
+                let armorShield = 0
+                this.characterSheet.equipment.filter(equipment => { return equipment.isActive && equipment.isArmorShied && equipment.dcToHit > 0 }).forEach(equipment => {
+                    if (equipment.dcToHit > armorShield)
+                        armorShield = equipment.dcToHit
                 })
-                let dc = 3 + +this.characterSheet.dcToHitIncreases + +adj + +armor + +shield
+                let dc = 3 + +this.characterSheet.dcToHitIncreases + +adj + +armorShield
                 return (dc > 0) ? dc : 0
             },
             hpMax() {
@@ -696,12 +699,12 @@
 
                 this.characterSheet.equipment.forEach(e => {
                     e.key = e.id +
-                        e.armorType +
-                        e.ap +
+                        e.apCost +
                         e.characteristic +
                         e.dcToHit +
                         e.description +
                         e.handedness +
+                        e.isArmorShied +
                         e.isWeapon +
                         e.name +
                         e.range +

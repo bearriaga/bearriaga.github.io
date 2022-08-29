@@ -19,6 +19,7 @@
                             <v-col cols="12" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
                                 <AbilityListItem :ability="ability"
                                                  :ap="ap"
+                                                 :can-edit="true"
                                                  :characteristics="characteristics"
                                                  :damage-types="damageTypes"
                                                  :resources="resources"

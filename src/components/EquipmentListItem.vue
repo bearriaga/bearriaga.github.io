@@ -20,14 +20,7 @@
                       v-model="amount"
                       min="0"></v-text-field>
         <v-form disabled>
-            <v-text-field label="AP Cost"
-                          type="number"
-                          v-model="ap"
-                          v-if="ap"></v-text-field>
-            <v-text-field label="Characteristic"
-                          v-model="characteristic"
-                          v-if="characteristic"></v-text-field>
-            <v-text-field :label="dcToHitLabel" v-model="dcToHit" type="number" v-if="armorType">
+            <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="isArmorShied">
                 <v-icon slot="append">mdi-shield</v-icon>
             </v-text-field>
             <DamageModificationSection v-if="damageModifications.length > 0"
@@ -37,34 +30,7 @@
                                        :damage-types="damageTypes"
                                        @addEntryEmit="addEntry($event)"
                                        @deleteEntryEmit="deleteEntry($event)"
-                                       @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
-
-            <template v-if="damage.length > 0 && isWeapon">
-                <v-expansion-panels>
-                    <v-expansion-panel v-for="(item,i) in 1" :key="i">
-                        <v-expansion-panel-header>
-                            <h3 class="text-center">
-                                Damage
-                            </h3>
-                        </v-expansion-panel-header>
-                        <v-expansion-panel-content>
-                            <div v-for="d in damage" :key="d.dice + d.flat + d.type">
-                                <v-row>
-                                    <v-col cols="12" md="6" v-if="d.dice > 0">
-                                        <v-text-field label="Dice" v-model="d.dice" disabled></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" md="6" v-if="d.flat > 0">
-                                        <v-text-field label="Flat" type="for" v-model="d.flat" disabled></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" md="6">
-                                        <v-text-field label="Type" v-model="d.type"></v-text-field>
-                                    </v-col>
-                                </v-row>
-                            </div>
-                        </v-expansion-panel-content>
-                    </v-expansion-panel>
-                </v-expansion-panels>
-            </template>
+                                       @updateEntryEmit="updateEntry($event)"></DamageModificationSection>            
 
             <v-text-field label="Handedness"
                           type="number"
@@ -75,45 +41,74 @@
                         v-model="slot"
                         v-if="slot"></v-combobox>
             <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+            <AbilityLIstItem :ability="ability"
+                             :ap="ap"
+                             :can-edit="false"
+                             :characteristics="characteristics"
+                             :resources="resources"
+                             @rollAbilityEmit="rollAbility($event)"
+                             @rollDamageEmit="rollDamage($event)"
+                             @subtractAP="subtractAP($event)"
+                             @subtractCR="subtractCR($event)"></AbilityLIstItem>
         </v-form>
     </div>
 </template>
 
 <script>
+    import AbilityLIstItem from './AbilityListItem.vue'
     import DamageModificationSection from './DamageModificationSection.vue'
 
     export default {
         name: 'EquipmentListItem',
         components: {
+            AbilityLIstItem,
             DamageModificationSection
         },
         props: {
+            ap: Number,
+            characteristics: Array,
             damageGroups: Array,
             damageTypes: Array,
             equipment: Object,
+            resources: Array,
             slots: Array
         },
-        computed: {
-            dcToHitLabel() {
-                let label = ''
-                if (this.equipment.armorType)
-                    if (this.equipment.armorType == 'armor')
-                        label = 'Armor'
-                if (this.equipment.armorType == 'shield')
-                    label = 'Shield'
-                return label + ' - DC to Hit'
-            }
-        },
+        computed: {},
         data() {
             return {
+                ability: {
+                    apCost: this.equipment.apCost,
+                    areaOfEffect: '',
+                    boughtForFree: true,
+                    color: {},
+                    classResource: '',
+                    crCost: 0,
+                    characteristic: this.equipment.characteristic,
+                    description: '',
+                    duration: '',
+                    handedness: this.equipment.handedness,
+                    id: '',
+                    inClass: true,
+                    isAbilityArray: false,
+                    isMeleeAttack: true,
+                    maxSizeCategoryOfMass: 0,
+                    name: this.equipment.name,
+                    physMeta: 'Physical',
+                    range: this.equipment.range,
+                    successes: 0,
+                    xpCost: 0,
+                    components: [],
+                    damage: this.equipment.damage,
+                    subEffects: []
+                },
                 amount: this.equipment.amount,
-                armorType: this.equipment.armorType,
-                ap: this.equipment.ap,
+                apCost: this.equipment.apCost,
                 characteristic: this.equipment.characteristic,
                 dcToHit: this.equipment.dcToHit,
                 description: this.equipment.description,
                 handedness: this.equipment.handedness,
                 isActive: this.equipment.isActive,
+                isArmorShied: this.equipment.isArmorShied,
                 isWeapon: this.equipment.isWeapon,
                 name: this.equipment.name,
                 range: this.equipment.range,
@@ -126,17 +121,24 @@
             deleteDialog() {
                 this.$emit('deleteDialogEmit', this.equipment)
             },
+            rollAbility(ability) {
+                console.log(ability)
+                this.$emit('rollAbilityEmit', ability)
+            },
+            rollDamage(ability) {
+                this.$emit('rollDamageEmit', ability)
+            },
             setObject() {
                 let equipment = {
                     amount: this.amount,
-                    armorType: this.armorType,
-                    ap: this.ap,
+                    apCost: this.apCost,
                     characteristic: this.characteristic,
                     dcToHit: this.dcToHit,
                     description: this.description,
                     handedness: this.handedness,
                     id: this.equipment.id,
                     isActive: this.isActive,
+                    isArmorShied: this.isArmorShied,
                     isWeapon: this.isWeapon,
                     name: this.name,
                     range: this.range,
@@ -146,7 +148,13 @@
                 }
                 return equipment
             },
-            updateDialog() {                
+            subtractAP(apCost) {
+                this.$emit('subtractAPEmit', apCost)
+            },
+            subtractCR(crCost) {
+                this.$emit('subtractCREmit', crCost)
+            },
+            updateDialog() {
                 this.$emit('updateDialogEmit', this.setObject())
             },
             updateEntry() {

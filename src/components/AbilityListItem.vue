@@ -1,12 +1,21 @@
 <template>
-    <div>
-        <v-form class="mainColumn elevation-3" v-bind:style="{ borderColor: (color)? color.hexa : 'black' }">
-            <v-row>
+    <div class="mainColumn elevation-3" v-bind:style="{ borderColor: (color)? color.hexa : 'black' }">
+        <v-row v-if="canEdit">
+            <v-col class="text-center">
+                <v-btn color="primary" @click="updateDialog(ability)">
+                    <v-icon>mdi-pen</v-icon>
+                </v-btn>
+            </v-col>
+            <v-col class="text-center">
+                <v-btn color="error" @click="deleteEntry(ability)">
+                    <v-icon>mdi-delete</v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+        <v-form disabled>
+            <v-row>                
                 <v-col cols="6">
-                    <v-text-field label="Name" v-model="name">
-                        <v-icon color="primary" slot="append" @click="updateDialog(ability)">mdi-pen</v-icon>
-                        <v-icon color="error" slot="append" @click="deleteEntry(ability)">mdi-delete</v-icon>
-                    </v-text-field>
+                    <v-text-field label="Name" v-model="name"></v-text-field>
                 </v-col>
                 <v-col cols="6">
                     <v-text-field label="XP" v-model="xpCost"></v-text-field>
@@ -15,9 +24,7 @@
                     <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                 </v-col>
                 <v-col cols="12" v-if="characteristic">
-                    <v-select label="Characteristic"
-                              :items="characteristics"
-                              v-model="characteristic">
+                    <v-select label="Characteristic" :items="characteristics" v-model="characteristic" readonly>
                         <v-icon slot="prepend" @click="rollAbility(ability)">mdi-dice-6</v-icon>
                     </v-select>
                 </v-col>
@@ -51,7 +58,7 @@
                     </template>
                 </v-col>
                 <v-col cols="4">
-                    <v-text-field label="AP Cost" type="number" v-model="apCost">
+                    <v-text-field label="AP Cost" type="number" v-model="apCost" readonly>
                         <v-icon :color="apIconColor"
                                 slot="append"
                                 @click="subtractAP(apCost)"
@@ -59,7 +66,7 @@
                     </v-text-field>
                 </v-col>
                 <v-col cols="4" v-if="crCost && classResource">
-                    <v-text-field :label="classResource.name" type="number" v-model="crCost">
+                    <v-text-field :label="classResource.name" type="number" v-model="crCost" readonly>
                         <v-icon :color="crcIconColor"
                                 slot="append"
                                 @click="subtractCR({crCost:crCost, classResource: classResource})">{{crcIcon}}</v-icon>
@@ -136,6 +143,7 @@
         props: {
             ability: Object,
             ap: Number,
+            canEdit: Boolean,
             characteristics: Array,
             damageTypes: Array,
             resources: Array
