@@ -66,12 +66,15 @@
                         label += ' - Debuff'
                 }
 
+                if (this.damageModification.isEquipment)
+                    label += ' - Equipment'
+
                 return label
             },
             wrapperClass() {
                 let wrapperClass = ''
 
-                if (this.canEdit && !this.damageModification.isBuff)
+                if (this.canEdit && !this.damageModification.isBuff && !this.damageModification.isEquipment)
                     wrapperClass = 'cursorPointer'
 
                 return wrapperClass
@@ -84,7 +87,7 @@
         },
         methods: {
             updateDialog() {
-                if (this.canEdit && !this.damageModification.isBuff)
+                if (this.canEdit && !this.damageModification.isBuff && !this.damageModification.isEquipment)
                     this.$emit('updateDialogEmit', this.damageModification)
             }
         }

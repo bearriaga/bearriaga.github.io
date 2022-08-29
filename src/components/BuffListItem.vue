@@ -69,7 +69,7 @@
 
                 return label
             },
-            updateDialog() {
+            setObject() {
                 let buff = {
                     description: this.description,
                     isActive: this.isActive,
@@ -77,17 +77,13 @@
                     name: this.name,
                     adjustments: JSON.parse(JSON.stringify(this.adjustments)),
                 }
-                this.$emit('updateDialogEmit', buff)
+                return buff
+            },
+            updateDialog() {                
+                this.$emit('updateDialogEmit', this.setObject())
             },
             updateEntry() {
-                let buff = {
-                    description: this.description,
-                    isActive: this.isActive,
-                    id: this.buff.id,
-                    name: this.name,
-                    adjustments: JSON.parse(JSON.stringify(this.adjustments)),
-                }
-                this.$emit('updateEntryEmit', buff)
+                this.$emit('updateEntryEmit', this.setObject())
             },
             updateStatuses() {
                 if (this.isActive && JSON.stringify(this.adjustments).includes('Status')) {

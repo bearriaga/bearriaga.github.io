@@ -258,7 +258,8 @@
                                       :damage-types="damageTypes"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
-                                      @updateEntryEmit="updateEntry($event)"></EquipmentSection>
+                                      @updateEntryEmit="updateEntry($event)"
+                                      @updateEntryBypassEmit="updateEntry($event)"></EquipmentSection>
                 </v-col>
             </v-row>
             <v-row>
@@ -959,6 +960,13 @@
                 this.characterSheet.damageModifications.forEach(dm => {
                     dm.key = dm.id + dm.amount
                     damageModifications.push(dm)
+                })
+
+                this.characterSheet.equipment.filter(equipment => { return equipment.isActive && equipment.damageModifications.length > 0 }).forEach(equipment => {
+                    equipment.damageModifications.forEach((dm, index) => {
+                        dm.key = index + JSON.stringify(dm)
+                        damageModifications.push(dm)
+                    })
                 })
 
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Damage Modification') && b.isActive }).forEach(buff => {

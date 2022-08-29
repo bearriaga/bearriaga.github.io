@@ -1,22 +1,32 @@
 <template>
     <div>
-        <v-form>
-            <v-checkbox label="Is Equipped"
-                        v-model="isActive"></v-checkbox>
-            <v-text-field label="Name"
-                          v-model="name">
-                <v-icon slot="append" color="primary"
-                        @click="updateDialog">mdi-pen</v-icon>
-                <v-icon slot="append" color="error"
-                        @click="deleteDialog">mdi-delete</v-icon>
-            </v-text-field>
-            <v-text-field label="Amount"
-                          type="number"
-                          v-model="amount"></v-text-field>
+        <h3 class="text-center">{{name}}</h3>
+        <v-row>
+            <v-col class="text-center">
+                <v-btn color="primary" @click="updateDialog">
+                    <v-icon>mdi-pen</v-icon>
+                </v-btn>
+            </v-col>
+            <v-col class="text-center">
+                <v-btn color="error" @click="deleteDialog">
+                    <v-icon>mdi-delete</v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+        <v-checkbox label="Is Equipped"
+                    v-model="isActive"></v-checkbox>
+        <v-text-field label="Amount"
+                      type="number"
+                      v-model="amount"
+                      min="0"></v-text-field>
+        <v-form disabled>
             <v-text-field label="AP Cost"
                           type="number"
                           v-model="ap"
                           v-if="ap"></v-text-field>
+            <v-text-field label="Characteristic"
+                          v-model="characteristic"
+                          v-if="characteristic"></v-text-field>
             <v-text-field :label="dcToHitLabel" v-model="dcToHit" type="number" v-if="armorType">
                 <v-icon slot="append">mdi-shield</v-icon>
             </v-text-field>
@@ -99,6 +109,7 @@
                 amount: this.equipment.amount,
                 armorType: this.equipment.armorType,
                 ap: this.equipment.ap,
+                characteristic: this.equipment.characteristic,
                 dcToHit: this.equipment.dcToHit,
                 description: this.equipment.description,
                 handedness: this.equipment.handedness,
@@ -115,11 +126,12 @@
             deleteDialog() {
                 this.$emit('deleteDialogEmit', this.equipment)
             },
-            updateDialog() {
+            setObject() {
                 let equipment = {
                     amount: this.amount,
                     armorType: this.armorType,
                     ap: this.ap,
+                    characteristic: this.characteristic,
                     dcToHit: this.dcToHit,
                     description: this.description,
                     handedness: this.handedness,
@@ -132,7 +144,21 @@
                     damage: JSON.parse(JSON.stringify(this.damage)),
                     damageModifications: JSON.parse(JSON.stringify(this.damageModifications))
                 }
-                this.$emit('updateDialogEmit', equipment)
+                return equipment
+            },
+            updateDialog() {                
+                this.$emit('updateDialogEmit', this.setObject())
+            },
+            updateEntry() {
+                this.$emit('updateEntryEmit', this.setObject())
+            }
+        },
+        watch: {
+            amount() {
+                this.updateEntry()
+            },
+            isActive() {
+                this.updateEntry()
             }
         }
     }

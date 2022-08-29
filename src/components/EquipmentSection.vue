@@ -20,14 +20,9 @@
                                        :equipment="e"
                                        :slots="slots"
                                        @deleteDialogEmit="deleteDialog($event)"
-                                       @updateDialogEmit="updateDialog($event)"></EquipmentListItem>
+                                       @updateDialogEmit="updateDialog($event)"
+                                       @updateEntryEmit="updateEntryBypass($event)"></EquipmentListItem>
                     <v-row>
-                        <!--<v-col cols="6" v-for="damageModification in damageModifications" :key="damageModification.key">
-                            <DamageModificationListItem :damage-groups="damageGroups"
-                                                        :damage-types="damageTypes"
-                                                        :damage-modification="damageModification"
-                                                        @updateDialogEmit="updateDialog($event)"></DamageModificationListItem>
-                        </v-col>-->
                     </v-row>
                 </v-expansion-panel-content>
             </v-expansion-panel>
@@ -51,10 +46,14 @@
                             <v-text-field label="Amount"
                                           type="number"
                                           v-model="amount"
+                                          min="0"
                                           required></v-text-field>
                             <v-text-field label="AP Cost"
                                           type="number"
                                           v-model="ap"></v-text-field>
+                            <v-select label="Characteristic"
+                                      v-model="characteristic"
+                                      :items="characteristics"></v-select>
                             <!-- Armor Inputs -->
                             <v-radio-group v-model="armorType">
                                 <v-radio label="Not armor/shield" value=""></v-radio>
@@ -105,9 +104,6 @@
                             <!-- Weapon Inputs -->
                             <v-checkbox label="Is Weapon" v-model="isWeapon"></v-checkbox>
                             <template v-if="isWeapon">
-                                <v-select label="Characteristic"
-                                          v-model="characteristic"
-                                          :items="characteristics"></v-select>
                                 <v-expansion-panels>
                                     <v-expansion-panel>
                                         <v-expansion-panel-header>
@@ -251,6 +247,7 @@
             addDamageModification() {
                 this.damageModifications.push({
                     amount: 0,
+                    isEquipment: true,
                     isVulnerability: false,
                     isResistance: false,
                     type: '',
@@ -276,7 +273,6 @@
             },
             updateEntry() {
                 if (this.validate()) {
-                    console.log('updateEntry')
                     this.dialog.show = false
                     this.setObject()
                     this.$emit('updateEntryEmit', { arrayName: 'equipment', object: this.equipment })
