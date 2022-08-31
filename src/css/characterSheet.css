@@ -8,6 +8,10 @@
     border-color: black;
 }
 
+.theme--dark .charColumn {
+    border-color: white;
+}
+
 .classResourcesColumn {
     border-color: purple;
 }
