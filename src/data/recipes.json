@@ -1,0 +1,46 @@
+[
+  {
+    "name": "",
+    "date": "",
+    "directions": "",
+    "ingredients": [
+      {
+        "amount": "",
+        "name": "",
+        "unit": ""
+      }
+    ]
+  },
+  {
+    "name": "Betun de Caramelo",
+    "date": "28/02/1986",
+    "directions": "Ponga todos los ingredientes en una olla grande , al fuego suave, mientras, ponga las claras en la batidora hasta que estén a punto de turrón, cuando esté a punto de cotton. Lo que puso al fuego retire y agregue las claras y bata por espaco de 10 min. Hasta que endurezca.",
+    "ingredients": [
+      {
+        "amount": 0.25,
+        "name": "Azucar",
+        "unit":""
+      },
+      {
+        "amount": 2.5,
+        "name": "Claras de Huevo",
+        "unit":""
+      },
+      {
+        "amount": 1,
+        "name": "El Jugo de un Limón",
+        "unit":  ""
+      },
+      {
+        "amount": 1,
+        "name": "Vainilla",
+        "unit": "Cucharada"
+      },
+      {
+        "amount": "1/4",
+        "name": "Agua",
+        "unit": "Taza"
+      }
+    ]
+  }
+]
