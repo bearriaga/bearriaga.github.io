@@ -1059,7 +1059,7 @@
                     'resistance',
                     'luck'
                 ],
-                characterSheet: this.characterStore.getCharacterById('default'),
+                characterSheet: this.characterStore.getCharacterById('clear'),
                 checkDialog: {
                     advantage: false,
                     diceCheckObject: {},
