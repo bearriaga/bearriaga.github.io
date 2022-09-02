@@ -264,13 +264,16 @@
             </v-row>
             <v-row>
                 <v-col>
-                    <v-btn color="primary" @click="setCharacterAsTupoc">Set as Tupoc</v-btn>
+                    <v-btn color="primary" @click="setCharacterAsBelif">Set as Belif</v-btn>
                 </v-col>
                 <v-col>
                     <v-btn color="primary" @click="loadCharacter">Load Character</v-btn>
                 </v-col>
                 <v-col>
                     <v-btn color="primary" @click="saveCharacterConfirm">Save Character</v-btn>
+                </v-col>
+                <v-col>
+                    <v-btn color="primary" @click="saveCharacterAsFile">Export Character</v-btn>
                 </v-col>
             </v-row>
         </form>
@@ -1554,6 +1557,24 @@
                     character.id = new Date().getTime().toString()
                 localStorage.setItem('character', JSON.stringify(character))
             },
+            saveCharacterAsFile() {
+                let filename = `${this.characterSheet.name}.txt`, type = 'type:text/plain;charset=utf-8'
+                let file = new Blob([JSON.stringify(this.characterSheet)], { type: type });
+                    if (window.navigator.msSaveOrOpenBlob) // IE10+
+                        window.navigator.msSaveOrOpenBlob(file, filename);
+                    else { // Others
+                        var a = document.createElement("a"),
+                            url = URL.createObjectURL(file);
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        setTimeout(function () {
+                            document.body.removeChild(a);
+                            window.URL.revokeObjectURL(url);
+                        }, 0);
+                    }
+            },
             //Local Storage Functions End
             rollMassRoller() {
                 if (!isNaN(this.massRoller.dice) && !isNaN(this.massRoller.enemies) && !isNaN(this.massRoller.luck)) {
@@ -1713,8 +1734,8 @@
                 this.damageDialog = result
             },
             //Reroll Functions End
-            setCharacterAsTupoc() {
-                this.characterSheet = this.characterStore.getCharacterById('tupoc')
+            setCharacterAsBelif() {
+                this.characterSheet = this.characterStore.getCharacterById('belif')
             },
             specialInputWithEditModal(valueName) {
                 if (valueName == 'initiative') {

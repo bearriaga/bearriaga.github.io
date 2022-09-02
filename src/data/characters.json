@@ -1,5 +1,357 @@
 [
   {
+    "id": "belif",
+    "age": "35",
+    "ap": 14,
+    "apMax": 14,
+    "attunementSlots": 0,
+    "attunementSlotsIncreases": 0,
+    "attunementSlotsMax": 10,
+    "background": "",
+    "bp": 0,
+    "bpMax": 4,
+    "bpIncreases": 0,
+    "fitness": 3,
+    "fitnessAdjustment": 0,
+    "speed": 5,
+    "speedAdjustment": 0,
+    "intelligence": 5,
+    "intelligenceAdjustment": 0,
+    "cunning": 4,
+    "cunningAdjustment": 0,
+    "resistance": 4,
+    "resistanceAdjustment": 0,
+    "luck": 3,
+    "luckAdjustment": 0,
+    "dcToHit": 3,
+    "dcToHitIncreases": 0,
+    "hp": 0,
+    "hpMax": 17,
+    "hpIncreases": 0,
+    "initiative": 0,
+    "initiativeIncreases": 0,
+    "level": 1,
+    "luckFavored": false,
+    "luckIllFavored": false,
+    "luckNothingToChance": false,
+    "money": "500",
+    "movement": 3,
+    "name": "Belif",
+    "race": "Bluman",
+    "rerolls": 0,
+    "rerollsMax": 3,
+    "rerollsIncreases": 0,
+    "size": 1,
+    "speedPreperationIsKey": false,
+    "xp": 350,
+    "xpEarned": 800,
+    "xpTotal": 900,
+    "abilities": [
+      {
+        "apCost": "3",
+        "areaOfEffect": "",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "crCost": "0",
+        "characteristic": "intelligence",
+        "description": "Point a finger at your target and say, \"The bell tolls for you\".",
+        "duration": "Instant",
+        "handedness": "1",
+        "id": "1",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Toll the Dead",
+        "physMeta": "Physical",
+        "range": "6",
+        "successes": 0,
+        "xpCost": "160",
+        "components": [],
+        "damage": [
+          {
+            "addChar": true,
+            "dice": "1",
+            "flat": "0",
+            "type": "Dark",
+            "key": "0true"
+          }
+        ],
+        "subEffects": [],
+        "key": "3false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0intelligencePoint a finger at your target and say, \"The bell tolls for you\".Instant11truefalsefalse0Toll the DeadPhysical60160[][{\"addChar\":true,\"dice\":\"1\",\"flat\":\"0\",\"type\":\"Dark\",\"key\":\"0true\"}][]"
+      },
+      {
+        "apCost": "7",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": {
+          "amount": 6,
+          "amountMax": 6,
+          "id": "1654827507939",
+          "name": "Bile",
+          "characteristic": "intelligence",
+          "resourceIncreases": 0,
+          "key": "Bileintelligence061"
+        },
+        "crCost": "2",
+        "characteristic": "",
+        "description": "",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1662000692496",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Summon Undead",
+        "physMeta": "Physical",
+        "range": "-3",
+        "successes": 0,
+        "xpCost": "360",
+        "components": [],
+        "damage": [],
+        "subEffects": [],
+        "key": "7Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}2Instant01662000692496truefalsefalse0Summon UndeadPhysical-30360[][][]"
+      },
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "description": "Bile Resource +1",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1662002064365",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Bile Max Increase",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": 0,
+        "xpCost": "30",
+        "components": [],
+        "damage": [],
+        "subEffects": [],
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Bile Resource +1Instant01662002064365truefalsefalse0Bile Max IncreasePhysical0030[][][]"
+      }
+    ],
+    "armor": [
+      {
+        "effect": "",
+        "name": "",
+        "slot": "",
+        "damageModifications": [
+          {
+            "amount": 1,
+            "isResistance": false,
+            "isVulnerability": false,
+            "type": "Physical"
+          }
+        ]
+      }
+    ],
+    "attunements": [
+      {
+        "amount": 0,
+        "name": ""
+      }
+    ],
+    "buffs": [],
+    "classes": [
+      {
+        "active": true,
+        "advanceRank": 0,
+        "description": "",
+        "id": "1662000012671",
+        "name": "Necromancer",
+        "characteristic": "intelligence",
+        "unlocked": false
+      }
+    ],
+    "equipment": [],
+    "flaws": [
+      {
+        "amount": "100",
+        "description": "CR: Stagnant Pool\nCR: Special Resources\ntest",
+        "id": "1661999979148",
+        "name": "Bile Flaws"
+      }
+    ],
+    "movements": [
+      {
+        "amount": 0,
+        "description": "",
+        "id": "1654453228548",
+        "type": "Flying"
+      }
+    ],
+    "damageModifications": [
+      {
+        "amount": 1,
+        "id": "1654401755465",
+        "isResistance": false,
+        "isVulnerability": false,
+        "type": "Physical",
+        "key": "16544017554651"
+      }
+    ],
+    "resources": [
+      {
+        "amount": 6,
+        "amountMax": 6,
+        "id": "1654827507939",
+        "name": "Bile",
+        "characteristic": "intelligence",
+        "resourceIncreases": "1",
+        "key": "Bileintelligence150"
+      }
+    ],
+    "skills": [
+      {
+        "characteristic": "fitness",
+        "default": true,
+        "id": "1654717712607",
+        "name": "Athletics",
+        "skillIncreases": 0,
+        "value": 3,
+        "adjustment": 0,
+        "key": "Athleticsfitness030"
+      },
+      {
+        "characteristic": "cunning",
+        "default": true,
+        "id": "1654717713076",
+        "name": "Deception",
+        "skillIncreases": 0,
+        "value": 4,
+        "adjustment": 0,
+        "key": "Deceptioncunning040"
+      },
+      {
+        "characteristic": "cunning",
+        "default": true,
+        "id": "1654717713536",
+        "name": "Perception",
+        "skillIncreases": 0,
+        "value": 4,
+        "adjustment": 0,
+        "key": "Perceptioncunning040"
+      },
+      {
+        "characteristic": "cunning",
+        "default": true,
+        "id": "1654717713981",
+        "name": "Persuasion",
+        "skillIncreases": 0,
+        "value": 4,
+        "adjustment": 0,
+        "key": "Persuasioncunning040"
+      },
+      {
+        "characteristic": "fitness",
+        "default": true,
+        "id": "1654717715257",
+        "name": "Stealth",
+        "skillIncreases": 0,
+        "value": 3,
+        "adjustment": 0,
+        "key": "Stealthfitness030"
+      }
+    ],
+    "statuses": [],
+    "xpEntries": [
+      {
+        "amount": 500,
+        "classXP": false,
+        "description": "Character Creation",
+        "date": null,
+        "id": "1654386228029"
+      },
+      {
+        "amount": "300",
+        "classXP": true,
+        "date": null,
+        "description": "Necromancer",
+        "id": "1661998619617"
+      }
+    ]
+  },
+  {
     "id": "clear",
     "age": 0,
     "ap": 0,
