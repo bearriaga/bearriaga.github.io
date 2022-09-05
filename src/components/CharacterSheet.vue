@@ -218,10 +218,16 @@
                                @updateEntryEmit="updateEntry($event)"></XPSection>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <FlawSection :flaws="characterSheet.flaws"
-                                 @addEntryEmit="addEntry($event)"
-                                 @deleteEntryEmit="deleteEntry($event)"
-                                 @updateEntryEmit="updateEntry($event)"></FlawSection>
+                    <TraitFlawSection :is-flaw="true"
+                                      :items="characterSheet.flaws"
+                                      @addEntryEmit="addEntry($event)"
+                                      @deleteEntryEmit="deleteEntry($event)"
+                                      @updateEntryEmit="updateEntry($event)"></TraitFlawSection>
+                    <TraitFlawSection :is-flaw="false"
+                                      :items="characterSheet.traits"
+                                      @addEntryEmit="addEntry($event)"
+                                      @deleteEntryEmit="deleteEntry($event)"
+                                      @updateEntryEmit="updateEntry($event)"></TraitFlawSection>
                 </v-col>
             </v-row>
             <v-row>
@@ -498,7 +504,7 @@
     import ClassSection from './ClassSection.vue'
     import DamageModificationSection from './DamageModificationSection.vue'
     import EquipmentSection from './EquipmentSection.vue'
-    import FlawSection from './FlawSection.vue'
+    import TraitFlawSection from './TraitFlawSection.vue'
     import InputWithEditModal from './InputWithEditModal.vue'
     import MovementSection from './MovementSection.vue'
     import ResourceSection from './ResourceSection.vue'
@@ -517,7 +523,7 @@
             ClassSection,
             DamageModificationSection,
             EquipmentSection,
-            FlawSection,
+            TraitFlawSection,
             InputWithEditModal,
             MovementSection,
             ResourceSection,
@@ -640,10 +646,13 @@
                 }, 0)
             },
             xpTotal() {
-                var flawsXP = this.characterSheet.flaws.reduce((previousValue, entry) => {
+                let flawsXP = this.characterSheet.flaws.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
-                return (this.characterSheet.xpEarned + flawsXP)
+                let traitsXP = this.characterSheet.traits.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.amount
+                }, 0)
+                return (+this.characterSheet.xpEarned + +flawsXP - +traitsXP)
             },
             //Character Properties End
             abilities() {
@@ -1560,20 +1569,20 @@
             saveCharacterAsFile() {
                 let filename = `${this.characterSheet.name}.txt`, type = 'type:text/plain;charset=utf-8'
                 let file = new Blob([JSON.stringify(this.characterSheet)], { type: type });
-                    if (window.navigator.msSaveOrOpenBlob) // IE10+
-                        window.navigator.msSaveOrOpenBlob(file, filename);
-                    else { // Others
-                        var a = document.createElement("a"),
-                            url = URL.createObjectURL(file);
-                        a.href = url;
-                        a.download = filename;
-                        document.body.appendChild(a);
-                        a.click();
-                        setTimeout(function () {
-                            document.body.removeChild(a);
-                            window.URL.revokeObjectURL(url);
-                        }, 0);
-                    }
+                if (window.navigator.msSaveOrOpenBlob) // IE10+
+                    window.navigator.msSaveOrOpenBlob(file, filename);
+                else { // Others
+                    var a = document.createElement("a"),
+                        url = URL.createObjectURL(file);
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(function () {
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+                    }, 0);
+                }
             },
             //Local Storage Functions End
             rollMassRoller() {

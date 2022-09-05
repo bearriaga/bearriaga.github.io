@@ -5,7 +5,7 @@
                 <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
-                            Flaws
+                            {{sectionHeader}}s
                             <v-btn icon color="primary"
                                    @click.stop="addDialog">
                                 <v-icon>
@@ -15,10 +15,10 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <FlawListItem v-for="flaw in flaws" :key="flaw.id"
-                                      :flaw="flaw"
+                        <TraitFlawListItem v-for="item in items" :key="item.id"
+                                      :item="item"
                                       @deleteEntryEmit="deleteDialog($event)"
-                                      @updateEntryEmit="updateEntry($event)"></FlawListItem>
+                                      @updateEntryEmit="updateEntry($event)"></TraitFlawListItem>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -28,7 +28,7 @@
             <v-dialog v-model="dialog.show" width="500">
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
-                        {{dialog.type}} Flaw
+                        {{dialog.type}} {{sectionHeader}}
                     </v-card-title>
 
                     <v-card-text>
@@ -68,15 +68,24 @@
 </template>
 
 <script>
-    import FlawListItem from './FlawListItem.vue'
+    import TraitFlawListItem from './TraitFlawListItem.vue'
 
     export default {
-        name: 'FlawSection',
+        name: 'TraitFlawSection',
         components: {
-            FlawListItem
+            TraitFlawListItem
         },
         props: {
-            flaws: Array
+            isFlaw: Boolean,
+            items: Array
+        },
+        computed: {
+            arrayName() {
+                return (this.isFlaw) ? 'flaws' : 'traits'
+            },
+            sectionHeader() {
+                return (this.isFlaw) ? 'Flaw' : 'Trait'
+            }
         },
         data() {
             return {
@@ -88,7 +97,7 @@
                 amount: 1,
                 description: '',
                 name: '',
-                flaw: {
+                item: {
                     amount: 1,
                     description: '',
                     id: '',
@@ -111,40 +120,40 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.flaw = {
+                    this.item = {
                         amount: this.amount,
                         description: this.description,
                         id: null,
                         name: this.name
                     }
-                    this.$emit('addEntryEmit', { arrayName: 'flaws', object: this.flaw })
+                    this.$emit('addEntryEmit', { arrayName: this.arrayName, object: this.item })
                 }
             },
             deleteEntry() {
                 this.dialog.show = false
-                this.$emit('deleteEntryEmit', { arrayName: 'flaws', object: this.flaw })
+                this.$emit('deleteEntryEmit', { arrayName: this.arrayName, object: this.item })
             },
-            updateEntry(flaw) {
-                this.$emit('updateEntryEmit', { arrayName: 'flaws', object: flaw })
+            updateEntry(item) {
+                this.$emit('updateEntryEmit', { arrayName: this.arrayName, object: item })
             },
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
                 this.setDialog('Add')
-                this.flaw = {
+                this.item = {
                     amount: 1,
                     description: '',
                     id: '',
                     name: ''
                 }
-                this.setInputs(this.flaw)
+                this.setInputs(this.item)
                 setTimeout(() => {
                     this.$refs.name.focus()
                 }, 200)
             },
-            deleteDialog(flaw) {
-                this.flaw = this.flaws.find(x => { return x.id == flaw.id })
-                this.setInputs(this.flaw)
+            deleteDialog(item) {
+                this.item = this.items.find(x => { return x.id == item.id })
+                this.setInputs(this.item)
                 this.setDialog('Delete')
             },
             setDialog(type) {
@@ -153,10 +162,10 @@
                     type: type
                 }
             },
-            setInputs(flaw) {
-                this.amount = flaw.amount
-                this.description = flaw.description
-                this.name = flaw.name
+            setInputs(item) {
+                this.amount = item.amount
+                this.description = item.description
+                this.name = item.name
             },
             // Open Dialog Functions End
             validate() {
