@@ -1,20 +1,29 @@
 <template>
     <div>
-        <div>
-            <h3 class="text-center">
-                Flaws
-                <v-btn icon color="primary"
-                       @click="addDialog">
-                    <v-icon>
-                        mdi-plus
-                    </v-icon>
-                </v-btn>
-            </h3>
-            <FlawListItem v-for="flaw in flaws" :key="flaw.id"
-                          :flaw="flaw"
-                          @deleteEntryEmit="deleteDialog($event)"
-                          @updateEntryEmit="updateEntry($event)"></FlawListItem>
-        </div>
+        <template>
+            <v-expansion-panels>
+                <v-expansion-panel>
+                    <v-expansion-panel-header>
+                        <h3 class="text-center">
+                            Flaws
+                            <v-btn icon color="primary"
+                                   @click.stop="addDialog">
+                                <v-icon>
+                                    mdi-plus
+                                </v-icon>
+                            </v-btn>
+                        </h3>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <FlawListItem v-for="flaw in flaws" :key="flaw.id"
+                                      :flaw="flaw"
+                                      @deleteEntryEmit="deleteDialog($event)"
+                                      @updateEntryEmit="updateEntry($event)"></FlawListItem>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </template>
+
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
                 <v-card>

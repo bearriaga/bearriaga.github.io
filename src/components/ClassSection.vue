@@ -1,19 +1,29 @@
 <template>
     <div>
-        <h3 class="text-center">
-            {{sectionTitle}}
-            <v-btn icon color="primary"
-                   @click="addDialog">
-                <v-icon>
-                    mdi-plus
-                </v-icon>
-            </v-btn>
-        </h3>
-        <ClassListItem v-for="c in classes" :key="c.id"
-                       @updateEntryEmit="updateEntry($event)"
-                       @deleteEntryEmit="deleteDialog($event)"
-                       :characteristics="characteristics"
-                       :class-obj="c"></ClassListItem>
+        <template>
+            <v-expansion-panels>
+                <v-expansion-panel>
+                    <v-expansion-panel-header>
+                        <h3 class="text-center">
+                            {{sectionTitle}}
+                            <v-btn icon color="primary"
+                                   @click.stop="addDialog">
+                                <v-icon>
+                                    mdi-plus
+                                </v-icon>
+                            </v-btn>
+                        </h3>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <ClassListItem v-for="c in classes" :key="c.id"
+                                       @updateEntryEmit="updateEntry($event)"
+                                       @deleteEntryEmit="deleteDialog($event)"
+                                       :characteristics="characteristics"
+                                       :class-obj="c"></ClassListItem>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </template>
 
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
