@@ -13,7 +13,7 @@
             </v-col>
         </v-row>
         <v-form disabled>
-            <v-row>                
+            <v-row>
                 <v-col cols="6">
                     <v-text-field label="Name" v-model="name"></v-text-field>
                 </v-col>
@@ -117,6 +117,7 @@
                                     <AbilityListItem v-for="s in abilities" :key="s.key"
                                                      :ability="s"
                                                      :ap="ap"
+                                                     :can-edit="true"
                                                      :characteristics="characteristics"
                                                      :damage-types="damageTypes"
                                                      :resources="resources"
