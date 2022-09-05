@@ -219,12 +219,12 @@
                 </v-col>
                 <v-col cols="12" md="3">
                     <TraitFlawSection :is-flaw="true"
-                                      :items="characterSheet.flaws"
+                                      :items="flaws"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"></TraitFlawSection>
                     <TraitFlawSection :is-flaw="false"
-                                      :items="characterSheet.traits"
+                                      :items="traits"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"></TraitFlawSection>
@@ -681,7 +681,8 @@
                         ability.xpCost +
                         JSON.stringify(ability.components) +
                         JSON.stringify(ability.damage) +
-                        JSON.stringify(ability.subEffects);
+                        JSON.stringify(ability.subEffects) +
+                        this.updateCharacter;
                     abilities.push(ability)
                 })
 
@@ -694,7 +695,8 @@
                     buff.key =
                         buff.id +
                         this.updateBuff +
-                        JSON.stringify(buff.adjustments)
+                        JSON.stringify(buff.adjustments) +
+                        this.updateCharacter;
                     buffs.push(buff)
                 })
 
@@ -717,7 +719,8 @@
                         e.range +
                         e.slot +
                         JSON.stringify(e.damage) +
-                        JSON.stringify(e.damageModifications);
+                        JSON.stringify(e.damageModifications) +
+                        this.updateCharacter;
                     equipment.push(e)
                 })
 
@@ -730,7 +733,8 @@
                     status.key =
                         JSON.stringify(status.status) +
                         status.isActive.toString() +
-                        this.updateStatus
+                        this.updateStatus +
+                        this.updateCharacter;
                     statuses.push(status)
                 })
 
@@ -747,7 +751,8 @@
                             buff.name +
                             JSON.stringify(status.status) +
                             status.isActive.toString() +
-                            this.updateStatus
+                            this.updateStatus +
+                            this.updateCharacter;
                         statuses.push(status)
                     })
                 })
@@ -807,6 +812,38 @@
                     }
                 ]
             },
+            damageModifications() {
+                let damageModifications = []
+
+                this.characterSheet.damageModifications.forEach(dm => {
+                    dm.key = dm.id + dm.amount + this.updateCharacter
+                    damageModifications.push(dm)
+                })
+
+                this.characterSheet.equipment.filter(equipment => { return equipment.isActive && equipment.damageModifications.length > 0 }).forEach(equipment => {
+                    equipment.damageModifications.forEach((dm, index) => {
+                        dm.key = index + JSON.stringify(dm) + this.updateCharacter
+                        damageModifications.push(dm)
+                    })
+                })
+
+                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Damage Modification') && b.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'Damage Modification' }).forEach(adjustment => {
+                        let damageModification = {
+                            amount: adjustment.amount,
+                            id: adjustment.id,
+                            isBuff: true,
+                            isResistance: adjustment.damageModification.isResistance,
+                            isVulnerability: adjustment.damageModification.isVulnerability,
+                            key: adjustment.amount + adjustment.id,
+                            type: adjustment.damageModification.type
+                        }
+                        damageModifications.push(damageModification)
+                    })
+                })
+
+                return damageModifications
+            },
             damageSelected() {
                 const hasSelected = (obj) => obj.selectedRerolls.length
                 return this.damageDialog.damages.some(hasSelected)
@@ -858,6 +895,16 @@
                         minus: false
                     }
                 ]
+            },
+            flaws() {
+                let flaws = []
+
+                this.characterSheet.flaws.forEach(flaw => {
+                    flaw.key = flaw.id + this.updateCharacter
+                    flaws.push(flaw)
+                })
+
+                return flaws
             },
             healthInputWithEditModals() {
                 return [
@@ -978,45 +1025,13 @@
 
                 return movements
             },
-            damageModifications() {
-                let damageModifications = []
-
-                this.characterSheet.damageModifications.forEach(dm => {
-                    dm.key = dm.id + dm.amount
-                    damageModifications.push(dm)
-                })
-
-                this.characterSheet.equipment.filter(equipment => { return equipment.isActive && equipment.damageModifications.length > 0 }).forEach(equipment => {
-                    equipment.damageModifications.forEach((dm, index) => {
-                        dm.key = index + JSON.stringify(dm)
-                        damageModifications.push(dm)
-                    })
-                })
-
-                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Damage Modification') && b.isActive }).forEach(buff => {
-                    buff.adjustments.filter(a => { return a.type == 'Damage Modification' }).forEach(adjustment => {
-                        let damageModification = {
-                            amount: adjustment.amount,
-                            id: adjustment.id,
-                            isBuff: true,
-                            isResistance: adjustment.damageModification.isResistance,
-                            isVulnerability: adjustment.damageModification.isVulnerability,
-                            key: adjustment.amount + adjustment.id,
-                            type: adjustment.damageModification.type
-                        }
-                        damageModifications.push(damageModification)
-                    })
-                })
-
-                return damageModifications
-            },
             resources() {
                 let resources = []
 
                 this.characterSheet.resources.forEach((resource) => {
                     let primaryCharValue = +this[resource.characteristic]
                     resource.amountMax = +primaryCharValue + +resource.resourceIncreases
-                    resource.key = resource.name + resource.characteristic + resource.resourceIncreases + primaryCharValue + this.updateCR
+                    resource.key = resource.name + resource.characteristic + resource.resourceIncreases + primaryCharValue + this.updateCR + this.updateCharacter
                     resources.push(resource)
                 })
 
@@ -1028,7 +1043,7 @@
                 this.characterSheet.skills.forEach((skill) => {
                     skill.adjustment = this.buffAmount({ type: 'Skill', propName: 'skill', propValue: skill.name })
                     skill.value = +skill.skillIncreases + +this[skill.characteristic]
-                    skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value + skill.adjustment
+                    skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value + skill.adjustment + this.updateCharacter
                     skills.push(skill)
                 })
 
@@ -1051,11 +1066,21 @@
                         skillIncreases: 0,
                         value: +this[newSkill.characteristic]
                     }
-                    skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value + skill.adjustment
+                    skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value + skill.adjustment + this.updateCharacter
                     skills.push(skill)
                 })
 
                 return skills
+            },
+            traits() {
+                let traits = []
+
+                this.characterSheet.traits.forEach(trait => {
+                    trait.key = trait.id + this.updateCharacter
+                    traits.push(trait)
+                })
+
+                return traits
             }
         },
         created() {
@@ -1190,6 +1215,7 @@
                 updateAP: 0,
                 updateBP: 0,
                 updateBuff: 0,
+                updateCharacter: 0,
                 updateCR: 0,
                 updateHP: 0,
                 updateInitiative: 0,
@@ -1535,8 +1561,10 @@
                 return (character != null)
             },
             loadCharacter() {
-                if (this.isCharacterSet())
+                if (this.isCharacterSet()) {
+                    this.updateCharacter++
                     this.characterSheet = JSON.parse(localStorage.getItem('character'))
+                }
                 else
                     this.generalDialog = {
                         buttonText: '',

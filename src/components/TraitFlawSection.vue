@@ -15,7 +15,7 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <TraitFlawListItem v-for="item in items" :key="item.id"
+                        <TraitFlawListItem v-for="item in items" :key="item.key"
                                       :item="item"
                                       @deleteEntryEmit="deleteDialog($event)"
                                       @updateEntryEmit="updateEntry($event)"></TraitFlawListItem>
