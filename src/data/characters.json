@@ -283,6 +283,16 @@
     ],
     "skills": [
       {
+        "characteristic": "intelligence",
+        "default": true,
+        "id": "1654717712607",
+        "name": "Analyze",
+        "skillIncreases": 0,
+        "value": 5,
+        "adjustment": 0,
+        "key": "Analyzefitness030"
+      },
+      {
         "characteristic": "fitness",
         "default": true,
         "id": "1654717712607",
@@ -410,6 +420,16 @@
     "damageModifications": [],
     "resources": [],
     "skills": [
+      {
+        "characteristic": "intelligence",
+        "default": true,
+        "id": "1654717712607",
+        "name": "Analyze",
+        "skillIncreases": 0,
+        "value": 0,
+        "adjustment": 0,
+        "key": "Analyzefitness030"
+      },
       {
         "characteristic": "fitness",
         "default": true,
@@ -649,6 +669,16 @@
       }
     ],
     "skills": [
+      {
+        "characteristic": "intelligence",
+        "default": true,
+        "id": "1654717712607",
+        "name": "Analyze",
+        "skillIncreases": 0,
+        "value": 0,
+        "adjustment": 0,
+        "key": "Analyzefitness030"
+      },
       {
         "characteristic": "fitness",
         "default": true,
@@ -2453,6 +2483,16 @@
       }
     ],
     "skills": [
+      {
+        "characteristic": "intelligence",
+        "default": true,
+        "id": "1654717712607",
+        "name": "Analyze",
+        "skillIncreases": 0,
+        "value": 2,
+        "adjustment": 0,
+        "key": "Analyzefitness030"
+      },
       {
         "characteristic": "fitness",
         "default": true,
