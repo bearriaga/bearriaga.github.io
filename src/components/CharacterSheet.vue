@@ -175,7 +175,7 @@
                 <v-col cols="12" md="3">
                     <ClassSection :unlocked="false"
                                   :characteristics="characteristics"
-                                  :classes="characterSheet.classes.filter(x => { return !x.unlocked })"
+                                  :classes="classes"
                                   @addEntryEmit="addEntry($event)"
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"></ClassSection>
@@ -183,7 +183,7 @@
                 <v-col cols="12" md="3">
                     <ClassSection :unlocked="true"
                                   :characteristics="characteristics"
-                                  :classes="characterSheet.classes.filter(x => { return x.unlocked })"
+                                  :classes="classesUnlocked"
                                   @addEntryEmit="addEntry($event)"
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"></ClassSection>
@@ -811,6 +811,26 @@
                         characteristic: chars.includes('luck')
                     }
                 ]
+            },
+            classes() {
+                let classes = []
+
+                this.characterSheet.classes.filter(x => { return !x.unlocked }).forEach(c => {
+                    c.key = c.id + this.updateCharacter
+                    classes.push(c)
+                })
+
+                return classes
+            },
+            classesUnlocked() {
+                let classes = []
+
+                this.characterSheet.classes.filter(x => { return x.unlocked }).forEach(c => {
+                    c.key = c.id + this.updateCharacter
+                    classes.push(c)
+                })
+
+                return classes
             },
             damageModifications() {
                 let damageModifications = []

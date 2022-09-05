@@ -15,7 +15,7 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <ClassListItem v-for="c in classes" :key="c.id"
+                        <ClassListItem v-for="c in classes" :key="c.key"
                                        @updateEntryEmit="updateEntry($event)"
                                        @deleteEntryEmit="deleteDialog($event)"
                                        :characteristics="characteristics"
