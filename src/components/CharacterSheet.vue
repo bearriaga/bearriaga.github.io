@@ -212,7 +212,7 @@
                     <XPSection :xp="characterSheet.xp"
                                :xp-earned="characterSheet.xpEarned"
                                :xp-total="characterSheet.xpTotal"
-                               :xp-entries="characterSheet.xpEntries"
+                               :xp-entries="xpEntries"
                                @addEntryEmit="addEntry($event)"
                                @deleteEntryEmit="deleteEntry($event)"
                                @updateEntryEmit="updateEntry($event)"></XPSection>
@@ -1101,6 +1101,16 @@
                 })
 
                 return traits
+            },
+            xpEntries() {
+                let xpEntries = []
+
+                this.characterSheet.xpEntries.forEach(xpEntry => {
+                    xpEntry.key = xpEntry.id + this.updateCharacter
+                    xpEntries.push(xpEntry)
+                })
+
+                return xpEntries
             }
         },
         created() {

@@ -15,7 +15,7 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <XPEntryListItem v-for="entry in xpEntries" :key="entry.id"
+                        <XPEntryListItem v-for="entry in xpEntries" :key="entry.key"
                                          :entry="entry"
                                          @deleteEntryEmit="deleteDialog($event)"
                                          @updateEntryEmit="updateEntry($event)"></XPEntryListItem>
