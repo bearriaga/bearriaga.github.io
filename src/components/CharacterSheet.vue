@@ -430,13 +430,13 @@
 
                     <v-card-text>
                         <div>
-                            <div v-if="damageDialog.damage.damage.dice">
+                            <div v-if="damageDialog.damage.damage.dice > 0">
                                 Die Results:  {{damageDialog.damage.damage.dice}}d6 {{damageDialog.damage.diceResults}}
                             </div>
-                            <div v-if="damageDialog.damage.charDamage">
+                            <div v-if="damageDialog.damage.charDamage > 0">
                                 CHAR damage: {{damageDialog.damage.charDamage}}
                             </div>
-                            <div v-if="damageDialog.damage.damage.flat">
+                            <div v-if="damageDialog.damage.damage.flat > 0">
                                 Flat Damage: {{damageDialog.damage.damage.flat}}
                             </div>
                             <v-select v-model="damageDialog.damage.selectedRerolls"
@@ -455,9 +455,9 @@
                                        width="200">Reroll Hand</v-btn>
                             </v-col>
                             <v-col cols="6">
-                                <!--<v-btn @click="rerollSelectedDamage"
-                                       :disabled="characterSheet.rerolls <= 0 || !damageSelected"
-                                       width="200">Reroll Selected</v-btn>-->
+                                <v-btn @click="rerollSelectedDamage"
+                                       :disabled="characterSheet.rerolls <= 0 || !damageDialog.damage.selectedRerolls"
+                                       width="200">Reroll Selected</v-btn>
                             </v-col>
                         </v-row>
                     </v-card-text>
@@ -1707,23 +1707,19 @@
             },
             //Reroll Functions
             rerollSelectedDamage() {
-                const hasSelected = (obj) => obj.selectedRerolls.length
-                if (this.damageDialog.damages.some(hasSelected)) {
-                    this.damageDialog.damages.forEach((damage) => {
-                        if (damage.selectedRerolls.length) {
-                            let indexes = damage.selectedRerolls.sort().reverse()
-                            indexes.forEach(i => {
-                                damage.sum -= +damage.diceResults[i]
-                                damage.diceResults.splice(i, 1)
-                            })
-                            for (var i = 0; i < indexes.length; i++) {
-                                let dieResult = this.getRandomIntInclusive(1, 6)
-                                damage.sum += +dieResult
-                                damage.diceResults.push(dieResult)
-                            }
-                            damage.selectedRerolls = []
-                        }
+                if (this.damageDialog.damage.selectedRerolls.length) {
+                    let indexes = this.damageDialog.damage.selectedRerolls.sort().reverse()
+                    indexes.forEach(i => {
+                        this.damageDialog.damage.sum -= +this.damageDialog.damage.diceResults[i]
+                        this.damageDialog.damage.diceResults.splice(i, 1)
                     })
+                    for (var i = 0; i < indexes.length; i++) {
+                        let dieResult = this.getRandomIntInclusive(1, 6)
+                        this.damageDialog.damage.sum += +dieResult
+                        this.damageDialog.damage.diceResults.push(dieResult)
+                    }
+                    this.damageDialog.damage.selectedRerolls = []
+
                     this.characterSheet.rerolls--
                     this.updateRerolls++
                 }
@@ -1807,6 +1803,7 @@
             },
             //Reroll Functions End
             setCharacterAsBelif() {
+                this.updateCharacter++
                 this.characterSheet = this.characterStore.getCharacterById('belif')
             },
             specialInputWithEditModal(valueName) {
