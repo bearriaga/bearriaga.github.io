@@ -137,24 +137,20 @@
                                                 </h3>
                                             </v-expansion-panel-header>
                                             <v-expansion-panel-content>
-                                                <v-row v-for="(d, index) in ability.damage" :key="index">
+                                                <v-row>
                                                     <v-col cols="12" md="6">
-                                                        <v-text-field label="Dice" type="number" v-model="d.dice"></v-text-field>
+                                                        <v-text-field label="Dice" type="number" v-model="ability.damage.dice"></v-text-field>
                                                     </v-col>
                                                     <v-col cols="12" md="6">
-                                                        <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
+                                                        <v-text-field label="Flat" type="number" v-model="ability.damage.flat"></v-text-field>
                                                     </v-col>
-                                                    <v-col cols="12" md="6">
+                                                    <v-col cols="12">
                                                         <v-autocomplete label="Type *"
                                                                         :items="damageTypes"
-                                                                        v-model="d.type"
+                                                                        v-model="ability.damage.types"
+                                                                        multiple
                                                                         :rules="textRules"
-                                                                        required>
-                                                            <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
-                                                        </v-autocomplete>
-                                                    </v-col>
-                                                    <v-col cols="6" v-if="d.type != 'Healing' && (ability.characteristic || ability.isMeleeAttack)">
-                                                        <v-checkbox label="Add CHAR to damage" v-model="d.addChar" @click.stop="addChar(index)"></v-checkbox>
+                                                                        required></v-autocomplete>
                                                     </v-col>
                                                 </v-row>
                                             </v-expansion-panel-content>
@@ -257,6 +253,11 @@
                         classResource: '',
                         crCost: 0,
                         characteristic: '',
+                        damage: {
+                            dice: 0,
+                            flat: 0,
+                            types: []
+                        },
                         description: '',
                         duration: 'Instant',
                         handedness: 0,
@@ -271,7 +272,6 @@
                         successes: 0,
                         xpCost: 0,
                         components: [],
-                        damage: [],
                         subEffects: []
                     },
                     damageModifications: []
@@ -294,6 +294,11 @@
                     classResource: '',
                     crCost: 0,
                     characteristic: '',
+                    damage: {
+                        dice: 0,
+                        flat: 0,
+                        types: []
+                    },
                     description: '',
                     duration: 'Instant',
                     handedness: 0,
@@ -308,7 +313,6 @@
                     successes: 0,
                     xpCost: 0,
                     components: [],
-                    damage: [],
                     subEffects: []
                 },
                 damageModifications: [],
@@ -352,13 +356,6 @@
                 })
                 this.ability.damage[index].addChar = true
             },
-            addDamage() {
-                this.ability.damage.push({
-                    dice: 0,
-                    flat: 0,
-                    type: ''
-                });
-            },
             addDamageModification() {
                 this.damageModifications.push({
                     amount: 0,
@@ -367,9 +364,6 @@
                     isResistance: false,
                     type: '',
                 })
-            },
-            deleteDamage(i) {
-                this.ability.damage.splice(i, 1)
             },
             deleteDamageModification(i) {
                 this.damageModifications.splice(i, 1)
@@ -436,6 +430,11 @@
                         classResource: '',
                         crCost: 0,
                         characteristic: '',
+                        damage: {
+                            dice: 0,
+                            flat: 0,
+                            types: []
+                        },
                         description: '',
                         duration: 'Instant',
                         handedness: 0,
@@ -450,7 +449,6 @@
                         successes: 0,
                         xpCost: 0,
                         components: [],
-                        damage: [],
                         subEffects: []
                     },
                     damageModifications: []
