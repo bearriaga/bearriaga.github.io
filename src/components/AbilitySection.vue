@@ -79,37 +79,27 @@
                                 <v-col cols="12">
                                     <template>
                                         <v-expansion-panels>
-                                            <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                                            <v-expansion-panel>
                                                 <v-expansion-panel-header>
                                                     <h3 class="text-center">
-                                                        Damage
-                                                        <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
-                                                               @click.stop="addDamage">
-                                                            <v-icon>
-                                                                mdi-plus
-                                                            </v-icon>
-                                                        </v-btn>
+                                                        Damage                                                        
                                                     </h3>
                                                 </v-expansion-panel-header>
                                                 <v-expansion-panel-content>
-                                                    <v-row v-for="(d, index) in compDamage" :key="d.key">
+                                                    <v-row>
                                                         <v-col cols="12" md="6">
-                                                            <v-text-field label="Dice" type="number" v-model="d.dice"></v-text-field>
+                                                            <v-text-field label="Dice" type="number" v-model="damage.dice"></v-text-field>
                                                         </v-col>
                                                         <v-col cols="12" md="6">
-                                                            <v-text-field label="Flat" type="number" v-model="d.flat"></v-text-field>
+                                                            <v-text-field label="Flat" type="number" v-model="damage.flat"></v-text-field>
                                                         </v-col>
-                                                        <v-col cols="6">
+                                                        <v-col cols="12">
                                                             <v-select label="Type *"
                                                                       :items="damageTypes"
-                                                                      v-model="d.type"
+                                                                      v-model="damage.types"
+                                                                      multiple
                                                                       :rules="textRules"
-                                                                      required>
-                                                                <v-icon color="error" slot="append" @click="deleteDamage(index)">mdi-delete</v-icon>
-                                                            </v-select>
-                                                        </v-col>
-                                                        <v-col cols="6" v-if="d.type != 'Healing' && (characteristic || isMeleeAttack)">
-                                                            <v-checkbox label="Add CHAR to damage" v-model="d.addChar" @click.stop="addChar(index)"></v-checkbox>
+                                                                      required></v-select>
                                                         </v-col>
                                                     </v-row>
                                                 </v-expansion-panel-content>
@@ -262,18 +252,6 @@
             damageTypes: Array,
             resources: Array
         },
-        computed: {
-            compDamage() {
-                let damages = []
-
-                this.damage.forEach((damage, index) => {
-                    damage.key = index.toString() + damage.addChar
-                    damages.push(damage)
-                })
-
-                return damages
-            }
-        },
         data() {
             return {
                 // Input Fields Start
@@ -285,6 +263,11 @@
                     classResource: '',
                     crCost: 0,
                     characteristic: '',
+                    damage: {
+                        dice: 0,
+                        flat: 0,
+                        types: []
+                    },
                     description: '',
                     duration: 'Instant',
                     handedness: 0,
@@ -299,7 +282,6 @@
                     successes: 0,
                     xpCost: 0,
                     components: [],
-                    damage: [],
                     subEffects: []
                 },
                 apCost: 3,
@@ -309,6 +291,11 @@
                 classResource: '',
                 crCost: 0,
                 characteristic: '',
+                damage: {
+                    dice: 0,
+                    flat: 0,
+                    types: []
+                },
                 description: '',
                 duration: 'Instant',
                 handedness: 0,
@@ -323,7 +310,6 @@
                 successes: 0,
                 xpCost: 0,
                 components: [],
-                damage: [],
                 subEffects: [],
                 physMetaOptions: ['Physical', 'Meta', 'Both'],
                 // Input Fields End
@@ -348,21 +334,6 @@
                     name: ''
                 })
             },
-            addChar(index) {
-                this.damage.forEach((damage) => {
-                    damage.addChar = false
-                })
-                this.damage[index].addChar = true
-            },
-            addDamage() {
-                let addChar = this.damage.length == 0
-                this.damage.push({
-                    addChar: addChar,
-                    dice: 0,
-                    flat: 0,
-                    type: ''
-                });
-            },
             addSubEffect() {
                 this.subEffects.push({
                     apCost: 3,
@@ -372,6 +343,11 @@
                     classResource: '',
                     crCost: 0,
                     characteristic: '',
+                    damage: {
+                        dice: 0,
+                        flat: 0,
+                        types: []
+                    },
                     description: '',
                     duration: 'Instant',
                     handedness: 0,
@@ -386,12 +362,8 @@
                     successes: 0,
                     xpCost: 10,
                     components: [],
-                    damage: [],
                     subEffects: []
                 })
-            },
-            deleteDamage(i) {
-                this.damage.splice(i, 1)
             },
             deleteSubEffect(i) {
                 this.subEffects.splice(i, 1)
@@ -429,6 +401,7 @@
                 this.ability.classResource = this.classResource
                 this.ability.crCost = this.crCost
                 this.ability.characteristic = this.characteristic
+                this.ability.damage = this.damage
                 this.ability.description = this.description
                 this.ability.duration = this.duration
                 this.ability.handedness = this.handedness
@@ -443,7 +416,6 @@
                 this.ability.successes = this.successes
                 this.ability.xpCost = this.xpCost
                 this.ability.components = this.components
-                this.ability.damage = this.damage
                 this.ability.subEffects = this.subEffects
             },
             // CRUD Functions End
@@ -463,6 +435,11 @@
                     classResource: '',
                     crCost: 0,
                     characteristic: '',
+                    damage: {
+                        dice: 0,
+                        flat: 0,
+                        types: []
+                    },
                     description: '',
                     duration: 'Instant',
                     handedness: 0,
@@ -477,7 +454,6 @@
                     successes: 0,
                     xpCost: 10,
                     components: [],
-                    damage: [],
                     subEffects: []
                 }
                 this.setInputs(this.ability)
@@ -509,6 +485,7 @@
                 this.classResource = ability.classResource
                 this.crCost = ability.crCost
                 this.characteristic = ability.characteristic
+                this.damage = ability.damage
                 this.description = ability.description
                 this.duration = ability.duration
                 this.handedness = ability.handedness
@@ -523,7 +500,6 @@
                 this.successes = ability.successes
                 this.xpCost = ability.xpCost
                 this.components = ability.components
-                this.damage = ability.damage
                 this.subEffects = ability.subEffects
             },
             // Open Dialog Functions End

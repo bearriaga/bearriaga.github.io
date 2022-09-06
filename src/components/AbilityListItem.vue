@@ -28,10 +28,10 @@
                         <v-icon slot="prepend" @click="rollAbility(ability)">mdi-dice-6</v-icon>
                     </v-select>
                 </v-col>
-                <v-col cols="12" v-if="damage.length > 0">
+                <v-col cols="12" v-if="damage.dice || damage.flat">
                     <template>
                         <v-expansion-panels>
-                            <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                            <v-expansion-panel>
                                 <v-expansion-panel-header>
                                     <h3 class="text-center">
                                         Damage
@@ -39,19 +39,17 @@
                                     </h3>
                                 </v-expansion-panel-header>
                                 <v-expansion-panel-content>
-                                    <div v-for="d in damage" :key="d.dice + d.flat + d.type">
-                                        <v-row>
-                                            <v-col cols="12" md="6" v-if="d.dice">
-                                                <v-text-field label="Dice" v-model="d.dice"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" md="6" v-if="d.flat">
-                                                <v-text-field label="Flat" type="for" v-model="d.flat"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" md="6">
-                                                <v-text-field label="Type" v-model="d.type"></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                    </div>
+                                    <v-row>
+                                        <v-col cols="12" md="6" v-if="damage.dice">
+                                            <v-text-field label="Dice" v-model="damage.dice"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="6" v-if="damage.flat">
+                                            <v-text-field label="Flat" v-model="damage.flat"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-text-field label="Type" v-model="damage.types"></v-text-field>
+                                        </v-col>
+                                    </v-row>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
                         </v-expansion-panels>
@@ -289,6 +287,7 @@
                     classResource: this.classResource,
                     crCost: this.crCost,
                     characteristic: this.characteristic,
+                    damage: this.damage,
                     description: this.description,
                     duration: this.duration,
                     handedness: this.handedness,
@@ -303,7 +302,6 @@
                     successes: this.successes,
                     xpCost: this.xpCost,
                     components: this.components,
-                    damage: this.damage,
                     subEffects: this.subEffects
                 }
 

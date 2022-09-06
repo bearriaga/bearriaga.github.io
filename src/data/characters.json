@@ -91,15 +91,12 @@
         "successes": 0,
         "xpCost": "160",
         "components": [],
-        "damage": [
-          {
-            "addChar": true,
-            "dice": "1",
-            "flat": "0",
-            "type": "Dark",
-            "key": "0true"
-          }
-        ],
+        "damage": {
+          "dice": "1",
+          "flat": "0",
+          "types": [ "Dark" ],
+          "key": "0true"
+        },
         "subEffects": [],
         "key": "3false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0intelligencePoint a finger at your target and say, \"The bell tolls for you\".Instant11truefalsefalse0Toll the DeadPhysical60160[][{\"addChar\":true,\"dice\":\"1\",\"flat\":\"0\",\"type\":\"Dark\",\"key\":\"0true\"}][]"
       },
@@ -156,7 +153,12 @@
         "successes": 0,
         "xpCost": "360",
         "components": [],
-        "damage": [],
+        "damage": {
+          "dice": "0",
+          "flat": "0",
+          "types": [],
+          "key": "0"
+        },
         "subEffects": [],
         "key": "7Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}2Instant01662000692496truefalsefalse0Summon UndeadPhysical-30360[][][]"
       },
@@ -205,7 +207,12 @@
         "successes": 0,
         "xpCost": "30",
         "components": [],
-        "damage": [],
+        "damage": {
+          "dice": "0",
+          "flat": "0",
+          "types": [],
+          "key": "0"
+        },
         "subEffects": [],
         "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Bile Resource +1Instant01662002064365truefalsefalse0Bile Max IncreasePhysical0030[][][]"
       }
@@ -567,26 +574,12 @@
         "successes": 0,
         "xpCost": 10,
         "components": [],
-        "damage": [
-          {
-            "addChar": true,
-            "dice": 2,
-            "flat": 4,
-            "type": "Piercing"
-          },
-          {
-            "addChar": false,
-            "dice": 0,
-            "flat": 1,
-            "type": "Acid"
-          },
-          {
-            "addChar": false,
-            "dice": 2,
-            "flat": 4,
-            "type": "Fire"
-          }
-        ],
+        "damage": {
+          "dice": "1",
+          "flat": "0",
+          "types": [ "Piercing" ],
+          "key": "0true"
+        },
         "subEffects": []
       }
     ],

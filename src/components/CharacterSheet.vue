@@ -410,11 +410,14 @@
                     </v-card-title>
 
                     <v-card-text>
-                        <div v-for="(damage, index) in damageDialog.damages" :key="index">
-                            <div>
-                                <v-icon :color="damage.color">{{damage.icon}}</v-icon>
-                                <b>{{damage.sum}} {{damage.type}}</b>
-                            </div>
+                        <div>
+                            <b>
+                                {{damageDialog.damage.sum}}
+                                <span v-for="(type, index) in damageDialog.damage.types" :key="index">
+                                    <span v-if="index > 0">, </span>
+                                    {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
+                                </span>
+                            </b>
                         </div>
                         <v-btn icon color="primary"
                                @click="copyDamage">
@@ -426,22 +429,19 @@
                     </v-card-text>
 
                     <v-card-text>
-                        <div v-for="(damage, index) in damageDialog.damages" :key="index">
-                            <div>
-                                <b>{{damage.damage.type}}</b>
+                        <div>
+                            <div v-if="damageDialog.damage.damage.dice">
+                                Die Results:  {{damageDialog.damage.damage.dice}}d6 {{damageDialog.damage.diceResults}}
                             </div>
-                            <div v-if="damage.damage.dice">
-                                Die Results:  {{damage.damage.dice}}d6 {{damage.diceResults}}
+                            <div v-if="damageDialog.damage.charDamage">
+                                CHAR damage: {{damageDialog.damage.charDamage}}
                             </div>
-                            <div v-if="damage.charDamage">
-                                CHAR damage: {{damage.charDamage}}
+                            <div v-if="damageDialog.damage.damage.flat">
+                                Flat Damage: {{damageDialog.damage.damage.flat}}
                             </div>
-                            <div v-if="damage.damage.flat">
-                                Flat Damage: {{damage.damage.flat}}
-                            </div>
-                            <v-select v-model="damage.selectedRerolls"
-                                      v-if="damage.diceResults.length > 0"
-                                      :items="damage.diceResults.map((x, i) => ({ value: i, text: x}))"
+                            <v-select v-model="damageDialog.damage.selectedRerolls"
+                                      v-if="damageDialog.damage.diceResults.length > 0"
+                                      :items="damageDialog.damage.diceResults.map((x, i) => ({ value: i, text: x}))"
                                       label="Select Rerolls"
                                       multiple
                                       :disabled="characterSheet.rerolls <= 0">
@@ -455,9 +455,9 @@
                                        width="200">Reroll Hand</v-btn>
                             </v-col>
                             <v-col cols="6">
-                                <v-btn @click="rerollSelectedDamage"
+                                <!--<v-btn @click="rerollSelectedDamage"
                                        :disabled="characterSheet.rerolls <= 0 || !damageSelected"
-                                       width="200">Reroll Selected</v-btn>
+                                       width="200">Reroll Selected</v-btn>-->
                             </v-col>
                         </v-row>
                     </v-card-text>
@@ -864,10 +864,10 @@
 
                 return damageModifications
             },
-            damageSelected() {
-                const hasSelected = (obj) => obj.selectedRerolls.length
-                return this.damageDialog.damages.some(hasSelected)
-            },
+            //damageSelected() {
+            //    const hasSelected = (obj) => obj.selectedRerolls.length
+            //    return this.damageDialog.damages.some(hasSelected)
+            //},
             damageTypes() {
                 var damageTypes = []
                 this.damageGroups.forEach((group) => {
@@ -1148,7 +1148,14 @@
                 },
                 damageDialog: {
                     ability: {},
-                    damages: [],
+                    damage: {
+                        charDamage: 0,
+                        damage: 0,
+                        diceResults: [],
+                        selectedRerolls: [],
+                        sum: 0,
+                        types: []
+                    },
                     show: false
                 },
                 damageGroups: [
@@ -1403,12 +1410,7 @@
                 navigator.clipboard.writeText(copyText)
             },
             copyDamage() {
-                var copyText =
-                    'Damage \n';
-
-                this.damageDialog.damages.forEach((damage) => {
-                    copyText += damage.sum + ' ' + damage.type + '\n'
-                })
+                var copyText = `Damage \n${this.damageDialog.damage.sum} ${this.damageDialog.ability.damage.types.join(', ')}`
 
                 navigator.clipboard.writeText(copyText)
             },
@@ -1734,70 +1736,73 @@
             rollDamage(ability) {
                 let result = {
                     ability: ability,
-                    damages: [],
+                    damage: {},
                     show: true
                 }
 
-                ability.damage.forEach((d) => {
-                    let sum = 0
-                    let diceResults = [];
+                let sum = 0
+                let diceResults = [];
 
-                    if (d.dice) {
-                        for (var i = 0; i < d.dice; i++) {
-                            diceResults.push(this.getRandomIntInclusive(1, 6))
-                        }
-                        sum += diceResults.reduce((previousValue, entry) => {
-                            return +previousValue + +entry
-                        }, 0)
-
+                if (ability.damage.dice) {
+                    for (var i = 0; i < ability.damage.dice; i++) {
+                        diceResults.push(this.getRandomIntInclusive(1, 6))
                     }
-                    if (d.flat)
-                        sum += +d.flat
+                    sum += diceResults.reduce((previousValue, entry) => {
+                        return +previousValue + +entry
+                    }, 0)
 
-                    let charDamage = 0
-                    if (d.addChar && d.type != 'Healing') {
-                        if (ability.characteristic) {
-                            let char = +this[ability.characteristic]
-                            charDamage += +char
-                        }
+                }
+                if (ability.damage.flat)
+                    sum += +ability.damage.flat
 
-                        if (ability.isMeleeAttack) {
-                            let char = +this.fitness
-                            charDamage += +char
-                        }
+                let charDamage = 0
+                if (ability.damage.type != 'Healing') {
+                    if (ability.characteristic) {
+                        let char = +this[ability.characteristic]
+                        charDamage += +char
                     }
 
-                    sum += +charDamage
+                    if (ability.isMeleeAttack) {
+                        let char = +this.fitness
+                        charDamage += +char
+                    }
+                }
 
+                sum += +charDamage
+
+                let types = []
+
+                ability.damage.types.forEach(type => {
                     let color = ''
-                    this.damageGroups.forEach((group) => {
-                        if (d.type == group.name || group.types.some(x => x.name == d.type)) {
-                            color = group.color
-                        }
-                    })
                     let icon = ''
                     this.damageGroups.forEach((group) => {
-                        if (d.type == group.name || group.types.some(x => x.name == d.type)) {
-                            if (d.type == group.name)
+                        if (type == group.name || group.types.some(x => x.name == type)) {
+                            color = group.color
+
+                            if (type == group.name)
                                 icon = group.icon
-                            let damageType = group.types.find(type => type.name == d.type)
+                            let damageType = group.types.find(t => t.name == type)
                             if (damageType)
                                 icon = damageType.icon
                         }
                     })
-
-                    let damage = {
-                        charDamage: charDamage,
+                    types.push({
                         color: color,
-                        damage: d,
                         icon: icon,
-                        diceResults: diceResults,
-                        selectedRerolls: [],
-                        sum: sum,
-                        type: d.type
-                    }
-                    result.damages.push(damage)
+                        text: type
+                    })
                 })
+
+                let damage = {
+                    charDamage: charDamage,
+                    damage: ability.damage,
+                    diceResults: diceResults,
+                    selectedRerolls: [],
+                    sum: sum,
+                    types: types
+                }
+                result.damage = damage
+
                 this.damageDialog = result
             },
             //Reroll Functions End
