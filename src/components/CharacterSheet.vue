@@ -284,37 +284,37 @@
             </v-row>
         </form>
 
-        <!-- Check Dialog -->
+        <!-- Ability Dialog -->
         <div class="text-center">
-            <v-dialog v-model="checkDialog.show" width="500">
+            <v-dialog v-model="abilityDialog.show" width="500">
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
-                        Dice Check Results
+                        {{abilityDialog.title}}
                     </v-card-title>
 
-                    <v-card-text>
+                    <v-card-text v-if="abilityDialog.check.show">
                         <div>
-                            <b>Successes: {{checkDialog.successes}}</b>
+                            <b>Successes: {{abilityDialog.check.successes}}</b>
                         </div>
                         <div>
-                            Fate: {{checkDialog.fate}}
+                            Fate: {{abilityDialog.check.fate}}
 
-                            <template v-if="checkDialog.advantage">
+                            <template v-if="abilityDialog.check.advantage">
                                 , Advantage
                             </template>
 
-                            <template v-if="checkDialog.threat">
+                            <template v-if="abilityDialog.check.threat">
                                 , Threat
                             </template>
                         </div>
                         <div>
-                            Dice Results: {{checkDialog.diceResults}}
+                            Dice Results: {{abilityDialog.check.diceResults}}
                         </div>
-                        <div v-if="checkDialog.successesFromIntelligence">
-                            Successes From INT: {{checkDialog.successesFromIntelligence}}
+                        <div v-if="abilityDialog.check.successesFromIntelligence">
+                            Successes From INT: {{abilityDialog.check.successesFromIntelligence}}
                         </div>
-                        <div v-if="checkDialog.successesFromLuck">
-                            Successes From LCK: {{checkDialog.successesFromLuck}}
+                        <div v-if="abilityDialog.check.successesFromLuck">
+                            Successes From LCK: {{abilityDialog.check.successesFromLuck}}
                         </div>
 
                         <v-row>
@@ -333,22 +333,72 @@
                             </v-col>
                             <v-col cols="6">
                                 <v-btn @click="rerollFailures"
-                                       :disabled="characterSheet.rerolls <= 0 || checkDialog.diceResults.filter(x=>{ return x < 4 }).length == 0"
+                                       :disabled="characterSheet.rerolls <= 0 || abilityDialog.check.diceResults.filter(x=>{ return x < 4 }).length == 0"
                                        width="200">Reroll Failures</v-btn>
                             </v-col>
                             <v-col cols="12">
-                                <v-select v-model="checkDialog.selectedRerolls"
-                                          :items="checkDialog.diceResults.map((x, i) => ({ value: i, text: x}))"
+                                <v-select v-model="abilityDialog.check.selectedRerolls"
+                                          :items="abilityDialog.check.diceResults.map((x, i) => ({ value: i, text: x}))"
                                           label="Select Rerolls"
                                           multiple
                                           :disabled="characterSheet.rerolls <= 0">
                                     <v-icon color="primary"
                                             slot="prepend"
                                             @click.stop="rerollSelected"
-                                            :disabled="characterSheet.rerolls <= 0 || checkDialog.selectedRerolls.length == 0">
+                                            :disabled="characterSheet.rerolls <= 0 || abilityDialog.check.selectedRerolls.length == 0">
                                         mdi-dice-6
                                     </v-icon>
                                 </v-select>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
+
+                    <v-card-text v-if="abilityDialog.damage.show">
+                        <div>
+                            <b>
+                                {{abilityDialog.damage.sum}}
+                                <span v-for="(type, index) in abilityDialog.damage.types" :key="index">
+                                    <span v-if="index > 0">, </span>
+                                    {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
+                                </span>
+                            </b>
+                        </div>
+                        <v-btn icon color="primary" @click="copyDamage">
+                            <v-icon>mdi-content-copy</v-icon>
+                        </v-btn>
+                        <div class="text-center">
+                            <v-btn @click="rollCrit" width="200">Roll Crit</v-btn>
+                        </div>
+
+                        <div>
+                            <div v-if="abilityDialog.damage.damage.dice > 0">
+                                Die Results:  {{abilityDialog.damage.damage.dice}}d6 {{abilityDialog.damage.diceResults}}
+                            </div>
+                            <div v-if="abilityDialog.damage.charDamage > 0">
+                                CHAR damage: {{abilityDialog.damage.charDamage}}
+                            </div>
+                            <div v-if="abilityDialog.damage.flat > 0">
+                                Flat Damage: {{abilityDialog.damage.flat}}
+                            </div>
+                            <v-select v-model="abilityDialog.damage.selectedRerolls"
+                                      v-if="abilityDialog.damage.diceResults.length > 0"
+                                      :items="abilityDialog.damage.diceResults.map((x, i) => ({ value: i, text: x}))"
+                                      label="Select Rerolls"
+                                      multiple
+                                      :disabled="characterSheet.rerolls <= 0">
+                            </v-select>
+                        </div>
+
+                        <v-row>
+                            <v-col cols="6">
+                                <v-btn @click="rerollWholeDamage"
+                                       :disabled="characterSheet.rerolls <= 0"
+                                       width="200">Reroll Hand</v-btn>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-btn @click="rerollSelectedDamage"
+                                       :disabled="characterSheet.rerolls <= 0 || !abilityDialog.damage.selectedRerolls"
+                                       width="200">Reroll Selected</v-btn>
                             </v-col>
                         </v-row>
                     </v-card-text>
@@ -357,12 +407,12 @@
 
                     <v-card-actions class="justify-end">
                         <v-btn color="secondary"
-                               @click="checkDialog.show = false">Close</v-btn>
+                               @click="abilityDialog.show = false">Close</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
         </div>
-        <!-- Check Dialog End -->
+        <!-- Ability Dialog End -->
         <!-- Cleanse Dialog -->
         <div class="text-center">
             <v-dialog v-model="cleanseDialog.show" width="500">
@@ -401,77 +451,6 @@
             </v-dialog>
         </div>
         <!-- Cleanse Dialog End -->
-        <!-- Damage Results Dialog -->
-        <div class="text-center">
-            <v-dialog v-model="damageDialog.show" width="500">
-                <v-card>
-                    <v-card-title class="text-h5 grey lighten-2">
-                        Damage Results
-                    </v-card-title>
-
-                    <v-card-text>
-                        <div>
-                            <b>
-                                {{damageDialog.damage.sum}}
-                                <span v-for="(type, index) in damageDialog.damage.types" :key="index">
-                                    <span v-if="index > 0">, </span>
-                                    {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
-                                </span>
-                            </b>
-                        </div>
-                        <v-btn icon color="primary" @click="copyDamage">
-                            <v-icon>mdi-content-copy</v-icon>
-                        </v-btn>
-                        <div class="text-center">
-                            <v-btn @click="rollCrit" width="200">Roll Crit</v-btn>
-                        </div>
-
-                    </v-card-text>
-
-                    <v-card-text>
-                        <div>
-                            <div v-if="damageDialog.damage.damage.dice > 0">
-                                Die Results:  {{damageDialog.damage.damage.dice}}d6 {{damageDialog.damage.diceResults}}
-                            </div>
-                            <div v-if="damageDialog.damage.charDamage > 0">
-                                CHAR damage: {{damageDialog.damage.charDamage}}
-                            </div>
-                            <div v-if="damageDialog.damage.flat > 0">
-                                Flat Damage: {{damageDialog.damage.flat}}
-                            </div>
-                            <v-select v-model="damageDialog.damage.selectedRerolls"
-                                      v-if="damageDialog.damage.diceResults.length > 0"
-                                      :items="damageDialog.damage.diceResults.map((x, i) => ({ value: i, text: x}))"
-                                      label="Select Rerolls"
-                                      multiple
-                                      :disabled="characterSheet.rerolls <= 0">
-                            </v-select>
-                        </div>
-
-                        <v-row>
-                            <v-col cols="6">
-                                <v-btn @click="rerollWholeDamage"
-                                       :disabled="characterSheet.rerolls <= 0"
-                                       width="200">Reroll Hand</v-btn>
-                            </v-col>
-                            <v-col cols="6">
-                                <v-btn @click="rerollSelectedDamage"
-                                       :disabled="characterSheet.rerolls <= 0 || !damageDialog.damage.selectedRerolls"
-                                       width="200">Reroll Selected</v-btn>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-
-                    <v-divider></v-divider>
-
-                    <v-card-actions class="justify-end">
-                        <v-btn color="secondary"
-                               @click="damageDialog.show = false">Close</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </div>
-        <!-- Damage Results Dialog End -->
         <div class="text-center">
             <v-dialog v-model="generalDialog.show" width="500">
                 <v-card>
@@ -864,10 +843,6 @@
 
                 return damageModifications
             },
-            //damageSelected() {
-            //    const hasSelected = (obj) => obj.selectedRerolls.length
-            //    return this.damageDialog.damages.some(hasSelected)
-            //},
             damageTypes() {
                 var damageTypes = []
                 this.damageGroups.forEach((group) => {
@@ -1118,6 +1093,33 @@
         },
         data() {
             return {
+                abilityDialog: {
+                    ability: {},
+                    check: {
+                        advantage: false,
+                        diceCheckObject: {},
+                        diceResults: [],
+                        fate: 0,
+                        selectedRerolls: [],
+                        show: false,
+                        successes: 0,
+                        successesFromIntelligence: 0,
+                        successesFromLuck: 0,
+                        threat: false
+                    },
+                    damage: {
+                        charDamage: 0,
+                        damage: 0,
+                        diceResults: [],
+                        flat: 0,
+                        selectedRerolls: [],
+                        show: false,
+                        sum: 0,
+                        types: []
+                    },
+                    show: false,
+                    title: ''
+                },
                 characteristics: [
                     'fitness',
                     'speed',
@@ -1127,36 +1129,11 @@
                     'luck'
                 ],
                 characterSheet: this.characterStore.getCharacterById('clear'),
-                checkDialog: {
-                    advantage: false,
-                    diceCheckObject: {},
-                    diceResults: [],
-                    fate: 0,
-                    selectedRerolls: [],
-                    show: false,
-                    successes: 0,
-                    successesFromIntelligence: 0,
-                    successesFromLuck: 0,
-                    threat: false
-                },
                 cleanseDialog: {
                     selectedStatuses: [],
                     selectRules: [
                         v => v.length <= this.characterSheet.bp || 'Not enough Breakthrough Points'
                     ],
-                    show: false
-                },
-                damageDialog: {
-                    ability: {},
-                    damage: {
-                        charDamage: 0,
-                        damage: 0,
-                        diceResults: [],
-                        flat: 0,
-                        selectedRerolls: [],
-                        sum: 0,
-                        types: []
-                    },
                     show: false
                 },
                 damageGroups: [
@@ -1398,20 +1375,20 @@
             },
             copyCheck() {
                 var copyText =
-                    'Successes: ' + this.checkDialog.successes + '\n' +
-                    'Fate: ' + this.checkDialog.fate + ((this.checkDialog.advantage) ? ', Advantage' : '') + ((this.checkDialog.threat) ? ', Threat' : '') + '\n' +
-                    'Dice Results: [' + this.checkDialog.diceResults + ']';
+                    'Successes: ' + this.abilityDialog.check.successes + '\n' +
+                    'Fate: ' + this.abilityDialog.check.fate + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '\n' +
+                    'Dice Results: [' + this.abilityDialog.check.diceResults + ']';
 
-                if (this.checkDialog.successesFromIntelligence)
-                    copyText += '\nSuccesses From INT: ' + this.checkDialog.successesFromIntelligence
+                if (this.abilityDialog.check.successesFromIntelligence)
+                    copyText += '\nSuccesses From INT: ' + this.abilityDialog.check.successesFromIntelligence
 
-                if (this.checkDialog.successesFromLuck)
-                    copyText += '\nSuccesses From LCK: ' + this.checkDialog.successesFromLuck
+                if (this.abilityDialog.check.successesFromLuck)
+                    copyText += '\nSuccesses From LCK: ' + this.abilityDialog.check.successesFromLuck
 
                 navigator.clipboard.writeText(copyText)
             },
             copyDamage() {
-                var copyText = `Damage \n${this.damageDialog.damage.sum} ${this.damageDialog.ability.damage.types.join(', ')}`
+                var copyText = `Damage \n${this.abilityDialog.damage.sum} ${this.abilityDialog.ability.damage.types.join(', ')}`
 
                 navigator.clipboard.writeText(copyText)
             },
@@ -1430,40 +1407,40 @@
                 return Math.floor(Math.random() * (max - min + 1) + min) //The maximum is inclusive and the minimum is inclusive
             },
             rerollFailures() {
-                var failureCount = this.checkDialog.diceResults.filter(x => { return x < 4 }).length
-                let successDiceResults = this.checkDialog.diceResults.filter(x => { return x > 3 })
+                var failureCount = this.abilityDialog.check.diceResults.filter(x => { return x < 4 }).length
+                let successDiceResults = this.abilityDialog.check.diceResults.filter(x => { return x > 3 })
                 let rdResults = this.rollDice(failureCount)
 
-                this.checkDialog.selectedRerolls = []
-                this.checkDialog.diceResults = successDiceResults.concat(rdResults.diceResults)
-                this.checkDialog.successes += +rdResults.successes
+                this.abilityDialog.check.selectedRerolls = []
+                this.abilityDialog.check.diceResults = successDiceResults.concat(rdResults.diceResults)
+                this.abilityDialog.check.successes += +rdResults.successes
 
                 this.characterSheet.rerolls--
                 this.updateRerolls++
             },
             rerollSelected() {
-                let indexes = this.checkDialog.selectedRerolls.sort().reverse()
+                let indexes = this.abilityDialog.check.selectedRerolls.sort().reverse()
 
                 indexes.forEach(i => {
-                    this.checkDialog.diceResults.splice(i, 1)
+                    this.abilityDialog.check.diceResults.splice(i, 1)
                 })
 
                 let rdResults = this.rollDice(indexes.length)
-                this.checkDialog.diceResults = this.checkDialog.diceResults.concat(rdResults.diceResults)
+                this.abilityDialog.check.diceResults = this.abilityDialog.check.diceResults.concat(rdResults.diceResults)
 
-                this.checkDialog.successes = 0
+                this.abilityDialog.check.successes = 0
 
-                this.checkDialog.diceResults.forEach(d => {
-                    this.checkDialog.successes += +this.determineSuccesses(d)
+                this.abilityDialog.check.diceResults.forEach(d => {
+                    this.abilityDialog.check.successes += +this.determineSuccesses(d)
                 })
 
-                this.checkDialog.selectedRerolls = []
+                this.abilityDialog.check.selectedRerolls = []
 
                 this.characterSheet.rerolls--
                 this.updateRerolls++
             },
             rerollWholeCheck() {
-                this.rollCheck(this.checkDialog.diceCheckObject)
+                this.rollCheck(this.abilityDialog.check.diceCheckObject)
                 this.characterSheet.rerolls--
                 this.updateRerolls++
             },
@@ -1530,7 +1507,10 @@
                     }
                 }
 
-                this.checkDialog = result
+                this.abilityDialog.check = result
+                this.abilityDialog.damage.show = false
+                this.abilityDialog.show = true
+                this.abilityDialog.title = 'Dice Check Results'
             },
             //Dice Roll Functions End
             fillResources() {
@@ -1708,43 +1688,44 @@
             },
             //Reroll Functions
             rerollSelectedDamage() {
-                if (this.damageDialog.damage.selectedRerolls.length) {
-                    let indexes = this.damageDialog.damage.selectedRerolls.sort().reverse()
+                if (this.abilityDialog.damage.selectedRerolls.length) {
+                    let indexes = this.abilityDialog.damage.selectedRerolls.sort().reverse()
                     indexes.forEach(i => {
-                        this.damageDialog.damage.sum -= +this.damageDialog.damage.diceResults[i]
-                        this.damageDialog.damage.diceResults.splice(i, 1)
+                        this.abilityDialog.damage.sum -= +this.abilityDialog.damage.diceResults[i]
+                        this.abilityDialog.damage.diceResults.splice(i, 1)
                     })
                     for (var i = 0; i < indexes.length; i++) {
                         let dieResult = this.getRandomIntInclusive(1, 6)
-                        this.damageDialog.damage.sum += +dieResult
-                        this.damageDialog.damage.diceResults.push(dieResult)
+                        this.abilityDialog.damage.sum += +dieResult
+                        this.abilityDialog.damage.diceResults.push(dieResult)
                     }
-                    this.damageDialog.damage.selectedRerolls = []
+                    this.abilityDialog.damage.selectedRerolls = []
 
                     this.characterSheet.rerolls--
                     this.updateRerolls++
                 }
             },
             rerollWholeDamage() {
-                for (var i = 0; i < this.damageDialog.damage.diceResults.length; i++) {
-                    this.damageDialog.damage.selectedRerolls.push(i)
+                for (var i = 0; i < this.abilityDialog.damage.diceResults.length; i++) {
+                    this.abilityDialog.damage.selectedRerolls.push(i)
                 }
                 this.rerollSelectedDamage()
             },
             rollCrit() {
-                let damage = this.rollDamage(this.damageDialog.damage.damage, false, null, true)
+                let damage = this.rollDamage(this.abilityDialog.damage.damage, false, null, true)
 
-                this.damageDialog.damage.charDamage += +damage.charDamage
-                this.damageDialog.damage.diceResults = this.damageDialog.damage.diceResults.concat(damage.diceResults)
-                this.damageDialog.damage.flat += +damage.flat
-                this.damageDialog.damage.sum += +damage.sum
+                this.abilityDialog.damage.charDamage += +damage.charDamage
+                this.abilityDialog.damage.diceResults = this.abilityDialog.damage.diceResults.concat(damage.diceResults)
+                this.abilityDialog.damage.flat += +damage.flat
+                this.abilityDialog.damage.sum += +damage.sum
             },
             rollAbilityDamage(ability) {
-                this.damageDialog = {
-                    ability: ability,
-                    damage: this.rollDamage(ability.damage, ability.isMeleeAttack, ability.characteristic, false),
-                    show: true
-                }
+                this.abilityDialog.ability = ability
+                this.abilityDialog.damage = this.rollDamage(ability.damage, ability.isMeleeAttack, ability.characteristic, false)
+                this.abilityDialog.show = true
+                this.abilityDialog.check.show = false
+                this.abilityDialog.title = 'Damage Results'
+
             },
             rollDamage(damage, isMeleeAttack, characteristic, isCrit) {
                 let charDamage = 0
@@ -1814,6 +1795,7 @@
                     diceResults: diceResults,
                     flat: flat,
                     selectedRerolls: [],
+                    show: true,
                     sum: sum,
                     types: types
                 }

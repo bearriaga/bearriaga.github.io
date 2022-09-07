@@ -149,7 +149,7 @@
         "maxSizeCategoryOfMass": 0,
         "name": "Summon Undead",
         "physMeta": "Physical",
-        "range": "-3",
+        "range": "0",
         "successes": 0,
         "xpCost": "360",
         "components": [],
