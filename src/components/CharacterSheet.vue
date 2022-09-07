@@ -165,7 +165,7 @@
                                     @addEntryEmit="addEntry($event)"
                                     @deleteEntryEmit="deleteEntry($event)"
                                     @rollAbilityEmit="rollAbility($event)"
-                                    @rollDamageEmit="rollDamage($event)"
+                                    @rollDamageEmit="rollAbilityDamage($event)"
                                     @subtractAPEmit="subtractAP($event)"
                                     @subtractCREmit="subtractCR($event)"
                                     @updateEntryEmit="updateEntry($event)"></AbilitySection>
@@ -261,7 +261,7 @@
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @rollAbilityEmit="rollAbility($event)"
-                                      @rollDamageEmit="rollDamage($event)"
+                                      @rollDamageEmit="rollAbilityDamage($event)"
                                       @subtractAPEmit="subtractAP($event)"
                                       @subtractCREmit="subtractCR($event)"
                                       @updateEntryEmit="updateEntry($event)"
@@ -419,12 +419,12 @@
                                 </span>
                             </b>
                         </div>
-                        <v-btn icon color="primary"
-                               @click="copyDamage">
-                            <v-icon>
-                                mdi-content-copy
-                            </v-icon>
+                        <v-btn icon color="primary" @click="copyDamage">
+                            <v-icon>mdi-content-copy</v-icon>
                         </v-btn>
+                        <div class="text-center">
+                            <v-btn @click="rollCrit" width="200">Roll Crit</v-btn>
+                        </div>
 
                     </v-card-text>
 
@@ -436,8 +436,8 @@
                             <div v-if="damageDialog.damage.charDamage > 0">
                                 CHAR damage: {{damageDialog.damage.charDamage}}
                             </div>
-                            <div v-if="damageDialog.damage.damage.flat > 0">
-                                Flat Damage: {{damageDialog.damage.damage.flat}}
+                            <div v-if="damageDialog.damage.flat > 0">
+                                Flat Damage: {{damageDialog.damage.flat}}
                             </div>
                             <v-select v-model="damageDialog.damage.selectedRerolls"
                                       v-if="damageDialog.damage.diceResults.length > 0"
@@ -1152,6 +1152,7 @@
                         charDamage: 0,
                         damage: 0,
                         diceResults: [],
+                        flat: 0,
                         selectedRerolls: [],
                         sum: 0,
                         types: []
@@ -1725,22 +1726,33 @@
                 }
             },
             rerollWholeDamage() {
-                this.rollDamage(this.damageDialog.ability)
+                this.rollAbilityDamage(this.damageDialog.ability)
                 this.characterSheet.rerolls--
                 this.updateRerolls++
             },
-            rollDamage(ability) {
-                let result = {
+            rollCrit() {
+                let damage = this.rollDamage(this.damageDialog.damage.damage, false, null, true)
+
+                this.damageDialog.damage.charDamage += +damage.charDamage
+                this.damageDialog.damage.diceResults = this.damageDialog.damage.diceResults.concat(damage.diceResults)
+                this.damageDialog.damage.flat += +damage.flat
+                this.damageDialog.damage.sum += +damage.sum
+            },
+            rollAbilityDamage(ability) {
+                this.damageDialog = {
                     ability: ability,
-                    damage: {},
+                    damage: this.rollDamage(ability.damage, ability.isMeleeAttack, ability.characteristic, false),
                     show: true
                 }
-
-                let sum = 0
+            },
+            rollDamage(damage, isMeleeAttack, characteristic, isCrit) {
+                let charDamage = 0
                 let diceResults = [];
+                let flat = 0
+                let sum = 0
 
-                if (ability.damage.dice) {
-                    for (var i = 0; i < ability.damage.dice; i++) {
+                if (damage.dice && !isNaN(damage.dice)) {
+                    for (var i = 0; i < damage.dice; i++) {
                         diceResults.push(this.getRandomIntInclusive(1, 6))
                     }
                     sum += diceResults.reduce((previousValue, entry) => {
@@ -1748,27 +1760,33 @@
                     }, 0)
 
                 }
-                if (ability.damage.flat)
-                    sum += +ability.damage.flat
 
-                let charDamage = 0
-                if (ability.damage.type != 'Healing') {
-                    if (ability.characteristic) {
-                        let char = +this[ability.characteristic]
-                        charDamage += +char
+                if (!isCrit) {
+                    if (damage.flat && !isNaN(damage.flat)) {
+                        flat = +damage.flat
+                        sum += +damage.flat
                     }
 
-                    if (ability.isMeleeAttack) {
-                        let char = +this.fitness
-                        charDamage += +char
+                    if (!damage.types.includes('Healing')) {
+                        if (characteristic) {
+                            let char = +this[characteristic]
+                            charDamage += +char
+                        }
+
+                        if (isMeleeAttack) {
+                            let char = +this.fitness
+                            charDamage += +char
+                        }
                     }
                 }
+
+                if (isCrit)
+                    charDamage += +this.luck
 
                 sum += +charDamage
 
                 let types = []
-
-                ability.damage.types.forEach(type => {
+                damage.types.forEach(type => {
                     let color = ''
                     let icon = ''
                     this.damageGroups.forEach((group) => {
@@ -1789,17 +1807,15 @@
                     })
                 })
 
-                let damage = {
+                return {
                     charDamage: charDamage,
-                    damage: ability.damage,
+                    damage: damage,
                     diceResults: diceResults,
+                    flat: flat,
                     selectedRerolls: [],
                     sum: sum,
                     types: types
                 }
-                result.damage = damage
-
-                this.damageDialog = result
             },
             //Reroll Functions End
             setCharacterAsBelif() {
