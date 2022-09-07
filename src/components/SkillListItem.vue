@@ -71,7 +71,7 @@
                 this.$emit('updateEntryEmit', this.skill)
             },
             rollDiceCheck() {
-                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSave: false, successes: 0 })
+                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSave: false, name: this.skill.name, successes: 0 })
             }
         }
     }

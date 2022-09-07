@@ -61,10 +61,10 @@
         },
         methods: {
             rollCharCheck() {
-                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSave: false, successes: 0 })
+                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSave: false, name: this.characteristic.abbreviation, successes: 0 })
             },
             rollSaveCheck() {
-                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSave: true, successes: 0 })
+                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSave: true, name: this.characteristic.abbreviation + ' Save', successes: 0 })
             },
             updateProp() {
                 if (this.value < 0)

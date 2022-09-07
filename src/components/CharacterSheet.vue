@@ -1523,7 +1523,7 @@
             rollStandAloneCheck(diceCheckObject) {
                 this.rollCheck(diceCheckObject)
                 this.abilityDialog.damage.show = false
-                this.abilityDialog.title = 'Dice Check Results'
+                this.abilityDialog.title = diceCheckObject.name + ' Check Results'
             },
             //Dice Roll Functions End
             fillResources() {
@@ -1873,7 +1873,6 @@
                 this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0)
                 this.abilityDialog.show = true
                 this.abilityDialog.title = ability.name
-                console.log(this.abilityDialog)
             }
         },
         watch: {
