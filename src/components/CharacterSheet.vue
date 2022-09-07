@@ -1726,9 +1726,10 @@
                 }
             },
             rerollWholeDamage() {
-                this.rollAbilityDamage(this.damageDialog.ability)
-                this.characterSheet.rerolls--
-                this.updateRerolls++
+                for (var i = 0; i < this.damageDialog.damage.diceResults.length; i++) {
+                    this.damageDialog.damage.selectedRerolls.push(i)
+                }
+                this.rerollSelectedDamage()
             },
             rollCrit() {
                 let damage = this.rollDamage(this.damageDialog.damage.damage, false, null, true)
