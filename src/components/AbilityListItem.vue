@@ -1,12 +1,15 @@
 <template>
     <div class="mainColumn elevation-3" v-bind:style="{ borderColor: (color)? color.hexa : 'black' }">
-        <v-row v-if="canEdit">
-            <v-col class="text-center">
+        <v-row>
+            <v-col class="text-center" v-if="canEdit">
                 <v-btn color="primary" @click="updateDialog(ability)">
                     <v-icon>mdi-pen</v-icon>
                 </v-btn>
             </v-col>
-            <v-col class="text-center">
+            <v-col class="text-center" v-if="apCost != 0 || classResource || damage.dice > 0 || damage.flat > 0 || characteristic">
+                <v-btn color="primary" @click="useAbility(ability)">Use</v-btn>
+            </v-col>
+            <v-col class="text-center" v-if="canEdit">
                 <v-btn color="error" @click="deleteEntry(ability)">
                     <v-icon>mdi-delete</v-icon>
                 </v-btn>
@@ -28,7 +31,7 @@
                         <v-icon slot="prepend" @click="rollAbility(ability)">mdi-dice-6</v-icon>
                     </v-select>
                 </v-col>
-                <v-col cols="12" v-if="damage.dice || damage.flat">
+                <v-col cols="12" v-if="damage.dice > 0 || damage.flat > 0">
                     <template>
                         <v-expansion-panels>
                             <v-expansion-panel>
@@ -125,7 +128,8 @@
                                                      @rollAbilityEmit="rollAbility($event)"
                                                      @rollDamageEmit="rollDamage($event)"
                                                      @subtractAP="subtractAP($event)"
-                                                     @subtractCR="subtractCR($event)"></AbilityListItem>
+                                                     @subtractCR="subtractCR($event)"
+                                                     @useAbility="useAbility($event)"></AbilityListItem>
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
                         </v-expansion-panels>
@@ -306,6 +310,9 @@
                 }
 
                 this.$emit('updateEntryEmit', object)
+            },
+            useAbility(ability) {
+                this.$emit('useAbility', ability)
             }
         },
         watch: {

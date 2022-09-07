@@ -29,7 +29,8 @@
                                                  @subtractAP="subtractAP($event)"
                                                  @subtractCR="subtractCR($event)"
                                                  @updateDialogEmit="updateDialog($event)"
-                                                 @updateEntryEmit="updateEntryBypass($event)"></AbilityListItem>
+                                                 @updateEntryEmit="updateEntryBypass($event)"
+                                                 @useAbility="useAbility($event)"></AbilityListItem>
                             </v-col>
                         </v-row>
                     </v-expansion-panel-content>
@@ -82,7 +83,7 @@
                                             <v-expansion-panel>
                                                 <v-expansion-panel-header>
                                                     <h3 class="text-center">
-                                                        Damage                                                        
+                                                        Damage
                                                     </h3>
                                                 </v-expansion-panel-header>
                                                 <v-expansion-panel-content>
@@ -514,6 +515,9 @@
             },
             subtractCR(crCost) {
                 this.$emit('subtractCREmit', crCost)
+            },
+            useAbility(ability) {
+                this.$emit('useAbilityEmit', ability)
             },
             validate() {
                 return this.$refs.form.validate()

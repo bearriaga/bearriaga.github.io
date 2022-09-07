@@ -39,11 +39,11 @@
                         <v-row>
                             <v-col cols="6" lg="4" v-for="char in characteristicViewItems" :key="char.key">
                                 <CharacteristicViewItem @updatePropEmit="updateProp($event)"
-                                                        @rollDiceCheckEmit="rollCheck($event)"
+                                                        @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                                         :characteristic="char"></CharacteristicViewItem>
                             </v-col>
                             <v-col cols="12">
-                                <CharacteristicViewItem @rollDiceCheckEmit="rollCheck($event)"
+                                <CharacteristicViewItem @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                                         :characteristic="genericCharacteristic"></CharacteristicViewItem>
                             </v-col>
                         </v-row>
@@ -52,7 +52,7 @@
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"
-                                      @rollDiceCheckEmit="rollCheck($event)"></SkillSection>
+                                      @rollDiceCheckEmit="rollStandAloneCheck($event)"></SkillSection>
                         <v-expansion-panels>
                             <v-expansion-panel>
                                 <v-expansion-panel-header>
@@ -168,7 +168,8 @@
                                     @rollDamageEmit="rollAbilityDamage($event)"
                                     @subtractAPEmit="subtractAP($event)"
                                     @subtractCREmit="subtractCR($event)"
-                                    @updateEntryEmit="updateEntry($event)"></AbilitySection>
+                                    @updateEntryEmit="updateEntry($event)"
+                                    @useAbilityEmit="useAbility($event)"></AbilitySection>
                 </v-col>
             </v-row>
             <v-row>
@@ -344,7 +345,7 @@
                                           :disabled="characterSheet.rerolls <= 0">
                                     <v-icon color="primary"
                                             slot="prepend"
-                                            @click.stop="rerollSelected"
+                                            @click.stop="rerollSelectedCheck"
                                             :disabled="characterSheet.rerolls <= 0 || abilityDialog.check.selectedRerolls.length == 0">
                                         mdi-dice-6
                                     </v-icon>
@@ -386,21 +387,29 @@
                                       label="Select Rerolls"
                                       multiple
                                       :disabled="characterSheet.rerolls <= 0">
+                                <v-icon color="primary"
+                                        slot="prepend"
+                                        @click.stop="rerollSelectedDamage"
+                                        :disabled="characterSheet.rerolls <= 0 || abilityDialog.damage.selectedRerolls.length == 0">
+                                    mdi-dice-6
+                                </v-icon>
                             </v-select>
                         </div>
 
-                        <v-row>
-                            <v-col cols="6">
-                                <v-btn @click="rerollWholeDamage"
-                                       :disabled="characterSheet.rerolls <= 0"
-                                       width="200">Reroll Hand</v-btn>
-                            </v-col>
-                            <v-col cols="6">
-                                <v-btn @click="rerollSelectedDamage"
-                                       :disabled="characterSheet.rerolls <= 0 || !abilityDialog.damage.selectedRerolls"
-                                       width="200">Reroll Selected</v-btn>
-                            </v-col>
-                        </v-row>
+                        <div class="text-center">
+                            <v-btn @click="rerollWholeDamage"
+                                   :disabled="characterSheet.rerolls <= 0"
+                                   width="200">Reroll Hand</v-btn>
+                        </div>                        
+                    </v-card-text>
+
+                    <v-card-text>
+                        <div v-if="abilityDialog.ability.apCost != 0">
+                            <b>AP Used: {{abilityDialog.ability.apCost}}</b>
+                        </div>
+                        <div v-if="abilityDialog.ability.classResource && abilityDialog.ability.crCost != 0">
+                            <b>CR Used: {{abilityDialog.ability.classResource.name}} {{abilityDialog.ability.crCost}}</b>
+                        </div>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -1418,7 +1427,7 @@
                 this.characterSheet.rerolls--
                 this.updateRerolls++
             },
-            rerollSelected() {
+            rerollSelectedCheck() {
                 let indexes = this.abilityDialog.check.selectedRerolls.sort().reverse()
 
                 indexes.forEach(i => {
@@ -1451,6 +1460,7 @@
                     isSave: false,
                     successes: ability.successes
                 })
+                this.abilityDialog.title = `${ability.name} Check Results`
             },
             rollDice(diceToRoll) {
                 let result = {
@@ -1508,8 +1518,11 @@
                 }
 
                 this.abilityDialog.check = result
-                this.abilityDialog.damage.show = false
                 this.abilityDialog.show = true
+            },
+            rollStandAloneCheck(diceCheckObject) {
+                this.rollCheck(diceCheckObject)
+                this.abilityDialog.damage.show = false
                 this.abilityDialog.title = 'Dice Check Results'
             },
             //Dice Roll Functions End
@@ -1724,7 +1737,7 @@
                 this.abilityDialog.damage = this.rollDamage(ability.damage, ability.isMeleeAttack, ability.characteristic, false)
                 this.abilityDialog.show = true
                 this.abilityDialog.check.show = false
-                this.abilityDialog.title = 'Damage Results'
+                this.abilityDialog.title = `${ability.name} Damage Results`
 
             },
             rollDamage(damage, isMeleeAttack, characteristic, isCrit) {
@@ -1844,6 +1857,23 @@
                     this.characterSheet[prop.propName] = +prop.value
                 else
                     this.characterSheet[prop.propName] = prop.value
+            },
+            useAbility(ability) {
+                if (ability.apCost != 0)
+                    this.subtractAP(ability.apCost)
+                if (ability.classResource && ability.crCost != 0)
+                    this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
+                if (ability.damage.dice > 0 || ability.damage.flat > 0)
+                    this.rollAbilityDamage(ability)
+                if (ability.characteristic)
+                    this.rollAbility(ability)
+
+                this.abilityDialog.ability = ability
+                this.abilityDialog.check.show = (ability.characteristic)
+                this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0)
+                this.abilityDialog.show = true
+                this.abilityDialog.title = ability.name
+                console.log(this.abilityDialog)
             }
         },
         watch: {
