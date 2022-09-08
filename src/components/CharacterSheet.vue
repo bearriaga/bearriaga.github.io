@@ -756,7 +756,7 @@
                     {
                         abbreviation: 'FIT',
                         adjustment: this.characterSheet.fitnessAdjustment,
-                        key: 'fit' + this.characterSheet.id + this.characterSheet.fitnessAdjustment,
+                        key: 'fit' + this.characterSheet.id + this.characterSheet.fitnessAdjustment + this.updateCharacter,
                         name: 'fitness',
                         value: this.characterSheet.fitness,
                         characteristic: chars.includes('fitness')
@@ -764,7 +764,7 @@
                     {
                         abbreviation: 'RES',
                         adjustment: this.characterSheet.resistanceAdjustment,
-                        key: 'res' + this.characterSheet.id + this.characterSheet.resistanceAdjustment,
+                        key: 'res' + this.characterSheet.id + this.characterSheet.resistanceAdjustment + this.updateCharacter,
                         name: 'resistance',
                         value: this.characterSheet.resistance,
                         characteristic: chars.includes('resistance')
@@ -772,7 +772,7 @@
                     {
                         abbreviation: 'SPD',
                         adjustment: this.characterSheet.speedAdjustment,
-                        key: 'spd' + this.characterSheet.id + this.characterSheet.speedAdjustment,
+                        key: 'spd' + this.characterSheet.id + this.characterSheet.speedAdjustment + this.updateCharacter,
                         name: 'speed',
                         value: this.characterSheet.speed,
                         characteristic: chars.includes('speed')
@@ -780,7 +780,7 @@
                     {
                         abbreviation: 'INT',
                         adjustment: this.characterSheet.intelligenceAdjustment,
-                        key: 'int' + this.characterSheet.id + this.characterSheet.intelligenceAdjustment,
+                        key: 'int' + this.characterSheet.id + this.characterSheet.intelligenceAdjustment + this.updateCharacter,
                         name: 'intelligence',
                         value: this.characterSheet.intelligence,
                         characteristic: chars.includes('intelligence')
@@ -788,7 +788,7 @@
                     {
                         abbreviation: 'CUN',
                         adjustment: this.characterSheet.cunningAdjustment,
-                        key: 'cun' + this.characterSheet.id + this.characterSheet.cunningAdjustment,
+                        key: 'cun' + this.characterSheet.id + this.characterSheet.cunningAdjustment + this.updateCharacter,
                         name: 'cunning',
                         value: this.characterSheet.cunning,
                         characteristic: chars.includes('cunning')
@@ -796,7 +796,7 @@
                     {
                         abbreviation: 'LCK',
                         adjustment: this.characterSheet.luckAdjustment,
-                        key: 'lck' + this.characterSheet.id + this.characterSheet.luckAdjustment,
+                        key: 'lck' + this.characterSheet.id + this.characterSheet.luckAdjustment + this.updateCharacter,
                         name: 'luck',
                         value: this.characterSheet.luck,
                         characteristic: chars.includes('luck')
@@ -872,6 +872,7 @@
                         color: '',
                         dialogText: '',
                         disabled: true,
+                        infoText: '3 + DC Purchases (Natural Armor) + Highest Buff + Highest Armor/Shield Equipment.',
                         key: 'dc' + this.characterSheet.dcToHit,
                         label: 'DC to Hit',
                         minus: false,
@@ -890,6 +891,7 @@
                         color: '',
                         dialogText: 'Initiative = 1d6 + SPD + Initiative Purchases',
                         disabled: false,
+                        infoText: '',
                         key: 'initiative' + this.characterSheet.initiative + this.updateInitiative,
                         label: 'Initiative',
                         minus: false,
@@ -922,6 +924,7 @@
                         color: 'red',
                         dialogText: 'Health Points Max = (level * 5) + (RES * 3) + purchased HP + Buffs',
                         disabled: false,
+                        infoText: '',
                         key: 'hp' + this.characterSheet.hpMax + this.updateHP.toString(),
                         label: 'Health Points',
                         minus: true,
@@ -944,6 +947,7 @@
                         color: 'green',
                         dialogText: 'Your maximum AP pool is increased from 2x your AP generation to 3x your generation rate.',
                         disabled: false,
+                        infoText: '',
                         key: 'ap' + this.characterSheet.apMax + this.updateAP.toString(),
                         label: 'Action Points',
                         minus: true,
@@ -962,6 +966,7 @@
                         color: 'brown lighten-2',
                         dialogText: '',
                         disabled: false,
+                        infoText: '',
                         key: 'bp' + this.characterSheet.bpMax + this.updateBP.toString(),
                         label: 'Breakthrough Points',
                         minus: true,
@@ -980,6 +985,7 @@
                         color: 'yellow',
                         dialogText: '',
                         disabled: false,
+                        infoText: '',
                         key: 'rerolls' + this.characterSheet.rerollsMax + this.updateRerolls.toString(),
                         label: 'Rerolls',
                         minus: true,
@@ -997,19 +1003,20 @@
                         bar: true,
                         color: 'primary',
                         dialogText: '',
+                        disabled: true,
+                        infoText: '',
                         key: 'attunementSlots' + this.characterSheet.attunementSlots + this.characterSheet.attunementSlotsMax,
                         label: 'Attunement Slots',
+                        minus: false,
+                        plus: false,
                         type: 'number',
                         value: this.characterSheet.attunementSlots,
-                        valueName: 'attunementSlots',
                         valueIncreases: this.characterSheet.attunementSlotsIncreases,
                         valueIncreasesLabel: 'Attunement Slot Purchases',
                         valueIncreasesName: 'attunementSlotsIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.attunementSlotsMax,
-                        disabled: true,
-                        plus: false,
-                        minus: false
+                        valueName: 'attunementSlots'
                     }
                 ]
             },

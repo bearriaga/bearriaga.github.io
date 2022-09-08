@@ -16,7 +16,7 @@
     border-color: purple;
 }
 
-.cursorPointer {
+.cursorPointer, .cursorPointer input {
     cursor: pointer;
 }
 

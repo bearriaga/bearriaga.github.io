@@ -10,7 +10,16 @@
             <v-text-field :label="propertyObject.label"
                           :type="propertyObject.type"
                           v-model="value"
-                          :disabled="propertyObject.disabled">
+                          :disabled="propertyObject.disabled"
+                          :readonly="propertyObject.disabled">
+                <v-tooltip top slot="prepend" v-if="propertyObject.infoText">
+                    <template v-slot:activator="{ on }">
+                        <v-icon v-on="on" color="primary" dark>
+                            mdi-information
+                        </v-icon>
+                    </template>
+                    <span>{{propertyObject.infoText}}</span>
+                </v-tooltip>
                 <template v-if="propertyObject.valueName == 'bp'">
                     <v-icon color="brown"
                             slot="append"
