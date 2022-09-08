@@ -33,11 +33,11 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <div class="charColumn mainColumn elevation-3" elevation="3">
                         <h3 class="text-center"> Characteristics </h3>
                         <v-row>
-                            <v-col cols="6" lg="4" v-for="char in characteristicViewItems" :key="char.key">
+                            <v-col cols="6" xl="4" v-for="char in characteristicViewItems" :key="char.key">
                                 <CharacteristicViewItem @updatePropEmit="updateProp($event)"
                                                         @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                                         :characteristic="char"></CharacteristicViewItem>
@@ -85,7 +85,7 @@
                         </v-expansion-panels>
                     </div>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <div class="hpColumn mainColumn elevation-3">
                         <v-form>
                             <h3 class="text-center"> Health </h3>
@@ -124,7 +124,7 @@
                         </v-row>
                     </div>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <div class="resourcesColumn mainColumn elevation-3">
                         <h3 class="text-center"> Resources </h3>
                         <v-row>
@@ -137,7 +137,7 @@
                         </v-row>
                     </div>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <div class="classResourcesColumn mainColumn elevation-3">
                         <ResourceSection :resources="resources"
                                          :characteristics="characteristics"
@@ -173,7 +173,7 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <ClassSection :unlocked="false"
                                   :characteristics="characteristics"
                                   :classes="classes"
@@ -181,7 +181,7 @@
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"></ClassSection>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <ClassSection :unlocked="true"
                                   :characteristics="characteristics"
                                   :classes="classesUnlocked"
@@ -189,7 +189,7 @@
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"></ClassSection>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <h3 class="text-center"> Money </h3>
                     <v-row>
                         <v-col col="12" md="6">
@@ -218,7 +218,7 @@
                                @deleteEntryEmit="deleteEntry($event)"
                                @updateEntryEmit="updateEntry($event)"></XPSection>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <TraitFlawSection :is-flaw="true"
                                       :items="flaws"
                                       @addEntryEmit="addEntry($event)"
@@ -232,7 +232,7 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <StatusSection :statuses="statuses"
                                    :character-statuses="characterStatuses"
                                    @addEntryEmit="addEntry($event)"
@@ -240,7 +240,7 @@
                                    @updateBuffEntryEmit="updateBuffStatus($event)"
                                    @updateEntryEmit="updateEntry($event)"></StatusSection>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <BuffSection :buffs="buffs"
                                  :characteristics="characteristics"
                                  :damage-types="damageTypes"
@@ -252,7 +252,7 @@
                                  @updateEntryEmit="updateBuffEntry($event)"
                                  @updateEntryBypassEmit="updateEntry($event)"></BuffSection>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" lg="3" md="6">
                     <EquipmentSection :ap="characterSheet.ap"
                                       :characteristics="characteristics"
                                       :character-equipment="characterEquipment"
@@ -868,38 +868,40 @@
             defenseInputWithEditModals() {
                 return [
                     {
+                        bar: false,
+                        color: '',
                         dialogText: '',
+                        disabled: true,
                         key: 'dc' + this.characterSheet.dcToHit,
                         label: 'DC to Hit',
+                        minus: false,
+                        plus: false,
                         type: 'number',
                         value: this.characterSheet.dcToHit,
-                        valueName: 'dc',
                         valueIncreases: this.characterSheet.dcToHitIncreases,
                         valueIncreasesLabel: 'DC to Hit Purchases',
                         valueIncreasesName: 'dcToHitIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.dcToHit,
-                        bar: false,
-                        disabled: true,
-                        plus: false,
-                        minus: false
+                        valueName: 'dc'
                     },
                     {
+                        bar: false,
+                        color: '',
                         dialogText: 'Initiative = 1d6 + SPD + Initiative Purchases',
+                        disabled: false,
                         key: 'initiative' + this.characterSheet.initiative + this.updateInitiative,
                         label: 'Initiative',
+                        minus: false,
+                        plus: false,
                         type: 'number',
                         value: this.characterSheet.initiative,
-                        valueName: 'initiative',
                         valueIncreases: this.characterSheet.initiativeIncreases,
                         valueIncreasesLabel: 'Initiative Purchases',
                         valueIncreasesName: 'initiativeIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.initiative,
-                        bar: false,
-                        disabled: false,
-                        plus: false,
-                        minus: false
+                        valueName: 'initiative'
                     }
                 ]
             },
@@ -993,6 +995,7 @@
                     },
                     {
                         bar: true,
+                        color: 'primary',
                         dialogText: '',
                         key: 'attunementSlots' + this.characterSheet.attunementSlots + this.characterSheet.attunementSlotsMax,
                         label: 'Attunement Slots',

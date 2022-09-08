@@ -16,7 +16,7 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <v-row>
-                            <v-col cols="12" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
+                            <v-col cols="12" :xl="extraLargeColumns(ability)" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
                                 <AbilityListItem :ability="ability"
                                                  :ap="ap"
                                                  :can-edit="true"
@@ -420,10 +420,15 @@
                 this.ability.subEffects = this.subEffects
             },
             // CRUD Functions End
-            mediumColumns(ability) {
+            extraLargeColumns(ability) {
                 if (ability.subEffects.length)
                     return 6
                 else return 3
+            },
+            mediumColumns(ability) {
+                if (ability.subEffects.length)
+                    return 12
+                else return 6
             },
             // Open Dialog Functions
             addDialog() {
