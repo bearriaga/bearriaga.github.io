@@ -73,7 +73,8 @@
                                               v-model="ability.apCost"></v-text-field>
                                 <v-select label="Characteristic"
                                           v-model="ability.characteristic"
-                                          :items="characteristics"></v-select>
+                                          :items="characteristics"
+                                          clearable></v-select>
                                 <!-- Armor Inputs -->
                                 <v-checkbox label="Is Armor/Shield" v-model="isArmorShied"></v-checkbox>
                                 <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="isArmorShied"></v-text-field>
