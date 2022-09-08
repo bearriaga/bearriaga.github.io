@@ -4,11 +4,11 @@
     "age": "35",
     "ap": 14,
     "apMax": 14,
-    "attunementSlots": 0,
+    "attunementSlots": 7,
     "attunementSlotsIncreases": 0,
     "attunementSlotsMax": 10,
     "background": "",
-    "bp": 0,
+    "bp": 4,
     "bpMax": 4,
     "bpIncreases": 0,
     "fitness": 3,
@@ -25,7 +25,7 @@
     "luckAdjustment": 0,
     "dcToHit": 3,
     "dcToHitIncreases": 0,
-    "hp": 0,
+    "hp": 17,
     "hpMax": 17,
     "hpIncreases": 0,
     "initiative": 0,
@@ -38,12 +38,12 @@
     "movement": 3,
     "name": "Belif",
     "race": "Bluman",
-    "rerolls": 0,
+    "rerolls": 3,
     "rerollsMax": 3,
     "rerollsIncreases": 0,
     "size": 1,
     "speedPreperationIsKey": false,
-    "xp": 350,
+    "xp": 36,
     "xpEarned": 800,
     "xpTotal": 900,
     "abilities": [
@@ -77,7 +77,7 @@
         },
         "crCost": "0",
         "characteristic": "intelligence",
-        "description": "Point a finger at your target and say, \"The bell tolls for you\".",
+        "description": "Point a finger at your target and say, \"The bell tolls for you\".\nConditional: Spell Components - (Verbal and Somatic)",
         "duration": "Instant",
         "handedness": "1",
         "id": "1",
@@ -89,16 +89,16 @@
         "physMeta": "Physical",
         "range": "6",
         "successes": 0,
-        "xpCost": "160",
+        "xpCost": "165",
         "components": [],
         "damage": {
-          "dice": "1",
+          "dice": "2",
           "flat": "0",
           "types": [ "Dark" ],
           "key": "0true"
         },
         "subEffects": [],
-        "key": "3false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0intelligencePoint a finger at your target and say, \"The bell tolls for you\".Instant11truefalsefalse0Toll the DeadPhysical60160[][{\"addChar\":true,\"dice\":\"1\",\"flat\":\"0\",\"type\":\"Dark\",\"key\":\"0true\"}][]"
+        "key": "3false{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0intelligencePoint a finger at your target and say, \"The bell tolls for you\".\nConditional: Spell Components - (Verbal and Somatic)Instant11truefalsefalse0Toll the DeadPhysical60165[]{\"dice\":\"2\",\"flat\":\"0\",\"types\":[\"Dark\"],\"key\":\"0true\"}[]2"
       },
       {
         "apCost": "7",
@@ -129,18 +129,18 @@
           }
         },
         "classResource": {
-          "amount": 6,
-          "amountMax": 6,
+          "amount": 8,
+          "amountMax": 8,
           "id": "1654827507939",
           "name": "Bile",
           "characteristic": "intelligence",
-          "resourceIncreases": 0,
-          "key": "Bileintelligence061"
+          "resourceIncreases": "3",
+          "key": "Bileintelligence3501"
         },
         "crCost": "2",
         "characteristic": "",
-        "description": "",
-        "duration": "Instant",
+        "description": "Duration: Committed Resources\nMinion: Absorb Ability Modifiers\nMinion: Absorb Attributes\nMinion: Cannot Speak\nMinion: Harvestable\nMinion: Special Communication\nMinion: Summon Limit (4)\nRequires Consumable (Corpse)",
+        "duration": "Indefinite",
         "handedness": 0,
         "id": "1662000692496",
         "inClass": true,
@@ -151,7 +151,7 @@
         "physMeta": "Physical",
         "range": "0",
         "successes": 0,
-        "xpCost": "360",
+        "xpCost": "420",
         "components": [],
         "damage": {
           "dice": "0",
@@ -160,7 +160,7 @@
           "key": "0"
         },
         "subEffects": [],
-        "key": "7Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}2Instant01662000692496truefalsefalse0Summon UndeadPhysical-30360[][][]"
+        "key": "7Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}2Duration: Committed Resources\nMinion: Absorb Ability Modifiers\nMinion: Absorb Attributes\nMinion: Cannot Speak\nMinion: Harvestable\nMinion: Special Communication\nMinion: Summon Limit (4)\nRequires Consumable (Corpse)Indefinite01662000692496truefalsefalse0Summon UndeadPhysical00420[]{\"dice\":\"0\",\"flat\":\"0\",\"types\":[],\"key\":\"0\"}[]2"
       },
       {
         "apCost": "0",
@@ -193,7 +193,7 @@
         "classResource": "",
         "crCost": 0,
         "characteristic": "",
-        "description": "Bile Resource +1",
+        "description": "Bile Resource +3",
         "duration": "Instant",
         "handedness": 0,
         "id": "1662002064365",
@@ -205,7 +205,7 @@
         "physMeta": "Physical",
         "range": 0,
         "successes": 0,
-        "xpCost": "30",
+        "xpCost": "90",
         "components": [],
         "damage": {
           "dice": "0",
@@ -214,7 +214,166 @@
           "key": "0"
         },
         "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Bile Resource +1Instant01662002064365truefalsefalse0Bile Max IncreasePhysical0030[][][]"
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Bile Resource +3Instant01662002064365truefalsefalse0Bile Max IncreasePhysical0090[]{\"dice\":\"0\",\"flat\":\"0\",\"types\":[],\"key\":\"0\"}[]2"
+      },
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "Defense: Bodyguard\nChoose a creature or object adjacent to your character, when that creature would take damage you may elect to move into their square and take that damage instead.",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1662598729462",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Undead Bodyguard",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": 0,
+        "xpCost": "50",
+        "components": [],
+        "subEffects": [],
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Defense: Bodyguard\nChoose a creature or object adjacent to your character, when that creature would take damage you may elect to move into their square and take that damage instead.Instant01662598729462truefalsetrue0Undead BodyguardPhysical0050[]{\"dice\":0,\"flat\":0,\"types\":[]}[]2"
+      },
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "1 Use per Long Rest\nRecharges at Sunset",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1662602007478",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Speak with Dead",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": 0,
+        "xpCost": "14",
+        "components": [],
+        "subEffects": [],
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}01 Use per Long Rest\nRecharges at SunsetInstant01662602007478truefalsetrue0Speak with DeadPhysical0014[]{\"dice\":0,\"flat\":0,\"types\":[]}[]2"
+      },
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "Mountable\nFlying 5\n3 Attunement Slots",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1662603125699",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Flying Broom",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": 0,
+        "xpCost": "125",
+        "components": [],
+        "subEffects": [],
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Mountable\nFlying 5\n3 Attunement SlotsInstant01662603125699truefalsetrue0Flying BroomPhysical00125[]{\"dice\":0,\"flat\":0,\"types\":[]}[]2"
       }
     ],
     "armor": [
@@ -247,45 +406,82 @@
         "id": "1662000012671",
         "name": "Necromancer",
         "characteristic": "intelligence",
-        "unlocked": false
+        "unlocked": false,
+        "key": "16620000126712"
       }
     ],
-    "equipment": [],
+    "equipment": [
+      {
+        "amount": 1,
+        "dcToHit": 1,
+        "description": "Mountable\nFlying 5\n3 Attunement Slots",
+        "id": "1662598112661",
+        "isActive": true,
+        "isArmorShied": false,
+        "isItem": false,
+        "isWeapon": false,
+        "name": "Flying Broom",
+        "slot": "",
+        "ability": {
+          "apCost": "1",
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "color": {},
+          "classResource": "",
+          "crCost": 0,
+          "characteristic": "",
+          "damage": {
+            "dice": 0,
+            "flat": 0,
+            "types": []
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": 0,
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": true,
+          "maxSizeCategoryOfMass": 0,
+          "name": "Flying Broom",
+          "physMeta": "Physical",
+          "range": 0,
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [],
+        "key": "1662598112661undefinedundefined1Mountable\nFlying 5\n3 Attunement SlotsundefinedfalsefalsefalseFlying Broomundefinedundefined[]2"
+      }
+    ],
     "flaws": [
       {
         "amount": "100",
-        "description": "CR: Stagnant Pool\nCR: Special Resources\ntest",
+        "description": "CR: Stagnant Pool\nCR: Special Resources",
         "id": "1661999979148",
-        "name": "Bile Flaws"
+        "name": "Bile Flaws",
+        "key": "16619999791482"
       }
     ],
     "movements": [
       {
-        "amount": 4,
+        "amount": "5",
         "description": "Flying Broom",
         "id": "1654453228548",
         "type": "Flying"
       }
     ],
-    "damageModifications": [
-      {
-        "amount": 1,
-        "id": "1654401755465",
-        "isResistance": false,
-        "isVulnerability": false,
-        "type": "Physical",
-        "key": "16544017554651"
-      }
-    ],
+    "damageModifications": [],
     "resources": [
       {
-        "amount": 6,
-        "amountMax": 6,
+        "amount": 8,
+        "amountMax": 8,
         "id": "1654827507939",
         "name": "Bile",
         "characteristic": "intelligence",
-        "resourceIncreases": "1",
-        "key": "Bileintelligence150"
+        "resourceIncreases": "3",
+        "key": "Bileintelligence3502"
       }
     ],
     "skills": [
@@ -297,7 +493,7 @@
         "skillIncreases": 0,
         "value": 5,
         "adjustment": 0,
-        "key": "Analyzefitness030"
+        "key": "Analyzeintelligence0502"
       },
       {
         "characteristic": "fitness",
@@ -307,7 +503,7 @@
         "skillIncreases": 0,
         "value": 3,
         "adjustment": 0,
-        "key": "Athleticsfitness030"
+        "key": "Athleticsfitness0302"
       },
       {
         "characteristic": "cunning",
@@ -317,7 +513,7 @@
         "skillIncreases": 0,
         "value": 4,
         "adjustment": 0,
-        "key": "Deceptioncunning040"
+        "key": "Deceptioncunning0402"
       },
       {
         "characteristic": "cunning",
@@ -327,7 +523,7 @@
         "skillIncreases": 0,
         "value": 4,
         "adjustment": 0,
-        "key": "Perceptioncunning040"
+        "key": "Perceptioncunning0402"
       },
       {
         "characteristic": "cunning",
@@ -337,7 +533,7 @@
         "skillIncreases": 0,
         "value": 4,
         "adjustment": 0,
-        "key": "Persuasioncunning040"
+        "key": "Persuasioncunning0402"
       },
       {
         "characteristic": "fitness",
@@ -347,7 +543,7 @@
         "skillIncreases": 0,
         "value": 3,
         "adjustment": 0,
-        "key": "Stealthfitness030"
+        "key": "Stealthfitness0302"
       }
     ],
     "statuses": [],
@@ -358,14 +554,16 @@
         "classXP": false,
         "description": "Character Creation",
         "date": null,
-        "id": "1654386228029"
+        "id": "1654386228029",
+        "key": "16543862280292"
       },
       {
         "amount": "300",
         "classXP": true,
         "date": null,
         "description": "Necromancer",
-        "id": "1661998619617"
+        "id": "1661998619617",
+        "key": "16619986196172"
       }
     ]
   },
