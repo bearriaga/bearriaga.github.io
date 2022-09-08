@@ -49,7 +49,8 @@
                              @rollAbilityEmit="rollAbility($event)"
                              @rollDamageEmit="rollDamage($event)"
                              @subtractAP="subtractAP($event)"
-                             @subtractCR="subtractCR($event)"></AbilityLIstItem>
+                             @subtractCR="subtractCR($event)"
+                             @useAbility="useAbility($event)"></AbilityLIstItem>
         </v-form>
     </div>
 </template>
@@ -112,6 +113,9 @@
             },
             updateEntry() {
                 this.$emit('updateEntryEmit', this.setObject())
+            },
+            useAbility(ability) {
+                this.$emit('useAbility', ability)
             }
         },
         watch: {

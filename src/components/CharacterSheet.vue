@@ -266,7 +266,8 @@
                                       @subtractAPEmit="subtractAP($event)"
                                       @subtractCREmit="subtractCR($event)"
                                       @updateEntryEmit="updateEntry($event)"
-                                      @updateEntryBypassEmit="updateEntry($event)"></EquipmentSection>
+                                      @updateEntryBypassEmit="updateEntry($event)"
+                                      @useAbilityEmit="useAbility($event)"></EquipmentSection>
                 </v-col>
             </v-row>
             <v-row>

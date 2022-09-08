@@ -28,7 +28,8 @@
                                        @subtractAPEmit="subtractAP($event)"
                                        @subtractCREmit="subtractCR($event)"
                                        @updateDialogEmit="updateDialog($event)"
-                                       @updateEntryEmit="updateEntryBypass($event)"></EquipmentListItem>
+                                       @updateEntryEmit="updateEntryBypass($event)"
+                                       @useAbility="useAbility($event)"></EquipmentListItem>
                     <v-row>
                     </v-row>
                 </v-expansion-panel-content>
@@ -496,6 +497,9 @@
                 this.damageModifications = equipment.damageModifications
             },
             // Open Dialog Functions End
+            useAbility(ability) {
+                this.$emit('useAbilityEmit', ability)
+            },
             validate() {
                 return this.$refs.form.validate()
             }
