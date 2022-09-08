@@ -413,6 +413,7 @@
     "equipment": [
       {
         "amount": 1,
+        "attunementSlots": 3,
         "dcToHit": 1,
         "description": "Mountable\nFlying 5\n3 Attunement Slots",
         "id": "1662598112661",

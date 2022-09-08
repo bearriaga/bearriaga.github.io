@@ -579,6 +579,11 @@
             apMax() {
                 return ((this.characterSheet.speedPreperationIsKey) ? 3 * (+this.speed + 2) : 2 * (+this.speed + 2))
             },
+            attunementSlots() {
+                return this.attunementSlotsMax - this.characterSheet.equipment.filter(x => { return x.isActive }).reduce((previousValue, entry) => {
+                    return +previousValue + +entry.attunementSlots
+                }, 0)
+            },
             attunementSlotsMax() {
                 return (10 + +this.characterSheet.attunementSlotsIncreases)
             },
@@ -695,18 +700,15 @@
 
                 this.characterSheet.equipment.forEach(e => {
                     e.key = e.id +
-                        e.apCost +
-                        e.characteristic +
+                        e.attunementSlots +
                         e.dcToHit +
                         e.description +
-                        e.handedness +
                         e.isArmorShied +
                         e.isItem +
                         e.isWeapon +
                         e.name +
-                        e.range +
                         e.slot +
-                        JSON.stringify(e.damage) +
+                        JSON.stringify(e.ability) +
                         JSON.stringify(e.damageModifications) +
                         this.updateCharacter;
                     equipment.push(e)
@@ -991,7 +993,7 @@
                     {
                         bar: true,
                         dialogText: '',
-                        key: 'attunementSlots' + this.characterSheet.attunementSlotsMax,
+                        key: 'attunementSlots' + this.characterSheet.attunementSlots + this.characterSheet.attunementSlotsMax,
                         label: 'Attunement Slots',
                         type: 'number',
                         value: this.characterSheet.attunementSlots,
@@ -1001,7 +1003,7 @@
                         valueIncreasesName: 'attunementSlotsIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.attunementSlotsMax,
-                        disabled: false,
+                        disabled: true,
                         plus: false,
                         minus: false
                     }
@@ -1878,6 +1880,9 @@
         watch: {
             apMax() {
                 this.characterSheet.apMax = this.apMax
+            },
+            attunementSlots() {
+                this.characterSheet.attunementSlots = this.attunementSlots
             },
             attunementSlotsMax() {
                 this.characterSheet.attunementSlotsMax = this.attunementSlotsMax

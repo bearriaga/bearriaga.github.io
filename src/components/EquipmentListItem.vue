@@ -31,11 +31,14 @@
                                        :damage-types="damageTypes"
                                        @addEntryEmit="addEntry($event)"
                                        @deleteEntryEmit="deleteEntry($event)"
-                                       @updateEntryEmit="updateEntry($event)"></DamageModificationSection>            
+                                       @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
             <v-combobox label="Body Slot"
                         :items="slots"
                         v-model="slot"
                         v-if="slot"></v-combobox>
+            <v-text-field label="Attunement Slots"
+                          v-model="attunementSlots"
+                          v-if="attunementSlots"></v-text-field>
             <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" v-if="description"></v-textarea>
             <AbilityLIstItem v-if="!equipment.isItem && isActive"
                              :ability="equipment.ability"
@@ -74,6 +77,7 @@
         data() {
             return {
                 amount: this.equipment.amount,
+                attunementSlots: this.equipment.attunementSlots,
                 dcToHit: this.equipment.dcToHit,
                 description: this.equipment.description,
                 handedness: this.equipment.handedness,

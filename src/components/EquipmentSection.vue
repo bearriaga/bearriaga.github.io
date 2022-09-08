@@ -193,6 +193,9 @@
                                 <v-combobox label="Body Slot"
                                             :items="slots"
                                             v-model="slot"></v-combobox>
+                                <v-text-field label="Attunement Slots"
+                                              v-model="attunementSlots"
+                                              type="number"></v-text-field>
                             </template>
                             <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                         </v-form>
@@ -237,6 +240,7 @@
                 // Input Fields Start
                 equipment: {
                     amount: 1,
+                    attunementSlots: 0,
                     dcToHit: 1,
                     description: '',
                     isActive: true,
@@ -277,6 +281,7 @@
                     damageModifications: []
                 },
                 amount: 1,
+                attunementSlots: 0,
                 dcToHit: 1,
                 description: '',
                 id: null,
@@ -394,6 +399,7 @@
             setObject() {
                 this.equipment = {
                     amount: this.amount,
+                    attunementSlots: this.attunementSlots,
                     dcToHit: this.dcToHit,
                     description: this.description,
                     id: this.id,
@@ -414,6 +420,7 @@
                 this.setDialog('Add')
                 this.equipment = {
                     amount: 1,
+                    attunementSlots: 0,
                     dcToHit: 1,
                     description: '',
                     isActive: true,
@@ -475,6 +482,7 @@
             },
             setInputs(equipment) {
                 this.amount = equipment.amount
+                this.attunementSlots = equipment.attunementSlots
                 this.dcToHit = equipment.dcToHit
                 this.description = equipment.description
                 this.id = equipment.id
