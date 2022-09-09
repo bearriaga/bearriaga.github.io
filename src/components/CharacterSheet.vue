@@ -1535,6 +1535,8 @@
             },
             rollStandAloneCheck(diceCheckObject) {
                 this.rollCheck(diceCheckObject)
+                this.abilityDialog.ability.apCost = 0
+                this.abilityDialog.ability.crCost = 0
                 this.abilityDialog.damage.show = false
                 this.abilityDialog.title = diceCheckObject.name + ' Check Results'
             },
