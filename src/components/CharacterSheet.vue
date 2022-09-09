@@ -1845,7 +1845,7 @@
                 this.updateAP++
             },
             subtractCR(crCost) {
-                let resource = this.characterSheet.resources.find(x => x.id == crCost.classResource.id)
+                let resource = this.characterSheet.resources.find(x => x.id == crCost.classResource)
                 if (resource) {
                     resource.amount -= +crCost.crCost
                     this.updateCR++

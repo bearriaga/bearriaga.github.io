@@ -113,7 +113,7 @@
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-select label="Class Resource"
-                                              :items="resources.map((x) => ({ value: x, text: x.name }))"
+                                              :items="resources.map((x) => ({ value: x.id, text: x.name }))"
                                               v-model="classResource"
                                               clearable></v-select>
                                 </v-col>

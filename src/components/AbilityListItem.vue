@@ -67,7 +67,7 @@
                     </v-text-field>
                 </v-col>
                 <v-col cols="4" v-if="crCost && classResource">
-                    <v-text-field :label="classResource.name" type="number" v-model="crCost" readonly>
+                    <v-text-field :label="resources.find(x => x.id == classResource).name" type="number" v-model="crCost" readonly>
                         <v-icon :color="crcIconColor"
                                 slot="append"
                                 @click="subtractCR({crCost:crCost, classResource: classResource})">{{crcIcon}}</v-icon>

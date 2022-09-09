@@ -128,15 +128,7 @@
             "a": 1
           }
         },
-        "classResource": {
-          "amount": 8,
-          "amountMax": 8,
-          "id": "1654827507939",
-          "name": "Bile",
-          "characteristic": "intelligence",
-          "resourceIncreases": "3",
-          "key": "Bileintelligence3501"
-        },
+        "classResource": "1654827507939",
         "crCost": "2",
         "characteristic": "",
         "description": "Duration: Committed Resources\nMinion: Absorb Ability Modifiers\nMinion: Absorb Attributes\nMinion: Cannot Speak\nMinion: Harvestable\nMinion: Special Communication\nMinion: Summon Limit (4)\nRequires Consumable (Corpse)",
