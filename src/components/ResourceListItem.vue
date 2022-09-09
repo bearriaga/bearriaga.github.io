@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-progress-linear v-model="bar"
+        <v-progress-linear :value="bar"
                            height="25">
             {{amount}}/{{resource.amountMax}}
         </v-progress-linear>

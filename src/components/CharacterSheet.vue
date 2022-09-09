@@ -18,18 +18,16 @@
                 </v-col>
                 <v-col cols="4" md="2">
                     <v-text-field label="Level" v-model="characterSheet.level" disabled readonly>
-                        <v-tooltip top slot="append">
-                            <template v-slot:activator="{ on }">
-                                <v-icon v-on="on" color="primary" dark>
-                                    mdi-information
-                                </v-icon>
-                            </template>
-                            <span>Level = XP Earned / 500 round down</span>
-                        </v-tooltip>
+                        <TooltipComponent slot="append" :text="'Level = non-class XP Entries / 500 round down'"></TooltipComponent>
                     </v-text-field>
                 </v-col>
                 <v-col cols="4" md="2">
-                    <v-text-field label="Movement in Squares (Land Speed)" v-model="characterSheet.movement" type="number" disabled></v-text-field>
+                    <v-text-field label="Movement in Squares (Land Speed)" v-model="characterSheet.movement" type="number" disabled readonly>
+                        <v-icon color="error"
+                                slot="append"
+                                @click="subtractAP(1)">{{(characterSheet.ap > 0) ? 'mdi-clock-minus-outline' : 'mdi-clock-alert-outline' }}</v-icon>
+                        <TooltipComponent slot="append" :text="'FIT + Land Speed Movement Entries'"></TooltipComponent>
+                    </v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -499,6 +497,7 @@
     import ResourceSection from './ResourceSection.vue'
     import SkillSection from './SkillSection.vue'
     import StatusSection from './StatusSection.vue'
+    import TooltipComponent from './TooltipComponent.vue'
     import XPSection from './XPSection.vue'
     import { useCharacterStore } from '@/stores/CharacterStore'
     import { useGameDataStore } from '@/stores/GameDataStore'
@@ -518,6 +517,7 @@
             ResourceSection,
             SkillSection,
             StatusSection,
+            TooltipComponent,
             XPSection
         },
         setup() {
@@ -1004,7 +1004,7 @@
                         color: 'primary',
                         dialogText: '',
                         disabled: true,
-                        infoText: '',
+                        infoText: '10 + Attunement Slot Purchases - Equipment Attunement Slots used',
                         key: 'attunementSlots' + this.characterSheet.attunementSlots + this.characterSheet.attunementSlotsMax,
                         label: 'Attunement Slots',
                         minus: false,

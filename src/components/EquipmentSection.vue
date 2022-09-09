@@ -58,14 +58,7 @@
                                           required></v-text-field>
                             <v-checkbox label="Is Item"
                                         v-model="isItem">
-                                <v-tooltip top slot="prepend">
-                                    <template v-slot:activator="{ on }">
-                                        <v-icon v-on="on" color="primary" dark>
-                                            mdi-information
-                                        </v-icon>
-                                    </template>
-                                    <span>Limits fields and hides ability section</span>
-                                </v-tooltip>
+                                <TooltipComponent slot="prepend" :text="'Limits fields to Name, Amount, and Description and hides ability section'"></TooltipComponent>                                
                             </v-checkbox>
                             <template v-if="!isItem">
                                 <v-text-field label="AP Cost"
@@ -130,12 +123,6 @@
                                             <v-expansion-panel-header>
                                                 <h3 class="text-center">
                                                     Damage
-                                                    <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
-                                                           @click.stop="addDamage">
-                                                        <v-icon>
-                                                            mdi-plus
-                                                        </v-icon>
-                                                    </v-btn>
                                                 </h3>
                                             </v-expansion-panel-header>
                                             <v-expansion-panel-content>
@@ -223,11 +210,13 @@
 
 <script>
     import EquipmentListItem from './EquipmentListItem.vue'
+    import TooltipComponent from './TooltipComponent.vue'
 
     export default {
         name: 'EquipmentSection',
         components: {
-            EquipmentListItem
+            EquipmentListItem,
+            TooltipComponent
         },
         props: {
             ap: Number,

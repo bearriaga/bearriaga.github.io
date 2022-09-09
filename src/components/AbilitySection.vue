@@ -176,7 +176,8 @@
                                             <v-expansion-panel v-for="(item,i) in 1" :key="i">
                                                 <v-expansion-panel-header>
                                                     <h3 class="text-center">
-                                                        Sub Effects
+                                                        <!-- Have section name change based on isAbilityArray field -->
+                                                        Sub Effects/Array Element
                                                         <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
                                                                @click.stop="addSubEffect">
                                                             <v-icon>
@@ -189,6 +190,7 @@
                                                     <v-row v-for="(s, index) in subEffects" :key="index">
                                                         <v-col cols="12">
                                                             <v-text-field label="Name" v-model="s.name">
+                                                                <TooltipComponent slot="prepend" :text="'Sub Effect can be edited in Parent once it is saved.'"></TooltipComponent>
                                                                 <v-icon color="error" slot="append" @click="deleteSubEffect(index)">mdi-delete</v-icon>
                                                             </v-text-field>
                                                         </v-col>
@@ -240,11 +242,13 @@
 
 <script>
     import AbilityListItem from './AbilityListItem.vue'
+    import TooltipComponent from './TooltipComponent.vue'
 
     export default {
         name: 'AbilitySection',
         components: {
-            AbilityListItem
+            AbilityListItem,
+            TooltipComponent
         },
         props: {
             abilities: Array,

@@ -12,14 +12,7 @@
                           v-model="value"
                           :disabled="propertyObject.disabled"
                           :readonly="propertyObject.disabled">
-                <v-tooltip top slot="prepend" v-if="propertyObject.infoText">
-                    <template v-slot:activator="{ on }">
-                        <v-icon v-on="on" color="primary" dark>
-                            mdi-information
-                        </v-icon>
-                    </template>
-                    <span>{{propertyObject.infoText}}</span>
-                </v-tooltip>
+                <TooltipComponent slot="prepend" :text="propertyObject.infoText" v-if="propertyObject.infoText"></TooltipComponent>
                 <template v-if="propertyObject.valueName == 'bp'">
                     <v-icon color="brown"
                             slot="append"
@@ -95,8 +88,11 @@
 </template>
 
 <script>
+    import TooltipComponent from './TooltipComponent.vue'
+
     export default {
         name: 'InputWithEditModal',
+        components: { TooltipComponent },
         props: {
             propertyObject: Object
         },

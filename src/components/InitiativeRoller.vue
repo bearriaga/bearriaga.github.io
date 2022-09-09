@@ -76,16 +76,7 @@
                 <v-col cols="3">
                     <v-subheader>
                         Save Initiatives
-                        <v-tooltip bottom>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-icon color="primary"
-                                        v-bind="attrs"
-                                        v-on="on">
-                                    mdi-information
-                                </v-icon>
-                            </template>
-                            <span>This saves the current state of the Initiative Tracker in Local Storage</span>
-                        </v-tooltip>
+                        <TooltipComponent :text="'This saves the current state of the Initiative Tracker in Local Storage'"></TooltipComponent>
                     </v-subheader>
                 </v-col>
                 <v-col cols="9">
@@ -137,10 +128,12 @@
 </template>
 
 <script>
+    import TooltipComponent from './TooltipComponent.vue'
+
     export default {
         name: 'InitiativeComponent',
-        computed: {
-
+        components: {
+            TooltipComponent
         },
         created() {
             this.partiesInit()
