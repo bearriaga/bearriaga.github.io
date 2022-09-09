@@ -11,9 +11,10 @@
 
             <v-spacer></v-spacer>
 
-            <v-switch v-model="$vuetify.theme.dark"
-                      inset
-                      label="Dark Theme"></v-switch>
+            <v-switch label="Dark Theme"
+                      v-model="$vuetify.theme.dark"
+                      @click="saveDarkTheme"
+                      inset></v-switch>
         </v-app-bar>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -50,9 +51,20 @@
                 drawer: false
             }
         },
+        mounted() {
+            const theme = localStorage.getItem('darkTheme')
+            if (theme) {
+                this.$vuetify.theme.dark = theme === 'true'
+            } else {
+                this.saveDarkTheme()
+            }
+        },
         methods: {
             navigate(link) {
                 this.$router.push(link.route)
+            },
+            saveDarkTheme() {
+                localStorage.setItem('darkTheme', this.$vuetify.theme.dark)
             }
         }
     }
