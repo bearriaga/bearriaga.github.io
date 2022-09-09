@@ -7,7 +7,10 @@
                 </v-btn>
             </v-col>
             <v-col class="text-center" v-if="apCost != 0 || classResource || damage.dice > 0 || damage.flat > 0 || characteristic">
-                <v-btn color="primary" @click="useAbility(ability)">Use</v-btn>
+                <v-btn color="primary" @click="useAbility(ability)">
+                    Use
+                    <v-icon :color="useButtonIconColor">{{useButtonIcon}}</v-icon>
+                </v-btn>
             </v-col>
             <v-col class="text-center" v-if="canEdit">
                 <v-btn color="error" @click="deleteEntry(ability)">
@@ -68,9 +71,9 @@
                 </v-col>
                 <v-col cols="4" v-if="crCost && classResource">
                     <v-text-field :label="resources.find(x => x.id == classResource).name" type="number" v-model="crCost" readonly>
-                        <v-icon :color="crcIconColor"
+                        <v-icon :color="crIconColor"
                                 slot="append"
-                                @click="subtractCR({crCost:crCost, classResource: classResource})">{{crcIcon}}</v-icon>
+                                @click="subtractCR({crCost:crCost, classResource: classResource})">{{crIcon}}</v-icon>
                     </v-text-field>
                 </v-col>
                 <v-col cols="4">
@@ -188,49 +191,79 @@
             apIcon() {
                 let icon = ''
 
-                if (this.apCost > 0) {
-                    if (this.apCost > this.ap)
-                        icon = 'mdi-clock-alert-outline'
-                    else
-                        icon = 'mdi-clock-minus-outline'
-                }
-                if (this.apCost < 0)
+                if (this.apIconColor == 'warning' || this.apIconColor == 'primary')
+                    icon = 'mdi-clock-minus-outline'
+                else if (this.apIconColor == 'error')
+                    icon = 'mdi-clock-alert-outline'
+                else if (this.apIconColor == 'success')
                     icon = 'mdi-clock-plus-outline'
 
-                return icon
+                    return icon
             },
             apIconColor() {
                 let color = ''
 
-                if (this.apCost > -1)
-                    color = 'error'
-                if (this.apCost <= -1)
+                if (this.apCost > 0) {
+                    if (this.apCost < this.ap)
+                        color = 'primary'
+                    else if (this.ap == this.apCost)
+                        color = 'warning'
+                    else if (this.apCost > this.ap)
+                        color = 'error'
+                }
+                if (this.apCost < 0)
                     color = 'success'
 
                 return color
             },
-            crcIcon() {
+            crIcon() {
                 let icon = ''
 
-                if (this.crCost > 0) {
-                    let resource = this.resources.find(x => { return x.id == this.classResource.id })
-                    if (resource && this.crCost > resource.amount)
-                        icon = 'mdi-battery-alert-variant-outline'
-                    else
-                        icon = 'mdi-battery-minus-outline'
-                }
-                if (this.crCost < 0)
+                if (this.crIconColor == 'warning' || this.crIconColor == 'primary')
+                    icon = 'mdi-battery-minus-outline'
+                else if (this.crIconColor == 'error')
+                    icon = 'mdi-battery-alert-variant-outline'
+                else if (this.crIconColor == 'success')
                     icon = 'mdi-battery-plus-outline'
 
                 return icon
             },
-            crcIconColor() {
+            crIconColor() {
                 let color = ''
 
-                if (this.crCost > 0)
-                    color = 'error'
+                if (this.crCost > 0) {
+                    let resource = this.resources.find(x => { return x.id == this.classResource })
+                    if (resource) {
+                        if (this.crCost < resource.amount)
+                            color = 'primary'
+                        if (this.crCost == resource.amount)
+                            color = 'warning'
+                        if (this.crCost > resource.amount)
+                            color = 'error'
+                    }
+                }
                 if (this.crCost < 0)
                     color = 'success'
+
+                return color
+            },
+            useButtonIcon() {
+                let icon = ''
+
+                if (this.useButtonIconColor == 'warning' || this.useButtonIconColor == 'error')
+                    icon = 'mdi-alert'
+
+                return icon
+            },
+            useButtonIconColor() {
+                let color = ''
+
+                if (this.crIconColor == 'error' || this.apIconColor == 'error')
+                    color = 'error'
+                else if (this.crIconColor == 'warning' || this.apIconColor == 'warning')
+                    color = 'warning'
+                else
+                    color = 'primary'
 
                 return color
             }
