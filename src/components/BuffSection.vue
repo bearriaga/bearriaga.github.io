@@ -1,8 +1,8 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels>
-                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+            <v-expansion-panels v-model="panel">
+                <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
                             Buffs
@@ -238,10 +238,13 @@
                     ]
                 },
                 // Input Fields End
+                panel: null,
+                // Validation Start
                 notNull: [
                     v => !!v || 'Field may not be empty'
                 ],
                 valid: false
+                // Validation End
             }
         },
         methods: {
@@ -319,6 +322,7 @@
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
+                this.panel = 0
                 this.setDialog('Add')
                 this.buff = {
                     description: '',

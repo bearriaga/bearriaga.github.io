@@ -1,7 +1,7 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels>
+            <v-expansion-panels v-model="panel">
                 <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
@@ -38,11 +38,11 @@
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
                             <v-autocomplete label="Status"
-                                      :items="statuses.map((x) => ({ value: x, text: x.name }))"
-                                      v-model="selectedStatus"
-                                      ref="status"
-                                      :rules="notNull"
-                                      required>
+                                            :items="statuses.map((x) => ({ value: x, text: x.name }))"
+                                            v-model="selectedStatus"
+                                            ref="status"
+                                            :rules="notNull"
+                                            required>
                             </v-autocomplete>
                             <v-textarea label="Effect"
                                         v-model="selectedStatus.effect"
@@ -119,10 +119,13 @@
                     status: {}
                 },
                 // Input Fields End
+                panel: null,
+                // Validation Start
                 notNull: [
                     v => !!v.name || 'Field may not be empty'
                 ],
                 valid: false
+                // Validation End
             }
         },
         methods: {
@@ -161,6 +164,7 @@
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
+                this.panel = 0
                 this.setDialog('Add')
                 this.status = {
                     buffId: '',

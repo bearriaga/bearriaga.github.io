@@ -1,7 +1,7 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels>
+            <v-expansion-panels v-model="panel">
                 <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
@@ -16,9 +16,9 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <TraitFlawListItem v-for="item in items" :key="item.key"
-                                      :item="item"
-                                      @deleteEntryEmit="deleteDialog($event)"
-                                      @updateEntryEmit="updateEntry($event)"></TraitFlawListItem>
+                                           :item="item"
+                                           @deleteEntryEmit="deleteDialog($event)"
+                                           @updateEntryEmit="updateEntry($event)"></TraitFlawListItem>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -104,6 +104,7 @@
                     name: ''
                 },
                 // Input Fields End
+                panel: null,
                 // Validation Start
                 numberRules: [
                     v => !isNaN(+v) && v >= 1 || 'Field may not be empty and value must be 1 or higher'
@@ -139,6 +140,7 @@
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
+                this.panel = 0
                 this.setDialog('Add')
                 this.item = {
                     amount: 1,

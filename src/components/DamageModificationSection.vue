@@ -1,7 +1,7 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels>
+            <v-expansion-panels v-model="panel">
                 <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
@@ -115,6 +115,7 @@
                     type: ''
                 },
                 // Input Fields End
+                panel: null,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -156,6 +157,7 @@
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
+                this.panel = 0
                 this.setDialog('Add')
                 this.damageModification = {
                     amount: 1,

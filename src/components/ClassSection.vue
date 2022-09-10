@@ -1,7 +1,7 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels>
+            <v-expansion-panels v-model="panel">
                 <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-    import ClassListItem from './ClassListItem.vue'
+import ClassListItem from './ClassListItem.vue'
 
     export default {
         name: 'ClassSection',
@@ -106,6 +106,7 @@
                     unlocked: this.unlocked
                 },
                 // Input Fields End
+                panel: null,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -141,6 +142,7 @@
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
+                this.panel = 0
                 this.setDialog('Add')
                 this.classObj = {
                     active: this.active,

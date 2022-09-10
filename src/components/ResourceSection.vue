@@ -1,9 +1,8 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels v-model="panel"
-                                multiple>
-                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+            <v-expansion-panels v-model="panel">
+                <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
                             <v-icon color="purple">mdi-battery-50</v-icon>
@@ -113,7 +112,7 @@
                     resourceIncreases: 0
                 },
                 // Input Fields End
-                panel: [0],
+                panel: null,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -159,6 +158,7 @@
             },
             // Open Dialog Functions
             addDialog() {
+                this.panel = 0
                 this.setDialog('Add')
                 this.resource = {
                     amount: 0,

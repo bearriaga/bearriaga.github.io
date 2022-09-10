@@ -1,8 +1,8 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels>
-                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+            <v-expansion-panels v-model="panel">
+                <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
                             Skills
@@ -106,6 +106,7 @@
                     value: 0
                 },
                 // Input Fields End
+                panel: null,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -148,6 +149,7 @@
             },
             // Open Dialog Functions
             addDialog() {
+                this.panel = 0
                 this.setDialog('Add')
                 this.skill = {
                     characteristic: '',

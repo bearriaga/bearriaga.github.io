@@ -1,8 +1,8 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels>
-                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+            <v-expansion-panels v-model="panel">
+                <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
                             XP Entries
@@ -99,6 +99,7 @@
                     id: ''
                 },
                 // Input Fields End
+                panel: null,
                 // Validation Start
                 numberRules: [
                     v => !isNaN(+v) && v >= 1 || 'Field may not be empty and value must be 1 or higher'
@@ -132,6 +133,7 @@
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
+                this.panel = 0
                 this.setDialog('Add')
                 this.entry = {
                     amount: 1,

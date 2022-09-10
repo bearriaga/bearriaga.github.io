@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-expansion-panels>
+        <v-expansion-panels v-model="panel">
             <v-expansion-panel>
                 <v-expansion-panel-header>
                     <h3 class="text-center">
@@ -58,7 +58,7 @@
                                           required></v-text-field>
                             <v-checkbox label="Is Item"
                                         v-model="isItem">
-                                <TooltipComponent slot="prepend" :text="'Limits fields to Name, Amount, and Description and hides ability section'"></TooltipComponent>                                
+                                <TooltipComponent slot="prepend" :text="'Limits fields to Name, Amount, and Description and hides ability section'"></TooltipComponent>
                             </v-checkbox>
                             <template v-if="!isItem">
                                 <v-text-field label="AP Cost"
@@ -69,12 +69,18 @@
                                           :items="characteristics"
                                           clearable></v-select>
                                 <!-- Armor Inputs -->
-                                <v-checkbox label="Is Armor/Shield" v-model="isArmorShied"></v-checkbox>
-                                <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="isArmorShied"></v-text-field>
+                                <v-row>
+                                    <v-col>
+                                        <v-checkbox label="Is Armor/Shield" v-model="isArmorShied"></v-checkbox>
+                                    </v-col>
+                                    <v-col>
+                                        <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="isArmorShied"></v-text-field>
+                                    </v-col>
+                                </v-row>
                                 <!-- Armor Inputs End -->
                                 <!-- Damage Modification Inputs -->
                                 <template>
-                                    <v-expansion-panels>
+                                    <v-expansion-panels v-model="damageModificationsPanel">
                                         <v-expansion-panel>
                                             <v-expansion-panel-header>
                                                 <h3 class="text-center">
@@ -118,33 +124,27 @@
                                               type="number"
                                               v-if="isWeapon"></v-text-field>
                                 <template v-if="isWeapon">
-                                    <v-expansion-panels>
-                                        <v-expansion-panel>
-                                            <v-expansion-panel-header>
-                                                <h3 class="text-center">
-                                                    Damage
-                                                </h3>
-                                            </v-expansion-panel-header>
-                                            <v-expansion-panel-content>
-                                                <v-row>
-                                                    <v-col cols="12" md="6">
-                                                        <v-text-field label="Dice" type="number" v-model="ability.damage.dice"></v-text-field>
-                                                    </v-col>
-                                                    <v-col cols="12" md="6">
-                                                        <v-text-field label="Flat" type="number" v-model="ability.damage.flat"></v-text-field>
-                                                    </v-col>
-                                                    <v-col cols="12">
-                                                        <v-autocomplete label="Type *"
-                                                                        :items="damageTypes"
-                                                                        v-model="ability.damage.types"
-                                                                        multiple
-                                                                        :rules="textRules"
-                                                                        required></v-autocomplete>
-                                                    </v-col>
-                                                </v-row>
-                                            </v-expansion-panel-content>
-                                        </v-expansion-panel>
-                                    </v-expansion-panels>
+                                    <v-row>
+                                        <v-col cols="12">
+                                            <h3 class="text-center">
+                                                Damage
+                                            </h3>
+                                        </v-col>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field label="Dice" type="number" v-model="ability.damage.dice"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field label="Flat" type="number" v-model="ability.damage.flat"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-autocomplete label="Damage Types"
+                                                            :items="damageTypes"
+                                                            v-model="ability.damage.types"
+                                                            multiple
+                                                            :rules="textRules"
+                                                            required></v-autocomplete>
+                                        </v-col>
+                                    </v-row>
                                 </template>
                                 <!-- Additional Ability Inputs -->
                                 <template>
@@ -313,6 +313,7 @@
                 },
                 damageModifications: [],
                 // Input Fields End
+                damageModificationsPanel: null,
                 dialog: {
                     show: false,
                     type: ''
@@ -324,6 +325,7 @@
                 rollDamage(ability) {
                     this.$emit('rollDamageEmit', ability)
                 },
+                panel: null,
                 slots: ['Head', 'Body', 'Arms', 'Legs', 'Boots', 'Clothes'],
                 subtractAP(apCost) {
                     this.$emit('subtractAPEmit', apCost)
@@ -353,6 +355,7 @@
                 this.ability.damage[index].addChar = true
             },
             addDamageModification() {
+                this.damageModificationsPanel = 0
                 this.damageModifications.push({
                     amount: 0,
                     isEquipment: true,
@@ -408,6 +411,7 @@
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
+                this.panel = 0
                 this.setDialog('Add')
                 this.equipment = {
                     amount: 1,

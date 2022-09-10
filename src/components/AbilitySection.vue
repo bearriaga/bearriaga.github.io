@@ -1,7 +1,7 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels>
+            <v-expansion-panels v-model="panel">
                 <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
@@ -85,35 +85,27 @@
                                               clearable></v-select>
                                 </v-col>
                                 <v-col cols="12">
-                                    <template>
-                                        <v-expansion-panels>
-                                            <v-expansion-panel>
-                                                <v-expansion-panel-header>
-                                                    <h3 class="text-center">
-                                                        Damage
-                                                    </h3>
-                                                </v-expansion-panel-header>
-                                                <v-expansion-panel-content>
-                                                    <v-row>
-                                                        <v-col cols="12" md="6">
-                                                            <v-text-field label="Dice" type="number" v-model="damage.dice"></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12" md="6">
-                                                            <v-text-field label="Flat" type="number" v-model="damage.flat"></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12">
-                                                            <v-select label="Type *"
-                                                                      :items="damageTypes"
-                                                                      v-model="damage.types"
-                                                                      multiple
-                                                                      :rules="textRules"
-                                                                      required></v-select>
-                                                        </v-col>
-                                                    </v-row>
-                                                </v-expansion-panel-content>
-                                            </v-expansion-panel>
-                                        </v-expansion-panels>
-                                    </template>
+                                    <v-row>
+                                        <v-col cols="12">
+                                            <h3 class="text-center">
+                                                Damage
+                                            </h3>
+                                        </v-col>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field label="Dice" type="number" v-model="damage.dice"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="6">
+                                            <v-text-field label="Flat" type="number" v-model="damage.flat"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-select label="Damage Types"
+                                                      :items="damageTypes"
+                                                      v-model="damage.types"
+                                                      multiple
+                                                      :rules="textRules"
+                                                      required></v-select>
+                                        </v-col>
+                                    </v-row>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="AP Cost" type="number" v-model="apCost"></v-text-field>
@@ -179,8 +171,8 @@
                                 </v-col>
                                 <v-col cols="12">
                                     <template>
-                                        <v-expansion-panels>
-                                            <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                                        <v-expansion-panels v-model="subEffectPanel">
+                                            <v-expansion-panel>
                                                 <v-expansion-panel-header>
                                                     <h3 class="text-center">
                                                         <!-- Have section name change based on isAbilityArray field -->
@@ -196,7 +188,7 @@
                                                 <v-expansion-panel-content>
                                                     <v-row v-for="(s, index) in subEffects" :key="index">
                                                         <v-col cols="12">
-                                                            <v-text-field label="Name" v-model="s.name">
+                                                            <v-text-field label="Name *" v-model="s.name" :rules="textRules" required>
                                                                 <TooltipComponent slot="prepend" :text="'Sub Effect can be edited in Parent once it is saved.'"></TooltipComponent>
                                                                 <v-icon color="error" slot="append" @click="deleteSubEffect(index)">mdi-delete</v-icon>
                                                             </v-text-field>
@@ -210,7 +202,7 @@
                                 <v-col cols="12" class="text-center">
                                     <template>
                                         <v-expansion-panels>
-                                            <v-expansion-panel v-for="(item,i) in 1" :key="i">
+                                            <v-expansion-panel>
                                                 <v-expansion-panel-header>
                                                     <h3 class="text-center">
                                                         Border Color
@@ -345,6 +337,8 @@
                     type: ''
                 },
                 filterText: '',
+                panel: null,
+                subEffectPanel: null,
                 // Validation Start
                 numberRules: [
                     v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
@@ -363,6 +357,7 @@
                 })
             },
             addSubEffect() {
+                this.subEffectPanel = 0
                 this.subEffects.push({
                     apCost: 3,
                     areaOfEffect: 'Single Target',
@@ -459,6 +454,7 @@
             },
             // Open Dialog Functions
             addDialog() {
+                this.panel = 0
                 this.setDialog('Add')
                 this.ability = {
                     apCost: 3,
