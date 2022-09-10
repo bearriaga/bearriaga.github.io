@@ -16,7 +16,14 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <v-row>
-                            <v-col cols="12" :xl="extraLargeColumns(ability)" :md="mediumColumns(ability)" v-for="ability in abilities" :key="ability.key">
+                            <v-col cols="12">
+                                <v-text-field label="Filter Abilities"
+                                              v-model="filterText"
+                                              clearable>
+                                    <TooltipComponent slot="prepend" :text="'Filter Abilities based on Name and Description.'"></TooltipComponent>
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12" :xl="extraLargeColumns(ability)" :md="mediumColumns(ability)" v-for="ability in filteredAbilities" :key="ability.key">
                                 <AbilityListItem :ability="ability"
                                                  :ap="ap"
                                                  :can-edit="true"
@@ -257,6 +264,21 @@
             damageTypes: Array,
             resources: Array
         },
+        computed: {
+            filteredAbilities() {
+                let abilities = this.abilities
+
+                if (this.filterText && this.filterText.trim().length != 0)
+                    abilities = abilities.filter(x => {
+                        return (
+                            x.name.toUpperCase().includes(this.filterText.toUpperCase()) ||
+                            x.description.toUpperCase().includes(this.filterText.toUpperCase())
+                        )
+                    })
+
+                return abilities
+            }
+        },
         data() {
             return {
                 // Input Fields Start
@@ -322,6 +344,7 @@
                     show: false,
                     type: ''
                 },
+                filterText: '',
                 // Validation Start
                 numberRules: [
                     v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
