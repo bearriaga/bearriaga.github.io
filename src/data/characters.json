@@ -2,7 +2,7 @@
   {
     "id": "belif",
     "age": "35",
-    "ap": 14,
+    "ap": 3,
     "apMax": 14,
     "attunementSlots": 7,
     "attunementSlotsIncreases": 0,
@@ -28,13 +28,13 @@
     "hp": 17,
     "hpMax": 17,
     "hpIncreases": 0,
-    "initiative": 0,
+    "initiative": 6,
     "initiativeIncreases": 0,
     "level": 1,
     "luckFavored": false,
     "luckIllFavored": false,
     "luckNothingToChance": false,
-    "money": "500",
+    "money": 227,
     "movement": 3,
     "name": "Belif",
     "race": "Bluman",
@@ -43,9 +43,9 @@
     "rerollsIncreases": 0,
     "size": 1,
     "speedPreperationIsKey": false,
-    "xp": 36,
-    "xpEarned": 800,
-    "xpTotal": 900,
+    "xp": 186,
+    "xpEarned": 950,
+    "xpTotal": 1050,
     "abilities": [
       {
         "apCost": "3",
@@ -521,7 +521,7 @@
     "damageModifications": [],
     "resources": [
       {
-        "amount": 8,
+        "amount": 2,
         "amountMax": 8,
         "id": "1654827507939",
         "name": "Bile",
@@ -610,6 +610,14 @@
         "description": "Necromancer",
         "id": "1661998619617",
         "key": "16619986196171"
+      },
+      {
+        "amount": "150",
+        "classXP": false,
+        "date": "2022-09-09",
+        "description": "Session 1 XP",
+        "id": "1662786649608",
+        "key": "16627866496081"
       }
     ]
   },
