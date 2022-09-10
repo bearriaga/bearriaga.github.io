@@ -2,10 +2,10 @@
     <div>
         <v-row>
             <v-col cols="6">
-                <v-text-field label="Amount" v-model="amount" type="number">
-                    <v-icon :color="apIconColor"
+                <v-text-field label="Amount" v-model="amount" type="number" :disabled="movement.isBuff" :readonly="movement.isBuff">
+                    <v-icon :color="movementApIconColor"
                             slot="append"
-                            @click="subtractAP()">{{apIcon}}</v-icon>
+                            @click="subtractAP()">{{movementApIcon}}</v-icon>
                     <v-icon color="error"
                             slot="append"
                             @click="deleteEntry"
@@ -33,32 +33,10 @@
         name: 'MovementListItem',
         props: {
             ap: Number,
+            movementApIcon: String,
+            movementApIconColor: String,
             movementTypes: Array,
             movement: Object
-        },
-        computed: {
-            apIcon() {
-                let icon = ''
-
-                if (this.apIconColor == 'warning' || this.apIconColor == 'primary')
-                    icon = 'mdi-clock-minus-outline'
-                else
-                    icon = 'mdi-clock-alert-outline'
-
-                return icon
-            },
-            apIconColor() {
-                let color = ''
-
-                if (this.ap > 1)
-                    color = 'primary'
-                else if (this.ap == 1)
-                    color = 'warning'
-                else
-                    color = 'error'
-
-                return color
-            },
         },
         data() {
             return {

@@ -15,10 +15,12 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <MovementListItem v-for="entry in movements" :key="entry.id"
+                        <MovementListItem v-for="entry in movements" :key="entry.key"
                                           :ap="ap"
                                           :movement="entry"
                                           :movement-types="movementTypes"
+                                          :movement-ap-icon="movementApIcon"
+                                          :movement-ap-icon-color="movementApIconColor"
                                           @deleteEntryEmit="deleteDialog($event)"
                                           @subtractAP="subtractAP($event)"
                                           @updateEntryEmit="updateEntry($event)"> </MovementListItem>
@@ -45,10 +47,10 @@
                                           :rules="numberRules"
                                           required></v-text-field>
                             <v-autocomplete label="Type"
-                                      v-model="type"
-                                      :items="movementTypes"
-                                      :rules="textRules"
-                                      required></v-autocomplete>
+                                            v-model="type"
+                                            :items="movementTypes"
+                                            :rules="textRules"
+                                            required></v-autocomplete>
                             <v-text-field label="Description"
                                           v-model="description"></v-text-field>
                         </v-form>
@@ -81,9 +83,10 @@
         },
         props: {
             ap: Number,
+            movementApIcon: String,
+            movementApIconColor: String,
             movements: Array,
             movementTypes: Array
-
         },
         data() {
             return {

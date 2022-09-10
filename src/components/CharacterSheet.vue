@@ -23,9 +23,9 @@
                 </v-col>
                 <v-col cols="4" md="2">
                     <v-text-field label="Movement in Squares (Land Speed)" v-model="characterSheet.movement" type="number" disabled readonly>
-                        <v-icon color="error"
+                        <v-icon :color="movementApIconColor"
                                 slot="append"
-                                @click="subtractAP(1)">{{(characterSheet.ap > 0) ? 'mdi-clock-minus-outline' : 'mdi-clock-alert-outline' }}</v-icon>
+                                @click="subtractAP(1)">{{movementApIcon}}</v-icon>
                         <TooltipComponent slot="append" :text="'FIT + Land Speed Movement Entries'"></TooltipComponent>
                     </v-text-field>
                 </v-col>
@@ -146,6 +146,8 @@
                         <MovementSection :ap="characterSheet.ap"
                                          :movements="movements"
                                          :movement-types="movementTypes"
+                                         :movement-ap-icon="movementApIcon"
+                                         :movement-ap-icon-color="movementApIconColor"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
                                          @subtractAPEmit="subtractAP($event)"
@@ -1022,10 +1024,33 @@
                     }
                 ]
             },
+            movementApIcon() {
+                let icon = ''
+
+                if (this.movementApIconColor == 'warning' || this.movementApIconColor == 'primary')
+                    icon = 'mdi-clock-minus-outline'
+                else
+                    icon = 'mdi-clock-alert-outline'
+
+                return icon
+            },
+            movementApIconColor() {
+                let color = ''
+
+                if (this.characterSheet.ap > 1)
+                    color = 'primary'
+                else if (this.characterSheet.ap == 1)
+                    color = 'warning'
+                else
+                    color = 'error'
+
+                return color
+            },
             movements() {
                 let movements = []
 
                 this.characterSheet.movements.forEach(movement => {
+                    movement.key = movement.id + this.characterSheet.ap
                     movements.push(movement)
                 })
 
@@ -1034,8 +1059,9 @@
                         let movement = {
                             amount: adjustment.amount,
                             description: buff.name + ' Buff Movement',
-                            id: adjustment.id + JSON.stringify(buff),
+                            id: adjustment.id,
                             isBuff: true,
+                            key: adjustment.id + JSON.stringify(adjustment),
                             type: adjustment.movementType
                         }
                         movements.push(movement)
