@@ -191,7 +191,7 @@
             apIcon() {
                 let icon = ''
 
-                if (this.apIconColor == 'warning' || this.apIconColor == 'primary')
+                if (this.apIconColor == 'primary' || this.apIconColor == 'warning')
                     icon = 'mdi-clock-minus-outline'
                 else if (this.apIconColor == 'error')
                     icon = 'mdi-clock-alert-outline'
@@ -219,7 +219,7 @@
             crIcon() {
                 let icon = ''
 
-                if (this.crIconColor == 'warning' || this.crIconColor == 'primary')
+                if (this.crIconColor == 'primary' || this.crIconColor == 'warning')
                     icon = 'mdi-battery-minus-outline'
                 else if (this.crIconColor == 'error')
                     icon = 'mdi-battery-alert-variant-outline'

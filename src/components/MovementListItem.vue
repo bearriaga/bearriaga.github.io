@@ -3,7 +3,7 @@
         <v-row>
             <v-col cols="6">
                 <v-text-field label="Amount" v-model="amount" type="number">
-                    <v-icon color="error"
+                    <v-icon :color="apIconColor"
                             slot="append"
                             @click="subtractAP()">{{apIcon}}</v-icon>
                     <v-icon color="error"
@@ -40,13 +40,25 @@
             apIcon() {
                 let icon = ''
 
-                if (this.ap > 0)
+                if (this.apIconColor == 'warning' || this.apIconColor == 'primary')
                     icon = 'mdi-clock-minus-outline'
                 else
                     icon = 'mdi-clock-alert-outline'
 
                 return icon
-            }
+            },
+            apIconColor() {
+                let color = ''
+
+                if (this.ap > 1)
+                    color = 'primary'
+                else if (this.ap == 1)
+                    color = 'warning'
+                else
+                    color = 'error'
+
+                return color
+            },
         },
         data() {
             return {
