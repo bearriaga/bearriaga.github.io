@@ -623,7 +623,7 @@
                 return Math.floor(nonClassXP / 500)
             },
             movement() {
-                return +this.fitness + this.characterSheet.movements.filter(x => { return x.type == 'Land Speed' }).reduce((previousValue, entry) => {
+                return +this.fitness + this.movements.filter(x => { return x.type == 'Land Speed' && !x.isDefault }).reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
             },
@@ -1049,6 +1049,16 @@
             movements() {
                 let movements = []
 
+                movements.push({
+                    amount: this.characterSheet.movement,
+                    description: 'Computed Movement: FIT + Land Speed Movement Entries/Buffs',
+                    id: 'defaultMovement',
+                    isBuff: false,
+                    isDefault: true,
+                    key: 'defaultMovement' + this.characterSheet.movement,
+                    type: 'Land Speed'
+                })
+
                 this.characterSheet.movements.forEach(movement => {
                     movement.key = movement.id + this.characterSheet.ap
                     movements.push(movement)
@@ -1061,6 +1071,7 @@
                             description: buff.name + ' Buff Movement',
                             id: adjustment.id,
                             isBuff: true,
+                            isDefault: false,
                             key: adjustment.id + JSON.stringify(adjustment),
                             type: adjustment.movementType
                         }

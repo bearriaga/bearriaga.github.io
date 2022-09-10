@@ -97,11 +97,15 @@
                 // Input Fields Start
                 amount: 0,
                 description: '',
+                isBuff: false,
+                isDefault: false,
                 type: '',
                 movement: {
                     amount: 1,
                     description: '',
                     id: '',
+                    isBuff: false,
+                    isDefault: false,
                     type: ''
                 },
                 // Input Fields End
@@ -125,6 +129,8 @@
                         amount: this.amount,
                         description: this.description,
                         id: null,
+                        isBuff: false,
+                        isDefault: false,
                         type: this.type
                     }
                     this.$emit('addEntryEmit', { arrayName: 'movements', object: this.movement })
@@ -145,6 +151,8 @@
                     amount: 1,
                     description: '',
                     id: '',
+                    isBuff: false,
+                    isDefault: false,
                     type: ''
                 }
                 this.setInputs(this.movement)
@@ -166,6 +174,8 @@
             setInputs(movement) {
                 this.amount = movement.amount
                 this.description = movement.description
+                this.isBuff = movement.isBuff
+                this.isDefault = movement.isDefault
                 this.type = movement.type
             },
             // Open Dialog Functions End
