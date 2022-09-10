@@ -180,7 +180,7 @@
                                 <v-col cols="12">
                                     <template>
                                         <v-expansion-panels>
-                                            <v-expansion-panel>
+                                            <v-expansion-panel v-for="(item,i) in 1" :key="i">
                                                 <v-expansion-panel-header>
                                                     <h3 class="text-center">
                                                         <!-- Have section name change based on isAbilityArray field -->
@@ -210,7 +210,7 @@
                                 <v-col cols="12" class="text-center">
                                     <template>
                                         <v-expansion-panels>
-                                            <v-expansion-panel>
+                                            <v-expansion-panel v-for="(item,i) in 1" :key="i">
                                                 <v-expansion-panel-header>
                                                     <h3 class="text-center">
                                                         Border Color
