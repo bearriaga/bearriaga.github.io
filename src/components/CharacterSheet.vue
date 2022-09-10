@@ -247,6 +247,7 @@
                                  :movement-types="movementTypes"
                                  :skills="characterSheet.skills"
                                  :statuses="statuses"
+                                 :resources="resources"
                                  @addEntryEmit="addEntry($event)"
                                  @deleteEntryEmit="deleteEntry($event)"
                                  @updateEntryEmit="updateBuffEntry($event)"
@@ -1087,7 +1088,8 @@
 
                 this.characterSheet.resources.forEach((resource) => {
                     let primaryCharValue = +this[resource.characteristic]
-                    resource.amountMax = +primaryCharValue + +resource.resourceIncreases
+                    let adj = this.buffAmount({ type: 'Class Resource: Commited', propName: 'classResource', propValue: resource.id })
+                    resource.amountMax = +primaryCharValue + +resource.resourceIncreases - +adj
                     resource.key = resource.name + resource.characteristic + resource.resourceIncreases + primaryCharValue + this.updateCR + this.updateCharacter
                     resources.push(resource)
                 })

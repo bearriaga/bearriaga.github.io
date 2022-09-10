@@ -35,7 +35,8 @@
     export default {
         name: 'BuffListItem',
         props: {
-            buff: Object
+            buff: Object,
+            resources: Array
         },
         data() {
             return {
@@ -54,6 +55,11 @@
 
                 if (adjustment.type == 'CHAR')
                     label += ' - ' + adjustment.characteristic
+                if (adjustment.type == 'Class Resource: Commited') {
+                    let resource = this.resources.find(x => { return x.id == adjustment.classResource })
+                    if (resource)
+                        label += ' - ' + resource.name
+                }
                 if (adjustment.type == 'Damage Modification')
                     label += ' - ' + adjustment.damageModification.type
                 if (adjustment.type == 'Movement')

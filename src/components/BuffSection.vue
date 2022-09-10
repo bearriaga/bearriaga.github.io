@@ -17,6 +17,7 @@
                     <v-expansion-panel-content>
                         <BuffListItem v-for="b in buffs" :key="b.key"
                                       :buff="b"
+                                      :resources="resources"
                                       @deleteDialogEmit="deleteDialog($event)"
                                       @updateDialogEmit="updateDialog($event)"
                                       @updateEntryEmit="updateEntryBypass($event)"></BuffListItem>
@@ -65,6 +66,10 @@
                                           v-if="a.type == 'CHAR' || a.type == 'Skill'"
                                           :rules="notNull"
                                           required></v-select>
+                                <v-select label="Class Resource"
+                                          :items="resources.map((x) => ({ value: x.id, text: x.name }))"
+                                          v-model="a.classResource"
+                                          v-if="a.type == 'Class Resource: Commited'"></v-select>
                                 <v-autocomplete label="Movement Type"
                                                 v-model="a.movementType"
                                                 :items="movementTypes"
@@ -155,11 +160,12 @@
             damageTypes: Array,
             movementTypes: Array,
             skills: Array,
-            statuses: Array
+            statuses: Array,
+            resources: Array
         },
         data() {
             return {
-                buffOptions: ['CHAR', 'Damage Modification', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
+                buffOptions: ['CHAR', 'Class Resource: Commited', 'Damage Modification', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
                 dialog: {
                     show: false,
                     type: ''
@@ -173,6 +179,7 @@
                     {
                         amount: 0,
                         characteristic: '',
+                        classResource: '',
                         description: '',
                         movementType: '',
                         damageModificationType: '',
@@ -205,6 +212,7 @@
                         {
                             amount: 0,
                             characteristic: '',
+                            classResource: '',
                             description: '',
                             movementType: '',
                             damageModificationType: '',
@@ -242,6 +250,7 @@
                 this.adjustments.push({
                     amount: 0,
                     characteristic: '',
+                    classResource: '',
                     description: '',
                     movementType: '',
                     id: new Date().getTime().toString() + 0,
@@ -320,6 +329,7 @@
                         {
                             amount: 0,
                             characteristic: '',
+                            classResource: '',
                             description: '',
                             movementType: '',
                             id: new Date().getTime().toString() + 0,

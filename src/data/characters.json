@@ -442,7 +442,168 @@
         "name": ""
       }
     ],
-    "buffs": [],
+    "buffs": [
+      {
+        "description": "Undead 1",
+        "isActive": true,
+        "id": "1662840268112",
+        "name": "Atwood Galahad",
+        "adjustments": [
+          {
+            "amount": "2",
+            "characteristic": "",
+            "classResource": "1654827507939",
+            "description": "",
+            "movementType": "",
+            "id": "16628402468070",
+            "damageModification": {
+              "isVulnerability": false,
+              "isResistance": false,
+              "type": ""
+            },
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "16628402468071",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Class Resource: Commited"
+          }
+        ],
+        "key": "16628402681120[{\"amount\":\"2\",\"characteristic\":\"\",\"classResource\":\"1654827507939\",\"description\":\"\",\"movementType\":\"\",\"id\":\"16628402468070\",\"damageModification\":{\"isVulnerability\":false,\"isResistance\":false,\"type\":\"\"},\"skill\":\"\",\"status\":{\"currentDuration\":1,\"currentIsActive\":true,\"currentRanks\":1,\"description\":\"\",\"duration\":1,\"id\":\"16628402468071\",\"isActive\":true,\"ranks\":1,\"status\":{\"cost\":\"\",\"effect\":\"\",\"name\":\"\",\"type\":\"\"}},\"type\":\"Class Resource: Commited\"}]1"
+      },
+      {
+        "description": "Undead 2",
+        "isActive": true,
+        "id": "1662840277087",
+        "name": "Grogg",
+        "adjustments": [
+          {
+            "amount": "2",
+            "characteristic": "",
+            "classResource": "1654827507939",
+            "description": "",
+            "movementType": "",
+            "id": "16628402707720",
+            "damageModification": {
+              "isVulnerability": false,
+              "isResistance": false,
+              "type": ""
+            },
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "16628402707721",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Class Resource: Commited"
+          }
+        ],
+        "key": "16628402770870[{\"amount\":\"2\",\"characteristic\":\"\",\"classResource\":\"1654827507939\",\"description\":\"\",\"movementType\":\"\",\"id\":\"16628402707720\",\"damageModification\":{\"isVulnerability\":false,\"isResistance\":false,\"type\":\"\"},\"skill\":\"\",\"status\":{\"currentDuration\":1,\"currentIsActive\":true,\"currentRanks\":1,\"description\":\"\",\"duration\":1,\"id\":\"16628402707721\",\"isActive\":true,\"ranks\":1,\"status\":{\"cost\":\"\",\"effect\":\"\",\"name\":\"\",\"type\":\"\"}},\"type\":\"Class Resource: Commited\"}]1"
+      },
+      {
+        "description": "Undead 3",
+        "isActive": true,
+        "id": "1662840290159",
+        "name": "Dana \"Mini\" Cotton",
+        "adjustments": [
+          {
+            "amount": "2",
+            "characteristic": "",
+            "classResource": "1654827507939",
+            "description": "",
+            "movementType": "",
+            "id": "16628402785950",
+            "damageModification": {
+              "isVulnerability": false,
+              "isResistance": false,
+              "type": ""
+            },
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "16628402785951",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Class Resource: Commited"
+          }
+        ],
+        "key": "16628402901590[{\"amount\":\"2\",\"characteristic\":\"\",\"classResource\":\"1654827507939\",\"description\":\"\",\"movementType\":\"\",\"id\":\"16628402785950\",\"damageModification\":{\"isVulnerability\":false,\"isResistance\":false,\"type\":\"\"},\"skill\":\"\",\"status\":{\"currentDuration\":1,\"currentIsActive\":true,\"currentRanks\":1,\"description\":\"\",\"duration\":1,\"id\":\"16628402785951\",\"isActive\":true,\"ranks\":1,\"status\":{\"cost\":\"\",\"effect\":\"\",\"name\":\"\",\"type\":\"\"}},\"type\":\"Class Resource: Commited\"}]1"
+      },
+      {
+        "description": "Undead 4",
+        "isActive": true,
+        "id": "1662840301613",
+        "name": "Zar'goh",
+        "adjustments": [
+          {
+            "amount": "2",
+            "characteristic": "",
+            "classResource": "1654827507939",
+            "description": "",
+            "movementType": "",
+            "id": "16628402943630",
+            "damageModification": {
+              "isVulnerability": false,
+              "isResistance": false,
+              "type": ""
+            },
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "16628402943631",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Class Resource: Commited"
+          }
+        ],
+        "key": "16628403016130[{\"amount\":\"2\",\"characteristic\":\"\",\"classResource\":\"1654827507939\",\"description\":\"\",\"movementType\":\"\",\"id\":\"16628402943630\",\"damageModification\":{\"isVulnerability\":false,\"isResistance\":false,\"type\":\"\"},\"skill\":\"\",\"status\":{\"currentDuration\":1,\"currentIsActive\":true,\"currentRanks\":1,\"description\":\"\",\"duration\":1,\"id\":\"16628402943631\",\"isActive\":true,\"ranks\":1,\"status\":{\"cost\":\"\",\"effect\":\"\",\"name\":\"\",\"type\":\"\"}},\"type\":\"Class Resource: Commited\"}]1"
+      }
+    ],
     "classes": [
       {
         "active": true,
@@ -515,14 +676,15 @@
         "amount": "5",
         "description": "Flying Broom",
         "id": "1654453228548",
-        "type": "Flying"
+        "type": "Flying",
+        "key": "16544532285483"
       }
     ],
     "damageModifications": [],
     "resources": [
       {
-        "amount": 2,
-        "amountMax": 8,
+        "amount": 0,
+        "amountMax": 0,
         "id": "1654827507939",
         "name": "Bile",
         "characteristic": "intelligence",
