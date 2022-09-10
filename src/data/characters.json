@@ -561,6 +561,558 @@
     ]
   },
   {
+    "id": "cam",
+    "age": "30",
+    "ap": 4,
+    "apMax": 12,
+    "attunementSlots": 0,
+    "attunementSlotsIncreases": 0,
+    "attunementSlotsMax": 10,
+    "background": "",
+    "bp": 4,
+    "bpMax": 4,
+    "bpIncreases": 0,
+    "fitness": 5,
+    "fitnessAdjustment": 0,
+    "speed": 4,
+    "speedAdjustment": 0,
+    "intelligence": 1,
+    "intelligenceAdjustment": 0,
+    "cunning": 2,
+    "cunningAdjustment": 0,
+    "resistance": 4,
+    "resistanceAdjustment": 0,
+    "luck": 2,
+    "luckAdjustment": 0,
+    "dcToHit": 3,
+    "dcToHitIncreases": 0,
+    "hp": 26,
+    "hpMax": 26,
+    "hpIncreases": 9,
+    "initiative": 6,
+    "initiativeIncreases": 0,
+    "level": 1,
+    "luckFavored": false,
+    "luckIllFavored": false,
+    "luckNothingToChance": false,
+    "money": 0,
+    "movement": 15,
+    "name": "HT",
+    "race": "Beastman",
+    "rerolls": 2,
+    "rerollsMax": 2,
+    "rerollsIncreases": 0,
+    "size": 1,
+    "speedPreperationIsKey": false,
+    "xp": 11,
+    "xpEarned": 800,
+    "xpTotal": 340,
+    "abilities": [
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1662676962400",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Hand Combat Array",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": 0,
+        "xpCost": "215",
+        "components": [],
+        "subEffects": [
+          {
+            "apCost": 3,
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "fitness",
+            "damage": {
+              "dice": "1",
+              "flat": 0,
+              "types": [ "Blunt" ]
+            },
+            "description": "deal 1d6 apply unconscious to target (full power only)",
+            "duration": "Instant",
+            "handedness": "1",
+            "id": "1662676909272",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Bonk",
+            "physMeta": "Physical",
+            "range": "2",
+            "successes": 0,
+            "xpCost": "0",
+            "components": [],
+            "subEffects": [],
+            "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}\"\"0fitnessdeal 1d6 apply unconscious to target (full power only)Instant11662676909272truefalsetrue0BonkPhysical200[]{\"dice\":\"1\",\"flat\":0,\"types\":[\"Blunt\"]}[]"
+          },
+          {
+            "apCost": 3,
+            "areaOfEffect": "Adjacent",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "1662675946088",
+            "crCost": "2",
+            "characteristic": "fitness",
+            "damage": {
+              "dice": "0",
+              "flat": 0,
+              "types": []
+            },
+            "description": "Target: adjacent apply bleeding(7) Selective",
+            "duration": "Instant",
+            "handedness": "1",
+            "id": "1662676948273",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Slash",
+            "physMeta": "Physical",
+            "range": "2",
+            "successes": "0",
+            "xpCost": "0",
+            "components": [],
+            "subEffects": [],
+            "key": "3Adjacentfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}{\"amount\":-1,\"amountMax\":5,\"id\":\"1662675946088\",\"name\":\"Savage\",\"characteristic\":\"fitness\",\"resourceIncreases\":\"0\",\"key\":\"Savagefitness0532\"}2fitnessTarget: adjacent apply bleeding(7) SelectiveInstant11662676948273truefalsetrue0SlashPhysical200[]{\"dice\":\"0\",\"flat\":0,\"types\":[]}[]"
+          }
+        ],
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Instant01662676962400truefalsetrue0Hand Combat ArrayPhysical00215[]{\"dice\":0,\"flat\":0,\"types\":[]}[{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"fitness\",\"damage\":{\"dice\":\"1\",\"flat\":0,\"types\":[\"Blunt\"]},\"description\":\"deal 1d6 apply unconscious to target (full power only)\",\"duration\":\"Instant\",\"handedness\":\"1\",\"id\":\"1662676909272\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Bonk\",\"physMeta\":\"Physical\",\"range\":\"2\",\"successes\":0,\"xpCost\":\"0\",\"components\":[],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}\\\"\\\"0fitnessdeal 1d6 apply unconscious to target (full power only)Instant11662676909272truefalsetrue0BonkPhysical200[]{\\\"dice\\\":\\\"1\\\",\\\"flat\\\":0,\\\"types\\\":[\\\"Blunt\\\"]}[]\"},{\"apCost\":3,\"areaOfEffect\":\"Adjacent\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"classResource\":{\"amount\":-1,\"amountMax\":5,\"id\":\"1662675946088\",\"name\":\"Savage\",\"characteristic\":\"fitness\",\"resourceIncreases\":\"0\",\"key\":\"Savagefitness0532\"},\"crCost\":\"2\",\"characteristic\":\"fitness\",\"damage\":{\"dice\":\"0\",\"flat\":0,\"types\":[]},\"description\":\"Target: adjacent apply bleeding(7) Selective\",\"duration\":\"Instant\",\"handedness\":\"1\",\"id\":\"1662676948273\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Slash\",\"physMeta\":\"Physical\",\"range\":\"2\",\"successes\":\"0\",\"xpCost\":\"0\",\"components\":[],\"subEffects\":[],\"key\":\"3Adjacentfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}{\\\"amount\\\":-1,\\\"amountMax\\\":5,\\\"id\\\":\\\"1662675946088\\\",\\\"name\\\":\\\"Savage\\\",\\\"characteristic\\\":\\\"fitness\\\",\\\"resourceIncreases\\\":\\\"0\\\",\\\"key\\\":\\\"Savagefitness0532\\\"}2fitnessTarget: adjacent apply bleeding(7) SelectiveInstant11662676948273truefalsetrue0SlashPhysical200[]{\\\"dice\\\":\\\"0\\\",\\\"flat\\\":0,\\\"types\\\":[]}[]\"}]2"
+      },
+      {
+        "apCost": 3,
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": null,
+        "damage": {
+          "dice": "2",
+          "flat": 0,
+          "types": [ "Healing" ]
+        },
+        "description": "Heal 2d6 \n2 uses 1/hr recharge",
+        "duration": "Instant",
+        "handedness": "1",
+        "id": "1662677919921",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "GoodBerry",
+        "physMeta": "Meta",
+        "range": "2",
+        "successes": 0,
+        "xpCost": "114",
+        "components": [],
+        "subEffects": [],
+        "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0nullHeal 2d6 \n2 uses 1/hr rechargeInstant11662677919921truefalsefalse0GoodBerryMeta20114[]{\"dice\":\"2\",\"flat\":0,\"types\":[\"Healing\"]}[]2"
+      },
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "speed",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1662678293665",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "speed-1",
+        "physMeta": "Physical",
+        "range": 0,
+        "successes": "-1",
+        "xpCost": "0",
+        "components": [],
+        "subEffects": [],
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0speedInstant01662678293665truefalsetrue0speed-1Physical0-10[]{\"dice\":0,\"flat\":0,\"types\":[]}[]2"
+      }
+    ],
+    "armor": [],
+    "attunements": [],
+    "buffs": [],
+    "classes": [
+      {
+        "active": true,
+        "advanceRank": 0,
+        "description": "",
+        "id": "1662676264048",
+        "name": "Savage",
+        "characteristic": "fitness",
+        "unlocked": false,
+        "key": "16626762640482"
+      }
+    ],
+    "equipment": [
+      {
+        "amount": 1,
+        "attunementSlots": 0,
+        "dcToHit": 1,
+        "description": "",
+        "id": "1662678595521",
+        "isActive": true,
+        "isArmorShied": false,
+        "isItem": false,
+        "isWeapon": true,
+        "name": "Walking Stick",
+        "slot": "",
+        "ability": {
+          "apCost": "2",
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "color": {},
+          "classResource": "",
+          "crCost": 0,
+          "characteristic": "fitness",
+          "damage": {
+            "dice": "2",
+            "flat": 0,
+            "types": [ "Piercing" ]
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": "1",
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": true,
+          "maxSizeCategoryOfMass": 0,
+          "name": "Walking Stick",
+          "physMeta": "Physical",
+          "range": "2",
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [],
+        "key": "166267859552101falsefalsetrueWalking Stick{\"apCost\":\"2\",\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"fitness\",\"damage\":{\"dice\":\"2\",\"flat\":0,\"types\":[\"Piercing\"]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":\"1\",\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Walking Stick\",\"physMeta\":\"Physical\",\"range\":\"2\",\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]2"
+      }
+    ],
+    "flaws": [
+      {
+        "amount": "50",
+        "description": "\"The attached class resource pool cannot benefit from any effects that restore class resources, and any class resources that would be restored to it are wasted.\nHowever, the class resource pool instantly refills to full at the end of each combat encounter/scene instead of on short/long rests.\"\t\t\t",
+        "id": "1662676327240",
+        "name": "Class Resource: Combat Pool",
+        "key": "16626763272402"
+      },
+      {
+        "amount": "30",
+        "description": "",
+        "id": "1662676360176",
+        "name": "Environmental Weakness: Aversion",
+        "key": "16626763601762"
+      },
+      {
+        "amount": "210",
+        "description": "-2 Successes in social combat for people you meet the first time \t\t\t",
+        "id": "1662676393032",
+        "name": "Bad with people",
+        "key": "16626763930322"
+      },
+      {
+        "amount": "330",
+        "description": "-1 successes on speed checks -2 successes on cun checks in hot weather",
+        "id": "1662676421976",
+        "name": "Hot and Cranky",
+        "key": "16626764219762"
+      }
+    ],
+    "movements": [
+      {
+        "amount": "10",
+        "description": "",
+        "id": "1662675980375",
+        "type": "Land Speed"
+      }
+    ],
+    "damageModifications": [],
+    "resources": [
+      {
+        "amount": 5,
+        "amountMax": 5,
+        "id": "1662675946088",
+        "name": "Savage",
+        "characteristic": "fitness",
+        "resourceIncreases": "0",
+        "key": "Savagefitness0542"
+      }
+    ],
+    "skills": [
+      {
+        "characteristic": "intelligence",
+        "default": true,
+        "id": "1654717712607",
+        "name": "Analyze",
+        "skillIncreases": 0,
+        "value": 1,
+        "adjustment": 0,
+        "key": "Analyzeintelligence0102"
+      },
+      {
+        "characteristic": "fitness",
+        "default": true,
+        "id": "1",
+        "name": "Athletics",
+        "skillIncreases": 0,
+        "value": 5,
+        "adjustment": 0,
+        "key": "Athleticsfitness0502"
+      },
+      {
+        "characteristic": "cunning",
+        "default": true,
+        "id": "2",
+        "name": "Deception",
+        "skillIncreases": 0,
+        "value": 2,
+        "adjustment": 0,
+        "key": "Deceptioncunning0202"
+      },
+      {
+        "characteristic": "cunning",
+        "default": true,
+        "id": "3",
+        "name": "Perception",
+        "skillIncreases": 0,
+        "value": 2,
+        "adjustment": 0,
+        "key": "Perceptioncunning0202"
+      },
+      {
+        "characteristic": "cunning",
+        "default": true,
+        "id": "4",
+        "name": "Persuasion",
+        "skillIncreases": 0,
+        "value": 2,
+        "adjustment": 0,
+        "key": "Persuasioncunning0202"
+      },
+      {
+        "characteristic": "fitness",
+        "default": true,
+        "id": "5",
+        "name": "Stealth",
+        "skillIncreases": 0,
+        "value": 5,
+        "adjustment": 0,
+        "key": "Stealthfitness0502"
+      }
+    ],
+    "statuses": [],
+    "traits": [
+      {
+        "amount": "465",
+        "description": "5 Physical DR and 5 Elemental DR\t\t\t",
+        "id": "1662676570376",
+        "name": "Natural Defense",
+        "key": "16626765703762"
+      },
+      {
+        "amount": "40",
+        "description": "",
+        "id": "1662676641672",
+        "name": "Nightvision / Enhanced Scent",
+        "key": "16626766416722"
+      },
+      {
+        "amount": "150",
+        "description": "1Sq reach\t\t\t",
+        "id": "1662676664520",
+        "name": "Long Arms",
+        "key": "16626766645202"
+      },
+      {
+        "amount": "225",
+        "description": "9pts",
+        "id": "1662676690864",
+        "name": "HP increase",
+        "key": "16626766908642"
+      },
+      {
+        "amount": "150",
+        "description": "rank 3",
+        "id": "1662677729114",
+        "name": "Speed Increase",
+        "key": "16626777291142"
+      },
+      {
+        "amount": "50",
+        "description": "Your character's words or deeds are less likely to spread within the general knowledge of a populace, and are more easily forgotten. Photos, video, scying, divinations, etc are always blurry with you in frame.\t\t\t",
+        "id": "1662677764097",
+        "name": "Social: Forgettable+",
+        "key": "16626777640972"
+      }
+    ],
+    "xpEntries": [
+      {
+        "amount": "500",
+        "classXP": false,
+        "date": null,
+        "description": "level 1",
+        "id": "1662675867743",
+        "key": "16626758677432"
+      },
+      {
+        "amount": "300",
+        "classXP": true,
+        "date": null,
+        "description": "Savage",
+        "id": "1662675888975",
+        "key": "16626758889752"
+      }
+    ]
+  },
+  {
     "id": "clear",
     "age": 0,
     "ap": 0,

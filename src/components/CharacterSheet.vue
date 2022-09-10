@@ -1632,9 +1632,10 @@
                     }
             },
             saveCharacter() {
-                let character = JSON.parse(JSON.stringify(this.characterSheet))
-                if (character.id == 'default')
-                    character.id = new Date().getTime().toString()
+                if (this.characterSheet.id == 'default' || this.characterSheet.id == 'clear')
+                    this.characterSheet.id = new Date().getTime().toString()
+
+                let character = JSON.parse(JSON.stringify(this.characterSheet))                    
                 localStorage.setItem('character', JSON.stringify(character))
             },
             saveCharacterAsFile() {
@@ -1885,7 +1886,7 @@
                 if (ability.characteristic)
                     this.rollAbility(ability)
 
-                this.abilityDialog.ability = ability
+                this.abilityDialog.ability = JSON.parse(JSON.stringify(ability))
                 this.abilityDialog.check.show = (ability.characteristic)
                 this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0)
                 this.abilityDialog.show = true
