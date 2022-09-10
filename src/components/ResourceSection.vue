@@ -1,9 +1,8 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels v-model="panel"
-                                multiple>
-                <v-expansion-panel v-for="(item,i) in 1" :key="i">
+            <v-expansion-panels v-model="panel">
+                <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
                             <v-icon color="purple">mdi-battery-50</v-icon>
