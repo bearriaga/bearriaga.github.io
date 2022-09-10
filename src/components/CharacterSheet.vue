@@ -403,7 +403,7 @@
                             <v-btn @click="rerollWholeDamage"
                                    :disabled="characterSheet.rerolls <= 0"
                                    width="200">Reroll Hand</v-btn>
-                        </div>                        
+                        </div>
                     </v-card-text>
 
                     <v-card-text>
@@ -1049,15 +1049,16 @@
             movements() {
                 let movements = []
 
-                movements.push({
-                    amount: this.characterSheet.movement,
-                    description: 'Computed Movement: FIT + Land Speed Movement Entries/Buffs',
-                    id: 'defaultMovement',
-                    isBuff: false,
-                    isDefault: true,
-                    key: 'defaultMovement' + this.characterSheet.movement,
-                    type: 'Land Speed'
-                })
+                if (this.characterSheet.movement)
+                    movements.push({
+                        amount: this.characterSheet.movement,
+                        description: 'Computed Movement: FIT + Land Speed Movement Entries/Buffs',
+                        id: 'defaultMovement',
+                        isBuff: false,
+                        isDefault: true,
+                        key: 'defaultMovement' + this.characterSheet.movement,
+                        type: 'Land Speed'
+                    })
 
                 this.characterSheet.movements.forEach(movement => {
                     movement.key = movement.id + this.characterSheet.ap
@@ -1672,7 +1673,7 @@
                 if (this.characterSheet.id == 'default' || this.characterSheet.id == 'clear')
                     this.characterSheet.id = new Date().getTime().toString()
 
-                let character = JSON.parse(JSON.stringify(this.characterSheet))                    
+                let character = JSON.parse(JSON.stringify(this.characterSheet))
                 localStorage.setItem('character', JSON.stringify(character))
             },
             saveCharacterAsFile() {
