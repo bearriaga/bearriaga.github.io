@@ -710,6 +710,10 @@
                         JSON.stringify(ability.damage) +
                         JSON.stringify(ability.subEffects) +
                         this.updateCharacter;
+
+                    if (ability.save)
+                        ability.key += this.successesFromIntelligence;
+
                     abilities.push(ability)
                 })
 
