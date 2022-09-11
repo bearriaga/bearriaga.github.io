@@ -1,29 +1,53 @@
 <template>
     <div>
         <template>
-            <v-expansion-panels v-model="panel">
+            <v-expansion-panels>
                 <v-expansion-panel>
                     <v-expansion-panel-header>
                         <h3 class="text-center">
                             Movements
-                            <v-btn icon color="primary"
-                                   @click.stop="addDialog">
-                                <v-icon>
-                                    mdi-plus
-                                </v-icon>
-                            </v-btn>
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <MovementListItem v-for="entry in movements" :key="entry.key"
-                                          :ap="ap"
-                                          :movement="entry"
-                                          :movement-types="movementTypes"
-                                          :movement-ap-icon="movementApIcon"
-                                          :movement-ap-icon-color="movementApIconColor"
-                                          @deleteEntryEmit="deleteDialog($event)"
-                                          @subtractAP="subtractAP($event)"
-                                          @updateEntryEmit="updateEntry($event)"> </MovementListItem>
+                        <template>
+                            <MovementListItem v-for="movement in this.uniqueMovements" :key="movement.key"
+                                              :ap="ap"
+                                              :movement="movement"
+                                              :movement-types="movementTypes"
+                                              :movement-ap-icon="movementApIcon"
+                                              :movement-ap-icon-color="movementApIconColor"
+                                              @deleteEntryEmit="deleteDialog($event)"
+                                              @subtractAP="subtractAP($event)"
+                                              @updateEntryEmit="updateEntry($event)"> </MovementListItem>
+                        </template>
+
+                        <v-expansion-panels v-model="panel">
+                            <v-expansion-panel>
+                                <v-expansion-panel-header>
+                                    <h3 class="text-center">
+                                        Add Movement
+                                        <v-btn icon color="primary"
+                                               @click.stop="addDialog">
+                                            <v-icon>
+                                                mdi-plus
+                                            </v-icon>
+                                        </v-btn>
+                                    </h3>
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <MovementListItem v-for="movement in movements" :key="movement.key"
+                                                      :ap="ap"
+                                                      :movement="movement"
+                                                      :movement-types="movementTypes"
+                                                      :movement-ap-icon="movementApIcon"
+                                                      :movement-ap-icon-color="movementApIconColor"
+                                                      @deleteEntryEmit="deleteDialog($event)"
+                                                      @subtractAP="subtractAP($event)"
+                                                      @updateEntryEmit="updateEntry($event)"> </MovementListItem>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -87,6 +111,30 @@
             movementApIconColor: String,
             movements: Array,
             movementTypes: Array
+        },
+        computed: {
+            uniqueMovements() {
+                let movements = []
+
+                let uniqueMovementTypes = [...new Set(this.movements.map(x => (x.type)))]
+
+                uniqueMovementTypes.forEach((type, i) => {
+                    let amount = this.movements.filter(x => { return x.type == type }).reduce((previousValue, entry) => {
+                        return +previousValue + +entry.amount
+                    }, 0)
+                    let movement = {
+                        amount: amount,
+                        isBuff: false,
+                        isDefault: false,
+                        isUnique: true,
+                        key: i + amount,
+                        type: `Combined ${type}`
+                    }
+                    movements.push(movement)
+                })
+
+                return movements
+            }
         },
         data() {
             return {

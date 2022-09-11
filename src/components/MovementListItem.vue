@@ -1,6 +1,13 @@
 <template>
     <div>
-        <v-row>
+        <v-text-field :label="movement.type"
+                      v-model="amount"
+                      disabled readonly>
+            <v-icon :color="movementApIconColor"
+                    slot="append"
+                    @click="subtractAP()">{{movementApIcon}}</v-icon>
+        </v-text-field>
+        <v-row v-if="!movement.isUnique">
             <v-col cols="6">
                 <v-text-field label="Amount" v-model="amount" type="number" :disabled="!canEdit" :readonly="!canEdit">
                     <v-icon :color="movementApIconColor"
@@ -41,7 +48,7 @@
         data() {
             return {
                 amount: this.movement.amount,
-                canEdit: !(this.movement.isBuff || this.movement.isDefault),
+                canEdit: !(this.movement.isBuff || this.movement.isDefault || this.movement.isUnique),
                 description: this.movement.description,
                 type: this.movement.type
             }

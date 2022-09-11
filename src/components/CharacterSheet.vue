@@ -1084,12 +1084,13 @@
 
                 if (this.characterSheet.movement)
                     movements.push({
-                        amount: this.characterSheet.movement,
-                        description: 'Computed Movement: FIT + Land Speed Movement Entries/Buffs',
+                        amount: this.characterSheet.fitness,
+                        description: 'Default Movement from FIT',
                         id: 'defaultMovement',
                         isBuff: false,
                         isDefault: true,
-                        key: 'defaultMovement' + this.characterSheet.movement,
+                        isUnique: false,
+                        key: 'defaultMovement' + this.characterSheet.fitness,
                         type: 'Land Speed'
                     })
 
