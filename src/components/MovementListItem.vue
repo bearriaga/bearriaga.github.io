@@ -2,6 +2,7 @@
     <div>
         <v-text-field :label="movement.type"
                       v-model="amount"
+                      v-if="movement.isUnique"
                       disabled readonly>
             <v-icon :color="movementApIconColor"
                     slot="append"
