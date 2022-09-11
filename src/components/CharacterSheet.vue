@@ -260,6 +260,7 @@
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
+                                      :movement-types="movementTypes"
                                       :resources="resources"
                                       :successes-from-intelligence="successesFromIntelligence"
                                       @addEntryEmit="addEntry($event)"
@@ -749,6 +750,10 @@
                         JSON.stringify(e.ability) +
                         JSON.stringify(e.damageModifications) +
                         this.updateCharacter;
+
+                    if (e.ability.save)
+                        e.key += this.successesFromIntelligence;
+
                     equipment.push(e)
                 })
 

@@ -248,6 +248,7 @@
             characterEquipment: Array,
             damageGroups: Array,
             damageTypes: Array,
+            moementTypes: Array,
             resources: Array,
             successesFromIntelligence: Number
         },
