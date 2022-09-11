@@ -22,6 +22,7 @@
                                        :equipment="e"
                                        :resources="resources"
                                        :slots="slots"
+                                       :successes-from-intelligence="successesFromIntelligence"
                                        @deleteDialogEmit="deleteDialog($event)"
                                        @rollAbilityEmit="rollAbility($event)"
                                        @rollDamageEmit="rollDamage($event)"
@@ -67,7 +68,30 @@
                                 <v-select label="Characteristic"
                                           v-model="ability.characteristic"
                                           :items="characteristics"
-                                          clearable></v-select>
+                                          clearable>
+                                    <TooltipComponent slot="prepend" :text="'CHAR used to make check and gets added to damage.'"></TooltipComponent>
+                                </v-select>
+                                <v-row>
+                                    <v-col cols="12">
+                                        <v-checkbox label="Target Saves"
+                                                    v-model="ability.save"></v-checkbox>
+                                    </v-col>
+                                    <template v-if="ability.save">
+                                        <v-col cols="6">
+                                            <v-text-field label="Save Amount"
+                                                          v-model="ability.saveAmount"
+                                                          type="number">
+                                                <TooltipComponent slot="prepend" :text="'INT/3 automatically added to save amount.'"></TooltipComponent>
+                                            </v-text-field>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <v-select label="Save Characteristic"
+                                                      :items="characteristics"
+                                                      v-model="ability.saveCharacteristic"
+                                                      clearable></v-select>
+                                        </v-col>
+                                    </template>
+                                </v-row>
                                 <!-- Armor Inputs -->
                                 <v-row>
                                     <v-col>
@@ -224,7 +248,8 @@
             characterEquipment: Array,
             damageGroups: Array,
             damageTypes: Array,
-            resources: Array
+            resources: Array,
+            successesFromIntelligence: Number
         },
         data() {
             return {
@@ -264,6 +289,9 @@
                         name: '',
                         physMeta: 'Physical',
                         range: 0,
+                        save: false,
+                        saveAmount: 3,
+                        saveCharacteristic: '',
                         successes: 0,
                         xpCost: 0,
                         components: [],
@@ -306,6 +334,9 @@
                     name: '',
                     physMeta: 'Physical',
                     range: 0,
+                    save: false,
+                    saveAmount: 3,
+                    saveCharacteristic: '',
                     successes: 0,
                     xpCost: 0,
                     components: [],
@@ -448,6 +479,9 @@
                         name: '',
                         physMeta: 'Physical',
                         range: 0,
+                        save: false,
+                        saveAmount: 3,
+                        saveCharacteristic: '',
                         successes: 0,
                         xpCost: 0,
                         components: [],

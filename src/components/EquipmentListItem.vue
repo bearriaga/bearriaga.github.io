@@ -46,6 +46,7 @@
                              :can-edit="false"
                              :characteristics="characteristics"
                              :resources="resources"
+                             :successes-from-intelligence="successesFromIntelligence"
                              @rollAbilityEmit="rollAbility($event)"
                              @rollDamageEmit="rollDamage($event)"
                              @subtractAP="subtractAP($event)"
@@ -72,7 +73,8 @@
             damageTypes: Array,
             equipment: Object,
             resources: Array,
-            slots: Array
+            slots: Array,
+            successesFromIntelligence: Number
         },
         computed: {},
         data() {

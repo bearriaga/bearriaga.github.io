@@ -6,7 +6,7 @@
                     <v-icon>mdi-pen</v-icon>
                 </v-btn>
             </v-col>
-            <v-col class="text-center" v-if="apCost != 0 || classResource || damage.dice > 0 || damage.flat > 0 || characteristic">
+            <v-col class="text-center" v-if="apCost != 0 || classResource || damage.dice > 0 || damage.flat > 0 || characteristic || (save && saveAmount && saveCharacteristic)">
                 <v-btn color="primary" @click="useAbility(ability)">
                     Use
                     <v-icon :color="useButtonIconColor">{{useButtonIcon}}</v-icon>
@@ -33,6 +33,9 @@
                     <v-select label="Characteristic" :items="characteristics" v-model="characteristic" readonly>
                         <v-icon slot="prepend" @click="rollAbility(ability)">mdi-dice-6</v-icon>
                     </v-select>
+                </v-col>
+                <v-col cols="12" v-if="save">
+                    <v-text-field :label="saveCharacteristic + ' Save Amount'" v-model="saveAmount"></v-text-field>
                 </v-col>
                 <v-col cols="12" v-if="damage.dice > 0 || damage.flat > 0">
                     <template>
@@ -125,6 +128,7 @@
                                                      :characteristics="characteristics"
                                                      :damage-types="damageTypes"
                                                      :resources="resources"
+                                                     :successes-from-intelligence="successesFromIntelligence"
                                                      @deleteEntryEmit="deleteEntry($event)"
                                                      @updateDialogEmit="updateDialog($event)"
                                                      @updateEntryEmit="updateEntry($event)"
@@ -152,7 +156,8 @@
             canEdit: Boolean,
             characteristics: Array,
             damageTypes: Array,
-            resources: Array
+            resources: Array,
+            successesFromIntelligence: Number
         },
         computed: {
             abilities() {
@@ -247,6 +252,34 @@
 
                 return color
             },
+            saveCharacteristic() {
+                let abr = ''
+
+                switch (this.ability.saveCharacteristic) {
+                    case 'fitness':
+                        abr = 'FIT'
+                        break
+                    case 'speed':
+                        abr = 'SPD'
+                        break
+                    case 'intelligence':
+                        abr = 'INT'
+                        break
+                    case 'cunning':
+                        abr = 'CUN'
+                        break
+                    case 'resistance':
+                        abr = 'RES'
+                        break
+                    case 'luck':
+                        abr = 'LCK'
+                        break
+                    default:
+                        break
+                }
+
+                return abr
+            },
             useButtonIcon() {
                 let icon = ''
 
@@ -288,6 +321,8 @@
                 name: this.ability.name,
                 physMeta: this.ability.physMeta,
                 range: this.ability.range,
+                save: this.ability.save,
+                saveAmount: +this.ability.saveAmount + +this.successesFromIntelligence,
                 successes: this.ability.successes,
                 xpCost: this.ability.xpCost,
                 components: this.ability.components,
@@ -315,62 +350,64 @@
             updateDialog(object) {
                 this.$emit('updateDialogEmit', JSON.parse(JSON.stringify(object)))
             },
-            updateEntry() {
-                let object = {
-                    apCost: this.apCost,
-                    areaOfEffect: this.areaOfEffect,
-                    boughtForFree: this.boughtForFree,
-                    color: this.color,
-                    classResource: this.classResource,
-                    crCost: this.crCost,
-                    characteristic: this.characteristic,
-                    damage: this.damage,
-                    description: this.description,
-                    duration: this.duration,
-                    handedness: this.handedness,
-                    id: this.id,
-                    inClass: this.inClass,
-                    isAbilityArray: this.isAbilityArray,
-                    isMeleeAttack: this.isMeleeAttack,
-                    maxSizeCategoryOfMass: this.maxSizeCategoryOfMass,
-                    name: this.name,
-                    physMeta: this.physMeta,
-                    range: this.range,
-                    successes: this.successes,
-                    xpCost: this.xpCost,
-                    components: this.components,
-                    subEffects: this.subEffects
-                }
+            /// Maybe bring this back
+            //updateEntry() {
+            //    let object = {
+            //        apCost: this.apCost,
+            //        areaOfEffect: this.areaOfEffect,
+            //        boughtForFree: this.boughtForFree,
+            //        color: this.color,
+            //        classResource: this.classResource,
+            //        crCost: this.crCost,
+            //        characteristic: this.characteristic,
+            //        damage: this.damage,
+            //        description: this.description,
+            //        duration: this.duration,
+            //        handedness: this.handedness,
+            //        id: this.id,
+            //        inClass: this.inClass,
+            //        isAbilityArray: this.isAbilityArray,
+            //        isMeleeAttack: this.isMeleeAttack,
+            //        maxSizeCategoryOfMass: this.maxSizeCategoryOfMass,
+            //        name: this.name,
+            //        physMeta: this.physMeta,
+            //        range: this.range,
+            //        successes: this.successes,
+            //        xpCost: this.xpCost,
+            //        components: this.components,
+            //        subEffects: this.subEffects
+            //    }
 
-                this.$emit('updateEntryEmit', object)
-            },
+            //    this.$emit('updateEntryEmit', object)
+            //},
             useAbility(ability) {
                 this.$emit('useAbility', ability)
             }
         },
-        watch: {
-            apCost() { this.updateEntry() },
-            areaOfEffect() { this.updateEntry() },
-            boughtForFree() { this.updateEntry() },
-            color() { this.updateEntry() },
-            classResource() { this.updateEntry() },
-            crCost() { this.updateEntry() },
-            characteristic() { this.updateEntry() },
-            description() { this.updateEntry() },
-            duration() { this.updateEntry() },
-            handedness() { this.updateEntry() },
-            inClass() { this.updateEntry() },
-            isAbilityArray() { this.updateEntry() },
-            isMeleeAttack() { this.updateEntry() },
-            maxSizeCategoryOfMass() { this.updateEntry() },
-            name() { this.updateEntry() },
-            physMeta() { this.updateEntry() },
-            range() { this.updateEntry() },
-            successes() { this.updateEntry() },
-            xpCost() { this.updateEntry() },
-            components() { this.updateEntry() },
-            damage() { this.updateEntry() },
-            subEffects() { this.updateEntry() }
-        }
+        //Maybe bring this back
+        //watch: {
+        //    apCost() { this.updateEntry() },
+        //    areaOfEffect() { this.updateEntry() },
+        //    boughtForFree() { this.updateEntry() },
+        //    color() { this.updateEntry() },
+        //    classResource() { this.updateEntry() },
+        //    crCost() { this.updateEntry() },
+        //    characteristic() { this.updateEntry() },
+        //    description() { this.updateEntry() },
+        //    duration() { this.updateEntry() },
+        //    handedness() { this.updateEntry() },
+        //    inClass() { this.updateEntry() },
+        //    isAbilityArray() { this.updateEntry() },
+        //    isMeleeAttack() { this.updateEntry() },
+        //    maxSizeCategoryOfMass() { this.updateEntry() },
+        //    name() { this.updateEntry() },
+        //    physMeta() { this.updateEntry() },
+        //    range() { this.updateEntry() },
+        //    successes() { this.updateEntry() },
+        //    xpCost() { this.updateEntry() },
+        //    components() { this.updateEntry() },
+        //    damage() { this.updateEntry() },
+        //    subEffects() { this.updateEntry() }
+        //}
     }
 </script>

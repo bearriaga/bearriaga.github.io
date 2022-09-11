@@ -162,6 +162,7 @@
                                     :characteristics="characteristics"
                                     :damage-types="damageTypes"
                                     :resources="resources"
+                                    :successes-from-intelligence="successesFromIntelligence"
                                     @addEntryEmit="addEntry($event)"
                                     @deleteEntryEmit="deleteEntry($event)"
                                     @rollAbilityEmit="rollAbility($event)"
@@ -260,6 +261,7 @@
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
                                       :resources="resources"
+                                      :successes-from-intelligence="successesFromIntelligence"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @rollAbilityEmit="rollAbility($event)"
@@ -295,6 +297,13 @@
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
                         {{abilityDialog.title}}
+                        <v-btn icon color="primary"
+                               @click="copyAll"
+                               v-if="abilityDialog.isAbility">
+                            <v-icon>
+                                mdi-content-copy
+                            </v-icon>
+                        </v-btn>
                     </v-card-title>
 
                     <v-card-text v-if="abilityDialog.check.show">
@@ -315,8 +324,8 @@
                         <div>
                             Dice Results: {{abilityDialog.check.diceResults}}
                         </div>
-                        <div v-if="abilityDialog.check.successesFromIntelligence">
-                            Successes From INT: {{abilityDialog.check.successesFromIntelligence}}
+                        <div v-if="successesFromIntelligence">
+                            Successes From INT: {{successesFromIntelligence}}
                         </div>
                         <div v-if="abilityDialog.check.successesFromLuck">
                             Successes From LCK: {{abilityDialog.check.successesFromLuck}}
@@ -358,6 +367,20 @@
                         </v-row>
                     </v-card-text>
 
+                    <v-card-text v-if="abilityDialog.save.show">
+                        <div>
+                            <b>Save: {{abilityDialog.save.characteristic}} {{abilityDialog.save.amount}}</b>
+                        </div>
+                        <div>
+                            <v-btn icon color="primary"
+                                   @click="copySave">
+                                <v-icon>
+                                    mdi-content-copy
+                                </v-icon>
+                            </v-btn>
+                        </div>
+                    </v-card-text>
+
                     <v-card-text v-if="abilityDialog.damage.show">
                         <div>
                             <b>
@@ -368,9 +391,11 @@
                                 </span>
                             </b>
                         </div>
-                        <v-btn icon color="primary" @click="copyDamage">
-                            <v-icon>mdi-content-copy</v-icon>
-                        </v-btn>
+                        <div>
+                            <v-btn icon color="primary" @click="copyDamage">
+                                <v-icon>mdi-content-copy</v-icon>
+                            </v-btn>
+                        </div>
                         <div class="text-center">
                             <v-btn @click="rollCrit" width="200">Roll Crit</v-btn>
                         </div>
@@ -407,12 +432,12 @@
                         </div>
                     </v-card-text>
 
-                    <v-card-text>
-                        <div v-if="abilityDialog.ability.apCost != 0">
-                            <b>AP Used: {{abilityDialog.ability.apCost}}</b>
+                    <v-card-text v-if="abilityDialog.isAbility">
+                        <div v-if="abilityDialog.ap">
+                            <b>{{abilityDialog.ap}}</b>
                         </div>
-                        <div v-if="abilityDialog.ability.classResource && abilityDialog.ability.crCost != 0">
-                            <b>CR Used: {{abilityDialog.ability.classResource.name}} {{abilityDialog.ability.crCost}}</b>
+                        <div v-if="abilityDialog.cr">
+                            <b>{{abilityDialog.cr}}</b>
                         </div>
                     </v-card-text>
 
@@ -677,6 +702,9 @@
                         ability.physMeta +
                         ability.range +
                         ability.successes +
+                        ability.save +
+                        ability.saveAmount +
+                        ability.saveCharacteristic +
                         ability.xpCost +
                         JSON.stringify(ability.components) +
                         JSON.stringify(ability.damage) +
@@ -1131,6 +1159,9 @@
 
                 return skills
             },
+            successesFromIntelligence() {
+                return Math.floor(this.intelligence / 3)
+            },
             traits() {
                 let traits = []
 
@@ -1159,6 +1190,7 @@
             return {
                 abilityDialog: {
                     ability: {},
+                    ap: '',
                     check: {
                         advantage: false,
                         diceCheckObject: {},
@@ -1171,6 +1203,7 @@
                         successesFromLuck: 0,
                         threat: false
                     },
+                    cr: '',
                     damage: {
                         charDamage: 0,
                         damage: 0,
@@ -1180,6 +1213,12 @@
                         show: false,
                         sum: 0,
                         types: []
+                    },
+                    isAbility: false,
+                    save: {
+                        amount: 0,
+                        characteristic: '',
+                        show: false
                     },
                     show: false,
                     title: ''
@@ -1437,24 +1476,54 @@
                     this.cleanseDialog.selectedStatuses = []
                 }
             },
+            copyAll() {
+                var copyText = this.abilityDialog.ability.name
+
+                if (this.abilityDialog.check.show)
+                    copyText += `\n${this.copyCheckGet()}`
+
+                if (this.abilityDialog.damage.show)
+                    copyText += `\n${this.copyDamageGet()}`
+
+                if (this.abilityDialog.save.show)
+                    copyText += `\n${this.copySaveGet()}`
+
+                if (this.abilityDialog.ap)
+                    copyText += `\n${this.abilityDialog.ap}`
+
+                if (this.abilityDialog.cr)
+                    copyText += `\n${this.abilityDialog.cr}`
+
+                navigator.clipboard.writeText(copyText)
+            },
             copyCheck() {
+                navigator.clipboard.writeText(this.copyCheckGet())
+            },
+            copyCheckGet() {
                 var copyText =
                     'Successes: ' + this.abilityDialog.check.successes + '\n' +
                     'Fate: ' + this.abilityDialog.check.fate + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '\n' +
                     'Dice Results: [' + this.abilityDialog.check.diceResults + ']';
 
-                if (this.abilityDialog.check.successesFromIntelligence)
-                    copyText += '\nSuccesses From INT: ' + this.abilityDialog.check.successesFromIntelligence
+                if (this.successesFromIntelligence)
+                    copyText += '\nSuccesses From INT: ' + this.successesFromIntelligence
 
                 if (this.abilityDialog.check.successesFromLuck)
                     copyText += '\nSuccesses From LCK: ' + this.abilityDialog.check.successesFromLuck
 
-                navigator.clipboard.writeText(copyText)
+                return copyText
             },
             copyDamage() {
-                var copyText = `Damage \n${this.abilityDialog.damage.sum} ${this.abilityDialog.ability.damage.types.join(', ')}`
-
-                navigator.clipboard.writeText(copyText)
+                navigator.clipboard.writeText(this.copyDamageGet())
+            },
+            copyDamageGet() {
+                return `Damage: ${this.abilityDialog.damage.sum} ${this.abilityDialog.ability.damage.types.join(', ')}`
+            },
+            copySave() {
+                navigator.clipboard.writeText(this.copySaveGet())
+            },
+            copySaveGet() {
+                return `Save: ${this.abilityDialog.save.characteristic} ${this.abilityDialog.save.amount}`
             },
             //Dice Roll Functions
             determineSuccesses(dieResult) {
@@ -1516,6 +1585,9 @@
                     successes: ability.successes
                 })
                 this.abilityDialog.title = `${ability.name} Check Results`
+                this.abilityDialog.isAbility = false
+                this.abilityDialog.damage.show = false
+                this.abilityDialog.save.show = false
             },
             rollDice(diceToRoll) {
                 let result = {
@@ -1540,15 +1612,13 @@
                     show: true,
                     selectedRerolls: [],
                     successes: 0,
-                    successesFromIntelligence: 0,
                     successesFromLuck: 0,
                     threat: false
                 }
 
                 if (diceCheckObject.diceToRoll > 0) {
                     if (!diceCheckObject.isSave) {
-                        result.successesFromIntelligence = Math.floor(this.intelligence / 3)
-                        result.successes += +result.successesFromIntelligence
+                        result.successes += +this.successesFromIntelligence
 
                     }
 
@@ -1577,9 +1647,9 @@
             },
             rollStandAloneCheck(diceCheckObject) {
                 this.rollCheck(diceCheckObject)
-                this.abilityDialog.ability.apCost = 0
-                this.abilityDialog.ability.crCost = 0
                 this.abilityDialog.damage.show = false
+                this.abilityDialog.isAbility = false
+                this.abilityDialog.save.show = false
                 this.abilityDialog.title = diceCheckObject.name + ' Check Results'
             },
             //Dice Roll Functions End
@@ -1717,7 +1787,6 @@
                             selectedRerolls: [],
                             succeded: false,
                             successes: 0,
-                            successesFromIntelligence: 0,
                             successesFromLuck: 0,
                             threat: false
                         }
@@ -1795,6 +1864,8 @@
                 this.abilityDialog.damage = this.rollDamage(ability.damage, ability.isMeleeAttack, ability.characteristic, false)
                 this.abilityDialog.show = true
                 this.abilityDialog.check.show = false
+                this.abilityDialog.isAbility = false
+                this.abilityDialog.save.show = false
                 this.abilityDialog.title = `${ability.name} Damage Results`
 
             },
@@ -1917,18 +1988,42 @@
                     this.characterSheet[prop.propName] = prop.value
             },
             useAbility(ability) {
-                if (ability.apCost != 0)
+                if (ability.apCost != 0) {
                     this.subtractAP(ability.apCost)
-                if (ability.classResource && ability.crCost != 0)
-                    this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
-                if (ability.damage.dice > 0 || ability.damage.flat > 0)
-                    this.rollAbilityDamage(ability)
+                    this.abilityDialog.ap = `AP Used: ${ability.apCost}`
+                } else
+                    this.abilityDialog.ap = ''
+
                 if (ability.characteristic)
                     this.rollAbility(ability)
+
+                if (ability.classResource && ability.crCost != 0) {
+                    this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
+                    let resource = this.resources.find(x => { return x.id == ability.classResource })
+                    this.abilityDialog.cr = `CR Used: ${ability.crCost} ${resource.name}`
+                } else
+                    this.abilityDialog.cr = ''
+
+                if (ability.damage.dice > 0 || ability.damage.flat > 0)
+                    this.rollAbilityDamage(ability)
+
+                if (ability.save && !isNaN(ability.saveAmount) && ability.saveCharacteristic)
+                    this.abilityDialog.save = {
+                        amount: +ability.saveAmount + +this.successesFromIntelligence,
+                        characteristic: this.characteristicViewItems.find(x => { return x.name == ability.saveCharacteristic }).abbreviation,
+                        show: true
+                    }
+                else
+                    this.abilityDialog.save = {
+                        amount: 0,
+                        characteristic: '',
+                        show: false
+                    }
 
                 this.abilityDialog.ability = JSON.parse(JSON.stringify(ability))
                 this.abilityDialog.check.show = (ability.characteristic)
                 this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0)
+                this.abilityDialog.isAbility = true
                 this.abilityDialog.show = true
                 this.abilityDialog.title = ability.name
             }

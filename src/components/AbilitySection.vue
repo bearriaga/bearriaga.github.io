@@ -30,6 +30,7 @@
                                                  :characteristics="characteristics"
                                                  :damage-types="damageTypes"
                                                  :resources="resources"
+                                                 :successes-from-intelligence="successesFromIntelligence"
                                                  @deleteEntryEmit="deleteDialog($event)"
                                                  @rollAbilityEmit="rollAbility($event)"
                                                  @rollDamageEmit="rollDamage($event)"
@@ -79,11 +80,32 @@
                                     <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-select label="Characteristic"
+                                    <v-select label="Characteristic Check"
                                               :items="characteristics"
                                               v-model="characteristic"
-                                              clearable></v-select>
+                                              clearable>
+                                        <TooltipComponent slot="prepend" :text="'CHAR used to make check and gets added to damage.'"></TooltipComponent>
+                                    </v-select>
                                 </v-col>
+                                <v-col cols="12">
+                                    <v-checkbox label="Target Saves"
+                                                v-model="save"></v-checkbox>
+                                </v-col>
+                                <template v-if="save">
+                                    <v-col cols="6">
+                                        <v-text-field label="Save Amount"
+                                                      v-model="saveAmount"
+                                                      type="number">
+                                            <TooltipComponent slot="prepend" :text="'INT/3 automatically added to save amount.'"></TooltipComponent>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-select label="Save Characteristic"
+                                                  :items="characteristics"
+                                                  v-model="saveCharacteristic"
+                                                  clearable></v-select>
+                                    </v-col>
+                                </template>
                                 <v-col cols="12">
                                     <v-row>
                                         <v-col cols="12">
@@ -254,7 +276,8 @@
             ap: Number,
             characteristics: Array,
             damageTypes: Array,
-            resources: Array
+            resources: Array,
+            successesFromIntelligence: Number
         },
         computed: {
             filteredAbilities() {
@@ -298,6 +321,9 @@
                     name: '',
                     physMeta: 'Physical',
                     range: 0,
+                    save: false,
+                    saveAmount: 3,
+                    saveCharacteristic: '',
                     successes: 0,
                     xpCost: 0,
                     components: [],
@@ -326,6 +352,9 @@
                 name: '',
                 physMeta: 'Physical',
                 range: 0,
+                save: false,
+                saveAmount: 3,
+                saveCharacteristic: '',
                 successes: 0,
                 xpCost: 0,
                 components: [],
@@ -382,6 +411,9 @@
                     name: '',
                     physMeta: 'Physical',
                     range: 0,
+                    save: false,
+                    saveAmount: 3,
+                    saveCharacteristic: '',
                     successes: 0,
                     xpCost: 10,
                     components: [],
@@ -436,6 +468,9 @@
                 this.ability.name = this.name
                 this.ability.physMeta = this.physMeta
                 this.ability.range = this.range
+                this.ability.save = this.save
+                this.ability.saveAmount = this.saveAmount
+                this.ability.saveCharacteristic = this.saveCharacteristic
                 this.ability.successes = this.successes
                 this.ability.xpCost = this.xpCost
                 this.ability.components = this.components
@@ -480,6 +515,9 @@
                     name: '',
                     physMeta: 'Physical',
                     range: 0,
+                    save: false,
+                    saveAmount: 3,
+                    saveCharacteristic: '',
                     successes: 0,
                     xpCost: 10,
                     components: [],
@@ -526,6 +564,9 @@
                 this.name = ability.name
                 this.physMeta = ability.physMeta
                 this.range = ability.range
+                this.save = ability.save
+                this.saveAmount = ability.saveAmount
+                this.saveCharacteristic = ability.saveCharacteristic
                 this.successes = ability.successes
                 this.xpCost = ability.xpCost
                 this.components = ability.components
