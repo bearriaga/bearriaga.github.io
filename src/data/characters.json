@@ -421,27 +421,6 @@
         "key": "0Single Targettrue{\"alpha\":1,\"hex\":\"#FFB800\",\"hexa\":\"#FFB800FF\",\"hsla\":{\"h\":43.398430370505565,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":43.398430370505565,\"s\":1,\"v\":1,\"a\":1},\"hue\":43.398430370505565,\"rgba\":{\"r\":255,\"g\":184,\"b\":0,\"a\":1}}0Magazine (6)\nPartial Reload 1 AP for 2 shots\nReloading (3 AP)Instant01662773241082truefalsetrue0Undead GunPhysical00undefinedundefinedundefined119[]{\"dice\":\"1\",\"flat\":0,\"types\":[\"Dark\",\"Piercing\"]}[]1"
       }
     ],
-    "armor": [
-      {
-        "effect": "",
-        "name": "",
-        "slot": "",
-        "damageModifications": [
-          {
-            "amount": 1,
-            "isResistance": false,
-            "isVulnerability": false,
-            "type": "Physical"
-          }
-        ]
-      }
-    ],
-    "attunements": [
-      {
-        "amount": 0,
-        "name": ""
-      }
-    ],
     "buffs": [
       {
         "description": "Undead 1",
@@ -1097,8 +1076,6 @@
         "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0speedInstant01662678293665truefalsetrue0speed-1Physical0-1undefinedundefinedundefined0[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
       }
     ],
-    "armor": [],
-    "attunements": [],
     "buffs": [],
     "classes": [
       {
@@ -1392,8 +1369,6 @@
     "xpEarned": 0,
     "xpTotal": 0,
     "abilities": [],
-    "armor": [],
-    "attunements": [],
     "buffs": [],
     "classes": [],
     "equipment": [],
@@ -1556,27 +1531,6 @@
           "key": "0true"
         },
         "subEffects": []
-      }
-    ],
-    "armor": [
-      {
-        "effect": "",
-        "name": "",
-        "slot": "",
-        "damageModifications": [
-          {
-            "amount": 1,
-            "isResistance": false,
-            "isVulnerability": false,
-            "type": "Physical"
-          }
-        ]
-      }
-    ],
-    "attunements": [
-      {
-        "amount": 0,
-        "name": ""
       }
     ],
     "buffs": [],
@@ -3360,27 +3314,6 @@
             "a": 1
           }
         }
-      }
-    ],
-    "armor": [
-      {
-        "effect": "",
-        "name": "",
-        "slot": "",
-        "damageModifications": [
-          {
-            "amount": 0,
-            "isResistance": false,
-            "isVulnerability": false,
-            "type": "Physical"
-          }
-        ]
-      }
-    ],
-    "attunements": [
-      {
-        "amount": 0,
-        "name": ""
       }
     ],
     "buffs": [],
