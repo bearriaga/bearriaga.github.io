@@ -32,6 +32,17 @@
                                        @addEntryEmit="addEntry($event)"
                                        @deleteEntryEmit="deleteEntry($event)"
                                        @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
+            <MovementSection v-if="equipment.movements.length"
+                             :ap="ap"
+                             :can-edit="false"
+                             :movements="equipment.movements"
+                             :movement-types="movementTypes"
+                             :movement-ap-icon="movementApIcon"
+                             :movement-ap-icon-color="movementApIconColor"
+                             @addEntryEmit="addEntry($event)"
+                             @deleteEntryEmit="deleteEntry($event)"
+                             @subtractAPEmit="subtractAP($event)"
+                             @updateEntryEmit="updateEntry($event)"></MovementSection>
             <v-combobox label="Body Slot"
                         :items="slots"
                         v-model="slot"
@@ -59,12 +70,14 @@
 <script>
     import AbilityLIstItem from './AbilityListItem.vue'
     import DamageModificationSection from './DamageModificationSection.vue'
+    import MovementSection from './MovementSection.vue'
 
     export default {
         name: 'EquipmentListItem',
         components: {
             AbilityLIstItem,
-            DamageModificationSection
+            DamageModificationSection,
+            MovementSection
         },
         props: {
             ap: Number,
@@ -72,6 +85,9 @@
             damageGroups: Array,
             damageTypes: Array,
             equipment: Object,
+            movementApIcon: String,
+            movementApIconColor: String,
+            movementTypes: Array,
             resources: Array,
             slots: Array,
             successesFromIntelligence: Number

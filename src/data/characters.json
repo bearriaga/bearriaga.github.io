@@ -98,7 +98,7 @@
           "key": "0true"
         },
         "subEffects": [],
-        "key": "3false{\"alpha\":1,\"hex\":\"#0023FF\",\"hexa\":\"#0023FFFF\",\"hsla\":{\"h\":231.78901259353896,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":231.78901259353896,\"s\":1,\"v\":1,\"a\":1},\"hue\":231.78901259353896,\"rgba\":{\"r\":0,\"g\":35,\"b\":255,\"a\":1}}0intelligencePoint a finger at your target and say, \"The bell tolls for you\".\nConditional: Spell Components - (Verbal and Somatic)Instant11truefalsefalse0Toll the DeadPhysical60165[]{\"dice\":\"2\",\"flat\":\"0\",\"types\":[\"Dark\"],\"key\":\"0true\"}[]1"
+        "key": "3false{\"alpha\":1,\"hex\":\"#0023FF\",\"hexa\":\"#0023FFFF\",\"hsla\":{\"h\":231.78901259353896,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":231.78901259353896,\"s\":1,\"v\":1,\"a\":1},\"hue\":231.78901259353896,\"rgba\":{\"r\":0,\"g\":35,\"b\":255,\"a\":1}}0intelligencePoint a finger at your target and say, \"The bell tolls for you\".\nConditional: Spell Components - (Verbal and Somatic)Instant11truefalsefalse0Toll the DeadPhysical60undefinedundefinedundefined165[]{\"dice\":\"2\",\"flat\":\"0\",\"types\":[\"Dark\"],\"key\":\"0true\"}[]1"
       },
       {
         "apCost": "7",
@@ -152,7 +152,7 @@
           "key": "0"
         },
         "subEffects": [],
-        "key": "7Single Targetfalse{\"alpha\":1,\"hex\":\"#0006FF\",\"hexa\":\"#0006FFFF\",\"hsla\":{\"h\":238.51724767293302,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":238.51724767293302,\"s\":1,\"v\":1,\"a\":1},\"hue\":238.51724767293302,\"rgba\":{\"r\":0,\"g\":6,\"b\":255,\"a\":1}}2Duration: Committed Resources\nMinion: Absorb Ability Modifiers\nMinion: Absorb Attributes\nMinion: Cannot Speak\nMinion: Harvestable\nMinion: Special Communication\nMinion: Summon Limit (4)\nRequires Consumable (Corpse)Indefinite01662000692496truefalsefalse0Summon UndeadPhysical00420[]{\"dice\":\"0\",\"flat\":\"0\",\"types\":[],\"key\":\"0\"}[]1"
+        "key": "7Single Targetfalse{\"alpha\":1,\"hex\":\"#0006FF\",\"hexa\":\"#0006FFFF\",\"hsla\":{\"h\":238.51724767293302,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":238.51724767293302,\"s\":1,\"v\":1,\"a\":1},\"hue\":238.51724767293302,\"rgba\":{\"r\":0,\"g\":6,\"b\":255,\"a\":1}}2Duration: Committed Resources\nMinion: Absorb Ability Modifiers\nMinion: Absorb Attributes\nMinion: Cannot Speak\nMinion: Harvestable\nMinion: Special Communication\nMinion: Summon Limit (4)\nRequires Consumable (Corpse)Indefinite01662000692496truefalsefalse0Summon UndeadPhysical00undefinedundefinedundefined420[]{\"dice\":\"0\",\"flat\":\"0\",\"types\":[],\"key\":\"0\"}[]1"
       },
       {
         "apCost": "0",
@@ -206,7 +206,7 @@
           "key": "0"
         },
         "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Bile Resource +3Instant01662002064365truefalsefalse0Bile Max IncreasePhysical0090[]{\"dice\":\"0\",\"flat\":\"0\",\"types\":[],\"key\":\"0\"}[]1"
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Bile Resource +3Instant01662002064365truefalsefalse0Bile Max IncreasePhysical00undefinedundefinedundefined90[]{\"dice\":\"0\",\"flat\":\"0\",\"types\":[],\"key\":\"0\"}[]1"
       },
       {
         "apCost": "0",
@@ -259,7 +259,7 @@
         "xpCost": "50",
         "components": [],
         "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#FFA300\",\"hexa\":\"#FFA300FF\",\"hsla\":{\"h\":38.33911297682059,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":38.33911297682059,\"s\":1,\"v\":1,\"a\":1},\"hue\":38.33911297682059,\"rgba\":{\"r\":255,\"g\":163,\"b\":0,\"a\":1}}0Defense: Bodyguard\nChoose a creature or object adjacent to your character, when that creature would take damage you may elect to move into their square and take that damage instead.Instant01662598729462truefalsetrue0Undead BodyguardPhysical0050[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#FFA300\",\"hexa\":\"#FFA300FF\",\"hsla\":{\"h\":38.33911297682059,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":38.33911297682059,\"s\":1,\"v\":1,\"a\":1},\"hue\":38.33911297682059,\"rgba\":{\"r\":255,\"g\":163,\"b\":0,\"a\":1}}0Defense: Bodyguard\nChoose a creature or object adjacent to your character, when that creature would take damage you may elect to move into their square and take that damage instead.Instant01662598729462truefalsetrue0Undead BodyguardPhysical00undefinedundefinedundefined50[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
       },
       {
         "apCost": "0",
@@ -312,7 +312,7 @@
         "xpCost": "14",
         "components": [],
         "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}01 Use per Long Rest\nRecharges at SunsetInstant01662602007478truefalsetrue0Speak with DeadPhysical0014[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}01 Use per Long Rest\nRecharges at SunsetInstant01662602007478truefalsetrue0Speak with DeadPhysical00undefinedundefinedundefined14[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
       },
       {
         "apCost": "0",
@@ -365,7 +365,7 @@
         "xpCost": "125",
         "components": [],
         "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Mountable\nFlying 5\n3 Attunement SlotsInstant01662603125699truefalsetrue0Flying BroomPhysical00125[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Mountable\nFlying 5\n3 Attunement SlotsInstant01662603125699truefalsetrue0Flying BroomPhysical00undefinedundefinedundefined125[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
       },
       {
         "apCost": "0",
@@ -418,7 +418,7 @@
         "xpCost": "119",
         "components": [],
         "subEffects": [],
-        "key": "0Single Targettrue{\"alpha\":1,\"hex\":\"#FFB800\",\"hexa\":\"#FFB800FF\",\"hsla\":{\"h\":43.398430370505565,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":43.398430370505565,\"s\":1,\"v\":1,\"a\":1},\"hue\":43.398430370505565,\"rgba\":{\"r\":255,\"g\":184,\"b\":0,\"a\":1}}0Magazine (6)\nPartial Reload 1 AP for 2 shots\nReloading (3 AP)Instant01662773241082truefalsetrue0Undead GunPhysical00119[]{\"dice\":\"1\",\"flat\":0,\"types\":[\"Dark\",\"Piercing\"]}[]1"
+        "key": "0Single Targettrue{\"alpha\":1,\"hex\":\"#FFB800\",\"hexa\":\"#FFB800FF\",\"hsla\":{\"h\":43.398430370505565,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":43.398430370505565,\"s\":1,\"v\":1,\"a\":1},\"hue\":43.398430370505565,\"rgba\":{\"r\":255,\"g\":184,\"b\":0,\"a\":1}}0Magazine (6)\nPartial Reload 1 AP for 2 shots\nReloading (3 AP)Instant01662773241082truefalsetrue0Undead GunPhysical00undefinedundefinedundefined119[]{\"dice\":\"1\",\"flat\":0,\"types\":[\"Dark\",\"Piercing\"]}[]1"
       }
     ],
     "armor": [
@@ -621,7 +621,7 @@
         "amount": 1,
         "attunementSlots": 3,
         "dcToHit": 1,
-        "description": "Mountable\nFlying 5\n3 Attunement Slots",
+        "description": "Mountable\n3 Attunement Slots",
         "id": "1662598112661",
         "isActive": true,
         "isArmorShied": false,
@@ -659,7 +659,14 @@
           "subEffects": []
         },
         "damageModifications": [],
-        "key": "166259811266131Mountable\nFlying 5\n3 Attunement SlotsfalsefalsefalseFlying Broom{\"apCost\":\"1\",\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"\",\"damage\":{\"dice\":0,\"flat\":0,\"types\":[]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Flying Broom\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]1"
+        "movements": [
+          {
+            "amount": "5",
+            "description": "Flying Broom Movement",
+            "type": "Flying"
+          }
+        ],
+        "key": "166259811266131Mountable\n3 Attunement SlotsfalsefalsefalseFlying Broom{\"apCost\":\"1\",\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"\",\"damage\":{\"dice\":0,\"flat\":0,\"types\":[]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Flying Broom\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]1"
       }
     ],
     "flaws": [
@@ -671,15 +678,7 @@
         "key": "16619999791481"
       }
     ],
-    "movements": [
-      {
-        "amount": "5",
-        "description": "Flying Broom",
-        "id": "1654453228548",
-        "type": "Flying",
-        "key": "16544532285483"
-      }
-    ],
+    "movements": [],
     "damageModifications": [],
     "resources": [
       {
@@ -1156,6 +1155,7 @@
           "subEffects": []
         },
         "damageModifications": [],
+        "movements": [],
         "key": "166267859552101falsefalsetrueWalking Stick{\"apCost\":\"2\",\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"fitness\",\"damage\":{\"dice\":\"2\",\"flat\":0,\"types\":[\"Piercing\"]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":\"1\",\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Walking Stick\",\"physMeta\":\"Physical\",\"range\":\"2\",\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]1"
       }
     ],

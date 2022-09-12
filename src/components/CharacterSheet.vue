@@ -144,10 +144,11 @@
                                          @fillResourcesEmit="fillResources($event)"
                                          @updateEntryEmit="updateEntry($event)"></ResourceSection>
                         <MovementSection :ap="characterSheet.ap"
+                                         :can-edit="true"
                                          :movements="movements"
-                                         :movement-types="movementTypes"
                                          :movement-ap-icon="movementApIcon"
                                          :movement-ap-icon-color="movementApIconColor"
+                                         :movement-types="movementTypes"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
                                          @subtractAPEmit="subtractAP($event)"
@@ -260,6 +261,8 @@
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
+                                      :movement-ap-icon="movementApIcon"
+                                      :movement-ap-icon-color="movementApIconColor"
                                       :movement-types="movementTypes"
                                       :resources="resources"
                                       :successes-from-intelligence="successesFromIntelligence"
@@ -1114,6 +1117,21 @@
                             isDefault: false,
                             key: adjustment.id + JSON.stringify(adjustment),
                             type: adjustment.movementType
+                        }
+                        movements.push(movement)
+                    })
+                })
+
+                this.characterSheet.equipment.filter(e => { return e.isActive && e.movements.length }).forEach((equipment, index) => {
+                    equipment.movements.forEach(m => {
+                        let movement = {
+                            amount: m.amount,
+                            description: m.description,
+                            id: JSON.stringify(m) + index,
+                            isBuff: true,
+                            isDefault: false,
+                            key: JSON.stringify(m) + index,
+                            type: m.type
                         }
                         movements.push(movement)
                     })

@@ -21,7 +21,7 @@
                                               @updateEntryEmit="updateEntry($event)"> </MovementListItem>
                         </template>
 
-                        <v-expansion-panels v-model="panel">
+                        <v-expansion-panels v-model="panel" v-if="canEdit">
                             <v-expansion-panel>
                                 <v-expansion-panel-header>
                                     <h3 class="text-center">
@@ -107,6 +107,7 @@
         },
         props: {
             ap: Number,
+            canEdit: Boolean,
             movementApIcon: String,
             movementApIconColor: String,
             movements: Array,
