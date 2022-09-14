@@ -1,8 +1,8 @@
 <template>
     <div>
         <v-form>
-            <v-checkbox label="Is Active"
-                        v-model="isActive"></v-checkbox>
+            <v-switch label="Is Active" inset
+                      v-model="isActive"></v-switch>
             <v-text-field label="Name" v-model="name">
                 <v-icon slot="append" color="primary"
                         @click="updateDialog">mdi-pen</v-icon>
@@ -85,7 +85,7 @@
                 }
                 return buff
             },
-            updateDialog() {                
+            updateDialog() {
                 this.$emit('updateDialogEmit', this.setObject())
             },
             updateEntry() {
@@ -105,7 +105,7 @@
             description() {
                 this.updateEntry()
             },
-            isActive() {                
+            isActive() {
                 this.updateStatuses()
                 this.updateEntry()
             },

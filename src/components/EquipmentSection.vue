@@ -60,10 +60,10 @@
                                           v-model="amount"
                                           min="0"
                                           required></v-text-field>
-                            <v-checkbox label="Is Item"
-                                        v-model="isItem">
+                            <v-switch label="Is Item" inset
+                                      v-model="isItem">
                                 <TooltipComponent slot="prepend" :text="'Limits fields to Name, Amount, and Description and hides ability section'"></TooltipComponent>
-                            </v-checkbox>
+                            </v-switch>
                             <template v-if="!isItem">
                                 <v-text-field label="AP Cost"
                                               type="number"
@@ -76,8 +76,8 @@
                                 </v-select>
                                 <v-row>
                                     <v-col cols="12">
-                                        <v-checkbox label="Target Saves"
-                                                    v-model="ability.save"></v-checkbox>
+                                        <v-switch label="Target Saves" inset
+                                                  v-model="ability.save"></v-switch>
                                     </v-col>
                                     <template v-if="ability.save">
                                         <v-col cols="6">
@@ -98,7 +98,7 @@
                                 <!-- Armor Inputs -->
                                 <v-row>
                                     <v-col>
-                                        <v-checkbox label="Is Armor/Shield" v-model="isArmorShied"></v-checkbox>
+                                        <v-switch label="Is Armor/Shield" inset v-model="isArmorShied"></v-switch>
                                     </v-col>
                                     <v-col>
                                         <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="isArmorShied"></v-text-field>
@@ -133,17 +133,23 @@
                                                               v-model="dm.amount"
                                                               ref="amount"
                                                               required></v-text-field>
-                                                <v-checkbox label="Resistance"
-                                                            v-model="dm.isResistance"></v-checkbox>
-                                                <v-checkbox label="Vulnerability"
-                                                            v-model="dm.isVulnerability"></v-checkbox>
+                                                <v-row>
+                                                    <v-col>
+                                                        <v-switch label="Resistance" inset
+                                                                    v-model="dm.isResistance"></v-switch>
+                                                    </v-col>
+                                                    <v-col>
+                                                        <v-switch label="Vulnerability" inset
+                                                                    v-model="dm.isVulnerability"></v-switch>
+                                                    </v-col>
+                                                </v-row>
                                             </div>
                                         </v-expansion-panel-content>
                                     </v-expansion-panel>
                                 </v-expansion-panels>
                                 <!-- Damage Modification Inputs End -->
                                 <!-- Weapon Inputs -->
-                                <v-checkbox label="Is Weapon" v-model="isWeapon"></v-checkbox>
+                                <v-switch label="Is Weapon" inset v-model="isWeapon"></v-switch>
                                 <v-text-field label="Range"
                                               v-model="ability.range"
                                               type="number"
@@ -184,7 +190,7 @@
                                                       clearable></v-select>
                                             <v-text-field label="Class Resource Cost" type="number" v-model="ability.crCost"></v-text-field>
                                             <v-text-field label="Duration" v-model="ability.duration"></v-text-field>
-                                            <v-checkbox label="Is Melee Attack" v-model="ability.isMeleeAttack"></v-checkbox>
+                                            <v-switch label="Is Melee Attack" inset v-model="ability.isMeleeAttack"></v-switch>
                                             <v-text-field label="Area of Effect" v-model="ability.areaOfEffect"></v-text-field>
                                             <v-select label="Physical/Meta *"
                                                       :items="physMetaOptions"

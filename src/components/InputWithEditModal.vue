@@ -66,9 +66,9 @@
                                           :type="propertyObject.valueIncreasesType"
                                           v-model="valueIncreases"
                                           @keyup.enter="updateProp"></v-text-field>
-                            <v-checkbox v-else-if="propertyObject.valueIncreasesType == 'bool'"
+                            <v-switch v-else-if="propertyObject.valueIncreasesType == 'bool'" inset
                                         :label="propertyObject.valueIncreasesLabel"
-                                        v-model="valueIncreases"></v-checkbox>
+                                        v-model="valueIncreases"></v-switch>
                         </v-form>
                     </v-card-text>
 

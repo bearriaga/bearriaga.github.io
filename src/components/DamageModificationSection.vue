@@ -52,12 +52,12 @@
                                           required></v-text-field>
                             <v-row>
                                 <v-col>
-                                    <v-checkbox label="Resistance"
-                                                v-model="isResistance"></v-checkbox>
+                                    <v-switch label="Resistance" inset
+                                                v-model="isResistance"></v-switch>
                                 </v-col>
                                 <v-col>
-                                    <v-checkbox label="Vulnerability"
-                                                v-model="isVulnerability"></v-checkbox>
+                                    <v-switch label="Vulnerability" inset
+                                                v-model="isVulnerability"></v-switch>
                                 </v-col>
                             </v-row>
                         </v-form>

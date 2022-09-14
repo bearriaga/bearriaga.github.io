@@ -83,12 +83,18 @@
                                                 v-if="a.type == 'Damage Modification'"
                                                 :rules="notNull"
                                                 required></v-autocomplete>
-                                <v-checkbox label="Resistance"
-                                            v-model="a.damageModification.isResistance"
-                                            v-if="a.type == 'Damage Modification'"></v-checkbox>
-                                <v-checkbox label="Vulnerability"
-                                            v-model="a.damageModification.isVulnerability"
-                                            v-if="a.type == 'Damage Modification'"></v-checkbox>
+                                <v-row>
+                                    <v-col>
+                                        <v-switch label="Resistance" inset
+                                                  v-model="a.damageModification.isResistance"
+                                                  v-if="a.type == 'Damage Modification'"></v-switch>
+                                    </v-col>
+                                    <v-col>
+                                        <v-switch label="Vulnerability" inset
+                                                  v-model="a.damageModification.isVulnerability"
+                                                  v-if="a.type == 'Damage Modification'"></v-switch>
+                                    </v-col>
+                                </v-row>
                                 <!-- Damage Modification Fields End -->
                                 <v-combobox label="Skill"
                                             v-model="a.skill"

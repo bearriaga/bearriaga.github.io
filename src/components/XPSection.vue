@@ -35,16 +35,22 @@
                         <v-form ref="form"
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
-                            <v-text-field label="Amount"
-                                          type="number"
-                                          v-model="amount"
-                                          ref="amount"
-                                          :rules="numberRules"
-                                          required></v-text-field>
-                            <v-checkbox label="Class XP" v-model="classXP"></v-checkbox>
-                            <v-text-field label="Date"
-                                          type="date"
-                                          v-model="date"></v-text-field>
+                            <v-row>
+                                <v-col>
+                                    <v-text-field label="Amount"
+                                                  type="number"
+                                                  v-model="amount"
+                                                  ref="amount"
+                                                  :rules="numberRules"
+                                                  required></v-text-field>
+                                </v-col>
+                                <v-col>
+                                    <v-text-field label="Date"
+                                                  type="date"
+                                                  v-model="date"></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-switch label="Class XP" inset v-model="classXP"></v-switch>
                             <v-text-field label="Description"
                                           v-model="description"></v-text-field>
                         </v-form>

@@ -2,8 +2,8 @@
     <div>
         <v-row>
             <v-col cols="12">
-                <v-checkbox label="Is Active"
-                            v-model="isActive"></v-checkbox>
+                <v-switch label="Is Active" inset
+                            v-model="isActive"></v-switch>
                 <v-autocomplete label="Status"
                                 :items="statuses.map((x) => ({ value: x, text: x.name }))"
                                 v-model="selectedStatus"

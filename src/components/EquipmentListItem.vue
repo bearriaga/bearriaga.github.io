@@ -13,9 +13,9 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <v-checkbox label="Is Equipped"
+        <v-switch label="Is Equipped" inset
                     v-model="isActive"
-                    v-if="!equipment.isItem"></v-checkbox>
+                    v-if="!equipment.isItem"></v-switch>
         <v-text-field label="Amount"
                       type="number"
                       v-model="amount"

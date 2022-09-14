@@ -108,11 +108,11 @@
 
                 </v-col>
                 <v-col cols="2">
-                    <v-checkbox label="Lock Initiative" v-model="person.lock">
-                        <v-icon slot="append">
+                    <v-switch label="Lock Initiative" inset v-model="person.lock">
+                        <v-icon slot="prepend">
                             mdi-lock
                         </v-icon>
-                    </v-checkbox>
+                    </v-switch>
                 </v-col>
                 <v-col cols="2">
                     <v-btn large color="error" @click="removePerson(person.id)">

@@ -10,7 +10,7 @@
                 <v-text-field label="Date" v-model="date" type="date"></v-text-field>
             </v-col>
             <v-col cols="12">
-                <v-checkbox label="Class XP" v-model="classXP"></v-checkbox>
+                <v-switch label="Class XP" inset v-model="classXP"></v-switch>
             </v-col>
             <v-col cols="12">
                 <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>

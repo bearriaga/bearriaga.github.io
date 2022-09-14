@@ -74,7 +74,7 @@
                                                   required></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="3">
-                                    <v-checkbox label="Bought For Free" v-model="boughtForFree"></v-checkbox>
+                                    <v-switch label="Bought For Free" inset v-model="boughtForFree"></v-switch>
                                 </v-col>
                                 <v-col cols="12">
                                     <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
@@ -88,8 +88,8 @@
                                     </v-select>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-checkbox label="Target Saves"
-                                                v-model="save"></v-checkbox>
+                                    <v-switch label="Target Saves" inset
+                                                v-model="save"></v-switch>
                                 </v-col>
                                 <template v-if="save">
                                     <v-col cols="6">
@@ -145,7 +145,7 @@
                                     <v-text-field label="Duration" v-model="duration"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-checkbox label="Is Melee Attack" v-model="isMeleeAttack"></v-checkbox>
+                                    <v-switch label="Is Melee Attack" inset v-model="isMeleeAttack"></v-switch>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Range" type="number" v-model="range"></v-text-field>
@@ -154,7 +154,7 @@
                                     <v-text-field label="Area of Effect" v-model="areaOfEffect"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-checkbox label="In Class" v-model="inClass"></v-checkbox>
+                                    <v-switch label="In Class" inset v-model="inClass"></v-switch>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-select label="Physical/Meta *"
@@ -170,7 +170,7 @@
                                     <v-text-field label="Handedness" type="number" v-model="handedness"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-checkbox label="Ability Array" v-model="isAbilityArray"></v-checkbox>
+                                    <v-switch label="Ability Array" inset v-model="isAbilityArray"></v-switch>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Max Size Category Of Mass" type="number" v-model="maxSizeCategoryOfMass"></v-text-field>
