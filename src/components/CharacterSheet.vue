@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <h4 class="text-center">Oatsys Chacter Sheet</h4>
         <form onsubmit="return false;">
             <v-row>
@@ -284,10 +283,20 @@
                     <v-btn color="primary" @click="setCharacterAs('wilson')">Wilson</v-btn>
                 </v-col>
                 <v-col>
-                    <v-btn color="primary" @click="loadCharacter">Load Character</v-btn>
+                    <div>
+                        <v-btn color="primary" @click="loadCharacter">Load Character</v-btn>
+                    </div>
+                    <!--<div>
+                        <v-btn color="primary" @click="loadCharacters">Load Characters</v-btn>
+                    </div>-->
                 </v-col>
                 <v-col>
-                    <v-btn color="primary" @click="saveCharacterConfirm">Save Character</v-btn>
+                    <div>
+                        <v-btn color="primary" @click="saveCharacterConfirm">Save Character</v-btn>
+                    </div>
+                    <!--<div>
+                        <v-btn color="primary" @click="saveToFirebase">Save Character to Firebase</v-btn>
+                    </div>-->
                 </v-col>
                 <v-col>
                     <v-btn color="primary" @click="saveCharacterAsFile">Export Character</v-btn>
@@ -535,6 +544,8 @@
     import XPSection from './XPSection.vue'
     import { useCharacterStore } from '@/stores/CharacterStore'
     import { useGameDataStore } from '@/stores/GameDataStore'
+    import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
+    import { db } from '@/stores/db'
 
     export default {
         name: 'CharacterSheet',
@@ -1212,7 +1223,7 @@
             }
         },
         created() {
-            this.characterInit()
+            this.characterInit()            
         },
         data() {
             return {
@@ -1231,6 +1242,7 @@
                         successesFromLuck: 0,
                         threat: false
                     },
+                    characters: [],
                     cr: '',
                     damage: {
                         charDamage: 0,
@@ -1756,6 +1768,16 @@
                         title: 'Error Loading Character'
                     }
             },
+            async loadCharacters() {
+                this.characters = []
+
+                const querySnapshot = await getDocs(collection(db, 'characters'));
+                querySnapshot.forEach((doc) => {
+                    this.characters.push(doc.data())
+                })
+
+                console.log(this.characters)
+            },
             saveCharacterConfirm() {
                 if (!this.isCharacterSet())
                     this.saveCharacter()
@@ -1775,6 +1797,10 @@
 
                 let character = JSON.parse(JSON.stringify(this.characterSheet))
                 localStorage.setItem('character', JSON.stringify(character))
+            },
+            async saveToFirebase() {                
+                await setDoc(doc(db, 'characters', this.characterSheet.id), this.characterSheet)
+
             },
             saveCharacterAsFile() {
                 let filename = `${this.characterSheet.name}.txt`, type = 'type:text/plain;charset=utf-8'
