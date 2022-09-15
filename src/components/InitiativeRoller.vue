@@ -234,7 +234,7 @@
                 if (this.partyId) {
                     let party = this.parties.find(x => { return x.id == this.partyId })
                     party.people.forEach((person) => {
-                        this.people.push(person)
+                        this.people.push(JSON.parse(JSON.stringify(person)))
                     })
                 }
             },
