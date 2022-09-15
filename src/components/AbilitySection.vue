@@ -264,6 +264,7 @@
 <script>
     import AbilityListItem from './AbilityListItem.vue'
     import TooltipComponent from './TooltipComponent.vue'
+    import { v4 as uuidv4 } from 'uuid';
 
     export default {
         name: 'AbilitySection',
@@ -403,7 +404,7 @@
                     description: '',
                     duration: 'Instant',
                     handedness: 0,
-                    id: new Date().getTime().toString(),
+                    id: uuidv4(),
                     inClass: true,
                     isAbilityArray: false,
                     isMeleeAttack: true,

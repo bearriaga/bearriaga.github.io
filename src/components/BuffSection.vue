@@ -154,6 +154,7 @@
 
 <script>
     import BuffListItem from './BuffListItem.vue'
+    import { v4 as uuidv4 } from 'uuid';
 
     export default {
         name: 'BuffSection',
@@ -262,7 +263,7 @@
                     classResource: '',
                     description: '',
                     movementType: '',
-                    id: new Date().getTime().toString() + 0,
+                    id: uuidv4(),
                     damageModificationType: '',
                     skill: '',
                     status: {
@@ -271,7 +272,7 @@
                         currentRanks: 1,
                         description: '',
                         duration: 1,
-                        id: new Date().getTime().toString() + 1,
+                        id: uuidv4(),
                         isActive: true,
                         ranks: 1,
                         status: {
@@ -342,7 +343,7 @@
                             classResource: '',
                             description: '',
                             movementType: '',
-                            id: new Date().getTime().toString() + 0,
+                            id: uuidv4(),
                             damageModification: {
                                 isVulnerability: false,
                                 isResistance: false,
@@ -355,7 +356,7 @@
                                 currentRanks: 1,
                                 description: '',
                                 duration: 1,
-                                id: new Date().getTime().toString() + 1,
+                                id: uuidv4(),
                                 isActive: true,
                                 ranks: 1,
                                 status: {

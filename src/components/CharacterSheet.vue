@@ -546,6 +546,7 @@
     import { useGameDataStore } from '@/stores/GameDataStore'
     import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
     import { db } from '@/stores/db'
+    import { v4 as uuidv4 } from 'uuid';
 
     export default {
         name: 'CharacterSheet',
@@ -1427,7 +1428,7 @@
             },
             //Array CRUD Functions
             addEntry(object) {
-                object.object.id = new Date().getTime().toString()
+                object.object.id = uuidv4()
                 this.characterSheet[object.arrayName].push(object.object)
             },
             deleteEntry(object) {
@@ -1817,7 +1818,7 @@
             },
             saveCharacter() {
                 if (this.characterSheet.id == 'default' || this.characterSheet.id == 'clear')
-                    this.characterSheet.id = new Date().getTime().toString()
+                    this.characterSheet.id = uuidv4()
 
                 let character = JSON.parse(JSON.stringify(this.characterSheet))
                 localStorage.setItem('character', JSON.stringify(character))

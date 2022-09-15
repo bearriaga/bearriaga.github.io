@@ -129,6 +129,7 @@
 
 <script>
     import TooltipComponent from './TooltipComponent.vue'
+    import { v4 as uuidv4 } from 'uuid';
 
     export default {
         name: 'InitiativeComponent',
@@ -240,7 +241,7 @@
             },
             addPerson() {
                 let person = {
-                    id: new Date().getTime().toString(),
+                    id: uuidv4(),
                     name: '',
                     modifier: 0,
                     initiative: 0,
@@ -277,7 +278,7 @@
             },
             savePartyToLocal() {
                 let party = {
-                    id: new Date().getTime().toString(),
+                    id: uuidv4(),
                     name: 'Saved Party',
                     people: this.people
                 }
