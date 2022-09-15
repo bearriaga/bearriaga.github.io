@@ -117,7 +117,7 @@
             uniqueMovements() {
                 let movements = []
 
-                let uniqueMovementTypes = [...new Set(this.movements.map(x => (x.type)))]
+                let uniqueMovementTypes = [...new Set(this.movements.map(x => (x.type)))].sort()
 
                 uniqueMovementTypes.forEach((type, i) => {
                     let amount = this.movements.filter(x => { return x.type == type }).reduce((previousValue, entry) => {
@@ -128,7 +128,7 @@
                         isBuff: false,
                         isDefault: false,
                         isUnique: true,
-                        key: i + amount,
+                        key: i.toString() + amount.toString(),
                         type: `Combined ${type}`
                     }
                     movements.push(movement)

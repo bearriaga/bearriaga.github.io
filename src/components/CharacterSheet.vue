@@ -1101,7 +1101,7 @@
             movements() {
                 let movements = []
 
-                if (this.characterSheet.movement)
+                if (this.characterSheet.fitness) {
                     movements.push({
                         amount: this.characterSheet.fitness,
                         description: 'Default Movement from FIT',
@@ -1112,6 +1112,29 @@
                         key: 'defaultMovement' + this.characterSheet.fitness,
                         type: 'Land Speed'
                     })
+
+                    let halfFit = Math.floor(this.characterSheet.fitness / 2)
+                    movements.push({
+                        amount: halfFit,
+                        description: 'Default Movement from FIT, FIT/2',
+                        id: 'defaultMovementClimb',
+                        isBuff: false,
+                        isDefault: true,
+                        isUnique: false,
+                        key: 'defaultMovementClimb' + halfFit,
+                        type: 'Climb'
+                    })
+                    movements.push({
+                        amount: halfFit,
+                        description: 'Default Movement from FIT, FIT/2',
+                        id: 'defaultMovementSwim',
+                        isBuff: false,
+                        isDefault: true,
+                        isUnique: false,
+                        key: 'defaultMovementSwim' + halfFit,
+                        type: 'Swim'
+                    })
+                }
 
                 this.characterSheet.movements.forEach(movement => {
                     movement.key = movement.id + this.characterSheet.ap
@@ -1360,13 +1383,14 @@
                 moneyModifyAmount: 0,
                 movementTypes: [
                     'Burrowing',
+                    'Climb',
                     'Flying',
                     'Gliding',
                     'Hover',
                     'Land Speed',
                     'Leap',
                     'Spider Climbing',
-                    'Swim Speed',
+                    'Swim',
                     'Teleport'
                 ],
                 statuses: this.gameDataStore.statuses,

@@ -1,12 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src",
     "\\src\\components",
     "\\src\\js",
     "\\src\\stores",
     "\\src\\views"
   ],
-  "SelectedNode": "\\src\\components\\CharacterSheet.vue",
   "PreviewInSolutionExplorer": false
 }
