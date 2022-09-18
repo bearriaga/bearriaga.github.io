@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 //import HomeView from '../views/HomeView.vue'
 import CharacterSheetView from '../views/CharacterSheetView.vue'
+import DndBeyondView from '../views/DndBeyondView.vue'
 import InitiativeView from '../views/InitiativeView.vue'
 import ResumeView from '../views/ResumeView.vue'
 
@@ -17,6 +18,11 @@ const routes = [
         path: '/charactersheet',
         name: 'charactersheet',
         component: CharacterSheetView
+    },
+    {
+        path: '/charactersheet2',
+        name: 'charactersheet2',
+        component: DndBeyondView
     },
     {
         path: '/initiative',
