@@ -27,7 +27,7 @@
             <v-row>
                 <v-col cols="12" md="6" class="charColumn mainColumn elevation-3" elevation="3">
                     <v-row>
-                        <v-col cols="4" v-for="char in characteristicViewItems" :key="char.key">
+                        <v-col cols="4" md="6" lg="4" v-for="char in characteristicViewItems" :key="char.key">
                             <CharacteristicViewItem @updatePropEmit="updateProp($event)"
                                                     @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                                     :characteristic="char"></CharacteristicViewItem>
@@ -44,7 +44,7 @@
                                 <TooltipComponent slot="append" :text="'FIT + Land Speed Movement Entries'"></TooltipComponent>
                             </v-text-field>
                         </v-col>
-                        <v-col cols="12" md="6" v-for="input in defenseInputWithEditModals" :key="input.key">
+                        <v-col cols="12" lg="6" v-for="input in defenseInputWithEditModals" :key="input.key">
                             <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                 @updatePropEmit="updateProp($event)"
                                                 :property-object="input"></InputWithEditModal>
@@ -52,18 +52,19 @@
                     </v-row>
                 </v-col>
                 <v-col cols="6" md="3" class="hpColumn mainColumn elevation-3">
+                    <InputWithEditModal v-for="input in healthInputWithEditModals" :key="input.key"
+                                        @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                        @updatePropEmit="updateProp($event)"
+                                        :property-object="input"></InputWithEditModal>
                     <v-row>
-                        <v-col>
-                            <v-text-field type="number" min="0" v-model="damageToTake.amount">
+                        <v-col cols="12" lg="6">
+                            <v-text-field label="Take Damage/Heal" type="number" min="0" v-model="damageToTake.amount">
                                 <v-icon color="success" slot="append" @click="heal">mdi-plus</v-icon>
                                 <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
                             </v-text-field>
-                            <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
                         </v-col>
-                        <v-col v-for="input in healthInputWithEditModals" :key="input.key">
-                            <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
-                                                @updatePropEmit="updateProp($event)"
-                                                :property-object="input"></InputWithEditModal>
+                        <v-col cols="12" lg="6">
+                            <v-select label="Damage Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
                         </v-col>
                     </v-row>
                 </v-col>
