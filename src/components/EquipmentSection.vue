@@ -403,7 +403,7 @@
                 rollDamage(ability) {
                     this.$emit('rollDamageEmit', ability)
                 },
-                panel: null,
+                panel: 0,
                 slots: ['Head', 'Body', 'Arms', 'Legs', 'Boots', 'Clothes'],
                 subtractAP(apCost) {
                     this.$emit('subtractAPEmit', apCost)

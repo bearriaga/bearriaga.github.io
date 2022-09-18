@@ -245,7 +245,7 @@
                     ]
                 },
                 // Input Fields End
-                panel: null,
+                panel: 0,
                 // Validation Start
                 notNull: [
                     v => !!v || 'Field may not be empty'

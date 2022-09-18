@@ -34,7 +34,7 @@
                         </v-col>
                     </v-row>
                 </v-col>
-                <v-col>
+                <v-col class="charColumn mainColumn elevation-3" elevation="3">
                     <v-row>
                         <v-col cols="12">
                             <v-text-field label="Movement in Squares (Land Speed)" v-model="characterSheet.movement" type="number" disabled readonly>
@@ -69,47 +69,45 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12" md="3">
-                    <div class="charColumn mainColumn elevation-3" elevation="3">
-                        <SkillSection :characteristics="characteristics"
-                                      :skills="skills"
-                                      @addEntryEmit="addEntry($event)"
-                                      @deleteEntryEmit="deleteEntry($event)"
-                                      @updateEntryEmit="updateEntry($event)"
-                                      @rollDiceCheckEmit="rollStandAloneCheck($event)"></SkillSection>
-                        <CharacteristicViewItem @rollDiceCheckEmit="rollStandAloneCheck($event)"
-                                                :characteristic="genericCharacteristic"></CharacteristicViewItem>
-                        <v-expansion-panels>
-                            <v-expansion-panel>
-                                <v-expansion-panel-header>
-                                    <h3 class="text-center">
-                                        Mass Roller
-                                    </h3>
-                                </v-expansion-panel-header>
-                                <v-expansion-panel-content>
-                                    <v-row>
-                                        <v-col cols="6">
-                                            <v-text-field label="Enemies*" v-model="massRoller.enemies" type="number"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="6">
-                                            <v-text-field label="Dice*" v-model="massRoller.dice" type="number"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="6">
-                                            <v-text-field label="LCK*" v-model="massRoller.luck" type="number"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="6">
-                                            <v-text-field label="Successes Required" v-model="massRoller.successesRequired" type="number"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" class="text-center">
-                                            <v-btn @click="rollMassRoller()">
-                                                <v-icon>mdi-dice-6</v-icon>
-                                            </v-btn>
-                                        </v-col>
-                                    </v-row>
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
-                        </v-expansion-panels>
-                    </div>
+                <v-col cols="12" md="3" class="charColumn mainColumn elevation-3" elevation="3">
+                    <SkillSection :characteristics="characteristics"
+                                  :skills="skills"
+                                  @addEntryEmit="addEntry($event)"
+                                  @deleteEntryEmit="deleteEntry($event)"
+                                  @updateEntryEmit="updateEntry($event)"
+                                  @rollDiceCheckEmit="rollStandAloneCheck($event)"></SkillSection>
+                    <CharacteristicViewItem @rollDiceCheckEmit="rollStandAloneCheck($event)"
+                                            :characteristic="genericCharacteristic"></CharacteristicViewItem>
+                    <v-expansion-panels>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header>
+                                <h3 class="text-center">
+                                    Mass Roller
+                                </h3>
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                <v-row>
+                                    <v-col cols="6">
+                                        <v-text-field label="Enemies*" v-model="massRoller.enemies" type="number"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-text-field label="Dice*" v-model="massRoller.dice" type="number"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-text-field label="LCK*" v-model="massRoller.luck" type="number"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-text-field label="Successes Required" v-model="massRoller.successesRequired" type="number"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" class="text-center">
+                                        <v-btn @click="rollMassRoller()">
+                                            <v-icon>mdi-dice-6</v-icon>
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
                 </v-col>
                 <v-col cols="12" md="9">
                     <v-tabs v-model="tab">
@@ -122,7 +120,7 @@
                         <v-tab href="#xp">XP</v-tab>
                         <v-tab href="#statusBuffs">Statuses and Buffs</v-tab>
                     </v-tabs>
-                    <v-tabs-items v-model="tab">
+                    <v-tabs-items v-model="tab" style="max-height:800px;overflow-y:auto;">
                         <v-tab-item value="tab0">
                             <AbilitySection :abilities="abilities"
                                             :ap="characterSheet.ap"
@@ -243,27 +241,27 @@
                                        @updateEntryEmit="updateEntry($event)"></XPSection>
                         </v-tab-item>
                         <v-tab-item value="statusBuffs">
-                    <StatusSection :statuses="statuses"
-                                   :character-statuses="characterStatuses"
-                                   @addEntryEmit="addEntry($event)"
-                                   @deleteEntryEmit="deleteEntry($event)"
-                                   @updateBuffEntryEmit="updateBuffStatus($event)"
-                                   @updateEntryEmit="updateEntry($event)"></StatusSection>
-                    <BuffSection :buffs="buffs"
-                                 :characteristics="characteristics"
-                                 :damage-types="damageTypes"
-                                 :movement-types="movementTypes"
-                                 :skills="characterSheet.skills"
-                                 :statuses="statuses"
-                                 :resources="resources"
-                                 @addEntryEmit="addEntry($event)"
-                                 @deleteEntryEmit="deleteEntry($event)"
-                                 @updateEntryEmit="updateBuffEntry($event)"
-                                 @updateEntryBypassEmit="updateEntry($event)"></BuffSection>
+                            <StatusSection :statuses="statuses"
+                                           :character-statuses="characterStatuses"
+                                           @addEntryEmit="addEntry($event)"
+                                           @deleteEntryEmit="deleteEntry($event)"
+                                           @updateBuffEntryEmit="updateBuffStatus($event)"
+                                           @updateEntryEmit="updateEntry($event)"></StatusSection>
+                            <BuffSection :buffs="buffs"
+                                         :characteristics="characteristics"
+                                         :damage-types="damageTypes"
+                                         :movement-types="movementTypes"
+                                         :skills="characterSheet.skills"
+                                         :statuses="statuses"
+                                         :resources="resources"
+                                         @addEntryEmit="addEntry($event)"
+                                         @deleteEntryEmit="deleteEntry($event)"
+                                         @updateEntryEmit="updateBuffEntry($event)"
+                                         @updateEntryBypassEmit="updateEntry($event)"></BuffSection>
                         </v-tab-item>
                     </v-tabs-items>
                 </v-col>
-            </v-row>            
+            </v-row>
             <v-row>
                 <v-col cols="12" lg="3" md="6">
                 </v-col>

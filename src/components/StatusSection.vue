@@ -119,7 +119,7 @@
                     status: {}
                 },
                 // Input Fields End
-                panel: null,
+                panel: 0,
                 // Validation Start
                 notNull: [
                     v => !!v.name || 'Field may not be empty'

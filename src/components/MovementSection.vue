@@ -1,57 +1,55 @@
 <template>
     <div>
-        <template>
-            <v-expansion-panels>
-                <v-expansion-panel>
-                    <v-expansion-panel-header>
-                        <h3 class="text-center">
-                            Movements
-                        </h3>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <template>
-                            <MovementListItem v-for="movement in this.uniqueMovements" :key="movement.key"
-                                              :ap="ap"
-                                              :movement="movement"
-                                              :movement-types="movementTypes"
-                                              :movement-ap-icon="movementApIcon"
-                                              :movement-ap-icon-color="movementApIconColor"
-                                              @deleteEntryEmit="deleteDialog($event)"
-                                              @subtractAP="subtractAP($event)"
-                                              @updateEntryEmit="updateEntry($event)"> </MovementListItem>
-                        </template>
+        <v-expansion-panels  v-model="panel">
+            <v-expansion-panel>
+                <v-expansion-panel-header>
+                    <h3 class="text-center">
+                        Movements
+                    </h3>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                    <template>
+                        <MovementListItem v-for="movement in this.uniqueMovements" :key="movement.key"
+                                          :ap="ap"
+                                          :movement="movement"
+                                          :movement-types="movementTypes"
+                                          :movement-ap-icon="movementApIcon"
+                                          :movement-ap-icon-color="movementApIconColor"
+                                          @deleteEntryEmit="deleteDialog($event)"
+                                          @subtractAP="subtractAP($event)"
+                                          @updateEntryEmit="updateEntry($event)"> </MovementListItem>
+                    </template>
 
-                        <v-expansion-panels v-model="panel" v-if="canEdit">
-                            <v-expansion-panel>
-                                <v-expansion-panel-header>
-                                    <h3 class="text-center">
-                                        Add Movement
-                                        <v-btn icon color="primary"
-                                               @click.stop="addDialog">
-                                            <v-icon>
-                                                mdi-plus
-                                            </v-icon>
-                                        </v-btn>
-                                    </h3>
-                                </v-expansion-panel-header>
-                                <v-expansion-panel-content>
-                                    <MovementListItem v-for="movement in movements" :key="movement.key"
-                                                      :ap="ap"
-                                                      :movement="movement"
-                                                      :movement-types="movementTypes"
-                                                      :movement-ap-icon="movementApIcon"
-                                                      :movement-ap-icon-color="movementApIconColor"
-                                                      @deleteEntryEmit="deleteDialog($event)"
-                                                      @subtractAP="subtractAP($event)"
-                                                      @updateEntryEmit="updateEntry($event)"> </MovementListItem>
-                                </v-expansion-panel-content>
-                            </v-expansion-panel>
-                        </v-expansion-panels>
+                    <v-expansion-panels v-model="subPanel" v-if="canEdit">
+                        <v-expansion-panel>
+                            <v-expansion-panel-header>
+                                <h3 class="text-center">
+                                    Add Movement
+                                    <v-btn icon color="primary"
+                                           @click.stop="addDialog">
+                                        <v-icon>
+                                            mdi-plus
+                                        </v-icon>
+                                    </v-btn>
+                                </h3>
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                <MovementListItem v-for="movement in movements" :key="movement.key"
+                                                  :ap="ap"
+                                                  :movement="movement"
+                                                  :movement-types="movementTypes"
+                                                  :movement-ap-icon="movementApIcon"
+                                                  :movement-ap-icon-color="movementApIconColor"
+                                                  @deleteEntryEmit="deleteDialog($event)"
+                                                  @subtractAP="subtractAP($event)"
+                                                  @updateEntryEmit="updateEntry($event)"> </MovementListItem>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
 
-                    </v-expansion-panel-content>
-                </v-expansion-panel>
-            </v-expansion-panels>
-        </template>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-expansion-panels>
 
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
@@ -158,7 +156,8 @@
                     type: ''
                 },
                 // Input Fields End
-                panel: null,
+                panel: 0,
+                subPanel: null,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -196,7 +195,7 @@
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
-                this.panel = 0
+                this.subPanel = 0
                 this.setDialog('Add')
                 this.movement = {
                     amount: 1,

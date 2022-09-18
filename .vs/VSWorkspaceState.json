@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\data",
+    "\\src\\router",
+    "\\src\\views"
   ],
-  "SelectedNode": "\\jsconfig.json",
+  "SelectedNode": "\\src\\components\\NavbarSection.vue",
   "PreviewInSolutionExplorer": false
 }

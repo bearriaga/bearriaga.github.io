@@ -104,7 +104,7 @@
                     name: ''
                 },
                 // Input Fields End
-                panel: null,
+                panel: 0,
                 // Validation Start
                 numberRules: [
                     v => !isNaN(+v) && v >= 1 || 'Field may not be empty and value must be 1 or higher'

@@ -367,7 +367,7 @@
                     type: ''
                 },
                 filterText: '',
-                panel: null,
+                panel: 0,
                 subEffectPanel: null,
                 // Validation Start
                 numberRules: [

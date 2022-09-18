@@ -115,7 +115,7 @@
                     type: ''
                 },
                 // Input Fields End
-                panel: null,
+                panel: 0,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
