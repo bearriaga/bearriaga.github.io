@@ -657,6 +657,7 @@
         "key": "16619999791481"
       }
     ],
+    "minions": [],
     "movements": [],
     "damageModifications": [],
     "resources": [
@@ -1166,6 +1167,7 @@
         "key": "16626764219761"
       }
     ],
+    "minions": [],
     "movements": [
       {
         "amount": "5",
@@ -1373,6 +1375,7 @@
     "classes": [],
     "equipment": [],
     "flaws": [],
+    "minions": [],
     "movements": [],
     "damageModifications": [],
     "resources": [],
@@ -1563,6 +1566,7 @@
         "name": ""
       }
     ],
+    "minions": [],
     "movements": [
       {
         "amount": 0,
