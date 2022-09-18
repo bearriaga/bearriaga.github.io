@@ -25,7 +25,7 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="6" class="charColumn mainColumn elevation-3" elevation="3">
+                <v-col cols="12" md="6" class="charColumn mainColumn elevation-3" elevation="3">
                     <v-row>
                         <v-col cols="4" v-for="char in characteristicViewItems" :key="char.key">
                             <CharacteristicViewItem @updatePropEmit="updateProp($event)"
@@ -34,7 +34,7 @@
                         </v-col>
                     </v-row>
                 </v-col>
-                <v-col class="charColumn mainColumn elevation-3" elevation="3">
+                <v-col cols="6" md="3" class="charColumn mainColumn elevation-3" elevation="3">
                     <v-row>
                         <v-col cols="12">
                             <v-text-field label="Movement in Squares (Land Speed)" v-model="characterSheet.movement" type="number" disabled readonly>
@@ -51,7 +51,7 @@
                         </v-col>
                     </v-row>
                 </v-col>
-                <v-col cols="3" class="hpColumn mainColumn elevation-3">
+                <v-col cols="6" md="3" class="hpColumn mainColumn elevation-3">
                     <v-row>
                         <v-col>
                             <v-text-field type="number" min="0" v-model="damageToTake.amount">
