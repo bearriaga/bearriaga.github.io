@@ -4,7 +4,7 @@
             <v-expansion-panel>
                 <v-expansion-panel-header>
                     <h3 class="text-center">
-                        {{sectionTitle}}
+                        Minions
                         <v-btn icon color="primary"
                                @click.stop="addDialog">
                             <v-icon>
@@ -14,11 +14,14 @@
                     </h3>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
-                    <ClassListItem v-for="c in classes" :key="c.key"
-                                   @updateEntryEmit="updateEntry($event)"
-                                   @deleteEntryEmit="deleteDialog($event)"
-                                   :characteristics="characteristics"
-                                   :class-obj="c"></ClassListItem>
+                    <v-row>
+                        <v-col cols="3" v-for="m in minions" :key="m.id + m.name">
+                            <MinionListItem @deleteEntryEmit="deleteDialog($event)"
+                                            @rollDiceCheckEmit="rollDiceCheck($event)"
+                                            @updateEntryEmit="updateEntry($event)"
+                                            :minion="m"></MinionListItem>
+                        </v-col>
+                    </v-row>
                 </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
@@ -27,24 +30,30 @@
             <v-dialog v-model="dialog.show" width="500">
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
-                        {{dialog.type}} Class
+                        {{dialog.type}} Minion
                     </v-card-title>
 
                     <v-card-text>
                         <v-form ref="form"
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
-                            <v-text-field label="Class Name"
-                                          v-model="name"
+                            <v-text-field label="Minion Name"
+                                          v-model="minion.name"
                                           ref="name"
                                           :rules="textRules"
                                           required></v-text-field>
-                            <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
-                            <v-select label="Primary Characteristic"
-                                      :items="characteristics"
-                                      v-model="characteristic"
-                                      :rules="textRules"
-                                      required></v-select>
+                            <v-text-field label="CUN" type="number"
+                                          v-model="minion.cunning"></v-text-field>
+                            <v-text-field label="FIT" type="number"
+                                          v-model="minion.fitness"></v-text-field>
+                            <v-text-field label="INT" type="number"
+                                          v-model="minion.intelligence"></v-text-field>
+                            <v-text-field label="LCK" type="number"
+                                          v-model="minion.luck"></v-text-field>
+                            <v-text-field label="RES" type="number"
+                                          v-model="minion.resistance"></v-text-field>
+                            <v-text-field label="SPD" type="number"
+                                          v-model="minion.speed"></v-text-field>
                         </v-form>
                     </v-card-text>
 
@@ -65,22 +74,16 @@
 </template>
 
 <script>
-    import ClassListItem from './ClassListItem.vue'
+    import MinionListItem from './MinionListItem.vue'
 
     export default {
-        name: 'ClassSection',
+        name: 'MinionSection',
         components: {
-            ClassListItem
+            MinionListItem
         },
         props: {
-            unlocked: Boolean,
-            characteristics: Array,
-            classes: Array
-        },
-        computed: {
-            sectionTitle() {
-                return (this.unlocked) ? 'Unlocked Classes' : 'Classes'
-            }
+            clearCharacter: Object,
+            minions: Array
         },
         data() {
             return {
@@ -89,20 +92,7 @@
                     type: ''
                 },
                 // Input Fields Start
-                active: !this.unlocked,
-                advanceRank: 0,
-                description: '',
-                name: '',
-                characteristic: '',
-                classObj: {
-                    active: this.active,
-                    advanceRank: 0,
-                    description: '',
-                    id: '',
-                    name: '',
-                    characteristic: '',
-                    unlocked: this.unlocked
-                },
+                minion: JSON.parse(JSON.stringify(this.clearCharacter)),
                 // Input Fields End
                 panel: 0,
                 // Validation Start
@@ -118,21 +108,12 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.classObj = {
-                        active: this.active,
-                        advanceRank: this.advanceRank,
-                        description: this.description,
-                        id: null,
-                        name: this.name,
-                        characteristic: this.characteristic,
-                        unlocked: this.unlocked
-                    }
-                    this.$emit('addEntryEmit', { arrayName: 'classes', object: this.classObj })
+                    this.$emit('addEntryEmit', { arrayName: 'minions', object: this.minion })
                 }
             },
             deleteEntry() {
                 this.dialog.show = false
-                this.$emit('deleteEntryEmit', { arrayName: 'classes', object: this.classObj })
+                this.$emit('deleteEntryEmit', { arrayName: 'classes', object: this.minion })
             },
             updateEntry(object) {
                 this.$emit('updateEntryEmit', { arrayName: 'classes', object: object })
@@ -142,23 +123,13 @@
             addDialog() {
                 this.panel = 0
                 this.setDialog('Add')
-                this.classObj = {
-                    active: this.active,
-                    advanceRank: 0,
-                    description: '',
-                    id: '',
-                    name: '',
-                    characteristic: '',
-                    unlocked: this.unlocked
-                }
-                this.setInputs(this.classObj)
+                this.minion = JSON.parse(JSON.stringify(this.clearCharacter))
                 setTimeout(() => {
                     this.$refs.name.focus()
                 }, 200)
             },
-            deleteDialog(classObj) {
-                this.classObj = this.classes.find(x => { return x.id == classObj.id })
-                this.setInputs(this.classObj)
+            deleteDialog(minionObj) {
+                this.minion = this.minions.find(x => { return x.id == minionObj.id })
                 this.setDialog('Delete')
             },
             setDialog(type) {
@@ -167,12 +138,10 @@
                     type: type
                 }
             },
-            setInputs(classObj) {
-                this.description = classObj.description
-                this.name = classObj.name
-                this.characteristic = classObj.characteristic
-            },
             // Open Dialog Functions End
+            rollDiceCheck(object) {
+                this.$emit('rollDiceCheckEmit', object)
+            },
             validate() {
                 return this.$refs.form.validate()
             }

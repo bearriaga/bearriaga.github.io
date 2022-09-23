@@ -174,6 +174,16 @@
                 </v-col>
             </v-row>
             <v-row>
+                <v-col>
+                    <MinionSection :clear-character="clearCharacter"
+                                   :minions="characterSheet.minions"
+                                   @addEntryEmit="addEntry($event)"
+                                   @deleteEntryEmit="deleteEntry($event)"
+                                   @rollDiceCheckEmit="rollStandAloneCheck($event)"
+                                   @updateEntryEmit="updateEntry($event)"></MinionSection>
+                </v-col>
+            </v-row>
+            <v-row>
                 <v-col cols="12" lg="3" md="6">
                     <ClassSection :unlocked="false"
                                   :characteristics="characteristics"
@@ -274,7 +284,7 @@
                                       @updateEntryEmit="updateEntry($event)"
                                       @updateEntryBypassEmit="updateEntry($event)"
                                       @useAbilityEmit="useAbility($event)"></EquipmentSection>
-                </v-col>
+                </v-col>                
             </v-row>
             <v-row>
                 <v-col>
@@ -337,8 +347,8 @@
                         <div>
                             Dice Results: {{abilityDialog.check.diceResults}}
                         </div>
-                        <div v-if="successesFromIntelligence">
-                            Successes From INT: {{successesFromIntelligence}}
+                        <div v-if="abilityDialog.check.successesFromIntelligence">
+                            Successes From INT: {{abilityDialog.check.successesFromIntelligence}}
                         </div>
                         <div v-if="abilityDialog.check.successesFromLuck">
                             Successes From LCK: {{abilityDialog.check.successesFromLuck}}
@@ -536,6 +546,7 @@
     import EquipmentSection from './EquipmentSection.vue'
     import TraitFlawSection from './TraitFlawSection.vue'
     import InputWithEditModal from './InputWithEditModal.vue'
+    import MinionSection from './MinionSection.vue'
     import MovementSection from './MovementSection.vue'
     import ResourceSection from './ResourceSection.vue'
     import SkillSection from './SkillSection.vue'
@@ -559,6 +570,7 @@
             EquipmentSection,
             TraitFlawSection,
             InputWithEditModal,
+            MinionSection,
             MovementSection,
             ResourceSection,
             SkillSection,
@@ -1247,7 +1259,7 @@
             }
         },
         created() {
-            this.characterInit()            
+            this.characterInit()
         },
         data() {
             return {
@@ -1295,6 +1307,7 @@
                     'resistance',
                     'luck'
                 ],
+                clearCharacter: this.characterStore.getCharacterById('clear'),
                 characterSheet: this.characterStore.getCharacterById('clear'),
                 cleanseDialog: {
                     selectedStatuses: [],
@@ -1570,8 +1583,8 @@
                     'Fate: ' + this.abilityDialog.check.fate + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '\n' +
                     'Dice Results: [' + this.abilityDialog.check.diceResults + ']';
 
-                if (this.successesFromIntelligence)
-                    copyText += '\nSuccesses From INT: ' + this.successesFromIntelligence
+                if (this.abilityDialog.successesFromIntelligence)
+                    copyText += '\nSuccesses From INT: ' + this.abilityDialog.successesFromIntelligence
 
                 if (this.abilityDialog.check.successesFromLuck)
                     copyText += '\nSuccesses From LCK: ' + this.abilityDialog.check.successesFromLuck
@@ -1677,13 +1690,15 @@
                     show: true,
                     selectedRerolls: [],
                     successes: 0,
+                    successesFromIntelligence: 0,
                     successesFromLuck: 0,
                     threat: false
                 }
 
                 if (diceCheckObject.diceToRoll > 0) {
                     if (!diceCheckObject.isSave) {
-                        result.successes += +this.successesFromIntelligence
+                        result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
+                        result.successes += +result.successesFromIntelligence
 
                     }
 
@@ -1696,10 +1711,11 @@
                     if (diceCheckObject.successes)
                         result.successes += +diceCheckObject.successes
 
+                    let luck = diceCheckObject.luck ? diceCheckObject.luck : this.luck
                     if (!this.characterSheet.luckNothingToChance) {
                         if (result.fate == 6 || (this.characterSheet.luckFavored && result.fate >= 5)) {
                             result.advantage = true
-                            result.successesFromLuck = this.luck
+                            result.successesFromLuck = luck
                             result.successes += +result.successesFromLuck
                         } else if (result.fate == 1 || (this.characterSheet.luckIllFavored && result.fate <= 2)) {
                             result.threat = true
@@ -1823,7 +1839,7 @@
                 let character = JSON.parse(JSON.stringify(this.characterSheet))
                 localStorage.setItem('character', JSON.stringify(character))
             },
-            async saveToFirebase() {                
+            async saveToFirebase() {
                 await setDoc(doc(db, 'characters', this.characterSheet.id), this.characterSheet)
 
             },
