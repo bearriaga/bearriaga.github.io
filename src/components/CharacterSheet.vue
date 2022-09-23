@@ -1797,7 +1797,11 @@
             loadCharacter() {
                 if (this.isCharacterSet()) {
                     this.updateCharacter++
-                    this.characterSheet = JSON.parse(localStorage.getItem('character'))
+                    let character = JSON.parse(localStorage.getItem('character'))
+                    if (!Object.hasOwn(character, 'minions'))
+                        character.minions = []
+                    console.log(character)
+                    this.characterSheet = character
                 }
                 else
                     this.generalDialog = {
