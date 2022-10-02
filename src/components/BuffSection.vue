@@ -38,11 +38,11 @@
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
                             <v-text-field label="Name"
-                                          v-model="name"
+                                          v-model="buff.name"
                                           ref="name"
                                           :rules="notNull"
                                           required></v-text-field>
-                            <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" required></v-textarea>
+                            <v-textarea label="Description" v-model="buff.description" auto-grow outlined rows="1" required></v-textarea>
                             <h3 class="text-center">
                                 Adjustments
                                 <v-btn v-if="dialog.type == 'Edit' || dialog.type == 'Add'" icon color="primary"
@@ -52,7 +52,7 @@
                                     </v-icon>
                                 </v-btn>
                             </h3>
-                            <div v-for="a, index in adjustments" :key="index">
+                            <div v-for="a, index in buff.adjustments" :key="index">
                                 <v-autocomplete label="Type"
                                                 :items="buffOptions"
                                                 v-model="a.type"
@@ -129,7 +129,7 @@
                                             v-model="a.description"
                                             v-if="a.type == 'Other'"
                                             auto-grow outlined rows="1" required></v-textarea>
-                                <hr v-if="index != (adjustments.length - 1)" />
+                                <hr v-if="index != (buff.adjustments.length - 1)" />
                             </div>
                         </v-form>
                     </v-card-text>
@@ -178,39 +178,41 @@
                     type: ''
                 },
                 // Input Fields Start
-                description: '',
-                id: '',
-                isActive: true,
-                name: '',
-                adjustments: [
-                    {
-                        amount: 0,
-                        characteristic: '',
-                        classResource: '',
-                        description: '',
-                        movementType: '',
-                        damageModificationType: '',
-                        skill: '',
-                        status: {
-                            currentDuration: 1,
-                            currentIsActive: true,
-                            currentRanks: 1,
-                            description: '',
-                            duration: 1,
-                            id: '',
-                            isActive: true,
-                            ranks: 1,
-                            status: {
-                                cost: '',
-                                effect: '',
-                                name: '',
-                                type: ''
-                            }
-                        },
-                        type: ''
-                    }
-                ],
                 buff: {
+                    description: '',
+                    id: null,
+                    isActive: true,
+                    name: '',
+                    adjustments: [
+                        {
+                            amount: 0,
+                            characteristic: '',
+                            classResource: '',
+                            description: '',
+                            movementType: '',
+                            damageModificationType: '',
+                            skill: '',
+                            status: {
+                                currentDuration: 1,
+                                currentIsActive: true,
+                                currentRanks: 1,
+                                description: '',
+                                duration: 1,
+                                id: '',
+                                isActive: true,
+                                ranks: 1,
+                                status: {
+                                    cost: '',
+                                    effect: '',
+                                    name: '',
+                                    type: ''
+                                }
+                            },
+                            type: ''
+                        }
+                    ]
+                },
+                clearBuff: {
                     description: '',
                     id: null,
                     isActive: true,
@@ -257,7 +259,7 @@
         methods: {
             // Adjustment Functions Start
             addAdjustment() {
-                this.adjustments.push({
+                this.buff.adjustments.push({
                     amount: 0,
                     characteristic: '',
                     classResource: '',
@@ -286,14 +288,13 @@
                 })
             },
             deleteAdjustment(i) {
-                this.adjustments.splice(i, 1)
+                this.buff.adjustments.splice(i, 1)
             },
             // Adjustment Functions End
             // CRUD Functions Start
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.setObject()
                     this.$emit('addEntryEmit', { arrayName: 'buffs', object: this.buff })
                 }
             },
@@ -304,85 +305,28 @@
             updateEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.setObject()
                     this.$emit('updateEntryEmit', { arrayName: 'buffs', object: this.buff })
                 }
             },
             updateEntryBypass(object) {
                 this.$emit('updateEntryBypassEmit', { arrayName: 'buffs', object: object })
             },
-            setObject() {
-                this.buff.description = this.description
-                this.buff.id = this.id
-                this.buff.isActive = this.isActive
-                this.buff.name = this.name
-                let adjustments = JSON.parse(JSON.stringify(this.adjustments))
-                adjustments.forEach(a => {
-                    if (a.type == 'Status') {
-                        a.status.currentDuration = a.status.duration
-                        a.status.currentIsActive = a.status.isActive
-                        a.status.currentRanks = a.status.ranks
-                    }
-                })
-                this.buff.adjustments = adjustments
-            },
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
                 this.panel = 0
                 this.setDialog('Add')
-                this.buff = {
-                    description: '',
-                    id: '',
-                    isActive: true,
-                    name: '',
-                    adjustments: [
-                        {
-                            amount: 0,
-                            characteristic: '',
-                            classResource: '',
-                            description: '',
-                            movementType: '',
-                            id: uuidv4(),
-                            damageModification: {
-                                isVulnerability: false,
-                                isResistance: false,
-                                type: ''
-                            },
-                            skill: '',
-                            status: {
-                                currentDuration: 1,
-                                currentIsActive: true,
-                                currentRanks: 1,
-                                description: '',
-                                duration: 1,
-                                id: uuidv4(),
-                                isActive: true,
-                                ranks: 1,
-                                status: {
-                                    cost: '',
-                                    effect: '',
-                                    name: '',
-                                    type: ''
-                                }
-                            },
-                            type: ''
-                        }
-                    ]
-                }
-                this.setInputs(this.buff)
+                this.buff = JSON.parse(JSON.stringify(this.clearBuff))
                 setTimeout(() => {
                     this.$refs.name.focus()
                 }, 200)
             },
             deleteDialog(buff) {
-                this.buff = this.buffs.find(x => { return x.id == buff.id })
-                this.setInputs(this.buff)
+                this.buff = buff
                 this.setDialog('Delete')
             },
             updateDialog(buff) {
                 this.buff = buff
-                this.setInputs(this.buff)
                 this.setDialog('Edit')
             },
             setDialog(type) {
@@ -390,13 +334,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(buff) {
-                this.description = buff.description
-                this.id = buff.id
-                this.isActive = buff.isActive
-                this.name = buff.name
-                this.adjustments = buff.adjustments
             },
             // Open Dialog Functions End
             validate() {
