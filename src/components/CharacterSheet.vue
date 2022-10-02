@@ -574,7 +574,7 @@
             <v-col>
                 <v-btn color="primary" @click="setCharacterAs('belif')">Set as Belif</v-btn>
                 <v-btn color="primary" @click="setCharacterAs('cam')">Cam</v-btn>
-                <v-btn color="primary" @click="setCharacterAs('wilson')">Wilson</v-btn>
+                <!--<v-btn color="primary" @click="setCharacterAs('wilson')">Wilson</v-btn>-->
             </v-col>
             <v-col>
                 <div>
