@@ -2,6 +2,18 @@
     <div>
         <h3 class="text-center">{{minion.name}}</h3>
         <v-row>
+            <v-col class="text-center">
+                <v-btn color="primary" @click="updateDialog">
+                    <v-icon>mdi-pen</v-icon>
+                </v-btn>
+            </v-col>
+            <v-col class="text-center">
+                <v-btn color="error" @click="deleteDialog">
+                    <v-icon>mdi-delete</v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+        <v-row>
             <v-col cols="6" v-for="char in characteristicViewItems" :key="char.key">
                 <CharacteristicViewItem @updatePropEmit="updateProp($event)"
                                         @rollDiceCheckEmit="rollStandAloneCheck($event)"
@@ -284,6 +296,9 @@
                 this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases
                 this.characterSheet.hpMax = ((this.characterSheet.level * 5) + (+this.characterSheet.resistance * 3) + +this.characterSheet.hpIncreases)
             },
+            deleteDialog() {
+                this.$emit('deleteDialogEmit', this.characterSheet)
+            },
             //Health Funcitons
             heal() {
                 if (this.damageToTake.amount > 0) {
@@ -329,19 +344,28 @@
                 object.successesFromIntelligence = this.successesFromIntelligence
                 this.$emit('rollDiceCheckEmit', object)
             },
+            updateCharacterBypass() {
+                this.$emit('updateCharacterBypassEmit', this.characterSheet)
+            },
+            updateDialog() {
+                this.$emit('updateDialogEmit', this.characterSheet)
+            },
             updateProp(prop) {
                 if (prop.type == 'number')
                     this.characterSheet[prop.propName] = +prop.value
                 else
                     this.characterSheet[prop.propName] = prop.value
+                this.$emit('updateEntryEmit', this.characterSheet)
             },
         },
         watch: {
             apMax() {
                 this.characterSheet.apMax = this.apMax
+                this.$emit('updateEntryEmit', this.characterSheet)
             },
             hpMax() {
                 this.characterSheet.hpMax = this.hpMax
+                this.$emit('updateEntryEmit', this.characterSheet)
             }
         }
     }

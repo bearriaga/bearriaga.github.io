@@ -176,11 +176,12 @@
             <v-row>
                 <v-col>
                     <MinionSection :clear-character="clearCharacter"
-                                   :minions="characterSheet.minions"
+                                   :minions="minions"
                                    @addEntryEmit="addEntry($event)"
                                    @deleteEntryEmit="deleteEntry($event)"
                                    @rollDiceCheckEmit="rollStandAloneCheck($event)"
-                                   @updateEntryEmit="updateEntry($event)"></MinionSection>
+                                   @updateEntryEmit="updateMinion($event)"
+                                   @updateEntryBypassEmit="updateEntry($event)"></MinionSection>
                 </v-col>
             </v-row>
             <v-row>
@@ -1089,6 +1090,16 @@
                     }
                 ]
             },
+            minions() {
+                let minions = []
+
+                this.characterSheet.minions.forEach(minion => {
+                    minion.key = minion.id + minion.name + this.updateMinions
+                    minions.push(minion)
+                })
+
+                return minions
+            },
             movementApIcon() {
                 let icon = ''
 
@@ -1415,6 +1426,7 @@
                 updateCR: 0,
                 updateHP: 0,
                 updateInitiative: 0,
+                updateMinions: 0,
                 updateStatus: 0,
                 updateRerolls: 0,
             }
@@ -1490,6 +1502,10 @@
                         }
                     }
                 })
+            },
+            updateMinion(object) {
+                this.updateMinions++
+                this.updateEntry(object)
             },
             //Array CRUD Functions End
             buffAmount(options) {

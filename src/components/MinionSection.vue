@@ -15,10 +15,11 @@
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                     <v-row>
-                        <v-col cols="3" v-for="m in minions" :key="m.id + m.name">
-                            <MinionListItem @deleteEntryEmit="deleteDialog($event)"
+                        <v-col cols="3" v-for="m in minions" :key="m.key">
+                            <MinionListItem @deleteDialogEmit="deleteDialog($event)"
                                             @rollDiceCheckEmit="rollDiceCheck($event)"
-                                            @updateEntryEmit="updateEntry($event)"
+                                            @updateDialogEmit="updateDialog($event)"
+                                            @updateEntryEmit="updateEntryBypass($event)"
                                             :minion="m"></MinionListItem>
                         </v-col>
                     </v-row>
@@ -42,18 +43,36 @@
                                           ref="name"
                                           :rules="textRules"
                                           required></v-text-field>
-                            <v-text-field label="CUN" type="number"
-                                          v-model="minion.cunning"></v-text-field>
-                            <v-text-field label="FIT" type="number"
-                                          v-model="minion.fitness"></v-text-field>
-                            <v-text-field label="INT" type="number"
-                                          v-model="minion.intelligence"></v-text-field>
-                            <v-text-field label="LCK" type="number"
-                                          v-model="minion.luck"></v-text-field>
-                            <v-text-field label="RES" type="number"
-                                          v-model="minion.resistance"></v-text-field>
-                            <v-text-field label="SPD" type="number"
-                                          v-model="minion.speed"></v-text-field>
+                            <v-row>
+                                <v-col cols="4">
+                                    <v-text-field label="CUN" type="number"
+                                                  v-model="minion.cunning"></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field label="FIT" type="number"
+                                                  v-model="minion.fitness"></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field label="INT" type="number"
+                                                  v-model="minion.intelligence"></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field label="LCK" type="number"
+                                                  v-model="minion.luck"></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field label="RES" type="number"
+                                                  v-model="minion.resistance"></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field label="SPD" type="number"
+                                                  v-model="minion.speed"></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-text-field label="HP Purchases" type="number"
+                                          v-model="minion.hpIncreases"></v-text-field>
+                            <v-switch label="Speed: Preperation is Key" inset
+                                      v-model="minion.speedPreperationIsKey"></v-switch>
                         </v-form>
                     </v-card-text>
 
@@ -62,6 +81,8 @@
                     <v-card-actions class="justify-end">
                         <v-btn color="primary" v-if="dialog.type == 'Add'" :disabled="!valid"
                                @click="addEntry">Add</v-btn>
+                        <v-btn color="primary" v-if="dialog.type == 'Edit'" :disabled="!valid"
+                               @click="updateEntry(minion)">Save</v-btn>
                         <v-btn color="error" v-if="dialog.type == 'Delete'"
                                @click="deleteEntry">Delete</v-btn>
                         <v-btn color="secondary"
@@ -113,10 +134,14 @@
             },
             deleteEntry() {
                 this.dialog.show = false
-                this.$emit('deleteEntryEmit', { arrayName: 'classes', object: this.minion })
+                this.$emit('deleteEntryEmit', { arrayName: 'minions', object: this.minion })
             },
             updateEntry(object) {
-                this.$emit('updateEntryEmit', { arrayName: 'classes', object: object })
+                this.dialog.show = false
+                this.$emit('updateEntryEmit', { arrayName: 'minions', object: object })
+            },
+            updateEntryBypass(object) {
+                this.$emit('updateEntryBypassEmit', { arrayName: 'minions', object: object })
             },
             // CRUD Functions End
             // Open Dialog Functions
@@ -137,6 +162,10 @@
                     show: true,
                     type: type
                 }
+            },
+            updateDialog(minionObj) {
+                this.minion = JSON.parse(JSON.stringify(minionObj))
+                this.setDialog('Edit')
             },
             // Open Dialog Functions End
             rollDiceCheck(object) {
