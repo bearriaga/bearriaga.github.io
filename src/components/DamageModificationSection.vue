@@ -42,22 +42,22 @@
                                 v-model="valid">
                             <v-autocomplete label="Type"
                                             :items="damageTypes"
-                                            v-model="type"
+                                            v-model="damageModification.type"
                                             :rules="textRules"
                                             required></v-autocomplete>
                             <v-text-field label="Amount"
                                           type="number"
-                                          v-model="amount"
+                                          v-model="damageModification.amount"
                                           ref="amount"
                                           required></v-text-field>
                             <v-row>
                                 <v-col>
                                     <v-switch label="Resistance" inset
-                                                v-model="isResistance"></v-switch>
+                                                v-model="damageModification.isResistance"></v-switch>
                                 </v-col>
                                 <v-col>
                                     <v-switch label="Vulnerability" inset
-                                                v-model="isVulnerability"></v-switch>
+                                                v-model="damageModification.isVulnerability"></v-switch>
                                 </v-col>
                             </v-row>
                         </v-form>
@@ -103,10 +103,13 @@
                     type: ''
                 },
                 // Input Fields Start
-                amount: 1,
-                isVulnerability: false,
-                isResistance: false,
-                type: '',
+                clearDamageModification: {
+                    amount: 1,
+                    id: '',
+                    isVulnerability: false,
+                    isResistance: false,
+                    type: ''
+                },
                 damageModification: {
                     amount: 1,
                     id: '',
@@ -128,14 +131,7 @@
             // CRUD Functions Start
             addEntry() {
                 if (this.validate()) {
-                    this.dialog.show = false
-                    this.damageModification = {
-                        amount: this.amount,
-                        id: null,
-                        isVulnerability: this.isVulnerability,
-                        isResistance: this.isResistance,
-                        type: this.type
-                    }
+                    this.dialog.show = false                    
                     this.$emit('addEntryEmit', { arrayName: 'damageModifications', object: this.damageModification })
                 }
             },
@@ -144,36 +140,21 @@
                 this.$emit('deleteEntryEmit', { arrayName: 'damageModifications', object: this.damageModification })
             },
             updateEntry() {
-                let damageModification = {
-                    amount: this.amount,
-                    id: this.damageModification.id,
-                    isVulnerability: this.isVulnerability,
-                    isResistance: this.isResistance,
-                    type: this.type
-                }
                 this.dialog.show = false
-                this.$emit('updateEntryEmit', { arrayName: 'damageModifications', object: damageModification })
+                this.$emit('updateEntryEmit', { arrayName: 'damageModifications', object: this.damageModification })
             },
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
                 this.panel = 0
                 this.setDialog('Add')
-                this.damageModification = {
-                    amount: 1,
-                    id: '',
-                    isVulnerability: false,
-                    isResistance: false,
-                    type: ''
-                }
-                this.setInputs(this.damageModification)
+                this.damageModification = JSON.parse(JSON.stringify(this.clearDamageModification))
                 setTimeout(() => {
                     this.$refs.amount.focus()
                 }, 200)
             },
             updateDialog(damageModification) {
-                this.damageModification = this.damageModifications.find(x => { return x.id == damageModification.id })
-                this.setInputs(this.damageModification)
+                this.damageModification = damageModification
                 this.setDialog('Edit')
             },
             setDialog(type) {
@@ -181,12 +162,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(damageModification) {
-                this.amount = damageModification.amount
-                this.type = damageModification.type
-                this.isVulnerability = damageModification.isVulnerability
-                this.isResistance = damageModification.isResistance
             },
             // Open Dialog Functions End
             validate() {

@@ -89,13 +89,8 @@
                     type: ''
                 },
                 // Input Fields Start
-                active: !this.unlocked,
-                advanceRank: 0,
-                description: '',
-                name: '',
-                characteristic: '',
                 classObj: {
-                    active: this.active,
+                    active: !this.unlocked,
                     advanceRank: 0,
                     description: '',
                     id: '',
@@ -128,7 +123,6 @@
                 if (this.validate()) {
                     this.dialog.show = false
                     this.$emit('addEntryEmit', { arrayName: 'classes', object: this.classObj })
-                    this.classObj = JSON.parse(JSON.stringify(this.clearClassObj))
                 }
             },
             deleteEntry() {
