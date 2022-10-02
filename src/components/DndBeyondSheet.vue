@@ -120,6 +120,7 @@
                         <v-tab href="#inventory">Inventory</v-tab>
                         <v-tab href="#xp">XP</v-tab>
                         <v-tab href="#statusBuffs">Statuses and Buffs</v-tab>
+                        <v-tab href="#minions">Minions</v-tab>
                     </v-tabs>
                     <v-tabs-items v-model="tab" style="max-height:800px;overflow-y:auto;">
                         <v-tab-item value="tab0">
@@ -259,6 +260,15 @@
                                          @deleteEntryEmit="deleteEntry($event)"
                                          @updateEntryEmit="updateBuffEntry($event)"
                                          @updateEntryBypassEmit="updateEntry($event)"></BuffSection>
+                        </v-tab-item>
+                        <v-tab-item value="minions">
+                            <MinionSection :clear-character="clearCharacter"
+                                           :minions="minions"
+                                           @addEntryEmit="addEntry($event)"
+                                           @deleteEntryEmit="deleteEntry($event)"
+                                           @rollDiceCheckEmit="rollStandAloneCheck($event)"
+                                           @updateEntryEmit="updateMinion($event)"
+                                           @updateEntryBypassEmit="updateEntry($event)"></MinionSection>
                         </v-tab-item>
                     </v-tabs-items>
                 </v-col>
@@ -532,6 +542,7 @@
     import EquipmentSection from './EquipmentSection.vue'
     import TraitFlawSection from './TraitFlawSection.vue'
     import InputWithEditModal from './InputWithEditModal.vue'
+    import MinionSection from './MinionSection.vue'
     import MovementSection from './MovementSection.vue'
     import ResourceSection from './ResourceSection.vue'
     import SkillSection from './SkillSection.vue'
@@ -555,6 +566,7 @@
             EquipmentSection,
             TraitFlawSection,
             InputWithEditModal,
+            MinionSection,
             MovementSection,
             ResourceSection,
             SkillSection,
@@ -1073,6 +1085,16 @@
                     }
                 ]
             },
+            minions() {
+                let minions = []
+
+                this.characterSheet.minions.forEach(minion => {
+                    minion.key = minion.id + minion.name + this.updateMinions
+                    minions.push(minion)
+                })
+
+                return minions
+            },
             movementApIcon() {
                 let icon = ''
 
@@ -1291,6 +1313,7 @@
                     'resistance',
                     'luck'
                 ],
+                clearCharacter: this.characterStore.getCharacterById('clear'),
                 characterSheet: this.characterStore.getCharacterById('clear'),
                 cleanseDialog: {
                     selectedStatuses: [],
@@ -1399,6 +1422,7 @@
                 updateCR: 0,
                 updateHP: 0,
                 updateInitiative: 0,
+                updateMinions: 0,
                 updateStatus: 0,
                 updateRerolls: 0,
             }
@@ -1474,6 +1498,10 @@
                         }
                     }
                 })
+            },
+            updateMinion(object) {
+                this.updateMinions++
+                this.updateEntry(object)
             },
             //Array CRUD Functions End
             buffAmount(options) {
@@ -1567,8 +1595,8 @@
                     'Fate: ' + this.abilityDialog.check.fate + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '\n' +
                     'Dice Results: [' + this.abilityDialog.check.diceResults + ']';
 
-                if (this.successesFromIntelligence)
-                    copyText += '\nSuccesses From INT: ' + this.successesFromIntelligence
+                if (this.abilityDialog.check.successesFromIntelligence)
+                    copyText += '\nSuccesses From INT: ' + this.abilityDialog.check.successesFromIntelligence
 
                 if (this.abilityDialog.check.successesFromLuck)
                     copyText += '\nSuccesses From LCK: ' + this.abilityDialog.check.successesFromLuck
@@ -1674,13 +1702,15 @@
                     show: true,
                     selectedRerolls: [],
                     successes: 0,
+                    successesFromIntelligence: 0,
                     successesFromLuck: 0,
                     threat: false
                 }
 
                 if (diceCheckObject.diceToRoll > 0) {
                     if (!diceCheckObject.isSave) {
-                        result.successes += +this.successesFromIntelligence
+                        result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
+                        result.successes += +result.successesFromIntelligence
 
                     }
 
@@ -1693,10 +1723,11 @@
                     if (diceCheckObject.successes)
                         result.successes += +diceCheckObject.successes
 
+                    let luck = diceCheckObject.luck ? diceCheckObject.luck : this.luck
                     if (!this.characterSheet.luckNothingToChance) {
                         if (result.fate == 6 || (this.characterSheet.luckFavored && result.fate >= 5)) {
                             result.advantage = true
-                            result.successesFromLuck = this.luck
+                            result.successesFromLuck = luck
                             result.successes += +result.successesFromLuck
                         } else if (result.fate == 1 || (this.characterSheet.luckIllFavored && result.fate <= 2)) {
                             result.threat = true
@@ -1778,7 +1809,11 @@
             loadCharacter() {
                 if (this.isCharacterSet()) {
                     this.updateCharacter++
-                    this.characterSheet = JSON.parse(localStorage.getItem('character'))
+                    let character = JSON.parse(localStorage.getItem('character'))
+                    if (!Object.hasOwn(character, 'minions'))
+                        character.minions = []
+                    console.log(character)
+                    this.characterSheet = character
                 }
                 else
                     this.generalDialog = {
