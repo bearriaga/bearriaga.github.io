@@ -1,7 +1,7 @@
 <template>
     <div>
         <h4 class="text-center">Oatsys Chacter Sheet</h4>
-        <form onsubmit="return false;">
+        <form onsubmit="return false;" v-if="layout == 'Expanded'">
             <v-row>
                 <v-col cols="4" md="2">
                     <v-text-field label="Name" v-model="characterSheet.name"></v-text-field>
@@ -285,35 +285,322 @@
                                       @updateEntryEmit="updateEntry($event)"
                                       @updateEntryBypassEmit="updateEntry($event)"
                                       @useAbilityEmit="useAbility($event)"></EquipmentSection>
-                </v-col>                
-            </v-row>
-            <v-row>
-                <v-col>
-                    <v-btn color="primary" @click="setCharacterAs('belif')">Set as Belif</v-btn>
-                    <v-btn color="primary" @click="setCharacterAs('cam')">Cam</v-btn>
-                    <v-btn color="primary" @click="setCharacterAs('wilson')">Wilson</v-btn>
-                </v-col>
-                <v-col>
-                    <div>
-                        <v-btn color="primary" @click="loadCharacter">Load Character</v-btn>
-                    </div>
-                    <!--<div>
-                        <v-btn color="primary" @click="loadCharacters">Load Characters</v-btn>
-                    </div>-->
-                </v-col>
-                <v-col>
-                    <div>
-                        <v-btn color="primary" @click="saveCharacterConfirm">Save Character</v-btn>
-                    </div>
-                    <!--<div>
-                        <v-btn color="primary" @click="saveToFirebase">Save Character to Firebase</v-btn>
-                    </div>-->
-                </v-col>
-                <v-col>
-                    <v-btn color="primary" @click="saveCharacterAsFile">Export Character</v-btn>
                 </v-col>
             </v-row>
         </form>
+        <form onsubmit="return false;" v-if="layout == 'Condensed'">
+            <v-row>
+                <v-col cols="4" md="2">
+                    <v-text-field label="Name" v-model="characterSheet.name"></v-text-field>
+                </v-col>
+                <v-col cols="4" md="2">
+                    <v-text-field label="Race" v-model="characterSheet.race"></v-text-field>
+                </v-col>
+                <v-col cols="4" md="2">
+                    <v-text-field label="Age" v-model="characterSheet.age" type="number"></v-text-field>
+                </v-col>
+                <v-col cols="4" md="2">
+                    <v-text-field label="Size" v-model="characterSheet.size" type="number"></v-text-field>
+                </v-col>
+                <v-col cols="4" md="2">
+                    <v-text-field label="Level" v-model="characterSheet.level" disabled readonly>
+                        <TooltipComponent slot="append" :text="'Level = non-class XP Entries / 500 round down'"></TooltipComponent>
+                    </v-text-field>
+                </v-col>
+                <v-col cols="4" md="2">
+                    <v-text-field label="Available XP" v-model="characterSheet.xp" disabled></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12" md="6" class="charColumn mainColumn elevation-3" elevation="3">
+                    <v-row>
+                        <v-col cols="4" md="6" lg="4" v-for="char in characteristicViewItems" :key="char.key">
+                            <CharacteristicViewItem @updatePropEmit="updateProp($event)"
+                                                    @rollDiceCheckEmit="rollStandAloneCheck($event)"
+                                                    :characteristic="char"></CharacteristicViewItem>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="6" md="3" class="charColumn mainColumn elevation-3" elevation="3">
+                    <v-row>
+                        <v-col cols="12">
+                            <v-text-field label="Movement in Squares (Land Speed)" v-model="characterSheet.movement" type="number" disabled readonly>
+                                <v-icon :color="movementApIconColor"
+                                        slot="append"
+                                        @click="subtractAP(1)">{{movementApIcon}}</v-icon>
+                                <TooltipComponent slot="append" :text="'FIT + Land Speed Movement Entries'"></TooltipComponent>
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12" lg="6" v-for="input in defenseInputWithEditModals" :key="input.key">
+                            <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                                @updatePropEmit="updateProp($event)"
+                                                :property-object="input"></InputWithEditModal>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="6" md="3" class="hpColumn mainColumn elevation-3">
+                    <InputWithEditModal v-for="input in healthInputWithEditModals" :key="input.key"
+                                        @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                        @updatePropEmit="updateProp($event)"
+                                        :property-object="input"></InputWithEditModal>
+                    <v-row>
+                        <v-col cols="12" lg="6">
+                            <v-text-field label="Take Damage/Heal" type="number" min="0" v-model="damageToTake.amount">
+                                <v-icon color="success" slot="append" @click="heal">mdi-plus</v-icon>
+                                <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="12" lg="6">
+                            <v-select label="Damage Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
+                        </v-col>
+                    </v-row>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12" md="3" class="charColumn mainColumn elevation-3" elevation="3">
+                    <SkillSection :characteristics="characteristics"
+                                  :skills="skills"
+                                  @addEntryEmit="addEntry($event)"
+                                  @deleteEntryEmit="deleteEntry($event)"
+                                  @updateEntryEmit="updateEntry($event)"
+                                  @rollDiceCheckEmit="rollStandAloneCheck($event)"></SkillSection>
+                    <CharacteristicViewItem @rollDiceCheckEmit="rollStandAloneCheck($event)"
+                                            :characteristic="genericCharacteristic"></CharacteristicViewItem>
+                    <v-expansion-panels>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header>
+                                <h3 class="text-center">
+                                    Mass Roller
+                                </h3>
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                <v-row>
+                                    <v-col cols="6">
+                                        <v-text-field label="Enemies*" v-model="massRoller.enemies" type="number"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-text-field label="Dice*" v-model="massRoller.dice" type="number"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-text-field label="LCK*" v-model="massRoller.luck" type="number"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-text-field label="Successes Required" v-model="massRoller.successesRequired" type="number"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" class="text-center">
+                                        <v-btn @click="rollMassRoller()">
+                                            <v-icon>mdi-dice-6</v-icon>
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
+                </v-col>
+                <v-col cols="12" md="9">
+                    <v-tabs v-model="tab">
+                        <v-tab href="#tab0">Abilities</v-tab>
+                        <v-tab href="#tab1">Resources</v-tab>
+                        <v-tab href="#tab2">Movements</v-tab>
+                        <v-tab href="#tab3">Damage Modifications</v-tab>
+                        <v-tab href="#tab4">Classes and Traits</v-tab>
+                        <v-tab href="#inventory">Inventory</v-tab>
+                        <v-tab href="#xp">XP</v-tab>
+                        <v-tab href="#statusBuffs">Statuses and Buffs</v-tab>
+                        <v-tab href="#minions">Minions</v-tab>
+                    </v-tabs>
+                    <v-tabs-items v-model="tab" style="max-height:800px;overflow-y:auto;">
+                        <v-tab-item value="tab0">
+                            <AbilitySection :abilities="abilities"
+                                            :ap="characterSheet.ap"
+                                            :characteristics="characteristics"
+                                            :damage-types="damageTypes"
+                                            :resources="resources"
+                                            :successes-from-intelligence="successesFromIntelligence"
+                                            @addEntryEmit="addEntry($event)"
+                                            @deleteEntryEmit="deleteEntry($event)"
+                                            @rollAbilityEmit="rollAbility($event)"
+                                            @rollDamageEmit="rollAbilityDamage($event)"
+                                            @subtractAPEmit="subtractAP($event)"
+                                            @subtractCREmit="subtractCR($event)"
+                                            @updateEntryEmit="updateEntry($event)"
+                                            @useAbilityEmit="useAbility($event)"></AbilitySection>
+                        </v-tab-item>
+                        <v-tab-item value="tab1">
+                            <InputWithEditModal v-for="input in inputWithEditModals" :key="input.key"
+                                                @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                                @apGainEmit="apGain($event)"
+                                                @updatePropEmit="updateProp($event)"
+                                                :property-object="input"></InputWithEditModal>
+                            <ResourceSection :resources="resources"
+                                             :characteristics="characteristics"
+                                             @addEntryEmit="addEntry($event)"
+                                             @deleteEntryEmit="deleteEntry($event)"
+                                             @fillResourcesEmit="fillResources($event)"
+                                             @updateEntryEmit="updateEntry($event)"></ResourceSection>
+                        </v-tab-item>
+                        <v-tab-item value="tab2">
+                            <MovementSection :ap="characterSheet.ap"
+                                             :can-edit="true"
+                                             :movements="movements"
+                                             :movement-ap-icon="movementApIcon"
+                                             :movement-ap-icon-color="movementApIconColor"
+                                             :movement-types="movementTypes"
+                                             @addEntryEmit="addEntry($event)"
+                                             @deleteEntryEmit="deleteEntry($event)"
+                                             @subtractAPEmit="subtractAP($event)"
+                                             @updateEntryEmit="updateEntry($event)"></MovementSection>
+                        </v-tab-item>
+                        <v-tab-item value="tab3">
+                            <DamageModificationSection :can-edit="true"
+                                                       :damage-modifications="damageModifications"
+                                                       :damage-groups="damageGroups"
+                                                       :damage-types="damageTypes"
+                                                       @addEntryEmit="addEntry($event)"
+                                                       @deleteEntryEmit="deleteEntry($event)"
+                                                       @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
+                        </v-tab-item>
+                        <v-tab-item value="tab4">
+                            <ClassSection :unlocked="false"
+                                          :characteristics="characteristics"
+                                          :classes="classes"
+                                          @addEntryEmit="addEntry($event)"
+                                          @deleteEntryEmit="deleteEntry($event)"
+                                          @updateEntryEmit="updateEntry($event)"></ClassSection>
+                            <ClassSection :unlocked="true"
+                                          :characteristics="characteristics"
+                                          :classes="classesUnlocked"
+                                          @addEntryEmit="addEntry($event)"
+                                          @deleteEntryEmit="deleteEntry($event)"
+                                          @updateEntryEmit="updateEntry($event)"></ClassSection>
+                            <TraitFlawSection :is-flaw="true"
+                                              :items="flaws"
+                                              @addEntryEmit="addEntry($event)"
+                                              @deleteEntryEmit="deleteEntry($event)"
+                                              @updateEntryEmit="updateEntry($event)"></TraitFlawSection>
+                            <TraitFlawSection :is-flaw="false"
+                                              :items="traits"
+                                              @addEntryEmit="addEntry($event)"
+                                              @deleteEntryEmit="deleteEntry($event)"
+                                              @updateEntryEmit="updateEntry($event)"></TraitFlawSection>
+                        </v-tab-item>
+                        <v-tab-item value="inventory">
+                            <v-row>
+                                <v-col col="12" md="6">
+                                    <v-text-field label="Money"
+                                                  type="number"
+                                                  v-model="characterSheet.money"></v-text-field>
+                                </v-col>
+                                <v-col col="12" md="6">
+                                    <v-text-field type="number" min="0"
+                                                  v-model="moneyModifyAmount"
+                                                  label="Add/Subtract Money">
+                                        <v-icon color="success" slot="append" @click="moneyAddSubtract(true)">mdi-plus</v-icon>
+                                        <v-icon color="error" slot="append" @click="moneyAddSubtract(false)">mdi-minus</v-icon>
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <EquipmentSection :ap="characterSheet.ap"
+                                              :characteristics="characteristics"
+                                              :character-equipment="characterEquipment"
+                                              :damage-groups="damageGroups"
+                                              :damage-types="damageTypes"
+                                              :movement-ap-icon="movementApIcon"
+                                              :movement-ap-icon-color="movementApIconColor"
+                                              :movement-types="movementTypes"
+                                              :resources="resources"
+                                              :successes-from-intelligence="successesFromIntelligence"
+                                              @addEntryEmit="addEntry($event)"
+                                              @deleteEntryEmit="deleteEntry($event)"
+                                              @rollAbilityEmit="rollAbility($event)"
+                                              @rollDamageEmit="rollAbilityDamage($event)"
+                                              @subtractAPEmit="subtractAP($event)"
+                                              @subtractCREmit="subtractCR($event)"
+                                              @updateEntryEmit="updateEntry($event)"
+                                              @updateEntryBypassEmit="updateEntry($event)"
+                                              @useAbilityEmit="useAbility($event)"></EquipmentSection>
+                        </v-tab-item>
+                        <v-tab-item value="xp">
+                            <XPSection :xp="characterSheet.xp"
+                                       :xp-earned="characterSheet.xpEarned"
+                                       :xp-total="characterSheet.xpTotal"
+                                       :xp-entries="xpEntries"
+                                       @addEntryEmit="addEntry($event)"
+                                       @deleteEntryEmit="deleteEntry($event)"
+                                       @updateEntryEmit="updateEntry($event)"></XPSection>
+                        </v-tab-item>
+                        <v-tab-item value="statusBuffs">
+                            <StatusSection :statuses="statuses"
+                                           :character-statuses="characterStatuses"
+                                           @addEntryEmit="addEntry($event)"
+                                           @deleteEntryEmit="deleteEntry($event)"
+                                           @updateBuffEntryEmit="updateBuffStatus($event)"
+                                           @updateEntryEmit="updateEntry($event)"></StatusSection>
+                            <BuffSection :buffs="buffs"
+                                         :characteristics="characteristics"
+                                         :damage-types="damageTypes"
+                                         :movement-types="movementTypes"
+                                         :skills="characterSheet.skills"
+                                         :statuses="statuses"
+                                         :resources="resources"
+                                         @addEntryEmit="addEntry($event)"
+                                         @deleteEntryEmit="deleteEntry($event)"
+                                         @updateEntryEmit="updateBuffEntry($event)"
+                                         @updateEntryBypassEmit="updateEntry($event)"></BuffSection>
+                        </v-tab-item>
+                        <v-tab-item value="minions">
+                            <MinionSection :clear-character="clearCharacter"
+                                           :minions="minions"
+                                           @addEntryEmit="addEntry($event)"
+                                           @deleteEntryEmit="deleteEntry($event)"
+                                           @rollDiceCheckEmit="rollStandAloneCheck($event)"
+                                           @updateEntryEmit="updateMinion($event)"
+                                           @updateEntryBypassEmit="updateEntry($event)"></MinionSection>
+                        </v-tab-item>
+                    </v-tabs-items>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12" lg="3" md="6">
+                </v-col>
+                <v-col cols="12" lg="3" md="6">
+                </v-col>
+                <v-col cols="12" lg="3" md="6">
+
+                </v-col>
+            </v-row>
+        </form>
+        <v-row>
+            <v-col>
+                <v-btn color="primary" @click="setCharacterAs('belif')">Set as Belif</v-btn>
+                <v-btn color="primary" @click="setCharacterAs('cam')">Cam</v-btn>
+                <v-btn color="primary" @click="setCharacterAs('wilson')">Wilson</v-btn>
+            </v-col>
+            <v-col>
+                <div>
+                    <v-btn color="primary" @click="loadCharacter">Load Character</v-btn>
+                </div>
+                <!--<div>
+                    <v-btn color="primary" @click="loadCharacters">Load Characters</v-btn>
+                </div>-->
+            </v-col>
+            <v-col>
+                <div>
+                    <v-btn color="primary" @click="saveCharacterConfirm">Save Character</v-btn>
+                </div>
+                <!--<div>
+                    <v-btn color="primary" @click="saveToFirebase">Save Character to Firebase</v-btn>
+                </div>-->
+            </v-col>
+            <v-col>
+                <v-btn color="primary" @click="saveCharacterAsFile">Export Character</v-btn>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="3">
+                <v-select label="Layout" v-model="layout" :items="layoutOptions"></v-select>
+            </v-col>
+        </v-row>
 
         <!-- Ability Dialog -->
         <div class="text-center">
@@ -1271,6 +1558,7 @@
         },
         created() {
             this.characterInit()
+            this.loadOptions()
         },
         data() {
             return {
@@ -1397,6 +1685,8 @@
                     value: 0,
                     characteristic: false
                 },
+                layout: 'Condensed',
+                layoutOptions: ['Condensed', 'Expanded'],
                 massRoller: {
                     dice: 0,
                     enemies: 0,
@@ -1419,6 +1709,7 @@
                     'Teleport'
                 ],
                 statuses: this.gameDataStore.statuses,
+                tab: 'tab0',
                 updateAP: 0,
                 updateBP: 0,
                 updateBuff: 0,
@@ -1810,6 +2101,10 @@
                 let character = localStorage.getItem('character')
                 return (character != null)
             },
+            isOptionsSet() {
+                let options = localStorage.getItem('characterSheetOptions')
+                return (options != null)
+            },
             loadCharacter() {
                 if (this.isCharacterSet()) {
                     this.updateCharacter++
@@ -1838,6 +2133,17 @@
                 })
 
                 console.log(this.characters)
+            },
+            loadOptions() {
+                if (this.isOptionsSet()) {
+                    let options = JSON.parse(localStorage.getItem('characterSheetOptions'))
+                    console.log(options)
+
+                    if (this.layoutOptions.includes(options.layout)) {
+                        console.log('layout exists')
+                        this.layout = options.layout
+                    }
+                }
             },
             saveCharacterConfirm() {
                 if (!this.isCharacterSet())
@@ -1880,6 +2186,12 @@
                         window.URL.revokeObjectURL(url);
                     }, 0);
                 }
+            },
+            saveOptions() {
+                let options = {
+                    layout: this.layout
+                }
+                localStorage.setItem('characterSheetOptions', JSON.stringify(options))
             },
             //Local Storage Functions End
             rollMassRoller() {
@@ -2197,6 +2509,9 @@
             },
             xpTotal() {
                 this.characterSheet.xpTotal = this.xpTotal
+            },
+            layout() {
+                this.saveOptions()
             }
         }
     }
