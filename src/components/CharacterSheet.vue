@@ -1599,8 +1599,8 @@
                     'Fate: ' + this.abilityDialog.check.fate + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '\n' +
                     'Dice Results: [' + this.abilityDialog.check.diceResults + ']';
 
-                if (this.abilityDialog.successesFromIntelligence)
-                    copyText += '\nSuccesses From INT: ' + this.abilityDialog.successesFromIntelligence
+                if (this.abilityDialog.check.successesFromIntelligence)
+                    copyText += '\nSuccesses From INT: ' + this.abilityDialog.check.successesFromIntelligence
 
                 if (this.abilityDialog.check.successesFromLuck)
                     copyText += '\nSuccesses From LCK: ' + this.abilityDialog.check.successesFromLuck
