@@ -2111,7 +2111,6 @@
                     let character = JSON.parse(localStorage.getItem('character'))
                     if (!Object.hasOwn(character, 'minions'))
                         character.minions = []
-                    console.log(character)
                     this.characterSheet = character
                 }
                 else
@@ -2137,12 +2136,9 @@
             loadOptions() {
                 if (this.isOptionsSet()) {
                     let options = JSON.parse(localStorage.getItem('characterSheetOptions'))
-                    console.log(options)
 
-                    if (this.layoutOptions.includes(options.layout)) {
-                        console.log('layout exists')
+                    if (this.layoutOptions.includes(options.layout))
                         this.layout = options.layout
-                    }
                 }
             },
             saveCharacterConfirm() {

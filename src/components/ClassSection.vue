@@ -35,14 +35,14 @@
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
                             <v-text-field label="Class Name"
-                                          v-model="name"
+                                          v-model="classObj.name"
                                           ref="name"
                                           :rules="textRules"
                                           required></v-text-field>
-                            <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+                            <v-textarea label="Description" v-model="classObj.description" auto-grow outlined rows="1"></v-textarea>
                             <v-select label="Primary Characteristic"
                                       :items="characteristics"
-                                      v-model="characteristic"
+                                      v-model="classObj.characteristic"
                                       :rules="textRules"
                                       required></v-select>
                         </v-form>
@@ -103,6 +103,15 @@
                     characteristic: '',
                     unlocked: this.unlocked
                 },
+                clearClassObj: {
+                    active: !this.unlocked,
+                    advanceRank: 0,
+                    description: '',
+                    id: '',
+                    name: '',
+                    characteristic: '',
+                    unlocked: this.unlocked
+                },
                 // Input Fields End
                 panel: 0,
                 // Validation Start
@@ -118,16 +127,8 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.classObj = {
-                        active: this.active,
-                        advanceRank: this.advanceRank,
-                        description: this.description,
-                        id: null,
-                        name: this.name,
-                        characteristic: this.characteristic,
-                        unlocked: this.unlocked
-                    }
                     this.$emit('addEntryEmit', { arrayName: 'classes', object: this.classObj })
+                    this.classObj = JSON.parse(JSON.stringify(this.clearClassObj))
                 }
             },
             deleteEntry() {
@@ -142,23 +143,13 @@
             addDialog() {
                 this.panel = 0
                 this.setDialog('Add')
-                this.classObj = {
-                    active: this.active,
-                    advanceRank: 0,
-                    description: '',
-                    id: '',
-                    name: '',
-                    characteristic: '',
-                    unlocked: this.unlocked
-                }
-                this.setInputs(this.classObj)
+                this.classObj = JSON.parse(JSON.stringify(this.clearClassObj))
                 setTimeout(() => {
                     this.$refs.name.focus()
                 }, 200)
             },
             deleteDialog(classObj) {
-                this.classObj = this.classes.find(x => { return x.id == classObj.id })
-                this.setInputs(this.classObj)
+                this.classObj = classObj
                 this.setDialog('Delete')
             },
             setDialog(type) {
@@ -166,11 +157,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(classObj) {
-                this.description = classObj.description
-                this.name = classObj.name
-                this.characteristic = classObj.characteristic
             },
             // Open Dialog Functions End
             validate() {

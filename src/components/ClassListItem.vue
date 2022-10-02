@@ -1,13 +1,8 @@
 <template>
     <div>
-        <v-row>
-            <v-col cols="10">
-                <v-text-field label="Class Name" v-model="name" :disabled="!active && !unlocked"></v-text-field>
-            </v-col>
-            <v-col cols="2">
-                <v-icon color="error" @click="deleteEntry">mdi-delete</v-icon>
-            </v-col>
-        </v-row>
+        <v-text-field label="Class Name" v-model="name" :disabled="!active && !unlocked" :readonly="!active && !unlocked">
+            <v-icon slot="append" color="error" @click="deleteEntry">mdi-delete</v-icon>
+        </v-text-field>
         <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" :disabled="!active && !unlocked"></v-textarea>
         <v-select label="Primary Characteristic" v-model="characteristic" :items="characteristics" :disabled="!active && !unlocked"></v-select>
         <v-select label="Type" v-model="advanceRank" :items="advanceRanks" item-text="text" item-value="value" v-if="!unlocked" :disabled="!active && !unlocked"></v-select>
