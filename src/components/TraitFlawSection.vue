@@ -36,17 +36,17 @@
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
                             <v-text-field label="Name"
-                                          v-model="name"
+                                          v-model="item.name"
                                           ref="name"
                                           :rules="textRules"
                                           required></v-text-field>
                             <v-text-field label="Amount"
                                           type="number"
-                                          v-model="amount"
+                                          v-model="item.amount"
                                           :rules="numberRules"
                                           required></v-text-field>
                             <v-textarea label="Description"
-                                        v-model="description"
+                                        v-model="item.description"
                                         auto-grow outlined rows="1"></v-textarea>
                         </v-form>
                     </v-card-text>
@@ -94,9 +94,12 @@
                     type: ''
                 },
                 // Input Fields Start
-                amount: 1,
-                description: '',
-                name: '',
+                clearItem: {
+                    amount: 1,
+                    description: '',
+                    id: '',
+                    name: ''
+                },
                 item: {
                     amount: 1,
                     description: '',
@@ -121,12 +124,6 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.item = {
-                        amount: this.amount,
-                        description: this.description,
-                        id: null,
-                        name: this.name
-                    }
                     this.$emit('addEntryEmit', { arrayName: this.arrayName, object: this.item })
                 }
             },
@@ -142,20 +139,13 @@
             addDialog() {
                 this.panel = 0
                 this.setDialog('Add')
-                this.item = {
-                    amount: 1,
-                    description: '',
-                    id: '',
-                    name: ''
-                }
-                this.setInputs(this.item)
+                this.item = JSON.parse(JSON.stringify(this.clearItem))
                 setTimeout(() => {
                     this.$refs.name.focus()
                 }, 200)
             },
             deleteDialog(item) {
-                this.item = this.items.find(x => { return x.id == item.id })
-                this.setInputs(this.item)
+                this.item = item
                 this.setDialog('Delete')
             },
             setDialog(type) {
@@ -163,11 +153,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(item) {
-                this.amount = item.amount
-                this.description = item.description
-                this.name = item.name
             },
             // Open Dialog Functions End
             validate() {
