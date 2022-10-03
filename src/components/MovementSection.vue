@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-expansion-panels  v-model="panel">
+        <v-expansion-panels v-model="panel">
             <v-expansion-panel>
                 <v-expansion-panel-header>
                     <h3 class="text-center">
@@ -64,17 +64,17 @@
                                 :disabled="dialog.type == 'Delete'">
                             <v-text-field label="Amount"
                                           type="number"
-                                          v-model="amount"
+                                          v-model="movement.amount"
                                           ref="amount"
                                           :rules="numberRules"
                                           required></v-text-field>
                             <v-autocomplete label="Type"
-                                            v-model="type"
+                                            v-model="movement.type"
                                             :items="movementTypes"
                                             :rules="textRules"
                                             required></v-autocomplete>
                             <v-text-field label="Description"
-                                          v-model="description"></v-text-field>
+                                          v-model="movement.description"></v-text-field>
                         </v-form>
                     </v-card-text>
 
@@ -142,11 +142,14 @@
                     type: ''
                 },
                 // Input Fields Start
-                amount: 0,
-                description: '',
-                isBuff: false,
-                isDefault: false,
-                type: '',
+                clearMovement: {
+                    amount: 0,
+                    description: '',
+                    id: '',
+                    isBuff: false,
+                    isDefault: false,
+                    type: '',
+                },
                 movement: {
                     amount: 1,
                     description: '',
@@ -173,15 +176,7 @@
             // CRUD Functions Start
             addEntry() {
                 if (this.validate()) {
-                    this.dialog.show = false
-                    this.movement = {
-                        amount: this.amount,
-                        description: this.description,
-                        id: null,
-                        isBuff: false,
-                        isDefault: false,
-                        type: this.type
-                    }
+                    this.dialog.show = false                    
                     this.$emit('addEntryEmit', { arrayName: 'movements', object: this.movement })
                 }
             },
@@ -197,22 +192,13 @@
             addDialog() {
                 this.subPanel = 0
                 this.setDialog('Add')
-                this.movement = {
-                    amount: 1,
-                    description: '',
-                    id: '',
-                    isBuff: false,
-                    isDefault: false,
-                    type: ''
-                }
-                this.setInputs(this.movement)
+                this.movement = JSON.parse(JSON.stringify(this.clearMovement))
                 setTimeout(() => {
                     this.$refs.amount.focus()
                 }, 200)
             },
             deleteDialog(movement) {
-                this.movement = this.movements.find(x => { return x.id == movement.id })
-                this.setInputs(this.movement)
+                this.movement = movement
                 this.setDialog('Delete')
             },
             setDialog(type) {
@@ -220,13 +206,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(movement) {
-                this.amount = movement.amount
-                this.description = movement.description
-                this.isBuff = movement.isBuff
-                this.isDefault = movement.isDefault
-                this.type = movement.type
             },
             // Open Dialog Functions End
             subtractAP(apCost) {
