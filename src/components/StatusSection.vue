@@ -39,30 +39,30 @@
                                 :disabled="dialog.type == 'Delete'">
                             <v-autocomplete label="Status"
                                             :items="statuses.map((x) => ({ value: x, text: x.name }))"
-                                            v-model="selectedStatus"
+                                            v-model="status.status"
                                             ref="status"
                                             :rules="notNull"
                                             required>
                             </v-autocomplete>
                             <v-textarea label="Effect"
-                                        v-model="selectedStatus.effect"
-                                        :disabled="selectedStatus.name != 'Other'"
+                                        v-model="status.status.effect"
+                                        :disabled="status.status.name != 'Other'"
                                         auto-grow outlined rows="1"></v-textarea>
                             <v-text-field label="Type"
-                                          v-model="selectedStatus.type"
-                                          :disabled="selectedStatus.name != 'Other'"></v-text-field>
+                                          v-model="status.status.type"
+                                          :disabled="status.status.name != 'Other'"></v-text-field>
                             <v-text-field label="Ranks"
-                                          v-model="ranks"
+                                          v-model="status.ranks"
                                           type="number"
                                           min="0"
-                                          v-if="selectedStatus.name.includes('{rank}')"
+                                          v-if="status.status.name.includes('{rank}')"
                                           required></v-text-field>
                             <v-text-field label="Duration (Rounds)"
-                                          v-model="duration"
+                                          v-model="status.duration"
                                           type="number"
                                           min="0"
                                           required></v-text-field>
-                            <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" required></v-textarea>
+                            <v-textarea label="Description" v-model="status.description" auto-grow outlined rows="1" required></v-textarea>
                         </v-form>
                     </v-card-text>
 
@@ -101,22 +101,31 @@
                     type: ''
                 },
                 // Input Fields Start
-                description: '',
-                duration: 0,
-                isActive: true,
-                ranks: 0,
-                selectedStatus: {
-                    cost: '',
-                    effect: '',
-                    name: '',
-                    type: ''
+                clearStatus: {
+                    description: '',
+                    duration: 0,
+                    id: '',
+                    isActive: true,
+                    ranks: 0,
+                    status: {
+                        cost: '',
+                        effect: '',
+                        name: '',
+                        type: ''
+                    }
                 },
                 status: {
                     description: '',
                     duration: 1,
+                    id: '',
                     isActive: true,
                     ranks: 1,
-                    status: {}
+                    status: {
+                        cost: '',
+                        effect: '',
+                        name: '',
+                        type: ''
+                    }
                 },
                 // Input Fields End
                 panel: 0,
@@ -132,22 +141,7 @@
             // CRUD Functions Start
             addEntry() {
                 if (this.validate()) {
-                    this.dialog.show = false
-                    this.status = {
-                        buffId: null,
-                        buffName: '',
-                        description: this.description,
-                        duration: this.duration,
-                        id: null,
-                        isActive: this.isActive,
-                        ranks: this.ranks,
-                        status: {
-                            cost: this.selectedStatus.cost,
-                            effect: this.selectedStatus.effect,
-                            name: this.selectedStatus.name,
-                            type: this.selectedStatus.type
-                        }
-                    }
+                    this.dialog.show = false                    
                     this.$emit('addEntryEmit', { arrayName: 'statuses', object: this.status })
                 }
             },
@@ -166,29 +160,13 @@
             addDialog() {
                 this.panel = 0
                 this.setDialog('Add')
-                this.status = {
-                    buffId: '',
-                    buffName: '',
-                    description: '',
-                    duration: 1,
-                    id: '',
-                    isActive: true,
-                    ranks: 1,
-                    status: {
-                        cost: '',
-                        effect: '',
-                        name: '',
-                        type: ''
-                    }
-                }
-                this.setInputs(this.status)
+                this.status = JSON.parse(JSON.stringify(this.clearStatus))
                 setTimeout(() => {
                     this.$refs.status.focus()
                 }, 200)
             },
             deleteDialog(status) {
-                this.status = this.characterStatuses.find(x => { return x.id == status.id })
-                this.setInputs(this.status)
+                this.status = status
                 this.setDialog('Delete')
             },
             setDialog(type) {
@@ -196,13 +174,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(status) {
-                this.description = status.description
-                this.duration = status.duration
-                this.isActive = status.isActive
-                this.ranks = status.ranks
-                this.selectedStatus = status.status
             },
             // Open Dialog Functions End
             validate() {
