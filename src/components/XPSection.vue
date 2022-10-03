@@ -39,7 +39,7 @@
                                 <v-col>
                                     <v-text-field label="Amount"
                                                   type="number"
-                                                  v-model="amount"
+                                                  v-model="xpEntry.amount"
                                                   ref="amount"
                                                   :rules="numberRules"
                                                   required></v-text-field>
@@ -47,12 +47,12 @@
                                 <v-col>
                                     <v-text-field label="Date"
                                                   type="date"
-                                                  v-model="date"></v-text-field>
+                                                  v-model="xpEntry.date"></v-text-field>
                                 </v-col>
                             </v-row>
-                            <v-switch label="Class XP" inset v-model="classXP"></v-switch>
+                            <v-switch label="Class XP" inset v-model="xpEntry.classXP"></v-switch>
                             <v-text-field label="Description"
-                                          v-model="description"></v-text-field>
+                                          v-model="xpEntry.description"></v-text-field>
                         </v-form>
                     </v-card-text>
 
@@ -94,12 +94,16 @@
                 },
                 availableXP: this.xp,
                 // Input Fields Start
-                amount: 1,
-                classXP: false,
-                date: null,
-                description: '',
-                entry: {
+                clearXpEntry: {
                     amount: 1,
+                    classXP: false,
+                    date: null,
+                    description: '',
+                    id: '',
+                },
+                xpEntry: {
+                    amount: 1,
+                    classXP: false,
                     date: null,
                     description: '',
                     id: ''
@@ -119,42 +123,28 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.entry = {
-                        amount: this.amount,
-                        classXP: this.classXP,
-                        date: this.date,
-                        description: this.description,
-                        id: null
-                    }
-                    this.$emit('addEntryEmit', { arrayName: 'xpEntries', object: this.entry })
+                    this.$emit('addEntryEmit', { arrayName: 'xpEntries', object: this.xpEntry })
                 }
             },
             deleteEntry() {
                 this.dialog.show = false
-                this.$emit('deleteEntryEmit', { arrayName: 'xpEntries', object: this.entry })
+                this.$emit('deleteEntryEmit', { arrayName: 'xpEntries', object: this.xpEntry })
             },
-            updateEntry(entry) {
-                this.$emit('updateEntryEmit', { arrayName: 'xpEntries', object: entry })
+            updateEntry(xpEntry) {
+                this.$emit('updateEntryEmit', { arrayName: 'xpEntries', object: xpEntry })
             },
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {
                 this.panel = 0
                 this.setDialog('Add')
-                this.entry = {
-                    amount: 1,
-                    date: null,
-                    description: '',
-                    id: ''
-                }
-                this.setInputs(this.entry)
+                this.xpEntry = JSON.parse(JSON.stringify(this.clearXpEntry))
                 setTimeout(() => {
                     this.$refs.amount.focus()
                 }, 200)
             },
-            deleteDialog(entry) {
-                this.entry = this.xpEntries.find(x => { return x.id == entry.id })
-                this.setInputs(this.entry)
+            deleteDialog(xpEntry) {
+                this.xpEntry = xpEntry 
                 this.setDialog('Delete')
             },
             setDialog(type) {
@@ -162,11 +152,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(entry) {
-                this.amount = entry.amount
-                this.date = entry.date
-                this.description = entry.description
             },
             // Open Dialog Functions End
             validate() {
