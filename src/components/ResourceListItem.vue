@@ -49,7 +49,7 @@
                 this.$emit('updateEntryEmit', resource)
             },
             updateDialog() {
-                this.$emit('updateDialogEmit', this.resource)
+                this.$emit('updateDialogEmit', JSON.parse(JSON.stringify(this.resource)))
             }
         },
         watch: {

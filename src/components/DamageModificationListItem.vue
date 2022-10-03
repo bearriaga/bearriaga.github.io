@@ -88,7 +88,7 @@
         methods: {
             updateDialog() {
                 if (this.canEdit && !this.damageModification.isBuff && !this.damageModification.isEquipment)
-                    this.$emit('updateDialogEmit', this.damageModification)
+                    this.$emit('updateDialogEmit', JSON.parse(JSON.stringify(this.damageModification)))
             }
         }
     }

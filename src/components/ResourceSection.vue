@@ -25,7 +25,7 @@
                         <ResourceListItem v-for="resource in resources" :key="resource.key"
                                           :resource="resource"
                                           @deleteEntryEmit="deleteDialog($event)"
-                                          @updateEntryEmit="updateEntry($event)"
+                                          @updateEntryEmit="updateEntryBypass($event)"
                                           @updateDialogEmit="updateDialog($event)"></ResourceListItem>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
@@ -44,17 +44,17 @@
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
                             <v-text-field label="Name"
-                                          v-model="name"
+                                          v-model="resource.name"
                                           ref="name"
                                           :rules="textRules"
                                           required></v-text-field>
                             <v-text-field label="Resoure Purchases"
                                           type="number"
-                                          v-model="resourceIncreases"
+                                          v-model="resource.resourceIncreases"
                                           :rules="numberRules"
                                           required></v-text-field>
                             <v-select label="Characteristic"
-                                      v-model="characteristic"
+                                      v-model="resource.characteristic"
                                       :items="characteristics"
                                       :rules="textRules"
                                       required></v-select>
@@ -70,7 +70,7 @@
                         <v-btn color="error" v-if="dialog.type == 'Delete'"
                                @click="deleteEntry()">Delete</v-btn>
                         <v-btn color="primary" v-if="dialog.type == 'Edit'" :disabled="!valid"
-                               @click="saveEntry()">Save</v-btn>
+                               @click="updateEntry()">Save</v-btn>
                         <v-btn color="secondary"
                                @click="dialog.show = false">Close</v-btn>
                     </v-card-actions>
@@ -100,9 +100,14 @@
                     type: ''
                 },
                 // Input Fields Start
-                name: '',
-                characteristic: '',
-                resourceIncreases: 0,
+                clearResource: {
+                    amount: 0,
+                    amountMax: 0,
+                    id: '',
+                    name: '',
+                    characteristic: '',
+                    resourceIncreases: 0,
+                },
                 resource: {
                     amount: 0,
                     amountMax: 0,
@@ -129,7 +134,6 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.setObject()
                     this.$emit('addEntryEmit', { arrayName: 'resources', object: this.resource })
                 }
             },
@@ -137,20 +141,14 @@
                 this.dialog.show = false
                 this.$emit('deleteEntryEmit', { arrayName: 'resources', object: this.resource })
             },
-            updateEntry(resource) {
+            updateEntryBypass(resource) {
                 this.$emit('updateEntryEmit', { arrayName: 'resources', object: resource })
             },
-            saveEntry() {
+            updateEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.setObject()
-                    this.updateEntry(this.resource)
+                    this.$emit('updateEntryEmit', { arrayName: 'resources', object: this.resource })
                 }
-            },
-            setObject() {
-                this.resource.name = this.name
-                this.resource.characteristic = this.characteristic
-                this.resource.resourceIncreases = this.resourceIncreases
             },
             // CRUD Functions End
             fillResources() {
@@ -160,27 +158,17 @@
             addDialog() {
                 this.panel = 0
                 this.setDialog('Add')
-                this.resource = {
-                    amount: 0,
-                    amountMax: 0,
-                    id: '',
-                    name: '',
-                    characteristic: '',
-                    resourceIncreases: 0
-                }
-                this.setInputs(this.resource)
+                this.resource = JSON.parse(JSON.stringify(this.clearResource))
                 setTimeout(() => {
                     this.$refs.name.focus()
                 }, 200)
             },
             deleteDialog(resource) {
                 this.resource = resource
-                this.setInputs(this.resource)
                 this.setDialog('Delete')
             },
             updateDialog(resource) {
                 this.resource = resource
-                this.setInputs(this.resource)
                 this.setDialog('Edit')
             },
             setDialog(type) {
@@ -188,11 +176,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(resource) {
-                this.characteristic = resource.characteristic
-                this.name = resource.name
-                this.resourceIncreases = resource.resourceIncreases
             },
             // Open Dialog Functions End
             validate() {
