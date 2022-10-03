@@ -61,40 +61,40 @@
                             <v-row>
                                 <v-col cols="12" md="6">
                                     <v-text-field label="Name *"
-                                                  v-model="name"
+                                                  v-model="ability.name"
                                                   ref="name"
                                                   :rules="textRules"
                                                   required></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="3">
                                     <v-text-field label="XP Cost *"
-                                                  v-model="xpCost"
+                                                  v-model="ability.xpCost"
                                                   type="number"
                                                   :rules="numberRules"
                                                   required></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="3">
-                                    <v-switch label="Bought For Free" inset v-model="boughtForFree"></v-switch>
+                                    <v-switch label="Bought For Free" inset v-model="ability.boughtForFree"></v-switch>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+                                    <v-textarea label="Description" v-model="ability.description" auto-grow outlined rows="1"></v-textarea>
                                 </v-col>
                                 <v-col cols="12">
                                     <v-select label="Characteristic Check"
                                               :items="characteristics"
-                                              v-model="characteristic"
+                                              v-model="ability.characteristic"
                                               clearable>
                                         <TooltipComponent slot="prepend" :text="'CHAR used to make check and gets added to damage.'"></TooltipComponent>
                                     </v-select>
                                 </v-col>
                                 <v-col cols="12">
                                     <v-switch label="Target Saves" inset
-                                                v-model="save"></v-switch>
+                                              v-model="ability.save"></v-switch>
                                 </v-col>
-                                <template v-if="save">
+                                <template v-if="ability.save">
                                     <v-col cols="6">
                                         <v-text-field label="Save Amount"
-                                                      v-model="saveAmount"
+                                                      v-model="ability.saveAmount"
                                                       type="number">
                                             <TooltipComponent slot="prepend" :text="'INT/3 automatically added to save amount.'"></TooltipComponent>
                                         </v-text-field>
@@ -102,7 +102,7 @@
                                     <v-col cols="6">
                                         <v-select label="Save Characteristic"
                                                   :items="characteristics"
-                                                  v-model="saveCharacteristic"
+                                                  v-model="ability.saveCharacteristic"
                                                   clearable></v-select>
                                     </v-col>
                                 </template>
@@ -114,15 +114,15 @@
                                             </h3>
                                         </v-col>
                                         <v-col cols="12" md="6">
-                                            <v-text-field label="Dice" type="number" v-model="damage.dice"></v-text-field>
+                                            <v-text-field label="Dice" type="number" v-model="ability.damage.dice"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" md="6">
-                                            <v-text-field label="Flat" type="number" v-model="damage.flat"></v-text-field>
+                                            <v-text-field label="Flat" type="number" v-model="ability.damage.flat"></v-text-field>
                                         </v-col>
                                         <v-col cols="12">
                                             <v-select label="Damage Types"
                                                       :items="damageTypes"
-                                                      v-model="damage.types"
+                                                      v-model="ability.damage.types"
                                                       multiple
                                                       :rules="textRules"
                                                       required></v-select>
@@ -130,50 +130,50 @@
                                     </v-row>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="AP Cost" type="number" v-model="apCost"></v-text-field>
+                                    <v-text-field label="AP Cost" type="number" v-model="ability.apCost"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-select label="Class Resource"
                                               :items="resources.map((x) => ({ value: x.id, text: x.name }))"
-                                              v-model="classResource"
+                                              v-model="ability.classResource"
                                               clearable></v-select>
                                 </v-col>
-                                <v-col cols="6" md="4" v-if="classResource">
-                                    <v-text-field label="Class Resource Cost" type="number" v-model="crCost"></v-text-field>
+                                <v-col cols="6" md="4" v-if="ability.classResource">
+                                    <v-text-field label="Class Resource Cost" type="number" v-model="ability.crCost"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Duration" v-model="duration"></v-text-field>
+                                    <v-text-field label="Duration" v-model="ability.duration"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-switch label="Is Melee Attack" inset v-model="isMeleeAttack"></v-switch>
+                                    <v-switch label="Is Melee Attack" inset v-model="ability.isMeleeAttack"></v-switch>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Range" type="number" v-model="range"></v-text-field>
+                                    <v-text-field label="Range" type="number" v-model="ability.range"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Area of Effect" v-model="areaOfEffect"></v-text-field>
+                                    <v-text-field label="Area of Effect" v-model="ability.areaOfEffect"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-switch label="In Class" inset v-model="inClass"></v-switch>
+                                    <v-switch label="In Class" inset v-model="ability.inClass"></v-switch>
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-select label="Physical/Meta *"
                                               :items="physMetaOptions"
-                                              v-model="physMeta"
+                                              v-model="ability.physMeta"
                                               :rules="textRules"
                                               required></v-select>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Successes" type="number" v-model="successes"></v-text-field>
+                                    <v-text-field label="Successes" type="number" v-model="ability.successes"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Handedness" type="number" v-model="handedness"></v-text-field>
+                                    <v-text-field label="Handedness" type="number" v-model="ability.handedness"></v-text-field>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-switch label="Ability Array" inset v-model="isAbilityArray"></v-switch>
+                                    <v-switch label="Ability Array" inset v-model="ability.isAbilityArray"></v-switch>
                                 </v-col>
                                 <v-col cols="6" md="4">
-                                    <v-text-field label="Max Size Category Of Mass" type="number" v-model="maxSizeCategoryOfMass"></v-text-field>
+                                    <v-text-field label="Max Size Category Of Mass" type="number" v-model="ability.maxSizeCategoryOfMass"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
                                     <h3 class="text-center">
@@ -185,7 +185,7 @@
                                             </v-icon>
                                         </v-btn>
                                     </h3>
-                                    <v-row v-for="(c, index) in components" :key="index">
+                                    <v-row v-for="(c, index) in ability.components" :key="index">
                                         <v-col cols="12" md="4">
                                             <v-text-field label="Name" v-model="c.name"></v-text-field>
                                         </v-col>
@@ -208,7 +208,7 @@
                                                     </h3>
                                                 </v-expansion-panel-header>
                                                 <v-expansion-panel-content>
-                                                    <v-row v-for="(s, index) in subEffects" :key="index">
+                                                    <v-row v-for="(s, index) in ability.subEffects" :key="index">
                                                         <v-col cols="12">
                                                             <v-text-field label="Name *" v-model="s.name" :rules="textRules" required>
                                                                 <TooltipComponent slot="prepend" :text="'Sub Effect can be edited in Parent once it is saved.'"></TooltipComponent>
@@ -233,7 +233,7 @@
                                                 <v-expansion-panel-content>
                                                     <v-color-picker dot-size="15"
                                                                     hide-inputs
-                                                                    v-model="color"></v-color-picker>
+                                                                    v-model="ability.color"></v-color-picker>
                                                 </v-expansion-panel-content>
                                             </v-expansion-panel>
                                         </v-expansion-panels>
@@ -330,169 +330,7 @@
                     components: [],
                     subEffects: []
                 },
-                apCost: 3,
-                areaOfEffect: 'Single Target',
-                boughtForFree: false,
-                color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
-                classResource: '',
-                crCost: 0,
-                characteristic: '',
-                damage: {
-                    dice: 0,
-                    flat: 0,
-                    types: []
-                },
-                description: '',
-                duration: 'Instant',
-                handedness: 0,
-                id: '',
-                inClass: true,
-                isAbilityArray: false,
-                isMeleeAttack: true,
-                maxSizeCategoryOfMass: 0,
-                name: '',
-                physMeta: 'Physical',
-                range: 0,
-                save: false,
-                saveAmount: 3,
-                saveCharacteristic: '',
-                successes: 0,
-                xpCost: 0,
-                components: [],
-                subEffects: [],
-                physMetaOptions: ['Physical', 'Meta', 'Both'],
-                // Input Fields End
-                dialog: {
-                    show: false,
-                    type: ''
-                },
-                filterText: '',
-                panel: 0,
-                subEffectPanel: null,
-                // Validation Start
-                numberRules: [
-                    v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
-                ],
-                textRules: [
-                    v => !!v || 'Field may not be empty'
-                ],
-                valid: false
-                // Validation End
-            }
-        },
-        methods: {
-            addComponent() {
-                this.components.push({
-                    name: ''
-                })
-            },
-            addSubEffect() {
-                this.subEffectPanel = 0
-                this.subEffects.push({
-                    apCost: 3,
-                    areaOfEffect: 'Single Target',
-                    boughtForFree: false,
-                    color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
-                    classResource: '',
-                    crCost: 0,
-                    characteristic: '',
-                    damage: {
-                        dice: 0,
-                        flat: 0,
-                        types: []
-                    },
-                    description: '',
-                    duration: 'Instant',
-                    handedness: 0,
-                    id: uuidv4(),
-                    inClass: true,
-                    isAbilityArray: false,
-                    isMeleeAttack: true,
-                    maxSizeCategoryOfMass: 0,
-                    name: '',
-                    physMeta: 'Physical',
-                    range: 0,
-                    save: false,
-                    saveAmount: 3,
-                    saveCharacteristic: '',
-                    successes: 0,
-                    xpCost: 10,
-                    components: [],
-                    subEffects: []
-                })
-            },
-            deleteSubEffect(i) {
-                this.subEffects.splice(i, 1)
-            },
-            // CRUD Functions Start
-            addEntry() {
-                if (this.validate()) {
-                    this.dialog.show = false
-                    this.setObject()
-                    this.$emit('addEntryEmit', { arrayName: 'abilities', object: this.ability })
-                }
-            },
-            deleteEntry() {
-                this.dialog.show = false
-                this.$emit('deleteEntryEmit', { arrayName: 'abilities', object: this.ability })
-            },
-            updateEntry() {
-                if (this.validate()) {
-                    this.dialog.show = false
-                    this.setObject()
-                    this.$emit('updateEntryEmit', { arrayName: 'abilities', object: this.ability })
-                }
-            },
-            updateEntryBypass(ability) {
-                this.ability = ability
-                this.setInputs(this.ability)
-                this.setObject()
-                this.$emit('updateEntryEmit', { arrayName: 'abilities', object: this.ability })
-            },
-            setObject() {
-                this.ability.apCost = this.apCost
-                this.ability.areaOfEffect = this.areaOfEffect
-                this.ability.boughtForFree = this.boughtForFree
-                this.ability.color = this.color
-                this.ability.classResource = this.classResource
-                this.ability.crCost = this.crCost
-                this.ability.characteristic = this.characteristic
-                this.ability.damage = this.damage
-                this.ability.description = this.description
-                this.ability.duration = this.duration
-                this.ability.handedness = this.handedness
-                this.ability.id = this.id
-                this.ability.inClass = this.inClass
-                this.ability.isAbilityArray = this.isAbilityArray
-                this.ability.isMeleeAttack = this.isMeleeAttack
-                this.ability.maxSizeCategoryOfMass = this.maxSizeCategoryOfMass
-                this.ability.name = this.name
-                this.ability.physMeta = this.physMeta
-                this.ability.range = this.range
-                this.ability.save = this.save
-                this.ability.saveAmount = this.saveAmount
-                this.ability.saveCharacteristic = this.saveCharacteristic
-                this.ability.successes = this.successes
-                this.ability.xpCost = this.xpCost
-                this.ability.components = this.components
-                this.ability.subEffects = this.subEffects
-            },
-            // CRUD Functions End
-            extraLargeColumns(ability) {
-                if (ability.subEffects.length)
-                    return 6
-                else return 3
-            },
-            mediumColumns(ability) {
-                if (ability.subEffects.length)
-                    return 12
-                else return 6
-            },
-            // Open Dialog Functions
-            addDialog() {
-                this.panel = 0
-                this.setDialog('Add')
-                this.ability = {
+                clearAbility: {
                     apCost: 3,
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
@@ -520,23 +358,91 @@
                     saveAmount: 3,
                     saveCharacteristic: '',
                     successes: 0,
-                    xpCost: 10,
+                    xpCost: 0,
                     components: [],
-                    subEffects: []
+                    subEffects: [],
+                },
+                physMetaOptions: ['Physical', 'Meta', 'Both'],
+                // Input Fields End
+                dialog: {
+                    show: false,
+                    type: ''
+                },
+                filterText: '',
+                panel: 0,
+                subEffectPanel: null,
+                // Validation Start
+                numberRules: [
+                    v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
+                ],
+                textRules: [
+                    v => !!v || 'Field may not be empty'
+                ],
+                valid: false
+                // Validation End
+            }
+        },
+        methods: {
+            addComponent() {
+                this.ability.components.push({
+                    name: ''
+                })
+            },
+            addSubEffect() {
+                this.ability.subEffectPanel = 0
+                let ability = JSON.parse(JSON.stringify(this.clearAbility))
+                ability.id = uuidv4()
+                this.ability.subEffects.push(ability)
+            },
+            deleteSubEffect(i) {
+                this.ability.subEffects.splice(i, 1)
+            },
+            // CRUD Functions Start
+            addEntry() {
+                if (this.validate()) {
+                    this.dialog.show = false
+                    this.$emit('addEntryEmit', { arrayName: 'abilities', object: this.ability })
                 }
-                this.setInputs(this.ability)
+            },
+            deleteEntry() {
+                this.dialog.show = false
+                this.$emit('deleteEntryEmit', { arrayName: 'abilities', object: this.ability })
+            },
+            updateEntry() {
+                if (this.validate()) {
+                    this.dialog.show = false
+                    this.$emit('updateEntryEmit', { arrayName: 'abilities', object: this.ability })
+                }
+            },
+            updateEntryBypass(ability) {
+                this.$emit('updateEntryEmit', { arrayName: 'abilities', object: ability })
+            },
+            // CRUD Functions End
+            extraLargeColumns(ability) {
+                if (ability.subEffects.length)
+                    return 6
+                else return 3
+            },
+            mediumColumns(ability) {
+                if (ability.subEffects.length)
+                    return 12
+                else return 6
+            },
+            // Open Dialog Functions
+            addDialog() {
+                this.panel = 0
+                this.setDialog('Add')
+                this.ability = JSON.parse(JSON.stringify(this.clearAbility))
                 setTimeout(() => {
                     this.$refs.name.focus()
                 }, 200)
             },
             deleteDialog(ability) {
                 this.ability = ability
-                this.setInputs(this.ability)
                 this.setDialog('Delete')
             },
             updateDialog(ability) {
                 this.ability = ability
-                this.setInputs(this.ability)
                 this.setDialog('Edit')
             },
             setDialog(type) {
@@ -544,34 +450,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(ability) {
-                this.apCost = ability.apCost
-                this.areaOfEffect = ability.areaOfEffect
-                this.boughtForFree = ability.boughtForFree
-                this.color = ability.color
-                this.classResource = ability.classResource
-                this.crCost = ability.crCost
-                this.characteristic = ability.characteristic
-                this.damage = ability.damage
-                this.description = ability.description
-                this.duration = ability.duration
-                this.handedness = ability.handedness
-                this.id = ability.id
-                this.inClass = ability.inClass
-                this.isAbilityArray = ability.isAbilityArray
-                this.isMeleeAttack = ability.isMeleeAttack
-                this.maxSizeCategoryOfMass = ability.maxSizeCategoryOfMass
-                this.name = ability.name
-                this.physMeta = ability.physMeta
-                this.range = ability.range
-                this.save = ability.save
-                this.saveAmount = ability.saveAmount
-                this.saveCharacteristic = ability.saveCharacteristic
-                this.successes = ability.successes
-                this.xpCost = ability.xpCost
-                this.components = ability.components
-                this.subEffects = ability.subEffects
             },
             // Open Dialog Functions End
             rollAbility(ability) {
