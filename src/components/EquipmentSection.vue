@@ -51,25 +51,25 @@
                         <v-form ref="form"
                                 v-model="valid">
                             <v-text-field label="Name"
-                                          v-model="name"
+                                          v-model="equipment.name"
                                           ref="name"
                                           :rules="textRules"
                                           required></v-text-field>
                             <v-text-field label="Amount"
                                           type="number"
-                                          v-model="amount"
+                                          v-model="equipment.amount"
                                           min="0"
                                           required></v-text-field>
                             <v-switch label="Is Item" inset
-                                      v-model="isItem">
+                                      v-model="equipment.isItem">
                                 <TooltipComponent slot="prepend" :text="'Limits fields to Name, Amount, and Description and hides ability section'"></TooltipComponent>
                             </v-switch>
-                            <template v-if="!isItem">
+                            <template v-if="!equipment.isItem">
                                 <v-text-field label="AP Cost"
                                               type="number"
-                                              v-model="ability.apCost"></v-text-field>
+                                              v-model="equipment.ability.apCost"></v-text-field>
                                 <v-select label="Characteristic"
-                                          v-model="ability.characteristic"
+                                          v-model="equipment.ability.characteristic"
                                           :items="characteristics"
                                           clearable>
                                     <TooltipComponent slot="prepend" :text="'CHAR used to make check and gets added to damage.'"></TooltipComponent>
@@ -77,12 +77,12 @@
                                 <v-row>
                                     <v-col cols="12">
                                         <v-switch label="Target Saves" inset
-                                                  v-model="ability.save"></v-switch>
+                                                  v-model="equipment.ability.save"></v-switch>
                                     </v-col>
-                                    <template v-if="ability.save">
+                                    <template v-if="equipment.ability.save">
                                         <v-col cols="6">
                                             <v-text-field label="Save Amount"
-                                                          v-model="ability.saveAmount"
+                                                          v-model="equipment.ability.saveAmount"
                                                           type="number">
                                                 <TooltipComponent slot="prepend" :text="'INT/3 automatically added to save amount.'"></TooltipComponent>
                                             </v-text-field>
@@ -90,7 +90,7 @@
                                         <v-col cols="6">
                                             <v-select label="Save Characteristic"
                                                       :items="characteristics"
-                                                      v-model="ability.saveCharacteristic"
+                                                      v-model="equipment.ability.saveCharacteristic"
                                                       clearable></v-select>
                                         </v-col>
                                     </template>
@@ -98,10 +98,10 @@
                                 <!-- Armor Inputs -->
                                 <v-row>
                                     <v-col>
-                                        <v-switch label="Is Armor/Shield" inset v-model="isArmorShied"></v-switch>
+                                        <v-switch label="Is Armor/Shield" inset v-model="equipment.isArmorShield"></v-switch>
                                     </v-col>
                                     <v-col>
-                                        <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="isArmorShied"></v-text-field>
+                                        <v-text-field label="DC to Hit" v-model="equipment.dcToHit" type="number" v-if="equipment.isArmorShield"></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <!-- Armor Inputs End -->
@@ -120,7 +120,7 @@
                                             </h3>
                                         </v-expansion-panel-header>
                                         <v-expansion-panel-content>
-                                            <div v-for="(dm, index) in damageModifications" :key="index">
+                                            <div v-for="(dm, index) in equipment.damageModifications" :key="index">
                                                 <v-autocomplete label="Damage Modification Type"
                                                                 v-model="dm.type"
                                                                 :items="damageTypes"
@@ -136,11 +136,11 @@
                                                 <v-row>
                                                     <v-col>
                                                         <v-switch label="Resistance" inset
-                                                                    v-model="dm.isResistance"></v-switch>
+                                                                  v-model="dm.isResistance"></v-switch>
                                                     </v-col>
                                                     <v-col>
                                                         <v-switch label="Vulnerability" inset
-                                                                    v-model="dm.isVulnerability"></v-switch>
+                                                                  v-model="dm.isVulnerability"></v-switch>
                                                     </v-col>
                                                 </v-row>
                                             </div>
@@ -149,27 +149,27 @@
                                 </v-expansion-panels>
                                 <!-- Damage Modification Inputs End -->
                                 <!-- Weapon Inputs -->
-                                <v-switch label="Is Weapon" inset v-model="isWeapon"></v-switch>
+                                <v-switch label="Is Weapon" inset v-model="equipment.isWeapon"></v-switch>
                                 <v-text-field label="Range"
-                                              v-model="ability.range"
+                                              v-model="equipment.ability.range"
                                               type="number"
-                                              v-if="isWeapon"></v-text-field>
-                                <v-row v-if="isWeapon">
+                                              v-if="equipment.isWeapon"></v-text-field>
+                                <v-row v-if="equipment.isWeapon">
                                     <v-col cols="12">
                                         <h3 class="text-center">
                                             Damage
                                         </h3>
                                     </v-col>
                                     <v-col cols="12" md="6">
-                                        <v-text-field label="Dice" type="number" v-model="ability.damage.dice"></v-text-field>
+                                        <v-text-field label="Dice" type="number" v-model="equipment.ability.damage.dice"></v-text-field>
                                     </v-col>
                                     <v-col cols="12" md="6">
-                                        <v-text-field label="Flat" type="number" v-model="ability.damage.flat"></v-text-field>
+                                        <v-text-field label="Flat" type="number" v-model="equipment.ability.damage.flat"></v-text-field>
                                     </v-col>
                                     <v-col cols="12">
                                         <v-autocomplete label="Damage Types"
                                                         :items="damageTypes"
-                                                        v-model="ability.damage.types"
+                                                        v-model="equipment.ability.damage.types"
                                                         multiple
                                                         :rules="textRules"
                                                         required></v-autocomplete>
@@ -186,21 +186,21 @@
 
                                             <v-select label="Class Resource"
                                                       :items="resources.map((x) => ({ value: x, text: x.name }))"
-                                                      v-model="ability.classResource"
+                                                      v-model="equipment.ability.classResource"
                                                       clearable></v-select>
-                                            <v-text-field label="Class Resource Cost" type="number" v-model="ability.crCost"></v-text-field>
-                                            <v-text-field label="Duration" v-model="ability.duration"></v-text-field>
-                                            <v-switch label="Is Melee Attack" inset v-model="ability.isMeleeAttack"></v-switch>
-                                            <v-text-field label="Area of Effect" v-model="ability.areaOfEffect"></v-text-field>
+                                            <v-text-field label="Class Resource Cost" type="number" v-model="equipment.ability.crCost"></v-text-field>
+                                            <v-text-field label="Duration" v-model="equipment.ability.duration"></v-text-field>
+                                            <v-switch label="Is Melee Attack" inset v-model="equipment.ability.isMeleeAttack"></v-switch>
+                                            <v-text-field label="Area of Effect" v-model="equipment.ability.areaOfEffect"></v-text-field>
                                             <v-select label="Physical/Meta *"
                                                       :items="physMetaOptions"
-                                                      v-model="ability.physMeta"
+                                                      v-model="equipment.ability.physMeta"
                                                       :rules="textRules"
                                                       required></v-select>
-                                            <v-text-field label="Successes" type="number" v-model="ability.successes"></v-text-field>
+                                            <v-text-field label="Successes" type="number" v-model="equipment.ability.successes"></v-text-field>
                                             <v-text-field label="Handedness"
                                                           type="number"
-                                                          v-model="ability.handedness"></v-text-field>
+                                                          v-model="equipment.ability.handedness"></v-text-field>
 
                                         </v-expansion-panel-content>
                                     </v-expansion-panel>
@@ -221,7 +221,7 @@
                                             </h3>
                                         </v-expansion-panel-header>
                                         <v-expansion-panel-content>
-                                            <div v-for="(m, index) in movements" :key="index">
+                                            <div v-for="(m, index) in equipment.movements" :key="index">
                                                 <v-row>
                                                     <v-col>
                                                         <v-autocomplete label="Type"
@@ -246,12 +246,12 @@
                                 <!-- Movement Inputs End -->
                                 <v-combobox label="Body Slot"
                                             :items="slots"
-                                            v-model="slot"></v-combobox>
+                                            v-model="equipment.slot"></v-combobox>
                                 <v-text-field label="Attunement Slots"
-                                              v-model="attunementSlots"
+                                              v-model="equipment.attunementSlots"
                                               type="number"></v-text-field>
                             </template>
-                            <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+                            <v-textarea label="Description" v-model="equipment.description" auto-grow outlined rows="1"></v-textarea>
                         </v-form>
                     </v-card-text>
 
@@ -303,6 +303,7 @@
                     attunementSlots: 0,
                     dcToHit: 1,
                     description: '',
+                    id: null,
                     isActive: true,
                     isArmorShield: false,
                     isItem: false,
@@ -344,172 +345,14 @@
                     damageModifications: [],
                     movements: []
                 },
-                amount: 1,
-                attunementSlots: 0,
-                dcToHit: 1,
-                description: '',
-                id: null,
-                isActive: true,
-                isArmorShied: false,
-                isItem: false,
-                isWeapon: false,
-                name: '',
-                slot: '',
-                ability: {
-                    apCost: 3,
-                    areaOfEffect: 'Single Target',
-                    boughtForFree: true,
-                    color: {},
-                    classResource: '',
-                    crCost: 0,
-                    characteristic: '',
-                    damage: {
-                        dice: 0,
-                        flat: 0,
-                        types: []
-                    },
-                    description: '',
-                    duration: 'Instant',
-                    handedness: 0,
-                    id: '',
-                    inClass: true,
-                    isAbilityArray: false,
-                    isMeleeAttack: true,
-                    maxSizeCategoryOfMass: 0,
-                    name: '',
-                    physMeta: 'Physical',
-                    range: 0,
-                    save: false,
-                    saveAmount: 3,
-                    saveCharacteristic: '',
-                    successes: 0,
-                    xpCost: 0,
-                    components: [],
-                    subEffects: []
-                },
-                damageModifications: [],
-                movements: [],
-                // Input Fields End
-                damageModificationsPanel: null,
-                dialog: {
-                    show: false,
-                    type: ''
-                },
-                movementsPanel: null,
-                physMetaOptions: ['Physical', 'Meta', 'Both'],
-                rollAbility(ability) {
-                    this.$emit('rollAbilityEmit', ability)
-                },
-                rollDamage(ability) {
-                    this.$emit('rollDamageEmit', ability)
-                },
-                panel: 0,
-                slots: ['Head', 'Body', 'Arms', 'Legs', 'Boots', 'Clothes'],
-                subtractAP(apCost) {
-                    this.$emit('subtractAPEmit', apCost)
-                },
-                subtractCR(crCost) {
-                    this.$emit('subtractCREmit', crCost)
-                },
-                // Validation Start
-                numberRules: [
-                    v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
-                ],
-                textRules: [
-                    v => !!v || 'Field may not be empty'
-                ],
-                notNull: [
-                    v => !!v || 'Field may not be empty'
-                ],
-                valid: false
-                // Validation End
-            }
-        },
-        methods: {
-            addChar(index) {
-                this.ability.damage.forEach((damage) => {
-                    damage.addChar = false
-                })
-                this.ability.damage[index].addChar = true
-            },
-            addDamageModification() {
-                this.damageModificationsPanel = 0
-                this.damageModifications.push({
-                    amount: 0,
-                    isEquipment: true,
-                    isVulnerability: false,
-                    isResistance: false,
-                    type: '',
-                })
-            },
-            addMovement() {
-                this.movementsPanel = 0
-                this.movements.push({
-                    amount: 1,
-                    description: `${this.name} Movement`,
-                    type: ''
-                })
-            },
-            deleteDamageModification(i) {
-                this.damageModifications.splice(i, 1)
-            },
-            deleteMovement(i) {
-                this.movements.splice(i, 1)
-            },
-            // CRUD Functions Start
-            addEntry() {
-                if (this.validate()) {
-                    this.dialog.show = false
-                    this.isActive = !this.isItem
-                    this.setObject()
-                    this.$emit('addEntryEmit', { arrayName: 'equipment', object: this.equipment })
-                }
-            },
-            deleteEntry() {
-                this.dialog.show = false
-                this.$emit('deleteEntryEmit', { arrayName: 'equipment', object: this.equipment })
-            },
-            updateEntry() {
-                if (this.validate()) {
-                    this.dialog.show = false
-                    this.setObject()
-                    this.$emit('updateEntryEmit', { arrayName: 'equipment', object: this.equipment })
-                }
-            },
-            updateEntryBypass(object) {
-                this.$emit('updateEntryBypassEmit', { arrayName: 'equipment', object: object })
-            },
-            setObject() {
-                this.equipment = {
-                    amount: this.amount,
-                    attunementSlots: this.attunementSlots,
-                    dcToHit: this.dcToHit,
-                    description: this.description,
-                    id: this.id,
-                    isActive: this.isActive,
-                    isArmorShied: this.isArmorShied,
-                    isItem: this.isItem,
-                    isWeapon: this.isWeapon,
-                    name: this.name,
-                    slot: this.slot,
-                    ability: this.ability,
-                    damageModifications: this.damageModifications,
-                    movements: this.movements
-                }
-                this.equipment.ability.name = this.name
-            },
-            // CRUD Functions End
-            // Open Dialog Functions
-            addDialog() {
-                this.panel = 0
-                this.setDialog('Add')
-                this.equipment = {
+                clearEquipment: {
                     amount: 1,
                     attunementSlots: 0,
                     dcToHit: 1,
                     description: '',
+                    id: null,
                     isActive: true,
-                    isArmorShied: false,
+                    isArmorShield: false,
                     isItem: false,
                     isWeapon: false,
                     name: '',
@@ -548,19 +391,111 @@
                     },
                     damageModifications: [],
                     movements: []
+                },
+                // Input Fields End
+                damageModificationsPanel: null,
+                dialog: {
+                    show: false,
+                    type: ''
+                },
+                movementsPanel: null,
+                physMetaOptions: ['Physical', 'Meta', 'Both'],
+                rollAbility(ability) {
+                    this.$emit('rollAbilityEmit', ability)
+                },
+                rollDamage(ability) {
+                    this.$emit('rollDamageEmit', ability)
+                },
+                panel: 0,
+                slots: ['Head', 'Body', 'Arms', 'Legs', 'Boots', 'Clothes'],
+                subtractAP(apCost) {
+                    this.$emit('subtractAPEmit', apCost)
+                },
+                subtractCR(crCost) {
+                    this.$emit('subtractCREmit', crCost)
+                },
+                // Validation Start
+                numberRules: [
+                    v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
+                ],
+                textRules: [
+                    v => !!v || 'Field may not be empty'
+                ],
+                notNull: [
+                    v => !!v || 'Field may not be empty'
+                ],
+                valid: false
+                // Validation End
+            }
+        },
+        methods: {
+            addChar(index) {
+                this.equipment.ability.damage.forEach((damage) => {
+                    damage.addChar = false
+                })
+                this.equipment.ability.damage[index].addChar = true
+            },
+            addDamageModification() {
+                this.damageModificationsPanel = 0
+                this.equipment.damageModifications.push({
+                    amount: 0,
+                    isEquipment: true,
+                    isVulnerability: false,
+                    isResistance: false,
+                    type: '',
+                })
+            },
+            addMovement() {
+                this.movementsPanel = 0
+                this.equipment.movements.push({
+                    amount: 1,
+                    description: `${this.name} Movement`,
+                    type: ''
+                })
+            },
+            deleteDamageModification(i) {
+                this.equipment.damageModifications.splice(i, 1)
+            },
+            deleteMovement(i) {
+                this.equipment.movements.splice(i, 1)
+            },
+            // CRUD Functions Start
+            addEntry() {
+                if (this.validate()) {
+                    this.dialog.show = false
+                    this.equipment.isActive = !this.equipment.isItem
+                    this.$emit('addEntryEmit', { arrayName: 'equipment', object: this.equipment })
                 }
-                this.setInputs(this.equipment)
+            },
+            deleteEntry() {
+                this.dialog.show = false
+                this.$emit('deleteEntryEmit', { arrayName: 'equipment', object: this.equipment })
+            },
+            updateEntry() {
+                if (this.validate()) {
+                    this.dialog.show = false
+                    this.$emit('updateEntryEmit', { arrayName: 'equipment', object: this.equipment })
+                }
+            },
+            updateEntryBypass(object) {
+                this.$emit('updateEntryBypassEmit', { arrayName: 'equipment', object: object })
+            },            
+            // CRUD Functions End
+            // Open Dialog Functions
+            addDialog() {
+                this.panel = 0
+                this.setDialog('Add')
+                this.equipment = JSON.parse(JSON.stringify(this.clearEquipment))
                 setTimeout(() => {
                     this.$refs.name.focus()
                 }, 200)
             },
             deleteDialog(equipment) {
-                this.equipment = this.characterEquipment.find(x => { return x.id == equipment.id })
-                this.setInputs(this.equipment)
+                this.equipment = equipment
                 this.setDialog('Delete')
             },
             updateDialog(equipment) {
-                this.setInputs(equipment)
+                this.equipment = equipment
                 this.setDialog('Edit')
             },
             setDialog(type) {
@@ -568,22 +503,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(equipment) {
-                this.amount = equipment.amount
-                this.attunementSlots = equipment.attunementSlots
-                this.dcToHit = equipment.dcToHit
-                this.description = equipment.description
-                this.id = equipment.id
-                this.isActive = equipment.isActive
-                this.isArmorShied = equipment.isArmorShied
-                this.isItem = equipment.isItem
-                this.isWeapon = equipment.isWeapon
-                this.name = equipment.name
-                this.slot = equipment.slot
-                this.ability = equipment.ability
-                this.damageModifications = equipment.damageModifications
-                this.movements = equipment.movements
             },
             // Open Dialog Functions End
             useAbility(ability) {
