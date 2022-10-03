@@ -37,19 +37,19 @@
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
                             <v-text-field label="Name"
-                                          v-model="name"
+                                          v-model="skill.name"
                                           v-if="!skill.default"
                                           ref="name"
                                           :rules="textRules"
                                           required></v-text-field>
                             <v-text-field label="Skill Purchases"
                                           type="number"
-                                          v-model="skillIncreases"
+                                          v-model="skill.skillIncreases"
                                           ref="skillIncreases"
                                           :rules="numberRules"
                                           required></v-text-field>
                             <v-select label="Characteristic"
-                                      v-model="characteristic"
+                                      v-model="skill.characteristic"
                                       v-if="!skill.default"
                                       :items="characteristics"
                                       :rules="textRules"
@@ -94,9 +94,14 @@
                     type: ''
                 },
                 // Input Fields Start
-                characteristic: '',
-                name: '',
-                skillIncreases: 0,
+                clearSkill: {
+                    characteristic: '',
+                    default: false,
+                    id: '',
+                    name: '',
+                    skillIncreases: 0,
+                    value: 0
+                },
                 skill: {
                     characteristic: '',
                     default: false,
@@ -123,7 +128,6 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.setObject()
                     this.$emit('addEntryEmit', { arrayName: 'skills', object: this.skill })
                 }
             },
@@ -134,14 +138,8 @@
             updateEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.setObject()
                     this.$emit('updateEntryEmit', { arrayName: 'skills', object: this.skill })
                 }
-            },
-            setObject() {
-                this.skill.characteristic = this.characteristic
-                this.skill.name = this.name
-                this.skill.skillIncreases = this.skillIncreases
             },
             // CRUD Functions End
             rollDiceCheck(value) {
@@ -151,27 +149,17 @@
             addDialog() {
                 this.panel = 0
                 this.setDialog('Add')
-                this.skill = {
-                    characteristic: '',
-                    default: false,
-                    id: '',
-                    name: '',
-                    skillIncreases: 0,
-                    value: 0
-                }
-                this.setInputs(this.skill)
+                this.skill = JSON.parse(JSON.stringify(this.clearSkill))
                 setTimeout(() => {
                     this.$refs.name.focus()
                 }, 200)
             },
             deleteDialog(skill) {
                 this.skill = skill
-                this.setInputs(this.skill)
                 this.setDialog('Delete')
             },
             updateDialog(skill) {
                 this.skill = skill
-                this.setInputs(this.skill)
                 this.setDialog('Edit')
             },
             setDialog(type) {
@@ -179,11 +167,6 @@
                     show: true,
                     type: type
                 }
-            },
-            setInputs(skill) {
-                this.characteristic = skill.characteristic
-                this.name = skill.name
-                this.skillIncreases = skill.skillIncreases
             },
             // Open Dialog Functions End
             validate() {
