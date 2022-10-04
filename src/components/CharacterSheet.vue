@@ -225,13 +225,13 @@
                         <TooltipComponent slot="append" :text="'Journal Entries + Flaws - Traits - Abilty Costs'"></TooltipComponent>
                     </v-text-field>
 
-                    <XPSection :xp="characterSheet.xp"
+                    <JournalSection :xp="characterSheet.xp"
                                :xp-earned="characterSheet.xpEarned"
                                :xp-total="characterSheet.xpTotal"
                                :xp-entries="xpEntries"
                                @addEntryEmit="addEntry($event)"
                                @deleteEntryEmit="deleteEntry($event)"
-                               @updateEntryEmit="updateEntry($event)"></XPSection>
+                               @updateEntryEmit="updateEntry($event)"></JournalSection>
                 </v-col>
                 <v-col cols="12" lg="3" md="6">
                     <TraitFlawSection :is-flaw="true"
@@ -527,13 +527,13 @@
                                               @useAbilityEmit="useAbility($event)"></EquipmentSection>
                         </v-tab-item>
                         <v-tab-item value="xp">
-                            <XPSection :xp="characterSheet.xp"
+                            <JournalSection :xp="characterSheet.xp"
                                        :xp-earned="characterSheet.xpEarned"
                                        :xp-total="characterSheet.xpTotal"
                                        :xp-entries="xpEntries"
                                        @addEntryEmit="addEntry($event)"
                                        @deleteEntryEmit="deleteEntry($event)"
-                                       @updateEntryEmit="updateEntry($event)"></XPSection>
+                                       @updateEntryEmit="updateEntry($event)"></JournalSection>
                         </v-tab-item>
                         <v-tab-item value="statusBuffs">
                             <StatusSection :statuses="statuses"
@@ -838,19 +838,19 @@
     import ClassSection from './ClassSection.vue'
     import DamageModificationSection from './DamageModificationSection.vue'
     import EquipmentSection from './EquipmentSection.vue'
-    import TraitFlawSection from './TraitFlawSection.vue'
     import InputWithEditModal from './InputWithEditModal.vue'
+    import JournalSection from './JournalSection.vue'
+    import TraitFlawSection from './TraitFlawSection.vue'
     import MinionSection from './MinionSection.vue'
     import MovementSection from './MovementSection.vue'
     import ResourceSection from './ResourceSection.vue'
     import SkillSection from './SkillSection.vue'
     import StatusSection from './StatusSection.vue'
     import TooltipComponent from './TooltipComponent.vue'
-    import XPSection from './XPSection.vue'
-    import { useCharacterStore } from '@/stores/CharacterStore'
-    import { useGameDataStore } from '@/stores/GameDataStore'
     import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
     import { db } from '@/stores/db'
+    import { useCharacterStore } from '@/stores/CharacterStore'
+    import { useGameDataStore } from '@/stores/GameDataStore'
     import { v4 as uuidv4 } from 'uuid';
 
     export default {
@@ -870,7 +870,7 @@
             SkillSection,
             StatusSection,
             TooltipComponent,
-            XPSection
+            JournalSection
         },
         setup() {
             const characterStore = useCharacterStore()
