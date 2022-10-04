@@ -5,7 +5,9 @@
     "\\src\\components",
     "\\src\\data",
     "\\src\\router",
+    "\\src\\stores",
     "\\src\\views"
   ],
+  "SelectedNode": "\\src\\data\\effects.json",
   "PreviewInSolutionExplorer": false
 }

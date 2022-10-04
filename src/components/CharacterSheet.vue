@@ -221,7 +221,9 @@
                     </v-row>
 
                     <h3 class="text-center"> XP </h3>
-                    <v-text-field label="Available XP" v-model="characterSheet.xp" disabled></v-text-field>
+                    <v-text-field label="Available XP" v-model="characterSheet.xp" disabled readonly>
+                        <TooltipComponent slot="append" :text="'Journal Entries + Flaws - Traits - Abilty Costs'"></TooltipComponent>
+                    </v-text-field>
 
                     <XPSection :xp="characterSheet.xp"
                                :xp-earned="characterSheet.xpEarned"
@@ -309,7 +311,9 @@
                     </v-text-field>
                 </v-col>
                 <v-col cols="4" md="2">
-                    <v-text-field label="Available XP" v-model="characterSheet.xp" disabled></v-text-field>
+                    <v-text-field label="Available XP" v-model="characterSheet.xp" disabled readonly>
+                        <TooltipComponent slot="append" :text="'Journal Entries + Flaws - Traits - Abilty Costs'"></TooltipComponent>
+                    </v-text-field>
                 </v-col>
             </v-row>
             <v-row>
