@@ -176,20 +176,78 @@
                                     <v-text-field label="Max Size Category Of Mass" type="number" v-model="ability.maxSizeCategoryOfMass"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                    <h3 class="text-center">
-                                        Components
-                                        <v-btn icon color="primary"
-                                               @click.stop="addComponent">
-                                            <v-icon>
-                                                mdi-plus
-                                            </v-icon>
-                                        </v-btn>
-                                    </h3>
-                                    <v-row v-for="(c, index) in ability.components" :key="index">
-                                        <v-col cols="12" md="4">
-                                            <v-text-field label="Name" v-model="c.name"></v-text-field>
-                                        </v-col>
-                                    </v-row>
+                                    <template>
+                                        <v-expansion-panels v-model="componentsPanel">
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>
+                                                    <h3 class="text-center">
+                                                        Components
+                                                        <v-btn icon color="primary"
+                                                               @click.stop="addComponent">
+                                                            <v-icon>
+                                                                mdi-plus
+                                                            </v-icon>
+                                                        </v-btn>
+                                                    </h3>
+                                                </v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <div v-for="(c, index) in ability.components" :key="index">
+                                                        <v-autocomplete label="Effect"
+                                                                        :items="effects.map((x) => ({ value: x, text: x.name}))"
+                                                                        v-model="c.effect">
+                                                            <v-icon color="error" slot="append" @click="deleteComponent(index)">mdi-delete</v-icon>
+                                                        </v-autocomplete>
+                                                        <v-textarea label="Description"
+                                                                    v-model="c.effect.description" disabled
+                                                                    auto-grow outlined rows="1"></v-textarea>
+                                                        <v-textarea label="XP Cost"
+                                                                    v-model="c.effect.xpCost" disabled
+                                                                    auto-grow outlined rows="1"></v-textarea>
+                                                        <v-row>
+                                                            <v-col cols="6">
+                                                                <v-text-field label="Category" v-model="c.effect.category" disabled></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="6">
+                                                                <v-text-field label="Duration" v-model="c.effect.duration" disabled></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="12">
+                                                                <v-textarea label="Notes"
+                                                                            v-model="c.Notes"
+                                                                            auto-grow outlined rows="1"></v-textarea>
+                                                            </v-col>
+                                                            <v-col cols="4">
+                                                                <v-text-field label="Flat Cost" type="number" v-model="c.flatCost"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="4">
+                                                                <v-text-field label="Upcharge" type="number" v-model="c.upcharge"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="4">
+                                                                <v-text-field label="Discount" type="number" v-model="c.discount"></v-text-field>
+                                                            </v-col>
+                                                        </v-row>
+                                                    </div>
+                                                    <v-row>
+                                                        <v-col>
+                                                            <v-text-field label="Flat Costs" v-model="flatXpCosts" disabled readonly>
+                                                                <TooltipComponent slot="prepend" :text="'Minimum 10'"></TooltipComponent>
+                                                            </v-text-field>
+                                                        </v-col>
+                                                        <v-col>
+                                                            <v-text-field label="Upcharges" v-model="upcharges" disabled readonly></v-text-field>
+                                                        </v-col>
+                                                        <v-col>
+                                                            <v-text-field label="Discounts" v-model="discounts" disabled readonly>
+                                                                <TooltipComponent slot="prepend" :text="'Max 90'"></TooltipComponent>
+                                                            </v-text-field>
+                                                        </v-col>
+                                                    </v-row>
+                                                    <v-text-field label="Calculated XP" v-model="xpCost" disabled readonly>
+                                                        <TooltipComponent slot="prepend" :text="'Calculated XP: Minimum 10, not automatically applied to Ability XP Cost'"></TooltipComponent>
+                                                    </v-text-field>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                        </v-expansion-panels>
+                                    </template>
                                 </v-col>
                                 <v-col cols="12">
                                     <template>
@@ -277,6 +335,7 @@
             ap: Number,
             characteristics: Array,
             damageTypes: Array,
+            effects: Array,
             resources: Array,
             successesFromIntelligence: Number
         },
@@ -293,6 +352,32 @@
                     })
 
                 return abilities
+            },
+            discounts() {
+                let discounts = this.ability.components.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.discount
+                }, 0)
+                return discounts > 90 ? 90 : discounts
+            },
+            flatXpCosts() {
+                let flatXpCosts = this.ability.components.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.flatCost
+                }, 0)
+                return flatXpCosts < 10 ? 10 : flatXpCosts
+            },
+            upcharges() {
+                let upcharges = this.ability.components.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.upcharge
+                }, 0) / 100 + 1
+                return upcharges
+            },
+            xpCost() {
+                let xpCost = 0
+
+                let calculatedCost = Math.floor(this.flatXpCosts * this.upcharges * (1 - (this.discounts / 100)))
+                xpCost = calculatedCost < 10 ? 10 : calculatedCost
+
+                return xpCost
             }
         },
         data() {
@@ -364,6 +449,7 @@
                 },
                 physMetaOptions: ['Physical', 'Meta', 'Both'],
                 // Input Fields End
+                componentsPanel: null,
                 dialog: {
                     show: false,
                     type: ''
@@ -384,15 +470,24 @@
         },
         methods: {
             addComponent() {
+                this.componentsPanel = 0
                 this.ability.components.push({
-                    name: ''
+                    discount: 0,
+                    effect: {},
+                    flatCost: 0,
+                    name: '',
+                    notes: '',
+                    upcharge: 0,
                 })
             },
             addSubEffect() {
-                this.ability.subEffectPanel = 0
+                this.subEffectPanel = 0
                 let ability = JSON.parse(JSON.stringify(this.clearAbility))
                 ability.id = uuidv4()
                 this.ability.subEffects.push(ability)
+            },
+            deleteComponent(i) {
+                this.ability.components.splice(i, 1)
             },
             deleteSubEffect(i) {
                 this.ability.subEffects.splice(i, 1)

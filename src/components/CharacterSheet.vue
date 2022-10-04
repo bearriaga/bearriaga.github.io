@@ -161,6 +161,7 @@
                                     :ap="characterSheet.ap"
                                     :characteristics="characteristics"
                                     :damage-types="damageTypes"
+                                    :effects="effects"
                                     :resources="resources"
                                     :successes-from-intelligence="successesFromIntelligence"
                                     @addEntryEmit="addEntry($event)"
@@ -415,6 +416,7 @@
                                             :ap="characterSheet.ap"
                                             :characteristics="characteristics"
                                             :damage-types="damageTypes"
+                                            :effects="effects"
                                             :resources="resources"
                                             :successes-from-intelligence="successesFromIntelligence"
                                             @addEntryEmit="addEntry($event)"
@@ -1670,6 +1672,7 @@
                     amount: 0,
                     type: ''
                 },
+                effects: this.gameDataStore.effects,
                 generalDialog: {
                     buttonText: '',
                     buttonType: '',
