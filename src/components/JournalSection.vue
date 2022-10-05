@@ -1,58 +1,66 @@
 <template>
     <div>
-        <template>
-            <v-expansion-panels v-model="panel">
-                <v-expansion-panel>
-                    <v-expansion-panel-header>
-                        <h3 class="text-center">
-                            XP Entries
-                            <v-btn icon color="primary"
-                                   @click.stop="addDialog">
-                                <v-icon>
-                                    mdi-plus
-                                </v-icon>
-                            </v-btn>
-                        </h3>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <JournalListItem v-for="entry in xpEntries" :key="entry.key"
-                                         :entry="entry"
-                                         @deleteEntryEmit="deleteDialog($event)"
-                                         @updateEntryEmit="updateEntry($event)"></JournalListItem>
-                    </v-expansion-panel-content>
-                </v-expansion-panel>
-            </v-expansion-panels>
-        </template>
+        <v-expansion-panels v-model="panel">
+            <v-expansion-panel>
+                <v-expansion-panel-header>
+                    <h3 class="text-center">
+                        Journal
+                        <v-btn icon color="primary"
+                               @click.stop="addDialog">
+                            <v-icon>
+                                mdi-plus
+                            </v-icon>
+                        </v-btn>
+                    </h3>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                    <JournalListItem v-for="entry in journalEntries" :key="entry.key"
+                                     :entry="entry"
+                                     @deleteEntryEmit="deleteDialog($event)"
+                                     @moneyAddSubtractEmit="moneyAddSubtract($event)"
+                                     @updateEntryEmit="updateEntry($event)"></JournalListItem>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-expansion-panels>
 
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
-                        {{dialog.type}} XP Entry
+                        {{dialog.type}} Journal Entry
                     </v-card-title>
 
                     <v-card-text>
                         <v-form ref="form"
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
+                            <v-text-field label="Title" v-model="journalEntry.name"></v-text-field>
                             <v-row>
-                                <v-col>
-                                    <v-text-field label="Amount"
+                                <v-col cols="6" sm="3">
+                                    <v-text-field label="XP"
                                                   type="number"
-                                                  v-model="xpEntry.amount"
-                                                  ref="amount"
-                                                  :rules="numberRules"
-                                                  required></v-text-field>
+                                                  v-model="journalEntry.xp"
+                                                  ref="xp"></v-text-field>
                                 </v-col>
-                                <v-col>
-                                    <v-text-field label="Date"
-                                                  type="date"
-                                                  v-model="xpEntry.date"></v-text-field>
+                                <v-col cols="6" sm="3">
+                                    <v-switch label="Class XP" inset v-model="journalEntry.classXP"></v-switch>
+                                </v-col>
+                                <v-col cols="12" sm="6">
+                                    <v-text-field label="Money"
+                                                  type="number"
+                                                  v-model="journalEntry.money">
+                                        <TooltipComponent slot="append" :text="'Automatically Added/Subtracted'"></TooltipComponent>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="6">
+                                    <v-text-field label="Date" type="date" v-model="journalEntry.date"></v-text-field>
+                                </v-col>
+                                <v-col cols="6">
+                                    <v-text-field label="Game Date" placeholder="Ex: Stardate 46635.2" v-model="journalEntry.gameDate"></v-text-field>
                                 </v-col>
                             </v-row>
-                            <v-switch label="Class XP" inset v-model="xpEntry.classXP"></v-switch>
-                            <v-text-field label="Description"
-                                          v-model="xpEntry.description"></v-text-field>
+                            <v-textarea label="Notes" v-model="journalEntry.description"
+                                        auto-grow outlined rows="1"></v-textarea>
                         </v-form>
                     </v-card-text>
 
@@ -74,17 +82,19 @@
 
 <script>
     import JournalListItem from './JournalListItem.vue'
+    import TooltipComponent from './TooltipComponent.vue'
 
     export default {
         name: 'XPSection',
         components: {
-            JournalListItem
+            JournalListItem,
+            TooltipComponent
         },
         props: {
+            journalEntries: Array,
             xp: Number,
             xpEarned: Number,
             xpTotal: Number,
-            xpEntries: Array
         },
         data() {
             return {
@@ -94,26 +104,32 @@
                 },
                 availableXP: this.xp,
                 // Input Fields Start
-                clearXpEntry: {
-                    amount: 1,
+                clearJournalEntry: {
                     classXP: false,
                     date: null,
                     description: '',
+                    gameDate: '',
                     id: '',
+                    money: 0,
+                    name: '',
+                    xp: 0,
                 },
-                xpEntry: {
-                    amount: 1,
+                journalEntry: {
                     classXP: false,
                     date: null,
                     description: '',
-                    id: ''
+                    gameDate: '',
+                    id: '',
+                    money: 0,
+                    name: '',
+                    xp: 0,
                 },
                 // Input Fields End
-                panel: 0,
+                panel: null,
                 // Validation Start
-                numberRules: [
-                    v => !isNaN(+v) && v >= 1 || 'Field may not be empty and value must be 1 or higher'
-                ],
+                //numberRules: [
+                //    v => !isNaN(+v) && v >= 1 || 'Field may not be empty and value must be 1 or higher'
+                //],
                 valid: false
                 // Validation End
             }
@@ -123,28 +139,33 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.$emit('addEntryEmit', { arrayName: 'xpEntries', object: this.xpEntry })
+                    this.$emit('addEntryEmit', { arrayName: 'journalEntries', object: this.journalEntry })
+                    this.moneyAddSubtract({ add: true, amount: this.journalEntry.money })
                 }
             },
             deleteEntry() {
                 this.dialog.show = false
-                this.$emit('deleteEntryEmit', { arrayName: 'xpEntries', object: this.xpEntry })
+                this.$emit('deleteEntryEmit', { arrayName: 'journalEntries', object: this.journalEntry })
             },
-            updateEntry(xpEntry) {
-                this.$emit('updateEntryEmit', { arrayName: 'xpEntries', object: xpEntry })
+            updateEntry(journalEntry) {
+                this.$emit('updateEntryEmit', { arrayName: 'journalEntries', object: journalEntry })
             },
             // CRUD Functions End
+            moneyAddSubtract(moneyObj) {
+                moneyObj.emit = true
+                this.$emit('moneyAddSubtractEmit', moneyObj)
+            },
             // Open Dialog Functions
             addDialog() {
                 this.panel = 0
                 this.setDialog('Add')
-                this.xpEntry = JSON.parse(JSON.stringify(this.clearXpEntry))
+                this.journalEntry = JSON.parse(JSON.stringify(this.clearJournalEntry))
                 setTimeout(() => {
-                    this.$refs.amount.focus()
+                    this.$refs.xp.focus()
                 }, 200)
             },
-            deleteDialog(xpEntry) {
-                this.xpEntry = xpEntry 
+            deleteDialog(journalEntry) {
+                this.journalEntry = journalEntry
                 this.setDialog('Delete')
             },
             setDialog(type) {

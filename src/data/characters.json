@@ -34,7 +34,7 @@
     "luckFavored": false,
     "luckIllFavored": false,
     "luckNothingToChance": false,
-    "money": 227,
+    "money": 527,
     "movement": 3,
     "name": "Belif",
     "race": "Bluman",
@@ -43,9 +43,9 @@
     "rerollsIncreases": 0,
     "size": 1,
     "speedPreperationIsKey": false,
-    "xp": 186,
-    "xpEarned": 950,
-    "xpTotal": 1050,
+    "xp": 336,
+    "xpEarned": 1100,
+    "xpTotal": 1200,
     "abilities": [
       {
         "apCost": "3",
@@ -662,13 +662,13 @@
         "id": "Atwood Galahad",
         "age": 0,
         "ap": 0,
-        "apMax": 0,
+        "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
         "attunementSlotsMax": 10,
         "background": "",
         "bp": 0,
-        "bpMax": 0,
+        "bpMax": null,
         "bpIncreases": 0,
         "fitness": 4,
         "fitnessAdjustment": 0,
@@ -682,10 +682,10 @@
         "resistanceAdjustment": 0,
         "luck": 1,
         "luckAdjustment": 0,
-        "dcToHit": 0,
+        "dcToHit": 3,
         "dcToHitIncreases": 0,
         "hp": 0,
-        "hpMax": 0,
+        "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
         "initiativeIncreases": 0,
@@ -717,19 +717,20 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "xpEntries": []
+        "journalEntries": [],
+        "key": "Atwood GalahadAtwood Galahad0"
       },
       {
         "id": "Grogg",
         "age": 0,
         "ap": 0,
-        "apMax": 0,
+        "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
         "attunementSlotsMax": 10,
         "background": "",
         "bp": 0,
-        "bpMax": 0,
+        "bpMax": null,
         "bpIncreases": 0,
         "fitness": 4,
         "fitnessAdjustment": 0,
@@ -743,10 +744,10 @@
         "resistanceAdjustment": 0,
         "luck": 1,
         "luckAdjustment": 0,
-        "dcToHit": 0,
+        "dcToHit": 3,
         "dcToHitIncreases": 0,
         "hp": 0,
-        "hpMax": 0,
+        "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
         "initiativeIncreases": 0,
@@ -778,19 +779,20 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "xpEntries": []
+        "journalEntries": [],
+        "key": "GroggGrogg0"
       },
       {
         "id": "DanaMiniCotton",
         "age": 0,
         "ap": 0,
-        "apMax": 0,
+        "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
         "attunementSlotsMax": 10,
         "background": "",
         "bp": 0,
-        "bpMax": 0,
+        "bpMax": null,
         "bpIncreases": 0,
         "fitness": 4,
         "fitnessAdjustment": 0,
@@ -804,10 +806,10 @@
         "resistanceAdjustment": 0,
         "luck": 1,
         "luckAdjustment": 0,
-        "dcToHit": 0,
+        "dcToHit": 3,
         "dcToHitIncreases": 0,
         "hp": 0,
-        "hpMax": 0,
+        "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
         "initiativeIncreases": 0,
@@ -839,19 +841,20 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "xpEntries": []
+        "journalEntries": [],
+        "key": "DanaMiniCottonDana \"Mini\" Cotton\"0"
       },
       {
         "id": "Zar'goh",
         "age": 0,
         "ap": 0,
-        "apMax": 0,
+        "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
         "attunementSlotsMax": 10,
         "background": "",
         "bp": 0,
-        "bpMax": 0,
+        "bpMax": null,
         "bpIncreases": 0,
         "fitness": 4,
         "fitnessAdjustment": 0,
@@ -865,10 +868,10 @@
         "resistanceAdjustment": 0,
         "luck": 1,
         "luckAdjustment": 0,
-        "dcToHit": 0,
+        "dcToHit": 3,
         "dcToHitIncreases": 0,
         "hp": 0,
-        "hpMax": 0,
+        "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
         "initiativeIncreases": 0,
@@ -900,7 +903,8 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "xpEntries": []
+        "journalEntries": [],
+        "key": "Zar'gohZar'goh0"
       }
     ],
     "movements": [],
@@ -980,30 +984,61 @@
     ],
     "statuses": [],
     "traits": [],
-    "xpEntries": [
+    "journalEntries": [
       {
-        "amount": 500,
         "classXP": false,
-        "description": "Character Creation",
         "date": null,
+        "description": "",
+        "gameDate": null,
         "id": "1654386228029",
+        "money": 0,
+        "name": "Character Creation",
+        "xp": 500,
         "key": "16543862280291"
       },
       {
-        "amount": "300",
         "classXP": true,
         "date": null,
-        "description": "Necromancer",
+        "description": "",
+        "gameDate": null,
         "id": "1661998619617",
+        "money": 0,
+        "name": "Necromancer",
+        "xp": 300,
         "key": "16619986196171"
       },
       {
-        "amount": "150",
         "classXP": false,
         "date": "2022-09-09",
-        "description": "Session 1 XP",
+        "description": "",
+        "gameDate": null,
         "id": "1662786649608",
+        "money": 0,
+        "name": "Session 1",
+        "xp": 150,
         "key": "16627866496081"
+      },
+      {
+        "classXP": false,
+        "date": null,
+        "description": "",
+        "gameDate": "",
+        "id": "35971ed3-7c32-4318-9f9f-b0438aed1eaa",
+        "money": "-200",
+        "name": "Betting on Teddy Fight",
+        "xp": "",
+        "key": "35971ed3-7c32-4318-9f9f-b0438aed1eaa1"
+      },
+      {
+        "classXP": false,
+        "date": "2022-09-23",
+        "description": "",
+        "gameDate": "",
+        "id": "22585eb2-95e4-4273-8025-85713af381b3",
+        "money": "500",
+        "name": "Session 2",
+        "xp": "150",
+        "key": "22585eb2-95e4-4273-8025-85713af381b31"
       }
     ]
   },
@@ -1541,30 +1576,39 @@
         "key": "16626777640971"
       }
     ],
-    "xpEntries": [
+    "journalEntries": [
       {
-        "amount": "500",
         "classXP": false,
         "date": null,
+        "gameDate": null,
         "description": "level 1",
         "id": "1662675867743",
-        "key": "16626758677431"
+        "key": "16626758677431",
+        "money": 0,
+        "name": "",
+        "xp": 500
       },
       {
-        "amount": "300",
         "classXP": true,
         "date": null,
+        "gameDate": null,
         "description": "Savage",
         "id": "1662675888975",
-        "key": "16626758889751"
+        "key": "16626758889751",
+        "money": 0,
+        "name": "",
+        "xp": 300
       },
       {
-        "amount": "150",
         "classXP": false,
         "date": "2022-09-09",
+        "gameDate": null,
         "description": "Session 1",
         "id": "1662932684249",
-        "key": "16629326842491"
+        "key": "16629326842491",
+        "money": 0,
+        "name": "",
+        "xp": 150
       }
     ]
   },
@@ -1678,7 +1722,7 @@
     ],
     "statuses": [],
     "traits": [],
-    "xpEntries": []
+    "journalEntries": []
   },
   {
     "id": "default",
@@ -1893,13 +1937,16 @@
     ],
     "statuses": [],
     "traits": [],
-    "xpEntries": [
+    "journalEntries": [
       {
-        "amount": 500,
         "classXP": false,
         "description": "Character Creation",
         "date": null,
-        "id": "1654386228029"
+        "gameDate": null,
+        "id": "1654386228029",
+        "money": 0,
+        "name": "",
+        "xp": 500
       }
     ]
   },
@@ -3699,69 +3746,96 @@
       }
     ],
     "statuses": [],
-    "xpEntries": [
+    "journalEntries": [
       {
-        "amount": 500,
         "classXP": false,
         "description": "Character Creation",
         "date": "2022-04-22",
-        "id": "1654386228019"
+        "gameDate": null,
+        "id": "1654386228019",
+        "money": 0,
+        "name": "",
+        "xp": 500
       },
       {
-        "amount": 300,
         "classXP": true,
         "description": "Totem Warrior Class XP",
         "date": "2022-04-22",
-        "id": "1654386228018"
+        "gameDate": null,
+        "id": "1654386228018",
+        "money": 0,
+        "name": "",
+        "xp": 300
       },
       {
-        "amount": 300,
         "classXP": true,
         "description": "Game Hunter Class XP",
         "date": "2022-05-06",
-        "id": "1654386228017"
+        "gameDate": null,
+        "id": "1654386228017",
+        "money": 0,
+        "name": "",
+        "xp": 300
       },
       {
-        "amount": 310,
         "classXP": false,
         "description": "Session 1 XP",
         "date": "2022-05-06",
-        "id": "1654386228018"
+        "gameDate": null,
+        "id": "1654386228018",
+        "money": 0,
+        "name": "",
+        "xp": 310
       },
       {
-        "amount": 315,
         "classXP": false,
         "description": "Session 2 XP",
         "date": "2022-05-21",
-        "id": "1654386228017"
+        "gameDate": null,
+        "id": "1654386228017",
+        "money": 0,
+        "name": "",
+        "xp": 315
       },
       {
-        "amount": 150,
         "classXP": false,
         "description": "Session 3 XP",
         "date": "2022-06-03",
-        "id": "1654386228017"
+        "gameDate": null,
+        "id": "1654386228017",
+        "money": 0,
+        "name": "",
+        "xp": 150
       },
       {
-        "amount": 150,
         "classXP": false,
         "description": "Session 4 XP",
         "date": "2022-06-18",
-        "id": "1654386228017"
+        "gameDate": null,
+        "id": "1654386228017",
+        "money": 0,
+        "name": "",
+        "xp": 150
       },
       {
-        "amount": 160,
         "classXP": false,
         "description": "Session 5 XP",
         "date": "2022-07-02",
-        "id": "1654386228017"
+        "gameDate": null,
+        "id": "1654386228017",
+        "money": 0,
+        "name": "",
+        "xp": 160
       },
       {
-        "amount": "150",
         "classXP": false,
         "date": "2022-07-15",
+        "gameDate": null,
         "description": "Session 6",
-        "id": "1659067608875"
+        "id": "1659067608875",
+        "money": 0,
+        "name": "",
+        "xp": 150
       }
     ]
   }

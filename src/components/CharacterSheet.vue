@@ -17,7 +17,7 @@
                 </v-col>
                 <v-col cols="4" md="2">
                     <v-text-field label="Level" v-model="characterSheet.level" disabled readonly>
-                        <TooltipComponent slot="append" :text="'Level = non-class XP Entries / 500 round down'"></TooltipComponent>
+                        <TooltipComponent slot="append" :text="'Level = non-class XP / 500 round down'"></TooltipComponent>
                     </v-text-field>
                 </v-col>
                 <v-col cols="4" md="2">
@@ -214,8 +214,8 @@
                             <v-text-field type="number" min="0"
                                           v-model="moneyModifyAmount"
                                           label="Add/Subtract Money">
-                                <v-icon color="success" slot="append" @click="moneyAddSubtract(true)">mdi-plus</v-icon>
-                                <v-icon color="error" slot="append" @click="moneyAddSubtract(false)">mdi-minus</v-icon>
+                                <v-icon color="success" slot="append" @click="moneyAddSubtract({add: true, amount: moneyModifyAmount})">mdi-plus</v-icon>
+                                <v-icon color="error" slot="append" @click="moneyAddSubtract({add: false, amount: moneyModifyAmount})">mdi-minus</v-icon>
                             </v-text-field>
                         </v-col>
                     </v-row>
@@ -225,13 +225,14 @@
                         <TooltipComponent slot="append" :text="'Journal Entries + Flaws - Traits - Abilty Costs'"></TooltipComponent>
                     </v-text-field>
 
-                    <JournalSection :xp="characterSheet.xp"
-                               :xp-earned="characterSheet.xpEarned"
-                               :xp-total="characterSheet.xpTotal"
-                               :xp-entries="xpEntries"
-                               @addEntryEmit="addEntry($event)"
-                               @deleteEntryEmit="deleteEntry($event)"
-                               @updateEntryEmit="updateEntry($event)"></JournalSection>
+                    <JournalSection :journal-entries="journalEntries"
+                                    :xp="characterSheet.xp"
+                                    :xp-earned="characterSheet.xpEarned"
+                                    :xp-total="characterSheet.xpTotal"
+                                    @addEntryEmit="addEntry($event)"
+                                    @deleteEntryEmit="deleteEntry($event)"
+                                    @moneyAddSubtractEmit="moneyAddSubtract($event)"
+                                    @updateEntryEmit="updateEntry($event)"></JournalSection>
                 </v-col>
                 <v-col cols="12" lg="3" md="6">
                     <TraitFlawSection :is-flaw="true"
@@ -307,7 +308,7 @@
                 </v-col>
                 <v-col cols="4" md="2">
                     <v-text-field label="Level" v-model="characterSheet.level" disabled readonly>
-                        <TooltipComponent slot="append" :text="'Level = non-class XP Entries / 500 round down'"></TooltipComponent>
+                        <TooltipComponent slot="append" :text="'Level = non-class XP / 500 round down'"></TooltipComponent>
                     </v-text-field>
                 </v-col>
                 <v-col cols="4" md="2">
@@ -410,7 +411,6 @@
                         <v-tab href="#tab3">Damage Modifications</v-tab>
                         <v-tab href="#tab4">Classes and Traits</v-tab>
                         <v-tab href="#inventory">Inventory</v-tab>
-                        <v-tab href="#xp">XP</v-tab>
                         <v-tab href="#statusBuffs">Statuses and Buffs</v-tab>
                         <v-tab href="#minions">Minions</v-tab>
                     </v-tabs>
@@ -501,11 +501,19 @@
                                     <v-text-field type="number" min="0"
                                                   v-model="moneyModifyAmount"
                                                   label="Add/Subtract Money">
-                                        <v-icon color="success" slot="append" @click="moneyAddSubtract(true)">mdi-plus</v-icon>
-                                        <v-icon color="error" slot="append" @click="moneyAddSubtract(false)">mdi-minus</v-icon>
+                                        <v-icon color="success" slot="append" @click="moneyAddSubtract({add: true, amount: moneyModifyAmount})">mdi-plus</v-icon>
+                                        <v-icon color="error" slot="append" @click="moneyAddSubtract({add: false, amount: moneyModifyAmount})">mdi-minus</v-icon>
                                     </v-text-field>
                                 </v-col>
                             </v-row>
+                            <JournalSection :journal-entries="journalEntries"
+                                            :xp="characterSheet.xp"
+                                            :xp-earned="characterSheet.xpEarned"
+                                            :xp-total="characterSheet.xpTotal"
+                                            @addEntryEmit="addEntry($event)"
+                                            @deleteEntryEmit="deleteEntry($event)"
+                                            @moneyAddSubtractEmit="moneyAddSubtract($event)"
+                                            @updateEntryEmit="updateEntry($event)"></JournalSection>
                             <EquipmentSection :ap="characterSheet.ap"
                                               :characteristics="characteristics"
                                               :character-equipment="characterEquipment"
@@ -525,15 +533,6 @@
                                               @updateEntryEmit="updateEntry($event)"
                                               @updateEntryBypassEmit="updateEntry($event)"
                                               @useAbilityEmit="useAbility($event)"></EquipmentSection>
-                        </v-tab-item>
-                        <v-tab-item value="xp">
-                            <JournalSection :xp="characterSheet.xp"
-                                       :xp-earned="characterSheet.xpEarned"
-                                       :xp-total="characterSheet.xpTotal"
-                                       :xp-entries="xpEntries"
-                                       @addEntryEmit="addEntry($event)"
-                                       @deleteEntryEmit="deleteEntry($event)"
-                                       @updateEntryEmit="updateEntry($event)"></JournalSection>
                         </v-tab-item>
                         <v-tab-item value="statusBuffs">
                             <StatusSection :statuses="statuses"
@@ -965,8 +964,8 @@
                 return (hp > 1) ? hp : 1
             },
             level() {
-                let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
-                    return +previousValue + +entry.amount
+                let nonClassXP = this.characterSheet.journalEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
+                    return +previousValue + +entry.xp
                 }, 0)
                 return Math.floor(nonClassXP / 500)
             },
@@ -987,8 +986,8 @@
                 }, 0)
             },
             xpEarned() {
-                return this.characterSheet.xpEntries.reduce((previousValue, entry) => {
-                    return +previousValue + +entry.amount
+                return this.characterSheet.journalEntries.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.xp
                 }, 0)
             },
             xpTotal() {
@@ -1551,15 +1550,15 @@
 
                 return traits
             },
-            xpEntries() {
-                let xpEntries = []
+            journalEntries() {
+                let journalEntries = []
 
-                this.characterSheet.xpEntries.forEach(xpEntry => {
-                    xpEntry.key = xpEntry.id + this.updateCharacter
-                    xpEntries.push(xpEntry)
+                this.characterSheet.journalEntries.forEach(journalEntry => {
+                    journalEntry.key = journalEntry.id + this.updateCharacter
+                    journalEntries.push(journalEntry)
                 })
 
-                return xpEntries
+                return journalEntries
             }
         },
         created() {
@@ -1827,12 +1826,12 @@
                 this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases + +this.buffAmount({ type: 'DC to Hit' })
 
                 //handles xpEarned, level
-                let nonClassXP = this.characterSheet.xpEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
-                    return +previousValue + +entry.amount
+                let nonClassXP = this.characterSheet.journalEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
+                    return +previousValue + +entry.xp
                 }, 0)
                 this.characterSheet.level = Math.floor(nonClassXP / 500)
-                this.characterSheet.xpEarned = this.characterSheet.xpEntries.reduce((previousValue, entry) => {
-                    return +previousValue + +entry.amount
+                this.characterSheet.xpEarned = this.characterSheet.journalEntries.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.xp
                 }, 0)
                 //end
                 this.characterSheet.rerollsMax = +this.luck + +this.characterSheet.rerollsIncreases
@@ -2249,12 +2248,14 @@
                     this.generalDialog.show = true
                 }
             },
-            moneyAddSubtract(add) {
-                if (add)
-                    this.characterSheet.money = +this.characterSheet.money + +this.moneyModifyAmount
+            moneyAddSubtract(moneyObj) {
+                if (moneyObj.add)
+                    this.characterSheet.money = +this.characterSheet.money + +moneyObj.amount
                 else
-                    this.characterSheet.money = +this.characterSheet.money - +this.moneyModifyAmount
-                this.moneyModifyAmount = 0
+                    this.characterSheet.money = +this.characterSheet.money - +moneyObj.amount
+
+                if (!moneyObj.emit)
+                    this.moneyModifyAmount = 0
             },
             //Reroll Functions
             rerollSelectedDamage() {

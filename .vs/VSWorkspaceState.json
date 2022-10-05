@@ -8,6 +8,6 @@
     "\\src\\stores",
     "\\src\\views"
   ],
-  "SelectedNode": "\\src\\data\\effects.json",
+  "SelectedNode": "\\src\\components\\JournalListItem.vue",
   "PreviewInSolutionExplorer": false
 }
