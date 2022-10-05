@@ -15,10 +15,10 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <XPEntryListItem v-for="entry in xpEntries" :key="entry.key"
+                        <JournalListItem v-for="entry in xpEntries" :key="entry.key"
                                          :entry="entry"
                                          @deleteEntryEmit="deleteDialog($event)"
-                                         @updateEntryEmit="updateEntry($event)"></XPEntryListItem>
+                                         @updateEntryEmit="updateEntry($event)"></JournalListItem>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -73,12 +73,12 @@
 </template>
 
 <script>
-    import XPEntryListItem from './XPEntryListItem.vue'
+    import JournalListItem from './JournalListItem.vue'
 
     export default {
         name: 'XPSection',
         components: {
-            XPEntryListItem
+            JournalListItem
         },
         props: {
             xp: Number,
