@@ -598,7 +598,14 @@
                 </div>-->
             </v-col>
             <v-col>
-                <v-btn color="primary" @click="saveCharacterAsFile">Export Character</v-btn>
+                <v-row>
+                    <v-col>
+                        <v-btn color="primary" @click="saveCharacterAsFile">Export Character</v-btn>
+                    </v-col>
+                    <v-col>
+                        <v-file-input label="Import Character" ref="doc" accept=".txt,.json" v-model="characterFile" @change="readCharacterFromFile"></v-file-input>
+                    </v-col>
+                </v-row>
             </v-col>
         </v-row>
         <v-row>
@@ -1612,6 +1619,7 @@
                     'luck'
                 ],
                 clearCharacter: this.characterStore.getCharacterById('clear'),
+                characterFile: null,
                 characterSheet: this.characterStore.getCharacterById('clear'),
                 cleanseDialog: {
                     selectedStatuses: [],
@@ -2145,6 +2153,16 @@
 
                     if (this.layoutOptions.includes(options.layout))
                         this.layout = options.layout
+                }
+            },
+            readCharacterFromFile() {
+                if (this.characterFile) {
+                    var reader = new FileReader()
+                    reader.readAsText(this.characterFile)
+                    reader.onload = () => {
+                        this.characterSheet = JSON.parse(reader.result)
+                        this.characterFile = null
+                    }
                 }
             },
             saveCharacterConfirm() {
