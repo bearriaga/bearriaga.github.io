@@ -44,7 +44,6 @@
                 links: [
                     { icon: 'mdi-home', text: 'Home', route: '/' },
                     { icon: 'mdi-account-box', text: 'Character Sheet', route: '/charactersheet' },
-                    { icon: 'mdi-account-box', text: 'Character Sheet 2', route: '/charactersheet2' },
                     { icon: 'mdi-dice-d20', text: 'Initiative Roller', route: '/initiative' }
                     //,
                     //{ icon: 'mdi-file-account', text: 'Resume', route: '/resume' }

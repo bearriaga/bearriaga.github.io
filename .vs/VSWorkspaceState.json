@@ -2,11 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components",
-    "\\src\\data",
-    "\\src\\router",
-    "\\src\\stores",
-    "\\src\\views"
+    "\\src\\components"
   ],
+  "SelectedNode": "\\src\\components\\SkillSection.vue",
   "PreviewInSolutionExplorer": false
 }
