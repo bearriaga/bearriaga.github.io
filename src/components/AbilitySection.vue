@@ -336,6 +336,7 @@
             characteristics: Array,
             damageTypes: Array,
             effects: Array,
+            panelProp: Number,
             resources: Array,
             successesFromIntelligence: Number
         },
@@ -455,7 +456,7 @@
                     type: ''
                 },
                 filterText: '',
-                panel: 0,
+                panel: this.panelProp,
                 subEffectPanel: null,
                 // Validation Start
                 numberRules: [
@@ -564,6 +565,11 @@
             },
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('updatePanelEmit', { name: 'abilityPanel', value: this.panel })
             }
         }
     }

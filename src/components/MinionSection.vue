@@ -104,7 +104,8 @@
         },
         props: {
             clearCharacter: Object,
-            minions: Array
+            minions: Array,
+            panelProp: Number
         },
         data() {
             return {
@@ -115,7 +116,7 @@
                 // Input Fields Start
                 minion: JSON.parse(JSON.stringify(this.clearCharacter)),
                 // Input Fields End
-                panel: 0,
+               panel: this.panelProp,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -173,6 +174,11 @@
             },
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('updatePanelEmit', { name: 'minionPanel', value: this.panel })
             }
         }
     }

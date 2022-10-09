@@ -292,6 +292,7 @@
             movementApIcon: String,
             movementApIconColor: String,
             movementTypes: Array,
+            panelProp: Number,
             resources: Array,
             successesFromIntelligence: Number
         },
@@ -406,7 +407,7 @@
                 rollDamage(ability) {
                     this.$emit('rollDamageEmit', ability)
                 },
-                panel: 0,
+               panel: this.panelProp,
                 slots: ['Head', 'Body', 'Arms', 'Legs', 'Boots', 'Clothes'],
                 subtractAP(apCost) {
                     this.$emit('subtractAPEmit', apCost)
@@ -510,6 +511,11 @@
             },
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('updatePanelEmit', { name: 'equipmentPanel', value: this.panel })
             }
         }
     }

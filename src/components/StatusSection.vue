@@ -91,8 +91,9 @@
             StatusListItem
         },
         props: {
-            statuses: Array,
-            characterStatuses: Array
+            characterStatuses: Array,
+            panelProp: Number,
+            statuses: Array
         },
         data() {
             return {
@@ -128,7 +129,7 @@
                     }
                 },
                 // Input Fields End
-                panel: 0,
+               panel: this.panelProp,
                 // Validation Start
                 notNull: [
                     v => !!v.name || 'Field may not be empty'
@@ -178,6 +179,11 @@
             // Open Dialog Functions End
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('updatePanelEmit', { name: 'statusPanel', value: this.panel })
             }
         }
     }

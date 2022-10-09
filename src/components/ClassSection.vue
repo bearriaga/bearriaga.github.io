@@ -73,9 +73,10 @@
             ClassListItem
         },
         props: {
-            unlocked: Boolean,
             characteristics: Array,
-            classes: Array
+            classes: Array,
+            panelProp: Number,
+            unlocked: Boolean
         },
         computed: {
             sectionTitle() {
@@ -108,7 +109,7 @@
                     unlocked: this.unlocked
                 },
                 // Input Fields End
-                panel: 0,
+               panel: this.panelProp,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -155,6 +156,11 @@
             // Open Dialog Functions End
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('updatePanelEmit', { name: (this.unlocked) ? 'classUnlockedPanel' : 'classPanel', value: this.panel })
             }
         }
     }

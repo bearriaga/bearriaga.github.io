@@ -109,7 +109,8 @@
             movementApIcon: String,
             movementApIconColor: String,
             movements: Array,
-            movementTypes: Array
+            movementTypes: Array,
+            panelProp: Number
         },
         computed: {
             uniqueMovements() {
@@ -159,7 +160,7 @@
                     type: ''
                 },
                 // Input Fields End
-                panel: 0,
+               panel: this.panelProp,
                 subPanel: null,
                 // Validation Start
                 textRules: [
@@ -213,6 +214,11 @@
             },
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('updatePanelEmit', { name: 'movementPanel', value: this.panel })
             }
         }
     }

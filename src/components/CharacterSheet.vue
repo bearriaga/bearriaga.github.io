@@ -45,10 +45,12 @@
                             </v-col>
                         </v-row>
                         <SkillSection :characteristics="characteristics"
+                                      :panel-prop="skillPanel"
                                       :skills="skills"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"
+                                      @updatePanelEmit="updatePanel($event)"
                                       @rollDiceCheckEmit="rollStandAloneCheck($event)"></SkillSection>
                         <v-expansion-panels>
                             <v-expansion-panel>
@@ -114,9 +116,11 @@
                                                            :damage-modifications="damageModifications"
                                                            :damage-groups="damageGroups"
                                                            :damage-types="damageTypes"
+                                                           :panel-prop="damageModificationPanel"
                                                            @addEntryEmit="addEntry($event)"
                                                            @deleteEntryEmit="deleteEntry($event)"
-                                                           @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
+                                                           @updateEntryEmit="updateEntry($event)"
+                                                           @updatePanelEmit="updatePanel($event)"></DamageModificationSection>
                             </v-col>
                         </v-row>
                     </div>
@@ -136,22 +140,26 @@
                 </v-col>
                 <v-col cols="12" lg="3" md="6">
                     <div class="classResourcesColumn mainColumn elevation-3">
-                        <ResourceSection :resources="resources"
-                                         :characteristics="characteristics"
+                        <ResourceSection :characteristics="characteristics"
+                                         :panel-prop="resourcePanel"
+                                         :resources="resources"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
                                          @fillResourcesEmit="fillResources($event)"
-                                         @updateEntryEmit="updateEntry($event)"></ResourceSection>
+                                         @updateEntryEmit="updateEntry($event)"
+                                         @updatePanelEmit="updatePanel($event)"></ResourceSection>
                         <MovementSection :ap="characterSheet.ap"
                                          :can-edit="true"
                                          :movements="movements"
                                          :movement-ap-icon="movementApIcon"
                                          :movement-ap-icon-color="movementApIconColor"
                                          :movement-types="movementTypes"
+                                         :panel-prop="movementPanel"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
                                          @subtractAPEmit="subtractAP($event)"
-                                         @updateEntryEmit="updateEntry($event)"></MovementSection>
+                                         @updateEntryEmit="updateEntry($event)"
+                                         @updatePanelEmit="updatePanel($event)"></MovementSection>
                     </div>
                 </v-col>
             </v-row>
@@ -162,6 +170,7 @@
                                     :characteristics="characteristics"
                                     :damage-types="damageTypes"
                                     :effects="effects"
+                                    :panel-prop="abilityPanel"
                                     :resources="resources"
                                     :successes-from-intelligence="successesFromIntelligence"
                                     @addEntryEmit="addEntry($event)"
@@ -171,6 +180,7 @@
                                     @subtractAPEmit="subtractAP($event)"
                                     @subtractCREmit="subtractCR($event)"
                                     @updateEntryEmit="updateEntry($event)"
+                                    @updatePanelEmit="updatePanel($event)"
                                     @useAbilityEmit="useAbility($event)"></AbilitySection>
                 </v-col>
             </v-row>
@@ -178,29 +188,35 @@
                 <v-col>
                     <MinionSection :clear-character="clearCharacter"
                                    :minions="minions"
+                                   :panel-prop="minionPanel"
                                    @addEntryEmit="addEntry($event)"
                                    @deleteEntryEmit="deleteEntry($event)"
                                    @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                    @updateEntryEmit="updateMinion($event)"
-                                   @updateEntryBypassEmit="updateEntry($event)"></MinionSection>
+                                   @updateEntryBypassEmit="updateEntry($event)"
+                                   @updatePanelEmit="updatePanel($event)"></MinionSection>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col cols="12" lg="3" md="6">
-                    <ClassSection :unlocked="false"
-                                  :characteristics="characteristics"
+                    <ClassSection :characteristics="characteristics"
                                   :classes="classes"
+                                  :panel-prop="classPanel"
+                                  :unlocked="false"
                                   @addEntryEmit="addEntry($event)"
                                   @deleteEntryEmit="deleteEntry($event)"
-                                  @updateEntryEmit="updateEntry($event)"></ClassSection>
+                                  @updateEntryEmit="updateEntry($event)"
+                                  @updatePanelEmit="updatePanel($event)"></ClassSection>
                 </v-col>
                 <v-col cols="12" lg="3" md="6">
-                    <ClassSection :unlocked="true"
-                                  :characteristics="characteristics"
+                    <ClassSection :characteristics="characteristics"
                                   :classes="classesUnlocked"
+                                  :panel-prop="classUnlockedPanel"
+                                  :unlocked="true"
                                   @addEntryEmit="addEntry($event)"
                                   @deleteEntryEmit="deleteEntry($event)"
-                                  @updateEntryEmit="updateEntry($event)"></ClassSection>
+                                  @updateEntryEmit="updateEntry($event)"
+                                  @updatePanelEmit="updatePanel($event)"></ClassSection>
                 </v-col>
                 <v-col cols="12" lg="3" md="6">
                     <h3 class="text-center"> Money </h3>
@@ -226,48 +242,58 @@
                     </v-text-field>
 
                     <JournalSection :journal-entries="journalEntries"
+                                    :panel-prop="journalPanel"
                                     :xp="characterSheet.xp"
                                     :xp-earned="characterSheet.xpEarned"
                                     :xp-total="characterSheet.xpTotal"
                                     @addEntryEmit="addEntry($event)"
                                     @deleteEntryEmit="deleteEntry($event)"
                                     @moneyAddSubtractEmit="moneyAddSubtract($event)"
-                                    @updateEntryEmit="updateEntry($event)"></JournalSection>
+                                    @updateEntryEmit="updateEntry($event)"
+                                    @updatePanelEmit="updatePanel($event)"></JournalSection>
                 </v-col>
                 <v-col cols="12" lg="3" md="6">
                     <TraitFlawSection :is-flaw="true"
                                       :items="flaws"
+                                      :panel-prop="flawPanel"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
-                                      @updateEntryEmit="updateEntry($event)"></TraitFlawSection>
+                                      @updateEntryEmit="updateEntry($event)"
+                                      @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
                     <TraitFlawSection :is-flaw="false"
                                       :items="traits"
+                                      :panel-prop="traitPanel"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
-                                      @updateEntryEmit="updateEntry($event)"></TraitFlawSection>
+                                      @updateEntryEmit="updateEntry($event)"
+                                      @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col cols="12" lg="3" md="6">
-                    <StatusSection :statuses="statuses"
-                                   :character-statuses="characterStatuses"
+                    <StatusSection :character-statuses="characterStatuses"
+                                   :panel-prop="statusPanel"
+                                   :statuses="statuses"
                                    @addEntryEmit="addEntry($event)"
                                    @deleteEntryEmit="deleteEntry($event)"
                                    @updateBuffEntryEmit="updateBuffStatus($event)"
-                                   @updateEntryEmit="updateEntry($event)"></StatusSection>
+                                   @updateEntryEmit="updateEntry($event)"
+                                   @updatePanelEmit="updatePanel($event)"></StatusSection>
                 </v-col>
                 <v-col cols="12" lg="3" md="6">
                     <BuffSection :buffs="buffs"
                                  :characteristics="characteristics"
                                  :damage-types="damageTypes"
                                  :movement-types="movementTypes"
+                                 :panel-prop="buffPanel"
                                  :skills="characterSheet.skills"
                                  :statuses="statuses"
                                  :resources="resources"
                                  @addEntryEmit="addEntry($event)"
                                  @deleteEntryEmit="deleteEntry($event)"
                                  @updateEntryEmit="updateBuffEntry($event)"
-                                 @updateEntryBypassEmit="updateEntry($event)"></BuffSection>
+                                 @updateEntryBypassEmit="updateEntry($event)"
+                                 @updatePanelEmit="updatePanel($event)"></BuffSection>
                 </v-col>
                 <v-col cols="12" lg="3" md="6">
                     <EquipmentSection :ap="characterSheet.ap"
@@ -278,6 +304,7 @@
                                       :movement-ap-icon="movementApIcon"
                                       :movement-ap-icon-color="movementApIconColor"
                                       :movement-types="movementTypes"
+                                      :panel-prop="equipmentPanel"
                                       :resources="resources"
                                       :successes-from-intelligence="successesFromIntelligence"
                                       @addEntryEmit="addEntry($event)"
@@ -288,6 +315,7 @@
                                       @subtractCREmit="subtractCR($event)"
                                       @updateEntryEmit="updateEntry($event)"
                                       @updateEntryBypassEmit="updateEntry($event)"
+                                      @updatePanelEmit="updatePanel($event)"
                                       @useAbilityEmit="useAbility($event)"></EquipmentSection>
                 </v-col>
             </v-row>
@@ -365,10 +393,12 @@
             <v-row>
                 <v-col cols="12" md="3" class="charColumn mainColumn elevation-3" elevation="3">
                     <SkillSection :characteristics="characteristics"
+                                  :panel-prop="skillPanel"
                                   :skills="skills"
                                   @addEntryEmit="addEntry($event)"
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"
+                                  @updatePanelEmit="updatePanel($event)"
                                   @rollDiceCheckEmit="rollStandAloneCheck($event)"></SkillSection>
                     <CharacteristicViewItem @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                             :characteristic="genericCharacteristic"></CharacteristicViewItem>
@@ -421,6 +451,7 @@
                                             :characteristics="characteristics"
                                             :damage-types="damageTypes"
                                             :effects="effects"
+                                            :panel-prop="abilityPanel"
                                             :resources="resources"
                                             :successes-from-intelligence="successesFromIntelligence"
                                             @addEntryEmit="addEntry($event)"
@@ -430,6 +461,7 @@
                                             @subtractAPEmit="subtractAP($event)"
                                             @subtractCREmit="subtractCR($event)"
                                             @updateEntryEmit="updateEntry($event)"
+                                            @updatePanelEmit="updatePanel($event)"
                                             @useAbilityEmit="useAbility($event)"></AbilitySection>
                         </v-tab-item>
                         <v-tab-item value="tab1">
@@ -438,12 +470,14 @@
                                                 @apGainEmit="apGain($event)"
                                                 @updatePropEmit="updateProp($event)"
                                                 :property-object="input"></InputWithEditModal>
-                            <ResourceSection :resources="resources"
-                                             :characteristics="characteristics"
+                            <ResourceSection :characteristics="characteristics"
+                                             :panel-prop="resourcePanel"
+                                             :resources="resources"
                                              @addEntryEmit="addEntry($event)"
                                              @deleteEntryEmit="deleteEntry($event)"
                                              @fillResourcesEmit="fillResources($event)"
-                                             @updateEntryEmit="updateEntry($event)"></ResourceSection>
+                                             @updateEntryEmit="updateEntry($event)"
+                                             @updatePanelEmit="updatePanel($event)"></ResourceSection>
                         </v-tab-item>
                         <v-tab-item value="tab2">
                             <MovementSection :ap="characterSheet.ap"
@@ -452,43 +486,55 @@
                                              :movement-ap-icon="movementApIcon"
                                              :movement-ap-icon-color="movementApIconColor"
                                              :movement-types="movementTypes"
+                                             :panel-prop="movementPanel"
                                              @addEntryEmit="addEntry($event)"
                                              @deleteEntryEmit="deleteEntry($event)"
                                              @subtractAPEmit="subtractAP($event)"
-                                             @updateEntryEmit="updateEntry($event)"></MovementSection>
+                                             @updateEntryEmit="updateEntry($event)"
+                                             @updatePanelEmit="updatePanel($event)"></MovementSection>
                         </v-tab-item>
                         <v-tab-item value="tab3">
                             <DamageModificationSection :can-edit="true"
                                                        :damage-modifications="damageModifications"
                                                        :damage-groups="damageGroups"
                                                        :damage-types="damageTypes"
+                                                       :panel-prop="damageModificationPanel"
                                                        @addEntryEmit="addEntry($event)"
                                                        @deleteEntryEmit="deleteEntry($event)"
-                                                       @updateEntryEmit="updateEntry($event)"></DamageModificationSection>
+                                                       @updateEntryEmit="updateEntry($event)"
+                                                       @updatePanelEmit="updatePanel($event)"></DamageModificationSection>
                         </v-tab-item>
                         <v-tab-item value="tab4">
-                            <ClassSection :unlocked="false"
-                                          :characteristics="characteristics"
+                            <ClassSection :characteristics="characteristics"
                                           :classes="classes"
+                                          :panel-prop="classPanel"
+                                          :unlocked="false"
                                           @addEntryEmit="addEntry($event)"
                                           @deleteEntryEmit="deleteEntry($event)"
-                                          @updateEntryEmit="updateEntry($event)"></ClassSection>
-                            <ClassSection :unlocked="true"
-                                          :characteristics="characteristics"
+                                          @updateEntryEmit="updateEntry($event)"
+                                          @updatePanelEmit="updatePanel($event)"></ClassSection>
+                            <ClassSection :characteristics="characteristics"
                                           :classes="classesUnlocked"
+                                          :panel-prop="classUnlockedPanel"
+                                          :unlocked="true"
                                           @addEntryEmit="addEntry($event)"
                                           @deleteEntryEmit="deleteEntry($event)"
-                                          @updateEntryEmit="updateEntry($event)"></ClassSection>
+                                          @updateEntryEmit="updateEntry($event)"
+                                          @updatePanelEmit="updatePanel($event)"></ClassSection>
                             <TraitFlawSection :is-flaw="true"
                                               :items="flaws"
+                                              :panel-prop="flawPanel"
                                               @addEntryEmit="addEntry($event)"
                                               @deleteEntryEmit="deleteEntry($event)"
-                                              @updateEntryEmit="updateEntry($event)"></TraitFlawSection>
+                                              @updateEntryEmit="updateEntry($event)"
+                                              @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
                             <TraitFlawSection :is-flaw="false"
                                               :items="traits"
+                                              :panel-prop="traitPanel"
                                               @addEntryEmit="addEntry($event)"
                                               @deleteEntryEmit="deleteEntry($event)"
-                                              @updateEntryEmit="updateEntry($event)"></TraitFlawSection>
+                                              @updateEntryEmit="updateEntry($event)"
+                                              @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
                         </v-tab-item>
                         <v-tab-item value="inventory">
                             <v-row>
@@ -507,13 +553,15 @@
                                 </v-col>
                             </v-row>
                             <JournalSection :journal-entries="journalEntries"
+                                            :panel-prop="journalPanel"
                                             :xp="characterSheet.xp"
                                             :xp-earned="characterSheet.xpEarned"
                                             :xp-total="characterSheet.xpTotal"
                                             @addEntryEmit="addEntry($event)"
                                             @deleteEntryEmit="deleteEntry($event)"
                                             @moneyAddSubtractEmit="moneyAddSubtract($event)"
-                                            @updateEntryEmit="updateEntry($event)"></JournalSection>
+                                            @updateEntryEmit="updateEntry($event)"
+                                            @updatePanelEmit="updatePanel($event)"></JournalSection>
                             <EquipmentSection :ap="characterSheet.ap"
                                               :characteristics="characteristics"
                                               :character-equipment="characterEquipment"
@@ -522,6 +570,7 @@
                                               :movement-ap-icon="movementApIcon"
                                               :movement-ap-icon-color="movementApIconColor"
                                               :movement-types="movementTypes"
+                                              :panel-prop="equipmentPanel"
                                               :resources="resources"
                                               :successes-from-intelligence="successesFromIntelligence"
                                               @addEntryEmit="addEntry($event)"
@@ -532,35 +581,42 @@
                                               @subtractCREmit="subtractCR($event)"
                                               @updateEntryEmit="updateEntry($event)"
                                               @updateEntryBypassEmit="updateEntry($event)"
-                                              @useAbilityEmit="useAbility($event)"></EquipmentSection>
+                                              @useAbilityEmit="useAbility($event)"
+                                              @updatePanelEmit="updatePanel($event)"></EquipmentSection>
                         </v-tab-item>
                         <v-tab-item value="statusBuffs">
-                            <StatusSection :statuses="statuses"
-                                           :character-statuses="characterStatuses"
+                            <StatusSection :character-statuses="characterStatuses"
+                                           :panel-prop="statusPanel"
+                                           :statuses="statuses"
                                            @addEntryEmit="addEntry($event)"
                                            @deleteEntryEmit="deleteEntry($event)"
                                            @updateBuffEntryEmit="updateBuffStatus($event)"
-                                           @updateEntryEmit="updateEntry($event)"></StatusSection>
+                                           @updateEntryEmit="updateEntry($event)"
+                                           @updatePanelEmit="updatePanel($event)"></StatusSection>
                             <BuffSection :buffs="buffs"
                                          :characteristics="characteristics"
                                          :damage-types="damageTypes"
                                          :movement-types="movementTypes"
+                                         :panel-prop="buffPanel"
                                          :skills="characterSheet.skills"
                                          :statuses="statuses"
                                          :resources="resources"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
                                          @updateEntryEmit="updateBuffEntry($event)"
-                                         @updateEntryBypassEmit="updateEntry($event)"></BuffSection>
+                                         @updateEntryBypassEmit="updateEntry($event)"
+                                         @updatePanelEmit="updatePanel($event)"></BuffSection>
                         </v-tab-item>
                         <v-tab-item value="minions">
                             <MinionSection :clear-character="clearCharacter"
                                            :minions="minions"
+                                           :panel-prop="minionPanel"
                                            @addEntryEmit="addEntry($event)"
                                            @deleteEntryEmit="deleteEntry($event)"
                                            @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                            @updateEntryEmit="updateMinion($event)"
-                                           @updateEntryBypassEmit="updateEntry($event)"></MinionSection>
+                                           @updateEntryBypassEmit="updateEntry($event)"
+                                           @updatePanelEmit="updatePanel($event)"></MinionSection>
                         </v-tab-item>
                     </v-tabs-items>
                 </v-col>
@@ -579,7 +635,6 @@
             <v-col>
                 <v-btn color="primary" @click="setCharacterAs('belif')">Set as Belif</v-btn>
                 <v-btn color="primary" @click="setCharacterAs('cam')">Cam</v-btn>
-                <!--<v-btn color="primary" @click="setCharacterAs('wilson')">Wilson</v-btn>-->
             </v-col>
             <v-col>
                 <div>
@@ -1621,6 +1676,24 @@
                 clearCharacter: this.characterStore.getCharacterById('clear'),
                 characterFile: null,
                 characterSheet: this.characterStore.getCharacterById('clear'),
+                // Character Sheet Options Start
+                abilityPanel: 0,
+                buffPanel: 0,
+                classPanel: 0,
+                classUnlockedPanel: 0,
+                damageModificationPanel: 0,
+                equipmentPanel: 0,
+                flawPanel: 0,
+                journalPanel: 0,
+                minionPanel: 0,
+                movementPanel: 0,
+                resourcePanel: 0,
+                skillPanel: 0,
+                statusPanel: 0,
+                traitPanel: 0,
+                layout: 'Condensed',
+                layoutOptions: ['Condensed', 'Expanded'],
+                // Character Sheet Options End
                 cleanseDialog: {
                     selectedStatuses: [],
                     selectRules: [
@@ -1699,8 +1772,6 @@
                     value: 0,
                     characteristic: false
                 },
-                layout: 'Condensed',
-                layoutOptions: ['Condensed', 'Expanded'],
                 massRoller: {
                     dice: 0,
                     enemies: 0,
@@ -2150,9 +2221,21 @@
             loadOptions() {
                 if (this.isOptionsSet()) {
                     let options = JSON.parse(localStorage.getItem('characterSheetOptions'))
-
-                    if (this.layoutOptions.includes(options.layout))
-                        this.layout = options.layout
+                    this.abilityPanel = ('abilityPanel' in options) ? options.abilityPanel : null
+                    this.buffPanel = ('buffPanel' in options) ? options.buffPanel : null
+                    this.classPanel = ('classPanel' in options) ? options.classPanel : null
+                    this.classUnlockedPanel = ('classUnlockedPanel' in options) ? options.classUnlockedPanel : null
+                    this.damageModificationPanel = ('damageModificationPanel' in options) ? options.damageModificationPanel : null
+                    this.equipmentPanel = ('equipmentPanel' in options) ? options.equipmentPanel : null
+                    this.flawPanel = ('flawPanel' in options) ? options.flawPanel : null
+                    this.journalPanel = ('journalPanel' in options) ? options.journalPanel : null
+                    this.layout = ('layout' in options) ? options.layout : null
+                    this.minionPanel = ('minionPanel' in options) ? options.minionPanel : null
+                    this.movementPanel = ('movementPanel' in options) ? options.movementPanel : null
+                    this.resourcePanel = ('resourcePanel' in options) ? options.resourcePanel : null
+                    this.skillPanel = ('skillPanel' in options) ? options.skillPanel : null
+                    this.statusPanel = ('statusPanel' in options) ? options.statusPanel : null
+                    this.traitPanel = ('traitPanel' in options) ? options.traitPanel : null
                 }
             },
             readCharacterFromFile() {
@@ -2209,7 +2292,21 @@
             },
             saveOptions() {
                 let options = {
-                    layout: this.layout
+                    abilityPanel: this.abilityPanel,
+                    buffPanel: this.buffPanel,
+                    classPanel: this.classPanel,
+                    classUnlockedPanel: this.classUnlockedPanel,
+                    damageModificationPanel: this.damageModificationPanel,
+                    equipmentPanel: this.equipmentPanel,
+                    flawPanel: this.flawPanel,
+                    journalPanel: this.journalPanel,
+                    layout: this.layout,
+                    minionPanel: this.minionPanel,
+                    movementPanel: this.movementPanel,
+                    resourcePanel: this.resourcePanel,
+                    skillPanel: this.skillPanel,
+                    statusPanel: this.statusPanel,
+                    traitPanel: this.traitPanel
                 }
                 localStorage.setItem('characterSheetOptions', JSON.stringify(options))
             },
@@ -2430,6 +2527,9 @@
 
                 this.updateEntry({ arrayName: 'buffs', object: buff })
             },
+            updatePanel(panelObj) {
+                this[panelObj.name] = panelObj.value
+            },
             updateProp(prop) {
                 if (prop.type == 'number')
                     this.characterSheet[prop.propName] = +prop.value
@@ -2478,6 +2578,7 @@
             }
         },
         watch: {
+            // Character Sheet Watch Start
             apMax() {
                 this.characterSheet.apMax = this.apMax
             },
@@ -2532,9 +2633,26 @@
             xpTotal() {
                 this.characterSheet.xpTotal = this.xpTotal
             },
+            // Character Sheet Watch End
+            // Character Sheet Options Watch Start
+            abilityPanel() { this.saveOptions() },
+            buffPanel() { this.saveOptions() },
+            classPanel() { this.saveOptions() },
+            classUnlockedPanel() { this.saveOptions() },
+            damageModificationPanel() { this.saveOptions() },
+            equipmentPanel() { this.saveOptions() },
+            flawPanel() { this.saveOptions() },
+            journalPanel() { this.saveOptions() },
+            minionPanel() { this.saveOptions() },
+            movementPanel() { this.saveOptions() },
+            resourcePanel() { this.saveOptions() },
+            skillPanel() { this.saveOptions() },
+            statusPanel() { this.saveOptions() },
+            traitPanel() { this.saveOptions() },
             layout() {
                 this.saveOptions()
             }
+            // Character Sheet Options Watch End
         }
     }
 </script>

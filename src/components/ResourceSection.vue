@@ -91,6 +91,7 @@
         },
         props: {
             characteristics: Array,
+            panelProp: Number,
             resources: Array
         },
         data() {
@@ -117,7 +118,7 @@
                     resourceIncreases: 0
                 },
                 // Input Fields End
-                panel: 0,
+               panel: this.panelProp,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -180,6 +181,11 @@
             // Open Dialog Functions End
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('updatePanelEmit', { name: 'resourcePanel', value: this.panel })
             }
         }
     }

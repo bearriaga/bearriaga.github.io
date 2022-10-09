@@ -92,6 +92,7 @@
         },
         props: {
             journalEntries: Array,
+            panelProp: Number,
             xp: Number,
             xpEarned: Number,
             xpTotal: Number,
@@ -177,6 +178,11 @@
             // Open Dialog Functions End
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('journalPanel', { name: 'journalPanel', value: this.panel })
             }
         }
     }

@@ -77,7 +77,8 @@
         },
         props: {
             isFlaw: Boolean,
-            items: Array
+            items: Array,
+            panelProp: Number
         },
         computed: {
             arrayName() {
@@ -107,7 +108,7 @@
                     name: ''
                 },
                 // Input Fields End
-                panel: 0,
+                panel: this.panelProp,
                 // Validation Start
                 numberRules: [
                     v => !isNaN(+v) && v >= 1 || 'Field may not be empty and value must be 1 or higher'
@@ -157,6 +158,11 @@
             // Open Dialog Functions End
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('updatePanelEmit', { name: (this.isFlaw) ? 'flawPanel' : 'traitPanel', value: this.panel })
             }
         }
     }

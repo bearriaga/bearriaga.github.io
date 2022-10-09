@@ -94,7 +94,8 @@
             canEdit: Boolean,
             damageModifications: Array,
             damageGroups: Array,
-            damageTypes: Array
+            damageTypes: Array,
+            panelProp: Number
         },
         data() {
             return {
@@ -118,7 +119,7 @@
                     type: ''
                 },
                 // Input Fields End
-                panel: 0,
+               panel: this.panelProp,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -166,6 +167,11 @@
             // Open Dialog Functions End
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('updatePanelEmit', { name: 'damageModificationPanel', value: this.panel })
             }
         }
     }

@@ -85,6 +85,7 @@
         },
         props: {
             characteristics: Array,
+            panelProp: Number,
             skills: Array
         },
         data() {
@@ -111,7 +112,7 @@
                     value: 0
                 },
                 // Input Fields End
-                panel: 0,
+               panel: this.panelProp,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -171,6 +172,11 @@
             // Open Dialog Functions End
             validate() {
                 return this.$refs.form.validate()
+            }
+        },
+        watch: {
+            panel() {
+                this.$emit('updatePanelEmit', { name: 'skillPanel', value: this.panel })
             }
         }
     }
