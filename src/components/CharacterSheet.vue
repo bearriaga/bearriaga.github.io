@@ -2161,12 +2161,12 @@
                 navigator.clipboard.writeText(copyText)
             },
             copyCheck() {
-                navigator.clipboard.writeText(`&{template:default} {{name= Check Result}} ${this.copyCheckGet()}`)
+                navigator.clipboard.writeText(`&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copyCheckGet()}`)
             },
             copyCheckGet() {
                 var copyText =
                     '{{Successes= ' + this.abilityDialog.check.successes + '}}' +
-                    '{{Fate= ' + this.abilityDialog.check.fate + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '}}'
+                    '{{Fate= ' + this.abilityDialog.check.fate + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '}}' +
                     '{{Dice Results= [' + this.abilityDialog.check.diceResults + ']}}';
 
                 if (this.abilityDialog.check.successesFromIntelligence)
@@ -2178,13 +2178,13 @@
                 return copyText
             },
             copyDamage() {
-                navigator.clipboard.writeText(`&{template:default} {{name= Damage Result}} ${this.copyDamageGet()}`)
+                navigator.clipboard.writeText(`&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copyDamageGet()}`)
             },
             copyDamageGet() {
                 return `{{Damage= ${this.abilityDialog.damage.sum} ${this.abilityDialog.ability.damage.types.join(', ')}}}`
             },
             copySave() {
-                navigator.clipboard.writeText(`&{template:default} {{name= Save Result}} ${this.copySaveGet()}`)
+                navigator.clipboard.writeText(`&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copySaveGet()}`)
             },
             copySaveGet() {
                 return `{{Save= ${this.abilityDialog.save.characteristic} ${this.abilityDialog.save.amount}}}`
