@@ -688,6 +688,41 @@
                         <div>
                             <b>Successes: {{abilityDialog.check.successes}}</b>
                         </div>
+                        <div v-if="abilityDialog.check.successes">
+                            <v-text-field label="Successes" type="number"
+                                          v-model="abilityDialog.check.successesInput">
+                                <v-icon color="success" slot="append" @click="successesInputAdd(1)">mdi-plus</v-icon>
+                                <v-icon color="error" slot="append" @click="successesInputAdd(-1)">mdi-minus</v-icon>
+                            </v-text-field>
+                            <div v-if="abilityDialog.effects">
+                                <v-row>
+                                    <v-col cols="9">
+                                        <v-select v-model="abilityDialog.selectedEffects"
+                                                  :items="checkEffects.map(x => ({ value: x, text: x.cost + ' - ' + x.type + ' - ' + x.description}))"
+                                                  label="Selected Effects"
+                                                  multiple
+                                                  :disabled="abilityDialog.check.successesInput <= 0">
+                                            <v-icon color="error"
+                                                    slot="prepend"
+                                                    @click.stop="subtractSelectedEffects"
+                                                    :disabled="abilityDialog.check.successesInput <= 0 || abilityDialog.selectedEffects.length == 0 || abilityDialog.selectedEffects.reduce((previousValue, entry) => {return +previousValue + +entry.cost}, 0) > abilityDialog.check.successesInput">
+                                                mdi-minus
+                                            </v-icon>
+                                            <TooltipComponent slot="append" :text="'Effects can be purchased once per enemy'"></TooltipComponent>
+                                        </v-select>
+                                    </v-col>
+                                    <v-col cols="3">
+                                        <v-switch label="Multiple Targets?" inset v-model="abilityDialog.multipleTargets"></v-switch>
+                                    </v-col>
+                                </v-row>
+                            </div>
+                            <div v-if="abilityDialog.usedEffects.length > 0">
+                                <div>Used Effects</div>
+                                <div v-for="effect, i in abilityDialog.usedEffects" :key="i">
+                                    Cost: {{effect.cost}} - Type: {{effect.type}} - {{effect.description}}
+                                </div>
+                            </div>
+                        </div>
                         <div>
                             Fate: {{abilityDialog.check.fate}}
 
@@ -1227,6 +1262,15 @@
                     }
                 ]
             },
+            checkEffects() {
+                let effects = []
+
+                this.abilityDialog.effects.filter(x => x.cost <= this.abilityDialog.check.successesInput).forEach(effect => {
+                    effects.push(JSON.parse(JSON.stringify(effect)))
+                })
+
+                return effects
+            },
             classes() {
                 let classes = []
 
@@ -1636,12 +1680,14 @@
                         advantage: false,
                         diceCheckObject: {},
                         diceResults: [],
+                        effects: [],
                         fate: 0,
-                        selectedRerolls: [],
                         show: false,
+                        selectedRerolls: [],
                         successes: 0,
                         successesFromIntelligence: 0,
                         successesFromLuck: 0,
+                        successesInput: 0,
                         threat: false
                     },
                     characters: [],
@@ -1650,20 +1696,25 @@
                         charDamage: 0,
                         damage: 0,
                         diceResults: [],
+                        effects: [],
                         flat: 0,
                         selectedRerolls: [],
                         show: false,
                         sum: 0,
                         types: []
                     },
+                    effects: [],
                     isAbility: false,
+                    multipleTargets: false,
                     save: {
                         amount: 0,
                         characteristic: '',
                         show: false
                     },
+                    selectedEffects: [],
                     show: false,
-                    title: ''
+                    title: '',
+                    usedEffects: []
                 },
                 characteristics: [
                     'fitness',
@@ -1704,41 +1755,172 @@
                 damageGroups: [
                     {
                         color: 'green lighten-3',
+                        effects: [],
                         icon: 'mdi-shield-sun',
                         name: 'Elemental',
                         types: [
-                            { name: 'Acid', icon: 'mdi-flask-outline' },
-                            { name: 'Cold', icon: 'mdi-snowflake' },
-                            { name: 'Electric', icon: 'mdi-lightning-bolt' },
-                            { name: 'Fire', icon: 'mdi-fire' },
-                            { name: 'Energy/Arcane', icon: 'mdi-laser-pointer' }
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Apply 2 True Damage to any item equipped on target' },
+                                    { cost: 1, description: 'Target is Withered for 1 round' },
+                                    { cost: 2, description: 'Apply 1d6 True Damage to any item equipped on target' },
+                                    { cost: 2, description: 'Target is Cursed and Excruciated(4) for 1 round' }
+                                ],
+                                icon: 'mdi-flask-outline',
+                                name: 'Acid'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Target is Sped Up(3) and Hyper-Accelerated for 1 round' },
+                                    { cost: 1, description: 'Creates a 2x2 square of difficult icy terrain under creature or 1 square mass of ice with 10 HP in an adjacent square' },
+                                    { cost: 2, description: 'Target is Rooted for 2 rounds' },
+                                    { cost: 2, description: 'Apply Slowed(2) for 2 rounds' }
+                                ],
+                                icon: 'mdi-snowflake',
+                                name: 'Cold'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Damage chains to 1 additional target within 3 squares for half damage' },
+                                    { cost: 1, description: 'Apply Twitching(2) for 1 round' },
+                                    { cost: 2, description: 'Apply Weakened(1) to all characteristics for 1 round' },
+                                    { cost: 2, description: 'Applies Wide Open for 1 round' }
+                                ],
+                                icon: 'mdi-lightning-bolt',
+                                name: 'Electric'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Apply Burning(1d6)' },
+                                    { cost: 1, description: 'Create a 1 square fire pool dealing 1d6 damage at target creature’s feet that lasts for the encounter' },
+                                    { cost: 2, description: 'Apply Burning(10) and Panicked for 1 round' },
+                                    { cost: 2, description: 'Apply Withered as Continuous until target is healed' }
+                                ],
+                                icon: 'mdi-fire',
+                                name: 'Fire'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'The next time you use the same ability that triggered this, it costs 1 less AP' },
+                                    { cost: 1, description: 'Give Haste(1) to an ally within line of sight' },
+                                    { cost: 2, description: 'Gain 3 AP. Each time this effect is chosen in one round, reduce it by 1 AP.' },
+                                    { cost: 2, description: 'Target is Silenced for 2 rounds' }
+                                ],
+                                icon: 'mdi-laser-pointer',
+                                name: 'Energy/Arcane'
+                            }
                         ]
                     },
                     {
                         color: 'deep-purple lighten-3',
+                        effects: [],
                         icon: 'mdi-shield-cross',
                         name: 'Esoteric',
                         types: [
-                            { name: 'Dark', icon: 'mdi-skull' },
-                            { name: 'Force', icon: 'mdi-rotate-orbit' },
-                            { name: 'Light', icon: 'mdi-centos' },
-                            { name: 'Psionic', icon: 'mdi-brain' },
-                            { name: 'Toxic', icon: 'mdi-biohazard' }
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Deal an additional 1d6 Dark Damage to the target' },
+                                    { cost: 1, description: 'Target gains Cursed for 1 round' },
+                                    { cost: 2, description: 'You are Strengthened(2) in the same CHAR you used to make the attack and the target is Weakened(2) in that CHAR for 1 round ' },
+                                    { cost: 2, description: 'Target becomes Rotted until the next time they are healed' }
+                                ],
+                                icon: 'mdi-skull',
+                                name: 'Dark'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Target is knocked prone' },
+                                    { cost: 1, description: 'Apply Hobbled(3) for 1 round' },
+                                    { cost: 2, description: 'Target has an object in their hand or on their  person knocked 1d4 squares away' },
+                                    { cost: 2, description: 'Target is encumbered for 1 round' }
+                                ],
+                                icon: 'mdi-rotate-orbit',
+                                name: 'Force'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Heal yourself or an ally that can see you for 1d6' },
+                                    { cost: 1, description: 'All allies that can see the target are Bolstered(1)' },
+                                    { cost: 2, description: 'Target is Repelled for 1 round against a target of your choice' },
+                                    { cost: 2, description: 'Target Blinded for 1 round' }
+                                ],
+                                icon: 'mdi-centos',
+                                name: 'Light'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Target Taunted to yourself or any allied target for 1 round' },
+                                    { cost: 1, description: 'Make a dispel check against something cast by the target' },
+                                    { cost: 2, description: 'Target is Taunted and Enraged for 1 round to yourself, any ally, or any enemy or is Pacified for 1 round' },
+                                    { cost: 2, description: 'Apply Silenced as Affliction(DC2 RES)' }
+                                ],
+                                icon: 'mdi-brain',
+                                name: 'Psionic'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Apply Weakened(2) for FIT, or SPD for 2 rounds' },
+                                    { cost: 1, description: 'Apply Atrophied for 1 round' },
+                                    { cost: 2, description: 'Apply Sealed for 1 round' },
+                                    { cost: 2, description: 'Apply Cursed and Sickened(1) for 2 rounds' }
+                                ],
+                                icon: 'mdi-biohazard',
+                                name: 'Toxic'
+                            }
                         ]
                     },
                     {
                         color: 'orange lighten-3',
+                        effects: [],
                         icon: 'mdi-shield-sword',
                         name: 'Physical',
                         types: [
-                            { name: 'Blunt', icon: 'mdi-gavel' },
-                            { name: 'Explosive', icon: 'mdi-bomb' },
-                            { name: 'Piercing', icon: 'mdi-arrow-projectile' },
-                            { name: 'Slashing', icon: 'mdi-sword' }
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Target is Exposed(2) for the next attack' },
+                                    { cost: 1, description: 'Target is pushed up to FIT/Primary CHAR squares backwards or sideways' },
+                                    { cost: 2, description: 'Target is Staggered for 1 round' },
+                                    { cost: 2, description: 'Target is knocked prone with Exposed(1) until they stand up' }
+                                ],
+                                icon: 'mdi-gavel',
+                                name: 'Blunt'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Attack deals half damage to targets adjacent to their area of effect' },
+                                    { cost: 2, description: 'Target is pushed back 1d6 squares or knocked prone' },
+                                    { cost: 2, description: 'Increase the radius of the AoE of the attack by 1 square, you may repeat this choice' }
+                                ],
+                                icon: 'mdi-bomb',
+                                name: 'Explosive'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Apply Pierce(FIT/Primary CHAR) to this attack' },
+                                    { cost: 1, description: 'Apply Hobbled(1) for the encounter' },
+                                    { cost: 2, description: 'Apply a called shot effect of your choice' },
+                                    { cost: 2, description: 'This attack is now a critical hit' }
+                                ],
+                                icon: 'mdi-arrow-projectile',
+                                name: 'Piercing'
+                            },
+                            {
+                                effects: [
+                                    { cost: 1, description: 'Inflict Bleeding (3) for 3 rounds' },
+                                    { cost: 1, description: 'You gain Blessed for any additional attacks against this target until the end of your next turn' },
+                                    { cost: 2, description: 'Inflict Bleeding (4) and Sickened(1) for 3 rounds' },
+                                    { cost: 2, description: 'Inflict 3 True damage to one natural armor or equipment' }
+                                ],
+                                icon: 'mdi-sword',
+                                name: 'Slashing'
+                            }
                         ]
                     },
                     {
                         color: 'yellow lighted-3',
+                        effects: [
+                            { cost: 1, description: 'Increase the damage of this attack by 1, this effect may be purchased multiple times' }
+                        ],
                         icon: 'mdi-decagram',
                         name: 'True Damage',
                         types: []
@@ -1795,6 +1977,12 @@
                 ],
                 statuses: this.gameDataStore.statuses,
                 tab: 'tab0',
+                universalEffects: [
+                    { cost: 1, description: 'Gain 1 ReRoll for only your next roll', type: 'Universal' },
+                    { cost: 2, description: 'Gain an additional 1d6 on your next roll', type: 'Universal' },
+                    { cost: 3, description: 'Gain +1 Success on your next roll', type: 'Universal' },
+                    { cost: 3, description: 'Make a successful attack roll into a critical hit', type: 'Universal' }
+                ],
                 updateAP: 0,
                 updateBP: 0,
                 updateBuff: 0,
@@ -2017,6 +2205,7 @@
                 this.abilityDialog.check.selectedRerolls = []
                 this.abilityDialog.check.diceResults = successDiceResults.concat(rdResults.diceResults)
                 this.abilityDialog.check.successes += +rdResults.successes
+                this.abilityDialog.check.successesInput += +rdResults.successes
 
                 this.characterSheet.rerolls--
                 this.updateRerolls++
@@ -2032,9 +2221,11 @@
                 this.abilityDialog.check.diceResults = this.abilityDialog.check.diceResults.concat(rdResults.diceResults)
 
                 this.abilityDialog.check.successes = 0
+                this.abilityDialog.check.successesInput = 0
 
                 this.abilityDialog.check.diceResults.forEach(d => {
                     this.abilityDialog.check.successes += +this.determineSuccesses(d)
+                    this.abilityDialog.check.successesInput += +this.determineSuccesses(d)
                 })
 
                 this.abilityDialog.check.selectedRerolls = []
@@ -2078,12 +2269,14 @@
                     advantage: false,
                     diceCheckObject: diceCheckObject,
                     diceResults: [],
+                    effects: JSON.parse(JSON.stringify(this.universalEffects)),
                     fate: 0,
-                    show: true,
                     selectedRerolls: [],
+                    show: true,
                     successes: 0,
                     successesFromIntelligence: 0,
                     successesFromLuck: 0,
+                    successesInput: 0,
                     threat: false
                 }
 
@@ -2091,17 +2284,20 @@
                     if (!diceCheckObject.isSave) {
                         result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
                         result.successes += +result.successesFromIntelligence
-
+                        result.successesInput += +result.successesFromIntelligence
                     }
 
                     let rdResult = this.rollDice(diceCheckObject.diceToRoll)
 
                     result.diceResults = rdResult.diceResults;
                     result.successes += +rdResult.successes
+                    result.successesInput += +rdResult.successes
                     result.fate = result.diceResults[0]
 
-                    if (diceCheckObject.successes)
+                    if (diceCheckObject.successes) {
                         result.successes += +diceCheckObject.successes
+                        result.successesInput += +diceCheckObject.successes
+                    }
 
                     let luck = diceCheckObject.luck ? diceCheckObject.luck : this.luck
                     if (!this.characterSheet.luckNothingToChance) {
@@ -2109,6 +2305,7 @@
                             result.advantage = true
                             result.successesFromLuck = luck
                             result.successes += +result.successesFromLuck
+                            result.successesInput += +result.successesFromLuck
                         } else if (result.fate == 1 || (this.characterSheet.luckIllFavored && result.fate <= 2)) {
                             result.threat = true
                         }
@@ -2120,6 +2317,9 @@
             },
             rollStandAloneCheck(diceCheckObject) {
                 this.rollCheck(diceCheckObject)
+                this.abilityDialog.effects = this.abilityDialog.check.effects
+                this.abilityDialog.selectedEffects = []
+                this.abilityDialog.usedEffects = []
                 this.abilityDialog.damage.show = false
                 this.abilityDialog.isAbility = false
                 this.abilityDialog.save.show = false
@@ -2456,20 +2656,30 @@
                 sum += +charDamage
 
                 let types = []
+                let effects = []
                 damage.types.forEach(type => {
                     let color = ''
                     let icon = ''
+                    let typeEffects = []
                     this.damageGroups.forEach((group) => {
                         if (type == group.name || group.types.some(x => x.name == type)) {
                             color = group.color
 
-                            if (type == group.name)
+                            if (type == group.name) {
                                 icon = group.icon
-                            let damageType = group.types.find(t => t.name == type)
-                            if (damageType)
-                                icon = damageType.icon
+                                typeEffects = JSON.parse(JSON.stringify(group.effects))
+                                typeEffects.forEach(effect => effect.type = group.name)
+                            } else {
+                                let damageType = group.types.find(t => t.name == type)
+                                if (damageType) {
+                                    icon = damageType.icon
+                                    typeEffects = JSON.parse(JSON.stringify(damageType.effects))
+                                    typeEffects.forEach(effect => effect.type = damageType.name)
+                                }
+                            }
                         }
                     })
+                    effects = effects.concat(typeEffects)
                     types.push({
                         color: color,
                         icon: icon,
@@ -2481,6 +2691,7 @@
                     charDamage: charDamage,
                     damage: damage,
                     diceResults: diceResults,
+                    effects: effects,
                     flat: flat,
                     selectedRerolls: [],
                     show: true,
@@ -2512,6 +2723,27 @@
                     resource.amount -= +crCost.crCost
                     this.updateCR++
                 }
+            },
+            successesInputAdd(val) {
+                this.abilityDialog.check.successesInput = +this.abilityDialog.check.successesInput + +val
+            },
+            subtractSelectedEffects() {
+                let successes = 0
+                this.abilityDialog.selectedEffects.forEach(selectedEffect => {
+                    successes = +successes + +selectedEffect.cost
+                    if (selectedEffect.type == 'Universal' || (!selectedEffect.description.includes('this effect may be purchased multiple times') && !this.abilityDialog.multipleTargets)) {
+                        let index = this.abilityDialog.effects.findIndex(x => x.description == selectedEffect.description)
+                        if (index > -1) {
+                            let effect = this.abilityDialog.effects.splice(index, 1)
+                            this.abilityDialog.usedEffects = this.abilityDialog.usedEffects.concat(effect)
+                        }
+                    } else {
+                        this.abilityDialog.usedEffects.push(selectedEffect)
+                    }
+                })
+
+                this.abilityDialog.check.successesInput -= +successes
+                this.abilityDialog.selectedEffects = []
             },
             updateBuffEntry(object) {
                 this.updateStatus++
@@ -2553,8 +2785,10 @@
                 } else
                     this.abilityDialog.cr = ''
 
-                if (ability.damage.dice > 0 || ability.damage.flat > 0)
+                if (ability.damage.dice > 0 || ability.damage.flat > 0) {
                     this.rollAbilityDamage(ability)
+                    this.abilityDialog.effects = this.abilityDialog.check.effects.concat(this.abilityDialog.damage.effects)
+                }
 
                 if (ability.save && !isNaN(ability.saveAmount) && ability.saveCharacteristic)
                     this.abilityDialog.save = {
@@ -2573,8 +2807,10 @@
                 this.abilityDialog.check.show = (ability.characteristic)
                 this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0)
                 this.abilityDialog.isAbility = true
+                this.abilityDialog.selectedEffects = []
                 this.abilityDialog.show = true
                 this.abilityDialog.title = ability.name
+                this.abilityDialog.usedEffects = []
             }
         },
         watch: {
