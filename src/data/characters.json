@@ -2,7 +2,7 @@
   {
     "id": "belif",
     "age": "35",
-    "ap": 3,
+    "ap": 2,
     "apMax": 14,
     "attunementSlots": 7,
     "attunementSlotsIncreases": 0,
@@ -28,13 +28,13 @@
     "hp": 17,
     "hpMax": 17,
     "hpIncreases": 0,
-    "initiative": 6,
+    "initiative": 9,
     "initiativeIncreases": 0,
     "level": 1,
     "luckFavored": false,
     "luckIllFavored": false,
     "luckNothingToChance": false,
-    "money": 527,
+    "money": 1489,
     "movement": 3,
     "name": "Belif",
     "race": "Bluman",
@@ -43,9 +43,9 @@
     "rerollsIncreases": 0,
     "size": 1,
     "speedPreperationIsKey": false,
-    "xp": 336,
-    "xpEarned": 1100,
-    "xpTotal": 1200,
+    "xp": 276,
+    "xpEarned": 1250,
+    "xpTotal": 1350,
     "abilities": [
       {
         "apCost": "3",
@@ -413,12 +413,188 @@
         "maxSizeCategoryOfMass": 0,
         "name": "Undead Gun",
         "physMeta": "Physical",
-        "range": 0,
+        "range": "6",
         "successes": 0,
         "xpCost": "119",
         "components": [],
         "subEffects": [],
-        "key": "0Single Targettrue{\"alpha\":1,\"hex\":\"#FFB800\",\"hexa\":\"#FFB800FF\",\"hsla\":{\"h\":43.398430370505565,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":43.398430370505565,\"s\":1,\"v\":1,\"a\":1},\"hue\":43.398430370505565,\"rgba\":{\"r\":255,\"g\":184,\"b\":0,\"a\":1}}0Magazine (6)\nPartial Reload 1 AP for 2 shots\nReloading (3 AP)Instant01662773241082truefalsetrue0Undead GunPhysical00undefinedundefinedundefined119[]{\"dice\":\"1\",\"flat\":0,\"types\":[\"Dark\",\"Piercing\"]}[]1"
+        "key": "0Single Targettrue{\"alpha\":1,\"hex\":\"#FFB800\",\"hexa\":\"#FFB800FF\",\"hsla\":{\"h\":43.398430370505565,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":43.398430370505565,\"s\":1,\"v\":1,\"a\":1},\"hue\":43.398430370505565,\"rgba\":{\"r\":255,\"g\":184,\"b\":0,\"a\":1}}0Magazine (6)\nPartial Reload 1 AP for 2 shots\nReloading (3 AP)Instant01662773241082truefalsetrue0Undead GunPhysical60undefinedundefinedundefined119[]{\"dice\":\"1\",\"flat\":0,\"types\":[\"Dark\",\"Piercing\"]}[]1"
+      },
+      {
+        "apCost": 3,
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "Consume Grunt/Troop body to raise Grunt.",
+        "duration": "3 Rounds",
+        "handedness": 0,
+        "id": "e02583c3-c135-4af7-a2f7-9c9752107b39",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Raise: Basic",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "50",
+        "components": [
+          {
+            "discount": 0,
+            "effect": {
+              "name": "Requires Consumable",
+              "description": "You must consume an object or a number of smaller objects specified when this flaw is taken in order to use this Ability. The player must keep track of how many of these objects they possess and they must not be an item so easily obtained and stored as to make this flaw meaningless. \nAt GM discretion more expensive or difficult to obtain consumables may increase the discount offered from this flaw.",
+              "xpCost": "-50 xp",
+              "category": "Flaw",
+              "duration": null,
+              "tags": "Limited Use, Flaw"
+            },
+            "flatCost": "-50",
+            "name": "",
+            "notes": "",
+            "upcharge": 0,
+            "Notes": "Requires Grunt or Troop level corpse"
+          },
+          {
+            "discount": 0,
+            "effect": {
+              "name": "Duration: Rounds",
+              "description": "Convert Instant and 1 round effects to a longer duration. Instant effects can be triggered once on each of your turns, and have a starting value of 0 rounds",
+              "xpCost": "50xp per additional round",
+              "category": "Duration",
+              "duration": null,
+              "tags": "Duration, Buff, Debuff"
+            },
+            "flatCost": "150",
+            "name": "",
+            "notes": "",
+            "upcharge": 0
+          },
+          {
+            "discount": 0,
+            "effect": {
+              "name": "Minion: Summon",
+              "description": "Create a minion. By default only one copy of the minion can exist at a time. Re-activating this ability when at maximum minions replaces the oldest minion with a new one. When a minion hits 0 hp or its duration expires it disappears, or its body is otherwise rendered unusable.\nCreate a separate character sheet to keep track of your minion's stats. Its starting characteristics are determined by point buy with 14 points, but otherwise following player rules. See Minion rules.\nYou pay any xp costs for minion abilities/advancement at a one to one price, and the price of any minion abilities are not affected by any prices or multipliers on this Summon Ability.\nMinions may not have this ability.",
+              "xpCost": "100 xp",
+              "category": "Effect",
+              "duration": "1 round",
+              "tags": "Minion"
+            },
+            "flatCost": "100",
+            "name": "",
+            "notes": "",
+            "upcharge": 0
+          }
+        ],
+        "subEffects": [],
+        "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Consume Grunt/Troop body to raise Grunt.3 Rounds0e02583c3-c135-4af7-a2f7-9c9752107b39truefalsefalse0Raise: BasicPhysical00false350[{\"discount\":0,\"effect\":{\"name\":\"Requires Consumable\",\"description\":\"You must consume an object or a number of smaller objects specified when this flaw is taken in order to use this Ability. The player must keep track of how many of these objects they possess and they must not be an item so easily obtained and stored as to make this flaw meaningless. \\nAt GM discretion more expensive or difficult to obtain consumables may increase the discount offered from this flaw.\",\"xpCost\":\"-50 xp\",\"category\":\"Flaw\",\"duration\":null,\"tags\":\"Limited Use, Flaw\"},\"flatCost\":\"-50\",\"name\":\"\",\"notes\":\"\",\"upcharge\":0,\"Notes\":\"Requires Grunt or Troop level corpse\"},{\"discount\":0,\"effect\":{\"name\":\"Duration: Rounds\",\"description\":\"Convert Instant and 1 round effects to a longer duration. Instant effects can be triggered once on each of your turns, and have a starting value of 0 rounds\",\"xpCost\":\"50xp per additional round\",\"category\":\"Duration\",\"duration\":null,\"tags\":\"Duration, Buff, Debuff\"},\"flatCost\":\"150\",\"name\":\"\",\"notes\":\"\",\"upcharge\":0},{\"discount\":0,\"effect\":{\"name\":\"Minion: Summon\",\"description\":\"Create a minion. By default only one copy of the minion can exist at a time. Re-activating this ability when at maximum minions replaces the oldest minion with a new one. When a minion hits 0 hp or its duration expires it disappears, or its body is otherwise rendered unusable.\\nCreate a separate character sheet to keep track of your minion's stats. Its starting characteristics are determined by point buy with 14 points, but otherwise following player rules. See Minion rules.\\nYou pay any xp costs for minion abilities/advancement at a one to one price, and the price of any minion abilities are not affected by any prices or multipliers on this Summon Ability.\\nMinions may not have this ability.\",\"xpCost\":\"100 xp\",\"category\":\"Effect\",\"duration\":\"1 round\",\"tags\":\"Minion\"},\"flatCost\":\"100\",\"name\":\"\",\"notes\":\"\",\"upcharge\":0}]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
+      },
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "",
+        "duration": "Passive",
+        "handedness": 0,
+        "id": "9eec02d4-e3ae-4b20-8ea1-b5b4cd0ec8d5",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Undead Defense",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "160",
+        "components": [
+          {
+            "discount": 0,
+            "effect": {
+              "name": "Defense: Hard to Hit",
+              "description": "Increases the DC of attack checks against you by 1 for each rank of this effect.\nWhen making opposed defensive rolls, such as via the Defend Action, gain one bonus success instead.",
+              "xpCost": "160 xp, doubling for each purchase\nEX: 3 Ranks costs (160+320+640)xp",
+              "category": "Stat",
+              "duration": "Passive",
+              "tags": "Defense, Self, Passive"
+            },
+            "flatCost": "160",
+            "name": "",
+            "notes": "",
+            "upcharge": 0,
+            "Notes": "1 Rank"
+          }
+        ],
+        "subEffects": [],
+        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Passive09eec02d4-e3ae-4b20-8ea1-b5b4cd0ec8d5truefalsefalse0Undead DefensePhysical00false3160[{\"discount\":0,\"effect\":{\"name\":\"Defense: Hard to Hit\",\"description\":\"Increases the DC of attack checks against you by 1 for each rank of this effect.\\nWhen making opposed defensive rolls, such as via the Defend Action, gain one bonus success instead.\",\"xpCost\":\"160 xp, doubling for each purchase\\nEX: 3 Ranks costs (160+320+640)xp\",\"category\":\"Stat\",\"duration\":\"Passive\",\"tags\":\"Defense, Self, Passive\"},\"flatCost\":\"160\",\"name\":\"\",\"notes\":\"\",\"upcharge\":0,\"Notes\":\"1 Rank\"}]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
       }
     ],
     "buffs": [
@@ -593,6 +769,16 @@
         "characteristic": "intelligence",
         "unlocked": false,
         "key": "16620000126711"
+      },
+      {
+        "active": false,
+        "advanceRank": 0,
+        "description": "",
+        "id": "a55e0b86-342c-4346-994a-5fd2e618bc33",
+        "name": "Best Friend",
+        "characteristic": "cunning",
+        "unlocked": true,
+        "key": "a55e0b86-342c-4346-994a-5fd2e618bc331"
       }
     ],
     "equipment": [
@@ -808,7 +994,7 @@
         "luckAdjustment": 0,
         "dcToHit": 3,
         "dcToHitIncreases": 0,
-        "hp": 0,
+        "hp": 9,
         "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
@@ -870,7 +1056,7 @@
         "luckAdjustment": 0,
         "dcToHit": 3,
         "dcToHitIncreases": 0,
-        "hp": 0,
+        "hp": 9,
         "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
@@ -1039,6 +1225,17 @@
         "name": "Session 2",
         "xp": "150",
         "key": "22585eb2-95e4-4273-8025-85713af381b31"
+      },
+      {
+        "classXP": false,
+        "date": "2022-10-21",
+        "description": "4.25 Ripjaw\n1.87 Carrion Crawler\n1.25 Susquatches\n2.25 Blood Field Tree Roots",
+        "gameDate": "June 27, 1869",
+        "id": "05aeb5b2-4d4e-4324-867b-5a8e479d0ed0",
+        "money": "962",
+        "name": "Session 3",
+        "xp": "150",
+        "key": "05aeb5b2-4d4e-4324-867b-5a8e479d0ed01"
       }
     ]
   },

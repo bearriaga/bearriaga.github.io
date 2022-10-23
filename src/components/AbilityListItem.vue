@@ -102,17 +102,7 @@
                 </v-col>
                 <v-col cols="4" v-if="maxSizeCategoryOfMass">
                     <v-text-field label="Max Size Category Of Mass" v-model="maxSizeCategoryOfMass"></v-text-field>
-                </v-col>
-                <v-col cols="12" v-if="components.length > 0">
-                    <h4 class="text-center">Components</h4>
-                    <v-row>
-                        <v-col cols="6" v-for="c in components" :key="c.name">
-                            <v-form>
-                                <v-text-field label="Name" v-model="c.name"></v-text-field>
-                            </v-form>
-                        </v-col>
-                    </v-row>
-                </v-col>
+                </v-col>                
                 <v-col cols="12" v-if="subEffects.length > 0">
                     <template>
                         <v-expansion-panels>
