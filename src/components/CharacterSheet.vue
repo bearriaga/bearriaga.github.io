@@ -853,10 +853,10 @@
 
                     <v-card-text v-if="abilityDialog.isAbility">
                         <div v-if="abilityDialog.ap">
-                            <b>{{abilityDialog.ap}}</b>
+                            <b>AP Used {{abilityDialog.ap}}</b>
                         </div>
                         <div v-if="abilityDialog.cr">
-                            <b>{{abilityDialog.cr}}</b>
+                            <b>CR Used {{abilityDialog.cr}}</b>
                         </div>
                     </v-card-text>
 
@@ -2141,53 +2141,53 @@
                 }
             },
             copyAll() {
-                var copyText = this.abilityDialog.ability.name
+                var copyText = `&{template:default} {{name= ${this.abilityDialog.ability.name}}}`
 
                 if (this.abilityDialog.check.show)
-                    copyText += `\n${this.copyCheckGet()}`
+                    copyText += `${this.copyCheckGet()}`
 
                 if (this.abilityDialog.damage.show)
-                    copyText += `\n${this.copyDamageGet()}`
+                    copyText += `${this.copyDamageGet()}`
 
                 if (this.abilityDialog.save.show)
-                    copyText += `\n${this.copySaveGet()}`
+                    copyText += `${this.copySaveGet()}`
 
                 if (this.abilityDialog.ap)
-                    copyText += `\n${this.abilityDialog.ap}`
+                    copyText += `{{AP Used= ${this.abilityDialog.ap}}}`
 
                 if (this.abilityDialog.cr)
-                    copyText += `\n${this.abilityDialog.cr}`
+                    copyText += `{{CR Used= ${this.abilityDialog.cr}}}`
 
                 navigator.clipboard.writeText(copyText)
             },
             copyCheck() {
-                navigator.clipboard.writeText(this.copyCheckGet())
+                navigator.clipboard.writeText(`&{template:default} {{name= Check Result}} ${this.copyCheckGet()}`)
             },
             copyCheckGet() {
                 var copyText =
-                    'Successes: ' + this.abilityDialog.check.successes + '\n' +
-                    'Fate: ' + this.abilityDialog.check.fate + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '\n' +
-                    'Dice Results: [' + this.abilityDialog.check.diceResults + ']';
+                    '{{Successes= ' + this.abilityDialog.check.successes + '}}' +
+                    '{{Fate= ' + this.abilityDialog.check.fate + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '}}'
+                    '{{Dice Results= [' + this.abilityDialog.check.diceResults + ']}}';
 
                 if (this.abilityDialog.check.successesFromIntelligence)
-                    copyText += '\nSuccesses From INT: ' + this.abilityDialog.check.successesFromIntelligence
+                    copyText += '{{Successes From INT= ' + this.abilityDialog.check.successesFromIntelligence + '}}'
 
                 if (this.abilityDialog.check.successesFromLuck)
-                    copyText += '\nSuccesses From LCK: ' + this.abilityDialog.check.successesFromLuck
+                    copyText += '{{Successes From LCK= ' + this.abilityDialog.check.successesFromLuck + '}}'
 
                 return copyText
             },
             copyDamage() {
-                navigator.clipboard.writeText(this.copyDamageGet())
+                navigator.clipboard.writeText(`&{template:default} {{name= Damage Result}} ${this.copyDamageGet()}`)
             },
             copyDamageGet() {
-                return `Damage: ${this.abilityDialog.damage.sum} ${this.abilityDialog.ability.damage.types.join(', ')}`
+                return `{{Damage= ${this.abilityDialog.damage.sum} ${this.abilityDialog.ability.damage.types.join(', ')}}}`
             },
             copySave() {
-                navigator.clipboard.writeText(this.copySaveGet())
+                navigator.clipboard.writeText(`&{template:default} {{name= Save Result}} ${this.copySaveGet()}`)
             },
             copySaveGet() {
-                return `Save: ${this.abilityDialog.save.characteristic} ${this.abilityDialog.save.amount}`
+                return `{{Save= ${this.abilityDialog.save.characteristic} ${this.abilityDialog.save.amount}}}`
             },
             //Dice Roll Functions
             determineSuccesses(dieResult) {
@@ -2777,7 +2777,7 @@
             useAbility(ability) {
                 if (ability.apCost != 0) {
                     this.subtractAP(ability.apCost)
-                    this.abilityDialog.ap = `AP Used: ${ability.apCost}`
+                    this.abilityDialog.ap = ability.apCost
                 } else
                     this.abilityDialog.ap = ''
 
@@ -2787,7 +2787,7 @@
                 if (ability.classResource && ability.crCost != 0) {
                     this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
                     let resource = this.resources.find(x => { return x.id == ability.classResource })
-                    this.abilityDialog.cr = `CR Used: ${ability.crCost} ${resource.name}`
+                    this.abilityDialog.cr = `${ability.crCost} ${resource.name}`
                 } else
                     this.abilityDialog.cr = ''
 
