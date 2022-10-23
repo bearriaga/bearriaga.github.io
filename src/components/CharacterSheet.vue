@@ -753,6 +753,9 @@
                                     </v-icon>
                                 </v-btn>
                             </v-col>
+                            <v-col cols="12" class="text-center">
+                                <b>Rerolls Left: {{characterSheet.rerolls}}</b>
+                            </v-col>
                             <v-col cols="6">
                                 <v-btn @click="rerollWholeCheck"
                                        :disabled="characterSheet.rerolls <= 0"
@@ -839,6 +842,9 @@
                         </div>
 
                         <div class="text-center">
+                            <div>
+                                <b>Rerolls Left: {{characterSheet.rerolls}}</b>
+                            </div>
                             <v-btn @click="rerollWholeDamage"
                                    :disabled="characterSheet.rerolls <= 0"
                                    width="200">Reroll Hand</v-btn>
