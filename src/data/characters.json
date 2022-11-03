@@ -2082,7 +2082,7 @@
   {
     "id": "sienna",
     "age": 0,
-    "ap": -8,
+    "ap": 0,
     "apMax": 14,
     "attunementSlots": 7,
     "attunementSlotsIncreases": 0,
@@ -4017,8 +4017,8 @@
       },
       {
         "description": "",
+        "isActive": false,
         "id": "711fbed7-6e9c-4f1c-a3dc-c5dcf023c59c",
-        "isActive": true,
         "name": "Mutant Buffs Enhanced Stealth",
         "adjustments": [
           {
@@ -4081,6 +4081,196 @@
               }
             },
             "type": "Skill"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "isActive": false,
+        "id": "2a24f194-790e-4a64-b0ab-82c24a3cf98c",
+        "name": "Mutant Movements Athletic Adaptation",
+        "adjustments": [
+          {
+            "amount": "7",
+            "characteristic": "",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": ""
+            },
+            "description": "",
+            "movementType": "Land Speed",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Movement"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "isActive": false,
+        "id": "f41b13a1-c568-47a0-98b3-ec62342f839b",
+        "name": "Mutant Movements Spider Adaptation",
+        "adjustments": [
+          {
+            "amount": "6",
+            "characteristic": "",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": ""
+            },
+            "description": "",
+            "movementType": "Spider Climbing",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Movement"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "isActive": false,
+        "id": "9779067b-a4bc-4eb8-92b4-7753a37d621d",
+        "name": "Mutant Movements Aquatic Adaptation",
+        "adjustments": [
+          {
+            "amount": "10",
+            "characteristic": "",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": ""
+            },
+            "description": "",
+            "movementType": "Swim",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Movement"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "isActive": false,
+        "id": "a217b122-955d-4c64-b714-053096f42b79",
+        "name": "Mutant Movements Subterranean Adapation",
+        "adjustments": [
+          {
+            "amount": "6",
+            "characteristic": "",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": ""
+            },
+            "description": "",
+            "movementType": "Burrowing",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Movement"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "isActive": false,
+        "id": "7b4d41c8-3133-487f-80f3-66492303a2bf",
+        "name": "Mutant Movements Winged Adapation",
+        "adjustments": [
+          {
+            "amount": "7",
+            "characteristic": "",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": ""
+            },
+            "description": "",
+            "movementType": "Flying",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Movement"
           }
         ]
       }
