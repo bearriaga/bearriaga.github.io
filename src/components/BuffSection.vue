@@ -189,9 +189,13 @@
                             amount: 0,
                             characteristic: '',
                             classResource: '',
+                            damageModification: {
+                                isResistance: false,
+                                isVulnerability: false,
+                                type: ''
+                            },
                             description: '',
                             movementType: '',
-                            damageModificationType: '',
                             skill: '',
                             status: {
                                 currentDuration: 1,
@@ -223,9 +227,13 @@
                             amount: 0,
                             characteristic: '',
                             classResource: '',
+                            damageModification: {
+                                isResistance: false,
+                                isVulnerability: false,
+                                type: ''
+                            },
                             description: '',
                             movementType: '',
-                            damageModificationType: '',
                             skill: '',
                             status: {
                                 currentDuration: 1,
@@ -264,10 +272,14 @@
                     amount: 0,
                     characteristic: '',
                     classResource: '',
+                    damageModification: {
+                        isResistance: false,
+                        isVulnerability: false,
+                        type: ''
+                    },
                     description: '',
                     movementType: '',
                     id: uuidv4(),
-                    damageModificationType: '',
                     skill: '',
                     status: {
                         currentDuration: 1,
