@@ -94,11 +94,9 @@
         "damage": {
           "dice": "2",
           "flat": "0",
-          "types": [ "Dark" ],
-          "key": "0true"
+          "types": [ "Dark" ]
         },
-        "subEffects": [],
-        "key": "3false{\"alpha\":1,\"hex\":\"#0023FF\",\"hexa\":\"#0023FFFF\",\"hsla\":{\"h\":231.78901259353896,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":231.78901259353896,\"s\":1,\"v\":1,\"a\":1},\"hue\":231.78901259353896,\"rgba\":{\"r\":0,\"g\":35,\"b\":255,\"a\":1}}0intelligencePoint a finger at your target and say, \"The bell tolls for you\".\nConditional: Spell Components - (Verbal and Somatic)Instant11truefalsefalse0Toll the DeadPhysical60undefinedundefinedundefined165[]{\"dice\":\"2\",\"flat\":\"0\",\"types\":[\"Dark\"],\"key\":\"0true\"}[]1"
+        "subEffects": []
       },
       {
         "apCost": "7",
@@ -148,11 +146,9 @@
         "damage": {
           "dice": "0",
           "flat": "0",
-          "types": [],
-          "key": "0"
+          "types": []
         },
-        "subEffects": [],
-        "key": "7Single Targetfalse{\"alpha\":1,\"hex\":\"#0006FF\",\"hexa\":\"#0006FFFF\",\"hsla\":{\"h\":238.51724767293302,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":238.51724767293302,\"s\":1,\"v\":1,\"a\":1},\"hue\":238.51724767293302,\"rgba\":{\"r\":0,\"g\":6,\"b\":255,\"a\":1}}2Duration: Committed Resources\nMinion: Absorb Ability Modifiers\nMinion: Absorb Attributes\nMinion: Cannot Speak\nMinion: Harvestable\nMinion: Special Communication\nMinion: Summon Limit (4)\nRequires Consumable (Corpse)Indefinite01662000692496truefalsefalse0Summon UndeadPhysical00undefinedundefinedundefined420[]{\"dice\":\"0\",\"flat\":\"0\",\"types\":[],\"key\":\"0\"}[]1"
+        "subEffects": []
       },
       {
         "apCost": "0",
@@ -202,11 +198,9 @@
         "damage": {
           "dice": "0",
           "flat": "0",
-          "types": [],
-          "key": "0"
+          "types": []
         },
-        "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Bile Resource +3Instant01662002064365truefalsefalse0Bile Max IncreasePhysical00undefinedundefinedundefined90[]{\"dice\":\"0\",\"flat\":\"0\",\"types\":[],\"key\":\"0\"}[]1"
+        "subEffects": []
       },
       {
         "apCost": "0",
@@ -258,8 +252,7 @@
         "successes": 0,
         "xpCost": "50",
         "components": [],
-        "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#FFA300\",\"hexa\":\"#FFA300FF\",\"hsla\":{\"h\":38.33911297682059,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":38.33911297682059,\"s\":1,\"v\":1,\"a\":1},\"hue\":38.33911297682059,\"rgba\":{\"r\":255,\"g\":163,\"b\":0,\"a\":1}}0Defense: Bodyguard\nChoose a creature or object adjacent to your character, when that creature would take damage you may elect to move into their square and take that damage instead.Instant01662598729462truefalsetrue0Undead BodyguardPhysical00undefinedundefinedundefined50[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
+        "subEffects": []
       },
       {
         "apCost": "0",
@@ -311,8 +304,7 @@
         "successes": 0,
         "xpCost": "14",
         "components": [],
-        "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}01 Use per Long Rest\nRecharges at SunsetInstant01662602007478truefalsetrue0Speak with DeadPhysical00undefinedundefinedundefined14[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
+        "subEffects": []
       },
       {
         "apCost": "0",
@@ -364,8 +356,7 @@
         "successes": 0,
         "xpCost": "125",
         "components": [],
-        "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Mountable\nFlying 5\n3 Attunement SlotsInstant01662603125699truefalsetrue0Flying BroomPhysical00undefinedundefinedundefined125[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
+        "subEffects": []
       },
       {
         "apCost": "0",
@@ -417,8 +408,7 @@
         "successes": 0,
         "xpCost": "119",
         "components": [],
-        "subEffects": [],
-        "key": "0Single Targettrue{\"alpha\":1,\"hex\":\"#FFB800\",\"hexa\":\"#FFB800FF\",\"hsla\":{\"h\":43.398430370505565,\"s\":1,\"l\":0.5,\"a\":1},\"hsva\":{\"h\":43.398430370505565,\"s\":1,\"v\":1,\"a\":1},\"hue\":43.398430370505565,\"rgba\":{\"r\":255,\"g\":184,\"b\":0,\"a\":1}}0Magazine (6)\nPartial Reload 1 AP for 2 shots\nReloading (3 AP)Instant01662773241082truefalsetrue0Undead GunPhysical60undefinedundefinedundefined119[]{\"dice\":\"1\",\"flat\":0,\"types\":[\"Dark\",\"Piercing\"]}[]1"
+        "subEffects": []
       },
       {
         "apCost": 3,
@@ -520,8 +510,7 @@
             "upcharge": 0
           }
         ],
-        "subEffects": [],
-        "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Consume Grunt/Troop body to raise Grunt.3 Rounds0e02583c3-c135-4af7-a2f7-9c9752107b39truefalsefalse0Raise: BasicPhysical00false350[{\"discount\":0,\"effect\":{\"name\":\"Requires Consumable\",\"description\":\"You must consume an object or a number of smaller objects specified when this flaw is taken in order to use this Ability. The player must keep track of how many of these objects they possess and they must not be an item so easily obtained and stored as to make this flaw meaningless. \\nAt GM discretion more expensive or difficult to obtain consumables may increase the discount offered from this flaw.\",\"xpCost\":\"-50 xp\",\"category\":\"Flaw\",\"duration\":null,\"tags\":\"Limited Use, Flaw\"},\"flatCost\":\"-50\",\"name\":\"\",\"notes\":\"\",\"upcharge\":0,\"Notes\":\"Requires Grunt or Troop level corpse\"},{\"discount\":0,\"effect\":{\"name\":\"Duration: Rounds\",\"description\":\"Convert Instant and 1 round effects to a longer duration. Instant effects can be triggered once on each of your turns, and have a starting value of 0 rounds\",\"xpCost\":\"50xp per additional round\",\"category\":\"Duration\",\"duration\":null,\"tags\":\"Duration, Buff, Debuff\"},\"flatCost\":\"150\",\"name\":\"\",\"notes\":\"\",\"upcharge\":0},{\"discount\":0,\"effect\":{\"name\":\"Minion: Summon\",\"description\":\"Create a minion. By default only one copy of the minion can exist at a time. Re-activating this ability when at maximum minions replaces the oldest minion with a new one. When a minion hits 0 hp or its duration expires it disappears, or its body is otherwise rendered unusable.\\nCreate a separate character sheet to keep track of your minion's stats. Its starting characteristics are determined by point buy with 14 points, but otherwise following player rules. See Minion rules.\\nYou pay any xp costs for minion abilities/advancement at a one to one price, and the price of any minion abilities are not affected by any prices or multipliers on this Summon Ability.\\nMinions may not have this ability.\",\"xpCost\":\"100 xp\",\"category\":\"Effect\",\"duration\":\"1 round\",\"tags\":\"Minion\"},\"flatCost\":\"100\",\"name\":\"\",\"notes\":\"\",\"upcharge\":0}]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
+        "subEffects": []
       },
       {
         "apCost": "0",
@@ -593,8 +582,7 @@
             "Notes": "1 Rank"
           }
         ],
-        "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Passive09eec02d4-e3ae-4b20-8ea1-b5b4cd0ec8d5truefalsefalse0Undead DefensePhysical00false3160[{\"discount\":0,\"effect\":{\"name\":\"Defense: Hard to Hit\",\"description\":\"Increases the DC of attack checks against you by 1 for each rank of this effect.\\nWhen making opposed defensive rolls, such as via the Defend Action, gain one bonus success instead.\",\"xpCost\":\"160 xp, doubling for each purchase\\nEX: 3 Ranks costs (160+320+640)xp\",\"category\":\"Stat\",\"duration\":\"Passive\",\"tags\":\"Defense, Self, Passive\"},\"flatCost\":\"160\",\"name\":\"\",\"notes\":\"\",\"upcharge\":0,\"Notes\":\"1 Rank\"}]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
+        "subEffects": []
       }
     ],
     "buffs": [
@@ -635,8 +623,7 @@
             },
             "type": "Class Resource: Commited"
           }
-        ],
-        "key": "16628402681120[{\"amount\":\"2\",\"characteristic\":\"\",\"classResource\":\"1654827507939\",\"description\":\"\",\"movementType\":\"\",\"id\":\"16628402468070\",\"damageModification\":{\"isVulnerability\":false,\"isResistance\":false,\"type\":\"\"},\"skill\":\"\",\"status\":{\"currentDuration\":1,\"currentIsActive\":true,\"currentRanks\":1,\"description\":\"\",\"duration\":1,\"id\":\"16628402468071\",\"isActive\":true,\"ranks\":1,\"status\":{\"cost\":\"\",\"effect\":\"\",\"name\":\"\",\"type\":\"\"}},\"type\":\"Class Resource: Commited\"}]1"
+        ]
       },
       {
         "description": "Undead 2",
@@ -675,8 +662,7 @@
             },
             "type": "Class Resource: Commited"
           }
-        ],
-        "key": "16628402770870[{\"amount\":\"2\",\"characteristic\":\"\",\"classResource\":\"1654827507939\",\"description\":\"\",\"movementType\":\"\",\"id\":\"16628402707720\",\"damageModification\":{\"isVulnerability\":false,\"isResistance\":false,\"type\":\"\"},\"skill\":\"\",\"status\":{\"currentDuration\":1,\"currentIsActive\":true,\"currentRanks\":1,\"description\":\"\",\"duration\":1,\"id\":\"16628402707721\",\"isActive\":true,\"ranks\":1,\"status\":{\"cost\":\"\",\"effect\":\"\",\"name\":\"\",\"type\":\"\"}},\"type\":\"Class Resource: Commited\"}]1"
+        ]
       },
       {
         "description": "Undead 3",
@@ -715,8 +701,7 @@
             },
             "type": "Class Resource: Commited"
           }
-        ],
-        "key": "16628402901590[{\"amount\":\"2\",\"characteristic\":\"\",\"classResource\":\"1654827507939\",\"description\":\"\",\"movementType\":\"\",\"id\":\"16628402785950\",\"damageModification\":{\"isVulnerability\":false,\"isResistance\":false,\"type\":\"\"},\"skill\":\"\",\"status\":{\"currentDuration\":1,\"currentIsActive\":true,\"currentRanks\":1,\"description\":\"\",\"duration\":1,\"id\":\"16628402785951\",\"isActive\":true,\"ranks\":1,\"status\":{\"cost\":\"\",\"effect\":\"\",\"name\":\"\",\"type\":\"\"}},\"type\":\"Class Resource: Commited\"}]1"
+        ]
       },
       {
         "description": "Undead 4",
@@ -755,8 +740,7 @@
             },
             "type": "Class Resource: Commited"
           }
-        ],
-        "key": "16628403016130[{\"amount\":\"2\",\"characteristic\":\"\",\"classResource\":\"1654827507939\",\"description\":\"\",\"movementType\":\"\",\"id\":\"16628402943630\",\"damageModification\":{\"isVulnerability\":false,\"isResistance\":false,\"type\":\"\"},\"skill\":\"\",\"status\":{\"currentDuration\":1,\"currentIsActive\":true,\"currentRanks\":1,\"description\":\"\",\"duration\":1,\"id\":\"16628402943631\",\"isActive\":true,\"ranks\":1,\"status\":{\"cost\":\"\",\"effect\":\"\",\"name\":\"\",\"type\":\"\"}},\"type\":\"Class Resource: Commited\"}]1"
+        ]
       }
     ],
     "classes": [
@@ -767,8 +751,7 @@
         "id": "1662000012671",
         "name": "Necromancer",
         "characteristic": "intelligence",
-        "unlocked": false,
-        "key": "16620000126711"
+        "unlocked": false
       },
       {
         "active": false,
@@ -777,8 +760,7 @@
         "id": "a55e0b86-342c-4346-994a-5fd2e618bc33",
         "name": "Best Friend",
         "characteristic": "cunning",
-        "unlocked": true,
-        "key": "a55e0b86-342c-4346-994a-5fd2e618bc331"
+        "unlocked": true
       }
     ],
     "equipment": [
@@ -830,8 +812,7 @@
             "description": "Flying Broom Movement",
             "type": "Flying"
           }
-        ],
-        "key": "166259811266131Mountable\n3 Attunement SlotsfalsefalsefalseFlying Broom{\"apCost\":\"1\",\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"\",\"damage\":{\"dice\":0,\"flat\":0,\"types\":[]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Flying Broom\",\"physMeta\":\"Physical\",\"range\":0,\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]1"
+        ]
       }
     ],
     "flaws": [
@@ -839,8 +820,7 @@
         "amount": "100",
         "description": "CR: Stagnant Pool\nCR: Special Resources",
         "id": "1661999979148",
-        "name": "Bile Flaws",
-        "key": "16619999791481"
+        "name": "Bile Flaws"
       }
     ],
     "minions": [
@@ -903,8 +883,7 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "journalEntries": [],
-        "key": "Atwood GalahadAtwood Galahad0"
+        "journalEntries": []
       },
       {
         "id": "Grogg",
@@ -965,8 +944,7 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "journalEntries": [],
-        "key": "GroggGrogg0"
+        "journalEntries": []
       },
       {
         "id": "DanaMiniCotton",
@@ -1027,8 +1005,7 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "journalEntries": [],
-        "key": "DanaMiniCottonDana \"Mini\" Cotton\"0"
+        "journalEntries": []
       },
       {
         "id": "Zar'goh",
@@ -1089,8 +1066,7 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "journalEntries": [],
-        "key": "Zar'gohZar'goh0"
+        "journalEntries": []
       }
     ],
     "movements": [],
@@ -1102,8 +1078,7 @@
         "id": "1654827507939",
         "name": "Bile",
         "characteristic": "intelligence",
-        "resourceIncreases": "3",
-        "key": "Bileintelligence3501"
+        "resourceIncreases": "3"
       }
     ],
     "skills": [
@@ -1114,8 +1089,7 @@
         "name": "Analyze",
         "skillIncreases": 0,
         "value": 5,
-        "adjustment": 0,
-        "key": "Analyzeintelligence0501"
+        "adjustment": 0
       },
       {
         "characteristic": "fitness",
@@ -1124,8 +1098,7 @@
         "name": "Athletics",
         "skillIncreases": 0,
         "value": 3,
-        "adjustment": 0,
-        "key": "Athleticsfitness0301"
+        "adjustment": 0
       },
       {
         "characteristic": "cunning",
@@ -1134,8 +1107,7 @@
         "name": "Deception",
         "skillIncreases": 0,
         "value": 4,
-        "adjustment": 0,
-        "key": "Deceptioncunning0401"
+        "adjustment": 0
       },
       {
         "characteristic": "cunning",
@@ -1144,8 +1116,7 @@
         "name": "Perception",
         "skillIncreases": 0,
         "value": 4,
-        "adjustment": 0,
-        "key": "Perceptioncunning0401"
+        "adjustment": 0
       },
       {
         "characteristic": "cunning",
@@ -1154,8 +1125,7 @@
         "name": "Persuasion",
         "skillIncreases": 0,
         "value": 4,
-        "adjustment": 0,
-        "key": "Persuasioncunning0401"
+        "adjustment": 0
       },
       {
         "characteristic": "fitness",
@@ -1164,8 +1134,7 @@
         "name": "Stealth",
         "skillIncreases": 0,
         "value": 3,
-        "adjustment": 0,
-        "key": "Stealthfitness0301"
+        "adjustment": 0
       }
     ],
     "statuses": [],
@@ -1179,8 +1148,7 @@
         "id": "1654386228029",
         "money": 0,
         "name": "Character Creation",
-        "xp": 500,
-        "key": "16543862280291"
+        "xp": 500
       },
       {
         "classXP": true,
@@ -1190,8 +1158,7 @@
         "id": "1661998619617",
         "money": 0,
         "name": "Necromancer",
-        "xp": 300,
-        "key": "16619986196171"
+        "xp": 300
       },
       {
         "classXP": false,
@@ -1201,8 +1168,7 @@
         "id": "1662786649608",
         "money": 0,
         "name": "Session 1",
-        "xp": 150,
-        "key": "16627866496081"
+        "xp": 150
       },
       {
         "classXP": false,
@@ -1212,8 +1178,7 @@
         "id": "35971ed3-7c32-4318-9f9f-b0438aed1eaa",
         "money": "-200",
         "name": "Betting on Teddy Fight",
-        "xp": "",
-        "key": "35971ed3-7c32-4318-9f9f-b0438aed1eaa1"
+        "xp": ""
       },
       {
         "classXP": false,
@@ -1223,8 +1188,7 @@
         "id": "22585eb2-95e4-4273-8025-85713af381b3",
         "money": "500",
         "name": "Session 2",
-        "xp": "150",
-        "key": "22585eb2-95e4-4273-8025-85713af381b31"
+        "xp": "150"
       },
       {
         "classXP": false,
@@ -1234,8 +1198,7 @@
         "id": "05aeb5b2-4d4e-4324-867b-5a8e479d0ed0",
         "money": "962",
         "name": "Session 3",
-        "xp": "150",
-        "key": "05aeb5b2-4d4e-4324-867b-5a8e479d0ed01"
+        "xp": "150"
       }
     ]
   },
@@ -1388,8 +1351,7 @@
             "successes": 0,
             "xpCost": "0",
             "components": [],
-            "subEffects": [],
-            "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}\"\"0fitnessdeal 1d6 apply unconscious to target (full power only)Instant11662676909272truefalsetrue0BonkPhysical200[]{\"dice\":\"1\",\"flat\":0,\"types\":[\"Blunt\"]}[]"
+            "subEffects": []
           },
           {
             "apCost": 3,
@@ -1441,11 +1403,9 @@
             "successes": "0",
             "xpCost": "0",
             "components": [],
-            "subEffects": [],
-            "key": "3Adjacentfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}{\"amount\":-1,\"amountMax\":5,\"id\":\"1662675946088\",\"name\":\"Savage\",\"characteristic\":\"fitness\",\"resourceIncreases\":\"0\",\"key\":\"Savagefitness0532\"}2fitnessTarget: adjacent apply bleeding(7) SelectiveInstant11662676948273truefalsetrue0SlashPhysical200[]{\"dice\":\"0\",\"flat\":0,\"types\":[]}[]"
+            "subEffects": []
           }
-        ],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Instant01662676962400truefalsetrue0Hand Combat ArrayPhysical00undefinedundefinedundefined215[]{\"dice\":0,\"flat\":0,\"types\":[]}[{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"fitness\",\"damage\":{\"dice\":\"1\",\"flat\":0,\"types\":[\"Blunt\"]},\"description\":\"deal 1d6 apply unconscious to target (full power only)\",\"duration\":\"Instant\",\"handedness\":\"1\",\"id\":\"1662676909272\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Bonk\",\"physMeta\":\"Physical\",\"range\":\"2\",\"successes\":0,\"xpCost\":\"0\",\"components\":[],\"subEffects\":[],\"key\":\"3Single Targetfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}\\\"\\\"0fitnessdeal 1d6 apply unconscious to target (full power only)Instant11662676909272truefalsetrue0BonkPhysical200[]{\\\"dice\\\":\\\"1\\\",\\\"flat\\\":0,\\\"types\\\":[\\\"Blunt\\\"]}[]\"},{\"apCost\":3,\"areaOfEffect\":\"Adjacent\",\"boughtForFree\":false,\"color\":{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}},\"classResource\":\"1662675946088\",\"crCost\":\"2\",\"characteristic\":\"fitness\",\"damage\":{\"dice\":\"0\",\"flat\":0,\"types\":[]},\"description\":\"Target: adjacent apply bleeding(7) Selective\",\"duration\":\"Instant\",\"handedness\":\"1\",\"id\":\"1662676948273\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Slash\",\"physMeta\":\"Physical\",\"range\":\"2\",\"successes\":\"0\",\"xpCost\":\"0\",\"components\":[],\"subEffects\":[],\"key\":\"3Adjacentfalse{\\\"alpha\\\":1,\\\"hex\\\":\\\"#000000\\\",\\\"hexa\\\":\\\"#000000FF\\\",\\\"hsla\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"l\\\":0,\\\"a\\\":1},\\\"hsva\\\":{\\\"h\\\":0,\\\"s\\\":0,\\\"v\\\":0,\\\"a\\\":1},\\\"hue\\\":0,\\\"rgba\\\":{\\\"r\\\":0,\\\"g\\\":0,\\\"b\\\":0,\\\"a\\\":1}}{\\\"amount\\\":-1,\\\"amountMax\\\":5,\\\"id\\\":\\\"1662675946088\\\",\\\"name\\\":\\\"Savage\\\",\\\"characteristic\\\":\\\"fitness\\\",\\\"resourceIncreases\\\":\\\"0\\\",\\\"key\\\":\\\"Savagefitness0532\\\"}2fitnessTarget: adjacent apply bleeding(7) SelectiveInstant11662676948273truefalsetrue0SlashPhysical200[]{\\\"dice\\\":\\\"0\\\",\\\"flat\\\":0,\\\"types\\\":[]}[]\"}]1"
+        ]
       },
       {
         "apCost": 3,
@@ -1497,8 +1457,7 @@
         "successes": 0,
         "xpCost": "114",
         "components": [],
-        "subEffects": [],
-        "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0nullHeal 2d6 \n2 uses 1/hr rechargeInstant11662677919921truefalsefalse0GoodBerryMeta20undefinedundefinedundefined114[]{\"dice\":\"2\",\"flat\":0,\"types\":[\"Healing\"]}[]1"
+        "subEffects": []
       },
       {
         "apCost": "0",
@@ -1550,8 +1509,7 @@
         "successes": "-1",
         "xpCost": "0",
         "components": [],
-        "subEffects": [],
-        "key": "0Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0speedInstant01662678293665truefalsetrue0speed-1Physical0-1undefinedundefinedundefined0[]{\"dice\":0,\"flat\":0,\"types\":[]}[]1"
+        "subEffects": []
       }
     ],
     "buffs": [],
@@ -1563,8 +1521,7 @@
         "id": "1662676264048",
         "name": "Savage",
         "characteristic": "fitness",
-        "unlocked": false,
-        "key": "16626762640481"
+        "unlocked": false
       }
     ],
     "equipment": [
@@ -1610,8 +1567,7 @@
           "subEffects": []
         },
         "damageModifications": [],
-        "movements": [],
-        "key": "166267859552101falsefalsetrueWalking Stick{\"apCost\":\"2\",\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"fitness\",\"damage\":{\"dice\":\"2\",\"flat\":0,\"types\":[\"Piercing\"]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":\"1\",\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Walking Stick\",\"physMeta\":\"Physical\",\"range\":\"2\",\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]1"
+        "movements": []
       }
     ],
     "flaws": [
@@ -1619,29 +1575,25 @@
         "amount": "50",
         "description": "\"The attached class resource pool cannot benefit from any effects that restore class resources, and any class resources that would be restored to it are wasted.\nHowever, the class resource pool instantly refills to full at the end of each combat encounter/scene instead of on short/long rests.\"\t\t\t",
         "id": "1662676327240",
-        "name": "Class Resource: Combat Pool",
-        "key": "16626763272401"
+        "name": "Class Resource: Combat Pool"
       },
       {
         "amount": "30",
         "description": "",
         "id": "1662676360176",
-        "name": "Environmental Weakness: Aversion",
-        "key": "16626763601761"
+        "name": "Environmental Weakness: Aversion"
       },
       {
         "amount": "210",
         "description": "-2 Successes in social combat for people you meet the first time \t\t\t",
         "id": "1662676393032",
-        "name": "Bad with people",
-        "key": "16626763930321"
+        "name": "Bad with people"
       },
       {
         "amount": "330",
         "description": "-1 successes on speed checks -2 successes on cun checks in hot weather",
         "id": "1662676421976",
-        "name": "Hot and Cranky",
-        "key": "16626764219761"
+        "name": "Hot and Cranky"
       }
     ],
     "minions": [],
@@ -1650,8 +1602,7 @@
         "amount": "5",
         "description": "",
         "id": "1662675980375",
-        "type": "Land Speed",
-        "key": "16626759803754"
+        "type": "Land Speed"
       }
     ],
     "damageModifications": [],
@@ -1662,8 +1613,7 @@
         "id": "1662675946088",
         "name": "Savage",
         "characteristic": "fitness",
-        "resourceIncreases": "0",
-        "key": "Savagefitness0501"
+        "resourceIncreases": "0"
       }
     ],
     "skills": [
@@ -1674,8 +1624,7 @@
         "name": "Analyze",
         "skillIncreases": 0,
         "value": 1,
-        "adjustment": 0,
-        "key": "Analyzeintelligence0101"
+        "adjustment": 0
       },
       {
         "characteristic": "fitness",
@@ -1684,8 +1633,7 @@
         "name": "Athletics",
         "skillIncreases": 0,
         "value": 5,
-        "adjustment": 0,
-        "key": "Athleticsfitness0501"
+        "adjustment": 0
       },
       {
         "characteristic": "cunning",
@@ -1694,8 +1642,7 @@
         "name": "Deception",
         "skillIncreases": 0,
         "value": 2,
-        "adjustment": 0,
-        "key": "Deceptioncunning0201"
+        "adjustment": 0
       },
       {
         "characteristic": "cunning",
@@ -1704,8 +1651,7 @@
         "name": "Perception",
         "skillIncreases": 0,
         "value": 2,
-        "adjustment": 0,
-        "key": "Perceptioncunning0201"
+        "adjustment": 0
       },
       {
         "characteristic": "cunning",
@@ -1714,8 +1660,7 @@
         "name": "Persuasion",
         "skillIncreases": 0,
         "value": 2,
-        "adjustment": 0,
-        "key": "Persuasioncunning0201"
+        "adjustment": 0
       },
       {
         "characteristic": "fitness",
@@ -1724,8 +1669,7 @@
         "name": "Stealth",
         "skillIncreases": 0,
         "value": 5,
-        "adjustment": 0,
-        "key": "Stealthfitness0501"
+        "adjustment": 0
       }
     ],
     "statuses": [],
@@ -1734,43 +1678,37 @@
         "amount": "465",
         "description": "5 Physical DR and 5 Elemental DR\t\t\t",
         "id": "1662676570376",
-        "name": "Natural Defense",
-        "key": "16626765703761"
+        "name": "Natural Defense"
       },
       {
         "amount": "40",
         "description": "",
         "id": "1662676641672",
-        "name": "Nightvision / Enhanced Scent",
-        "key": "16626766416721"
+        "name": "Nightvision / Enhanced Scent"
       },
       {
         "amount": "150",
         "description": "1Sq reach\t\t\t",
         "id": "1662676664520",
-        "name": "Long Arms",
-        "key": "16626766645201"
+        "name": "Long Arms"
       },
       {
         "amount": "225",
         "description": "9pts",
         "id": "1662676690864",
-        "name": "HP increase",
-        "key": "16626766908641"
+        "name": "HP increase"
       },
       {
         "amount": "150",
         "description": "rank 3",
         "id": "1662677729114",
-        "name": "Speed Increase",
-        "key": "16626777291141"
+        "name": "Speed Increase"
       },
       {
         "amount": "50",
         "description": "Your character's words or deeds are less likely to spread within the general knowledge of a populace, and are more easily forgotten. Photos, video, scying, divinations, etc are always blurry with you in frame.\t\t\t",
         "id": "1662677764097",
-        "name": "Social: Forgettable+",
-        "key": "16626777640971"
+        "name": "Social: Forgettable+"
       }
     ],
     "journalEntries": [
@@ -1780,7 +1718,6 @@
         "gameDate": null,
         "description": "level 1",
         "id": "1662675867743",
-        "key": "16626758677431",
         "money": 0,
         "name": "",
         "xp": 500
@@ -1791,7 +1728,6 @@
         "gameDate": null,
         "description": "Savage",
         "id": "1662675888975",
-        "key": "16626758889751",
         "money": 0,
         "name": "",
         "xp": 300
@@ -1802,7 +1738,6 @@
         "gameDate": null,
         "description": "Session 1",
         "id": "1662932684249",
-        "key": "16629326842491",
         "money": 0,
         "name": "",
         "xp": 150
@@ -1873,8 +1808,7 @@
         "name": "Analyze",
         "skillIncreases": 0,
         "value": 0,
-        "adjustment": 0,
-        "key": "Analyzefitness030"
+        "adjustment": 0
       },
       {
         "characteristic": "fitness",
@@ -2016,8 +1950,7 @@
         "damage": {
           "dice": "1",
           "flat": "0",
-          "types": [ "Piercing" ],
-          "key": "0true"
+          "types": [ "Piercing" ]
         },
         "subEffects": []
       }
@@ -2088,8 +2021,7 @@
         "name": "Analyze",
         "skillIncreases": 0,
         "value": 0,
-        "adjustment": 0,
-        "key": "Analyzefitness030"
+        "adjustment": 0
       },
       {
         "characteristic": "fitness",
@@ -2144,6 +2076,2429 @@
         "money": 0,
         "name": "",
         "xp": 500
+      }
+    ]
+  },
+  {
+    "id": "sienna",
+    "age": 0,
+    "ap": -8,
+    "apMax": 14,
+    "attunementSlots": 7,
+    "attunementSlotsIncreases": 0,
+    "attunementSlotsMax": 10,
+    "background": "",
+    "bp": 0,
+    "bpMax": 6,
+    "bpIncreases": 0,
+    "fitness": 5,
+    "fitnessAdjustment": 0,
+    "speed": 5,
+    "speedAdjustment": 0,
+    "intelligence": 6,
+    "intelligenceAdjustment": 0,
+    "cunning": 4,
+    "cunningAdjustment": 0,
+    "resistance": 6,
+    "resistanceAdjustment": 0,
+    "luck": 3,
+    "luckAdjustment": 0,
+    "dcToHit": 3,
+    "dcToHitIncreases": 0,
+    "hp": 0,
+    "hpMax": 30,
+    "hpIncreases": 7,
+    "initiative": 0,
+    "initiativeIncreases": 0,
+    "level": 1,
+    "luckFavored": false,
+    "luckIllFavored": false,
+    "luckNothingToChance": false,
+    "money": 0,
+    "movement": 5,
+    "name": "Sienna Valner",
+    "race": "Human",
+    "rerolls": 0,
+    "rerollsMax": 3,
+    "rerollsIncreases": 0,
+    "size": 1,
+    "speedPreperationIsKey": false,
+    "xp": -110,
+    "xpEarned": 1250,
+    "xpTotal": 1090,
+    "abilities": [
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "resistance",
+        "damage": {
+          "dice": "1",
+          "flat": 0,
+          "types": [ "Healing" ]
+        },
+        "description": "",
+        "duration": "Passive",
+        "handedness": 0,
+        "id": "b9c0a0f9-caf4-49f0-b44e-d0cfa8da1063",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Fast Healing",
+        "physMeta": "Meta",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "200",
+        "components": [],
+        "subEffects": []
+      },
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "Revenant & Regen; 5 round delay. The character is blessed (Cursed?) with immortality. They cannot die by any means known to man, and their body always will regenerate to it's natural state, replacing lost limbs and organs, as well as healing any scars.\t\t\t",
+        "duration": "Passive (delay 5)",
+        "handedness": 0,
+        "id": "1a4da078-bb4d-43e8-a97a-2b13f64f9320",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Immortal Blood",
+        "physMeta": "Meta",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "50",
+        "components": [],
+        "subEffects": []
+      },
+      {
+        "apCost": "4",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "May shift appearance to a size 1 creature. Dispels when unconscious / sleeping. Character can shape their face, bone structure, features, and skin color to look like any human, or creature. However to mimick a specific person they would have had to have met them.",
+        "duration": "Continuous",
+        "handedness": 0,
+        "id": "dd616939-ae3c-4b4f-9cad-2ff63e8c86c7",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Shape Change",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "35",
+        "components": [],
+        "subEffects": []
+      },
+      {
+        "apCost": "6",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "Absorb the appearance of a character or creature.\t\t\t",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "f2694603-59f3-4455-9b4f-119944fb688b",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Absorb Apperance",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "25",
+        "components": [],
+        "subEffects": []
+      },
+      {
+        "apCost": 3,
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "23f006eb-9c34-42c3-9c10-d517d9007451",
+        "crCost": "1",
+        "characteristic": "resistance",
+        "damage": {
+          "dice": "2",
+          "flat": 0,
+          "types": [ "Healing" ]
+        },
+        "description": "Heal target creature for 2d6+RES*2 HP. Overheal. Hurts caster for 2d6 Dark damage. Cannot cast on self. Pleasurable to target. Character transfers their vital ichor into another creature, the process is not entirely sanity, but causes the target great pleasure.\t\t\t",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "f937f4a5-a20a-48df-ab7f-a748ae3b2890",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Ichor Injection",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "20",
+        "components": [],
+        "subEffects": []
+      },
+      {
+        "apCost": 3,
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "23f006eb-9c34-42c3-9c10-d517d9007451",
+        "crCost": "1",
+        "characteristic": "",
+        "damage": {
+          "dice": "3",
+          "flat": 0,
+          "types": [ "Dark" ]
+        },
+        "description": "Cleanses all status effects, but deals 3d6 dark damage to target. Painful to target. Character commands their ichor infused blood to leave their body and inject into creature, causing great pain and damage to them. \t\t\t",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "b0f60acb-5af9-4710-94eb-6abc48c599ae",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Scouring Ichor Injection",
+        "physMeta": "Meta",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "10",
+        "components": [],
+        "subEffects": []
+      },
+      {
+        "apCost": 3,
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "23f006eb-9c34-42c3-9c10-d517d9007451",
+        "crCost": "2",
+        "characteristic": "resistance",
+        "damage": {
+          "dice": "2",
+          "flat": 0,
+          "types": [ "Healing" ]
+        },
+        "description": "Target creature is resurrected if dead and restores any body parts if missing any, as well as healing for 2d6+RES. Causes target pleasure. Caster takes 3d6 Dark damage. Forces your Ichor infused blood down a creature's throat, might represent what looks like CPR, but much much messier.\t\t\t",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "e448c1de-d95e-418f-b228-9d04fbc2e085",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Ichor Transfusion",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "10",
+        "components": [],
+        "subEffects": []
+      },
+      {
+        "apCost": "1",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "23f006eb-9c34-42c3-9c10-d517d9007451",
+        "crCost": "-1",
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": "12",
+          "types": [ "Dark" ]
+        },
+        "description": "When an adjacent creature that has blood takes slashing or piercing damage may make an attack roll to drink some of their blood. Deals 12 dark damage, with vampirisim, and resorts 1 CR. Spend 2 Succes to deal damage again, and restore 1 CR.",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "6bd39bc9-ee11-40dc-9f62-6be9d48d4e95",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Blood Drain",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "30",
+        "components": [],
+        "subEffects": []
+      },
+      {
+        "apCost": "2",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "resistance",
+        "damage": {
+          "dice": 0,
+          "flat": "1",
+          "types": [ "Slashing", "Blunt" ]
+        },
+        "description": "Deals 1+FIT+RES Piercing Slashing or Bludgeoning.  Subtle (1). Duo-Wield. Character's hand, feet, and teeth become deadly natural weapons. \t\t\t",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "5e6643a7-76aa-45cd-85a7-20e149f2f27b",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Natural Weapons",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "150",
+        "components": [],
+        "subEffects": []
+      },
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "Different mutated weapons taking up a arm. These count as natural weapons. May only have one active at a time.\t\t\t",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "daddd3de-1485-4af4-8721-c0ddb81ba70d",
+        "inClass": true,
+        "isAbilityArray": true,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Mutant Arms",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "310",
+        "components": [],
+        "subEffects": [
+          {
+            "apCost": 3,
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Can change arm to be a variety of non-complicated tools.",
+            "duration": "Instant",
+            "handedness": 0,
+            "id": "76ef8f6b-9078-4864-807e-819de510c31f",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Tool Arm",
+            "physMeta": "Physical",
+            "range": "10",
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": 3,
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Character grows 3 extra fully functional arms.",
+            "duration": "Instant",
+            "handedness": 0,
+            "id": "1e8b3b93-7b21-4e2c-966c-3983c4c754a8",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Multi Arms",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": "1",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "resistance",
+            "damage": {
+              "dice": "1",
+              "flat": 0,
+              "types": [ "Piercing" ]
+            },
+            "description": "Deals 1d6+FIT+RES Piercing damage to target, penetrating 5 Pierce DR. Obvious, Degrades Humanity. Character's arm turns into a spear made of bone and keratin, capable of puncturing object and creatures.",
+            "duration": "Instant",
+            "handedness": 0,
+            "id": "4c6a0d7a-a78d-4904-b5e3-ce50f7b11f4e",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Spear Arm",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": "2",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "resistance",
+            "damage": {
+              "dice": "1",
+              "flat": 0,
+              "types": [ "Slashing" ]
+            },
+            "description": "Deals 1d6+FIT+RES Slashing damage to all adjacent creatures, excluding Allies. Obvious, Degrades Humanity. Character's arm turns into a scythe blade, with a bone edge, capable of slicing through objects and creatures.",
+            "duration": "Instant",
+            "handedness": 0,
+            "id": "5b874823-b986-4817-b781-ce0af6ac62cc",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Blade Arm",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": "4",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "resistance",
+            "damage": {
+              "dice": "1",
+              "flat": 0,
+              "types": [ "Blunt" ]
+            },
+            "description": "Deals 1d6+FIT+RES Bludgeoning Damage and applies Vulnerable greater to target. Obvious, Degrades Humanity. Character's arm turns into a large bulbus hammer made of muscles and hardend skin.",
+            "duration": "Instant",
+            "handedness": 0,
+            "id": "915582b4-6cef-426d-afbe-0cc494b60361",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Hammer Arm",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": "2",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "resistance",
+            "damage": {
+              "dice": "1",
+              "flat": 0,
+              "types": [ "Force" ]
+            },
+            "description": "Deals 1d6+RES Force damage at a range of 20 squares. Obvious, Degrades Humanity. Character's arm turns into a whip with strange energy at the end, capable of stretching up to 20 meters away. (Counts as a ranged attack despite flavor)",
+            "duration": "Instant",
+            "handedness": 0,
+            "id": "42c0105e-f8f8-4b43-b351-050cc9b94933",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": false,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Shrieker Arm",
+            "physMeta": "Physical",
+            "range": "20",
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": 3,
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "resistance",
+            "damage": {
+              "dice": "1",
+              "flat": 0,
+              "types": [ "Acid", "Toxic" ]
+            },
+            "description": "Deals 1d6+FIT+RES*2 Acid or Toxic damage, applies Atrophied. Obvious, Degrades Humanity. Character's arm changes into a tendril with a noxious stinger at the end. The physical contact of the stinger does not do signifigant damage, however the venom contained within can be quite potent.",
+            "duration": "Instant",
+            "handedness": 0,
+            "id": "808ef9d7-5eaf-4fde-88ee-b1ac750e9a0f",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Venom Arm",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": 3,
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Grants 2 dice to Grappling and 1 Auto-Success. May spend 2 Successes to Seal the target as long as the grapple lasts. Obvious.",
+            "duration": "Instant",
+            "handedness": 0,
+            "id": "80ad8910-ab72-4324-af2c-3c7eec10a147",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Grasping Arm",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": "1",
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          }
+        ]
+      },
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "Using Ichor to enhance bodily functions and purposes. May only have one active at a time.",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "899b9c4b-bb58-4951-a848-c180e6eec74c",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Mutant Buffs (Array)",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "140",
+        "components": [],
+        "subEffects": [
+          {
+            "apCost": 3,
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "23f006eb-9c34-42c3-9c10-d517d9007451",
+            "crCost": "5",
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Increase Fitness by 1, and Grants Haste (3) Speed up (3). Subtle (1). Character's adrenal glands and motor functions efficency increase drastically.",
+            "duration": "Indefinite",
+            "handedness": 0,
+            "id": "441db074-9370-4215-805e-ef764d631b35",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": false,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Enhanced Physical",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": 3,
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "23f006eb-9c34-42c3-9c10-d517d9007451",
+            "crCost": "5",
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Increase Phys DR by 12 and Elemental DR by 12. Obvious. Character's skin hardens and becomes more resistance to most natural damage types.",
+            "duration": "Indefinite",
+            "handedness": 0,
+            "id": "1b8f6318-1c20-4a78-b892-980cc6811980",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": false,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Enhanced Skin",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": 3,
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "23f006eb-9c34-42c3-9c10-d517d9007451",
+            "crCost": "5",
+            "characteristic": "",
+            "damage": {
+              "dice": "3",
+              "flat": "5",
+              "types": [ "True Damage" ]
+            },
+            "description": "Add 3d6+5 true damage to all attacks. Obvious, Degrades humanity, only usable on Natural Weapons. Natural weapons the Character has gains a terifying unatural glow of eldritch energy, seemingly able to cut through everything and anything.",
+            "duration": "Indefinite",
+            "handedness": 0,
+            "id": "af930ee4-62f9-4ede-9632-2f5b0198ab2f",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Enhanced Damage",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": "4",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "23f006eb-9c34-42c3-9c10-d517d9007451",
+            "crCost": "5",
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Increases CUN by 2. Subtle (1). Character enhances their socialability and perceptive capabilities by manipulating pheramones and sensory organs.",
+            "duration": "Indefinite",
+            "handedness": 0,
+            "id": "4dbb3d09-cc7f-4c06-89a3-fa7bd8bc4af1",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Enhanced Cunning",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": "4",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "23f006eb-9c34-42c3-9c10-d517d9007451",
+            "crCost": "5",
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Grants invisible and increases stealth by 5. Subtle (1)",
+            "duration": "Indefinite",
+            "handedness": 0,
+            "id": "caa713b1-8538-4e3b-b119-ba6a70f23f66",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": true,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Enhanced Stealth",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          }
+        ]
+      },
+      {
+        "apCost": "0",
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": 0,
+          "flat": 0,
+          "types": []
+        },
+        "description": "Adapting the body, providing alternate means of movement. May only have one active at a time.",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "1f84b1c9-7e21-4f2c-9d42-108b89b0f037",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Mutant Movement (Array)",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": "220",
+        "components": [],
+        "subEffects": [
+          {
+            "apCost": "0",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Increase land movement by RES+1. Subtle (1). Character's leg muscles become extremely efficent and grant increased land speed.",
+            "duration": "Passive",
+            "handedness": 0,
+            "id": "f0eb4e05-ae2f-48fc-b512-a7d643803bf6",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": false,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Athletic Adaptation",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": "0",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Increase Spider Climb speed by RES, Subtle (1). Character can climb on verticle surfaces and cealings like they were the ground.",
+            "duration": "Passive",
+            "handedness": 0,
+            "id": "8d2f3ac3-15f0-4935-a838-45c555b44f1f",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": false,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Spider Adaptation",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": "0",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Increase Swim speed by RES+4. Obvious. Character's hands and feet become webbed, and forearms grow fins to allow easy of movement through liquids.",
+            "duration": "Passive",
+            "handedness": 0,
+            "id": "72747346-d3d2-4e32-9095-346dd460d98c",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": false,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Aquatic Adaptation",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": "0",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Increase Burrow Speed by RES. Subtle (1). Character's body hair is capible of vibrating at a frequency which allows them to move through soft terrain as if it were a liquid.",
+            "duration": "Passive",
+            "handedness": 0,
+            "id": "ba046c02-0411-497e-9d7d-28524fae46ba",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": false,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Subterranean Adapation",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          },
+          {
+            "apCost": "0",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "",
+            "damage": {
+              "dice": 0,
+              "flat": 0,
+              "types": []
+            },
+            "description": "Increase Flying Speed by RES+1. Obvious, Degrades humanity. Character grows terifying leathery, tendriled, tattered wings, granting the ability to fly.",
+            "duration": "Passive",
+            "handedness": 0,
+            "id": "93c6fe2d-018d-4cfb-9058-934008e933e6",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": false,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Winged Adapation",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": []
+          }
+        ]
+      }
+    ],
+    "buffs": [
+      {
+        "description": "",
+        "isActive": false,
+        "id": "cb38f4a6-6ad4-4639-b6c5-0268b457a919",
+        "name": "Mutant Buffs Enhanced Physical",
+        "adjustments": [
+          {
+            "amount": "1",
+            "characteristic": "fitness",
+            "classResource": "",
+            "description": "",
+            "movementType": "",
+            "damageModificationType": "",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "CHAR"
+          },
+          {
+            "amount": 0,
+            "characteristic": "",
+            "classResource": "",
+            "description": "",
+            "movementType": "",
+            "id": "08869f6e-5832-42c0-9dad-e084f6e33302",
+            "damageModificationType": "",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": "3",
+              "description": "",
+              "duration": 1,
+              "id": "58bbb48e-18a5-4b26-8688-4449bfa7f03c",
+              "isActive": true,
+              "ranks": "3",
+              "status": {
+                "name": "Hastened {rank}",
+                "cost": "90 xp per rank",
+                "effect": "The creature gains {rank} bonus AP each time it gains AP, and does not affect the total AP storage limit. The creature also gains the rank of Hastened as AP immediately.",
+                "type": "Boon"
+              }
+            },
+            "type": "Status"
+          },
+          {
+            "amount": 0,
+            "characteristic": "",
+            "classResource": "",
+            "description": "",
+            "movementType": "",
+            "id": "7fe2f3ec-1785-486e-ab4f-1901bf2e9eb8",
+            "damageModificationType": "",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": "3",
+              "description": "",
+              "duration": 1,
+              "id": "a881fc51-312e-4c78-8831-27ece79d374d",
+              "isActive": true,
+              "ranks": "3",
+              "status": {
+                "name": "Speed Up {rank}",
+                "cost": "20 xp per rank",
+                "effect": "Movement actions are increased by {rank} squares",
+                "type": "Boon"
+              }
+            },
+            "type": "Status"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "isActive": false,
+        "id": "8168efb6-b3b5-4b23-a782-6baedaba217b",
+        "name": "Mutant Buffs Enhanced Skin",
+        "adjustments": [
+          {
+            "amount": "12",
+            "characteristic": "",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": "Physical"
+            },
+            "description": "",
+            "movementType": "",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Damage Modification"
+          },
+          {
+            "amount": "12",
+            "characteristic": "",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": "Elemental"
+            },
+            "description": "",
+            "movementType": "",
+            "id": "7f121f76-3ebc-473e-89ae-ef123b40dd9a",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "79442c60-8768-4ff7-9ebc-e71b54c490f1",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Damage Modification"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "isActive": false,
+        "id": "fb2ad7d5-d1ed-48b7-8929-a10cda7e9187",
+        "name": "Mutant Buffs Enhanced Damage",
+        "adjustments": [
+          {
+            "amount": 0,
+            "characteristic": "",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": ""
+            },
+            "description": "Add 3d6+5 true damage to all attacks.",
+            "movementType": "",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Other"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "isActive": false,
+        "id": "92f5c392-78e4-47a2-ae0a-fa9071301454",
+        "name": "Mutant Buffs Enhanced Cunning",
+        "adjustments": [
+          {
+            "amount": "2",
+            "characteristic": "cunning",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": ""
+            },
+            "description": "",
+            "movementType": "",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "CHAR"
+          }
+        ]
+      },
+      {
+        "description": "",
+        "id": "711fbed7-6e9c-4f1c-a3dc-c5dcf023c59c",
+        "isActive": true,
+        "name": "Mutant Buffs Enhanced Stealth",
+        "adjustments": [
+          {
+            "amount": 0,
+            "characteristic": "",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": ""
+            },
+            "description": "",
+            "movementType": "",
+            "skill": "",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "name": "Invisible",
+                "cost": "150 xp",
+                "effect": "The creature is unable to be easily percieved by sight and may make stealth checks out in the open.\nCreatures wishing to attack an invisible target must succeed an opposed Perception Vs Stealth check.",
+                "type": "Boon"
+              }
+            },
+            "type": "Status"
+          },
+          {
+            "amount": "5",
+            "characteristic": "fitness",
+            "classResource": "",
+            "damageModification": {
+              "isResistance": false,
+              "isVulnerability": false,
+              "type": ""
+            },
+            "description": "",
+            "movementType": "",
+            "id": "5af74b55-92d5-4917-80ad-ee771da0f1d0",
+            "skill": "Stealth",
+            "status": {
+              "currentDuration": 1,
+              "currentIsActive": true,
+              "currentRanks": 1,
+              "description": "",
+              "duration": 1,
+              "id": "b75fde0d-0e46-4c96-8de9-6f0af451117c",
+              "isActive": true,
+              "ranks": 1,
+              "status": {
+                "cost": "",
+                "effect": "",
+                "name": "",
+                "type": ""
+              }
+            },
+            "type": "Skill"
+          }
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "active": true,
+        "advanceRank": 0,
+        "description": "",
+        "id": "e216f387-ce74-4d27-ace6-661f70716df9",
+        "name": "Ichor Mutant",
+        "characteristic": "resistance",
+        "unlocked": false
+      },
+      {
+        "active": false,
+        "advanceRank": 0,
+        "description": "",
+        "id": "3dc70919-1e1f-4f3b-bbbf-4327858580e0",
+        "name": "Researcher",
+        "characteristic": "intelligence",
+        "unlocked": true
+      }
+    ],
+    "equipment": [
+      {
+        "amount": 1,
+        "attunementSlots": "1",
+        "dcToHit": 1,
+        "description": "",
+        "id": "6eeed3bf-e380-4541-b0ec-afc1e8834ec5",
+        "isActive": true,
+        "isArmorShield": false,
+        "isItem": false,
+        "isWeapon": true,
+        "name": "Razor Sharp Battle Axe",
+        "slot": "",
+        "ability": {
+          "apCost": 3,
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "color": {},
+          "classResource": "",
+          "crCost": 0,
+          "characteristic": "resistance",
+          "damage": {
+            "dice": "1",
+            "flat": 0,
+            "types": [ "Slashing" ]
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": 0,
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": true,
+          "maxSizeCategoryOfMass": 0,
+          "name": "",
+          "physMeta": "Physical",
+          "range": 0,
+          "save": false,
+          "saveAmount": 3,
+          "saveCharacteristic": "",
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [],
+        "movements": []
+      },
+      {
+        "amount": 1,
+        "attunementSlots": "2",
+        "dcToHit": 1,
+        "description": "Increases the DC of social checks by 2, Grants Social: Forgettable. Gives 10 Physical DR, and increases AC by 1. Increases DC to identify character by 1. Takes up two Attunment slots. These heavy clothes cover the body from head to toe including a hood. There is an ugly removable mask that is part of the hood to help conceal the identity of the character.\t\t\t",
+        "id": "dba308e8-b33e-4d35-8190-7e22b7c52b03",
+        "isActive": true,
+        "isArmorShield": true,
+        "isItem": false,
+        "isWeapon": false,
+        "name": "Reinforced Concealing Clothes",
+        "slot": "",
+        "ability": {
+          "apCost": "0",
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "color": {},
+          "classResource": "",
+          "crCost": 0,
+          "characteristic": "",
+          "damage": {
+            "dice": 0,
+            "flat": 0,
+            "types": []
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": 0,
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": true,
+          "maxSizeCategoryOfMass": 0,
+          "name": "",
+          "physMeta": "Physical",
+          "range": 0,
+          "save": false,
+          "saveAmount": 3,
+          "saveCharacteristic": "",
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [
+          {
+            "amount": "10",
+            "isEquipment": true,
+            "isVulnerability": false,
+            "isResistance": false,
+            "type": "Physical"
+          }
+        ],
+        "movements": []
+      },
+      {
+        "amount": 1,
+        "attunementSlots": 0,
+        "dcToHit": 1,
+        "description": "Deals 2d6+RES+FIT piercing damage. Custom High-Caliber 6 round revovler, has modified trigger for faster firing.\t\t\t",
+        "id": "fafa9ee0-67b0-427f-86c4-6c5d1919e195",
+        "isActive": true,
+        "isArmorShield": false,
+        "isItem": false,
+        "isWeapon": true,
+        "name": "High Caliber Revolver",
+        "slot": "",
+        "ability": {
+          "apCost": "2",
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "color": {},
+          "classResource": "",
+          "crCost": 0,
+          "characteristic": "resistance",
+          "damage": {
+            "dice": "2",
+            "flat": 0,
+            "types": [ "Piercing" ]
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": 0,
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": true,
+          "maxSizeCategoryOfMass": 0,
+          "name": "",
+          "physMeta": "Physical",
+          "range": "20",
+          "save": false,
+          "saveAmount": 3,
+          "saveCharacteristic": "",
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [],
+        "movements": []
+      },
+      {
+        "amount": 1,
+        "attunementSlots": 0,
+        "dcToHit": 1,
+        "description": "Removed Luck: Ill-Fated\t\t\t",
+        "id": "363df398-37c4-4144-9739-3e8b7c47f29f",
+        "isActive": false,
+        "isArmorShield": false,
+        "isItem": true,
+        "isWeapon": false,
+        "name": "Holy Stone",
+        "slot": "",
+        "ability": {
+          "apCost": 3,
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "color": {},
+          "classResource": "",
+          "crCost": 0,
+          "characteristic": "",
+          "damage": {
+            "dice": 0,
+            "flat": 0,
+            "types": []
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": 0,
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": true,
+          "maxSizeCategoryOfMass": 0,
+          "name": "",
+          "physMeta": "Physical",
+          "range": 0,
+          "save": false,
+          "saveAmount": 3,
+          "saveCharacteristic": "",
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [],
+        "movements": []
+      }
+    ],
+    "flaws": [
+      {
+        "amount": "100",
+        "description": "Class Resource: Stagnant Pool\nClass Resource: Special Resources",
+        "id": "80270c20-8ea5-401b-ab12-92e498dfacb5",
+        "name": "Class Resource Flaw"
+      },
+      {
+        "amount": "300",
+        "description": "Make a RES save when Rage trigger effect occurs, must make save for each occurrence. 0-3 Success : Berserk , 4-6 : Frenzied, 5-9, Irritable, 10+ Act normally. \nTrigger effect; Being; Bound, Confined (In a tight space), restrained, exsanguntatied, or out of CR \nCharacter has a severe aversion to these triggering effects, where even when threatened with them will try to bargin with the individual, and in some cases may become violent.\nBerserk: Apply Enraged and confused status until death.\nFrenzied: Apply Enraged for the encounter / scene; At end of encounter make a DC 6 Save to cleanse the status.\nIrritable / Impulsive: Character makes attacks a full power only, and is much more easily provoked, requiring a DC 6 save or become taunted by source of irritation.",
+        "id": "5326ab2f-c379-40cc-bf19-ad29bc112465",
+        "name": "Blood Rage"
+      },
+      {
+        "amount": "200",
+        "description": "Holy Stone to remove Luck: Ill-Fated (200GP)\t\t\t\t\t\t\t",
+        "id": "8063950c-8f9a-4ee9-aa10-4adcc2d92d4c",
+        "name": "Ill-Fated (countered)"
+      }
+    ],
+    "minions": [],
+    "movements": [],
+    "damageModifications": [],
+    "resources": [
+      {
+        "amount": 2,
+        "amountMax": 8,
+        "id": "23f006eb-9c34-42c3-9c10-d517d9007451",
+        "name": "Blood",
+        "characteristic": "resistance",
+        "resourceIncreases": "2"
+      }
+    ],
+    "skills": [
+      {
+        "characteristic": "intelligence",
+        "default": true,
+        "id": "1654717712607",
+        "name": "Analyze",
+        "skillIncreases": 0,
+        "value": 6,
+        "adjustment": 0
+      },
+      {
+        "characteristic": "fitness",
+        "default": true,
+        "id": "1",
+        "name": "Athletics",
+        "skillIncreases": 0,
+        "value": 5,
+        "adjustment": 0
+      },
+      {
+        "characteristic": "cunning",
+        "default": true,
+        "id": "2",
+        "name": "Deception",
+        "skillIncreases": 0,
+        "value": 4,
+        "adjustment": 0
+      },
+      {
+        "characteristic": "cunning",
+        "default": true,
+        "id": "3",
+        "name": "Perception",
+        "skillIncreases": 0,
+        "value": 4,
+        "adjustment": 0
+      },
+      {
+        "characteristic": "cunning",
+        "default": true,
+        "id": "4",
+        "name": "Persuasion",
+        "skillIncreases": 0,
+        "value": 4,
+        "adjustment": 0
+      },
+      {
+        "characteristic": "fitness",
+        "default": true,
+        "id": "5",
+        "name": "Stealth",
+        "skillIncreases": 0,
+        "value": 5,
+        "adjustment": 5
+      }
+    ],
+    "statuses": [],
+    "traits": [
+      {
+        "amount": "50",
+        "description": "You do not suffer any harmful effect from being exposed to, consuming, or absorbing blood from another creature. (Such as Diseases, Sickness, Parasites, ect.)\t\t\t\t\t\t\t",
+        "id": "acc1cddf-833b-484b-a260-d52089160136",
+        "name": "Universal Recipient"
+      },
+      {
+        "amount": "160",
+        "description": "Whenever your character attempts a social check with a creature, you may reduce the DC of the check by 2. This is likely a result of the experiments on the character combined with their natural good looks. (Bonus applies to any creatures that are capable of being sexually attracted, even members of same sex.)",
+        "id": "72d8b7be-b4f1-4ff2-8f82-bf53b2bb58da",
+        "name": "Social: Extremely Attractive"
+      },
+      {
+        "amount": "150",
+        "description": "Adds, Nightvision, Enhanced Scent, Enhanced Auditory, Enhanced Vision (Binocular), Thermal Vision, Blood Sense\t\t\t\t\t\t\t",
+        "id": "911150ba-5d61-4d1d-aaa0-b8637df1efef",
+        "name": "Enhanced Senses"
+      },
+      {
+        "amount": "10",
+        "description": "Character does not grow old.\t\t\t\t\t\t\t",
+        "id": "d34a2969-cbe2-4b9d-b499-936ebdfd0c77",
+        "name": "Ageless"
+      },
+      {
+        "amount": "60",
+        "description": "Blood +2",
+        "id": "ffe2511a-05b6-4357-9099-68f3eb45f0b8",
+        "name": "Class Resource Increase"
+      },
+      {
+        "amount": "240",
+        "description": "",
+        "id": "e3b8446b-0b66-4c05-b168-cbfa68c2c90c",
+        "name": "Intelligence Increase"
+      },
+      {
+        "amount": "30",
+        "description": "",
+        "id": "8cdb6789-c137-405f-a289-3b1a8df12012",
+        "name": "Skill: Analysis"
+      },
+      {
+        "amount": "30",
+        "description": "",
+        "id": "5118947b-bde7-4598-84f4-392d3c8697c8",
+        "name": "Skill: Daemonology"
+      },
+      {
+        "amount": "30",
+        "description": "",
+        "id": "c023a9f4-b7f6-4d57-9e42-7f53af0f69ae",
+        "name": "Skill: Life-Science"
+      }
+    ],
+    "journalEntries": [
+      {
+        "classXP": false,
+        "date": null,
+        "description": "",
+        "gameDate": "",
+        "id": "505416e6-460f-4ac6-a065-15c24d1e143c",
+        "money": 0,
+        "name": "Character Creation",
+        "xp": "500"
+      },
+      {
+        "classXP": true,
+        "date": null,
+        "description": "",
+        "gameDate": "",
+        "id": "425df323-445a-4789-9cef-a62b9cad3b97",
+        "money": 0,
+        "name": "Ichor Mutant",
+        "xp": "300"
+      },
+      {
+        "classXP": false,
+        "date": "2022-09-09",
+        "description": "",
+        "gameDate": "",
+        "id": "3d146520-ead7-4938-ba5c-bf11cd847551",
+        "money": 0,
+        "name": "Session 1",
+        "xp": "150"
+      },
+      {
+        "classXP": false,
+        "date": "2022-09-23",
+        "description": "",
+        "gameDate": "",
+        "id": "00f0e0e7-2157-4387-98ac-25f3c6900579",
+        "money": 0,
+        "name": "Session 2",
+        "xp": "150"
+      },
+      {
+        "classXP": false,
+        "date": "2022-10-21",
+        "description": "",
+        "gameDate": "",
+        "id": "a52a2c97-a374-4323-8817-1bf39c589ba0",
+        "money": 0,
+        "name": "Session 3",
+        "xp": "150"
       }
     ]
   },
