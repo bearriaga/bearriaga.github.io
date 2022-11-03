@@ -635,6 +635,7 @@
             <v-col>
                 <v-btn color="primary" @click="setCharacterAs('belif')">Set as Belif</v-btn>
                 <v-btn color="primary" @click="setCharacterAs('cam')">Cam</v-btn>
+                <v-btn color="primary" @click="setCharacterAs('wilson')">Sienna</v-btn>
             </v-col>
             <v-col>
                 <div>
@@ -1106,7 +1107,9 @@
             abilities() {
                 let abilities = []
 
-                this.characterSheet.abilities.forEach((ability) => {
+                this.characterSheet.abilities.forEach((a) => {
+                    let ability = JSON.parse(JSON.stringify(a))
+
                     ability.key =
                         ability.apCost +
                         ability.areaOfEffect +
@@ -1146,7 +1149,9 @@
             buffs() {
                 let buffs = []
 
-                this.characterSheet.buffs.forEach((buff) => {
+                this.characterSheet.buffs.forEach((b) => {
+                    let buff = JSON.parse(JSON.stringify(b))
+
                     buff.key =
                         buff.id +
                         this.updateBuff +
@@ -1160,7 +1165,9 @@
             characterEquipment() {
                 let equipment = []
 
-                this.characterSheet.equipment.forEach(e => {
+                this.characterSheet.equipment.forEach(eq => {
+                    let e = JSON.parse(JSON.stringify(eq))
+
                     e.key = e.id +
                         e.attunementSlots +
                         e.dcToHit +
@@ -1185,7 +1192,9 @@
             characterStatuses() {
                 let statuses = []
 
-                this.characterSheet.statuses.forEach((status) => {
+                this.characterSheet.statuses.forEach((s) => {
+                    let status = JSON.parse(JSON.stringify(s))
+
                     status.key =
                         JSON.stringify(status.status) +
                         status.isActive.toString() +
@@ -1281,8 +1290,10 @@
                 let classes = []
 
                 this.characterSheet.classes.filter(x => { return !x.unlocked }).forEach(c => {
-                    c.key = c.id + this.updateCharacter
-                    classes.push(c)
+                    let cl = JSON.parse(JSON.stringify(c))
+
+                    cl.key = cl.id + this.updateCharacter
+                    classes.push(cl)
                 })
 
                 return classes
@@ -1291,8 +1302,10 @@
                 let classes = []
 
                 this.characterSheet.classes.filter(x => { return x.unlocked }).forEach(c => {
-                    c.key = c.id + this.updateCharacter
-                    classes.push(c)
+                    let cl = JSON.parse(JSON.stringify(c))
+
+                    cl.key = cl.id + this.updateCharacter
+                    classes.push(cl)
                 })
 
                 return classes
@@ -1301,14 +1314,18 @@
                 let damageModifications = []
 
                 this.characterSheet.damageModifications.forEach(dm => {
-                    dm.key = dm.id + dm.amount + this.updateCharacter
-                    damageModifications.push(dm)
+                    let damageModification = JSON.parse(JSON.stringify(dm))
+
+                    damageModification.key = damageModification.id + damageModification.amount + this.updateCharacter
+                    damageModifications.push(damageModification)
                 })
 
                 this.characterSheet.equipment.filter(equipment => { return equipment.isActive && equipment.damageModifications.length > 0 }).forEach(equipment => {
                     equipment.damageModifications.forEach((dm, index) => {
-                        dm.key = index + JSON.stringify(dm) + this.updateCharacter
-                        damageModifications.push(dm)
+                        let damageModification = JSON.parse(JSON.stringify(dm))
+
+                        damageModification.key = index + JSON.stringify(damageModification) + this.updateCharacter
+                        damageModifications.push(damageModification)
                     })
                 })
 
@@ -1384,7 +1401,9 @@
             flaws() {
                 let flaws = []
 
-                this.characterSheet.flaws.forEach(flaw => {
+                this.characterSheet.flaws.forEach(f => {
+                    let flaw = JSON.parse(JSON.stringify(f))
+
                     flaw.key = flaw.id + this.updateCharacter
                     flaws.push(flaw)
                 })
@@ -1497,7 +1516,9 @@
             minions() {
                 let minions = []
 
-                this.characterSheet.minions.forEach(minion => {
+                this.characterSheet.minions.forEach(m => {
+                    let minion = JSON.parse(JSON.stringify(m))
+
                     minion.key = minion.id + minion.name + this.updateMinions
                     minions.push(minion)
                 })
@@ -1564,7 +1585,9 @@
                     })
                 }
 
-                this.characterSheet.movements.forEach(movement => {
+                this.characterSheet.movements.forEach(m => {
+                    let movement = JSON.parse(JSON.stringify(m))
+
                     movement.key = movement.id + this.characterSheet.ap
                     movements.push(movement)
                 })
@@ -1604,7 +1627,9 @@
             resources() {
                 let resources = []
 
-                this.characterSheet.resources.forEach((resource) => {
+                this.characterSheet.resources.forEach((r) => {
+                    let resource = JSON.parse(JSON.stringify(r))
+
                     let primaryCharValue = +this[resource.characteristic]
                     let adj = this.buffAmount({ type: 'Class Resource: Commited', propName: 'classResource', propValue: resource.id })
                     resource.amountMax = +primaryCharValue + +resource.resourceIncreases - +adj
@@ -1617,7 +1642,9 @@
             skills() {
                 let skills = []
 
-                this.characterSheet.skills.forEach((skill) => {
+                this.characterSheet.skills.forEach((s) => {
+                    let skill = JSON.parse(JSON.stringify(s))
+
                     skill.adjustment = this.buffAmount({ type: 'Skill', propName: 'skill', propValue: skill.name })
                     skill.value = +skill.skillIncreases + +this[skill.characteristic]
                     skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value + skill.adjustment + this.updateCharacter
@@ -1655,7 +1682,9 @@
             traits() {
                 let traits = []
 
-                this.characterSheet.traits.forEach(trait => {
+                this.characterSheet.traits.forEach(t => {
+                    let trait = JSON.parse(JSON.stringify(t))
+
                     trait.key = trait.id + this.updateCharacter
                     traits.push(trait)
                 })
@@ -1665,7 +1694,9 @@
             journalEntries() {
                 let journalEntries = []
 
-                this.characterSheet.journalEntries.forEach(journalEntry => {
+                this.characterSheet.journalEntries.forEach(je => {
+                    let journalEntry = JSON.parse(JSON.stringify(je))
+
                     journalEntry.key = journalEntry.id + this.updateCharacter
                     journalEntries.push(journalEntry)
                 })
