@@ -2280,7 +2280,7 @@
                 let char = +this[ability.characteristic]
                 this.rollCheck({
                     diceToRoll: char,
-                    isSave: false,
+                    isSkill: false,
                     successes: ability.successes
                 })
                 this.abilityDialog.title = `${ability.name} Check Results`
@@ -2319,7 +2319,7 @@
                 }
 
                 if (diceCheckObject.diceToRoll > 0) {
-                    if (!diceCheckObject.isSave) {
+                    if (diceCheckObject.isSkill) {
                         result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
                         result.successes += +result.successesFromIntelligence
                         result.successesInput += +result.successesFromIntelligence
