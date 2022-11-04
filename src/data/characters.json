@@ -2081,14 +2081,14 @@
   },
   {
     "id": "sienna",
-    "age": 0,
-    "ap": 0,
+    "age": "22",
+    "ap": 3,
     "apMax": 14,
     "attunementSlots": 7,
     "attunementSlotsIncreases": 0,
     "attunementSlotsMax": 10,
     "background": "",
-    "bp": 0,
+    "bp": 6,
     "bpMax": 6,
     "bpIncreases": 0,
     "fitness": 5,
@@ -2103,9 +2103,9 @@
     "resistanceAdjustment": 0,
     "luck": 3,
     "luckAdjustment": 0,
-    "dcToHit": 3,
-    "dcToHitIncreases": 0,
-    "hp": 0,
+    "dcToHit": 4,
+    "dcToHitIncreases": 1,
+    "hp": 30,
     "hpMax": 30,
     "hpIncreases": 7,
     "initiative": 0,
@@ -2118,14 +2118,14 @@
     "movement": 5,
     "name": "Sienna Valner",
     "race": "Human",
-    "rerolls": 0,
+    "rerolls": 3,
     "rerollsMax": 3,
     "rerollsIncreases": 0,
     "size": 1,
     "speedPreperationIsKey": false,
-    "xp": -110,
-    "xpEarned": 1250,
-    "xpTotal": 1090,
+    "xp": 50,
+    "xpEarned": 1550,
+    "xpTotal": 1250,
     "abilities": [
       {
         "apCost": "0",
@@ -2601,7 +2601,7 @@
         "damage": {
           "dice": 0,
           "flat": "1",
-          "types": [ "Slashing", "Blunt" ]
+          "types": [ "Slashing", "Blunt", "Piercing" ]
         },
         "description": "Deals 1+FIT+RES Piercing Slashing or Bludgeoning.  Subtle (1). Duo-Wield. Character's hand, feet, and teeth become deadly natural weapons. \t\t\t",
         "duration": "Instant",
@@ -2620,7 +2620,8 @@
         "successes": 0,
         "xpCost": "150",
         "components": [],
-        "subEffects": []
+        "subEffects": [],
+        "key": "2Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0resistanceDeals 1+FIT+RES Piercing Slashing or Bludgeoning.  Subtle (1). Duo-Wield. Character's hand, feet, and teeth become deadly natural weapons. \t\t\tInstant05e6643a7-76aa-45cd-85a7-20e149f2f27btruefalsetrue0Natural WeaponsPhysical00false3150[]{\"dice\":0,\"flat\":\"1\",\"types\":[\"Slashing\",\"Blunt\"]}[]1"
       },
       {
         "apCost": "0",
@@ -4286,13 +4287,13 @@
         "unlocked": false
       },
       {
-        "active": false,
+        "active": true,
         "advanceRank": 0,
         "description": "",
         "id": "3dc70919-1e1f-4f3b-bbbf-4327858580e0",
         "name": "Researcher",
         "characteristic": "intelligence",
-        "unlocked": true
+        "unlocked": false
       }
     ],
     "equipment": [
@@ -4518,12 +4519,13 @@
     "damageModifications": [],
     "resources": [
       {
-        "amount": 2,
+        "amount": 8,
         "amountMax": 8,
         "id": "23f006eb-9c34-42c3-9c10-d517d9007451",
         "name": "Blood",
         "characteristic": "resistance",
-        "resourceIncreases": "2"
+        "resourceIncreases": "2",
+        "key": "Bloodresistance2601"
       }
     ],
     "skills": [
@@ -4637,6 +4639,12 @@
         "description": "",
         "id": "c023a9f4-b7f6-4d57-9e42-7f53af0f69ae",
         "name": "Skill: Life-Science"
+      },
+      {
+        "amount": "140",
+        "description": "7 HP purchases \nFormula (5*(X*(X+1)/2)) X= HP purchases",
+        "id": "aa73e279-189e-4b32-956b-b5928b891ecc",
+        "name": "HP purchases"
       }
     ],
     "journalEntries": [
@@ -4689,6 +4697,16 @@
         "money": 0,
         "name": "Session 3",
         "xp": "150"
+      },
+      {
+        "classXP": true,
+        "date": null,
+        "description": "",
+        "gameDate": "",
+        "id": "c372ca0f-144c-4996-bd23-ee76e8aaa9ab",
+        "money": 0,
+        "name": "Researcher",
+        "xp": "300"
       }
     ]
   },
