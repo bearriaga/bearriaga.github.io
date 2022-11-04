@@ -153,7 +153,8 @@
             abilities() {
                 let abilities = []
 
-                this.subEffects.forEach((ability) => {
+                this.subEffects.forEach((a) => {
+                    let ability = JSON.parse(JSON.stringify(a))
                     ability.key =
                         ability.apCost +
                         ability.areaOfEffect +

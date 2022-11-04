@@ -135,14 +135,18 @@
                 let damageModifications = []
 
                 this.characterSheet.damageModifications.forEach(dm => {
-                    dm.key = dm.id + dm.amount + this.updateCharacter
-                    damageModifications.push(dm)
+                    let damageModification = JSON.parse(JSON.stringify(dm))
+
+                    damageModification.key = damageModification.id + damageModification.amount + this.updateCharacter
+                    damageModifications.push(damageModification)
                 })
 
                 this.characterSheet.equipment.filter(equipment => { return equipment.isActive && equipment.damageModifications.length > 0 }).forEach(equipment => {
                     equipment.damageModifications.forEach((dm, index) => {
-                        dm.key = index + JSON.stringify(dm) + this.updateCharacter
-                        damageModifications.push(dm)
+                        let damageModification = JSON.parse(JSON.stringify(dm))
+
+                        damageModification.key = index + JSON.stringify(damageModification) + this.updateCharacter
+                        damageModifications.push(damageModification)
                     })
                 })
 
