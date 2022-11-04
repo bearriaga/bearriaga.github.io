@@ -1965,6 +1965,7 @@
                     ,
                     {
                         color: 'green lighted-3',
+                        effects: [],
                         icon: 'mdi-plus',
                         name: 'Healing',
                         types: []
