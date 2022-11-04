@@ -2675,12 +2675,12 @@
                         sum += +damage.flat
                     }
 
-                    if (!damage.types.includes('Healing')) {
-                        if (characteristic) {
-                            let char = +this[characteristic]
-                            charDamage += +char
-                        }
+                    if (characteristic) {
+                        let char = +this[characteristic]
+                        charDamage += +char
+                    }
 
+                    if (!damage.types.includes('Healing')) {
                         if (isMeleeAttack) {
                             let char = +this.fitness
                             charDamage += +char
