@@ -21,7 +21,7 @@
                       v-model="amount"
                       min="0"></v-text-field>
         <v-form disabled>
-            <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="equipment.isArmorShied">
+            <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="equipment.isArmorShield">
                 <v-icon slot="append">mdi-shield</v-icon>
             </v-text-field>
             <DamageModificationSection v-if="equipment.damageModifications.length > 0"

@@ -1055,7 +1055,7 @@
                     })
                 })
                 let armorShield = 0
-                this.characterSheet.equipment.filter(equipment => { return equipment.isActive && equipment.isArmorShied && equipment.dcToHit > 0 }).forEach(equipment => {
+                this.characterSheet.equipment.filter(x => { return x.isActive && x.isArmorShield && x.dcToHit > 0 }).forEach(equipment => {
                     if (equipment.dcToHit > armorShield)
                         armorShield = equipment.dcToHit
                 })
@@ -1095,13 +1095,14 @@
                 }, 0)
             },
             xpTotal() {
+                let healthXP = 5 * Math.floor(this.characterSheet.hpIncreases * (this.characterSheet.hpIncreases + 1) / 2)
                 let flawsXP = this.characterSheet.flaws.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
                 let traitsXP = this.characterSheet.traits.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
-                return (+this.characterSheet.xpEarned + +flawsXP - +traitsXP)
+                return (+this.characterSheet.xpEarned + +flawsXP - +traitsXP - +healthXP)
             },
             //Character Properties End
             abilities() {
@@ -1172,7 +1173,7 @@
                         e.attunementSlots +
                         e.dcToHit +
                         e.description +
-                        e.isArmorShied +
+                        e.isArmorShield +
                         e.isItem +
                         e.isWeapon +
                         e.name +
@@ -1415,9 +1416,9 @@
                     {
                         bar: true,
                         color: 'red',
-                        dialogText: 'Health Points Max = (level * 5) + (RES * 3) + purchased HP + Buffs',
+                        dialogText: '5 xp per 1 HP, increases by 5 for each purchase. Formula: 5(n*(n+1)/2)',
                         disabled: false,
-                        infoText: '',
+                        infoText: 'Health Points Max = (level * 5) + (RES * 3) + purchased HP + Buffs',
                         key: 'hp' + this.characterSheet.hpMax + this.updateHP.toString(),
                         label: 'Health Points',
                         minus: true,
