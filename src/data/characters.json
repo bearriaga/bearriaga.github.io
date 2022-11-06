@@ -2,7 +2,7 @@
   {
     "id": "belif",
     "age": "35",
-    "ap": 2,
+    "ap": 14,
     "apMax": 14,
     "attunementSlots": 7,
     "attunementSlotsIncreases": 0,
@@ -23,18 +23,18 @@
     "resistanceAdjustment": 0,
     "luck": 3,
     "luckAdjustment": 0,
-    "dcToHit": 3,
+    "dcToHit": 4,
     "dcToHitIncreases": 0,
-    "hp": 17,
-    "hpMax": 17,
-    "hpIncreases": 0,
-    "initiative": 9,
+    "hp": 25,
+    "hpMax": 30,
+    "hpIncreases": 8,
+    "initiative": 38,
     "initiativeIncreases": 0,
-    "level": 1,
+    "level": 2,
     "luckFavored": false,
     "luckIllFavored": false,
     "luckNothingToChance": false,
-    "money": 1489,
+    "money": 599,
     "movement": 3,
     "name": "Belif",
     "race": "Bluman",
@@ -43,9 +43,9 @@
     "rerollsIncreases": 0,
     "size": 1,
     "speedPreperationIsKey": false,
-    "xp": 276,
-    "xpEarned": 1250,
-    "xpTotal": 1350,
+    "xp": 246,
+    "xpEarned": 1400,
+    "xpTotal": 1320,
     "abilities": [
       {
         "apCost": "3",
@@ -583,6 +583,118 @@
           }
         ],
         "subEffects": []
+      },
+      {
+        "apCost": 3,
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "classResource": "",
+        "crCost": 0,
+        "characteristic": "fitness",
+        "damage": {
+          "dice": "1",
+          "flat": 0,
+          "types": [ "Slashing", "Piercing" ]
+        },
+        "description": "",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "7a145141-c22d-45bb-aec5-351cf24e099a",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": true,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Dark Blade of the Hidden",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": 0,
+        "components": [],
+        "subEffects": [
+          {
+            "apCost": "0",
+            "areaOfEffect": "Single Target",
+            "boughtForFree": false,
+            "color": {
+              "alpha": 1,
+              "hex": "#000000",
+              "hexa": "#000000FF",
+              "hsla": {
+                "h": 0,
+                "s": 0,
+                "l": 0,
+                "a": 1
+              },
+              "hsva": {
+                "h": 0,
+                "s": 0,
+                "v": 0,
+                "a": 1
+              },
+              "hue": 0,
+              "rgba": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "classResource": "",
+            "crCost": 0,
+            "characteristic": "",
+            "damage": {
+              "dice": "1",
+              "flat": 0,
+              "types": [ "Dark", "Electric" ]
+            },
+            "description": "",
+            "duration": "Instant",
+            "handedness": 0,
+            "id": "09d5f044-3cfb-454a-b0fb-52db66bea5ab",
+            "inClass": true,
+            "isAbilityArray": false,
+            "isMeleeAttack": false,
+            "maxSizeCategoryOfMass": 0,
+            "name": "Concealed Spike",
+            "physMeta": "Physical",
+            "range": 0,
+            "save": false,
+            "saveAmount": 3,
+            "saveCharacteristic": "",
+            "successes": 0,
+            "xpCost": 0,
+            "components": [],
+            "subEffects": [],
+            "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}\"\"0Instant009d5f044-3cfb-454a-b0fb-52db66bea5abtruefalsetrue0Concealed SpikePhysical000[]{\"dice\":0,\"flat\":0,\"types\":[]}[]"
+          }
+        ]
       }
     ],
     "buffs": [
@@ -771,7 +883,7 @@
         "description": "Mountable\n3 Attunement Slots",
         "id": "1662598112661",
         "isActive": true,
-        "isArmorShield": false,
+        "isArmorShied": false,
         "isItem": false,
         "isWeapon": false,
         "name": "Flying Broom",
@@ -813,6 +925,148 @@
             "type": "Flying"
           }
         ]
+      },
+      {
+        "amount": 1,
+        "attunementSlots": 0,
+        "dcToHit": "1",
+        "description": "",
+        "id": "d258cea5-54c7-4ce8-b6af-7d7cf6fb2278",
+        "isActive": true,
+        "isArmorShield": true,
+        "isItem": false,
+        "isWeapon": false,
+        "name": "Duster",
+        "slot": "",
+        "ability": {
+          "apCost": "",
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "color": {},
+          "classResource": "",
+          "crCost": 0,
+          "characteristic": "",
+          "damage": {
+            "dice": 0,
+            "flat": 0,
+            "types": []
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": 0,
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": false,
+          "maxSizeCategoryOfMass": 0,
+          "name": "",
+          "physMeta": "Physical",
+          "range": 0,
+          "save": false,
+          "saveAmount": 3,
+          "saveCharacteristic": "",
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [],
+        "movements": [],
+        "key": "d258cea5-54c7-4ce8-b6af-7d7cf6fb227801undefinedfalsefalseDuster{\"apCost\":\"\",\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"\",\"damage\":{\"dice\":0,\"flat\":0,\"types\":[]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"\",\"physMeta\":\"Physical\",\"range\":0,\"save\":false,\"saveAmount\":3,\"saveCharacteristic\":\"\",\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]2"
+      },
+      {
+        "amount": 1,
+        "attunementSlots": 0,
+        "dcToHit": 1,
+        "description": "",
+        "id": "d5ae15ea-5ec8-4909-beef-3b569dd3affc",
+        "isActive": true,
+        "isArmorShield": false,
+        "isItem": false,
+        "isWeapon": true,
+        "name": "The Rusted Coil of the Griffin God",
+        "slot": "",
+        "ability": {
+          "apCost": "0",
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "color": {},
+          "classResource": "",
+          "crCost": 0,
+          "characteristic": "",
+          "damage": {
+            "dice": 0,
+            "flat": "1",
+            "types": [ "Physical" ]
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": 0,
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": true,
+          "maxSizeCategoryOfMass": 0,
+          "name": "",
+          "physMeta": "Physical",
+          "range": "1",
+          "save": false,
+          "saveAmount": 3,
+          "saveCharacteristic": "",
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [],
+        "movements": []
+      },
+      {
+        "amount": 1,
+        "attunementSlots": 0,
+        "dcToHit": 1,
+        "description": "",
+        "id": "a9d9a13c-276d-4bf1-9371-8248ca4a37c2",
+        "isActive": true,
+        "isArmorShield": false,
+        "isItem": false,
+        "isWeapon": true,
+        "name": "Dark Blade of the Hidden",
+        "slot": "",
+        "ability": {
+          "apCost": 3,
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "color": {},
+          "classResource": "",
+          "crCost": 0,
+          "characteristic": "fitness",
+          "damage": {
+            "dice": "1",
+            "flat": 0,
+            "types": [ "Slashing", "Piercing" ]
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": 0,
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": true,
+          "maxSizeCategoryOfMass": 0,
+          "name": "",
+          "physMeta": "Physical",
+          "range": "1",
+          "save": false,
+          "saveAmount": 3,
+          "saveCharacteristic": "",
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [],
+        "movements": []
       }
     ],
     "flaws": [
@@ -827,7 +1081,7 @@
       {
         "id": "Atwood Galahad",
         "age": 0,
-        "ap": 0,
+        "ap": 8,
         "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
@@ -850,7 +1104,7 @@
         "luckAdjustment": 0,
         "dcToHit": 3,
         "dcToHitIncreases": 0,
-        "hp": 0,
+        "hp": 9,
         "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
@@ -883,12 +1137,13 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "journalEntries": []
+        "journalEntries": [],
+        "key": "Atwood GalahadAtwood Galahad0"
       },
       {
         "id": "Grogg",
         "age": 0,
-        "ap": 0,
+        "ap": 8,
         "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
@@ -911,7 +1166,7 @@
         "luckAdjustment": 0,
         "dcToHit": 3,
         "dcToHitIncreases": 0,
-        "hp": 0,
+        "hp": 9,
         "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
@@ -944,12 +1199,13 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "journalEntries": []
+        "journalEntries": [],
+        "key": "GroggGrogg0"
       },
       {
         "id": "DanaMiniCotton",
         "age": 0,
-        "ap": 0,
+        "ap": 8,
         "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
@@ -1005,12 +1261,13 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "journalEntries": []
+        "journalEntries": [],
+        "key": "DanaMiniCottonDana \"Mini\" Cotton\"0"
       },
       {
         "id": "Zar'goh",
         "age": 0,
-        "ap": 0,
+        "ap": 8,
         "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
@@ -1066,7 +1323,8 @@
         "skills": [],
         "statuses": [],
         "traits": [],
-        "journalEntries": []
+        "journalEntries": [],
+        "key": "Zar'gohZar'goh0"
       }
     ],
     "movements": [],
@@ -1198,6 +1456,16 @@
         "id": "05aeb5b2-4d4e-4324-867b-5a8e479d0ed0",
         "money": "962",
         "name": "Session 3",
+        "xp": "150"
+      },
+      {
+        "classXP": false,
+        "date": null,
+        "description": "-200 Duster\n-200 Dark Blade of the Hidden\n-300 The Rusted Coil of the Griffin God\n-100 Mike Savage Gift\n-50 Dr. Bertrand appraisal",
+        "gameDate": "",
+        "id": "b7650b64-38da-49b0-a19d-9e33b343dbd0",
+        "money": "-890",
+        "name": "Session 4",
         "xp": "150"
       }
     ]
