@@ -51,6 +51,7 @@
         "apCost": "3",
         "areaOfEffect": "",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#0023FF",
@@ -102,6 +103,7 @@
         "apCost": "7",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#0006FF",
@@ -154,6 +156,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -206,6 +209,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#FFA300",
@@ -258,6 +262,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -310,6 +315,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -362,6 +368,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": true,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#FFB800",
@@ -414,6 +421,7 @@
         "apCost": 3,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -516,6 +524,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -588,6 +597,7 @@
         "apCost": 3,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -642,6 +652,7 @@
             "apCost": "0",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -892,6 +903,7 @@
           "apCost": "1",
           "areaOfEffect": "Single Target",
           "boughtForFree": true,
+          "canEdit": false,
           "color": {},
           "classResource": "",
           "crCost": 0,
@@ -942,6 +954,7 @@
           "apCost": "",
           "areaOfEffect": "Single Target",
           "boughtForFree": true,
+          "canEdit": false,
           "color": {},
           "classResource": "",
           "crCost": 0,
@@ -990,6 +1003,7 @@
           "apCost": "0",
           "areaOfEffect": "Single Target",
           "boughtForFree": true,
+          "canEdit": false,
           "color": {},
           "classResource": "",
           "crCost": 0,
@@ -1037,6 +1051,7 @@
           "apCost": 3,
           "areaOfEffect": "Single Target",
           "boughtForFree": true,
+          "canEdit": false,
           "color": {},
           "classResource": "",
           "crCost": 0,
@@ -1522,6 +1537,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -1573,6 +1589,7 @@
             "apCost": 3,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -1625,6 +1642,7 @@
             "apCost": 3,
             "areaOfEffect": "Adjacent",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -1679,6 +1697,7 @@
         "apCost": 3,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -1731,6 +1750,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2170,59 +2190,7 @@
     "xp": 0,
     "xpEarned": 0,
     "xpTotal": 0,
-    "abilities": [
-      {
-        "apCost": "3",
-        "areaOfEffect": "",
-        "boughtForFree": false,
-        "color": {
-          "alpha": 1,
-          "hex": "#000000",
-          "hexa": "#000000FF",
-          "hsla": {
-            "h": 0,
-            "s": 0,
-            "l": 0,
-            "a": 1
-          },
-          "hsva": {
-            "h": 0,
-            "s": 0,
-            "v": 0,
-            "a": 1
-          },
-          "hue": 0,
-          "rgba": {
-            "r": 0,
-            "g": 0,
-            "b": 0,
-            "a": 1
-          }
-        },
-        "crCost": "0",
-        "characteristic": "fitness",
-        "description": "Test Ability Description",
-        "duration": "Instant",
-        "handedness": "0",
-        "id": "1",
-        "inClass": true,
-        "isAbilityArray": false,
-        "isMeleeAttack": false,
-        "maxSizeCategoryOfMass": 0,
-        "name": "Test Ability",
-        "physMeta": "Physical",
-        "range": 0,
-        "successes": 0,
-        "xpCost": 10,
-        "components": [],
-        "damage": {
-          "dice": "1",
-          "flat": "0",
-          "types": [ "Piercing" ]
-        },
-        "subEffects": []
-      }
-    ],
+    "abilities": [],
     "buffs": [],
     "classes": [
       {
@@ -2399,6 +2367,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2454,6 +2423,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2509,6 +2479,7 @@
         "apCost": "4",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2564,6 +2535,7 @@
         "apCost": "6",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2619,6 +2591,7 @@
         "apCost": 3,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2674,6 +2647,7 @@
         "apCost": 3,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2729,6 +2703,7 @@
         "apCost": 3,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2784,6 +2759,7 @@
         "apCost": "1",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2839,6 +2815,7 @@
         "apCost": "2",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2895,6 +2872,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -2949,6 +2927,7 @@
             "apCost": 3,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3004,6 +2983,7 @@
             "apCost": 3,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3059,6 +3039,7 @@
             "apCost": "1",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3114,6 +3095,7 @@
             "apCost": "2",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3169,6 +3151,7 @@
             "apCost": "4",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3224,6 +3207,7 @@
             "apCost": "2",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3279,6 +3263,7 @@
             "apCost": 3,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3334,6 +3319,7 @@
             "apCost": 3,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3391,6 +3377,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -3445,6 +3432,7 @@
             "apCost": 3,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3500,6 +3488,7 @@
             "apCost": 3,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3555,6 +3544,7 @@
             "apCost": 3,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3610,6 +3600,7 @@
             "apCost": "4",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3665,6 +3656,7 @@
             "apCost": "4",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3722,6 +3714,7 @@
         "apCost": "0",
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -3776,6 +3769,7 @@
             "apCost": "0",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3831,6 +3825,7 @@
             "apCost": "0",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3886,6 +3881,7 @@
             "apCost": "0",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3941,6 +3937,7 @@
             "apCost": "0",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -3996,6 +3993,7 @@
             "apCost": "0",
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -5030,6 +5028,7 @@
         "apCost": 0,
         "areaOfEffect": "",
         "boughtForFree": false,
+        "canEdit": true,
         "crCost": 0,
         "characteristic": "",
         "description": "Ability Array holding Animal Aspect Elements.",
@@ -5052,6 +5051,7 @@
             "apCost": 4,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -5107,6 +5107,7 @@
             "apCost": 5,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -5163,6 +5164,7 @@
             "apCost": 4,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -5218,6 +5220,7 @@
             "apCost": 4,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -5300,6 +5303,7 @@
         "apCost": 4,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "crCost": 1,
         "characteristic": "",
         "description": "Eat the heart of a dead creature and gain an ability. Can buy ability on rest.",
@@ -5348,6 +5352,7 @@
         "apCost": 0,
         "areaOfEffect": "",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -5396,6 +5401,7 @@
         "apCost": 3,
         "areaOfEffect": "Adjacent",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -5444,6 +5450,7 @@
         "apCost": 3,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -5492,6 +5499,7 @@
         "apCost": 0,
         "areaOfEffect": "",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -5540,6 +5548,7 @@
         "apCost": 0,
         "areaOfEffect": "",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -5588,6 +5597,7 @@
         "apCost": 3,
         "areaOfEffect": "",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -5634,6 +5644,7 @@
             "apCost": 0,
             "areaOfEffect": "",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#000000",
@@ -5680,6 +5691,7 @@
                 "apCost": 0,
                 "areaOfEffect": "",
                 "boughtForFree": false,
+                "canEdit": true,
                 "color": {
                   "alpha": 1,
                   "hex": "#000000",
@@ -5726,6 +5738,7 @@
                     "apCost": 3,
                     "areaOfEffect": "Single Target",
                     "boughtForFree": false,
+                    "canEdit": true,
                     "color": {
                       "alpha": 1,
                       "hex": "#000000",
@@ -5781,6 +5794,7 @@
                     "apCost": 3,
                     "areaOfEffect": "Single Target",
                     "boughtForFree": false,
+                    "canEdit": true,
                     "color": {
                       "alpha": 1,
                       "hex": "#000000",
@@ -5839,6 +5853,7 @@
                 "apCost": 0,
                 "areaOfEffect": "",
                 "boughtForFree": false,
+                "canEdit": true,
                 "color": {
                   "alpha": 1,
                   "hex": "#000000",
@@ -5885,6 +5900,7 @@
                     "apCost": 3,
                     "areaOfEffect": "45 degree cone, 6 sq.",
                     "boughtForFree": false,
+                    "canEdit": true,
                     "color": {
                       "alpha": 1,
                       "hex": "#000000",
@@ -5940,6 +5956,7 @@
                     "apCost": 3,
                     "areaOfEffect": "Single Target",
                     "boughtForFree": false,
+                    "canEdit": true,
                     "color": {
                       "alpha": 1,
                       "hex": "#000000",
@@ -5998,6 +6015,7 @@
                 "apCost": 0,
                 "areaOfEffect": "",
                 "boughtForFree": false,
+                "canEdit": true,
                 "color": {
                   "alpha": 1,
                   "hex": "#000000",
@@ -6044,6 +6062,7 @@
                     "apCost": 3,
                     "areaOfEffect": "Single Target",
                     "boughtForFree": false,
+                    "canEdit": true,
                     "color": {
                       "alpha": 1,
                       "hex": "#000000",
@@ -6099,6 +6118,7 @@
                     "apCost": 3,
                     "areaOfEffect": "Single Target",
                     "boughtForFree": false,
+                    "canEdit": true,
                     "color": {
                       "alpha": 1,
                       "hex": "#000000",
@@ -6163,6 +6183,7 @@
         "apCost": 0,
         "areaOfEffect": "",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -6211,6 +6232,7 @@
         "apCost": 0,
         "areaOfEffect": "",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -6259,6 +6281,7 @@
         "apCost": 0,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -6307,6 +6330,7 @@
         "apCost": 3,
         "areaOfEffect": "Single Target",
         "boughtForFree": false,
+        "canEdit": true,
         "color": {
           "alpha": 1,
           "hex": "#000000",
@@ -6361,6 +6385,7 @@
             "apCost": 3,
             "areaOfEffect": "Single Target",
             "boughtForFree": false,
+            "canEdit": true,
             "color": {
               "alpha": 1,
               "hex": "#FF0000",
@@ -6412,6 +6437,7 @@
         "apCost": 3,
         "areaOfEffect": "Single Target",
         "boughtForFree": true,
+        "canEdit": true,
         "crCost": 0,
         "characteristic": "fitness",
         "description": "",
@@ -6468,6 +6494,7 @@
         "apCost": "4",
         "areaOfEffect": "Single Target",
         "boughtForFree": true,
+        "canEdit": true,
         "crCost": 0,
         "characteristic": "fitness",
         "description": "Made of a combination of chitin, plant matter, bone, and tendon",
@@ -6524,6 +6551,7 @@
         "apCost": 3,
         "areaOfEffect": "Single Target",
         "boughtForFree": true,
+        "canEdit": true,
         "crCost": 0,
         "characteristic": "fitness",
         "description": "",
@@ -6580,6 +6608,7 @@
         "apCost": "4",
         "areaOfEffect": "Single Target",
         "boughtForFree": true,
+        "canEdit": true,
         "crCost": 0,
         "characteristic": "fitness",
         "description": "",
