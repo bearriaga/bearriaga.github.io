@@ -818,18 +818,24 @@
                         </div>
 
                         <div>
-                            <div v-if="abilityDialog.damage.damage.dice > 0">
-                                Die Results:  {{abilityDialog.damage.damage.dice}}d6 {{abilityDialog.damage.diceResults}}
+                            <div v-if="abilityDialog.damage.diceResults.length > 0">
+                                Die Results:  {{abilityDialog.damage.damage.dice}}d6 [
+                                <span v-for="(die, i) in abilityDialog.damage.diceResults" :key="i">
+                                    <span v-if="die.type=='normal'">{{die.value}}</span>
+                                    <span v-if="die.type=='crit'"><b>{{die.value}}</b></span>
+                                    <span v-if="die.type=='luck'" class="red--text"><b>{{die.value}}</b></span>
+                                    <span v-if="i < abilityDialog.damage.diceResults.length - 1">, </span>
+                                </span>
+                                ]
+                                <TooltipComponent v-if="abilityDialog.damage.isCrit" :text="'Red = LCK, Bold = Crit'"></TooltipComponent>                                
                             </div>
-                            <div v-if="abilityDialog.damage.charDamage > 0">
-                                CHAR damage: {{abilityDialog.damage.charDamage}}
-                            </div>
-                            <div v-if="abilityDialog.damage.flat > 0">
-                                Flat Damage: {{abilityDialog.damage.flat}}
+                            <div v-if="abilityDialog.damage.flatTotal > 0">
+                                Flat Total: {{abilityDialog.damage.flatTotal}}
+                                <TooltipComponent :text="abilityDialog.damage.flatTotalBreakdown"></TooltipComponent>
                             </div>
                             <v-select v-model="abilityDialog.damage.selectedRerolls"
                                       v-if="abilityDialog.damage.diceResults.length > 0"
-                                      :items="abilityDialog.damage.diceResults.map((x, i) => ({ value: i, text: x}))"
+                                      :items="abilityDialog.damage.diceResults.map((x, i) => ({ value: i, text: x.value}))"
                                       label="Select Rerolls"
                                       multiple
                                       :disabled="characterSheet.rerolls <= 0">
@@ -1731,11 +1737,15 @@
                     characters: [],
                     cr: '',
                     damage: {
-                        charDamage: 0,
+                        char: 0,
                         damage: 0,
                         diceResults: [],
                         effects: [],
+                        fit: 0,
                         flat: 0,
+                        flatTotal: 0,
+                        flatTotalBreakdown: '',
+                        isCrit: false,
                         selectedRerolls: [],
                         show: false,
                         sum: 0,
@@ -2615,15 +2625,19 @@
             rerollSelectedDamage() {
                 if (this.abilityDialog.damage.selectedRerolls.length) {
                     let indexes = this.abilityDialog.damage.selectedRerolls.sort().reverse()
+                    let removedDie = []
                     indexes.forEach(i => {
-                        this.abilityDialog.damage.sum -= +this.abilityDialog.damage.diceResults[i]
-                        this.abilityDialog.damage.diceResults.splice(i, 1)
+                        this.abilityDialog.damage.sum -= +this.abilityDialog.damage.diceResults[i].value
+                        removedDie.push(this.abilityDialog.damage.diceResults.splice(i, 1)[0])
                     })
-                    for (var i = 0; i < indexes.length; i++) {
+                    removedDie.forEach(die => {
                         let dieResult = this.getRandomIntInclusive(1, 6)
                         this.abilityDialog.damage.sum += +dieResult
-                        this.abilityDialog.damage.diceResults.push(dieResult)
-                    }
+                        this.abilityDialog.damage.diceResults.push({
+                            value: dieResult,
+                            type: die.type
+                        })
+                    })
                     this.abilityDialog.damage.selectedRerolls = []
 
                     this.characterSheet.rerolls--
@@ -2639,9 +2653,7 @@
             rollCrit() {
                 let damage = this.rollDamage(this.abilityDialog.damage.damage, false, null, true)
 
-                this.abilityDialog.damage.charDamage += +damage.charDamage
                 this.abilityDialog.damage.diceResults = this.abilityDialog.damage.diceResults.concat(damage.diceResults)
-                this.abilityDialog.damage.flat += +damage.flat
                 this.abilityDialog.damage.sum += +damage.sum
             },
             rollAbilityDamage(ability) {
@@ -2655,44 +2667,70 @@
 
             },
             rollDamage(damage, isMeleeAttack, characteristic, isCrit) {
-                let charDamage = 0
-                let diceResults = [];
+                let char = 0
+                let diceResults = []
+                let fit = 0
                 let flat = 0
+                let flatTotal = 0
+                let flatTotalBreakdown = ''
                 let sum = 0
 
                 if (damage.dice && !isNaN(damage.dice)) {
                     for (var i = 0; i < damage.dice; i++) {
-                        diceResults.push(this.getRandomIntInclusive(1, 6))
+                        diceResults.push({
+                            value: this.getRandomIntInclusive(1, 6),
+                            type: (!isCrit) ? 'normal' : 'crit'
+                        })
                     }
                     sum += diceResults.reduce((previousValue, entry) => {
-                        return +previousValue + +entry
+                        return +previousValue + +entry.value
                     }, 0)
-
                 }
 
                 if (!isCrit) {
-                    if (damage.flat && !isNaN(damage.flat)) {
+                    if (damage.flat > 0 && !isNaN(damage.flat)) {
                         flat = +damage.flat
+                        flatTotal += +damage.flat
+                        flatTotalBreakdown += `Flat(${flat}) + `
                         sum += +damage.flat
                     }
 
-                    if (characteristic) {
-                        let char = +this[characteristic]
-                        charDamage += +char
+                    if (characteristic) {                        
+                        char = this[characteristic]
+                        flatTotal += +char
+                        flatTotalBreakdown += `${characteristic.toUpperCase()}(${char}) + `
+                        sum += +char
                     }
 
                     if (!damage.types.includes('Healing')) {
-                        if (isMeleeAttack) {
-                            let char = +this.fitness
-                            charDamage += +char
+                        if (isMeleeAttack) {                            
+                            fit = this.fitness
+                            flatTotal += +fit
+                            flatTotalBreakdown += `Melee FIT(${fit})`
+                            sum += +fit
                         }
                     }
+
+                    if (flatTotalBreakdown.substring(flatTotalBreakdown.length - 3) == ' + ')
+                        flatTotalBreakdown = flatTotalBreakdown.substring(0, flatTotalBreakdown.length - 3)
                 }
 
-                if (isCrit)
-                    charDamage += +this.luck
+                if (isCrit && !this.abilityDialog.damage.isCrit) {
+                    this.abilityDialog.damage.isCrit = true
+                    let luckDiceResults = []
+                    for (var j = 0; j < Math.floor(this.luck/2); j++) {
+                        luckDiceResults.push({
+                            value: this.getRandomIntInclusive(1, 6),
+                            type: 'luck'
+                        })
+                    }
+                    let luckDamage = luckDiceResults.reduce((previousValue, entry) => {
+                        return +previousValue + +entry.value
+                    }, 0)
+                    diceResults = diceResults.concat(luckDiceResults)
+                    sum += +luckDamage
+                }
 
-                sum += +charDamage
 
                 let types = []
                 let effects = []
@@ -2727,11 +2765,15 @@
                 })
 
                 return {
-                    charDamage: charDamage,
+                    char: char,
                     damage: damage,
                     diceResults: diceResults,
                     effects: effects,
+                    fit: fit,
                     flat: flat,
+                    flatTotal: flatTotal,
+                    flatTotalBreakdown: flatTotalBreakdown,
+                    isCrit: false,
                     selectedRerolls: [],
                     show: true,
                     sum: sum,
