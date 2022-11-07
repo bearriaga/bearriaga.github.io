@@ -827,7 +827,7 @@
                                     <span v-if="i < abilityDialog.damage.diceResults.length - 1">, </span>
                                 </span>
                                 ]
-                                <TooltipComponent v-if="abilityDialog.damage.isCrit" :text="'Red = LCK, Bold = Crit'"></TooltipComponent>                                
+                                <TooltipComponent v-if="abilityDialog.damage.isCrit" :text="'Red = LCK, Bold = Crit'"></TooltipComponent>
                             </div>
                             <div v-if="abilityDialog.damage.flatTotal > 0">
                                 Flat Total: {{abilityDialog.damage.flatTotal}}
@@ -1149,6 +1149,53 @@
                         ability.key += this.successesFromIntelligence;
 
                     abilities.push(ability)
+                })
+
+                this.characterSheet.equipment.forEach((e) => {
+                    if (!e.isItem && e.isActive &&
+                        (e.ability.apCost != 0 ||
+                            e.ability.classResource ||
+                            e.ability.damage.dice > 0 ||
+                            e.ability.damage.flat > 0 ||
+                            e.ability.characteristic ||
+                            (e.ability.save && e.ability.saveAmount && e.ability.saveCharacteristic))) {
+                        let ability = JSON.parse(JSON.stringify(e.ability))
+
+                        ability.canEdit = false
+                        ability.description = 'Equipment Ability'
+                        ability.key =
+                            ability.apCost +
+                            ability.areaOfEffect +
+                            ability.boughtForFree +
+                            JSON.stringify(ability.color) +
+                            ability.crCost +
+                            ability.characteristic +
+                            ability.description +
+                            ability.duration +
+                            ability.handedness +
+                            ability.id +
+                            ability.inClass +
+                            ability.isAbilityArray +
+                            ability.isMeleeAttack +
+                            ability.maxSizeCategoryOfMass +
+                            ability.name +
+                            ability.physMeta +
+                            ability.range +
+                            ability.successes +
+                            ability.save +
+                            ability.saveAmount +
+                            ability.saveCharacteristic +
+                            ability.xpCost +
+                            JSON.stringify(ability.components) +
+                            JSON.stringify(ability.damage) +
+                            JSON.stringify(ability.subEffects) +
+                            this.updateCharacter;
+
+                        if (ability.save)
+                            ability.key += this.successesFromIntelligence;
+
+                        abilities.push(ability)
+                    }
                 })
 
                 return abilities
@@ -2695,7 +2742,7 @@
                         sum += +damage.flat
                     }
 
-                    if (characteristic) {                        
+                    if (characteristic) {
                         char = this[characteristic]
                         flatTotal += +char
                         flatTotalBreakdown += `${characteristic.toUpperCase()}(${char}) + `
@@ -2703,7 +2750,7 @@
                     }
 
                     if (!damage.types.includes('Healing')) {
-                        if (isMeleeAttack) {                            
+                        if (isMeleeAttack) {
                             fit = this.fitness
                             flatTotal += +fit
                             flatTotalBreakdown += `Melee FIT(${fit})`

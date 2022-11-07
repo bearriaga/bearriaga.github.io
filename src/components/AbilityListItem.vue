@@ -114,7 +114,6 @@
                                     <AbilityListItem v-for="s in abilities" :key="s.key"
                                                      :ability="s"
                                                      :ap="ap"
-                                                     :can-edit="true"
                                                      :characteristics="characteristics"
                                                      :damage-types="damageTypes"
                                                      :resources="resources"
@@ -143,7 +142,6 @@
         props: {
             ability: Object,
             ap: Number,
-            canEdit: Boolean,
             characteristics: Array,
             damageTypes: Array,
             resources: Array,
@@ -297,8 +295,9 @@
                 apCost: this.ability.apCost,
                 areaOfEffect: this.ability.areaOfEffect,
                 boughtForFree: this.ability.boughtForFree,
-                color: this.ability.color,
+                canEdit: this.ability.canEdit,
                 classResource: this.ability.classResource,
+                color: this.ability.color,
                 crCost: this.ability.crCost,
                 characteristic: this.ability.characteristic,
                 description: this.ability.description,

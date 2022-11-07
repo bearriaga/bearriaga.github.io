@@ -51,10 +51,9 @@
                           v-model="attunementSlots"
                           v-if="attunementSlots"></v-text-field>
             <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" v-if="description"></v-textarea>
-            <AbilityLIstItem v-if="!equipment.isItem && isActive"
+            <AbilityLIstItem v-if="showAbility"
                              :ability="equipment.ability"
                              :ap="ap"
-                             :can-edit="false"
                              :characteristics="characteristics"
                              :resources="resources"
                              :successes-from-intelligence="successesFromIntelligence"
@@ -92,7 +91,19 @@
             slots: Array,
             successesFromIntelligence: Number
         },
-        computed: {},
+        computed: {
+            showAbility() {
+                let show = !this.equipment.isItem && this.isActive &&
+                    (this.equipment.ability.apCost != 0 ||
+                    this.equipment.ability.classResource ||
+                    this.equipment.ability.damage.dice > 0 ||
+                    this.equipment.ability.damage.flat > 0 ||
+                    this.equipment.ability.characteristic ||
+                    (this.equipment.ability.save && this.equipment.ability.saveAmount && this.equipment.ability.saveCharacteristic))
+
+                return show
+            }
+        },
         data() {
             return {
                 amount: this.equipment.amount,

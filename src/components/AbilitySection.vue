@@ -26,7 +26,6 @@
                             <v-col cols="12" :xl="extraLargeColumns(ability)" :md="mediumColumns(ability)" v-for="ability in filteredAbilities" :key="ability.key">
                                 <AbilityListItem :ability="ability"
                                                  :ap="ap"
-                                                 :can-edit="true"
                                                  :characteristics="characteristics"
                                                  :damage-types="damageTypes"
                                                  :resources="resources"
@@ -388,8 +387,9 @@
                     apCost: 3,
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
-                    color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
+                    canEdit: true,
                     classResource: '',
+                    color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
                     crCost: 0,
                     characteristic: '',
                     damage: {
@@ -420,8 +420,9 @@
                     apCost: 3,
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
-                    color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
+                    canEdit: true,
                     classResource: '',
+                    color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
                     crCost: 0,
                     characteristic: '',
                     damage: {

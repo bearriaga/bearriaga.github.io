@@ -315,8 +315,9 @@
                         apCost: 3,
                         areaOfEffect: 'Single Target',
                         boughtForFree: true,
-                        color: {},
+                        canEdit: false,
                         classResource: '',
+                        color: {},
                         crCost: 0,
                         characteristic: '',
                         damage: {
@@ -362,8 +363,9 @@
                         apCost: 3,
                         areaOfEffect: 'Single Target',
                         boughtForFree: true,
-                        color: {},
+                        canEdit: false,
                         classResource: '',
+                        color: {},
                         crCost: 0,
                         characteristic: '',
                         damage: {
@@ -465,6 +467,7 @@
                 if (this.validate()) {
                     this.dialog.show = false
                     this.equipment.isActive = !this.equipment.isItem
+                    this.equipment.ability.name = this.equipment.name
                     this.$emit('addEntryEmit', { arrayName: 'equipment', object: this.equipment })
                 }
             },
@@ -475,6 +478,7 @@
             updateEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
+                    this.equipment.ability.name = this.equipment.name
                     this.$emit('updateEntryEmit', { arrayName: 'equipment', object: this.equipment })
                 }
             },
