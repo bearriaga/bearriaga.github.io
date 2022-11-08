@@ -2318,7 +2318,7 @@
   {
     "id": "sienna",
     "age": "22",
-    "ap": 3,
+    "ap": -41,
     "apMax": 14,
     "attunementSlots": 7,
     "attunementSlotsIncreases": 0,
@@ -2340,17 +2340,17 @@
     "luck": 3,
     "luckAdjustment": 0,
     "dcToHit": 4,
-    "dcToHitIncreases": 1,
+    "dcToHitIncreases": 0,
     "hp": 30,
-    "hpMax": 30,
+    "hpMax": 35,
     "hpIncreases": 7,
     "initiative": 0,
     "initiativeIncreases": 0,
-    "level": 1,
+    "level": 2,
     "luckFavored": false,
     "luckIllFavored": false,
     "luckNothingToChance": false,
-    "money": 0,
+    "money": 761,
     "movement": 5,
     "name": "Sienna Valner",
     "race": "Human",
@@ -2359,9 +2359,9 @@
     "rerollsIncreases": 0,
     "size": 1,
     "speedPreperationIsKey": false,
-    "xp": 50,
-    "xpEarned": 1550,
-    "xpTotal": 1250,
+    "xp": 200,
+    "xpEarned": 1700,
+    "xpTotal": 1400,
     "abilities": [
       {
         "apCost": "0",
@@ -2844,11 +2844,11 @@
         "crCost": 0,
         "characteristic": "resistance",
         "damage": {
-          "dice": 0,
-          "flat": "1",
+          "dice": "1",
+          "flat": "0",
           "types": [ "Slashing", "Blunt", "Piercing" ]
         },
-        "description": "Deals 1+FIT+RES Piercing Slashing or Bludgeoning.  Subtle (1). Duo-Wield. Character's hand, feet, and teeth become deadly natural weapons. \t\t\t",
+        "description": "Deals 1d6+FIT+RES Piercing Slashing or Bludgeoning.  Subtle (1). Duo-Wield. Character's hand, feet, and teeth become deadly natural weapons. \t\t\t",
         "duration": "Instant",
         "handedness": 0,
         "id": "5e6643a7-76aa-45cd-85a7-20e149f2f27b",
@@ -2866,7 +2866,7 @@
         "xpCost": "150",
         "components": [],
         "subEffects": [],
-        "key": "2Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0resistanceDeals 1+FIT+RES Piercing Slashing or Bludgeoning.  Subtle (1). Duo-Wield. Character's hand, feet, and teeth become deadly natural weapons. \t\t\tInstant05e6643a7-76aa-45cd-85a7-20e149f2f27btruefalsetrue0Natural WeaponsPhysical00false3150[]{\"dice\":0,\"flat\":\"1\",\"types\":[\"Slashing\",\"Blunt\"]}[]1"
+        "key": "2Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0resistanceDeals 1+FIT+RES Piercing Slashing or Bludgeoning.  Subtle (1). Duo-Wield. Character's hand, feet, and teeth become deadly natural weapons. \t\t\tInstant05e6643a7-76aa-45cd-85a7-20e149f2f27btruefalsetrue0Natural WeaponsPhysical00false3150[]{\"dice\":0,\"flat\":\"1\",\"types\":[\"Slashing\",\"Blunt\",\"Piercing\"]}[]1"
       },
       {
         "apCost": "0",
@@ -4758,6 +4758,54 @@
         },
         "damageModifications": [],
         "movements": []
+      },
+      {
+        "amount": 1,
+        "attunementSlots": 0,
+        "dcToHit": 1,
+        "description": "Replicates blood put into it.",
+        "id": "3b3f3c53-49bf-4689-81e2-3bebcd2b8ec9",
+        "isActive": false,
+        "isArmorShield": false,
+        "isItem": true,
+        "isWeapon": false,
+        "name": "Chalice of the Vampire Queen",
+        "slot": "",
+        "ability": {
+          "apCost": 3,
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "canEdit": false,
+          "color": {},
+          "classResource": "",
+          "crCost": 0,
+          "characteristic": "",
+          "damage": {
+            "dice": 0,
+            "flat": 0,
+            "types": []
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": 0,
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": true,
+          "maxSizeCategoryOfMass": 0,
+          "name": "",
+          "physMeta": "Physical",
+          "range": 0,
+          "save": false,
+          "saveAmount": 3,
+          "saveCharacteristic": "",
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [],
+        "movements": []
       }
     ],
     "flaws": [
@@ -4848,6 +4896,22 @@
         "skillIncreases": 0,
         "value": 5,
         "adjustment": 5
+      },
+      {
+        "characteristic": "intelligence",
+        "default": false,
+        "id": "afc97c70-aacd-4e2e-bc81-0bb717503332",
+        "name": "Life Science",
+        "skillIncreases": "1",
+        "value": 0
+      },
+      {
+        "characteristic": "intelligence",
+        "default": false,
+        "id": "2cf5946f-5487-4d07-bbf3-f9d8711295bf",
+        "name": "Daemonology ",
+        "skillIncreases": "1",
+        "value": 0
       }
     ],
     "statuses": [],
@@ -4905,12 +4969,6 @@
         "description": "",
         "id": "c023a9f4-b7f6-4d57-9e42-7f53af0f69ae",
         "name": "Skill: Life-Science"
-      },
-      {
-        "amount": "140",
-        "description": "7 HP purchases \nFormula (5*(X*(X+1)/2)) X= HP purchases",
-        "id": "aa73e279-189e-4b32-956b-b5928b891ecc",
-        "name": "HP purchases"
       }
     ],
     "journalEntries": [
@@ -4973,9 +5031,20 @@
         "money": 0,
         "name": "Researcher",
         "xp": "300"
+      },
+      {
+        "classXP": false,
+        "date": "2022-11-04",
+        "description": "",
+        "gameDate": "",
+        "id": "6bfcd322-0380-4c46-aaa3-c8e3c32c0fe3",
+        "money": 0,
+        "name": "Session 4",
+        "xp": "150"
       }
     ]
-  },
+  }
+,
   {
     "id": "tupoc",
     "age": 30,
