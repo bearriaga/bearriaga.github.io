@@ -702,8 +702,7 @@
             "successes": 0,
             "xpCost": 0,
             "components": [],
-            "subEffects": [],
-            "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}\"\"0Instant009d5f044-3cfb-454a-b0fb-52db66bea5abtruefalsetrue0Concealed SpikePhysical000[]{\"dice\":0,\"flat\":0,\"types\":[]}[]"
+            "subEffects": []
           }
         ]
       }
@@ -984,8 +983,7 @@
           "subEffects": []
         },
         "damageModifications": [],
-        "movements": [],
-        "key": "d258cea5-54c7-4ce8-b6af-7d7cf6fb227801undefinedfalsefalseDuster{\"apCost\":\"\",\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"\",\"damage\":{\"dice\":0,\"flat\":0,\"types\":[]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"\",\"physMeta\":\"Physical\",\"range\":0,\"save\":false,\"saveAmount\":3,\"saveCharacteristic\":\"\",\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]2"
+        "movements": []
       },
       {
         "amount": 1,
@@ -2865,8 +2863,7 @@
         "successes": 0,
         "xpCost": "150",
         "components": [],
-        "subEffects": [],
-        "key": "2Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0resistanceDeals 1+FIT+RES Piercing Slashing or Bludgeoning.  Subtle (1). Duo-Wield. Character's hand, feet, and teeth become deadly natural weapons. \t\t\tInstant05e6643a7-76aa-45cd-85a7-20e149f2f27btruefalsetrue0Natural WeaponsPhysical00false3150[]{\"dice\":0,\"flat\":\"1\",\"types\":[\"Slashing\",\"Blunt\",\"Piercing\"]}[]1"
+        "subEffects": []
       },
       {
         "apCost": "0",
@@ -4596,7 +4593,7 @@
           "isAbilityArray": false,
           "isMeleeAttack": true,
           "maxSizeCategoryOfMass": 0,
-          "name": "",
+          "name": "Razor Sharp Battle Axe",
           "physMeta": "Physical",
           "range": 0,
           "save": false,
@@ -4643,7 +4640,7 @@
           "isAbilityArray": false,
           "isMeleeAttack": true,
           "maxSizeCategoryOfMass": 0,
-          "name": "",
+          "name": "Reinforced Concealing Clothes",
           "physMeta": "Physical",
           "range": 0,
           "save": false,
@@ -4698,7 +4695,7 @@
           "isAbilityArray": false,
           "isMeleeAttack": true,
           "maxSizeCategoryOfMass": 0,
-          "name": "",
+          "name": "High Caliber Revolver",
           "physMeta": "Physical",
           "range": "20",
           "save": false,
@@ -4745,7 +4742,7 @@
           "isAbilityArray": false,
           "isMeleeAttack": true,
           "maxSizeCategoryOfMass": 0,
-          "name": "",
+          "name": "Holy Stone",
           "physMeta": "Physical",
           "range": 0,
           "save": false,
@@ -4793,7 +4790,7 @@
           "isAbilityArray": false,
           "isMeleeAttack": true,
           "maxSizeCategoryOfMass": 0,
-          "name": "",
+          "name": "Chalice of the Vampire Queen",
           "physMeta": "Physical",
           "range": 0,
           "save": false,
@@ -4838,8 +4835,7 @@
         "id": "23f006eb-9c34-42c3-9c10-d517d9007451",
         "name": "Blood",
         "characteristic": "resistance",
-        "resourceIncreases": "2",
-        "key": "Bloodresistance2601"
+        "resourceIncreases": "2"
       }
     ],
     "skills": [
@@ -5043,8 +5039,7 @@
         "xp": "150"
       }
     ]
-  }
-,
+  },
   {
     "id": "tupoc",
     "age": 30,
