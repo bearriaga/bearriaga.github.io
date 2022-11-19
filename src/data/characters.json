@@ -2,7 +2,7 @@
   {
     "id": "belif",
     "age": "35",
-    "ap": 14,
+    "ap": 0,
     "apMax": 14,
     "attunementSlots": 7,
     "attunementSlotsIncreases": 0,
@@ -25,27 +25,27 @@
     "luckAdjustment": 0,
     "dcToHit": 4,
     "dcToHitIncreases": 0,
-    "hp": 25,
+    "hp": 20,
     "hpMax": 30,
     "hpIncreases": 8,
-    "initiative": 38,
+    "initiative": 9,
     "initiativeIncreases": 0,
     "level": 2,
     "luckFavored": false,
     "luckIllFavored": false,
     "luckNothingToChance": false,
-    "money": 599,
+    "money": 1006,
     "movement": 3,
     "name": "Belif",
     "race": "Bluman",
-    "rerolls": 3,
+    "rerolls": 1,
     "rerollsMax": 3,
     "rerollsIncreases": 0,
     "size": 1,
     "speedPreperationIsKey": false,
-    "xp": 246,
-    "xpEarned": 1400,
-    "xpTotal": 1320,
+    "xp": 396,
+    "xpEarned": 1550,
+    "xpTotal": 1470,
     "abilities": [
       {
         "apCost": "3",
@@ -702,9 +702,67 @@
             "successes": 0,
             "xpCost": 0,
             "components": [],
-            "subEffects": []
+            "subEffects": [],
+            "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}\"\"0Instant009d5f044-3cfb-454a-b0fb-52db66bea5abtruefalsetrue0Concealed SpikePhysical000[]{\"dice\":0,\"flat\":0,\"types\":[]}[]"
           }
         ]
+      },
+      {
+        "apCost": 3,
+        "areaOfEffect": "Single Target",
+        "boughtForFree": false,
+        "canEdit": true,
+        "classResource": "",
+        "color": {
+          "alpha": 1,
+          "hex": "#000000",
+          "hexa": "#000000FF",
+          "hsla": {
+            "h": 0,
+            "s": 0,
+            "l": 0,
+            "a": 1
+          },
+          "hsva": {
+            "h": 0,
+            "s": 0,
+            "v": 0,
+            "a": 1
+          },
+          "hue": 0,
+          "rgba": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "crCost": 0,
+        "characteristic": "",
+        "damage": {
+          "dice": "2",
+          "flat": "4",
+          "types": [ "Slashing" ]
+        },
+        "description": "",
+        "duration": "Instant",
+        "handedness": 0,
+        "id": "22192e93-6dd9-49f2-9e21-44f60fe07132",
+        "inClass": true,
+        "isAbilityArray": false,
+        "isMeleeAttack": false,
+        "maxSizeCategoryOfMass": 0,
+        "name": "Undead Sword",
+        "physMeta": "Physical",
+        "range": 0,
+        "save": false,
+        "saveAmount": 3,
+        "saveCharacteristic": "",
+        "successes": 0,
+        "xpCost": 0,
+        "components": [],
+        "subEffects": [],
+        "key": "3Single Targetfalse{\"alpha\":1,\"hex\":\"#000000\",\"hexa\":\"#000000FF\",\"hsla\":{\"h\":0,\"s\":0,\"l\":0,\"a\":1},\"hsva\":{\"h\":0,\"s\":0,\"v\":0,\"a\":1},\"hue\":0,\"rgba\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1}}0Instant022192e93-6dd9-49f2-9e21-44f60fe07132truefalsetrue0Undead SwordPhysical00false30[]{\"dice\":\"2\",\"flat\":0,\"types\":[\"Slashing\"]}[]1"
       }
     ],
     "buffs": [
@@ -983,7 +1041,8 @@
           "subEffects": []
         },
         "damageModifications": [],
-        "movements": []
+        "movements": [],
+        "key": "d258cea5-54c7-4ce8-b6af-7d7cf6fb227801undefinedfalsefalseDuster{\"apCost\":\"\",\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"\",\"damage\":{\"dice\":0,\"flat\":0,\"types\":[]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":false,\"maxSizeCategoryOfMass\":0,\"name\":\"\",\"physMeta\":\"Physical\",\"range\":0,\"save\":false,\"saveAmount\":3,\"saveCharacteristic\":\"\",\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]2"
       },
       {
         "amount": 1,
@@ -1019,7 +1078,7 @@
           "isAbilityArray": false,
           "isMeleeAttack": true,
           "maxSizeCategoryOfMass": 0,
-          "name": "",
+          "name": "The Rusted Coil of the Griffin God",
           "physMeta": "Physical",
           "range": "1",
           "save": false,
@@ -1031,7 +1090,8 @@
           "subEffects": []
         },
         "damageModifications": [],
-        "movements": []
+        "movements": [],
+        "key": "d5ae15ea-5ec8-4909-beef-3b569dd3affc01falsefalsetrueThe Rusted Coil of the Griffin God{\"apCost\":\"0\",\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"canEdit\":false,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"\",\"damage\":{\"dice\":0,\"flat\":\"1\",\"types\":[\"Physical\"]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"\",\"physMeta\":\"Physical\",\"range\":\"1\",\"save\":false,\"saveAmount\":3,\"saveCharacteristic\":\"\",\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]1"
       },
       {
         "amount": 1,
@@ -1067,7 +1127,7 @@
           "isAbilityArray": false,
           "isMeleeAttack": true,
           "maxSizeCategoryOfMass": 0,
-          "name": "",
+          "name": "Dark Blade of the Hidden",
           "physMeta": "Physical",
           "range": "1",
           "save": false,
@@ -1079,7 +1139,57 @@
           "subEffects": []
         },
         "damageModifications": [],
-        "movements": []
+        "movements": [],
+        "key": "a9d9a13c-276d-4bf1-9371-8248ca4a37c201falsefalsetrueDark Blade of the Hidden{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"canEdit\":false,\"color\":{},\"classResource\":\"\",\"crCost\":0,\"characteristic\":\"fitness\",\"damage\":{\"dice\":\"1\",\"flat\":0,\"types\":[\"Slashing\",\"Piercing\"]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"\",\"physMeta\":\"Physical\",\"range\":\"1\",\"save\":false,\"saveAmount\":3,\"saveCharacteristic\":\"\",\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]1"
+      },
+      {
+        "amount": "0",
+        "attunementSlots": 0,
+        "dcToHit": 1,
+        "description": "",
+        "id": "4ef9846b-097a-466a-9d74-b5bd1d345c38",
+        "isActive": false,
+        "isArmorShield": false,
+        "isItem": false,
+        "isWeapon": true,
+        "name": "Red Healing Injectors",
+        "slot": "",
+        "ability": {
+          "apCost": 3,
+          "areaOfEffect": "Single Target",
+          "boughtForFree": true,
+          "canEdit": false,
+          "classResource": "",
+          "color": {},
+          "crCost": 0,
+          "characteristic": "",
+          "damage": {
+            "dice": "2",
+            "flat": "5",
+            "types": [ "Healing" ]
+          },
+          "description": "",
+          "duration": "Instant",
+          "handedness": 0,
+          "id": "",
+          "inClass": true,
+          "isAbilityArray": false,
+          "isMeleeAttack": true,
+          "maxSizeCategoryOfMass": 0,
+          "name": "Red Healing Injectors",
+          "physMeta": "Physical",
+          "range": 0,
+          "save": false,
+          "saveAmount": 3,
+          "saveCharacteristic": "",
+          "successes": 0,
+          "xpCost": 0,
+          "components": [],
+          "subEffects": []
+        },
+        "damageModifications": [],
+        "movements": [],
+        "key": "4ef9846b-097a-466a-9d74-b5bd1d345c3801falsefalsetrueRed Healing Injectors{\"apCost\":3,\"areaOfEffect\":\"Single Target\",\"boughtForFree\":true,\"canEdit\":false,\"classResource\":\"\",\"color\":{},\"crCost\":0,\"characteristic\":\"\",\"damage\":{\"dice\":\"2\",\"flat\":\"5\",\"types\":[\"Healing\"]},\"description\":\"\",\"duration\":\"Instant\",\"handedness\":0,\"id\":\"\",\"inClass\":true,\"isAbilityArray\":false,\"isMeleeAttack\":true,\"maxSizeCategoryOfMass\":0,\"name\":\"Red Healing Injectors\",\"physMeta\":\"Physical\",\"range\":0,\"save\":false,\"saveAmount\":3,\"saveCharacteristic\":\"\",\"successes\":0,\"xpCost\":0,\"components\":[],\"subEffects\":[]}[]1"
       }
     ],
     "flaws": [
@@ -1094,7 +1204,7 @@
       {
         "id": "Atwood Galahad",
         "age": 0,
-        "ap": 8,
+        "ap": 2,
         "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
@@ -1117,7 +1227,7 @@
         "luckAdjustment": 0,
         "dcToHit": 3,
         "dcToHitIncreases": 0,
-        "hp": 9,
+        "hp": 0,
         "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
@@ -1156,7 +1266,7 @@
       {
         "id": "Grogg",
         "age": 0,
-        "ap": 8,
+        "ap": 2,
         "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
@@ -1179,7 +1289,7 @@
         "luckAdjustment": 0,
         "dcToHit": 3,
         "dcToHitIncreases": 0,
-        "hp": 9,
+        "hp": 0,
         "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
@@ -1218,7 +1328,7 @@
       {
         "id": "DanaMiniCotton",
         "age": 0,
-        "ap": 8,
+        "ap": 2,
         "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
@@ -1241,7 +1351,7 @@
         "luckAdjustment": 0,
         "dcToHit": 3,
         "dcToHitIncreases": 0,
-        "hp": 9,
+        "hp": 0,
         "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
@@ -1280,7 +1390,7 @@
       {
         "id": "Zar'goh",
         "age": 0,
-        "ap": 8,
+        "ap": 2,
         "apMax": 8,
         "attunementSlots": 10,
         "attunementSlotsIncreases": 0,
@@ -1303,7 +1413,7 @@
         "luckAdjustment": 0,
         "dcToHit": 3,
         "dcToHitIncreases": 0,
-        "hp": 9,
+        "hp": 0,
         "hpMax": 9,
         "hpIncreases": 0,
         "initiative": 0,
@@ -1473,12 +1583,22 @@
       },
       {
         "classXP": false,
-        "date": null,
+        "date": "2022-11-04",
         "description": "-200 Duster\n-200 Dark Blade of the Hidden\n-300 The Rusted Coil of the Griffin God\n-100 Mike Savage Gift\n-50 Dr. Bertrand appraisal",
         "gameDate": "",
         "id": "b7650b64-38da-49b0-a19d-9e33b343dbd0",
         "money": "-890",
         "name": "Session 4",
+        "xp": "150"
+      },
+      {
+        "classXP": false,
+        "date": "2022-11-18",
+        "description": "Money from Blutonic and Phazion guardians and grunt scraps",
+        "gameDate": "",
+        "id": "f98ceb4e-f82a-4163-9a3e-b7dc53bb570e",
+        "money": "407",
+        "name": "Session 5",
         "xp": "150"
       }
     ]
