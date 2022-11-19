@@ -133,6 +133,7 @@
                                 <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                     @apGainEmit="apGain($event)"
                                                     @updatePropEmit="updateProp($event)"
+                                                    :hp="characterSheet.hp"
                                                     :property-object="input"></InputWithEditModal>
                             </v-col>
                         </v-row>
@@ -469,6 +470,7 @@
                                                 @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                 @apGainEmit="apGain($event)"
                                                 @updatePropEmit="updateProp($event)"
+                                                :hp="characterSheet.hp"
                                                 :property-object="input"></InputWithEditModal>
                             <ResourceSection :characteristics="characteristics"
                                              :panel-prop="resourcePanel"

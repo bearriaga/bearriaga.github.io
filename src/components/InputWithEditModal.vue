@@ -94,6 +94,7 @@
         name: 'InputWithEditModal',
         components: { TooltipComponent },
         props: {
+            hp: Number,
             propertyObject: Object
         },
         computed: {
@@ -127,6 +128,8 @@
             specialButton() {
                 if (this.propertyObject.valueName == 'ap') {
                     let apGain = (this.propertyObject.valueIncreases) ? this.propertyObject.valueMax / 3 : this.propertyObject.valueMax / 2
+                    if (this.hp <= 0)
+                        apGain = Math.floor(apGain / 2)
                     this.value = +this.value + apGain
                     this.$emit('apGainEmit')
                 }
