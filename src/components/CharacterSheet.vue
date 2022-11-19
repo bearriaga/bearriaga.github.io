@@ -867,6 +867,9 @@
                         <div v-if="abilityDialog.cr">
                             <b>CR Used {{abilityDialog.cr}}</b>
                         </div>
+                        <div v-if="abilityDialog.ability.description">
+                            <v-textarea label="Description" v-model="abilityDialog.ability.description" auto-grow outlined rows="1" disabled></v-textarea>
+                        </div>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -2249,6 +2252,9 @@
 
                 if (this.abilityDialog.cr)
                     copyText += `{{CR Used= ${this.abilityDialog.cr}}}`
+
+                if (this.abilityDialog.ability.description)
+                    copyText += `{{Description= ${this.abilityDialog.ability.description}}}`
 
                 navigator.clipboard.writeText(copyText)
             },
