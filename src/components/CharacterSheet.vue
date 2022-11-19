@@ -2947,6 +2947,8 @@
                 this.abilityDialog.show = true
                 this.abilityDialog.title = ability.name
                 this.abilityDialog.usedEffects = []
+
+                this.copyAll()
             }
         },
         watch: {
