@@ -16,6 +16,7 @@
                     v-if="characteristic.characteristic">mdi-star</v-icon>
             <v-icon slot="append" @click="rollCharCheck">mdi-dice-6</v-icon>
             <v-icon slot="append" @click="rollSaveCheck">mdi-shield</v-icon>
+            <v-icon slot="append" @click="rollSkillCheck">mdi-alpha-s-circle</v-icon>
         </v-text-field>
     </div>
 </template>
@@ -65,6 +66,9 @@
             },
             rollSaveCheck() {
                 this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSkill: false, name: this.characteristic.abbreviation + ' Save', successes: 0 })
+            },
+            rollSkillCheck() {
+                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSkill: true, name: this.characteristic.abbreviation + ' Skill', successes: 0 })
             },
             updateProp() {
                 if (this.value < 0)
