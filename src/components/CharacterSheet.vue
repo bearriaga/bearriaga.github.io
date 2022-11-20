@@ -697,7 +697,7 @@
                         <div>
                             <b>Successes: {{abilityDialog.check.successes}}</b>
                         </div>
-                        <div v-if="abilityDialog.check.successes">
+                        <div v-if="abilityDialog.check.successes && abilityDialog.isAbility">
                             <v-text-field label="Successes" type="number"
                                           v-model="abilityDialog.check.successesInput">
                                 <v-icon color="success" slot="append" @click="successesInputAdd(1)">mdi-plus</v-icon>
