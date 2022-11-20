@@ -153,12 +153,16 @@
                                 </v-expansion-panels>
                                 <!-- Damage Modification Inputs End -->
                                 <!-- Weapon Inputs -->
-                                <v-switch label="Is Weapon" inset v-model="equipment.isWeapon"></v-switch>
-                                <v-text-field label="Range"
-                                              v-model="equipment.ability.range"
-                                              type="number"
-                                              v-if="equipment.isWeapon"></v-text-field>
+                                <v-switch label="Is Weapon" inset v-model="equipment.isWeapon" @click="toggleAdditionalPanel"></v-switch>
                                 <v-row v-if="equipment.isWeapon">
+                                    <v-col cols="6">
+                                        <v-text-field label="Range"
+                                                      v-model="equipment.ability.range"
+                                                      type="number"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-switch label="Is Melee Attack" inset v-model="equipment.ability.isMeleeAttack"></v-switch>
+                                    </v-col>
                                     <v-col cols="12">
                                         <h3 class="text-center">
                                             Damage
@@ -181,7 +185,7 @@
                                 </v-row>
                                 <!-- Weapon Inputs End -->
                                 <!-- Additional Ability Inputs -->
-                                <v-expansion-panels>
+                                <v-expansion-panels v-model="additionalAbilityInputsPanel">
                                     <v-expansion-panel>
                                         <v-expansion-panel-header>
                                             <h3 class="text-center">Additional Ability Inputs</h3>
@@ -194,7 +198,6 @@
                                                       clearable></v-select>
                                             <v-text-field label="Class Resource Cost" type="number" v-model="equipment.ability.crCost"></v-text-field>
                                             <v-text-field label="Duration" v-model="equipment.ability.duration"></v-text-field>
-                                            <v-switch label="Is Melee Attack" inset v-model="equipment.ability.isMeleeAttack"></v-switch>
                                             <v-text-field label="Area of Effect" v-model="equipment.ability.areaOfEffect"></v-text-field>
                                             <v-select label="Physical/Meta *"
                                                       :items="physMetaOptions"
@@ -400,6 +403,7 @@
                     movements: []
                 },
                 // Input Fields End
+                additionalAbilityInputsPanel: null,
                 damageModificationsPanel: null,
                 dialog: {
                     show: false,
@@ -514,6 +518,10 @@
                 }
             },
             // Open Dialog Functions End
+            toggleAdditionalPanel() {
+                if (this.equipment.isWeapon)
+                    this.additionalAbilityInputsPanel = 0
+            },
             useAbility(ability) {
                 this.$emit('useAbilityEmit', ability)
             },
