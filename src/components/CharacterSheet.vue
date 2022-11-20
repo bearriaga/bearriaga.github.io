@@ -2626,6 +2626,8 @@
                         title: 'Mass Roller'
                     }
                     this.massRoller.results = []
+                    var copyText = `&{template:default} {{name= Mass Roller}}`
+                    var copyTextEnd = ''
                     for (var i = 0; i < this.massRoller.enemies; i++) {
                         let result = {
                             advantage: false,
@@ -2633,7 +2635,7 @@
                             fate: 0,
                             show: true,
                             selectedRerolls: [],
-                            succeded: false,
+                            succeeded: false,
                             successes: 0,
                             successesFromLuck: 0,
                             threat: false
@@ -2652,18 +2654,25 @@
                         }
 
                         if (!isNaN(this.massRoller.successesRequired) && this.massRoller.successesRequired > 0)
-                            result.succeded = result.successes >= this.massRoller.successesRequired
+                            result.succeeded = result.successes >= this.massRoller.successesRequired
 
                         this.generalDialog.html += '<div><div><b>Successes: ' + result.successes + '</b></div>' +
                             '<div> Fate: ' + result.fate + '</div>' +
                             '<div> Dice Results: [' + result.diceResults.join(', ') + ']</div>';
 
+                        copyTextEnd += `{{Enemy ${i + 1} Successes = ${result.successes}}}`
+
                         this.massRoller.results.push(result)
                     }
-                    let successes = this.massRoller.results.filter(x => { return x.succeded }).length
-                    if (!isNaN(this.massRoller.successesRequired) && this.massRoller.successesRequired > 0)
-                        this.generalDialog.html = '<div><b>Enemies Succeded: ' + successes + '</b></div>' + this.generalDialog.html
+                    let successes = this.massRoller.results.filter(x => { return x.succeeded }).length
+                    if (!isNaN(this.massRoller.successesRequired) && this.massRoller.successesRequired > 0) {
+                        this.generalDialog.html = '<div><b>Enemies Succeeded: ' + successes + '</b></div>' + this.generalDialog.html                        
+                        copyText += `{{Enemies Succeeded= ${successes}}}`
+                    }
 
+                    copyText += copyTextEnd
+
+                    navigator.clipboard.writeText(copyText)
                     this.generalDialog.show = true
                 }
             },
