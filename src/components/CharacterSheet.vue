@@ -942,6 +942,18 @@
                 </v-card>
             </v-dialog>
         </div>
+        <v-snackbar v-model="snackbar.show">
+            {{ snackbar.text }}
+
+            <template v-slot:action="{ attrs }">
+                <v-btn color="pink"
+                       text
+                       v-bind="attrs"
+                       @click="snackbar.show = false">
+                    Close
+                </v-btn>
+            </template>
+        </v-snackbar>
     </div>
 </template>
 
@@ -2076,6 +2088,10 @@
                     'Swim',
                     'Teleport'
                 ],
+                snackbar: {
+                    show: false,
+                    text: ''
+                },
                 statuses: this.gameDataStore.statuses,
                 tab: 'tab0',
                 universalEffects: [
@@ -2428,6 +2444,8 @@
                 this.abilityDialog.isAbility = false
                 this.abilityDialog.save.show = false
                 this.abilityDialog.title = diceCheckObject.name + ' Check Results'
+                this.copyCheck()
+                this.showSnackbar('Copied Check Results to Clipboard')
             },
             //Dice Roll Functions End
             fillResources() {
@@ -2571,6 +2589,7 @@
 
                 let character = JSON.parse(JSON.stringify(this.characterSheet))
                 localStorage.setItem('character', JSON.stringify(character))
+                this.showSnackbar('Character Saved')
             },
             async saveToFirebase() {
                 await setDoc(doc(db, 'characters', this.characterSheet.id), this.characterSheet)
@@ -2666,13 +2685,15 @@
                     }
                     let successes = this.massRoller.results.filter(x => { return x.succeeded }).length
                     if (!isNaN(this.massRoller.successesRequired) && this.massRoller.successesRequired > 0) {
-                        this.generalDialog.html = '<div><b>Enemies Succeeded: ' + successes + '</b></div>' + this.generalDialog.html                        
+                        this.generalDialog.html = '<div><b>Enemies Succeeded: ' + successes + '</b></div>' + this.generalDialog.html
                         copyText += `{{Enemies Succeeded= ${successes}}}`
                     }
 
                     copyText += copyTextEnd
 
                     navigator.clipboard.writeText(copyText)
+                    this.showSnackbar('Copied Mass Roller Results to Clipboard')
+
                     this.generalDialog.show = true
                 }
             },
@@ -2849,6 +2870,12 @@
                 this.updateCharacter++
                 this.characterSheet = this.characterStore.getCharacterById(name)
             },
+            showSnackbar(text) {
+                this.snackbar = {
+                    show: true,
+                    text: text
+                }
+            },
             specialInputWithEditModal(valueName) {
                 if (valueName == 'initiative') {
                     this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.speed + +this.characterSheet.initiativeIncreases + +this.buffAmount({ type: 'Initiative' })
@@ -2958,6 +2985,8 @@
                 this.abilityDialog.usedEffects = []
 
                 this.copyAll()
+
+                this.showSnackbar('Copied Ability to Clipboard')
             }
         },
         watch: {
