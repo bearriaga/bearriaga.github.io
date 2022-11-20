@@ -14,26 +14,30 @@
                     </h3>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="equipmentExpansionContent">
-                    <EquipmentListItem v-for="e in characterEquipment" :key="e.key"
-                                       :ap="ap"
-                                       :characteristics="characteristics"
-                                       :damage-groups="damageGroups"
-                                       :damage-types="damageTypes"
-                                       :equipment="e"
-                                       :movement-ap-icon="movementApIcon"
-                                       :movement-ap-icon-color="movementApIconColor"
-                                       :movement-types="movementTypes"
-                                       :resources="resources"
-                                       :slots="slots"
-                                       :successes-from-intelligence="successesFromIntelligence"
-                                       @deleteDialogEmit="deleteDialog($event)"
-                                       @rollAbilityEmit="rollAbility($event)"
-                                       @rollDamageEmit="rollDamage($event)"
-                                       @subtractAPEmit="subtractAP($event)"
-                                       @subtractCREmit="subtractCR($event)"
-                                       @updateDialogEmit="updateDialog($event)"
-                                       @updateEntryEmit="updateEntryBypass($event)"
-                                       @useAbility="useAbility($event)"></EquipmentListItem>
+                    <v-row>
+                        <v-col cols="12" xl="6" v-for="e in characterEquipment" :key="e.key">
+                            <EquipmentListItem :ap="ap"
+                                               :characteristics="characteristics"
+                                               :damage-groups="damageGroups"
+                                               :damage-types="damageTypes"
+                                               :equipment="e"
+                                               :movement-ap-icon="movementApIcon"
+                                               :movement-ap-icon-color="movementApIconColor"
+                                               :movement-types="movementTypes"
+                                               :resources="resources"
+                                               :slots="slots"
+                                               :successes-from-intelligence="successesFromIntelligence"
+                                               @deleteDialogEmit="deleteDialog($event)"
+                                               @rollAbilityEmit="rollAbility($event)"
+                                               @rollDamageEmit="rollDamage($event)"
+                                               @subtractAPEmit="subtractAP($event)"
+                                               @subtractCREmit="subtractCR($event)"
+                                               @updateDialogEmit="updateDialog($event)"
+                                               @updateEntryEmit="updateEntryBypass($event)"
+                                               @useAbility="useAbility($event)"></EquipmentListItem>
+
+                        </v-col>
+                    </v-row>
                     <v-row>
                     </v-row>
                 </v-expansion-panel-content>
@@ -409,7 +413,7 @@
                 rollDamage(ability) {
                     this.$emit('rollDamageEmit', ability)
                 },
-               panel: this.panelProp,
+                panel: this.panelProp,
                 slots: ['Head', 'Body', 'Arms', 'Legs', 'Boots', 'Clothes'],
                 subtractAP(apCost) {
                     this.$emit('subtractAPEmit', apCost)
@@ -484,7 +488,7 @@
             },
             updateEntryBypass(object) {
                 this.$emit('updateEntryBypassEmit', { arrayName: 'equipment', object: object })
-            },            
+            },
             // CRUD Functions End
             // Open Dialog Functions
             addDialog() {

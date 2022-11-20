@@ -296,7 +296,9 @@
                                  @updateEntryBypassEmit="updateEntry($event)"
                                  @updatePanelEmit="updatePanel($event)"></BuffSection>
                 </v-col>
-                <v-col cols="12" lg="3" md="6">
+                <v-col cols="12" md="6">                    
+                    <InputWithEditModal @updatePropEmit="updateProp($event)"
+                                        :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
                     <EquipmentSection :ap="characterSheet.ap"
                                       :characteristics="characteristics"
                                       :character-equipment="characterEquipment"
@@ -392,6 +394,25 @@
                 </v-col>
             </v-row>
             <v-row>
+                <v-col v-for="input in inputWithEditModals" :key="input.key">
+                    <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                        @apGainEmit="apGain($event)"
+                                        @updatePropEmit="updateProp($event)"
+                                        :hp="characterSheet.hp"
+                                        :property-object="input"></InputWithEditModal>
+                </v-col>
+                <v-col>
+                    <ResourceSection :characteristics="characteristics"
+                                     :panel-prop="resourcePanel"
+                                     :resources="resources"
+                                     @addEntryEmit="addEntry($event)"
+                                     @deleteEntryEmit="deleteEntry($event)"
+                                     @fillResourcesEmit="fillResources($event)"
+                                     @updateEntryEmit="updateEntry($event)"
+                                     @updatePanelEmit="updatePanel($event)"></ResourceSection>
+                </v-col>
+            </v-row>
+            <v-row>
                 <v-col cols="12" md="3" class="charColumn mainColumn elevation-3" elevation="3">
                     <SkillSection :characteristics="characteristics"
                                   :panel-prop="skillPanel"
@@ -436,17 +457,16 @@
                 </v-col>
                 <v-col cols="12" md="9">
                     <v-tabs v-model="tab">
-                        <v-tab href="#tab0">Abilities</v-tab>
-                        <v-tab href="#tab1">Resources</v-tab>
-                        <v-tab href="#tab2">Movements</v-tab>
-                        <v-tab href="#tab3">Damage Modifications</v-tab>
-                        <v-tab href="#tab4">Classes and Traits</v-tab>
+                        <v-tab href="#abilities">Abilities</v-tab>
+                        <v-tab href="#movements">Movements</v-tab>
+                        <v-tab href="#damageModifications">Damage Modifications</v-tab>
+                        <v-tab href="#classesAndTraits">Classes and Traits</v-tab>
                         <v-tab href="#inventory">Inventory</v-tab>
                         <v-tab href="#statusBuffs">Statuses and Buffs</v-tab>
                         <v-tab href="#minions">Minions</v-tab>
                     </v-tabs>
                     <v-tabs-items v-model="tab" style="max-height:800px;overflow-y:auto;">
-                        <v-tab-item value="tab0">
+                        <v-tab-item value="abilities">
                             <AbilitySection :abilities="abilities"
                                             :ap="characterSheet.ap"
                                             :characteristics="characteristics"
@@ -465,23 +485,7 @@
                                             @updatePanelEmit="updatePanel($event)"
                                             @useAbilityEmit="useAbility($event)"></AbilitySection>
                         </v-tab-item>
-                        <v-tab-item value="tab1">
-                            <InputWithEditModal v-for="input in inputWithEditModals" :key="input.key"
-                                                @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
-                                                @apGainEmit="apGain($event)"
-                                                @updatePropEmit="updateProp($event)"
-                                                :hp="characterSheet.hp"
-                                                :property-object="input"></InputWithEditModal>
-                            <ResourceSection :characteristics="characteristics"
-                                             :panel-prop="resourcePanel"
-                                             :resources="resources"
-                                             @addEntryEmit="addEntry($event)"
-                                             @deleteEntryEmit="deleteEntry($event)"
-                                             @fillResourcesEmit="fillResources($event)"
-                                             @updateEntryEmit="updateEntry($event)"
-                                             @updatePanelEmit="updatePanel($event)"></ResourceSection>
-                        </v-tab-item>
-                        <v-tab-item value="tab2">
+                        <v-tab-item value="movements">
                             <MovementSection :ap="characterSheet.ap"
                                              :can-edit="true"
                                              :movements="movements"
@@ -495,7 +499,7 @@
                                              @updateEntryEmit="updateEntry($event)"
                                              @updatePanelEmit="updatePanel($event)"></MovementSection>
                         </v-tab-item>
-                        <v-tab-item value="tab3">
+                        <v-tab-item value="damageModifications">
                             <DamageModificationSection :can-edit="true"
                                                        :damage-modifications="damageModifications"
                                                        :damage-groups="damageGroups"
@@ -506,7 +510,7 @@
                                                        @updateEntryEmit="updateEntry($event)"
                                                        @updatePanelEmit="updatePanel($event)"></DamageModificationSection>
                         </v-tab-item>
-                        <v-tab-item value="tab4">
+                        <v-tab-item value="classesAndTraits">
                             <ClassSection :characteristics="characteristics"
                                           :classes="classes"
                                           :panel-prop="classPanel"
@@ -564,6 +568,8 @@
                                             @moneyAddSubtractEmit="moneyAddSubtract($event)"
                                             @updateEntryEmit="updateEntry($event)"
                                             @updatePanelEmit="updatePanel($event)"></JournalSection>
+                            <InputWithEditModal @updatePropEmit="updateProp($event)"
+                                                :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
                             <EquipmentSection :ap="characterSheet.ap"
                                               :characteristics="characteristics"
                                               :character-equipment="characterEquipment"
@@ -1217,6 +1223,27 @@
 
                 return abilities
             },
+            attunementSlotsInputWithEditModal() {
+                return {
+                    bar: true,
+                    color: 'primary',
+                    dialogText: '',
+                    disabled: true,
+                    infoText: '10 + Attunement Slot Purchases - Equipment Attunement Slots used',
+                    key: 'attunementSlots' + this.characterSheet.attunementSlots + this.characterSheet.attunementSlotsMax,
+                    label: 'Attunement Slots',
+                    minus: false,
+                    plus: false,
+                    type: 'number',
+                    value: this.characterSheet.attunementSlots,
+                    valueIncreases: this.characterSheet.attunementSlotsIncreases,
+                    valueIncreasesLabel: 'Attunement Slot Purchases',
+                    valueIncreasesName: 'attunementSlotsIncreases',
+                    valueIncreasesType: 'number',
+                    valueMax: this.characterSheet.attunementSlotsMax,
+                    valueName: 'attunementSlots'
+                }
+            },
             buffs() {
                 let buffs = []
 
@@ -1562,26 +1589,7 @@
                         valueIncreasesName: 'rerollsIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.rerollsMax
-                    },
-                    {
-                        bar: true,
-                        color: 'primary',
-                        dialogText: '',
-                        disabled: true,
-                        infoText: '10 + Attunement Slot Purchases - Equipment Attunement Slots used',
-                        key: 'attunementSlots' + this.characterSheet.attunementSlots + this.characterSheet.attunementSlotsMax,
-                        label: 'Attunement Slots',
-                        minus: false,
-                        plus: false,
-                        type: 'number',
-                        value: this.characterSheet.attunementSlots,
-                        valueIncreases: this.characterSheet.attunementSlotsIncreases,
-                        valueIncreasesLabel: 'Attunement Slot Purchases',
-                        valueIncreasesName: 'attunementSlotsIncreases',
-                        valueIncreasesType: 'number',
-                        valueMax: this.characterSheet.attunementSlotsMax,
-                        valueName: 'attunementSlots'
-                    }
+                    }                    
                 ]
             },
             minions() {
@@ -2093,7 +2101,7 @@
                     text: ''
                 },
                 statuses: this.gameDataStore.statuses,
-                tab: 'tab0',
+                tab: 'abilities',
                 universalEffects: [
                     { cost: 1, description: 'Gain 1 ReRoll for only your next roll', type: 'Universal' },
                     { cost: 2, description: 'Gain an additional 1d6 on your next roll', type: 'Universal' },
