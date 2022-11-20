@@ -394,14 +394,14 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col v-for="input in inputWithEditModals" :key="input.key">
+                <v-col cols="6" md="3" v-for="input in inputWithEditModals" :key="input.key">
                     <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                         @apGainEmit="apGain($event)"
                                         @updatePropEmit="updateProp($event)"
                                         :hp="characterSheet.hp"
                                         :property-object="input"></InputWithEditModal>
                 </v-col>
-                <v-col>
+                <v-col cols="6" md="3">
                     <ResourceSection :characteristics="characteristics"
                                      :panel-prop="resourcePanel"
                                      :resources="resources"
