@@ -8,7 +8,7 @@
         <v-text-field :label="characteristic.abbreviation"
                       type="number"
                       min="0"
-                      max="10"
+                      :max="characteristic.valueMax"
                       v-model="value"
                       @keyup.enter="rollCharCheck">
             <v-icon slot="append"
@@ -29,7 +29,7 @@
         computed: {
             adjustedAmount() {
                 let amount = +this.value + +this.characteristic.adjustment
-                return (amount > 10) ? 10 : (amount < 0) ? 0 : amount
+                return (amount > this.characteristic.valueMax) ? this.characteristic.valueMax : (amount < 0) ? 0 : amount
             },
             adjustedAmountClass() {
                 let amountClass = ''
@@ -69,8 +69,8 @@
             updateProp() {
                 if (this.value < 0)
                     this.value = 0
-                if (this.value > 10)
-                    this.value = 10
+                if (this.value > this.characteristic.valueMax)
+                    this.value = this.characteristic.valueMax
 
                 this.$emit('updatePropEmit', { propName: this.characteristic.name, type: 'number', value: this.value })
             }
