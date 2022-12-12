@@ -268,6 +268,26 @@
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"
                                       @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
+                    <div>
+                        <template>
+                            <v-expansion-panels>
+                                <v-expansion-panel>
+                                    <v-expansion-panel-header>
+                                        <h3 class="text-center">
+                                            Feats
+                                        </h3>
+                                    </v-expansion-panel-header>
+                                    <v-expansion-panel-content>
+                                        <v-form>
+                                            <v-switch label="Luck Favored" inset v-model="characterSheet.luckFavored"></v-switch>
+                                            <v-switch label="Luck Ill Favored" inset v-model="characterSheet.luckIllFavored"></v-switch>
+                                            <v-switch label="Luck Nothing to Chance" inset v-model="characterSheet.luckNothingToChance"></v-switch>                                      
+                                        </v-form>
+                                    </v-expansion-panel-content>
+                                </v-expansion-panel>
+                            </v-expansion-panels>
+                        </template>
+                    </div>
                 </v-col>
             </v-row>
             <v-row>
@@ -541,6 +561,26 @@
                                               @deleteEntryEmit="deleteEntry($event)"
                                               @updateEntryEmit="updateEntry($event)"
                                               @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
+                            <div>
+                                <template>
+                                    <v-expansion-panels>
+                                        <v-expansion-panel>
+                                            <v-expansion-panel-header>
+                                                <h3 class="text-center">
+                                                    Feats
+                                                </h3>
+                                            </v-expansion-panel-header>
+                                            <v-expansion-panel-content>
+                                                <v-form>
+                                                    <v-switch label="Luck Favored" inset v-model="characterSheet.luckFavored"></v-switch>
+                                                    <v-switch label="Luck Ill Favored" inset v-model="characterSheet.luckIllFavored"></v-switch>
+                                                    <v-switch label="Luck Nothing to Chance" inset v-model="characterSheet.luckNothingToChance"></v-switch>
+                                                </v-form>
+                                            </v-expansion-panel-content>
+                                        </v-expansion-panel>
+                                    </v-expansion-panels>
+                                </template>
+                            </div>
                         </v-tab-item>
                         <v-tab-item value="inventory">
                             <v-row>
