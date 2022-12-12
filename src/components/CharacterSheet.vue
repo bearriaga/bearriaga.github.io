@@ -1185,7 +1185,7 @@
                         let ability = JSON.parse(JSON.stringify(e.ability))
 
                         ability.canEdit = false
-                        ability.description = 'Equipment Ability'
+                        ability.description = e.description
                         ability.key =
                             ability.apCost +
                             ability.areaOfEffect +
