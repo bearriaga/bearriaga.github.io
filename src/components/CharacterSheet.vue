@@ -1019,7 +1019,7 @@
     import SkillSection from './SkillSection.vue'
     import StatusSection from './StatusSection.vue'
     import TooltipComponent from './TooltipComponent.vue'
-    import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
+    import { collection, getDocs, doc, setDoc, query, where } from 'firebase/firestore';
     import { db } from '@/stores/db'
     import { useCharacterStore } from '@/stores/CharacterStore'
     import { useGameDataStore } from '@/stores/GameDataStore'
@@ -2588,7 +2588,8 @@
             async loadCharacters() {
                 this.characters = []
 
-                const querySnapshot = await getDocs(collection(db, 'characters'));
+                const q = query(collection(db, 'characters'), where('user', '==', this.$userData.email))
+                const querySnapshot = await getDocs(q)
                 querySnapshot.forEach((doc) => {
                     this.characters.push(doc.data())
                 })
@@ -2647,7 +2648,9 @@
                 this.showSnackbar('Character Saved')
             },
             async saveToFirebase() {
-                await setDoc(doc(db, 'characters', this.characterSheet.id), this.characterSheet)
+                var character = JSON.parse(JSON.stringify(this.characterSheet))
+                character.user = this.$userData.email
+                await setDoc(doc(db, 'characters', character.id), character)
 
             },
             saveCharacterAsFile() {

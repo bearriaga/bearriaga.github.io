@@ -6,11 +6,13 @@ import vuetify from './plugins/vuetify'
 import { createPinia, PiniaVuePlugin } from 'pinia'
 
 Vue.prototype.$signedIn = false;
+Vue.prototype.$userData = {};
 
 var signin = localStorage.getItem('signin')
 if (signin) {
     var data = JSON.parse(signin)
     Vue.prototype.$signedIn = (data.id && data.email) ? true : false;
+    Vue.prototype.$userData = data;
 }
 
 Vue.config.productionTip = false
