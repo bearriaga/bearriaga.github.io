@@ -689,17 +689,17 @@
                 <div>
                     <v-btn color="primary" @click="loadCharacter">Load Character</v-btn>
                 </div>
-                <!--<div>
-                    <v-btn color="primary" @click="loadCharacters">Load Characters</v-btn>
-                </div>-->
+                <div>
+                    <v-btn v-if="$signedIn" color="primary" @click="loadCharacters">Load Characters</v-btn>
+                </div>
             </v-col>
             <v-col>
                 <div>
                     <v-btn color="primary" @click="saveCharacterConfirm">Save Character</v-btn>
                 </div>
-                <!--<div>
-                    <v-btn color="primary" @click="saveToFirebase">Save Character to Firebase</v-btn>
-                </div>-->
+                <div>
+                    <v-btn v-if="$signedIn" color="primary" @click="saveToFirebase">Save Character to Firebase</v-btn>
+                </div>
             </v-col>
             <v-col>
                 <v-row>
