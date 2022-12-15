@@ -1856,7 +1856,7 @@
         created() {
             //this.characterInit()
             this.loadOptions()
-            //this.loadCharactersFromFirebase()
+            this.loadCharactersFromFirebase()
         },
         data() {
             return {
