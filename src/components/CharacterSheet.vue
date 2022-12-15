@@ -281,7 +281,7 @@
                                         <v-form>
                                             <v-switch label="Luck Favored" inset v-model="characterSheet.luckFavored"></v-switch>
                                             <v-switch label="Luck Ill Favored" inset v-model="characterSheet.luckIllFavored"></v-switch>
-                                            <v-switch label="Luck Nothing to Chance" inset v-model="characterSheet.luckNothingToChance"></v-switch>                                      
+                                            <v-switch label="Luck Nothing to Chance" inset v-model="characterSheet.luckNothingToChance"></v-switch>
                                         </v-form>
                                     </v-expansion-panel-content>
                                 </v-expansion-panel>
@@ -316,7 +316,7 @@
                                  @updateEntryBypassEmit="updateEntry($event)"
                                  @updatePanelEmit="updatePanel($event)"></BuffSection>
                 </v-col>
-                <v-col cols="12" md="6">                    
+                <v-col cols="12" md="6">
                     <InputWithEditModal @updatePropEmit="updateProp($event)"
                                         :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
                     <EquipmentSection :ap="characterSheet.ap"
@@ -680,26 +680,26 @@
             </v-row>
         </form>
         <v-row>
-            <v-col>
+            <!--<v-col>
                 <v-btn color="primary" @click="setCharacterAs('belif')">Set as Belif</v-btn>
                 <v-btn color="primary" @click="setCharacterAs('cam')">Cam</v-btn>
                 <v-btn color="primary" @click="setCharacterAs('sienna')">Sienna</v-btn>
-            </v-col>
+            </v-col>-->
             <v-col>
                 <div>
                     <v-btn color="primary" @click="loadCharacter">Load Character</v-btn>
                 </div>
-                <!--<div>
-                    <v-btn color="primary" @click="loadCharacters">Load Characters</v-btn>
-                </div>-->
+                <div>
+                    <v-btn v-if="$signedIn" color="primary" @click="charactersDialog = true">Load Characters from Database</v-btn>
+                </div>
             </v-col>
             <v-col>
                 <div>
                     <v-btn color="primary" @click="saveCharacterConfirm">Save Character</v-btn>
                 </div>
-                <!--<div>
-                    <v-btn color="primary" @click="saveToFirebase">Save Character to Firebase</v-btn>
-                </div>-->
+                <div>
+                    <v-btn v-if="$signedIn" color="primary" @click="saveToFirebaseConfirm">Save Character to Database</v-btn>
+                </div>
             </v-col>
             <v-col>
                 <v-row>
@@ -719,275 +719,286 @@
         </v-row>
 
         <!-- Ability Dialog -->
-        <div class="text-center">
-            <v-dialog v-model="abilityDialog.show" width="500">
-                <v-card>
-                    <v-card-title class="text-h5 grey lighten-2">
-                        {{abilityDialog.title}}
-                        <v-btn icon color="primary"
-                               @click="copyAll"
-                               v-if="abilityDialog.isAbility">
-                            <v-icon>
-                                mdi-content-copy
-                            </v-icon>
-                        </v-btn>
-                    </v-card-title>
+        <v-dialog v-model="abilityDialog.show" width="500">
+            <v-card>
+                <v-card-title class="text-h5 grey lighten-2">
+                    {{abilityDialog.title}}
+                    <v-btn icon color="primary"
+                           @click="copyAll"
+                           v-if="abilityDialog.isAbility">
+                        <v-icon>
+                            mdi-content-copy
+                        </v-icon>
+                    </v-btn>
+                </v-card-title>
 
-                    <v-card-text v-if="abilityDialog.check.show">
-                        <div>
-                            <b>Successes: {{abilityDialog.check.successes}}</b>
+                <v-card-text v-if="abilityDialog.check.show">
+                    <div>
+                        <b>Successes: {{abilityDialog.check.successes}}</b>
+                    </div>
+                    <div v-if="abilityDialog.check.successes && abilityDialog.isAbility">
+                        <v-text-field label="Successes" type="number"
+                                      v-model="abilityDialog.check.successesInput">
+                            <v-icon color="success" slot="append" @click="successesInputAdd(1)">mdi-plus</v-icon>
+                            <v-icon color="error" slot="append" @click="successesInputAdd(-1)">mdi-minus</v-icon>
+                        </v-text-field>
+                        <div v-if="abilityDialog.effects">
+                            <v-row>
+                                <v-col cols="9">
+                                    <v-select v-model="abilityDialog.selectedEffects"
+                                              :items="checkEffects.map(x => ({ value: x, text: x.cost + ' - ' + x.type + ' - ' + x.description}))"
+                                              label="Selected Effects"
+                                              multiple
+                                              :disabled="abilityDialog.check.successesInput <= 0">
+                                        <v-icon color="error"
+                                                slot="prepend"
+                                                @click.stop="subtractSelectedEffects"
+                                                :disabled="abilityDialog.check.successesInput <= 0 || abilityDialog.selectedEffects.length == 0 || abilityDialog.selectedEffects.reduce((previousValue, entry) => {return +previousValue + +entry.cost}, 0) > abilityDialog.check.successesInput">
+                                            mdi-minus
+                                        </v-icon>
+                                        <TooltipComponent slot="append" :text="'Effects can be purchased once per enemy'"></TooltipComponent>
+                                    </v-select>
+                                </v-col>
+                                <v-col cols="3">
+                                    <v-switch label="Multiple Targets?" inset v-model="abilityDialog.multipleTargets"></v-switch>
+                                </v-col>
+                            </v-row>
                         </div>
-                        <div v-if="abilityDialog.check.successes && abilityDialog.isAbility">
-                            <v-text-field label="Successes" type="number"
-                                          v-model="abilityDialog.check.successesInput">
-                                <v-icon color="success" slot="append" @click="successesInputAdd(1)">mdi-plus</v-icon>
-                                <v-icon color="error" slot="append" @click="successesInputAdd(-1)">mdi-minus</v-icon>
-                            </v-text-field>
-                            <div v-if="abilityDialog.effects">
-                                <v-row>
-                                    <v-col cols="9">
-                                        <v-select v-model="abilityDialog.selectedEffects"
-                                                  :items="checkEffects.map(x => ({ value: x, text: x.cost + ' - ' + x.type + ' - ' + x.description}))"
-                                                  label="Selected Effects"
-                                                  multiple
-                                                  :disabled="abilityDialog.check.successesInput <= 0">
-                                            <v-icon color="error"
-                                                    slot="prepend"
-                                                    @click.stop="subtractSelectedEffects"
-                                                    :disabled="abilityDialog.check.successesInput <= 0 || abilityDialog.selectedEffects.length == 0 || abilityDialog.selectedEffects.reduce((previousValue, entry) => {return +previousValue + +entry.cost}, 0) > abilityDialog.check.successesInput">
-                                                mdi-minus
-                                            </v-icon>
-                                            <TooltipComponent slot="append" :text="'Effects can be purchased once per enemy'"></TooltipComponent>
-                                        </v-select>
-                                    </v-col>
-                                    <v-col cols="3">
-                                        <v-switch label="Multiple Targets?" inset v-model="abilityDialog.multipleTargets"></v-switch>
-                                    </v-col>
-                                </v-row>
-                            </div>
-                            <div v-if="abilityDialog.usedEffects.length > 0">
-                                <div>Used Effects</div>
-                                <div v-for="effect, i in abilityDialog.usedEffects" :key="i">
-                                    Cost: {{effect.cost}} - Type: {{effect.type}} - {{effect.description}}
-                                </div>
+                        <div v-if="abilityDialog.usedEffects.length > 0">
+                            <div>Used Effects</div>
+                            <div v-for="effect, i in abilityDialog.usedEffects" :key="i">
+                                Cost: {{effect.cost}} - Type: {{effect.type}} - {{effect.description}}
                             </div>
                         </div>
-                        <div>
-                            Fate: {{abilityDialog.check.fate}}
+                    </div>
+                    <div>
+                        Fate: {{abilityDialog.check.fate}}
 
-                            <template v-if="abilityDialog.check.advantage">
-                                , Advantage
-                            </template>
+                        <template v-if="abilityDialog.check.advantage">
+                            , Advantage
+                        </template>
 
-                            <template v-if="abilityDialog.check.threat">
-                                , Threat
-                            </template>
-                        </div>
-                        <div>
-                            Dice Results: {{abilityDialog.check.diceResults}}
-                        </div>
-                        <div v-if="abilityDialog.check.successesFromIntelligence">
-                            Successes From INT: {{abilityDialog.check.successesFromIntelligence}}
-                        </div>
-                        <div v-if="abilityDialog.check.successesFromLuck">
-                            Successes From LCK: {{abilityDialog.check.successesFromLuck}}
-                        </div>
+                        <template v-if="abilityDialog.check.threat">
+                            , Threat
+                        </template>
+                    </div>
+                    <div>
+                        Dice Results: {{abilityDialog.check.diceResults}}
+                    </div>
+                    <div v-if="abilityDialog.check.successesFromIntelligence">
+                        Successes From INT: {{abilityDialog.check.successesFromIntelligence}}
+                    </div>
+                    <div v-if="abilityDialog.check.successesFromLuck">
+                        Successes From LCK: {{abilityDialog.check.successesFromLuck}}
+                    </div>
 
-                        <v-row>
-                            <v-col cols="12">
-                                <v-btn icon color="primary"
-                                       @click="copyCheck">
-                                    <v-icon>
-                                        mdi-content-copy
-                                    </v-icon>
-                                </v-btn>
-                            </v-col>
-                            <v-col cols="12" class="text-center">
-                                <b>Rerolls Left: {{characterSheet.rerolls}}</b>
-                            </v-col>
-                            <v-col cols="6">
-                                <v-btn @click="rerollWholeCheck"
-                                       :disabled="characterSheet.rerolls <= 0"
-                                       width="200">Reroll Hand</v-btn>
-                            </v-col>
-                            <v-col cols="6">
-                                <v-btn @click="rerollFailures"
-                                       :disabled="characterSheet.rerolls <= 0 || abilityDialog.check.diceResults.filter(x=>{ return x < 4 }).length == 0"
-                                       width="200">Reroll Failures</v-btn>
-                            </v-col>
-                            <v-col cols="12">
-                                <v-select v-model="abilityDialog.check.selectedRerolls"
-                                          :items="abilityDialog.check.diceResults.map((x, i) => ({ value: i, text: x}))"
-                                          label="Select Rerolls"
-                                          multiple
-                                          :disabled="characterSheet.rerolls <= 0">
-                                    <v-icon color="primary"
-                                            slot="prepend"
-                                            @click.stop="rerollSelectedCheck"
-                                            :disabled="characterSheet.rerolls <= 0 || abilityDialog.check.selectedRerolls.length == 0">
-                                        mdi-dice-6
-                                    </v-icon>
-                                </v-select>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-
-                    <v-card-text v-if="abilityDialog.save.show">
-                        <div>
-                            <b>Save: {{abilityDialog.save.characteristic}} {{abilityDialog.save.amount}}</b>
-                        </div>
-                        <div>
+                    <v-row>
+                        <v-col cols="12">
                             <v-btn icon color="primary"
-                                   @click="copySave">
+                                   @click="copyCheck">
                                 <v-icon>
                                     mdi-content-copy
                                 </v-icon>
                             </v-btn>
-                        </div>
-                    </v-card-text>
-
-                    <v-card-text v-if="abilityDialog.damage.show">
-                        <div>
-                            <b>
-                                {{abilityDialog.damage.sum}}
-                                <span v-for="(type, index) in abilityDialog.damage.types" :key="index">
-                                    <span v-if="index > 0">, </span>
-                                    {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
-                                </span>
-                            </b>
-                        </div>
-                        <div>
-                            <v-btn icon color="primary" @click="copyDamage">
-                                <v-icon>mdi-content-copy</v-icon>
-                            </v-btn>
-                        </div>
-                        <div class="text-center">
-                            <v-btn @click="rollCrit" width="200">Roll Crit</v-btn>
-                        </div>
-
-                        <div>
-                            <div v-if="abilityDialog.damage.diceResults.length > 0">
-                                Die Results:  {{abilityDialog.damage.damage.dice}}d6 [
-                                <span v-for="(die, i) in abilityDialog.damage.diceResults" :key="i">
-                                    <span v-if="die.type=='normal'">{{die.value}}</span>
-                                    <span v-if="die.type=='crit'"><b>{{die.value}}</b></span>
-                                    <span v-if="die.type=='luck'" class="red--text"><b>{{die.value}}</b></span>
-                                    <span v-if="i < abilityDialog.damage.diceResults.length - 1">, </span>
-                                </span>
-                                ]
-                                <TooltipComponent v-if="abilityDialog.damage.isCrit" :text="'Red = LCK, Bold = Crit'"></TooltipComponent>
-                            </div>
-                            <div v-if="abilityDialog.damage.flatTotal > 0">
-                                Flat Total: {{abilityDialog.damage.flatTotal}}
-                                <TooltipComponent :text="abilityDialog.damage.flatTotalBreakdown"></TooltipComponent>
-                            </div>
-                            <v-select v-model="abilityDialog.damage.selectedRerolls"
-                                      v-if="abilityDialog.damage.diceResults.length > 0"
-                                      :items="abilityDialog.damage.diceResults.map((x, i) => ({ value: i, text: x.value}))"
+                        </v-col>
+                        <v-col cols="12" class="text-center">
+                            <b>Rerolls Left: {{characterSheet.rerolls}}</b>
+                        </v-col>
+                        <v-col cols="6">
+                            <v-btn @click="rerollWholeCheck"
+                                   :disabled="characterSheet.rerolls <= 0"
+                                   width="200">Reroll Hand</v-btn>
+                        </v-col>
+                        <v-col cols="6">
+                            <v-btn @click="rerollFailures"
+                                   :disabled="characterSheet.rerolls <= 0 || abilityDialog.check.diceResults.filter(x=>{ return x < 4 }).length == 0"
+                                   width="200">Reroll Failures</v-btn>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select v-model="abilityDialog.check.selectedRerolls"
+                                      :items="abilityDialog.check.diceResults.map((x, i) => ({ value: i, text: x}))"
                                       label="Select Rerolls"
                                       multiple
                                       :disabled="characterSheet.rerolls <= 0">
                                 <v-icon color="primary"
                                         slot="prepend"
-                                        @click.stop="rerollSelectedDamage"
-                                        :disabled="characterSheet.rerolls <= 0 || abilityDialog.damage.selectedRerolls.length == 0">
+                                        @click.stop="rerollSelectedCheck"
+                                        :disabled="characterSheet.rerolls <= 0 || abilityDialog.check.selectedRerolls.length == 0">
                                     mdi-dice-6
                                 </v-icon>
                             </v-select>
-                        </div>
+                        </v-col>
+                    </v-row>
+                </v-card-text>
 
-                        <div class="text-center">
-                            <div>
-                                <b>Rerolls Left: {{characterSheet.rerolls}}</b>
-                            </div>
-                            <v-btn @click="rerollWholeDamage"
-                                   :disabled="characterSheet.rerolls <= 0"
-                                   width="200">Reroll Hand</v-btn>
-                        </div>
-                    </v-card-text>
+                <v-card-text v-if="abilityDialog.save.show">
+                    <div>
+                        <b>Save: {{abilityDialog.save.characteristic}} {{abilityDialog.save.amount}}</b>
+                    </div>
+                    <div>
+                        <v-btn icon color="primary"
+                               @click="copySave">
+                            <v-icon>
+                                mdi-content-copy
+                            </v-icon>
+                        </v-btn>
+                    </div>
+                </v-card-text>
 
-                    <v-card-text v-if="abilityDialog.isAbility">
-                        <div v-if="abilityDialog.ap">
-                            <b>AP Used {{abilityDialog.ap}}</b>
-                        </div>
-                        <div v-if="abilityDialog.cr">
-                            <b>CR Used {{abilityDialog.cr}}</b>
-                        </div>
-                        <div v-if="abilityDialog.ability.description">
-                            <v-textarea label="Description" v-model="abilityDialog.ability.description" auto-grow outlined rows="1" disabled></v-textarea>
-                        </div>
-                    </v-card-text>
+                <v-card-text v-if="abilityDialog.damage.show">
+                    <div>
+                        <b>
+                            {{abilityDialog.damage.sum}}
+                            <span v-for="(type, index) in abilityDialog.damage.types" :key="index">
+                                <span v-if="index > 0">, </span>
+                                {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
+                            </span>
+                        </b>
+                    </div>
+                    <div>
+                        <v-btn icon color="primary" @click="copyDamage">
+                            <v-icon>mdi-content-copy</v-icon>
+                        </v-btn>
+                    </div>
+                    <div class="text-center">
+                        <v-btn @click="rollCrit" width="200">Roll Crit</v-btn>
+                    </div>
 
-                    <v-divider></v-divider>
+                    <div>
+                        <div v-if="abilityDialog.damage.diceResults.length > 0">
+                            Die Results:  {{abilityDialog.damage.damage.dice}}d6 [
+                            <span v-for="(die, i) in abilityDialog.damage.diceResults" :key="i">
+                                <span v-if="die.type=='normal'">{{die.value}}</span>
+                                <span v-if="die.type=='crit'"><b>{{die.value}}</b></span>
+                                <span v-if="die.type=='luck'" class="red--text"><b>{{die.value}}</b></span>
+                                <span v-if="i < abilityDialog.damage.diceResults.length - 1">, </span>
+                            </span>
+                            ]
+                            <TooltipComponent v-if="abilityDialog.damage.isCrit" :text="'Red = LCK, Bold = Crit'"></TooltipComponent>
+                        </div>
+                        <div v-if="abilityDialog.damage.flatTotal > 0">
+                            Flat Total: {{abilityDialog.damage.flatTotal}}
+                            <TooltipComponent :text="abilityDialog.damage.flatTotalBreakdown"></TooltipComponent>
+                        </div>
+                        <v-select v-model="abilityDialog.damage.selectedRerolls"
+                                  v-if="abilityDialog.damage.diceResults.length > 0"
+                                  :items="abilityDialog.damage.diceResults.map((x, i) => ({ value: i, text: x.value}))"
+                                  label="Select Rerolls"
+                                  multiple
+                                  :disabled="characterSheet.rerolls <= 0">
+                            <v-icon color="primary"
+                                    slot="prepend"
+                                    @click.stop="rerollSelectedDamage"
+                                    :disabled="characterSheet.rerolls <= 0 || abilityDialog.damage.selectedRerolls.length == 0">
+                                mdi-dice-6
+                            </v-icon>
+                        </v-select>
+                    </div>
 
-                    <v-card-actions class="justify-end">
-                        <v-btn color="secondary"
-                               @click="abilityDialog.show = false">Close</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </div>
+                    <div class="text-center">
+                        <div>
+                            <b>Rerolls Left: {{characterSheet.rerolls}}</b>
+                        </div>
+                        <v-btn @click="rerollWholeDamage"
+                               :disabled="characterSheet.rerolls <= 0"
+                               width="200">Reroll Hand</v-btn>
+                    </div>
+                </v-card-text>
+
+                <v-card-text v-if="abilityDialog.isAbility">
+                    <div v-if="abilityDialog.ap">
+                        <b>AP Used {{abilityDialog.ap}}</b>
+                    </div>
+                    <div v-if="abilityDialog.cr">
+                        <b>CR Used {{abilityDialog.cr}}</b>
+                    </div>
+                    <div v-if="abilityDialog.ability.description">
+                        <v-textarea label="Description" v-model="abilityDialog.ability.description" auto-grow outlined rows="1" disabled></v-textarea>
+                    </div>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions class="justify-end">
+                    <v-btn color="secondary"
+                           @click="abilityDialog.show = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <!-- Ability Dialog End -->
         <!-- Cleanse Dialog -->
-        <div class="text-center">
-            <v-dialog v-model="cleanseDialog.show" width="500">
-                <v-card>
-                    <v-card-title class="text-h5 grey lighten-2">
-                        Cleanse
-                    </v-card-title>
+        <v-dialog v-model="cleanseDialog.show" width="500">
+            <v-card>
+                <v-card-title class="text-h5 grey lighten-2">
+                    Cleanse
+                </v-card-title>
 
-                    <v-card-text>
-                        <v-row>
-                            <v-col cols="12">
-                                <v-select v-model="cleanseDialog.selectedStatuses"
-                                          :items="characterStatuses.filter(x => { return x.isActive && x.status.type == 'Condition' }).map(x => ({ value: x, text: x.status.name}))"
-                                          label="Selected Conditions"
-                                          multiple
-                                          :disabled="characterSheet.bp <= 0"
-                                          :rules="cleanseDialog.selectRules">
-                                    <v-icon color="brown"
-                                            slot="prepend"
-                                            @click.stop="cleanseStatuses"
-                                            :disabled="characterSheet.bp <= 0 || cleanseDialog.selectedStatuses.length == 0 || cleanseDialog.selectedStatuses.length > characterSheet.bp">
-                                        mdi-hospital-box
-                                    </v-icon>
-                                </v-select>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
+                <v-card-text>
+                    <v-row>
+                        <v-col cols="12">
+                            <v-select v-model="cleanseDialog.selectedStatuses"
+                                      :items="characterStatuses.filter(x => { return x.isActive && x.status.type == 'Condition' }).map(x => ({ value: x, text: x.status.name}))"
+                                      label="Selected Conditions"
+                                      multiple
+                                      :disabled="characterSheet.bp <= 0"
+                                      :rules="cleanseDialog.selectRules">
+                                <v-icon color="brown"
+                                        slot="prepend"
+                                        @click.stop="cleanseStatuses"
+                                        :disabled="characterSheet.bp <= 0 || cleanseDialog.selectedStatuses.length == 0 || cleanseDialog.selectedStatuses.length > characterSheet.bp">
+                                    mdi-hospital-box
+                                </v-icon>
+                            </v-select>
+                        </v-col>
+                    </v-row>
+                </v-card-text>
 
-                    <v-divider></v-divider>
+                <v-divider></v-divider>
 
-                    <v-card-actions class="justify-end">
-                        <v-btn color="secondary"
-                               @click="cleanseDialog.show = false">Close</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </div>
+                <v-card-actions class="justify-end">
+                    <v-btn color="secondary"
+                           @click="cleanseDialog.show = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <!-- Cleanse Dialog End -->
-        <div class="text-center">
-            <v-dialog v-model="generalDialog.show" width="500">
-                <v-card>
-                    <v-card-title class="text-h5 grey lighten-2">
-                        {{generalDialog.title}}
-                    </v-card-title>
 
-                    <v-card-text>
-                        {{generalDialog.text}}
-                        <div v-html="generalDialog.html"></div>
-                    </v-card-text>
+        <v-dialog v-model="generalDialog.show" width="500">
+            <v-card>
+                <v-card-title class="text-h5 grey lighten-2">
+                    {{generalDialog.title}}
+                </v-card-title>
 
-                    <v-divider></v-divider>
+                <v-card-text>
+                    {{generalDialog.text}}
+                    <div v-html="generalDialog.html"></div>
+                </v-card-text>
 
-                    <v-card-actions class="justify-end">
-                        <v-btn v-if="generalDialog.buttonText && generalDialog.buttonType" @click="generalDialogFunction">{{generalDialog.buttonText}}</v-btn>
-                        <v-btn color="secondary"
-                               @click="generalDialog.show = false">Close</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </div>
+                <v-divider></v-divider>
+
+                <v-card-actions class="justify-end">
+                    <v-btn v-if="generalDialog.buttonText && generalDialog.buttonType" @click="generalDialogFunction">{{generalDialog.buttonText}}</v-btn>
+                    <v-btn color="secondary"
+                           @click="generalDialog.show = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+
+        <v-dialog v-model="charactersDialog" width="500">
+            <v-card>
+                <v-card-title class="text-h5 grey lighten-2">
+                    Load Character
+                </v-card-title>
+                <v-card-text class="text-center" v-for="c in characters" :key="c.id">
+                    <v-btn color="primary" @click="loadSelectedCharacter(c.id)" min-width="150">{{c.name}}</v-btn>
+                </v-card-text>
+                <v-card-text v-if="characters.length == 0">
+                    No Characters Saved in Database
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
         <v-snackbar v-model="snackbar.show">
             {{ snackbar.text }}
 
@@ -1019,7 +1030,7 @@
     import SkillSection from './SkillSection.vue'
     import StatusSection from './StatusSection.vue'
     import TooltipComponent from './TooltipComponent.vue'
-    import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
+    import { collection, getDocs, doc, setDoc, query, where } from 'firebase/firestore';
     import { db } from '@/stores/db'
     import { useCharacterStore } from '@/stores/CharacterStore'
     import { useGameDataStore } from '@/stores/GameDataStore'
@@ -1635,7 +1646,7 @@
                         valueIncreasesName: 'rerollsIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.rerollsMax
-                    }                    
+                    }
                 ]
             },
             minions() {
@@ -1832,6 +1843,7 @@
         created() {
             this.characterInit()
             this.loadOptions()
+            this.loadCharactersFromFirebase()
         },
         data() {
             return {
@@ -1852,7 +1864,6 @@
                         successesInput: 0,
                         threat: false
                     },
-                    characters: [],
                     cr: '',
                     damage: {
                         char: 0,
@@ -1890,6 +1901,8 @@
                     'resistance',
                     'luck'
                 ],
+                characters: [],
+                charactersDialog: false,
                 clearCharacter: this.characterStore.getCharacterById('clear'),
                 characterFile: null,
                 characterSheet: this.characterStore.getCharacterById('clear'),
@@ -2512,8 +2525,12 @@
             },
             generalDialogFunction() {
                 if (this.generalDialog.buttonType) {
-                    if (this.generalDialog.buttonType == 'confirmCharacter') {
+                    if (this.generalDialog.buttonType == 'confirmOverwrite') {
                         this.saveCharacter()
+                        this.generalDialog.show = false
+                    }
+                    if (this.generalDialog.buttonType == 'confirmFirebaseOverwrite') {
+                        this.saveToFirebase('update')
                         this.generalDialog.show = false
                     }
                 }
@@ -2574,6 +2591,7 @@
                     if (!Object.hasOwn(character, 'minions'))
                         character.minions = []
                     this.characterSheet = character
+                    this.showSnackbar('Character loaded')
                 }
                 else
                     this.generalDialog = {
@@ -2581,19 +2599,18 @@
                         buttonType: '',
                         html: '',
                         show: true,
-                        text: 'No Character saved in Local Storage',
+                        text: 'No Character Saved in Local Storage',
                         title: 'Error Loading Character'
                     }
             },
-            async loadCharacters() {
+            async loadCharactersFromFirebase() {
                 this.characters = []
 
-                const querySnapshot = await getDocs(collection(db, 'characters'));
+                const q = query(collection(db, 'characters'), where('user', '==', this.$userData.email))
+                const querySnapshot = await getDocs(q)
                 querySnapshot.forEach((doc) => {
                     this.characters.push(doc.data())
                 })
-
-                console.log(this.characters)
             },
             loadOptions() {
                 if (this.isOptionsSet()) {
@@ -2615,6 +2632,12 @@
                     this.traitPanel = ('traitPanel' in options) ? options.traitPanel : null
                 }
             },
+            loadSelectedCharacter(id) {
+                let character = this.characters.filter(x => { return x.id == id })[0]
+                this.characterSheet = JSON.parse(JSON.stringify(character))
+                this.charactersDialog = false
+                this.showSnackbar('Character loaded')
+            },
             readCharacterFromFile() {
                 if (this.characterFile) {
                     var reader = new FileReader()
@@ -2631,7 +2654,7 @@
                 else
                     this.generalDialog = {
                         buttonText: 'Overwrite Character',
-                        buttonType: 'confirmCharacter',
+                        buttonType: 'confirmOverwrite',
                         html: '',
                         show: true,
                         text: 'Overwrite Character saved in Local Storage',
@@ -2646,9 +2669,40 @@
                 localStorage.setItem('character', JSON.stringify(character))
                 this.showSnackbar('Character Saved')
             },
-            async saveToFirebase() {
-                await setDoc(doc(db, 'characters', this.characterSheet.id), this.characterSheet)
+            async saveToFirebaseConfirm() {
+                let characterExists = false
 
+                characterExists = this.characters.filter(x => { return x.id == this.characterSheet.id }).length > 0
+
+                if (!characterExists)
+                    this.saveToFirebase('add')
+                else
+                    this.generalDialog = {
+                        buttonText: 'Overwrite Character',
+                        buttonType: 'confirmFirebaseOverwrite',
+                        html: '',
+                        show: true,
+                        text: 'Overwrite Character saved in Database',
+                        title: 'Confirm Character Overwrite'
+                    }
+            },
+            async saveToFirebase(type) {
+                if (this.characterSheet.id == 'default' || this.characterSheet.id == 'clear')
+                    this.characterSheet.id = uuidv4()
+
+                let character = JSON.parse(JSON.stringify(this.characterSheet))
+                character.user = this.$userData.email
+                await setDoc(doc(db, 'characters', character.id), character)
+                this.showSnackbar('Character Saved to Database')
+
+                if (type == 'add')
+                    this.characters.push(character)
+                else if (type == 'update') {
+                    let index = this.characters.findIndex(x => { return x.id == character.id })
+                    if (index > -1)
+                        this.characters[index] = character
+                    console.log('update', index)
+                }
             },
             saveCharacterAsFile() {
                 let filename = `${this.characterSheet.name}.txt`, type = 'type:text/plain;charset=utf-8'

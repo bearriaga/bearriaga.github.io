@@ -11,10 +11,15 @@
 
             <v-spacer></v-spacer>
 
-            <v-switch label="Dark Theme"
-                      v-model="$vuetify.theme.dark"
-                      @click="saveDarkTheme"
-                      inset></v-switch>
+            <div>
+                <div>
+                    <v-switch label="Dark Theme"
+                              v-model="$vuetify.theme.dark"
+                              @click="saveDarkTheme"
+                              inset></v-switch>
+                </div>
+                <div v-if="!userSignedIn" id="googleSigninButton"></div>
+            </div>
         </v-app-bar>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -48,7 +53,8 @@
                     //,
                     //{ icon: 'mdi-file-account', text: 'Resume', route: '/resume' }
                 ],
-                drawer: false
+                drawer: false,
+                userSignedIn: this.$signedIn
             }
         },
         mounted() {
@@ -57,7 +63,7 @@
                 this.$vuetify.theme.dark = theme === 'true'
             } else {
                 this.saveDarkTheme()
-            }
+            }            
         },
         methods: {
             navigate(link) {
