@@ -31,7 +31,7 @@
             var responsePayload = decodeJwtResponse(response.credential);
             localStorage.setItem('signin', JSON.stringify({ id: responsePayload.sub, email: responsePayload.email }))
             document.getElementById('googleSigninButton').style.display = 'none';
-            Vue.prototype.$signedIn = true;
+            location.reload();
         }
         window.onload = function () {
             var signin = localStorage.getItem('signin')
