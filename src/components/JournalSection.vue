@@ -93,9 +93,7 @@
         props: {
             journalEntries: Array,
             panelProp: Number,
-            xp: Number,
-            xpEarned: Number,
-            xpTotal: Number,
+            xp: Number
         },
         data() {
             return {

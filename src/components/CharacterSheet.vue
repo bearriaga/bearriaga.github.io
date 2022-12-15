@@ -245,8 +245,6 @@
                     <JournalSection :journal-entries="journalEntries"
                                     :panel-prop="journalPanel"
                                     :xp="characterSheet.xp"
-                                    :xp-earned="characterSheet.xpEarned"
-                                    :xp-total="characterSheet.xpTotal"
                                     @addEntryEmit="addEntry($event)"
                                     @deleteEntryEmit="deleteEntry($event)"
                                     @moneyAddSubtractEmit="moneyAddSubtract($event)"
@@ -287,6 +285,13 @@
                                 </v-expansion-panel>
                             </v-expansion-panels>
                         </template>
+                    </div>
+                    <div>
+                        <v-text-field type="number" label="Character Tier" v-model="characterSheet.tier" min="0" max="9" disabled readonly>
+                            <v-icon color="error" slot="append" @click="updateTier('subtract')">mdi-minus</v-icon>
+                            <v-icon color="success" slot="append" @click="updateTier('add')">mdi-plus</v-icon>
+                            <TooltipComponent slot="append" :text="'Global xp cost reduced by 10% per tier after all other calculations: Ability, HP, Traits. Increasing Tier automatically updates available xp.'"></TooltipComponent>
+                        </v-text-field>
                     </div>
                 </v-col>
             </v-row>
@@ -364,7 +369,7 @@
                 </v-col>
                 <v-col cols="4" md="2">
                     <v-text-field label="Available XP" v-model="characterSheet.xp" disabled readonly>
-                        <TooltipComponent slot="append" :text="'Journal Entries + Flaws - Traits - Abilty Costs'"></TooltipComponent>
+                        <TooltipComponent slot="append" :text="'Journal Entries + Flaws - ((Traits + Abilty Costs)[Discounted by Character Tier * 10])'"></TooltipComponent>
                     </v-text-field>
                 </v-col>
             </v-row>
@@ -581,6 +586,13 @@
                                     </v-expansion-panels>
                                 </template>
                             </div>
+                            <div>
+                                <v-text-field type="number" label="Character Tier" v-model="characterSheet.tier" min="0" max="9" disabled readonly>
+                                    <v-icon color="error" slot="append" @click="updateTier('subtract')">mdi-minus</v-icon>
+                                    <v-icon color="success" slot="append" @click="updateTier('add')">mdi-plus</v-icon>
+                                    <TooltipComponent slot="append" :text="'Global xp cost reduced by 10% per tier after all other calculations: Ability, HP, Traits. Increasing Tier automatically updates available xp.'"></TooltipComponent>
+                                </v-text-field>
+                            </div>
                         </v-tab-item>
                         <v-tab-item value="inventory">
                             <v-row>
@@ -601,8 +613,6 @@
                             <JournalSection :journal-entries="journalEntries"
                                             :panel-prop="journalPanel"
                                             :xp="characterSheet.xp"
-                                            :xp-earned="characterSheet.xpEarned"
-                                            :xp-total="characterSheet.xpTotal"
                                             @addEntryEmit="addEntry($event)"
                                             @deleteEntryEmit="deleteEntry($event)"
                                             @moneyAddSubtractEmit="moneyAddSubtract($event)"
@@ -1162,27 +1172,30 @@
                 return +this.luck + +this.characterSheet.rerollsIncreases
             },
             xp() {
-                return this.characterSheet.xpTotal - this.characterSheet.abilities.reduce((previousValue, entry) => {
+                let abilityXP = this.characterSheet.abilities.reduce((previousValue, entry) => {
                     if (!entry.boughtForFree)
                         return +previousValue + +entry.xpCost
                     else
                         return +previousValue
                 }, 0)
-            },
-            xpEarned() {
-                return this.characterSheet.journalEntries.reduce((previousValue, entry) => {
-                    return +previousValue + +entry.xp
-                }, 0)
-            },
-            xpTotal() {
                 let healthXP = 5 * Math.floor(this.characterSheet.hpIncreases * (this.characterSheet.hpIncreases + 1) / 2)
-                let flawsXP = this.characterSheet.flaws.reduce((previousValue, entry) => {
-                    return +previousValue + +entry.amount
-                }, 0)
                 let traitsXP = this.characterSheet.traits.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
-                return (+this.characterSheet.xpEarned + +flawsXP - +traitsXP - +healthXP)
+
+                let subtractedXP = Math.floor((+abilityXP + +healthXP + +traitsXP) / 100 * (100 - (10 * this.characterSheet.tier)))
+
+                return +this.xpTotal - +subtractedXP
+            },
+            xpTotal() {
+                let xpEarned = this.characterSheet.journalEntries.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.xp
+                }, 0)
+
+                let flawsXP = this.characterSheet.flaws.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.amount
+                }, 0)
+                return +xpEarned + +flawsXP
             },
             //Character Properties End
             abilities() {
@@ -1841,9 +1854,9 @@
             }
         },
         created() {
-            this.characterInit()
+            //this.characterInit()
             this.loadOptions()
-            this.loadCharactersFromFirebase()
+            //this.loadCharactersFromFirebase()
         },
         data() {
             return {
@@ -2277,14 +2290,11 @@
                 this.characterSheet.bpMax = +this.resistance + +this.characterSheet.bpIncreases
                 this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases + +this.buffAmount({ type: 'DC to Hit' })
 
-                //handles xpEarned, level
+                //handles level
                 let nonClassXP = this.characterSheet.journalEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
                     return +previousValue + +entry.xp
                 }, 0)
-                this.characterSheet.level = Math.floor(nonClassXP / 500)
-                this.characterSheet.xpEarned = this.characterSheet.journalEntries.reduce((previousValue, entry) => {
-                    return +previousValue + +entry.xp
-                }, 0)
+                this.characterSheet.level = Math.floor(nonClassXP / 500)                
                 //end
                 this.characterSheet.rerollsMax = +this.luck + +this.characterSheet.rerollsIncreases
 
@@ -3049,6 +3059,11 @@
                 else
                     this.characterSheet[prop.propName] = prop.value
             },
+            updateTier(type) {
+                if ((type == 'add' && this.characterSheet.tier < 9) || (type == 'subtract' && this.characterSheet.tier > 0)) {
+                    this.characterSheet.tier = (type == 'add') ? +this.characterSheet.tier + 1 : +this.characterSheet.tier - 1
+                }
+            },
             useAbility(ability) {
                 if (ability.apCost != 0) {
                     this.subtractAP(ability.apCost)
@@ -3147,9 +3162,6 @@
             },
             xp() {
                 this.characterSheet.xp = this.xp
-            },
-            xpEarned() {
-                this.characterSheet.xpEarned = this.xpEarned
             },
             xpTotal() {
                 this.characterSheet.xpTotal = this.xpTotal
