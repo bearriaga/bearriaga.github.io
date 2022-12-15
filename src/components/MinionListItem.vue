@@ -172,7 +172,7 @@
                     {
                         bar: true,
                         color: 'red',
-                        dialogText: 'Health Points Max = (level * 5) + (RES * 3) + purchased HP + Buffs',
+                        dialogText: 'Health Points Max = (level * 3) + (RES * 5) + purchased HP + Buffs',
                         disabled: false,
                         infoText: '',
                         key: 'hp' + this.characterSheet.hpMax + this.updateHP.toString(),
@@ -214,7 +214,7 @@
                 ]
             },
             hpMax() {
-                let hp = ((this.characterSheet.level * 5) + (+this.characterSheet.resistance * 3) + +this.characterSheet.hpIncreases)
+                let hp = ((this.characterSheet.level * 3) + (+this.characterSheet.resistance * 5) + +this.characterSheet.hpIncreases)
                 return (hp > 1) ? hp : 1
             },
             successesFromIntelligence() {
@@ -298,7 +298,7 @@
                 this.characterSheet.attunementSlotsMax = 10 + +this.characterSheet.attunementSlotsIncreases
                 this.characterSheet.bpMax = +this.resistance + +this.characterSheet.bpIncreases
                 this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases
-                this.characterSheet.hpMax = ((this.characterSheet.level * 5) + (+this.characterSheet.resistance * 3) + +this.characterSheet.hpIncreases)
+                this.characterSheet.hpMax = ((this.characterSheet.level * 3) + (+this.characterSheet.resistance * 5) + +this.characterSheet.hpIncreases)
             },
             deleteDialog() {
                 this.$emit('deleteDialogEmit', this.characterSheet)

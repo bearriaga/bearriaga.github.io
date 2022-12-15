@@ -1144,7 +1144,7 @@
             },
             hpMax() {
                 let adj = this.buffAmount({ type: 'Health' })
-                let hp = ((this.characterSheet.level * 5) + (+this.resistance * 3) + +this.characterSheet.hpIncreases + +adj)
+                let hp = ((this.characterSheet.level * 3) + (+this.resistance * 5) + +this.characterSheet.hpIncreases + +adj)
                 return (hp > 1) ? hp : 1
             },
             level() {
@@ -1572,7 +1572,7 @@
                         color: 'red',
                         dialogText: '5 xp per 1 HP, increases by 5 for each purchase. Formula: 5(n*(n+1)/2)',
                         disabled: false,
-                        infoText: 'Health Points Max = (level * 5) + (RES * 3) + purchased HP + Buffs',
+                        infoText: 'Health Points Max = (level * 3) + (RES * 5) + purchased HP + Buffs',
                         key: 'hp' + this.characterSheet.hpMax + this.updateHP.toString(),
                         label: 'Health Points',
                         minus: true,
