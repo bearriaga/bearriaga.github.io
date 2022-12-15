@@ -281,7 +281,7 @@
                                         <v-form>
                                             <v-switch label="Luck Favored" inset v-model="characterSheet.luckFavored"></v-switch>
                                             <v-switch label="Luck Ill Favored" inset v-model="characterSheet.luckIllFavored"></v-switch>
-                                            <v-switch label="Luck Nothing to Chance" inset v-model="characterSheet.luckNothingToChance"></v-switch>                                      
+                                            <v-switch label="Luck Nothing to Chance" inset v-model="characterSheet.luckNothingToChance"></v-switch>
                                         </v-form>
                                     </v-expansion-panel-content>
                                 </v-expansion-panel>
@@ -316,7 +316,7 @@
                                  @updateEntryBypassEmit="updateEntry($event)"
                                  @updatePanelEmit="updatePanel($event)"></BuffSection>
                 </v-col>
-                <v-col cols="12" md="6">                    
+                <v-col cols="12" md="6">
                     <InputWithEditModal @updatePropEmit="updateProp($event)"
                                         :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
                     <EquipmentSection :ap="characterSheet.ap"
@@ -680,17 +680,17 @@
             </v-row>
         </form>
         <v-row>
-            <v-col>
+            <!--<v-col>
                 <v-btn color="primary" @click="setCharacterAs('belif')">Set as Belif</v-btn>
                 <v-btn color="primary" @click="setCharacterAs('cam')">Cam</v-btn>
                 <v-btn color="primary" @click="setCharacterAs('sienna')">Sienna</v-btn>
-            </v-col>
+            </v-col>-->
             <v-col>
                 <div>
                     <v-btn color="primary" @click="loadCharacter">Load Character</v-btn>
                 </div>
                 <div>
-                    <v-btn v-if="$signedIn" color="primary" @click="loadCharacters">Load Characters</v-btn>
+                    <v-btn v-if="$signedIn" color="primary" @click="charactersDialog = true">Load Characters from Database</v-btn>
                 </div>
             </v-col>
             <v-col>
@@ -698,7 +698,7 @@
                     <v-btn color="primary" @click="saveCharacterConfirm">Save Character</v-btn>
                 </div>
                 <div>
-                    <v-btn v-if="$signedIn" color="primary" @click="saveToFirebase">Save Character to Firebase</v-btn>
+                    <v-btn v-if="$signedIn" color="primary" @click="saveToFirebaseConfirm">Save Character to Database</v-btn>
                 </div>
             </v-col>
             <v-col>
@@ -966,28 +966,43 @@
             </v-dialog>
         </div>
         <!-- Cleanse Dialog End -->
-        <div class="text-center">
-            <v-dialog v-model="generalDialog.show" width="500">
-                <v-card>
-                    <v-card-title class="text-h5 grey lighten-2">
-                        {{generalDialog.title}}
-                    </v-card-title>
 
-                    <v-card-text>
-                        {{generalDialog.text}}
-                        <div v-html="generalDialog.html"></div>
-                    </v-card-text>
+        <v-dialog v-model="generalDialog.show" width="500">
+            <v-card>
+                <v-card-title class="text-h5 grey lighten-2">
+                    {{generalDialog.title}}
+                </v-card-title>
 
-                    <v-divider></v-divider>
+                <v-card-text>
+                    {{generalDialog.text}}
+                    <div v-html="generalDialog.html"></div>
+                </v-card-text>
 
-                    <v-card-actions class="justify-end">
-                        <v-btn v-if="generalDialog.buttonText && generalDialog.buttonType" @click="generalDialogFunction">{{generalDialog.buttonText}}</v-btn>
-                        <v-btn color="secondary"
-                               @click="generalDialog.show = false">Close</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </div>
+                <v-divider></v-divider>
+
+                <v-card-actions class="justify-end">
+                    <v-btn v-if="generalDialog.buttonText && generalDialog.buttonType" @click="generalDialogFunction">{{generalDialog.buttonText}}</v-btn>
+                    <v-btn color="secondary"
+                           @click="generalDialog.show = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+
+        <v-dialog v-model="charactersDialog" width="500">
+            <v-card>
+                <v-card-title class="text-h5 grey lighten-2">
+                    Load Character
+                </v-card-title>
+                <v-card-text class="text-center" v-for="c in characters" :key="c.id">
+                    <v-btn color="primary" @click="loadSelectedCharacter(c.id)" min-width="150">{{c.name}}</v-btn>
+                </v-card-text>
+                <v-card-text v-if="characters.length == 0">
+                    No Characters Saved in Database
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
         <v-snackbar v-model="snackbar.show">
             {{ snackbar.text }}
 
@@ -1635,7 +1650,7 @@
                         valueIncreasesName: 'rerollsIncreases',
                         valueIncreasesType: 'number',
                         valueMax: this.characterSheet.rerollsMax
-                    }                    
+                    }
                 ]
             },
             minions() {
@@ -1832,6 +1847,7 @@
         created() {
             this.characterInit()
             this.loadOptions()
+            this.loadCharactersFromFirebase()
         },
         data() {
             return {
@@ -1852,7 +1868,6 @@
                         successesInput: 0,
                         threat: false
                     },
-                    characters: [],
                     cr: '',
                     damage: {
                         char: 0,
@@ -1890,6 +1905,8 @@
                     'resistance',
                     'luck'
                 ],
+                characters: [],
+                charactersDialog: false,
                 clearCharacter: this.characterStore.getCharacterById('clear'),
                 characterFile: null,
                 characterSheet: this.characterStore.getCharacterById('clear'),
@@ -2512,8 +2529,12 @@
             },
             generalDialogFunction() {
                 if (this.generalDialog.buttonType) {
-                    if (this.generalDialog.buttonType == 'confirmCharacter') {
+                    if (this.generalDialog.buttonType == 'confirmOverwrite') {
                         this.saveCharacter()
+                        this.generalDialog.show = false
+                    }
+                    if (this.generalDialog.buttonType == 'confirmFirebaseOverwrite') {
+                        this.saveToFirebase('update')
                         this.generalDialog.show = false
                     }
                 }
@@ -2574,6 +2595,7 @@
                     if (!Object.hasOwn(character, 'minions'))
                         character.minions = []
                     this.characterSheet = character
+                    this.showSnackbar('Character loaded')
                 }
                 else
                     this.generalDialog = {
@@ -2581,20 +2603,18 @@
                         buttonType: '',
                         html: '',
                         show: true,
-                        text: 'No Character saved in Local Storage',
+                        text: 'No Character Saved in Local Storage',
                         title: 'Error Loading Character'
                     }
             },
-            async loadCharacters() {
+            async loadCharactersFromFirebase() {
                 this.characters = []
 
                 const q = query(collection(db, 'characters'), where('user', '==', this.$userData.email))
                 const querySnapshot = await getDocs(q)
                 querySnapshot.forEach((doc) => {
                     this.characters.push(doc.data())
-                })
-
-                console.log(this.characters)
+                })                
             },
             loadOptions() {
                 if (this.isOptionsSet()) {
@@ -2616,6 +2636,12 @@
                     this.traitPanel = ('traitPanel' in options) ? options.traitPanel : null
                 }
             },
+            loadSelectedCharacter(id) {
+                let character = this.characters.filter(x => { return x.id == id })[0]
+                this.characterSheet = JSON.parse(JSON.stringify(character))
+                this.charactersDialog = false
+                this.showSnackbar('Character loaded')
+            },
             readCharacterFromFile() {
                 if (this.characterFile) {
                     var reader = new FileReader()
@@ -2632,7 +2658,7 @@
                 else
                     this.generalDialog = {
                         buttonText: 'Overwrite Character',
-                        buttonType: 'confirmCharacter',
+                        buttonType: 'confirmOverwrite',
                         html: '',
                         show: true,
                         text: 'Overwrite Character saved in Local Storage',
@@ -2647,11 +2673,40 @@
                 localStorage.setItem('character', JSON.stringify(character))
                 this.showSnackbar('Character Saved')
             },
-            async saveToFirebase() {
-                var character = JSON.parse(JSON.stringify(this.characterSheet))
+            async saveToFirebaseConfirm() {
+                let characterExists = false
+
+                characterExists = this.characters.filter(x => { return x.id == this.characterSheet.id }).length > 0               
+
+                if (!characterExists)
+                    this.saveToFirebase('add')
+                else
+                    this.generalDialog = {
+                        buttonText: 'Overwrite Character',
+                        buttonType: 'confirmFirebaseOverwrite',
+                        html: '',
+                        show: true,
+                        text: 'Overwrite Character saved in Database',
+                        title: 'Confirm Character Overwrite'
+                    }
+            },
+            async saveToFirebase(type) {
+                if (this.characterSheet.id == 'default' || this.characterSheet.id == 'clear')
+                    this.characterSheet.id = uuidv4()
+
+                let character = JSON.parse(JSON.stringify(this.characterSheet))
                 character.user = this.$userData.email
                 await setDoc(doc(db, 'characters', character.id), character)
+                this.showSnackbar('Character Saved to Database')
 
+                if (type == 'add')
+                    this.characters.push(character)
+                else if (type == 'update') {
+                    let index = this.characters.findIndex(x => { return x.id == character.id })
+                    if (index > -1)
+                        this.characters[index] = character
+                    console.log('update', index)
+                }
             },
             saveCharacterAsFile() {
                 let filename = `${this.characterSheet.name}.txt`, type = 'type:text/plain;charset=utf-8'
