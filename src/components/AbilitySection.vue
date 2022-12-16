@@ -51,6 +51,10 @@
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
                         {{dialog.type}} Ability
+                        <template v-if="dialog.type == 'Add' || dialog.type == 'Edit'">
+                            <v-spacer></v-spacer>
+                            Available XP: {{xp}}
+                        </template>
                     </v-card-title>
 
                     <v-card-text>
@@ -240,9 +244,13 @@
                                                             </v-text-field>
                                                         </v-col>
                                                     </v-row>
-                                                    <v-text-field label="Calculated XP" v-model="xpCost" disabled readonly>
+                                                    <v-text-field :label="refundedXPLabel" v-if="tier > 0" v-model="refundedXP" disabled readonly>
+                                                        <TooltipComponent slot="prepend" :text="'XP automatically refunded based on Character Tier: (Tier * 10)% of Calculated XP'"></TooltipComponent>
+                                                    </v-text-field>
+                                                    <v-text-field label="Calculated XP Cost" v-model="xpCost" disabled readonly>
                                                         <TooltipComponent slot="prepend" :text="'Calculated XP: Minimum 10, not automatically applied to Ability XP Cost'"></TooltipComponent>
                                                     </v-text-field>
+
                                                 </v-expansion-panel-content>
                                             </v-expansion-panel>
                                         </v-expansion-panels>
@@ -337,7 +345,9 @@
             effects: Array,
             panelProp: Number,
             resources: Array,
-            successesFromIntelligence: Number
+            successesFromIntelligence: Number,
+            tier: Number,
+            xp: Number
         },
         computed: {
             filteredAbilities() {
@@ -370,6 +380,17 @@
                     return +previousValue + +entry.upcharge
                 }, 0) / 100 + 1
                 return upcharges
+            },
+            refundedXP() {
+                let refundedXP = 0
+
+                if (this.tier > 0)
+                    refundedXP = this.xpCost * this.tier / 10
+
+                return refundedXP
+            },
+            refundedXPLabel() {
+                return `Character Tier(${this.tier}) Refunded XP`
             },
             xpCost() {
                 let xpCost = 0
