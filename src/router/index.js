@@ -10,31 +10,28 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
-        name: 'home',
+        name: 'Home',
         component: ResumeView
     },
     {
         path: '/charactersheet',
-        name: 'charactersheet',
+        name: 'Character Sheet',
         component: CharacterSheetView
     },
     {
         path: '/initiative',
-        name: 'initiative',
+        name: 'Initiative',
         component: InitiativeView
     },
     {
-        path: '/about',
-        name: 'about',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+        path: '/resume',
+        name: 'Resume',
+        component: ResumeView
     },
     {
-        path: '/resume',
-        name: 'resume',
-        component: ResumeView
+        path: '/workout',
+        name: 'Workout',
+        component: () => import('../views/WorkoutView.vue')
     }
 ]
 
@@ -43,5 +40,11 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 })
+
+router.afterEach((to) => {
+    Vue.nextTick(() => {
+        document.title = to.name;
+    });
+});
 
 export default router

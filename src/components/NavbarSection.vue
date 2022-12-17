@@ -50,7 +50,6 @@
                     { icon: 'mdi-home', text: 'Home', route: '/' },
                     { icon: 'mdi-account-box', text: 'Character Sheet', route: '/charactersheet' },
                     { icon: 'mdi-dice-d20', text: 'Initiative Roller', route: '/initiative' }
-                    //,
                     //{ icon: 'mdi-file-account', text: 'Resume', route: '/resume' }
                 ],
                 drawer: false,
@@ -63,7 +62,10 @@
                 this.$vuetify.theme.dark = theme === 'true'
             } else {
                 this.saveDarkTheme()
-            }            
+            }
+
+            if (this.userSignedIn && this.$userData.email == 'turro92@gmail.com')
+                this.links.push({icon:'mdi-arm-flex', text: 'Workout', route: '/workout'})
         },
         methods: {
             navigate(link) {

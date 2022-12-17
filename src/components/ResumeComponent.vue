@@ -47,7 +47,7 @@
 
 <script>
     export default {
-        name: 'ResumeComoponent',
+        name: 'ResumeComponent',
         data() {
             return {
                 technicalSkills: [
