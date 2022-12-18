@@ -214,7 +214,7 @@
                 ]
             },
             hpMax() {
-                let hp = ((this.characterSheet.level * 3) + (+this.characterSheet.resistance * 5) + +this.characterSheet.hpIncreases)
+                let hp = ((3) + (+this.characterSheet.resistance * 5) + +this.characterSheet.hpIncreases)
                 return (hp > 1) ? hp : 1
             },
             successesFromIntelligence() {
@@ -298,7 +298,7 @@
                 this.characterSheet.attunementSlotsMax = 10 + +this.characterSheet.attunementSlotsIncreases
                 this.characterSheet.bpMax = +this.resistance + +this.characterSheet.bpIncreases
                 this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases
-                this.characterSheet.hpMax = ((this.characterSheet.level * 3) + (+this.characterSheet.resistance * 5) + +this.characterSheet.hpIncreases)
+                this.characterSheet.hpMax = ((3) + (+this.characterSheet.resistance * 5) + +this.characterSheet.hpIncreases)
             },
             deleteDialog() {
                 this.$emit('deleteDialogEmit', this.characterSheet)
