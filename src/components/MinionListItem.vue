@@ -32,20 +32,20 @@
                 <v-col cols="6">
                     <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
                 </v-col>
+                <v-col cols="12" v-for="input in healthInputWithEditModals" :key="input.key">
+                    <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                        @updatePropEmit="updateProp($event)"
+                                        :property-object="input"></InputWithEditModal>
+                </v-col>
                 <v-col>
                     <v-row>
-                        <v-col cols="12" v-for="input in inputWithEditModals" :key="input.key">
+                        <v-col cols="12" md="6" v-for="input in inputWithEditModals" :key="input.key">
                             <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                 @apGainEmit="apGain($event)"
                                                 @updatePropEmit="updateProp($event)"
                                                 :property-object="input"></InputWithEditModal>
                         </v-col>
                     </v-row>
-                </v-col>
-                <v-col cols="12" v-for="input in healthInputWithEditModals" :key="input.key">
-                    <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
-                                        @updatePropEmit="updateProp($event)"
-                                        :property-object="input"></InputWithEditModal>
                 </v-col>
             </v-row>
         </v-form>
@@ -167,6 +167,22 @@
 
                 return damageModifications
             },
+            dcToHit() {
+                let adj = 0
+                this.characterSheet.buffs.filter(buff => { return JSON.stringify(buff.adjustments).includes('DC to Hit') && buff.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'DC to Hit' }).forEach(adjustment => {
+                        if (adjustment.amount > adj)
+                            adj = adjustment.amount
+                    })
+                })
+                let armorShield = 0
+                this.characterSheet.equipment.filter(x => { return x.isActive && x.isArmorShield && x.dcToHit > 0 }).forEach(equipment => {
+                    if (equipment.dcToHit > armorShield)
+                        armorShield = equipment.dcToHit
+                })
+                let dc = 3 + +this.characterSheet.dcToHitIncreases + +adj + +armorShield
+                return (dc > 0) ? dc : 0
+            },
             healthInputWithEditModals() {
                 return [
                     {
@@ -210,6 +226,25 @@
                         valueIncreasesName: 'speedPreperationIsKey',
                         valueIncreasesType: 'bool',
                         valueMax: this.characterSheet.apMax
+                    },                    
+                    {
+                        bar: false,
+                        color: '',
+                        dialogText: '',
+                        disabled: true,
+                        infoText: '3 + DC Purchases (Natural Armor) + Highest Buff + Highest Armor/Shield Equipment.',
+                        key: 'dc' + this.characterSheet.dcToHit,
+                        label: 'DC to Hit',
+                        minus: false,
+                        plus: false,
+                        type: 'number',
+                        value: this.characterSheet.dcToHit,
+                        valueIncreases: this.characterSheet.dcToHitIncreases,
+                        valueIncreasesLabel: 'DC to Hit Purchases',
+                        valueIncreasesName: 'dcToHitIncreases',
+                        valueIncreasesType: 'number',
+                        valueMax: this.characterSheet.dcToHit,
+                        valueName: 'dc'
                     }
                 ]
             },
@@ -366,6 +401,9 @@
             apMax() {
                 this.characterSheet.apMax = this.apMax
                 this.$emit('updateEntryEmit', this.characterSheet)
+            },
+            dcToHit() {
+                this.characterSheet.dcToHit = this.dcToHit
             },
             hpMax() {
                 this.characterSheet.hpMax = this.hpMax
