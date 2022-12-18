@@ -7,13 +7,13 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col>
+                <v-col cols="12" md="4">
                     <v-text-field label="Name" v-model="workout.name"></v-text-field>
                 </v-col>
-                <v-col>
+                <v-col cols="6">
                     <v-text-field label="Date" type="date" v-model="workout.date"></v-text-field>
                 </v-col>
-                <v-col>
+                <v-col cols="6">
                     <v-select label="Type" :items="workoutTypes" v-model="workout.type"></v-select>
                 </v-col>
             </v-row>
@@ -32,19 +32,19 @@
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
                             <v-row>
-                                <v-col cols="6">
+                                <v-col cols="12" md="6">
                                     <v-text-field label="Exercise" v-model="e.name">
                                         <v-icon slot="append" color="error" @click="deleteExercise(i)">mdi-delete</v-icon>
                                     </v-text-field>
                                 </v-col>
-                                <v-col cols="3">
+                                <v-col cols="12" md="3">
                                     <v-select v-model="e.muscleGroups"
                                               :items="muscleGroups"
                                               label="Muscle Groups"
                                               multiple>
                                     </v-select>
                                 </v-col>
-                                <v-col cols="3">
+                                <v-col cols="12" md="3">
                                     <v-text-field label="Maxes" v-model="e.maxes"></v-text-field>
                                 </v-col>
                             </v-row>
@@ -59,15 +59,15 @@
                                 <v-row>
                                     <v-col cols="4" v-for="s, j in e.sets" :key="j">
                                         <v-row>
-                                            <v-col cols="6">
-                                                <v-text-field label="Weight" v-model="s.weight"></v-text-field>
+                                            <v-col cols="12" md="6">
+                                                <v-text-field label="Weight" type="number" v-model="s.weight"></v-text-field>
                                             </v-col>
-                                            <v-col cols="6">
-                                                <v-text-field label="Reps" v-model="s.reps">
+                                            <v-col cols="12" md="6">
+                                                <v-text-field label="Reps" type="number" v-model="s.reps">
                                                     <v-icon slot="append" color="error" @click="deleteSet(i, j)">mdi-delete</v-icon>
                                                 </v-text-field>
                                             </v-col>
-                                            <v-col cols="12">
+                                            <v-col cols="12" md="12">
                                                 <v-textarea label="Notes" v-model="s.notes" auto-grow outlined rows="1"></v-textarea>
                                             </v-col>
                                         </v-row>
@@ -222,10 +222,7 @@
                     notes: '',
                     type: ''
                 },
-                workouts: [
-                    //{ "exercises": [{ "name": "Trap Bar Deadlift", "notes": "", "maxes": "230x8/250x6/270x3 or 230 5x5", "muscleGroups": [], "sets": [{ "weight": "230", "notes": "", "reps": "8" }, { "notes": "", "reps": "6", "weight": "250" }, { "weight": "270", "reps": "3", "notes": "" }] }, { "muscleGroups": [], "sets": [{ "weight": "70", "notes": "", "reps": "8" }, { "notes": "", "reps": "6", "weight": "80" }, { "notes": "", "reps": "5", "weight": "90" }], "notes": "", "maxes": "70x8/80x6/90x5 or 90/90/80/80/70 5x5", "name": "Incline Press" }, { "muscleGroups": [], "maxes": "30x10/40x6/50x4 or 50/40/40/30/30 5x5", "notes": "", "name": "Overhead Press", "sets": [{ "reps": "10", "weight": "30", "notes": "" }, { "reps": "6", "weight": "40", "notes": "" }, { "notes": "", "reps": "4", "weight": "50" }] }, { "maxes": "60x10/70x8/80x4 or 70 5x5", "notes": "", "sets": [{ "reps": "10", "weight": "60", "notes": "" }, { "reps": "8", "weight": "70", "notes": "" }, { "weight": "80", "reps": "4", "notes": "" }], "muscleGroups": [], "name": "Barbell Curls" }, { "sets": [{ "weight": "15", "notes": "", "reps": "12" }, { "notes": "", "weight": "15", "reps": "12" }, { "weight": "15", "reps": "12", "notes": "" }], "muscleGroups": [], "name": "Bent Over Reverse Flys", "notes": "", "maxes": "15 12x3" }, { "notes": "", "maxes": "270 15x3", "sets": [{ "weight": "270", "reps": "15", "notes": "" }, { "notes": "", "weight": "270", "reps": "15" }, { "reps": "15", "weight": "270", "notes": "" }], "muscleGroups": [], "name": "Standing Calf Raises" }, { "maxes": "80x8/75x6/70x5 or 85 5x5", "notes": "", "muscleGroups": [], "name": "Wide Grip Pull Up", "sets": [{ "weight": "80", "notes": "", "reps": "8" }, { "reps": "6", "weight": "75", "notes": "" }, { "weight": "70", "reps": "5", "notes": "" }] }], "date": "2022-12-16", "notes": "", "name": "Day 2", "type": "Full Body", "id": "868b0574-fb14-4eea-aa92-9adb03fee863" },
-                    //{ "notes": "", "name": "Day 1", "exercises": [{ "muscleGroups": ["Legs"], "name": "Back Squat", "notes": "", "sets": [{ "reps": 12, "weight": 140, "notes": "" }], "maxes": "140x12/180x12/230x6" }], "type": "Full Body", "date": "2022-12-14", "id": "1" }
-                ],
+                workouts: [],
                 workoutTypes: ['Bro Split', 'Full Body']
             }
         },
