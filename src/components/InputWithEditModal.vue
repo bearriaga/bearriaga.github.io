@@ -53,6 +53,10 @@
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
                         {{propertyObject.label}} Edit
+                        <template v-if="xp != null && (propertyObject.valueName == 'dc' || propertyObject.valueName == 'hp')">
+                            <v-spacer></v-spacer>
+                            Available XP: {{xp}}
+                        </template>
                     </v-card-title>
 
                     <v-card-text>
@@ -67,9 +71,13 @@
                                           v-model="valueIncreases"
                                           @keyup.enter="updateProp"></v-text-field>
                             <v-switch v-else-if="propertyObject.valueIncreasesType == 'bool'" inset
-                                        :label="propertyObject.valueIncreasesLabel"
-                                        v-model="valueIncreases"></v-switch>
+                                      :label="propertyObject.valueIncreasesLabel"
+                                      v-model="valueIncreases"></v-switch>
                         </v-form>
+                        <div v-if="xpCost">
+                            <v-text-field label="XP Cost" v-model="xpCost" disabled readonly></v-text-field>
+                            <RefundedXP v-if="tier" :tier="tier" :xp-cost="xpCost"></RefundedXP>
+                        </div>
                     </v-card-text>
 
 
@@ -88,14 +96,20 @@
 </template>
 
 <script>
+    import RefundedXP from './RefundedXP.vue'
     import TooltipComponent from './TooltipComponent.vue'
 
     export default {
         name: 'InputWithEditModal',
-        components: { TooltipComponent },
+        components: {
+            RefundedXP,
+            TooltipComponent
+        },
         props: {
             hp: Number,
-            propertyObject: Object
+            propertyObject: Object,
+            tier: Number,
+            xp: Number
         },
         computed: {
             bar() {
@@ -108,6 +122,16 @@
                     wrapperClass = 'cursorPointer'
 
                 return wrapperClass
+            },
+            xpCost() {
+                let cost = 0
+
+                if (this.propertyObject.valueName == 'hp')
+                    cost = Math.floor(5 * (this.valueIncreases * (+this.valueIncreases + 1) / 2))
+                if (this.propertyObject.valueName == 'dc')
+                    cost = (Math.pow(2, this.valueIncreases) - 1) * 160
+
+                return cost
             }
         },
         data() {

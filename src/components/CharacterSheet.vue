@@ -101,7 +101,9 @@
                                 <v-col cols="12" v-for="input in healthInputWithEditModals" :key="input.key">
                                     <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                         @updatePropEmit="updateProp($event)"
-                                                        :property-object="input"></InputWithEditModal>
+                                                        :property-object="input"
+                                                        :tier="characterSheet.tier"
+                                                        :xp="xp"></InputWithEditModal>
                                 </v-col>
                             </v-row>
                         </v-form>
@@ -109,7 +111,9 @@
                             <v-col cols="12" md="6" v-for="input in defenseInputWithEditModals" :key="input.key">
                                 <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                     @updatePropEmit="updateProp($event)"
-                                                    :property-object="input"></InputWithEditModal>
+                                                    :property-object="input"
+                                                    :tier="characterSheet.tier"
+                                                    :xp="xp"></InputWithEditModal>
                             </v-col>
                             <v-col cols="12">
                                 <DamageModificationSection :can-edit="true"
@@ -398,7 +402,9 @@
                         <v-col cols="12" lg="6" v-for="input in defenseInputWithEditModals" :key="input.key">
                             <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                 @updatePropEmit="updateProp($event)"
-                                                :property-object="input"></InputWithEditModal>
+                                                :property-object="input"
+                                                :tier="characterSheet.tier"
+                                                :xp="xp"></InputWithEditModal>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -406,7 +412,9 @@
                     <InputWithEditModal v-for="input in healthInputWithEditModals" :key="input.key"
                                         @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                         @updatePropEmit="updateProp($event)"
-                                        :property-object="input"></InputWithEditModal>
+                                        :property-object="input"
+                                        :tier="characterSheet.tier"
+                                        :xp="xp"></InputWithEditModal>
                     <v-row>
                         <v-col cols="12" lg="6">
                             <v-text-field label="Take Damage/Heal" type="number" min="0" v-model="damageToTake.amount">
@@ -1182,12 +1190,13 @@
                     else
                         return +previousValue
                 }, 0)
+                let dcXP = (Math.pow(2, this.characterSheet.dcToHitIncreases) - 1) * 160
                 let healthXP = 5 * Math.floor(this.characterSheet.hpIncreases * (this.characterSheet.hpIncreases + 1) / 2)
                 let traitsXP = this.characterSheet.traits.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
 
-                let subtractedXP = Math.floor((+abilityXP + +healthXP + +traitsXP) / 100 * (100 - (10 * this.characterSheet.tier)))
+                let subtractedXP = Math.floor((+abilityXP + +dcXP + +healthXP + +traitsXP) / 100 * (100 - (10 * this.characterSheet.tier)))
 
                 return +this.xpTotal - +subtractedXP
             },
@@ -1533,7 +1542,7 @@
                     {
                         bar: false,
                         color: '',
-                        dialogText: '',
+                        dialogText: '160 xp, doubling for each purchase. Formula: (2^n - 1) * 160',
                         disabled: true,
                         infoText: '3 + DC Purchases (Natural Armor) + Highest Buff + Highest Armor/Shield Equipment.',
                         key: 'dc' + this.characterSheet.dcToHit,
@@ -1587,7 +1596,7 @@
                     {
                         bar: true,
                         color: 'red',
-                        dialogText: '5 xp per 1 HP, increases by 5 for each purchase. Formula: 5(n*(n+1)/2)',
+                        dialogText: '5 xp per 1 HP, increases by 5 for each purchase. Formula: 5*(n*(n+1)/2)',
                         disabled: false,
                         infoText: 'Health Points Max = (level * 3) + (RES * 5) + purchased HP + Buffs',
                         key: 'hp' + this.characterSheet.hpMax + this.updateHP.toString(),
@@ -2715,7 +2724,6 @@
                     let index = this.characters.findIndex(x => { return x.id == character.id })
                     if (index > -1)
                         this.characters[index] = character
-                    console.log('update', index)
                 }
             },
             saveCharacterAsFile() {

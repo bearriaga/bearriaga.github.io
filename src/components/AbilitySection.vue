@@ -232,7 +232,7 @@
                                                     <v-row>
                                                         <v-col>
                                                             <v-text-field label="Flat Costs" v-model="flatXpCosts" disabled readonly>
-                                                                <TooltipComponent slot="prepend" :text="'Minimum 10'"></TooltipComponent>
+                                                                <TooltipComponent slot="append" :text="'Minimum 10'"></TooltipComponent>
                                                             </v-text-field>
                                                         </v-col>
                                                         <v-col>
@@ -240,16 +240,14 @@
                                                         </v-col>
                                                         <v-col>
                                                             <v-text-field label="Discounts" v-model="discounts" disabled readonly>
-                                                                <TooltipComponent slot="prepend" :text="'Max 90'"></TooltipComponent>
+                                                                <TooltipComponent slot="append" :text="'Max 90'"></TooltipComponent>
                                                             </v-text-field>
                                                         </v-col>
                                                     </v-row>
-                                                    <v-text-field :label="refundedXPLabel" v-if="tier > 0" v-model="refundedXP" disabled readonly>
-                                                        <TooltipComponent slot="prepend" :text="'XP automatically refunded based on Character Tier: (Tier * 10)% of Calculated XP'"></TooltipComponent>
-                                                    </v-text-field>
                                                     <v-text-field label="Calculated XP Cost" v-model="xpCost" disabled readonly>
-                                                        <TooltipComponent slot="prepend" :text="'Calculated XP: Minimum 10, not automatically applied to Ability XP Cost'"></TooltipComponent>
+                                                        <TooltipComponent slot="append" :text="'Calculated XP: Minimum 10, not automatically applied to Ability XP Cost'"></TooltipComponent>
                                                     </v-text-field>
+                                                    <RefundedXP v-if="tier" :tier="tier" :xp-cost="xpCost"></RefundedXP>
 
                                                 </v-expansion-panel-content>
                                             </v-expansion-panel>
@@ -328,6 +326,7 @@
 
 <script>
     import AbilityListItem from './AbilityListItem.vue'
+    import RefundedXP from './RefundedXP.vue'
     import TooltipComponent from './TooltipComponent.vue'
     import { v4 as uuidv4 } from 'uuid';
 
@@ -335,6 +334,7 @@
         name: 'AbilitySection',
         components: {
             AbilityListItem,
+            RefundedXP,
             TooltipComponent
         },
         props: {
@@ -380,17 +380,6 @@
                     return +previousValue + +entry.upcharge
                 }, 0) / 100 + 1
                 return upcharges
-            },
-            refundedXP() {
-                let refundedXP = 0
-
-                if (this.tier > 0)
-                    refundedXP = this.xpCost * this.tier / 10
-
-                return refundedXP
-            },
-            refundedXPLabel() {
-                return `Character Tier(${this.tier}) Refunded XP`
             },
             xpCost() {
                 let xpCost = 0
