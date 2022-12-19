@@ -21,9 +21,6 @@
             <template>
                 <h2 class="text-center">
                     Exercises
-                    <v-btn icon color="primary" @click.stop="addExercise">
-                        <v-icon>mdi-plus</v-icon>
-                    </v-btn>
                 </h2>
                 <v-expansion-panels multiple v-model="panel">
                     <v-expansion-panel v-for="e, i in workout.exercises" :key="i">
@@ -77,6 +74,11 @@
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>
+                <div class="text-center">
+                <v-btn color="primary" @click.stop="addExercise">
+                    Add Exercise
+                </v-btn>
+                </div>
             </template>
         </v-form>
 
@@ -229,7 +231,7 @@
         methods: {
             addExercise() {
                 this.workout.exercises.push(JSON.parse(JSON.stringify(this.exercise)))
-                this.panel.push(this.panel.length);
+                this.panel.push(this.workout.exercises.length - 1)
             },
             addSet(i) {
                 this.workout.exercises[i].sets.push(JSON.parse(JSON.stringify(this.set)))
