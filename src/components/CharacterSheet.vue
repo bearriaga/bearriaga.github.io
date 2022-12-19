@@ -2795,8 +2795,9 @@
                         title: 'Mass Roller'
                     }
                     this.massRoller.results = []
-                    var copyText = `&{template:default} {{name= Mass Roller}}`
-                    var copyTextEnd = ''
+                    let copyText = `&{template:default} {{name= Mass Roller}}`
+                    let copyTextEnd = ''
+                    let successesRequired = (!isNaN(this.massRoller.successesRequired) && this.massRoller.successesRequired > 0)
                     for (var i = 0; i < this.massRoller.enemies; i++) {
                         let result = {
                             advantage: false,
@@ -2822,7 +2823,7 @@
                             result.threat = true
                         }
 
-                        if (!isNaN(this.massRoller.successesRequired) && this.massRoller.successesRequired > 0)
+                        if (successesRequired)
                             result.succeeded = result.successes >= this.massRoller.successesRequired
 
                         this.generalDialog.html += '<div><div><b>Successes: ' + result.successes + '</b></div>' +
@@ -2830,13 +2831,22 @@
                             '<div> Dice Results: [' + result.diceResults.join(', ') + ']</div>';
 
                         copyTextEnd += `{{Enemy ${i + 1} Successes = ${result.successes}}}`
+                        if (successesRequired && !result.succeeded && result.threat)
+                            copyTextEnd += `{{Enemy ${i + 1} Crit Failed = }}`
 
                         this.massRoller.results.push(result)
                     }
                     let successes = this.massRoller.results.filter(x => { return x.succeeded }).length
-                    if (!isNaN(this.massRoller.successesRequired) && this.massRoller.successesRequired > 0) {
-                        this.generalDialog.html = '<div><b>Enemies Succeeded: ' + successes + '</b></div>' + this.generalDialog.html
+                    let critFailures = (successesRequired) ? this.massRoller.results.filter(x => { return !x.succeeded && x.threat }).length : 0
+                    if (successesRequired) {
+                        if (critFailures)
+                            this.generalDialog.html = `<div><b>Enemies Crit Failed: ${critFailures}</b></div>` + this.generalDialog.html
+
+                        this.generalDialog.html = `<div><b>Enemies Succeeded: ${successes}</b></div>` + this.generalDialog.html
                         copyText += `{{Enemies Succeeded= ${successes}}}`
+
+                        if (critFailures)
+                            copyText += `{{Enemies Crit Failed= ${critFailures}}}`
                     }
 
                     copyText += copyTextEnd
