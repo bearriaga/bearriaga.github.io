@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div @click="openDialog" :class="wrapperClass">
+        <div @click="wrapperClick" :class="wrapperClass">
             <v-progress-linear :value="bar"
                                v-if="propertyObject.bar"
                                height="25"
@@ -43,7 +43,7 @@
                     <v-icon color="primary"
                             slot="append"
                             v-if="!propertyObject.disabled"
-                            @click="showDialog = true">mdi-pen</v-icon>
+                            @click="openDialog">mdi-pen</v-icon>
                 </template>
             </v-text-field>
         </div>
@@ -63,11 +63,12 @@
 
                     <v-card-text>
                         <v-form>
-                            <v-text-field v-if="propertyObject.valueIncreasesType == 'number' || propertyObject.valueIncreasesType == 'text'"
+                            <v-text-field v-if="propertyObject.valueIncreasesType == 'number'"
                                           :label="propertyObject.valueIncreasesLabel"
                                           :type="propertyObject.valueIncreasesType"
                                           v-model="valueIncreases"
-                                          @keyup.enter="updateProp">
+                                          @keyup.enter="updateProp"
+                                          @keyup="valueIncreasesKeyup">
                                 <TooltipComponent slot="append" :text="propertyObject.dialogInfoText" v-if="propertyObject.dialogInfoText"></TooltipComponent>
                             </v-text-field>
                             <v-switch v-else-if="propertyObject.valueIncreasesType == 'bool'" inset
@@ -155,10 +156,10 @@
         methods: {
             add() {
                 this.value = +this.value + 1;
-            },
+            },             
             openDialog() {
-                if (this.propertyObject.disabled)
-                    this.showDialog = true
+                this.showDialog = true
+                this.valueIncreases = Number(this.propertyObject.valueIncreases)
             },
             specialButton() {
                 if (this.propertyObject.valueName == 'ap') {
@@ -185,6 +186,15 @@
                     type: this.propertyObject.valueIncreasesType,
                     value: this.valueIncreases
                 })
+            },
+            valueIncreasesKeyup() {
+                if (this.propertyObject.valueIncreasesType == 'number' && this.propertyObject.valueName != 'initiative' && this.valueIncreases < 0)
+                    this.valueIncreases = 0
+
+            },
+            wrapperClick() {
+                if (this.propertyObject.disabled)
+                    this.openDialog()
             }
         },
         watch: {
