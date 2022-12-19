@@ -53,10 +53,8 @@
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
                         {{propertyObject.label}} Edit
-                        <template v-if="xp != null && (propertyObject.valueName == 'dc' || propertyObject.valueName == 'hp')">
-                            <v-spacer></v-spacer>
-                            Available XP: {{xp}}
-                        </template>
+                        <v-spacer></v-spacer>
+                        Available XP: {{xp}}
                     </v-card-title>
 
                     <v-card-text>
@@ -69,14 +67,16 @@
                                           :label="propertyObject.valueIncreasesLabel"
                                           :type="propertyObject.valueIncreasesType"
                                           v-model="valueIncreases"
-                                          @keyup.enter="updateProp"></v-text-field>
+                                          @keyup.enter="updateProp">
+                                <TooltipComponent slot="append" :text="propertyObject.dialogInfoText" v-if="propertyObject.dialogInfoText"></TooltipComponent>
+                            </v-text-field>
                             <v-switch v-else-if="propertyObject.valueIncreasesType == 'bool'" inset
                                       :label="propertyObject.valueIncreasesLabel"
                                       v-model="valueIncreases"></v-switch>
                         </v-form>
                         <div v-if="xpCost">
                             <v-text-field label="XP Cost" v-model="xpCost" disabled readonly></v-text-field>
-                            <RefundedXP v-if="tier" :tier="tier" :xp-cost="xpCost"></RefundedXP>
+                            <RefundedXP v-if="tier && xpCost > 0" :tier="tier" :xp-cost="xpCost"></RefundedXP>
                         </div>
                     </v-card-text>
 
@@ -126,10 +126,21 @@
             xpCost() {
                 let cost = 0
 
-                if (this.propertyObject.valueName == 'hp')
-                    cost = Math.floor(5 * (this.valueIncreases * (+this.valueIncreases + 1) / 2))
+                if (this.propertyObject.valueName == 'ap' && this.valueIncreases)
+                    cost = 50
+                if (this.propertyObject.valueName == 'bp')
+                    cost = Math.floor(60 * (this.valueIncreases * (+this.valueIncreases + 1) / 2))
                 if (this.propertyObject.valueName == 'dc')
                     cost = (Math.pow(2, this.valueIncreases) - 1) * 160
+                if (this.propertyObject.valueName == 'hp')
+                    cost = Math.floor(5 * (this.valueIncreases * (+this.valueIncreases + 1) / 2))
+                if (this.propertyObject.valueName == 'initiative') {
+                    cost = Math.floor(30 * (Math.abs(this.valueIncreases) * (+Math.abs(this.valueIncreases) + 1) / 2))
+                    if (this.valueIncreases < 0)
+                        cost = cost * -1
+                }
+                if (this.propertyObject.valueName == 'rerolls')
+                    cost = Math.floor(60 * this.valueIncreases)
 
                 return cost
             }

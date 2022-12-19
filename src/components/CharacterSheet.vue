@@ -138,7 +138,9 @@
                                                     @apGainEmit="apGain($event)"
                                                     @updatePropEmit="updateProp($event)"
                                                     :hp="characterSheet.hp"
-                                                    :property-object="input"></InputWithEditModal>
+                                                    :property-object="input"
+                                                    :tier="characterSheet.tier"
+                                                    :xp="xp"></InputWithEditModal>
                             </v-col>
                         </v-row>
                     </div>
@@ -434,7 +436,9 @@
                                         @apGainEmit="apGain($event)"
                                         @updatePropEmit="updateProp($event)"
                                         :hp="characterSheet.hp"
-                                        :property-object="input"></InputWithEditModal>
+                                        :property-object="input"
+                                        :tier="characterSheet.tier"
+                                        :xp="xp"></InputWithEditModal>
                 </v-col>
                 <v-col cols="6" md="3">
                     <ResourceSection :characteristics="characteristics"
@@ -509,7 +513,7 @@
                                             :effects="effects"
                                             :panel-prop="abilityPanel"
                                             :resources="resources"
-                                            :successes-from-intelligence="successesFromIntelligence"                                            
+                                            :successes-from-intelligence="successesFromIntelligence"
                                             :tier="characterSheet.tier"
                                             :xp="xp"
                                             @addEntryEmit="addEntry($event)"
@@ -1190,13 +1194,19 @@
                     else
                         return +previousValue
                 }, 0)
+                let apXP = (this.characterSheet.speedPreperationIsKey) ? 50 : 0;
+                let bpXP = Math.floor(60 * (this.characterSheet.bpIncreases * (+this.characterSheet.bpIncreases + 1) / 2))
                 let dcXP = (Math.pow(2, this.characterSheet.dcToHitIncreases) - 1) * 160
-                let healthXP = 5 * Math.floor(this.characterSheet.hpIncreases * (this.characterSheet.hpIncreases + 1) / 2)
+                let hpXP = 5 * Math.floor(this.characterSheet.hpIncreases * (this.characterSheet.hpIncreases + 1) / 2)
+                let initiativeXP = (this.characterSheet.initiativeIncreases > 0) ? Math.floor(30 * (this.characterSheet.initiativeIncreases * (+this.characterSheet.initiativeIncreases + 1) / 2)) : 0                
+                let rerollXP = Math.floor(60 * this.characterSheet.rerollsIncreases)
                 let traitsXP = this.characterSheet.traits.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
 
-                let subtractedXP = Math.floor((+abilityXP + +dcXP + +healthXP + +traitsXP) / 100 * (100 - (10 * this.characterSheet.tier)))
+                let spentXP = +abilityXP + apXP + +bpXP + +dcXP + +hpXP + +initiativeXP + +rerollXP + +traitsXP                
+
+                let subtractedXP = Math.floor((spentXP) / 100 * (100 - (10 * this.characterSheet.tier)))
 
                 return +this.xpTotal - +subtractedXP
             },
@@ -1208,7 +1218,10 @@
                 let flawsXP = this.characterSheet.flaws.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
-                return +xpEarned + +flawsXP
+
+                let initiativeXP = (this.characterSheet.initiativeIncreases < 0) ? Math.floor(30 * (Math.abs(this.characterSheet.initiativeIncreases) * (+Math.abs(this.characterSheet.initiativeIncreases) + 1) / 2)) : 0
+                
+                return +xpEarned + +flawsXP + +initiativeXP
             },
             //Character Properties End
             abilities() {
@@ -1542,7 +1555,8 @@
                     {
                         bar: false,
                         color: '',
-                        dialogText: '160 xp, doubling for each purchase. Formula: (2^n - 1) * 160',
+                        dialogInfoText: 'Formula: (2^n - 1) * 160',
+                        dialogText: '160 xp, doubling for each purchase.',
                         disabled: true,
                         infoText: '3 + DC Purchases (Natural Armor) + Highest Buff + Highest Armor/Shield Equipment.',
                         key: 'dc' + this.characterSheet.dcToHit,
@@ -1561,9 +1575,10 @@
                     {
                         bar: false,
                         color: '',
-                        dialogText: 'Initiative = 1d6 + SPD + Initiative Purchases',
+                        dialogInfoText: 'Formula: 30 * (n * (n + 1) / 2)',
+                        dialogText: '30 or -30 xp per point, increasing/decreasing by 30 for each purchase. Can\'t be decreased below your SPD',
                         disabled: false,
-                        infoText: '',
+                        infoText: 'Initiative = 1d6 + SPD + Initiative Purchases',
                         key: 'initiative' + this.characterSheet.initiative + this.updateInitiative,
                         label: 'Initiative',
                         minus: false,
@@ -1596,7 +1611,8 @@
                     {
                         bar: true,
                         color: 'red',
-                        dialogText: '5 xp per 1 HP, increases by 5 for each purchase. Formula: 5*(n*(n+1)/2)',
+                        dialogInfoText: 'Formula: 5 * (n * (n + 1) / 2)',
+                        dialogText: '5 xp per 1 HP, increases by 5 for each purchase.',
                         disabled: false,
                         infoText: 'Health Points Max = (level * 3) + (RES * 5) + purchased HP + Buffs',
                         key: 'hp' + this.characterSheet.hpMax + this.updateHP.toString(),
@@ -1619,7 +1635,8 @@
                     {
                         bar: true,
                         color: 'green',
-                        dialogText: 'Your maximum AP pool is increased from 2x your AP generation to 3x your generation rate.',
+                        dialogInfoText: '',
+                        dialogText: '50 xp. Your maximum AP pool is increased from 2x your AP generation to 3x your generation rate.',
                         disabled: false,
                         infoText: '',
                         key: 'ap' + this.characterSheet.apMax + this.updateAP.toString(),
@@ -1638,7 +1655,8 @@
                     {
                         bar: true,
                         color: 'brown lighten-2',
-                        dialogText: '',
+                        dialogInfoText: 'Formula: 60 * (n * (n + 1) / 2)',
+                        dialogText: '60 xp per point, increasing by 60 for each purchase.',
                         disabled: false,
                         infoText: '',
                         key: 'bp' + this.characterSheet.bpMax + this.updateBP.toString(),
@@ -1657,7 +1675,8 @@
                     {
                         bar: true,
                         color: 'yellow',
-                        dialogText: '',
+                        dialogInfoText: '',
+                        dialogText: '60 xp per Reroll',
                         disabled: false,
                         infoText: '',
                         key: 'rerolls' + this.characterSheet.rerollsMax + this.updateRerolls.toString(),
@@ -2307,7 +2326,7 @@
                 let nonClassXP = this.characterSheet.journalEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
                     return +previousValue + +entry.xp
                 }, 0)
-                this.characterSheet.level = Math.floor(nonClassXP / 500)                
+                this.characterSheet.level = Math.floor(nonClassXP / 500)
                 //end
                 this.characterSheet.rerollsMax = +this.luck + +this.characterSheet.rerollsIncreases
 
