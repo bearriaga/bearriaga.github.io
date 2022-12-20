@@ -706,11 +706,6 @@
             </v-row>
         </form>
         <v-row>
-            <!--<v-col>
-                <v-btn color="primary" @click="setCharacterAs('belif')">Set as Belif</v-btn>
-                <v-btn color="primary" @click="setCharacterAs('cam')">Cam</v-btn>
-                <v-btn color="primary" @click="setCharacterAs('sienna')">Sienna</v-btn>
-            </v-col>-->
             <v-col>
                 <div>
                     <v-btn color="primary" @click="loadCharacter">Load Character</v-btn>
@@ -743,9 +738,17 @@
                 <v-select label="Layout" v-model="layout" :items="layoutOptions"></v-select>
             </v-col>
         </v-row>
+        <v-btn color="primary"
+               elevation="2"
+               fab
+               @click="logDialog.show = true">
+            <v-icon>
+                mdi-book-open-outline
+            </v-icon>
+        </v-btn>
 
         <!-- Ability Dialog -->
-        <v-dialog v-model="abilityDialog.show" width="500">
+        <v-dialog v-model="abilityDialog.show" width="500" scrollable>
             <v-card>
                 <v-card-title class="text-h5 grey lighten-2">
                     {{abilityDialog.title}}
@@ -1025,6 +1028,17 @@
             </v-card>
         </v-dialog>
 
+        <v-dialog v-model="logDialog.show" width="500">
+            <v-card>
+                <v-card-title class="text-h5 grey lighten-2">
+                    Log
+                </v-card-title>
+                <v-card-text class="text-center" v-for="l, i in logDialog.log" :key="i">
+                    <v-btn color="primary" @click="loadLog(l)" min-width="150">{{l.title}}</v-btn>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
         <v-snackbar v-model="snackbar.show">
             {{ snackbar.text }}
 
@@ -1198,13 +1212,13 @@
                 let bpXP = Math.floor(60 * (this.characterSheet.bpIncreases * (+this.characterSheet.bpIncreases + 1) / 2))
                 let dcXP = (Math.pow(2, this.characterSheet.dcToHitIncreases) - 1) * 160
                 let hpXP = 5 * Math.floor(this.characterSheet.hpIncreases * (this.characterSheet.hpIncreases + 1) / 2)
-                let initiativeXP = (this.characterSheet.initiativeIncreases > 0) ? Math.floor(30 * (this.characterSheet.initiativeIncreases * (+this.characterSheet.initiativeIncreases + 1) / 2)) : 0                
+                let initiativeXP = (this.characterSheet.initiativeIncreases > 0) ? Math.floor(30 * (this.characterSheet.initiativeIncreases * (+this.characterSheet.initiativeIncreases + 1) / 2)) : 0
                 let rerollXP = Math.floor(60 * this.characterSheet.rerollsIncreases)
                 let traitsXP = this.characterSheet.traits.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
 
-                let spentXP = +abilityXP + apXP + +bpXP + +dcXP + +hpXP + +initiativeXP + +rerollXP + +traitsXP                
+                let spentXP = +abilityXP + apXP + +bpXP + +dcXP + +hpXP + +initiativeXP + +rerollXP + +traitsXP
 
                 let subtractedXP = Math.floor((spentXP) / 100 * (100 - (10 * this.characterSheet.tier)))
 
@@ -1220,7 +1234,7 @@
                 }, 0)
 
                 let initiativeXP = (this.characterSheet.initiativeIncreases < 0) ? Math.floor(30 * (Math.abs(this.characterSheet.initiativeIncreases) * (+Math.abs(this.characterSheet.initiativeIncreases) + 1) / 2)) : 0
-                
+
                 return +xpEarned + +flawsXP + +initiativeXP
             },
             //Character Properties End
@@ -2180,6 +2194,10 @@
                     valueMax: 15,
                     characteristic: false
                 },
+                logDialog: {
+                    log: [],
+                    show: false
+                },
                 massRoller: {
                     dice: 0,
                     enemies: 0,
@@ -2362,6 +2380,9 @@
                 }
             },
             copyAll() {
+                navigator.clipboard.writeText(this.copyAllGet())
+            },
+            copyAllGet() {
                 var copyText = `&{template:default} {{name= ${this.abilityDialog.ability.name}}}`
 
                 if (this.abilityDialog.check.show)
@@ -2382,7 +2403,7 @@
                 if (this.abilityDialog.ability.description)
                     copyText += `{{Description= ${this.abilityDialog.ability.description}}}`
 
-                navigator.clipboard.writeText(copyText)
+                return copyText
             },
             copyCheck() {
                 navigator.clipboard.writeText(`&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copyCheckGet()}`)
@@ -2556,6 +2577,12 @@
                 this.abilityDialog.title = diceCheckObject.name + ' Check Results'
                 this.copyCheck()
                 this.showSnackbar('Copied Check Results to Clipboard')
+                this.logDialog.log.push({
+                    copyText: `&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copyCheckGet()}`,
+                    object: JSON.parse(JSON.stringify(this.abilityDialog)),
+                    title: this.abilityDialog.title,
+                    type: 'Check Result'
+                })
             },
             //Dice Roll Functions End
             fillResources() {
@@ -2784,6 +2811,17 @@
                 localStorage.setItem('characterSheetOptions', JSON.stringify(options))
             },
             //Local Storage Functions End
+            loadLog(log) {
+                this.logDialog.show = false
+
+                navigator.clipboard.writeText(log.copyText)
+                this.showSnackbar(`Copied ${log.type} to Clipboard`)                
+
+                if (log.type == 'Mass Roller')
+                    this.generalDialog = JSON.parse(JSON.stringify(log.object))
+                if (log.type == 'Ability' || log.type == 'Check Result')
+                    this.abilityDialog = JSON.parse(JSON.stringify(log.object))
+            },
             rollMassRoller() {
                 if (!isNaN(this.massRoller.dice) && !isNaN(this.massRoller.enemies) && !isNaN(this.massRoller.luck)) {
                     this.generalDialog = {
@@ -2855,6 +2893,13 @@
                     this.showSnackbar('Copied Mass Roller Results to Clipboard')
 
                     this.generalDialog.show = true
+
+                    this.logDialog.log.push({
+                        copyText: copyText,
+                        object: JSON.parse(JSON.stringify(this.generalDialog)),
+                        title: 'Mass Roller',
+                        type: 'Mass Roller'
+                    })
                 }
             },
             moneyAddSubtract(moneyObj) {
@@ -3152,6 +3197,13 @@
                 this.copyAll()
 
                 this.showSnackbar('Copied Ability to Clipboard')
+
+                this.logDialog.log.push({
+                    copyText: this.copyAllGet(),
+                    object: JSON.parse(JSON.stringify(this.abilityDialog)),
+                    title: this.abilityDialog.title,
+                    type: 'Ability'
+                })
             }
         },
         watch: {
