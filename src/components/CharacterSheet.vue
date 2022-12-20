@@ -737,15 +737,18 @@
             <v-col cols="3">
                 <v-select label="Layout" v-model="layout" :items="layoutOptions"></v-select>
             </v-col>
-        </v-row>
-        <v-btn color="primary"
-               elevation="2"
-               fab
-               @click="logDialog.show = true">
-            <v-icon>
-                mdi-book-open-outline
-            </v-icon>
-        </v-btn>
+            <v-spacer></v-spacer>
+            <v-col cols="3" class="text-right">
+                <v-btn color="primary"
+                       elevation="2"
+                       fab
+                       @click="logDialog.show = true">
+                    <v-icon>
+                        mdi-book-open-outline
+                    </v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>        
 
         <!-- Ability Dialog -->
         <v-dialog v-model="abilityDialog.show" width="500" scrollable>
@@ -1025,17 +1028,37 @@
                 <v-card-text v-if="characters.length == 0">
                     No Characters Saved in Database
                 </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions class="justify-end">
+                    <v-btn color="secondary"
+                           @click="charactersDialog = false">Close</v-btn>
+                </v-card-actions>
             </v-card>
         </v-dialog>
 
-        <v-dialog v-model="logDialog.show" width="500">
+        <v-dialog v-model="logDialog.show" width="500" scrollable>
             <v-card>
                 <v-card-title class="text-h5 grey lighten-2">
                     Log
+                    <v-spacer></v-spacer>
+                    <v-btn color="error" @click="logDialog.log = []">Clear</v-btn>
                 </v-card-title>
-                <v-card-text class="text-center" v-for="l, i in logDialog.log" :key="i">
-                    <v-btn color="primary" @click="loadLog(l)" min-width="150">{{l.title}}</v-btn>
+                <v-card-text style="max-height: 300px">
+                    <v-row class="text-center" v-for="l, i in logDialog.log" :key="i">
+                        <v-col>
+                            <v-btn color="primary" @click="loadLog(l)" min-width="150">{{l.title}}</v-btn>
+                        </v-col>
+                    </v-row>
                 </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions class="justify-end">
+                    <v-btn color="secondary"
+                           @click="logDialog.show = false">Close</v-btn>
+                </v-card-actions>
             </v-card>
         </v-dialog>
 
@@ -2815,7 +2838,7 @@
                 this.logDialog.show = false
 
                 navigator.clipboard.writeText(log.copyText)
-                this.showSnackbar(`Copied ${log.type} to Clipboard`)                
+                this.showSnackbar(`Copied ${log.type} to Clipboard`)
 
                 if (log.type == 'Mass Roller')
                     this.generalDialog = JSON.parse(JSON.stringify(log.object))
