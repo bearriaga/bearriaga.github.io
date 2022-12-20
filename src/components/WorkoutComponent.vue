@@ -87,7 +87,7 @@
                 <v-expansion-panel-header>
                     <h2 class="text-center">Previous Workouts</h2>
                 </v-expansion-panel-header>
-                <v-expansion-panel-content v-for="w, i in workouts" :key="i">
+                <v-expansion-panel-content v-for="w, i in workouts" :key="i + w.id">
 
                     <v-expansion-panels>
                         <v-expansion-panel>
@@ -269,6 +269,10 @@
                 querySnapshot.forEach((doc) => {
                     this.workouts.push(doc.data())
                 })
+                this.workouts.sort((a, b) => {
+                    let da = new Date(a.date), db = new Date(b.date)
+                    return da - db
+                }).reverse()
             },
             async saveWorkout() {
                 if (this.workout.id == '')
