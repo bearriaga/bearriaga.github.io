@@ -6,7 +6,7 @@
                     <v-icon>mdi-pen</v-icon>
                 </v-btn>
             </v-col>
-            <v-col class="text-center" v-if="apCost != 0 || classResource || damage.dice > 0 || damage.flat > 0 || characteristic || (save && saveAmount && saveCharacteristic)">
+            <v-col class="text-center" v-if="apCost != 0 || characteristic || classResource || damage.dice > 0 || damage.flat > 0 || dice || (save && saveAmount && saveCharacteristic)">
                 <v-btn color="primary" @click="useAbility(ability)">
                     Use
                     <v-icon :color="useButtonIconColor">{{useButtonIcon}}</v-icon>
@@ -35,9 +35,11 @@
                             <v-col cols="12" v-if="description">
                                 <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                             </v-col>
+                            <v-col cols="12" v-if="characteristic || dice" class="text-center">
+                                    <v-btn color="primary" @click="rollAbility(ability)">Roll Check</v-btn>
+                            </v-col>
                             <v-col cols="12" v-if="characteristic">
                                 <v-select label="Characteristic" :items="characteristics" v-model="characteristic" readonly>
-                                    <v-icon slot="prepend" @click="rollAbility(ability)">mdi-dice-6</v-icon>
                                 </v-select>
                             </v-col>
                             <v-col cols="12" v-if="dice">

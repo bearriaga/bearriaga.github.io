@@ -3214,7 +3214,7 @@
                     }
 
                 this.abilityDialog.ability = JSON.parse(JSON.stringify(ability))
-                this.abilityDialog.check.show = (ability.characteristic)
+                this.abilityDialog.check.show = (ability.characteristic || ability.dice)
                 this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0)
                 this.abilityDialog.isAbility = true
                 this.abilityDialog.selectedEffects = []
