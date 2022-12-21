@@ -1045,7 +1045,7 @@
                     <v-spacer></v-spacer>
                     <v-btn color="error" @click="logDialog.log = []">Clear</v-btn>
                 </v-card-title>
-                <v-card-text style="max-height: 300px">
+                <v-card-text>
                     <v-row class="text-center" v-for="l, i in logDialog.log" :key="i">
                         <v-col>
                             <v-btn color="primary" @click="loadLog(l)" min-width="150">{{l.title}}</v-btn>
@@ -2513,9 +2513,13 @@
                 this.updateRerolls++
             },
             rollAbility(ability) {
-                let char = +this[ability.characteristic]
+                let diceToRoll = 0
+                if (ability.characteristic)
+                    diceToRoll += +this[ability.characteristic]
+                if (ability.dice)
+                    diceToRoll += +ability.dice
                 this.rollCheck({
-                    diceToRoll: char,
+                    diceToRoll: diceToRoll,
                     isSkill: false,
                     successes: ability.successes
                 })
@@ -3180,7 +3184,7 @@
                 } else
                     this.abilityDialog.ap = ''
 
-                if (ability.characteristic)
+                if (ability.characteristic || ability.dice)
                     this.rollAbility(ability)
 
                 if (ability.classResource && ability.crCost != 0) {

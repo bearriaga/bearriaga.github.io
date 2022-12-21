@@ -90,6 +90,9 @@
                                     </v-select>
                                 </v-col>
                                 <v-col cols="12">
+                                    <v-text-field label="Ability Dice" type="number" v-model="ability.dice"></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
                                     <v-switch label="Target Saves" inset
                                               v-model="ability.save"></v-switch>
                                 </v-col>
@@ -407,6 +410,7 @@
                         types: []
                     },
                     description: '',
+                    dice: 0,
                     duration: 'Instant',
                     handedness: 0,
                     id: '',
@@ -440,6 +444,7 @@
                         types: []
                     },
                     description: '',
+                    dice: 0,
                     duration: 'Instant',
                     handedness: 0,
                     id: '',

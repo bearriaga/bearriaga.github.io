@@ -40,6 +40,9 @@
                                     <v-icon slot="prepend" @click="rollAbility(ability)">mdi-dice-6</v-icon>
                                 </v-select>
                             </v-col>
+                            <v-col cols="12" v-if="dice">
+                                <v-text-field label="Ability Dice" v-model="dice"></v-text-field>
+                            </v-col>
                             <v-col cols="12" v-if="save">
                                 <v-text-field :label="saveCharacteristic + ' Save Amount'" v-model="saveAmount"></v-text-field>
                             </v-col>
@@ -310,6 +313,7 @@
                 crCost: this.ability.crCost,
                 characteristic: this.ability.characteristic,
                 description: this.ability.description,
+                dice: this.ability.dice,
                 duration: this.ability.duration,
                 handedness: this.ability.handedness,
                 id: this.ability.id,
