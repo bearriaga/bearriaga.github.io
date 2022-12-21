@@ -217,7 +217,7 @@
                     text: ''
                 },
                 workout: {
-                    date: new Date().toISOString().substr(0, 10),
+                    date: new Date(new Date().toLocaleDateString()).toISOString().substr(0, 10),
                     exercises: [],
                     id: '',
                     name: '',
@@ -242,6 +242,7 @@
                 let snackText = ''
                 if (isNew) {
                     this.workout.id = ''
+                    this.workout.date = new Date(new Date().toLocaleDateString()).toISOString().substr(0, 10)
                     snackText = 'Duplicated Workout'
                 }
                 else
