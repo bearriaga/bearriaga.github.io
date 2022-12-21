@@ -58,10 +58,10 @@
                     </v-card-title>
 
                     <v-card-text>
-                        {{propertyObject.dialogText}}
-                    </v-card-text>
-
-                    <v-card-text>
+                        <div>
+                            {{propertyObject.dialogText}}
+                        </div>
+                    
                         <v-form>
                             <v-text-field v-if="propertyObject.valueIncreasesType == 'number'"
                                           :label="propertyObject.valueIncreasesLabel"
