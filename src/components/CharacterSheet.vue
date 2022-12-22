@@ -1277,7 +1277,7 @@
                         ability.crCost +
                         ability.characteristic +
                         ability.description +
-                        ability.dice
+                        ability.dice +
                         ability.duration +
                         ability.handedness +
                         ability.id +
