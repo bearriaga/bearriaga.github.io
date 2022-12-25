@@ -3,6 +3,7 @@
     "",
     "\\src",
     "\\src\\components",
+    "\\src\\stores",
     "\\src\\views"
   ],
   "PreviewInSolutionExplorer": false
