@@ -703,7 +703,67 @@
 
                 </v-col>
             </v-row>
-        </form>       
+        </form>
+        <form onsubmit="return false;" v-if="layout == 'Minion'">
+            <h3 class="text-center">{{characterSheet.name}}</h3>
+            <v-row>
+                <v-col cols="6" v-for="char in characteristicViewItems" :key="char.key">
+                    <CharacteristicViewItem @updatePropEmit="updateProp($event)"
+                                            @rollDiceCheckEmit="rollStandAloneCheck($event)"
+                                            :characteristic="char"></CharacteristicViewItem>
+                </v-col>
+            </v-row>
+            <h3 class="text-center"> Health </h3>
+            <v-row>
+                <v-col cols="6">
+                    <v-text-field type="number" min="0" v-model="damageToTake.amount">
+                        <v-icon color="success" slot="append" @click="heal">mdi-plus</v-icon>
+                        <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
+                    </v-text-field>
+                </v-col>
+                <v-col cols="6">
+                    <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
+                </v-col>
+                <v-col cols="12" v-for="input in healthInputWithEditModals" :key="input.key">
+                    <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                        @updatePropEmit="updateProp($event)"
+                                        :property-object="input"></InputWithEditModal>
+                </v-col>
+                <v-col cols="12" v-for="input in inputWithEditModals.filter(x => { return x.label == 'Action Points' })" :key="input.key">
+                    <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                        @apGainEmit="apGain($event)"
+                                        @updatePropEmit="updateProp($event)"
+                                        :property-object="input"></InputWithEditModal>
+                </v-col>
+                <v-col cols="12" v-for="input in defenseInputWithEditModals.filter(x => { return x.label == 'DC to Hit' })" :key="input.key">
+                    <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                        @apGainEmit="apGain($event)"
+                                        @updatePropEmit="updateProp($event)"
+                                        :property-object="input"></InputWithEditModal>
+                </v-col>
+                <v-col cols="12">
+                    <AbilitySection :abilities="abilities"
+                                    :ap="characterSheet.ap"
+                                    :characteristics="characteristics"
+                                    :damage-types="damageTypes"
+                                    :effects="effects"
+                                    :panel-prop="abilityPanel"
+                                    :resources="resources"
+                                    :successes-from-intelligence="successesFromIntelligence"
+                                    :tier="characterSheet.tier"
+                                    :xp="xp"
+                                    @addEntryEmit="addEntry($event)"
+                                    @deleteEntryEmit="deleteEntry($event)"
+                                    @rollAbilityEmit="rollAbility($event)"
+                                    @rollDamageEmit="rollAbilityDamage($event)"
+                                    @subtractAPEmit="subtractAP($event)"
+                                    @subtractCREmit="subtractCR($event)"
+                                    @updateEntryEmit="updateEntry($event)"
+                                    @updatePanelEmit="updatePanel($event)"
+                                    @useAbilityEmit="useAbility($event)"></AbilitySection>
+                </v-col>
+            </v-row>
+        </form>
 
         <!-- Ability Dialog -->
         <v-dialog v-model="abilityDialog.show" width="500" scrollable>
