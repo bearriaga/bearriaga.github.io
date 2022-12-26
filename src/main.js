@@ -15,6 +15,8 @@ if (signin) {
     Vue.prototype.$userData = data;
 }
 
+Vue.component('CharacterComponent', require('./components/CharacterComponent.vue').default);
+
 Vue.config.productionTip = false
 
 Vue.use(PiniaVuePlugin)

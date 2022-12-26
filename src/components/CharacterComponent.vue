@@ -1186,6 +1186,9 @@
                 return (hp > 1) ? hp : 1
             },
             level() {
+                if (this.layout == 'Minion')
+                    return 1
+
                 let nonClassXP = this.characterSheet.journalEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
                     return +previousValue + +entry.xp
                 }, 0)

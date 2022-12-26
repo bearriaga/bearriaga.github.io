@@ -16,11 +16,26 @@
                 <v-expansion-panel-content>
                     <v-row>
                         <v-col cols="3" v-for="m in minions" :key="m.key">
-                            <MinionListItem @deleteDialogEmit="deleteDialog($event)"
+                            <v-row>
+                                <v-col class="text-center">
+                                    <v-btn color="primary" @click="updateDialog(m)">
+                                        <v-icon>mdi-pen</v-icon>
+                                    </v-btn>
+                                </v-col>
+                                <v-col class="text-center">
+                                    <v-btn color="error" @click="deleteDialog(m)">
+                                        <v-icon>mdi-delete</v-icon>
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                            <!--<MinionListItem @deleteDialogEmit="deleteDialog($event)"
                                             @rollDiceCheckEmit="rollDiceCheck($event)"
                                             @updateDialogEmit="updateDialog($event)"
                                             @updateEntryEmit="updateEntryBypass($event)"
-                                            :minion="m"></MinionListItem>
+                                            :minion="m"></MinionListItem>-->
+                            <CharacterComponent :character="m"
+                                                :layout="'Minion'"
+                                                :key="characterString(m)"></CharacterComponent>
                         </v-col>
                     </v-row>
                 </v-expansion-panel-content>
@@ -95,12 +110,12 @@
 </template>
 
 <script>
-    import MinionListItem from './MinionListItem.vue'
+    //import MinionListItem from './MinionListItem.vue'
 
     export default {
         name: 'MinionSection',
         components: {
-            MinionListItem
+            //MinionListItem
         },
         props: {
             clearCharacter: Object,
@@ -145,6 +160,9 @@
                 this.$emit('updateEntryBypassEmit', { arrayName: 'minions', object: object })
             },
             // CRUD Functions End
+            characterString(minion) {
+                return JSON.stringify(minion)
+            },
             // Open Dialog Functions
             addDialog() {
                 this.panel = 0
