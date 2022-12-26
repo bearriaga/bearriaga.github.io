@@ -30,6 +30,7 @@
                             </v-row>
                             <CharacterComponent :character="m"
                                                 :layout="'Minion'"
+                                                :options="options"
                                                 :key="characterString(m)"
                                                 @updateCharacterSheetEmit=updateEntryBypass($event)></CharacterComponent>
                         </v-col>
@@ -123,6 +124,23 @@
                 // Input Fields Start
                 minion: JSON.parse(JSON.stringify(this.clearCharacter)),
                 // Input Fields End
+                options: {
+                    abilityPanel: 0,
+                    buffPanel: 0,
+                    classPanel: 0,
+                    classUnlockedPanel: 0,
+                    damageModificationPanel: 0,
+                    equipmentPanel: 0,
+                    flawPanel: 0,
+                    journalPanel: 0,
+                    layout: 'Condensed',
+                    minionPanel: 0,
+                    movementPanel: 0,
+                    resourcePanel: 0,
+                    skillPanel: 0,
+                    statusPanel: 0,
+                    traitPanel: 0,
+                },
                panel: this.panelProp,
                 // Validation Start
                 textRules: [

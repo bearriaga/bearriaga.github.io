@@ -1094,7 +1094,8 @@
             character: Object,
             layout: String,
             log: Object,
-            logId: String
+            logId: String,
+            options: Object
         },
         setup() {
             const characterStore = useCharacterStore()
@@ -1967,20 +1968,20 @@
                 clearCharacter: this.characterStore.getCharacterById('clear'),
                 characterSheet: JSON.parse(JSON.stringify(this.character)),
                 // Character Sheet Options Start
-                abilityPanel: 0,
-                buffPanel: 0,
-                classPanel: 0,
-                classUnlockedPanel: 0,
-                damageModificationPanel: 0,
-                equipmentPanel: 0,
-                flawPanel: 0,
-                journalPanel: 0,
-                minionPanel: 0,
-                movementPanel: 0,
-                resourcePanel: 0,
-                skillPanel: 0,
-                statusPanel: 0,
-                traitPanel: 0,
+                abilityPanel: ('abilityPanel' in this.options) ? this.options.abilityPanel : null,
+                buffPanel: ('buffPanel' in this.options) ? this.options.buffPanel : null,
+                classPanel: ('classPanel' in this.options) ? this.options.classPanel : null,
+                classUnlockedPanel: ('classUnlockedPanel' in this.options) ? this.options.classUnlockedPanel : null,
+                damageModificationPanel: ('damageModificationPanel' in this.options) ? this.options.damageModificationPanel : null,
+                equipmentPanel: ('equipmentPanel' in this.options) ? this.options.equipmentPanel : null,
+                flawPanel: ('flawPanel' in this.options) ? this.options.flawPanel : null,
+                journalPanel: ('journalPanel' in this.options) ? this.options.journalPanel : null,
+                minionPanel: ('minionPanel' in this.options) ? this.options.minionPanel : null,
+                movementPanel: ('movementPanel' in this.options) ? this.options.movementPanel : null,
+                resourcePanel: ('resourcePanel' in this.options) ? this.options.resourcePanel : null,
+                skillPanel: ('skillPanel' in this.options) ? this.options.skillPanel : null,
+                statusPanel: ('statusPanel' in this.options) ? this.options.statusPanel : null,
+                traitPanel: ('traitPanel' in this.options) ? this.options.traitPanel : null,
                 // Character Sheet Options End
                 cleanseDialog: {
                     selectedStatuses: [],
@@ -2661,7 +2662,7 @@
                     equipmentPanel: this.equipmentPanel,
                     flawPanel: this.flawPanel,
                     journalPanel: this.journalPanel,
-                    //layout: this.layout,
+                    layout: '',
                     minionPanel: this.minionPanel,
                     movementPanel: this.movementPanel,
                     resourcePanel: this.resourcePanel,
@@ -2669,7 +2670,7 @@
                     statusPanel: this.statusPanel,
                     traitPanel: this.traitPanel
                 }
-                localStorage.setItem('characterSheetOptions', JSON.stringify(options))
+                this.$emit('saveOptionsEmit', options)
             },
             loadLog(log) {
                 navigator.clipboard.writeText(log.copyText)

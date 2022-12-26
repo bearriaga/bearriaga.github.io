@@ -2,10 +2,12 @@
     <div>
         <CharacterComponent @logPushEmit="logPush($event)"
                             @updateCharacterSheetEmit="updateCharacterSheet($event)"
+                            @saveOptionsEmit="saveOptions($event)"
                             :character="characterSheet"
                             :layout="layout"
                             :log="logDialog.selectedLog"
                             :log-id="logDialog.selectedLog.id"
+                            :options="options"
                             :key="characterString"></CharacterComponent>
 
         <v-row>
@@ -241,6 +243,7 @@
                     },
                     show: false
                 },
+                options: null,
                 snackbar: {
                     show: false,
                     text: ''
@@ -300,23 +303,26 @@
             },
             loadOptions() {
                 if (this.isOptionsSet()) {
-                    let options = JSON.parse(localStorage.getItem('characterSheetOptions'))
-                    this.abilityPanel = ('abilityPanel' in options) ? options.abilityPanel : null
-                    this.buffPanel = ('buffPanel' in options) ? options.buffPanel : null
-                    this.classPanel = ('classPanel' in options) ? options.classPanel : null
-                    this.classUnlockedPanel = ('classUnlockedPanel' in options) ? options.classUnlockedPanel : null
-                    this.damageModificationPanel = ('damageModificationPanel' in options) ? options.damageModificationPanel : null
-                    this.equipmentPanel = ('equipmentPanel' in options) ? options.equipmentPanel : null
-                    this.flawPanel = ('flawPanel' in options) ? options.flawPanel : null
-                    this.journalPanel = ('journalPanel' in options) ? options.journalPanel : null
-                    this.layout = ('layout' in options) ? options.layout : 'Condensed'
-                    this.minionPanel = ('minionPanel' in options) ? options.minionPanel : null
-                    this.movementPanel = ('movementPanel' in options) ? options.movementPanel : null
-                    this.resourcePanel = ('resourcePanel' in options) ? options.resourcePanel : null
-                    this.skillPanel = ('skillPanel' in options) ? options.skillPanel : null
-                    this.statusPanel = ('statusPanel' in options) ? options.statusPanel : null
-                    this.traitPanel = ('traitPanel' in options) ? options.traitPanel : null
-                }
+                    this.options = JSON.parse(localStorage.getItem('characterSheetOptions'))                    
+                    this.layout = ('layout' in this.options) ? this.options.layout : 'Condensed'
+                } else
+                    this.options = {
+                        abilityPanel: 0,
+                        buffPanel: 0,
+                        classPanel: 0,
+                        classUnlockedPanel: 0,
+                        damageModificationPanel: 0,
+                        equipmentPanel: 0,
+                        flawPanel: 0,
+                        journalPanel: 0,
+                        layout: 'Condensed',
+                        minionPanel: 0,
+                        movementPanel: 0,
+                        resourcePanel: 0,
+                        skillPanel: 0,
+                        statusPanel: 0,
+                        traitPanel: 0,
+                    }
             },
             loadSelectedCharacter(id) {
                 let character = this.characters.filter(x => { return x.id == id })[0]
@@ -409,24 +415,8 @@
                     }, 0);
                 }
             },
-            saveOptions() {
-                let options = {
-                    abilityPanel: this.abilityPanel,
-                    buffPanel: this.buffPanel,
-                    classPanel: this.classPanel,
-                    classUnlockedPanel: this.classUnlockedPanel,
-                    damageModificationPanel: this.damageModificationPanel,
-                    equipmentPanel: this.equipmentPanel,
-                    flawPanel: this.flawPanel,
-                    journalPanel: this.journalPanel,
-                    layout: this.layout,
-                    minionPanel: this.minionPanel,
-                    movementPanel: this.movementPanel,
-                    resourcePanel: this.resourcePanel,
-                    skillPanel: this.skillPanel,
-                    statusPanel: this.statusPanel,
-                    traitPanel: this.traitPanel
-                }
+            saveOptions(options) {
+                options.layout = this.layout
                 localStorage.setItem('characterSheetOptions', JSON.stringify(options))
             },
             //Local Storage Functions End
@@ -467,7 +457,10 @@
             skillPanel() { this.saveOptions() },
             statusPanel() { this.saveOptions() },
             traitPanel() { this.saveOptions() },
-            layout() { this.saveOptions() }
+            layout() {
+                this.options.layout = this.layout
+                this.saveOptions(this.options)
+            }
             // Character Sheet Options Watch End
         }
     }
