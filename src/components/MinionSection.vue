@@ -28,14 +28,10 @@
                                     </v-btn>
                                 </v-col>
                             </v-row>
-                            <!--<MinionListItem @deleteDialogEmit="deleteDialog($event)"
-                                            @rollDiceCheckEmit="rollDiceCheck($event)"
-                                            @updateDialogEmit="updateDialog($event)"
-                                            @updateEntryEmit="updateEntryBypass($event)"
-                                            :minion="m"></MinionListItem>-->
                             <CharacterComponent :character="m"
                                                 :layout="'Minion'"
-                                                :key="characterString(m)"></CharacterComponent>
+                                                :key="characterString(m)"
+                                                @updateCharacterSheetEmit=updateEntryBypass($event)></CharacterComponent>
                         </v-col>
                     </v-row>
                 </v-expansion-panel-content>
@@ -110,13 +106,9 @@
 </template>
 
 <script>
-    //import MinionListItem from './MinionListItem.vue'
 
     export default {
         name: 'MinionSection',
-        components: {
-            //MinionListItem
-        },
         props: {
             clearCharacter: Object,
             minions: Array,
