@@ -176,6 +176,7 @@
                                     :characteristics="characteristics"
                                     :damage-types="damageTypes"
                                     :effects="effects"
+                                    :layout="layout"
                                     :panel-prop="abilityPanel"
                                     :resources="resources"
                                     :successes-from-intelligence="successesFromIntelligence"
@@ -510,6 +511,7 @@
                                             :characteristics="characteristics"
                                             :damage-types="damageTypes"
                                             :effects="effects"
+                                            :layout="layout"
                                             :panel-prop="abilityPanel"
                                             :resources="resources"
                                             :successes-from-intelligence="successesFromIntelligence"
@@ -747,6 +749,7 @@
                                     :characteristics="characteristics"
                                     :damage-types="damageTypes"
                                     :effects="effects"
+                                    :layout="layout"
                                     :panel-prop="abilityPanel"
                                     :resources="resources"
                                     :successes-from-intelligence="successesFromIntelligence"
@@ -1203,6 +1206,9 @@
                 return +this.luck + +this.characterSheet.rerollsIncreases
             },
             xp() {
+                if (this.layout == 'Minion')
+                    return 0
+
                 let abilityXP = this.characterSheet.abilities.reduce((previousValue, entry) => {
                     if (!entry.boughtForFree)
                         return +previousValue + +entry.xpCost

@@ -345,6 +345,7 @@
             characteristics: Array,
             damageTypes: Array,
             effects: Array,
+            layout: String,
             panelProp: Number,
             resources: Array,
             successesFromIntelligence: Number,
@@ -530,12 +531,14 @@
             },
             // CRUD Functions End
             extraLargeColumns(ability) {
+                if (this.layout == 'Minion')
+                    return 12
                 if (ability.subEffects.length)
                     return 6
                 else return 3
             },
             mediumColumns(ability) {
-                if (ability.subEffects.length)
+                if (ability.subEffects.length || this.layout == 'Minion')
                     return 12
                 else return 6
             },
