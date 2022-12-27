@@ -1097,6 +1097,9 @@
             logId: String,
             options: Object
         },
+        created() {
+            this.characterInit()
+        },
         setup() {
             const characterStore = useCharacterStore()
             characterStore.fill()
@@ -1970,7 +1973,7 @@
                     'luck'
                 ],
                 clearCharacter: this.characterStore.getCharacterById('clear'),
-                characterSheet: JSON.parse(JSON.stringify(this.character)),
+                characterSheet: this.characterStore.getCharacterById('clear'),
                 // Character Sheet Options Start
                 abilityPanel: ('abilityPanel' in this.options) ? this.options.abilityPanel : null,
                 buffPanel: ('buffPanel' in this.options) ? this.options.buffPanel : null,
@@ -2342,34 +2345,8 @@
                 return adj
             },
             characterInit() {
-                this.characterSheet.apMax = (this.characterSheet.speedPreperationIsKey) ? 3 * (+this.speed + 2) : 2 * (+this.speed + 2)
-                this.characterSheet.attunementSlotsMax = 10 + +this.characterSheet.attunementSlotsIncreases
-                /// TODO: attunement slots
-                this.characterSheet.bpMax = +this.resistance + +this.characterSheet.bpIncreases
-                this.characterSheet.dcToHit = 3 + +this.characterSheet.dcToHitIncreases + +this.buffAmount({ type: 'DC to Hit' })
-
-                //handles level
-                let nonClassXP = this.characterSheet.journalEntries.filter(entry => { return !entry.classXP }).reduce((previousValue, entry) => {
-                    return +previousValue + +entry.xp
-                }, 0)
-                this.characterSheet.level = Math.floor(nonClassXP / 500)
-                //end
-                this.characterSheet.rerollsMax = +this.luck + +this.characterSheet.rerollsIncreases
-
-                this.characterSheet.xp = this.characterSheet.xpTotal - this.characterSheet.abilities.reduce((previousValue, entry) => {
-                    if (!entry.boughtForFree)
-                        return +previousValue + +entry.xpCost
-                    else
-                        return +previousValue
-                }, 0)
-
-                var resourcesDup = this.characterSheet.resources
-                resourcesDup.forEach((resource) => {
-                    var primaryCharValue = +this[resource.characteristic]
-                    resource.amountMax = primaryCharValue + resource.resourceIncreases
-                })
-                this.characterSheet.resources = []
-                this.characterSheet.resources = resourcesDup
+                //By setting characterSheet here it forces all computed varialbes and watch methods to run
+                this.characterSheet = JSON.parse(JSON.stringify(this.character))                
             },
             cleanseStatuses() {
                 if (this.cleanseDialog.selectedStatuses.length <= this.characterSheet.bp) {
