@@ -744,6 +744,35 @@
                                         :property-object="input"></InputWithEditModal>
                 </v-col>
                 <v-col cols="12">
+                    <ResourceSection :characteristics="characteristics"
+                                     :panel-prop="resourcePanel"
+                                     :resources="resources"
+                                     @addEntryEmit="addEntry($event)"
+                                     @deleteEntryEmit="deleteEntry($event)"
+                                     @fillResourcesEmit="fillResources($event)"
+                                     @updateEntryEmit="updateEntry($event)"
+                                     @updatePanelEmit="updatePanel($event)"></ResourceSection>
+                    <MovementSection :ap="characterSheet.ap"
+                                     :can-edit="true"
+                                     :movements="movements"
+                                     :movement-ap-icon="movementApIcon"
+                                     :movement-ap-icon-color="movementApIconColor"
+                                     :movement-types="movementTypes"
+                                     :panel-prop="movementPanel"
+                                     @addEntryEmit="addEntry($event)"
+                                     @deleteEntryEmit="deleteEntry($event)"
+                                     @subtractAPEmit="subtractAP($event)"
+                                     @updateEntryEmit="updateEntry($event)"
+                                     @updatePanelEmit="updatePanel($event)"></MovementSection>
+                    <DamageModificationSection :can-edit="true"
+                                               :damage-modifications="damageModifications"
+                                               :damage-groups="damageGroups"
+                                               :damage-types="damageTypes"
+                                               :panel-prop="damageModificationPanel"
+                                               @addEntryEmit="addEntry($event)"
+                                               @deleteEntryEmit="deleteEntry($event)"
+                                               @updateEntryEmit="updateEntry($event)"
+                                               @updatePanelEmit="updatePanel($event)"></DamageModificationSection>
                     <AbilitySection :abilities="abilities"
                                     :ap="characterSheet.ap"
                                     :characteristics="characteristics"
@@ -1976,20 +2005,20 @@
                 clearCharacter: this.characterStore.getCharacterById('clear'),
                 characterSheet: this.characterStore.getCharacterById('clear'),
                 // Character Sheet Options Start
-                abilityPanel: ('abilityPanel' in this.options) ? this.options.abilityPanel : null,
-                buffPanel: ('buffPanel' in this.options) ? this.options.buffPanel : null,
-                classPanel: ('classPanel' in this.options) ? this.options.classPanel : null,
-                classUnlockedPanel: ('classUnlockedPanel' in this.options) ? this.options.classUnlockedPanel : null,
-                damageModificationPanel: ('damageModificationPanel' in this.options) ? this.options.damageModificationPanel : null,
-                equipmentPanel: ('equipmentPanel' in this.options) ? this.options.equipmentPanel : null,
-                flawPanel: ('flawPanel' in this.options) ? this.options.flawPanel : null,
-                journalPanel: ('journalPanel' in this.options) ? this.options.journalPanel : null,
-                minionPanel: ('minionPanel' in this.options) ? this.options.minionPanel : null,
-                movementPanel: ('movementPanel' in this.options) ? this.options.movementPanel : null,
-                resourcePanel: ('resourcePanel' in this.options) ? this.options.resourcePanel : null,
-                skillPanel: ('skillPanel' in this.options) ? this.options.skillPanel : null,
-                statusPanel: ('statusPanel' in this.options) ? this.options.statusPanel : null,
-                traitPanel: ('traitPanel' in this.options) ? this.options.traitPanel : null,
+                abilityPanel: (this.layout == 'Minion') ? null : ('abilityPanel' in this.options) ? this.options.abilityPanel : null,
+                buffPanel: (this.layout == 'Minion') ? null : ('buffPanel' in this.options) ? this.options.buffPanel : null,
+                classPanel: (this.layout == 'Minion') ? null : ('classPanel' in this.options) ? this.options.classPanel : null,
+                classUnlockedPanel: (this.layout == 'Minion') ? null : ('classUnlockedPanel' in this.options) ? this.options.classUnlockedPanel : null,
+                damageModificationPanel: (this.layout == 'Minion') ? null : ('damageModificationPanel' in this.options) ? this.options.damageModificationPanel : null,
+                equipmentPanel: (this.layout == 'Minion') ? null : ('equipmentPanel' in this.options) ? this.options.equipmentPanel : null,
+                flawPanel: (this.layout == 'Minion') ? null : ('flawPanel' in this.options) ? this.options.flawPanel : null,
+                journalPanel: (this.layout == 'Minion') ? null : ('journalPanel' in this.options) ? this.options.journalPanel : null,
+                minionPanel: (this.layout == 'Minion') ? null : ('minionPanel' in this.options) ? this.options.minionPanel : null,
+                movementPanel: (this.layout == 'Minion') ? null : ('movementPanel' in this.options) ? this.options.movementPanel : null,
+                resourcePanel: (this.layout == 'Minion') ? null : ('resourcePanel' in this.options) ? this.options.resourcePanel : null,
+                skillPanel: (this.layout == 'Minion') ? null : ('skillPanel' in this.options) ? this.options.skillPanel : null,
+                statusPanel: (this.layout == 'Minion') ? null : ('statusPanel' in this.options) ? this.options.statusPanel : null,
+                traitPanel: (this.layout == 'Minion') ? null : ('traitPanel' in this.options) ? this.options.traitPanel : null,
                 // Character Sheet Options End
                 cleanseDialog: {
                     selectedStatuses: [],
@@ -2347,7 +2376,7 @@
             },
             characterInit() {
                 //By setting characterSheet here it forces all computed varialbes and watch methods to run
-                this.characterSheet = JSON.parse(JSON.stringify(this.character))                
+                this.characterSheet = JSON.parse(JSON.stringify(this.character))
             },
             cleanseStatuses() {
                 if (this.cleanseDialog.selectedStatuses.length <= this.characterSheet.bp) {
