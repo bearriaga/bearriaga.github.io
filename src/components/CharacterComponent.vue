@@ -1112,27 +1112,27 @@
             //Character Properties
             //CHAR Adjustments
             cunning() {
-                let char = this.characterSheet.cunning + this.characterSheet.cunningAdjustment
+                let char = +this.characterSheet.cunning + +this.characterSheet.cunningAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             fitness() {
-                let char = this.characterSheet.fitness + this.characterSheet.fitnessAdjustment
+                let char = +this.characterSheet.fitness + +this.characterSheet.fitnessAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             intelligence() {
-                let char = this.characterSheet.intelligence + this.characterSheet.intelligenceAdjustment
+                let char = +this.characterSheet.intelligence + +this.characterSheet.intelligenceAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             luck() {
-                let char = this.characterSheet.luck + this.characterSheet.luckAdjustment
+                let char = +this.characterSheet.luck + +this.characterSheet.luckAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             resistance() {
-                let char = this.characterSheet.resistance + this.characterSheet.resistanceAdjustment
+                let char = +this.characterSheet.resistance + +this.characterSheet.resistanceAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             speed() {
-                let char = this.characterSheet.speed + this.characterSheet.speedAdjustment
+                let char = +this.characterSheet.speed + +this.characterSheet.speedAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             cunningAdjustment() {
