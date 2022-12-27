@@ -1159,7 +1159,8 @@
             //CHAR Adjustments End
             age() { return this.characterSheet.age },
             apMax() {
-                return ((this.characterSheet.speedPreperationIsKey) ? 3 * (+this.speed + 2) : 2 * (+this.speed + 2))
+                let parenNum = (this.layout == 'Minion') ? this.speed : +this.speed + 2
+                return ((this.characterSheet.speedPreperationIsKey) ? 3 * (parenNum) : 2 * (parenNum))
             },
             attunementSlots() {
                 return this.attunementSlotsMax - this.characterSheet.equipment.filter(x => { return x.isActive }).reduce((previousValue, entry) => {
