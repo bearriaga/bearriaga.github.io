@@ -2070,7 +2070,7 @@
     "resistanceAdjustment": 0,
     "luck": 0,
     "luckAdjustment": 0,
-    "dcToHit": 0,
+    "dcToHit": 3,
     "dcToHitIncreases": 0,
     "hp": 0,
     "hpMax": 0,
