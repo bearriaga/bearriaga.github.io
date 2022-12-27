@@ -1154,6 +1154,7 @@
                 return this.buffAmount({ type: 'CHAR', propName: 'characteristic', propValue: 'speed' })
             },
             //CHAR Adjustments End
+            age() { return this.characterSheet.age },
             apMax() {
                 return ((this.characterSheet.speedPreperationIsKey) ? 3 * (+this.speed + 2) : 2 * (+this.speed + 2))
             },
@@ -1203,9 +1204,12 @@
                     return +previousValue + +entry.amount
                 }, 0)
             },
+            name() { return this.characterSheet.name },
+            race() { return this.characterSheet.race },
             rerollsMax() {
                 return +this.luck + +this.characterSheet.rerollsIncreases
             },
+            size() { return this.characterSheet.size },
             xp() {
                 if (this.layout == 'Minion')
                     return 0
@@ -3067,6 +3071,9 @@
         },
         watch: {
             // Character Sheet Watch Start
+            age() {
+                this.updateCharacterSheet()
+            },
             apMax() {
                 this.characterSheet.apMax = this.apMax
             },
@@ -3103,11 +3110,20 @@
             movement() {
                 this.characterSheet.movement = this.movement
             },
+            name() {
+                this.updateCharacterSheet()
+            },
+            race() {
+                this.updateCharacterSheet()
+            },
             rerollsMax() {
                 this.characterSheet.rerollsMax = this.rerollsMax
             },
             resistanceAdjustment() {
                 this.characterSheet.resistanceAdjustment = this.resistanceAdjustment
+            },
+            size() {
+                this.updateCharacterSheet()
             },
             speedAdjustment() {
                 this.characterSheet.speedAdjustment = this.speedAdjustment
