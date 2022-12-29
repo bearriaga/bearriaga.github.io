@@ -67,7 +67,7 @@
                               label="Search"
                               single-line
                               hide-details></v-text-field>
-                <v-data-table :headers="statusHeaders" :items="statuses" :search="statusSearch">
+                <v-data-table :headers="statusHeaders" :items="statuses" :search="statusSearch" dense>
                     <template v-slot:top="{ pagination, options, updateOptions }">
                         <v-data-footer :pagination="pagination"
                                        :options="options"
@@ -93,7 +93,7 @@
                             </h3>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
-                                <v-data-table :headers="effectHeaders" :items="universalEffects"></v-data-table>
+                                <v-data-table :headers="effectHeaders" :items="universalEffects" dense :hide-default-footer="true"></v-data-table>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                     <v-expansion-panel v-for="d in damageGroups" color="d.color" :key="d.name">
@@ -104,7 +104,7 @@
                             </h3>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
-                            <v-data-table v-if="d.effects.length" :headers="effectHeaders" :items="d.effects"></v-data-table>
+                            <v-data-table v-if="d.effects.length" :headers="effectHeaders" :items="d.effects" dense :hide-default-footer="true"></v-data-table>
                             <div v-for="t in d.types" :key="t.name">
                                 <v-row>
                                     <v-col cols="3">
@@ -112,7 +112,7 @@
                                         {{t.name}}
                                     </v-col>
                                     <v-col cols="9">
-                                        <v-data-table :headers="effectHeaders" :items="t.effects"></v-data-table>
+                                        <v-data-table :headers="effectHeaders" :items="t.effects" dense :hide-default-footer="true"></v-data-table>
                                     </v-col>
                                 </v-row>
                             </div>
