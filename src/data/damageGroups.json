@@ -1,0 +1,349 @@
+[
+  {
+    "color": "green lighten-3",
+    "effects": [],
+    "icon": "mdi-shield-sun",
+    "name": "Elemental",
+    "types": [
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Apply 2 True Damage to any item equipped on target"
+          },
+          {
+            "cost": 1,
+            "description": "Target is Withered for 1 round"
+          },
+          {
+            "cost": 2,
+            "description": "Apply 1d6 True Damage to any item equipped on target"
+          },
+          {
+            "cost": 2,
+            "description": "Target is Cursed and Excruciated(4) for 1 round"
+          }
+        ],
+        "icon": "mdi-flask-outline",
+        "name": "Acid"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Target is Sped Up(3) and Hyper-Accelerated for 1 round"
+          },
+          {
+            "cost": 1,
+            "description": "Creates a 2x2 square of difficult icy terrain under creature or 1 square mass of ice with 10 HP in an adjacent square"
+          },
+          {
+            "cost": 2,
+            "description": "Target is Rooted for 2 rounds"
+          },
+          {
+            "cost": 2,
+            "description": "Apply Slowed(2) for 2 rounds"
+          }
+        ],
+        "icon": "mdi-snowflake",
+        "name": "Cold"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Damage chains to 1 additional target within 3 squares for half damage"
+          },
+          {
+            "cost": 1,
+            "description": "Apply Twitching(2) for 1 round"
+          },
+          {
+            "cost": 2,
+            "description": "Apply Weakened(1) to all characteristics for 1 round"
+          },
+          {
+            "cost": 2,
+            "description": "Applies Wide Open for 1 round"
+          }
+        ],
+        "icon": "mdi-lightning-bolt",
+        "name": "Electric"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Apply Burning(1d6)"
+          },
+          {
+            "cost": 1,
+            "description": "Create a 1 square fire pool dealing 1d6 damage at target creature's feet that lasts for the encounter"
+          },
+          {
+            "cost": 2,
+            "description": "Apply Burning(10) and Panicked for 1 round"
+          },
+          {
+            "cost": 2,
+            "description": "Apply Withered as Continuous until target is healed"
+          }
+        ],
+        "icon": "mdi-fire",
+        "name": "Fire"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "The next time you use the same ability that triggered this, it costs 1 less AP"
+          },
+          {
+            "cost": 1,
+            "description": "Give Haste(1) to an ally within line of sight"
+          },
+          {
+            "cost": 2,
+            "description": "Gain 3 AP. Each time this effect is chosen in one round, reduce it by 1 AP."
+          },
+          {
+            "cost": 2,
+            "description": "Target is Silenced for 2 rounds"
+          }
+        ],
+        "icon": "mdi-laser-pointer",
+        "name": "Energy/Arcane"
+      }
+    ]
+  },
+  {
+    "color": "deep-purple lighten-3",
+    "effects": [],
+    "icon": "mdi-shield-cross",
+    "name": "Esoteric",
+    "types": [
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Deal an additional 1d6 Dark Damage to the target"
+          },
+          {
+            "cost": 1,
+            "description": "Target gains Cursed for 1 round"
+          },
+          {
+            "cost": 2,
+            "description": "You are Strengthened(2) in the same CHAR you used to make the attack and the target is Weakened(2) in that CHAR for 1 round "
+          },
+          {
+            "cost": 2,
+            "description": "Target becomes Rotted until the next time they are healed"
+          }
+        ],
+        "icon": "mdi-skull",
+        "name": "Dark"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Target is knocked prone"
+          },
+          {
+            "cost": 1,
+            "description": "Apply Hobbled(3) for 1 round"
+          },
+          {
+            "cost": 2,
+            "description": "Target has an object in their hand or on their  person knocked 1d4 squares away"
+          },
+          {
+            "cost": 2,
+            "description": "Target is encumbered for 1 round"
+          }
+        ],
+        "icon": "mdi-rotate-orbit",
+        "name": "Force"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Heal yourself or an ally that can see you for 1d6"
+          },
+          {
+            "cost": 1,
+            "description": "All allies that can see the target are Bolstered(1)"
+          },
+          {
+            "cost": 2,
+            "description": "Target is Repelled for 1 round against a target of your choice"
+          },
+          {
+            "cost": 2,
+            "description": "Target Blinded for 1 round"
+          }
+        ],
+        "icon": "mdi-centos",
+        "name": "Light"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Target Taunted to yourself or any allied target for 1 round"
+          },
+          {
+            "cost": 1,
+            "description": "Make a dispel check against something cast by the target"
+          },
+          {
+            "cost": 2,
+            "description": "Target is Taunted and Enraged for 1 round to yourself, any ally, or any enemy or is Pacified for 1 round"
+          },
+          {
+            "cost": 2,
+            "description": "Apply Silenced as Affliction(DC2 RES)"
+          }
+        ],
+        "icon": "mdi-brain",
+        "name": "Psionic"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Apply Weakened(2) for FIT, or SPD for 2 rounds"
+          },
+          {
+            "cost": 1,
+            "description": "Apply Atrophied for 1 round"
+          },
+          {
+            "cost": 2,
+            "description": "Apply Sealed for 1 round"
+          },
+          {
+            "cost": 2,
+            "description": "Apply Cursed and Sickened(1) for 2 rounds"
+          }
+        ],
+        "icon": "mdi-biohazard",
+        "name": "Toxic"
+      }
+    ]
+  },
+  {
+    "color": "orange lighten-3",
+    "effects": [],
+    "icon": "mdi-shield-sword",
+    "name": "Physical",
+    "types": [
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Target is Exposed(2) for the next attack"
+          },
+          {
+            "cost": 1,
+            "description": "Target is pushed up to FIT/Primary CHAR squares backwards or sideways"
+          },
+          {
+            "cost": 2,
+            "description": "Target is Staggered for 1 round"
+          },
+          {
+            "cost": 2,
+            "description": "Target is knocked prone with Exposed(1) until they stand up"
+          }
+        ],
+        "icon": "mdi-gavel",
+        "name": "Blunt"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Attack deals half damage to targets adjacent to their area of effect"
+          },
+          {
+            "cost": 2,
+            "description": "Target is pushed back 1d6 squares or knocked prone"
+          },
+          {
+            "cost": 2,
+            "description": "Increase the radius of the AoE of the attack by 1 square, you may repeat this choice"
+          }
+        ],
+        "icon": "mdi-bomb",
+        "name": "Explosive"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Apply Pierce(FIT/Primary CHAR) to this attack"
+          },
+          {
+            "cost": 1,
+            "description": "Apply Hobbled(1) for the encounter"
+          },
+          {
+            "cost": 2,
+            "description": "Apply a called shot effect of your choice"
+          },
+          {
+            "cost": 2,
+            "description": "This attack is now a critical hit"
+          }
+        ],
+        "icon": "mdi-arrow-projectile",
+        "name": "Piercing"
+      },
+      {
+        "effects": [
+          {
+            "cost": 1,
+            "description": "Inflict Bleeding (3) for 3 rounds"
+          },
+          {
+            "cost": 1,
+            "description": "You gain Blessed for any additional attacks against this target until the end of your next turn"
+          },
+          {
+            "cost": 2,
+            "description": "Inflict Bleeding (4) and Sickened(1) for 3 rounds"
+          },
+          {
+            "cost": 2,
+            "description": "Inflict 3 True damage to one natural armor or equipment"
+          }
+        ],
+        "icon": "mdi-sword",
+        "name": "Slashing"
+      }
+    ]
+  },
+  {
+    "color": "yellow lighted-3",
+    "effects": [
+      {
+        "cost": 1,
+        "description": "Increase the damage of this attack by 1, this effect may be purchased multiple times"
+      }
+    ],
+    "icon": "mdi-decagram",
+    "name": "True Damage",
+    "types": []
+  },
+  {
+    "color": "green lighted-3",
+    "effects": [],
+    "icon": "mdi-plus",
+    "name": "Healing",
+    "types": []
+  }
+]

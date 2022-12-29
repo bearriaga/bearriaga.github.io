@@ -1,7 +1,7 @@
 [
   {
     "name": "Atrophied",
-    "cost": "120 xp",
+    "cost": "50 xp",
     "effect": "Whenever this creature deals damage to a target, it deals half as much damage as it would otherwise do.",
     "type": "Condition"
   },
@@ -13,26 +13,32 @@
   },
   {
     "name": "Bleeding {rank}",
-    "cost": "20 xp per rank",
+    "cost": "15 xp per rank + 7 xp per previous rank",
     "effect": "The creature takes {ranks} in True Damage at the start of its turns until bleeding is stopped or duration expires. Creatures with no blood or blood-analog are immune to this effect.",
     "type": "Condition"
   },
   {
     "name": "Blessed",
-    "cost": "50 xp",
+    "cost": "30 xp",
     "effect": "May reroll 1 die per roll",
     "type": "Boon"
   },
   {
     "name": "Blinded",
-    "cost": "150 xp",
+    "cost": "100 xp",
     "effect": "Automatically fail attempts to see, increase difficulty to hit for attacks by 2",
     "type": "Condition"
   },
   {
     "name": "Bolstered {rank}",
-    "cost": "50 xp per rank",
+    "cost": "30 xp per rank",
     "effect": "May reroll {rank} dice per round",
+    "type": "Boon"
+  },
+  {
+    "name": "Boosted",
+    "cost": "100 xp",
+    "effect": "All Abilities that cost at least 2 AP cost -1 AP",
     "type": "Boon"
   },
   {
@@ -43,31 +49,31 @@
   },
   {
     "name": "Charmed",
-    "cost": "150 xp",
+    "cost": "50 xp",
     "effect": "Creature regards the charmer as a friendly entity",
     "type": "Condition"
   },
   {
     "name": "Compel Truth",
-    "cost": "80 xp",
+    "cost": "50 xp",
     "effect": "Creature is unable to convey a known falsehood.",
     "type": "Condition"
   },
   {
     "name": "Confused",
-    "cost": "150 xp",
-    "effect": "Creature is unable to distinguish friend from foe. At the beginning of the creature's turn roll a d8 to indicate a direction with 1 being straight up. The creature attacks the nearest creature to that direction.",
+    "cost": "100 xp",
+    "effect": "Creature is unable to distinguish friend from foe. At the beginning of the creature's turn roll a d8 to indicate a direction with 1 being straight North. The creature attacks the nearest creature to that direction.",
     "type": "Condition"
   },
   {
     "name": "Crippled {rank}",
-    "cost": "150 xp per rank",
+    "cost": "100 xp per rank",
     "effect": "Creature has a Characteristic reduced by {ranks}, losing both its dice pool and any passive effects from that characteristic. When this status is removed any points lost from any pool are not restored.",
     "type": "Condition"
   },
   {
     "name": "Cursed",
-    "cost": "50 xp",
+    "cost": "30 xp",
     "effect": "Must reroll 1 successful die per roll",
     "type": "Condition"
   },
@@ -78,159 +84,141 @@
     "type": "Condition"
   },
   {
-    "name": "Destroyed (items only)",
-    "cost": "100 xp",
-    "effect": "Weapon or Armor deals half damage or has half DR",
-    "type": "Condition"
-  },
-  {
     "name": "Dominated",
-    "cost": "500 xp",
+    "cost": "300 xp",
     "effect": "Creature cannot disobey the commands of the Dominator, whenever the creature receives an order against its self preservation it may make DC3 Hard RES save to break free",
     "type": "Condition"
   },
   {
     "name": "Doomed",
-    "cost": "300 xp",
+    "cost": "200 xp",
     "effect": "The creature must be healed, cleansed, or use a breakthrough charge within 2 turns or at the beginning of its 3rd turn it will be instantly reduced to 0 HP. Unlike other status effects Doomed defaults to a duration of 3 rounds instead of 1.",
     "type": "Condition"
   },
   {
     "name": "DoT {Rank}",
-    "cost": "10xp per rank to apply\n50 xp to remove all stacks\nImmunity is only to one damage type",
-    "effect": "Creature takes {rank} in damage at the start of its turn",
+    "cost": "20xp per rank + 10xp per previous rank to apply\nImmunity is only to one damage type",
+    "effect": "Creature takes {rank} in damage at the start of its turn. This works the same way as an ability that deals damage and has a duration.",
     "type": "Condition"
   },
   {
     "name": "Emotionally Manipulated",
-    "cost": "30 xp",
+    "cost": "20 xp",
     "effect": "The creature is manipulated to be currently feeling a specified emotion and acts accordingly.",
     "type": "Condition"
   },
   {
     "name": "Encumbered",
-    "cost": "100 xp",
+    "cost": "80 xp",
     "effect": "Reduce movement by half and reduce dice pools for all physical CHARs by 1",
     "type": "Condition"
   },
   {
     "name": "Enraged",
-    "cost": "80 xp",
+    "cost": "50 xp",
     "effect": "The afflicted creature MUST make a damaging attack on each of its turns. If no enemy targets are available while the effect persists, the creature must target a friendly creature or object in its vicinity to deal damage to.",
     "type": "Condition"
   },
   {
     "name": "Enraptured / Fixated",
-    "cost": "50 xp",
-    "effect": "The afflicted creature must pay attention to and not move more than 50 feet away from the target of the enrapture specified when the status is applied.",
+    "cost": "30 xp",
+    "effect": "The afflicted creature must pay attention to and not move more than 10 squares away from the target of the enrapture specified when the status is applied.",
     "type": "Condition"
   },
   {
     "name": "Excruciated {rank}",
     "cost": "10 xp per rank",
-    "effect": "The creature takes {ranks} slashing or psychic damage (or other damage type as appropriate) each time it takes an action.",
+    "effect": "The creature takes {ranks} in true damage each time it takes an action.",
     "type": "Condition"
   },
   {
     "name": "Exhausted",
-    "cost": "150 xp",
+    "cost": "100 xp",
     "effect": "Creature reduces normal turn AP gain by 2 (does not reduce Haste effects), reduce their movement by 2 squares, and creature may only make a single non-move action on its turn.",
     "type": "Condition"
   },
   {
     "name": "Exposed {rank}",
-    "cost": "150xp per rank",
+    "cost": "100 xp per rank",
     "effect": "Adds {ranks} automatic successes to attacks against this target",
     "type": "Condition"
   },
   {
     "name": "Feared / Repelled",
-    "cost": "80 xp",
-    "effect": "Creature cannot approach or attack source of fear/repel",
-    "type": "Condition"
-  },
-  {
-    "name": "Grappled",
-    "cost": "150 xp",
-    "effect": "Only applies to creatures 1 size larger than you or smaller.\nGrappled creatures may not move by any means. Grappled creatures may spend 3 AP to attempt a Med STR save or Med DEX save to break free.\nCreatures grappling another may drag their grappled creature their movement distance minus the grappled creature's STR. The grappling creature may spend multiple AP to move at once with this penalty only applying once.",
+    "cost": "50 xp",
+    "effect": "Creature cannot approach or attack source of fear/repel.\nIf feared by an ally, may not heal or bestow targeted buffs to the source of the fear.",
     "type": "Condition"
   },
   {
     "name": "Hastened {rank}",
-    "cost": "90 xp per rank",
-    "effect": "The creature gains {rank} bonus AP each time it gains AP, and does not affect the total AP storage limit. The creature also gains the rank of Hastened as AP immediately.",
+    "cost": "80 xp per rank",
+    "effect": "The creature gains {rank} bonus AP each time it gains AP, and does not affect the total AP storage limit.",
     "type": "Boon"
   },
   {
     "name": "Hidden",
-    "cost": "50 xp",
+    "cost": "30 xp",
     "effect": "The creature will not be noticed by other creatures unless they succeed an opposed Stealth(DEX) vs Perception(CUN) check or the creature performs an action that reveals itself. Gain +1 die to attack creatures that don't know where you are. See Stealth rules.",
     "type": "Boon"
   },
   {
+    "name": "Hindered",
+    "cost": "100 xp",
+    "effect": "All Abilities that cost at least 1 AP cost +1 AP",
+    "type": "Condition"
+  },
+  {
     "name": "Hobbled {rank}",
-    "cost": "20 xp per rank",
+    "cost": "15 xp per rank",
     "effect": "Movement actions are reduced by {rank} squares",
     "type": "Condition"
   },
   {
     "name": "HoT {Rank}",
-    "cost": "10xp per rank",
+    "cost": "10 xp per rank",
     "effect": "Creature heals {rank} in HP at the start of its turn",
     "type": "Boon"
   },
   {
     "name": "Hyper-accelerated",
-    "cost": "80 xp",
+    "cost": "50 xp",
     "effect": "When the creature takes a move action or has movement applied to it, it may only move the maximum amount possible and in a straight line.",
     "type": "Condition"
   },
   {
     "name": "Incapacitated",
-    "cost": "250 xp",
-    "effect": "Movement reduced to 1, AP generation capped to 2, knocked prone",
-    "type": "Condition"
-  },
-  {
-    "name": "Infested (Minor Parasite)",
-    "cost": "100 xp",
-    "effect": "Creature has a parasite inside them, while this status persists, the parasite reapplies its own status each round.",
+    "cost": "150 xp",
+    "effect": "Movement reduced to 1, AP generation capped to 2",
     "type": "Condition"
   },
   {
     "name": "Intangible",
-    "cost": "100 xp",
-    "effect": "The creature�s movement is not impeded by physical objects",
+    "cost": "80 xp",
+    "effect": "The creature’s movement is not impeded by physical objects",
     "type": "Boon"
   },
   {
-    "name": "Invisible",
-    "cost": "150 xp",
-    "effect": "The creature is unable to be easily percieved by sight and may make stealth checks out in the open.\nCreatures wishing to attack an invisible target must succeed an opposed Perception Vs Stealth check.",
+    "name": "Invisible / Undetectable (Sense)",
+    "cost": "100 xp",
+    "effect": "The creature cannot be detected using the specified sense, such as sight, sound, touch, thermal, smell, etc.",
     "type": "Boon"
   },
   {
     "name": "Invulnerable",
-    "cost": "500 xp",
+    "cost": "300 xp",
     "effect": "The creature's HP cannot be reduced by any damage or statuses.",
     "type": "Boon"
   },
   {
     "name": "Isolated",
-    "cost": "100 xp",
+    "cost": "80 xp",
     "effect": "Creature may not benefit from any duration-based buff effects bestowed to them by allies or bestow buff effects to allies. \nBuff effects the creature bestows to itself are unaffected.",
     "type": "Condition"
   },
   {
     "name": "Jinxed {rank}",
-    "cost": "50xp per rank",
+    "cost": "30 xp per rank",
     "effect": "Reroll {rank} dice that generated at least one success per round",
-    "type": "Condition"
-  },
-  {
-    "name": "Latched On",
-    "cost": "150 xp",
-    "effect": "Only applies to creatures 2 or more sizes larger than you. You latch onto a large creature and are carried by it.\nYou automatically move with that creature, and the DC for that creature to hit you is increased by 1.",
     "type": "Condition"
   },
   {
@@ -241,15 +229,9 @@
   },
   {
     "name": "Muted",
-    "cost": "50 xp",
+    "cost": "30 xp",
     "effect": "The creature cannot make any audible sounds.",
     "type": "Condition"
-  },
-  {
-    "name": "Other",
-    "cost": "",
-    "effect": "",
-    "type": ""
   },
   {
     "name": "Pacified",
@@ -259,7 +241,7 @@
   },
   {
     "name": "Panicked",
-    "cost": "40 xp",
+    "cost": "30 xp",
     "effect": "Target creature makes audible sounds of distress and must make at least one move action in a random direction where they move their full movement allowance in haphazard manner, but will avoid any terrain hazards they are aware of.",
     "type": "Condition"
   },
@@ -271,14 +253,20 @@
   },
   {
     "name": "Prone",
-    "cost": "90 xp",
-    "effect": "The creature is laying on the ground and must spend 1 AP to stand but provoke attacks of opportunity, or 2 AP to stand up without provoking any attack. While prone, a creature may still move, but treats their DEX as 1. Lasts until the target spends the AP",
+    "cost": "50 xp",
+    "effect": "The creature is laying on the ground and must spend 1 AP to stand but provoke attacks of opportunity, or 2 AP to stand up without provoking any attack. While prone, a creature may still move, but treats their ground speed as 1. Lasts until the target spends the AP",
+    "type": "Condition"
+  },
+  {
+    "name": "Revealed",
+    "cost": "30 xp",
+    "effect": "Creature is unable to benefit from Stealth, Invisibility, Subtle, or similar effects. Any of these effects present are immediately ended, and the benefits of the Subtle Extra are temporarily supressed.",
     "type": "Condition"
   },
   {
     "name": "Rooted",
-    "cost": "100 xp",
-    "effect": "The creature�s movement speed is reduced to 0",
+    "cost": "75 xp",
+    "effect": "The creature’s movement speed is reduced to 0",
     "type": "Condition"
   },
   {
@@ -289,37 +277,37 @@
   },
   {
     "name": "Sealed",
-    "cost": "200 xp",
+    "cost": "120 xp",
     "effect": "The creature may only spend AP to move",
     "type": "Condition"
   },
   {
     "name": "Sickened {rank}",
-    "cost": "70 xp per rank",
+    "cost": "50 xp per rank",
     "effect": "Increases the DC for all checks by {rank}",
     "type": "Condition"
   },
   {
     "name": "Silenced",
-    "cost": "200 xp",
-    "effect": "Cannot use Active Abilities with durations or that cost class resources to activate.",
+    "cost": "50 xp",
+    "effect": "Cannot use Active Abilities that cost class resources to activate.",
     "type": "Condition"
   },
   {
     "name": "Sleep",
-    "cost": "150 xp",
+    "cost": "100 xp",
     "effect": "The creature is asleep and may not take any actions that require being conscious, and ends any concentration effects. If the creature takes any damage, receives any healing, or is roused via a 2 AP action they wake up and lose this status.",
     "type": "Condition"
   },
   {
     "name": "Slowed {rank}",
-    "cost": "90 xp per rank",
-    "effect": "The creature gains {rank} less AP each time it gains AP, and does not affect the total AP storage limit. If a creature is slowed beyond its generation it becomes stunned. The creature also loses the rank of Slow from their AP immediately.",
+    "cost": "80 xp per rank",
+    "effect": "The creature gains {rank} less AP each time it gains AP, and does not affect the total AP storage limit. If a creature is slowed beyond its generation it becomes stunned.",
     "type": "Condition"
   },
   {
     "name": "Speed Up {rank}",
-    "cost": "20 xp per rank",
+    "cost": "15 xp per rank",
     "effect": "Movement actions are increased by {rank} squares",
     "type": "Boon"
   },
@@ -331,55 +319,43 @@
   },
   {
     "name": "Strengthened {rank} {CHAR}",
-    "cost": "60 xp per rank",
+    "cost": "50 xp per rank",
     "effect": "Rolls the creature makes with the given CHAR are increased in pool size by {rank}",
     "type": "Boon"
   },
   {
     "name": "Stunned / Paralyzed",
-    "cost": "300 xp",
+    "cost": "200 xp",
     "effect": "The creature cannot use abilities or move. It still generates AP as normal.",
     "type": "Condition"
   },
   {
-    "name": "Sundered {rank}",
-    "cost": "30 xp per rank",
-    "effect": "Weapon or armor has Dmg or DR reduced by {ranks} until repaired, Destroyed at 5 Ranks",
-    "type": "Condition"
-  },
-  {
     "name": "Taunted",
-    "cost": "80 xp",
+    "cost": "50 xp",
     "effect": "Creatures must attack the taunting creature with any attack or debuff rolls it makes. It cannot target creatures other than the taunting creature.",
     "type": "Condition"
   },
   {
     "name": "Terrified",
-    "cost": "150 xp",
+    "cost": "100 xp",
     "effect": "Creature cannot target enemies with abilities or attacks. It may aid allies as normal.",
     "type": "Condition"
   },
   {
     "name": "Twitching {rank}",
-    "cost": "30 xp per rank",
+    "cost": "20 xp per rank",
     "effect": "The creature increases the DC of ranged attacks by {rank}",
     "type": "Condition"
   },
   {
     "name": "Unconscious",
-    "cost": "150 xp",
-    "effect": "Creature is unable to perform any action that requires being conscious. Creature can be restored via a status cleanse, a 4 AP action to rouse, or 10 minutes passing.",
+    "cost": "100 xp",
+    "effect": "Creature is unable to perform any action that requires being conscious. Creature can be restored via a 4 AP action to rouse.",
     "type": "Condition"
   },
   {
-    "name": "Undetectable (Sense)",
-    "cost": "100 xp",
-    "effect": "The creature cannot be detected using the specified sense, such as sound, touch, thermal, smell, etc.\nFor sight, use Invisible instead.",
-    "type": "Boon"
-  },
-  {
     "name": "Unguarded / Unaware",
-    "cost": "N/A",
+    "cost": "120 xp",
     "effect": "Damage to this target becomes a critical hit but removes this status from the damaged creature and any of its allies who notice the attack",
     "type": "Condition"
   },
@@ -390,14 +366,14 @@
     "type": "Condition"
   },
   {
-    "name": "Vulnerable Greater",
+    "name": "Vulnerable (Category)",
     "cost": "160 xp",
     "effect": "All damage type is doubled against this target. Does not stack with Vulnerable unless inherent to the creature.",
     "type": "Condition"
   },
   {
     "name": "Weakened {rank} {CHAR}",
-    "cost": "60 xp per rank",
+    "cost": "50 xp per rank",
     "effect": "Rolls the creature makes with the given CHAR are reduced in pool size by {rank}",
     "type": "Condition"
   },
@@ -409,8 +385,14 @@
   },
   {
     "name": "Withered",
-    "cost": "80 xp",
+    "cost": "50 xp",
     "effect": "The healing the creature receives is reduced by Half",
+    "type": "Condition"
+  },
+  {
+    "name": "Withered (Greater)",
+    "cost": "100 xp",
+    "effect": "The creature cannot recieve any healing by any means.",
     "type": "Condition"
   }
 ]
