@@ -61,11 +61,16 @@
                                             </v-col>
                                             <v-col cols="12" md="6">
                                                 <v-text-field label="Reps" type="number" v-model="s.reps">
-                                                    <v-icon slot="append" color="error" @click="deleteSet(i, j)">mdi-delete</v-icon>
+                                                    <v-icon slot="prepend" color="error" @click="updateRep(i, j, -1)" :disabled="s.reps <= 0">mdi-minus</v-icon>
+                                                    <v-icon slot="append" color="success" @click="updateRep(i, j, 1)">mdi-plus</v-icon>
                                                 </v-text-field>
                                             </v-col>
                                             <v-col cols="12" md="12">
                                                 <v-textarea label="Notes" v-model="s.notes" auto-grow outlined rows="1"></v-textarea>
+                                            </v-col>
+                                            <v-col cols="12" class="text-center">
+                                                <v-icon color="primary" @click="copySet(i, j)">mdi-content-copy</v-icon>
+                                                <v-icon color="error" @click="deleteSet(i, j)">mdi-delete</v-icon>
                                             </v-col>
                                         </v-row>
                                     </v-col>
@@ -236,6 +241,10 @@
             addSet(i) {
                 this.workout.exercises[i].sets.push(JSON.parse(JSON.stringify(this.set)))
             },
+            copySet(i, j) {
+                let set = JSON.parse(JSON.stringify(this.workout.exercises[i].sets[j]))
+                this.workout.exercises[i].sets.push(set)
+            },
             copyWorkout(i, isNew) {
                 this.workout = JSON.parse(JSON.stringify(this.workouts[i]))
 
@@ -276,14 +285,24 @@
                 }).reverse()
             },
             async saveWorkout() {
-                if (this.workout.id == '')
+                let snackbarText = ''
+
+                if (this.workout.id == '') {
                     this.workout.id = uuidv4()
+                    snackbarText = 'Workout Saved'
+                } else {
+                    snackbarText = 'Workout Updated'
+                }
 
                 await setDoc(doc(db, 'workouts', this.workout.id), this.workout)
+
                 this.snackbar = {
                     show: true,
-                    text: 'Workout Saved'
+                    text: snackbarText
                 }
+            },
+            updateRep(i, j, amount) {
+                this.workout.exercises[i].sets[j].reps = +this.workout.exercises[i].sets[j].reps + +amount
             }
         }
     }
