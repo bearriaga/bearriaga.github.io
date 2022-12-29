@@ -61,14 +61,13 @@
                         <div>
                             {{propertyObject.dialogText}}
                         </div>
-                    
+
                         <v-form>
                             <v-text-field v-if="propertyObject.valueIncreasesType == 'number'"
                                           :label="propertyObject.valueIncreasesLabel"
                                           :type="propertyObject.valueIncreasesType"
                                           v-model="valueIncreases"
-                                          @keyup.enter="updateProp"
-                                          @keyup="valueIncreasesKeyup">
+                                          @keyup.enter="updateProp">
                                 <TooltipComponent slot="append" :text="propertyObject.dialogInfoText" v-if="propertyObject.dialogInfoText"></TooltipComponent>
                             </v-text-field>
                             <v-switch v-else-if="propertyObject.valueIncreasesType == 'bool'" inset
@@ -129,19 +128,23 @@
 
                 if (this.propertyObject.valueName == 'ap' && this.valueIncreases)
                     cost = 50
-                if (this.propertyObject.valueName == 'bp')
-                    cost = Math.floor(60 * (this.valueIncreases * (+this.valueIncreases + 1) / 2))
-                if (this.propertyObject.valueName == 'dc')
-                    cost = (Math.pow(2, this.valueIncreases) - 1) * 160
-                if (this.propertyObject.valueName == 'hp')
-                    cost = Math.floor(5 * (this.valueIncreases * (+this.valueIncreases + 1) / 2))
-                if (this.propertyObject.valueName == 'initiative') {
-                    cost = Math.floor(30 * (Math.abs(this.valueIncreases) * (+Math.abs(this.valueIncreases) + 1) / 2))
+                else {
+                    let vi = Math.abs(this.valueIncreases)
+                    if (this.propertyObject.valueName == 'bp')
+                        cost = 60 * (vi * (+vi + 1) / 2)
+                    if (this.propertyObject.valueName == 'dc')
+                        cost = (Math.pow(2, vi) - 1) * 160
+                    if (this.propertyObject.valueName == 'hp')
+                        cost = 5 * (vi * (+vi + 1) / 2)
+                    if (this.propertyObject.valueName == 'initiative')
+                        cost = 30 * (vi * (+vi + 1) / 2)
+                    if (this.propertyObject.valueName == 'rerolls')
+                        cost = 60 * vi
+                    cost = Math.floor(cost)
+
                     if (this.valueIncreases < 0)
                         cost = cost * -1
                 }
-                if (this.propertyObject.valueName == 'rerolls')
-                    cost = Math.floor(60 * this.valueIncreases)
 
                 return cost
             }
@@ -156,7 +159,7 @@
         methods: {
             add() {
                 this.value = +this.value + 1;
-            },             
+            },
             openDialog() {
                 this.showDialog = true
                 this.valueIncreases = Number(this.propertyObject.valueIncreases)
@@ -186,11 +189,6 @@
                     type: this.propertyObject.valueIncreasesType,
                     value: this.valueIncreases
                 })
-            },
-            valueIncreasesKeyup() {
-                if (this.propertyObject.valueIncreasesType == 'number' && this.propertyObject.valueName != 'initiative' && this.valueIncreases < 0)
-                    this.valueIncreases = 0
-
             },
             wrapperClick() {
                 if (this.propertyObject.disabled)

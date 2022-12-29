@@ -1253,12 +1253,12 @@
                     else
                         return +previousValue
                 }, 0)
-                let apXP = (this.characterSheet.speedPreperationIsKey) ? 50 : 0;
-                let bpXP = Math.floor(60 * (this.characterSheet.bpIncreases * (+this.characterSheet.bpIncreases + 1) / 2))
-                let dcXP = (Math.pow(2, this.characterSheet.dcToHitIncreases) - 1) * 160
-                let hpXP = 5 * Math.floor(this.characterSheet.hpIncreases * (this.characterSheet.hpIncreases + 1) / 2)
-                let initiativeXP = (this.characterSheet.initiativeIncreases > 0) ? Math.floor(30 * (this.characterSheet.initiativeIncreases * (+this.characterSheet.initiativeIncreases + 1) / 2)) : 0
-                let rerollXP = Math.floor(60 * this.characterSheet.rerollsIncreases)
+                let apXP = (this.characterSheet.speedPreperationIsKey) ? 50 : 0
+                let bpXP = (this.characterSheet.bpIncreases > 0) ? this.xpBP : 0
+                let dcXP = (this.characterSheet.dcToHitIncreases > 0) ? this.xpDC : 0
+                let hpXP = (this.characterSheet.hpIncreases > 0) ? this.xpHP : 0
+                let initiativeXP = (this.characterSheet.initiativeIncreases > 0) ? this.xpInitiative : 0
+                let rerollXP = (this.characterSheet.rerollsIncreases > 0) ? this.xpRerolls : 0
                 let traitsXP = this.characterSheet.traits.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
@@ -1269,6 +1269,11 @@
 
                 return +this.xpTotal - +subtractedXP
             },
+            xpBP() { return Math.floor(60 * (Math.abs(this.characterSheet.bpIncreases) * (+Math.abs(this.characterSheet.bpIncreases) + 1) / 2)) },
+            xpDC() { return (Math.pow(2, +Math.abs(this.characterSheet.dcToHitIncreases)) - 1) * 160 },
+            xpHP() { return (Math.floor(5 * Math.abs(this.characterSheet.hpIncreases) * (+Math.abs(this.characterSheet.hpIncreases) + 1) / 2)) },
+            xpInitiative() { return Math.floor(30 * (Math.abs(this.characterSheet.initiativeIncreases) * (+Math.abs(this.characterSheet.initiativeIncreases) + 1) / 2)) },
+            xpRerolls() { return Math.floor(60 * Math.abs(this.characterSheet.rerollsIncreases)) },
             xpTotal() {
                 let xpEarned = this.characterSheet.journalEntries.reduce((previousValue, entry) => {
                     return +previousValue + +entry.xp
@@ -1278,9 +1283,13 @@
                     return +previousValue + +entry.amount
                 }, 0)
 
-                let initiativeXP = (this.characterSheet.initiativeIncreases < 0) ? Math.floor(30 * (Math.abs(this.characterSheet.initiativeIncreases) * (+Math.abs(this.characterSheet.initiativeIncreases) + 1) / 2)) : 0
+                let bpXP = (this.characterSheet.bpIncreases < 0) ? this.xpBP : 0
+                let dcXP = (this.characterSheet.dcToHitIncreases < 0) ? this.xpDC : 0
+                let hpXP = (this.characterSheet.hpIncreases < 0) ? this.xpHP : 0
+                let initiativeXP = (this.characterSheet.initiativeIncreases < 0) ? this.xpInitiative : 0
+                let rerollXP = (this.characterSheet.rerollsIncreases < 0) ? this.xpRerolls : 0
 
-                return +xpEarned + +flawsXP + +initiativeXP
+                return +xpEarned + +flawsXP + +bpXP + +dcXP + +hpXP + +initiativeXP + +rerollXP
             },
             //Character Properties End
             abilities() {
