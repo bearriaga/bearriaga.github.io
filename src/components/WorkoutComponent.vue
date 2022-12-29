@@ -61,9 +61,15 @@
                                             </v-col>
                                             <v-col cols="12" md="6">
                                                 <v-text-field label="Reps" type="number" v-model="s.reps">
-                                                    <v-icon slot="prepend" color="error" @click="updateRep(i, j, -1)" :disabled="s.reps <= 0">mdi-minus</v-icon>
-                                                    <v-icon slot="append" color="success" @click="updateRep(i, j, 1)">mdi-plus</v-icon>
                                                 </v-text-field>
+                                                <v-row>
+                                                    <v-col>
+                                                        <v-icon color="error" @click="updateRep(i, j, -1)" :disabled="s.reps <= 0">mdi-minus</v-icon>
+                                                    </v-col>
+                                                    <v-col>
+                                                        <v-icon color="success" @click="updateRep(i, j, 1)">mdi-plus</v-icon>
+                                                    </v-col>
+                                                </v-row>
                                             </v-col>
                                             <v-col cols="12" md="12">
                                                 <v-textarea label="Notes" v-model="s.notes" auto-grow outlined rows="1"></v-textarea>
@@ -80,9 +86,9 @@
                     </v-expansion-panel>
                 </v-expansion-panels>
                 <div class="text-center">
-                <v-btn color="primary" @click.stop="addExercise">
-                    Add Exercise
-                </v-btn>
+                    <v-btn color="primary" @click.stop="addExercise">
+                        Add Exercise
+                    </v-btn>
                 </div>
             </template>
         </v-form>
@@ -185,7 +191,7 @@
             if (!this.$signedIn || this.$userData.email != 'turro92@gmail.com')
                 this.$router.push({ name: 'Home' })
             else
-                this.getWorkouts()
+            this.getWorkouts()
         },
         data() {
             return {
