@@ -2002,7 +2002,6 @@
                     title: '',
                     usedEffects: []
                 },
-                //TODO: Move to gameDataStore
                 characteristics: [
                     'fitness',
                     'speed',
@@ -2068,7 +2067,6 @@
                     successesRequired: 0
                 },
                 moneyModifyAmount: 0,
-                //TODO: Move to gameDataStore
                 movementTypes: [
                     'Burrowing',
                     'Climb',
