@@ -10,8 +10,8 @@
                       min="0"
                       max="10"
                       v-model="value"
-                      @keyup.enter="rollDiceCheck">
-            <v-icon slot="append" @click="rollDiceCheck">mdi-dice-6</v-icon>
+                      @keyup.enter="rollDiceCheckEmit">
+            <v-icon slot="append" @click="rollDiceCheckEmit">mdi-dice-6</v-icon>
             <v-icon color="primary" 
                     slot="append" 
                     @click="updateEntry"
@@ -70,7 +70,7 @@
             updateEntry() {
                 this.$emit('updateEntryEmit', JSON.parse(JSON.stringify(this.skill)))
             },
-            rollDiceCheck() {
+            rollDiceCheckEmit() {
                 this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSkill: true, name: this.skill.name, successes: 0 })
             }
         }

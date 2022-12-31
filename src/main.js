@@ -17,6 +17,52 @@ if (signin) {
 
 Vue.component('CharacterComponent', require('./components/CharacterComponent.vue').default);
 
+Vue.mixin({
+    data() {
+        return {
+            snackbar: {
+                show: false,
+                text: ''
+            }
+        }
+    },
+    methods: {
+        determineSuccesses(dieResult) {
+            if (dieResult < 4)
+                return 0
+            if (dieResult < 6)
+                return 1
+            if (dieResult >= 6)
+                return 2
+        },
+        getRandomIntInclusive: function (min, max) {
+            min = Math.ceil(min)
+            max = Math.floor(max)
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        },
+        rollDice(diceToRoll) {
+            let result = {
+                diceResults: [],
+                successes: 0
+            }
+
+            for (var i = 0; i < diceToRoll; i++) {
+                var dieResult = this.getRandomIntInclusive(1, 6)
+                result.diceResults.push(dieResult)
+                result.successes += this.determineSuccesses(dieResult)
+            }
+
+            return result
+        },
+        showSnackbar(text) {
+            this.snackbar = {
+                show: true,
+                text: text
+            }
+        }
+    }
+})
+
 Vue.config.productionTip = false
 
 Vue.use(PiniaVuePlugin)

@@ -19,7 +19,7 @@
                                        :skill="skill"
                                        @deleteEntryEmit="deleteDialog($event)"
                                        @updateEntryEmit="updateDialog($event)"
-                                       @rollDiceCheckEmit="rollDiceCheck($event)"></SkillListItem>
+                                       @rollDiceCheckEmit="rollDiceCheckEmit($event)"></SkillListItem>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -143,7 +143,7 @@
                 }
             },
             // CRUD Functions End
-            rollDiceCheck(value) {
+            rollDiceCheckEmit(value) {
                 this.$emit('rollDiceCheckEmit', value)
             },
             // Open Dialog Functions

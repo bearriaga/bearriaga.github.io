@@ -229,10 +229,6 @@
                 minions: [],
                 minionPanel: null,
                 selectedTemplate: null,
-                snackbar: {
-                    show: false,
-                    text: ''
-                },
                 statuses: this.gameDataStore.statuses,
                 statusHeaders: [
                     {
@@ -269,33 +265,6 @@
             },
             deleteEntry(object) {
                 this[object.arrayName] = this[object.arrayName].filter(x => { return x.id != object.object.id })
-            },
-            determineSuccesses(dieResult) {
-                if (dieResult < 4)
-                    return 0
-                if (dieResult < 6)
-                    return 1
-                if (dieResult >= 6)
-                    return 2
-            },
-            getRandomIntInclusive(min, max) {
-                min = Math.ceil(min)
-                max = Math.floor(max)
-                return Math.floor(Math.random() * (max - min + 1) + min) //The maximum is inclusive and the minimum is inclusive
-            },
-            rollDice(diceToRoll) {
-                let result = {
-                    diceResults: [],
-                    successes: 0
-                }
-
-                for (var i = 0; i < diceToRoll; i++) {
-                    var dieResult = this.getRandomIntInclusive(1, 6)
-                    result.diceResults.push(dieResult)
-                    result.successes += this.determineSuccesses(dieResult)
-                }
-
-                return result
             },
             rollMassRoller() {
                 if (!isNaN(this.massRoller.dice) && !isNaN(this.massRoller.enemies) && !isNaN(this.massRoller.luck)) {
@@ -375,12 +344,6 @@
                         title: 'Mass Roller',
                         type: 'Mass Roller'
                     })
-                }
-            },
-            showSnackbar(text) {
-                this.snackbar = {
-                    show: true,
-                    text: text
                 }
             },
             updateEntry(object) {

@@ -197,9 +197,10 @@
                 this.setDialog('Edit')
             },
             // Open Dialog Functions End
-            rollDiceCheck(object) {
-                this.$emit('rollDiceCheckEmit', object)
-            },
+            //Not currently used, fix when fixing journal
+            //rollDiceCheck(object) {
+            //    this.$emit('rollDiceCheckEmit', object)
+            //},
             validate() {
                 return this.$refs.form.validate()
             }

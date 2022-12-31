@@ -243,11 +243,7 @@
                     },
                     show: false
                 },
-                options: null,
-                snackbar: {
-                    show: false,
-                    text: ''
-                }
+                options: null
             }
         },
         methods: {
@@ -427,12 +423,6 @@
             },
             logPush(log) {
                 this.logDialog.log.push(log)
-            },
-            showSnackbar(text) {
-                this.snackbar = {
-                    show: true,
-                    text: text
-                }
             },
             updateCharacterSheet(characterSheet) {
                 this.characterSheet = characterSheet

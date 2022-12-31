@@ -2079,10 +2079,6 @@
                     'Swim',
                     'Teleport'
                 ],
-                snackbar: {
-                    show: false,
-                    text: ''
-                },
                 statuses: this.gameDataStore.statuses,
                 tab: 'abilities',
                 universalEffects: this.gameDataStore.universalEffects,
@@ -2269,19 +2265,6 @@
                 return `{{Save= ${this.abilityDialog.save.characteristic} ${this.abilityDialog.save.amount}}}`
             },
             //Dice Roll Functions
-            determineSuccesses(dieResult) {
-                if (dieResult < 4)
-                    return 0
-                if (dieResult < 6)
-                    return 1
-                if (dieResult >= 6)
-                    return 2
-            },
-            getRandomIntInclusive(min, max) {
-                min = Math.ceil(min)
-                max = Math.floor(max)
-                return Math.floor(Math.random() * (max - min + 1) + min) //The maximum is inclusive and the minimum is inclusive
-            },
             rerollFailures() {
                 var failureCount = this.abilityDialog.check.diceResults.filter(x => { return x < 4 }).length
                 let successDiceResults = this.abilityDialog.check.diceResults.filter(x => { return x > 3 })
@@ -2338,20 +2321,6 @@
                 this.abilityDialog.isAbility = false
                 this.abilityDialog.damage.show = false
                 this.abilityDialog.save.show = false
-            },
-            rollDice(diceToRoll) {
-                let result = {
-                    diceResults: [],
-                    successes: 0
-                }
-
-                for (var i = 0; i < diceToRoll; i++) {
-                    var dieResult = this.getRandomIntInclusive(1, 6)
-                    result.diceResults.push(dieResult)
-                    result.successes += this.determineSuccesses(dieResult)
-                }
-
-                return result
             },
             rollCheck(diceCheckObject) {
                 var result = {
@@ -2760,12 +2729,6 @@
                 }
             },
             //Reroll Functions End
-            showSnackbar(text) {
-                this.snackbar = {
-                    show: true,
-                    text: text
-                }
-            },
             specialInputWithEditModal(valueName) {
                 if (valueName == 'initiative') {
                     this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.speed + +this.characterSheet.initiativeIncreases + +this.buffAmount({ type: 'Initiative' })

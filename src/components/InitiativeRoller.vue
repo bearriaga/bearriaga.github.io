@@ -250,11 +250,11 @@
                 this.people.push(person)
             },
             // Initiative Code Start
-            getRandomInt(max) {
-                return Math.floor(Math.random() * max) + 1;
-            },
+            //getRandomInt(max) {
+            //    return Math.floor(Math.random() * max) + 1;
+            //},
             rollInitiative(diceMaxNumber, modifier) {
-                return this.getRandomInt(diceMaxNumber) + +modifier
+                return this.getRandomIntInclusive(1, diceMaxNumber) + +modifier
             },
             rollPeopleInitiatives(diceMaxNumber) {
                 let peopleDup = this.people

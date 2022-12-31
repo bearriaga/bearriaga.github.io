@@ -3,6 +3,7 @@
     "",
     "\\src",
     "\\src\\components",
+    "\\src\\data",
     "\\src\\stores",
     "\\src\\views"
   ],

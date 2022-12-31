@@ -223,10 +223,10 @@
                     reps: 0,
                     weight: 0
                 },
-                snackbar: {
-                    show: false,
-                    text: ''
-                },
+                //snackbar: {
+                //    show: false,
+                //    text: ''
+                //},
                 workout: {
                     date: new Date(new Date().toLocaleDateString()).toISOString().substr(0, 10),
                     exercises: [],
