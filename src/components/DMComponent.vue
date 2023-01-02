@@ -2,32 +2,7 @@
     <div>
         <h1 class="text-center">DM Page</h1>
 
-        <v-card>
-            <v-card-title>
-                Mass Roller
-            </v-card-title>
-            <v-card-text>
-                <v-row>
-                    <v-col cols="6">
-                        <v-text-field label="Enemies*" v-model="massRoller.enemies" type="number"></v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                        <v-text-field label="Dice*" v-model="massRoller.dice" type="number"></v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                        <v-text-field label="LCK*" v-model="massRoller.luck" type="number"></v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                        <v-text-field label="Successes Required" v-model="massRoller.successesRequired" type="number"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" class="text-center">
-                        <v-btn @click="rollMassRoller()">
-                            <v-icon>mdi-dice-6</v-icon>
-                        </v-btn>
-                    </v-col>
-                </v-row>
-            </v-card-text>
-        </v-card>
+        <MassRoller @resultsEmit="massRollerResults($event)"></MassRoller>
 
         <v-card>
             <v-card-title>
@@ -93,7 +68,7 @@
                             </h3>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
-                                <v-data-table :headers="effectHeaders" :items="universalEffects" dense :hide-default-footer="true"></v-data-table>
+                            <v-data-table :headers="effectHeaders" :items="universalEffects" dense :hide-default-footer="true"></v-data-table>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                     <v-expansion-panel v-for="d in damageGroups" color="d.color" :key="d.name">
@@ -120,7 +95,7 @@
                     </v-expansion-panel>
                 </v-expansion-panels>
             </v-card-text>
-        </v-card>        
+        </v-card>
 
         <v-dialog v-model="generalDialog.show" width="500">
             <v-card>
@@ -159,6 +134,7 @@
 </template>
 
 <script>
+    import MassRoller from './MassRoller.vue'
     import MinionSection from './MinionSection.vue'
     import { useCharacterStore } from '@/stores/CharacterStore'
     import { useGameDataStore } from '@/stores/GameDataStore'
@@ -167,6 +143,7 @@
     export default {
         name: 'DMComponent',
         components: {
+            MassRoller,
             MinionSection
         },
         setup() {
@@ -266,85 +243,10 @@
             deleteEntry(object) {
                 this[object.arrayName] = this[object.arrayName].filter(x => { return x.id != object.object.id })
             },
-            rollMassRoller() {
-                if (!isNaN(this.massRoller.dice) && !isNaN(this.massRoller.enemies) && !isNaN(this.massRoller.luck)) {
-                    this.generalDialog = {
-                        buttonText: '',
-                        buttonType: '',
-                        html: '',
-                        show: false,
-                        text: '',
-                        title: 'Mass Roller'
-                    }
-                    this.massRoller.results = []
-                    let copyText = `&{template:default} {{name= Mass Roller}}`
-                    let copyTextEnd = ''
-                    let successesRequired = (!isNaN(this.massRoller.successesRequired) && this.massRoller.successesRequired > 0)
-                    for (var i = 0; i < this.massRoller.enemies; i++) {
-                        let result = {
-                            advantage: false,
-                            diceResults: [],
-                            fate: 0,
-                            show: true,
-                            selectedRerolls: [],
-                            succeeded: false,
-                            successes: 0,
-                            successesFromLuck: 0,
-                            threat: false
-                        }
-                        let rdResult = this.rollDice(this.massRoller.dice)
-
-                        result.diceResults = rdResult.diceResults;
-                        result.successes += +rdResult.successes
-                        result.fate = result.diceResults[0]
-                        if (result.fate == 6) {
-                            result.advantage = true
-                            result.successesFromLuck = this.massRoller.luck
-                            result.successes += +result.successesFromLuck
-                        } else if (result.fate == 1) {
-                            result.threat = true
-                        }
-
-                        if (successesRequired)
-                            result.succeeded = result.successes >= this.massRoller.successesRequired
-
-                        this.generalDialog.html += '<div><div><b>Successes: ' + result.successes + '</b></div>' +
-                            '<div> Fate: ' + result.fate + '</div>' +
-                            '<div> Dice Results: [' + result.diceResults.join(', ') + ']</div>';
-
-                        copyTextEnd += `{{Enemy ${i + 1} Successes = ${result.successes}}}`
-                        if (successesRequired && !result.succeeded && result.threat)
-                            copyTextEnd += `{{Enemy ${i + 1} Crit Failed = }}`
-
-                        this.massRoller.results.push(result)
-                    }
-                    let successes = this.massRoller.results.filter(x => { return x.succeeded }).length
-                    let critFailures = (successesRequired) ? this.massRoller.results.filter(x => { return !x.succeeded && x.threat }).length : 0
-                    if (successesRequired) {
-                        if (critFailures)
-                            this.generalDialog.html = `<div><b>Enemies Crit Failed: ${critFailures}</b></div>` + this.generalDialog.html
-
-                        this.generalDialog.html = `<div><b>Enemies Succeeded: ${successes}</b></div>` + this.generalDialog.html
-                        copyText += `{{Enemies Succeeded= ${successes}}}`
-
-                        if (critFailures)
-                            copyText += `{{Enemies Crit Failed= ${critFailures}}}`
-                    }
-
-                    copyText += copyTextEnd
-
-                    navigator.clipboard.writeText(copyText)
-                    this.showSnackbar('Copied Mass Roller Results to Clipboard')
-
-                    this.generalDialog.show = true
-
-                    this.$emit('logPushEmit', {
-                        copyText: copyText,
-                        object: JSON.parse(JSON.stringify(this.generalDialog)),
-                        title: 'Mass Roller',
-                        type: 'Mass Roller'
-                    })
-                }
+            massRollerResults(emitObject) {
+                //TODO: do something with emitObject.logObject when setting up log
+                this.generalDialog = emitObject.generalDialog
+                this.showSnackbar(emitObject.snackbarText)
             },
             updateEntry(object) {
                 let entriesDup = this[object.arrayName]
