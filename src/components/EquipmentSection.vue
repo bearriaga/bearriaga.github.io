@@ -164,19 +164,36 @@
                                                       v-model="equipment.ability.range"
                                                       type="number"></v-text-field>
                                     </v-col>
-                                    <v-col cols="6">
-                                        <v-switch label="Is Melee Attack" inset v-model="equipment.ability.isMeleeAttack"></v-switch>
-                                    </v-col>
                                     <v-col cols="12">
                                         <h3 class="text-center">
                                             Damage
                                         </h3>
                                     </v-col>
-                                    <v-col cols="12" md="6">
+                                    <v-col cols="12" md="4">
                                         <v-text-field label="Dice" type="number" v-model="equipment.ability.damage.dice"></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" md="6">
+                                    <v-col cols="12" md="4">
                                         <v-text-field label="Flat" type="number" v-model="equipment.ability.damage.flat"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" md="4">
+                                        <v-text-field label="Crit Dice" type="number" v-model="equipment.ability.damage.critDice"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-select label="Damage Characteristic"
+                                                  :items="characteristics"
+                                                  v-model="equipment.ability.damage.characteristic"
+                                                  clearable>
+                                            <TooltipComponent slot="prepend" :text="'CHAR added to damage, overrides Characteristic Check value.'"></TooltipComponent>
+                                        </v-select>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-switch label="Is Melee Attack" inset v-model="equipment.ability.isMeleeAttack"></v-switch>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-switch label="Flat Damage to Crit" inset v-model="equipment.ability.damage.critFlat"></v-switch>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-switch label="Max Crit" inset v-model="equipment.ability.damage.critMax"></v-switch>
                                     </v-col>
                                     <v-col cols="12">
                                         <v-autocomplete label="Damage Types"
@@ -332,6 +349,10 @@
                         crCost: 0,
                         characteristic: '',
                         damage: {
+                            characteristic: '',
+                            critDice: 0,
+                            critFlat: false,
+                            critMax: false,
                             dice: 0,
                             flat: 0,
                             types: []
@@ -380,6 +401,10 @@
                         crCost: 0,
                         characteristic: '',
                         damage: {
+                            characteristic: '',
+                            critDice: 0,
+                            critFlat: false,
+                            critMax: false,
                             dice: 0,
                             flat: 0,
                             types: []

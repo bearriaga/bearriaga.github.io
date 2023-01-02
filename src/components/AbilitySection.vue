@@ -111,29 +111,51 @@
                                                   clearable></v-select>
                                     </v-col>
                                 </template>
-                                <v-col cols="12">
-                                    <v-row>
-                                        <v-col cols="12">
-                                            <h3 class="text-center">
-                                                Damage
-                                            </h3>
-                                        </v-col>
-                                        <v-col cols="12" md="6">
-                                            <v-text-field label="Dice" type="number" v-model="ability.damage.dice"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" md="6">
-                                            <v-text-field label="Flat" type="number" v-model="ability.damage.flat"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12">
-                                            <v-select label="Damage Types"
-                                                      :items="damageTypes"
-                                                      v-model="ability.damage.types"
-                                                      multiple
-                                                      :rules="textRules"
-                                                      required></v-select>
-                                        </v-col>
-                                    </v-row>
-                                </v-col>
+                                <v-card>
+                                    <v-col cols="12">
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <h3 class="text-center">
+                                                    Damage
+                                                </h3>
+                                            </v-col>
+                                            <v-col cols="12" md="4">
+                                                <v-text-field label="Dice" type="number" v-model="ability.damage.dice"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="4">
+                                                <v-text-field label="Flat" type="number" v-model="ability.damage.flat"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" md="4">
+                                                <v-text-field label="Crit Dice" type="number" v-model="ability.damage.critDice"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12">
+                                                <v-select label="Characteristic"
+                                                          :items="characteristics"
+                                                          v-model="ability.damage.characteristic"
+                                                          clearable>
+                                                    <TooltipComponent slot="prepend" :text="'CHAR added to damage, overrides Characteristic Check value.'"></TooltipComponent>
+                                                </v-select>
+                                            </v-col>
+                                            <v-col cols="12" md="6">
+                                                <v-switch label="Melee Attack" inset v-model="ability.isMeleeAttack"></v-switch>
+                                            </v-col>
+                                            <v-col cols="12" md="6">
+                                                <v-switch label="Flat Damage Crits" inset v-model="ability.damage.critFlat"></v-switch>
+                                            </v-col>
+                                            <v-col cols="12" md="6">
+                                                <v-switch label="Max Crit" inset v-model="ability.damage.critMax"></v-switch>
+                                            </v-col>
+                                            <v-col cols="12">
+                                                <v-select label="Damage Types"
+                                                          :items="damageTypes"
+                                                          v-model="ability.damage.types"
+                                                          multiple
+                                                          :rules="textRules"
+                                                          required></v-select>
+                                            </v-col>
+                                        </v-row>
+                                    </v-col>
+                                </v-card>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="AP Cost" type="number" v-model="ability.apCost"></v-text-field>
                                 </v-col>
@@ -148,10 +170,7 @@
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Duration" v-model="ability.duration"></v-text-field>
-                                </v-col>
-                                <v-col cols="6" md="4">
-                                    <v-switch label="Is Melee Attack" inset v-model="ability.isMeleeAttack"></v-switch>
-                                </v-col>
+                                </v-col>                                
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Range" type="number" v-model="ability.range"></v-text-field>
                                 </v-col>
@@ -406,6 +425,10 @@
                     crCost: 0,
                     characteristic: '',
                     damage: {
+                        characteristic: '',
+                        critDice: 0,
+                        critFlat: false,
+                        critMax: false,
                         dice: 0,
                         flat: 0,
                         types: []
@@ -440,6 +463,10 @@
                     crCost: 0,
                     characteristic: '',
                     damage: {
+                        characteristic: '',
+                        critDice: 0,
+                        critFlat: false,
+                        critMax: false,
                         dice: 0,
                         flat: 0,
                         types: []

@@ -36,7 +36,7 @@
                                 <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
                             </v-col>
                             <v-col cols="12" v-if="characteristic || dice" class="text-center">
-                                    <v-btn color="primary" @click="rollAbility(ability)">Roll Check</v-btn>
+                                <v-btn color="primary" @click="rollAbility(ability)">Roll Check</v-btn>
                             </v-col>
                             <v-col cols="12" v-if="characteristic">
                                 <v-select label="Characteristic" :items="characteristics" v-model="characteristic" readonly>
@@ -60,11 +60,26 @@
                                             </v-expansion-panel-header>
                                             <v-expansion-panel-content>
                                                 <v-row>
-                                                    <v-col cols="12" md="6" v-if="damage.dice">
+                                                    <v-col cols="12" md="4" v-if="damage.dice">
                                                         <v-text-field label="Dice" v-model="damage.dice"></v-text-field>
                                                     </v-col>
-                                                    <v-col cols="12" md="6" v-if="damage.flat">
+                                                    <v-col cols="12" md="4" v-if="damage.flat">
                                                         <v-text-field label="Flat" v-model="damage.flat"></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="12" md="4" v-if="damage.critDice">
+                                                        <v-text-field label="Crit Dice" v-model="damage.critDice"></v-text-field>
+                                                    </v-col>
+                                                    <v-col cols="12" v-if="damage.characteristic">
+                                                        <v-select label="Damage Characteristic" :items="characteristics" v-model="damage.characteristic" readonly></v-select>
+                                                    </v-col>
+                                                    <v-col cols="12" v-if="isMeleeAttack">
+                                                        <v-switch label="Melee Attack" inset v-model="isMeleeAttack"></v-switch>
+                                                    </v-col>
+                                                    <v-col cols="6" v-if="damage.critFlat">
+                                                        <v-switch label="Flat Damage to Crit" inset v-model="damage.critFlat"></v-switch>
+                                                    </v-col>
+                                                    <v-col cols="6" v-if="damage.critMax">
+                                                        <v-switch label="Max Crit" inset v-model="damage.critMax"></v-switch>
                                                     </v-col>
                                                     <v-col cols="12">
                                                         <v-text-field label="Type" v-model="damage.types"></v-text-field>

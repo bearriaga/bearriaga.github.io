@@ -51,7 +51,7 @@
                                       @updateEntryEmit="updateEntry($event)"
                                       @updatePanelEmit="updatePanel($event)"
                                       @rollDiceCheckEmit="rollStandAloneCheck($event)"></SkillSection>
-                        <MassRoller @resultsEmit="massRollerResults($event)"></MassRoller>                        
+                        <MassRoller @resultsEmit="massRollerResults($event)"></MassRoller>
                     </div>
                 </v-col>
                 <v-col cols="12" lg="3" md="6">
@@ -434,7 +434,7 @@
                                   @rollDiceCheckEmit="rollStandAloneCheck($event)"></SkillSection>
                     <CharacteristicViewItem @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                             :characteristic="genericCharacteristic"></CharacteristicViewItem>
-                    <MassRoller @resultsEmit="massRollerResults($event)"></MassRoller>                    
+                    <MassRoller @resultsEmit="massRollerResults($event)"></MassRoller>
                 </v-col>
                 <v-col cols="12" md="9">
                     <v-tabs v-model="tab">
@@ -2127,7 +2127,7 @@
                 return adj
             },
             characterInit() {
-                //By setting characterSheet here it forces all computed varialbes and watch methods to run
+                //By setting characterSheet here it forces all computed variables and watch methods to run
                 this.characterSheet = JSON.parse(JSON.stringify(this.character))
             },
             cleanseStatuses() {
@@ -2465,14 +2465,18 @@
                 this.rerollSelectedDamage()
             },
             rollCrit() {
-                let damage = this.rollDamage(this.abilityDialog.damage.damage, false, null, true)
+                let char = (this.abilityDialog.ability.damage.characteristic) ? this.abilityDialog.ability.damage.characteristic : this.abilityDialog.ability.characteristic
+                this.abilityDialog.damage = this.rollDamage(this.abilityDialog.damage.damage, false, char, true)
+                //let damage = this.rollDamage(this.abilityDialog.damage.damage, false, null, true)
 
-                this.abilityDialog.damage.diceResults = this.abilityDialog.damage.diceResults.concat(damage.diceResults)
-                this.abilityDialog.damage.sum += +damage.sum
+                //this.abilityDialog.damage.diceResults = this.abilityDialog.damage.diceResults.concat(damage.diceResults)
+                //this.abilityDialog.damage.sum += +damage.sum
             },
             rollAbilityDamage(ability) {
                 this.abilityDialog.ability = ability
-                this.abilityDialog.damage = this.rollDamage(ability.damage, ability.isMeleeAttack, ability.characteristic, false)
+                //TODO: move this char stuff to rollDamage function
+                let char = (ability.damage.characteristic) ? ability.damage.characteristic : ability.characteristic
+                this.abilityDialog.damage = this.rollDamage(ability.damage, ability.isMeleeAttack, char, false)
                 this.abilityDialog.show = true
                 this.abilityDialog.check.show = false
                 this.abilityDialog.isAbility = false
@@ -2481,118 +2485,123 @@
 
             },
             rollDamage(damage, isMeleeAttack, characteristic, isCrit) {
-                let char = 0
-                let diceResults = []
-                let fit = 0
-                let flat = 0
-                let flatTotal = 0
-                let flatTotalBreakdown = ''
-                let sum = 0
+                let damageObj = (isCrit) ? JSON.parse(JSON.stringify(this.abilityDialog.damage)) : {
+                    char: 0,
+                    damage: damage,
+                    diceResults: [],
+                    effects: [],
+                    fit: 0,
+                    flat: 0,
+                    flatTotal: 0,
+                    flatTotalBreakdown: '',
+                    isCrit: false,
+                    selectedRerolls: [],
+                    show: true,
+                    sum: 0,
+                    types: []
+                }
 
+                //Roll Die
                 if (damage.dice && !isNaN(damage.dice)) {
-                    for (var i = 0; i < damage.dice; i++) {
-                        diceResults.push({
+                    for (let i = 0; i < damage.dice; i++) {
+                        damageObj.diceResults.push({
                             value: this.getRandomIntInclusive(1, 6),
                             type: (!isCrit) ? 'normal' : 'crit'
                         })
                     }
-                    sum += diceResults.reduce((previousValue, entry) => {
-                        return +previousValue + +entry.value
-                    }, 0)
                 }
 
-                if (!isCrit) {
-                    if (damage.flat > 0 && !isNaN(damage.flat)) {
-                        flat = +damage.flat
-                        flatTotal += +damage.flat
-                        flatTotalBreakdown += `Flat(${flat}) + `
-                        sum += +damage.flat
-                    }
-
-                    if (characteristic) {
-                        char = this[characteristic]
-                        flatTotal += +char
-                        flatTotalBreakdown += `${characteristic.toUpperCase()}(${char}) + `
-                        sum += +char
-                    }
-
-                    if (!damage.types.includes('Healing')) {
-                        if (isMeleeAttack) {
-                            fit = this.fitness
-                            flatTotal += +fit
-                            flatTotalBreakdown += `Melee FIT(${fit})`
-                            sum += +fit
-                        }
-                    }
-
-                    if (flatTotalBreakdown.substring(flatTotalBreakdown.length - 3) == ' + ')
-                        flatTotalBreakdown = flatTotalBreakdown.substring(0, flatTotalBreakdown.length - 3)
+                //Add Flat
+                if ((!isCrit || (isCrit && damage.critFlat)) && (damage.flat > 0 && !isNaN(damage.flat))) {
+                    damageObj.flat += +damage.flat
+                    damageObj.flatTotal += +damage.flat
                 }
 
-                if (isCrit && !this.abilityDialog.damage.isCrit) {
-                    this.abilityDialog.damage.isCrit = true
-                    let luckDiceResults = []
-                    for (var j = 0; j < Math.floor(this.luck/2); j++) {
-                        luckDiceResults.push({
+                //Add Char
+                if (!isCrit && characteristic) {
+                    damageObj.char = this[characteristic]
+                    damageObj.flatTotal += +damageObj.char
+                }
+
+                //Add Fit
+                if (!isCrit && isMeleeAttack && !damage.types.includes('Healing')) {
+                    damageObj.fit = this.fitness
+                    damageObj.flatTotal += +damageObj.fit
+                }
+
+                //Set info text
+                damageObj.flatTotalBreakdown = ''
+                damageObj.flatTotalBreakdown += (damageObj.flat) ? `Flat(${damageObj.flat}) + ` : ''
+                damageObj.flatTotalBreakdown += (damageObj.char) ? `${characteristic.toUpperCase()}(${damageObj.char}) + ` : ''
+                damageObj.flatTotalBreakdown += (damageObj.fit) ? `Melee FIT(${damageObj.fit})` : ''
+                if (damageObj.flatTotalBreakdown.substring(damageObj.flatTotalBreakdown.length - 3) == ' + ')
+                    damageObj.flatTotalBreakdown = damageObj.flatTotalBreakdown.substring(0, damageObj.flatTotalBreakdown.length - 3)
+
+                //Add Crit Dice
+                if (isCrit && damage.critDice && !isNaN(damage.critDice)) {
+                    for (let i = 0; i < damage.critDice; i++) {
+                        damageObj.diceResults.push({
+                            value: this.getRandomIntInclusive(1, 6),
+                            type: 'crit'
+                        })
+                    }
+                }
+
+                //Add Luck
+                if (isCrit && !damageObj.isCrit) {
+                    damageObj.isCrit = true
+                    for (let i = 0; i < Math.floor(this.luck / 2); i++) {
+                        damageObj.diceResults.push({
                             value: this.getRandomIntInclusive(1, 6),
                             type: 'luck'
                         })
                     }
-                    let luckDamage = luckDiceResults.reduce((previousValue, entry) => {
-                        return +previousValue + +entry.value
-                    }, 0)
-                    diceResults = diceResults.concat(luckDiceResults)
-                    sum += +luckDamage
                 }
 
+                if (!isCrit) {
+                    let types = []
+                    let effects = []
+                    damage.types.forEach(type => {
+                        let color = ''
+                        let icon = ''
+                        let typeEffects = []
+                        this.damageGroups.forEach((group) => {
+                            if (type == group.name || group.types.some(x => x.name == type)) {
+                                color = group.color
 
-                let types = []
-                let effects = []
-                damage.types.forEach(type => {
-                    let color = ''
-                    let icon = ''
-                    let typeEffects = []
-                    this.damageGroups.forEach((group) => {
-                        if (type == group.name || group.types.some(x => x.name == type)) {
-                            color = group.color
-
-                            if (type == group.name) {
-                                icon = group.icon
-                                typeEffects = JSON.parse(JSON.stringify(group.effects))
-                                typeEffects.forEach(effect => effect.type = group.name)
-                            } else {
-                                let damageType = group.types.find(t => t.name == type)
-                                if (damageType) {
-                                    icon = damageType.icon
-                                    typeEffects = JSON.parse(JSON.stringify(damageType.effects))
-                                    typeEffects.forEach(effect => effect.type = damageType.name)
+                                if (type == group.name) {
+                                    icon = group.icon
+                                    typeEffects = JSON.parse(JSON.stringify(group.effects))
+                                    typeEffects.forEach(effect => effect.type = group.name)
+                                } else {
+                                    let damageType = group.types.find(t => t.name == type)
+                                    if (damageType) {
+                                        icon = damageType.icon
+                                        typeEffects = JSON.parse(JSON.stringify(damageType.effects))
+                                        typeEffects.forEach(effect => effect.type = damageType.name)
+                                    }
                                 }
                             }
-                        }
+                        })
+                        effects = effects.concat(typeEffects)
+                        types.push({
+                            color: color,
+                            icon: icon,
+                            text: type
+                        })
                     })
-                    effects = effects.concat(typeEffects)
-                    types.push({
-                        color: color,
-                        icon: icon,
-                        text: type
-                    })
-                })
-
-                return {
-                    char: char,
-                    damage: damage,
-                    diceResults: diceResults,
-                    effects: effects,
-                    fit: fit,
-                    flat: flat,
-                    flatTotal: flatTotal,
-                    flatTotalBreakdown: flatTotalBreakdown,
-                    isCrit: false,
-                    selectedRerolls: [],
-                    show: true,
-                    sum: sum,
-                    types: types
+                    damageObj.types = types
+                    damageObj.effects = effects
                 }
+
+                if (isCrit && damage.critMax)
+                    damageObj.diceResults.forEach(d => { d.value = 6 })
+
+                damageObj.sum = +damageObj.diceResults.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.value
+                }, 0) + +damageObj.flatTotal
+
+                return damageObj                
             },
             //Reroll Functions End
             specialInputWithEditModal(valueName) {
