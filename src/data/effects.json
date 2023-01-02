@@ -96,6 +96,22 @@
     "tags": "AP, Combat, Self"
   },
   {
+    "name": "Action Point Gain",
+    "description": "Target immediately gains action points. Each target can only gain action points through this effect once per turn.",
+    "xpCost": "100xp per AP",
+    "category": "Effect",
+    "duration": "Instant",
+    "tags": "AP, Buff"
+  },
+  {
+    "name": "Action Point Loss",
+    "description": "Target immediately loses action points.  Each target can only lose action points through this effect once per turn.",
+    "xpCost": "100xp per AP",
+    "category": "Effect",
+    "duration": "Instant",
+    "tags": "AP, Debuff"
+  },
+  {
     "name": "Additional Resource Pool",
     "description": "Create a secondary Class Resource for a class that can be drawn from separately from your first, max value is set to 1 by default.",
     "xpCost": "150 xp",
@@ -232,6 +248,14 @@
     "tags": "Bestow, Ability, Buff"
   },
   {
+    "name": "Body: Extra Limb",
+    "description": "Character has a fully functional extra limb, can be arm, leg, prehensile tail. Anything the limb can normally do the extra limb can do as well.",
+    "xpCost": "50 xp per extra limb.",
+    "category": "Stat",
+    "duration": "Passive",
+    "tags": "Body, Passive"
+  },
+  {
     "name": "Body: Limb Unusable",
     "description": "When this ability is triggered, a chosen limb or other body part is rendered unusable for its duration. When the duration expires, the limb returns to normal use.\nIn most instances, this effect would render the chosen limb numb and limp.",
     "xpCost": "-30 xp for minor body parts\n-50 xp for limbs and major body parts",
@@ -336,6 +360,14 @@
     "tags": "Buff, Duration"
   },
   {
+    "name": "Bulky",
+    "description": "This creature or object is large and bulky. Creatures of the same size or smaller may use it as cover or hide behind it for stealth rolls.",
+    "xpCost": "20 xp",
+    "category": "Talent",
+    "duration": "Passive",
+    "tags": "Self, Cover, Size"
+  },
+  {
     "name": "Channeled",
     "description": "You must spend CR each round to maintain this duration effect.",
     "xpCost": "-15% multiplier upcharges per CR",
@@ -424,7 +456,7 @@
     "tags": "Class Resource, Flaw, Debuff, Self, Limit"
   },
   {
-    "name": "Class Resource: Gain ",
+    "name": "Class Resource: Gain",
     "description": "Gain points of a class resource for using this ability",
     "xpCost": "50 xp per resource point",
     "category": "Effect",
@@ -537,7 +569,7 @@
   },
   {
     "name": "Cleanse: Targeted",
-    "description": "Remove a single instance of a specified status effect from the target, the specified effect is chosen when this ability is purchased. Other status effects may not be cleansed.",
+    "description": "Remove a single instance of a specified status effect from the target, the specified effect is chosen when this ability is purchased. Other status effects may not be cleansed. Spending enough to remove 5 ranks removes all ranks of a ranked status.",
     "xpCost": "20% of the status effect's cost",
     "category": "Effect",
     "duration": "Instant",
@@ -640,9 +672,17 @@
     "tags": "Wealth, Crafting, Speed"
   },
   {
-    "name": "Crafting: Instant Crafting",
+    "name": "Crafting: Instant Crafting - Consumable",
     "description": "When this ability activates, instantly create a consumable object up to this effect's gold value that your character knows to make and consume that amount of gold.",
     "xpCost": "5 xp per 1 gold",
+    "category": "Effect",
+    "duration": "Instant",
+    "tags": "Wealth, Crafting"
+  },
+  {
+    "name": "Crafting: Instant Crafting - Equipment",
+    "description": "When this ability activates, instantly create a non-consumable object up to this effect's gold value that your character knows to make and consume that amount of gold.",
+    "xpCost": "50 xp per 1 gold",
     "category": "Effect",
     "duration": "Instant",
     "tags": "Wealth, Crafting"
@@ -825,7 +865,7 @@
   },
   {
     "name": "Damage: Add CHAR",
-    "description": "Adds the number of dice in a CHAR’s pool to the damage the attack deals",
+    "description": "Adds the number of dice in a CHAR’s pool to the damage the attack deals.\nThis can only be purchased once per ability.",
     "xpCost": "120 xp",
     "category": "Extra",
     "duration": null,
@@ -833,8 +873,8 @@
   },
   {
     "name": "Damage: Additional Type",
-    "description": "Allows damage dice of an additional damage type to be added to this ability. All damage types added this way are considered part of the same attack and successes may be spent in any of their tables. The target's highest damage resistance is used (e.g slashing+fire damage dealt to a target with 5 slashing DR and 3 fire DR is reduced by 5)",
-    "xpCost": "40 xp per additional damage type",
+    "description": "Allows damage dice of an additional damage type to be added to this ability. All damage types added this way are considered part of the same attack and successes may be spent in any of their tables. The target's highest damage resistance is used (e.g slashing+fire damage dealt to a target with 5 slashing DR and 3 fire DR is reduced by 5). True damage may not be an additional type, use Damage: Alternate Type instead",
+    "xpCost": "20 xp per additional damage type",
     "category": "Extra",
     "duration": null,
     "tags": "Damage Type"
@@ -862,6 +902,22 @@
     "category": "Extra",
     "duration": null,
     "tags": "Damage Type, AP"
+  },
+  {
+    "name": "Damage: Charge Through",
+    "description": "Requires Damage: Charging Attack.\nWhen you would make a Charging Attack, you no longer must give up all your remaining movement.",
+    "xpCost": "30 xp",
+    "category": "Extra",
+    "duration": null,
+    "tags": "Movement, Combat, Damage, Mount"
+  },
+  {
+    "name": "Damage: Charging Attack",
+    "description": "Requires melee attack.\nWhen you hit a target with this attack and have movement remaining and have traveled at least half your base movement distance, you may give up all remaining movement to deal half that movement as bonus flat damage.",
+    "xpCost": "150 xp",
+    "category": "Extra",
+    "duration": null,
+    "tags": "Movement, Combat, Damage, Mount"
   },
   {
     "name": "Damage: Convert Damage Type",
@@ -921,7 +977,7 @@
   },
   {
     "name": "Damage: Object Destruction",
-    "description": "Deal 3x damage to objects or ignore half their DR(all). If the object has Incredible Durability and the damage type this ability deals is not the one the object is vulnerable to, you may still deal normal (1x) damage to it",
+    "description": "Deal 3x damage to objects. If the object has Incredible Durability and the damage type this ability deals is not the one the object is vulnerable to, you may still deal normal (1x) damage to it",
     "xpCost": "100 xp",
     "category": "Extra",
     "duration": null,
@@ -1002,7 +1058,7 @@
   {
     "name": "Death: Revenant",
     "description": "At the start of your turn and if you are dead, return from death all by your goddamned self. Return to 1 HP and 0 AP. You have any resource points that you had when you died.\nYou do not restore lost limbs and similar, but do regenerate enough so as to not be in any immediate danger of death (other than by other creature's actions).",
-    "xpCost": "150 xp",
+    "xpCost": "500 xp",
     "category": "Feat",
     "duration": "Passive",
     "tags": "Death, Heal, Self"
@@ -1032,7 +1088,7 @@
     "tags": "Defense"
   },
   {
-    "name": "Defense: Critical Resistance ",
+    "name": "Defense: Critical Resistance",
     "description": "Whenever the creature is struck by a critical hit, reduce the multiplier value of that critical hit by 1, to a minimum of 1.",
     "xpCost": "120 xp per multiplier reduction",
     "category": "Stat",
@@ -1090,18 +1146,10 @@
   {
     "name": "Defense: Damage Resist- Half Type",
     "description": "Applies a buff effect that reduces remaining damage taken by half after normal damage resistances, but only for the specified type.",
-    "xpCost": "50 xp",
+    "xpCost": "100 xp",
     "category": "Effect",
     "duration": "1 round",
     "tags": "Defense, Damage Type, Buff"
-  },
-  {
-    "name": "Defense: Damage Resist- Multiply",
-    "description": "Ability applies a buff to multiply a target's DR by 2. If this is purchased multiple times, the multiplier increases by 1 each purchase.\nEx: purchased once multiply the DR by 2, purchased twice you multiply by 3.",
-    "xpCost": "25 xp per single type\n75 xp per category",
-    "category": "Effect",
-    "duration": "1 round",
-    "tags": "Defence, Buff, Duration"
   },
   {
     "name": "Defense: Damage Resist- Type",
@@ -1136,7 +1184,7 @@
     "tags": "Defense, Passive, Self"
   },
   {
-    "name": "Defense: Evasive Maneuvers ",
+    "name": "Defense: Evasive Maneuvers",
     "description": "Whenever this character is targeted by a ranged attack, if this character had moved at least 5 squares on its previous turn, increase the DC of the ranged attack by 1.",
     "xpCost": "100 xp",
     "category": "Talent",
@@ -1153,7 +1201,7 @@
   },
   {
     "name": "Defense: It Cut Only Thread",
-    "description": "Requires wearing Equipment that has normal durability and possesses stats of some kind.\nOnce per round, you may choose to halve damage taken from one action by applying sunder(3) to a piece of equipment you current have equipped and that is not immune to the sunder effect.\nIn order to activate this effect, this substitution must make logical sense in the current cirumstances. If an object is destroyed in any part by this effect it cannot be repaired mid-combat by any means.",
+    "description": "Requires wearing Equipment that has normal durability and possesses stats of some kind.\nOnce per round, you may choose to halve damage taken from one action by applying that damage with Sunder to a piece of equipment you current have equipped and that is not immune to damage.\nIn order to activate this effect, this substitution must make logical sense in the current cirumstances. If an object is destroyed in any part by this effect it cannot be repaired mid-combat by any means.",
     "xpCost": "100 xp",
     "category": "Feat",
     "duration": "Passive",
@@ -1190,6 +1238,30 @@
     "category": "Activation",
     "duration": null,
     "tags": "Flaw, Duration, AoE"
+  },
+  {
+    "name": "Dice -1",
+    "description": "Using the ability has one less die, can stack. Must be used on an ability that gains dice from some other Effect/Extra and may not go below the gained dice. Example: the ability gains 5 dice from the Character's FIT, the Dice -1 Extra may be added up to 5 times.",
+    "xpCost": "-40 xp * the number of times this extra has been purchased (the second purchase is -80xp)",
+    "category": "Flaw",
+    "duration": null,
+    "tags": "Dice Roll, Flaw, Passive, Self, Successes"
+  },
+  {
+    "name": "Dice +1",
+    "description": "Using the ability has an extra die, can stack",
+    "xpCost": "40 xp * the number of times this extra has been purchased (the second purchase is 80xp)",
+    "category": "Modifier",
+    "duration": null,
+    "tags": "Dice Roll, Buff, Passive, Self, Successes"
+  },
+  {
+    "name": "Disarming",
+    "description": "When this ability targets an object via a called shot, if applicable that object is disarmed or otherwise knocked out of the owner's possession.",
+    "xpCost": "30 xp",
+    "category": "Extra",
+    "duration": null,
+    "tags": "Object, Combat"
   },
   {
     "name": "Dispel",
@@ -1328,6 +1400,14 @@
     "tags": "Duration, Buff"
   },
   {
+    "name": "Duration: Until Rest / 24hr",
+    "description": "Requires Duration: Indefinite.\nThe effect with this duration goes away when the character rests or 24hrs have passed which ever comes first.",
+    "xpCost": "-50% from upcharge.",
+    "category": "Flaw",
+    "duration": null,
+    "tags": "Flaw, Duration"
+  },
+  {
     "name": "Environmental Weakness",
     "description": "Your character is actively averse to a certain environmental effect such as sunlight, silver, rain, flowers, etc.\nIf the weakness you possess is very rare, the GM may elect to reduce the values of this flaw.\nIf Aversion, your character simply hates it on a roleplay level and wishes to avoid it.\nIf Allergic, your character gains Sickened(1) when in contact. \nIf Harmful, your character gains Exhausted when in contact and takes 1 True Damage each round.\nIf Deadly, your character gains all the above and takes 20 True Damage each round.",
     "xpCost": "Aversion: -30 xp\nAllergic: -50 xp\nHarmful: -80 xp\nDeadly: -200 xp",
@@ -1440,6 +1520,14 @@
     "tags": "Duration, Flaw, Limited"
   },
   {
+    "name": "Forced Movement: Momentum Transfer",
+    "description": "Requires melee attack. When you hit a target with this attack and have movement remaining, you can give up remaining movement (max of your movespeed for that movement type) to push the target that many squares directly away from you.",
+    "xpCost": "30 xp",
+    "category": "Effect",
+    "duration": "Instant",
+    "tags": "Movement, Environment"
+  },
+  {
     "name": "Friendliest Fire",
     "description": "Requires an ability that may target allies with negative effects.\nDamage, negative statuses, and other harmful effects caused by this abilty no longer make attack rolls or trigger saves against allies, they instead instantly cause the negative effect to the affected allies.",
     "xpCost": "-80 xp",
@@ -1546,7 +1634,7 @@
   {
     "name": "Limited Uses",
     "description": "The ability may only be used a certain number of times before becoming inert. If this ability is purchased with XP these uses refresh on long rest.",
-    "xpCost": "1 use: -75%\n2 uses: -60%\n3 uses: -50%\n4 uses: -40%\n5 uses: -30%",
+    "xpCost": "1 use: -80%\n2 uses: -60%\n3 uses: -50%\n4 uses: -40%\n5 uses: -30%",
     "category": "Flaw",
     "duration": null,
     "tags": "Object, Equipment, Limit, Flaw, Limited Use"
@@ -2121,7 +2209,7 @@
   },
   {
     "name": "Object: Detachable",
-    "description": "When this object would be affected by Sunder or Damage, it may instead be removed from your character and moved into an adjacent square to reduce the ranks of sunder of points of damage by half, rounded down.\nAny appropriate AP must be spent to collect and re-equip the object.",
+    "description": "When this object would be affected by Damage, it may instead be removed from your character and moved into an adjacent square to reduce the points of damage by half, rounded down.\nAny appropriate AP must be spent to collect and re-equip the object.",
     "xpCost": "50 xp",
     "category": "Extra",
     "duration": null,
@@ -2145,7 +2233,7 @@
   },
   {
     "name": "Object: Fragile",
-    "description": "The object is particularly susceptible to damage of any kind. Reduce the object's HP to 5 and damage resistances all to 0.\nIf the object takes any ranks of Sunder, it is immediately destroyed.",
+    "description": "The object is particularly susceptible to damage of any kind. Reduce the object's HP to 5 and damage resistances all to 0.",
     "xpCost": "-50 xp",
     "category": "Flaw",
     "duration": null,
@@ -2216,6 +2304,14 @@
     "tags": "Object, Equipment, Limit, Limited Use"
   },
   {
+    "name": "Object: Secured",
+    "description": "Requires an Object that makes sense to be vulnerable to disarment.\nItem cannot be disarmed, or otherwise forcibly removed from the character without more extreme circumstances.",
+    "xpCost": "10 xp",
+    "category": "Extra",
+    "duration": null,
+    "tags": "Object, Immune, Utility"
+  },
+  {
     "name": "Object: Special Ammo",
     "description": "Converts the ability into 'unit' of ammunition for a given weapon type as appropriate for that weapon (ex, a bullet for a gun, an arrow for a bow).\nThe ability triggers when the ammo successfully strikes a target and then is consumed. This ability uses the range of the given weapon and the AP of either the Special Ammo or the Weapon, whichever is higher.",
     "xpCost": "-50% xp",
@@ -2280,8 +2376,32 @@
     "tags": "Self, Passive, Flaw"
   },
   {
+    "name": "Polymorph: Baleful",
+    "description": "Transform another unwilling creature into a new shape or species after a successfull attack check. The XP value of this effect equals the approximate power level of the creature chosen when this ability is purchased, with weaker creatures costing more.\nFor example, turning a hulking orc into a human could cost 50 xp, but turning them into a goldish on land would cost 250 xp thanks to being essentially stunned and slowly dying.",
+    "xpCost": "XP cost based on creature type chosen",
+    "category": "Effect",
+    "duration": "1 round",
+    "tags": "Utility, RP, Duration"
+  },
+  {
+    "name": "Polymorph: Willing",
+    "description": "Transform yourself or another willing creature into a new shape or species. The XP value of this effect equals the approximate power level of the creature chosen when this ability is purchased.\nFor example, a goldish would cost 10 xp and allow the user to swim and breathe underwater, but little else; while a dragon would be more expensive.",
+    "xpCost": "XP cost based on creature type chosen",
+    "category": "Effect",
+    "duration": "1 round",
+    "tags": "Utility, RP, Duration"
+  },
+  {
+    "name": "Prone",
+    "description": "Knocks an unwilling creature prone. See Prone rules.",
+    "xpCost": "50 xp",
+    "category": "Effect",
+    "duration": "Instant",
+    "tags": "Utilty, Combat, Status"
+  },
+  {
     "name": "Range",
-    "description": "Increases the distance an ability can reach.\nArea of Effect abilities trigger their area when they strike a target up to this range.",
+    "description": "Increases the distance an ability can reach. Can attack at up to 2x distance, but DC is increased by 2 when beyond purchased distance.\nArea of Effect abilities trigger their area when they strike a target up to this range.",
     "xpCost": "0 - melee\n5 xp per square/meter of range",
     "category": "Range",
     "duration": null,
@@ -2326,14 +2446,6 @@
     "category": "Area",
     "duration": null,
     "tags": "AoE, Range"
-  },
-  {
-    "name": "Range: Extra Distance",
-    "description": "Requires an ability that makes an attack roll.\nThis ability may target creatures beyond its range, up to 1.5x its normal range, but increases the DC by 1 when targeting beyond its normal range.",
-    "xpCost": "50 xp",
-    "category": "Range",
-    "duration": null,
-    "tags": "Range, Targeting"
   },
   {
     "name": "Range: Extreme Range",
@@ -2393,8 +2505,8 @@
   },
   {
     "name": "Range: Unlimited",
-    "description": "The attack will continue to travel until it impacts a target and is itself unaffected by gravity or distance. Ranged attacks made by this ability have a normal DC while within the ability's specified range, but increase the DC by 2 for each multiple of the ability's range. \nExample: an attack with a range of 10 feet would be DC 3 (normal) to hit a target at 10 feet, a DC 5 at 20 feet, and a DC 7 at 30 feet.",
-    "xpCost": "100 xp",
+    "description": "The attack will continue to travel until it impacts a target and is itself unaffected by gravity or distance. Ranged attacks made by this ability have a normal DC while within the ability's specified range, but increase the DC by 1 for each multiple of the ability's range. If the attack is a save instead of attack roll, reduce the save DC instead.\nYou may also apply this to AoE abilities.\nExample: an attack with a range of 5 meters would be DC 3 (normal) to hit a target at from 0-5 meters, a DC 4 from 6-10 meters, and a DC 5 from 11-15 meters, etc",
+    "xpCost": "Double the price of the range increment (Range becomes 10xp per square, Range: Area Effect Sphere becomes 50xp per square etc)",
     "category": "Range",
     "duration": null,
     "tags": "Range, Buff, Combat, Targeting"
@@ -2512,6 +2624,14 @@
     "tags": "Buff, Debuff, Limited, Flaw"
   },
   {
+    "name": "Requires Active Effect - Dispel",
+    "description": "Requires \"Requires Active Effect\". The active effect is dispelled when you use this ability, even if that ability is normally dispel immune.",
+    "xpCost": "-30 xp",
+    "category": "Flaw",
+    "duration": null,
+    "tags": "Buff, Debuff, Limited, Flaw"
+  },
+  {
     "name": "Requires Additional Success Spent",
     "description": "Create a sub-effect on this ability and attach this flaw. You must spend additional successes to activate this sub-effect, and if not the ability activates without activating those sub-effects.",
     "xpCost": "-50 xp per additional success required",
@@ -2520,12 +2640,44 @@
     "tags": "Limited Use, Limited, Successes, Flaw"
   },
   {
+    "name": "Requires Called Shot Location",
+    "description": "This effect may only trigger as part of a called shot on the location specified when this flaw is taken",
+    "xpCost": "-50 xp",
+    "category": "Flaw",
+    "duration": null,
+    "tags": "Flaw, Called Shot"
+  },
+  {
     "name": "Requires Consumable",
     "description": "You must consume an object or a number of smaller objects specified when this flaw is taken in order to use this Ability. The player must keep track of how many of these objects they possess and they must not be an item so easily obtained and stored as to make this flaw meaningless. \nAt GM discretion more expensive or difficult to obtain consumables may increase the discount offered from this flaw.",
     "xpCost": "-50 xp",
     "category": "Flaw",
     "duration": null,
     "tags": "Limited Use, Flaw"
+  },
+  {
+    "name": "Requires Cover",
+    "description": "The effect may not activate unless the character is currently in cover.",
+    "xpCost": "-50 xp",
+    "category": "Flaw",
+    "duration": null,
+    "tags": "Flaw, Environment"
+  },
+  {
+    "name": "Requires Critical",
+    "description": "This effect may only trigger when a critical hit has occurred",
+    "xpCost": "-50 xp",
+    "category": "Flaw",
+    "duration": null,
+    "tags": "Flaw, Critical"
+  },
+  {
+    "name": "Requires Damage",
+    "description": "This sub effect may only trigger if the base effect dealt damage",
+    "xpCost": "-10 xp",
+    "category": "Flaw",
+    "duration": null,
+    "tags": "Flaw, Damage"
   },
   {
     "name": "Requires Damage Type",
@@ -2728,7 +2880,7 @@
     "tags": "RP, Flaw"
   },
   {
-    "name": "Size Category: Decrease ",
+    "name": "Size Category: Decrease",
     "description": "Decreases the size category of the creature or object by one category.\nThis effect only affects the amount of space the target occupies and has no other mechanical effect.\nCreatures of size 0 or smaller may occupy the same square as other creatures. Medium creatures are considered Size 1.",
     "xpCost": "20 xp",
     "category": "Stat",
@@ -3081,7 +3233,7 @@
   },
   {
     "name": "Sub Effect",
-    "description": "Used as an organizational effect. Extras and flaws attached to a sub effect only affect that sub effect, and do not affect any other effects, extras, or flaws attached to the parent ability. \nThe cost of a sub effect is the final calculated ability cost of everything attached to the sub effect, and then applied to the parent ability as a flat xp cost plus 20. \nPlease see Sub Effects rules under Abilities in the main book.",
+    "description": "Used as an organizational effect. Extras and flaws attached to a sub effect only affect that sub effect, and do not affect any other effects, extras, or flaws attached to the parent ability. \nThe cost of a sub effect is the final calculated ability cost of everything attached to the sub effect, and then applied to the parent ability as a flat xp, minimum 10. \nPlease see Sub Effects rules under Abilities in the main book.",
     "xpCost": "Costs the final calculated XP value of everything on the sub effect, minimum 10",
     "category": "Organization",
     "duration": null,
@@ -3110,6 +3262,14 @@
     "category": "Modifier",
     "duration": null,
     "tags": "Dice Roll, Buff, Passive, Self, Successes"
+  },
+  {
+    "name": "Sundering",
+    "description": "Causes damage dealt by this attack to ignore up to 10 points of damage resist all when attacking objects.",
+    "xpCost": "70 xp",
+    "category": "Extra",
+    "duration": null,
+    "tags": "Damage, Object"
   },
   {
     "name": "Sustained",
@@ -3264,6 +3424,22 @@
     "tags": "Targeting, Sight"
   },
   {
+    "name": "Targeting: Creatures Only",
+    "description": "This ability may no longer target objects.",
+    "xpCost": "-20 xp",
+    "category": "Flaw",
+    "duration": null,
+    "tags": "Targeting, Utility, Flaw"
+  },
+  {
+    "name": "Targeting: Objects Only",
+    "description": "This ability may no longer target creatures.",
+    "xpCost": "-30 xp",
+    "category": "Flaw",
+    "duration": null,
+    "tags": "Targeting, Utility, Flaw"
+  },
+  {
     "name": "Targeting: Self-harm",
     "description": "You are no longer exempt from taking damage from your own attacks, particularly AoE attacks that target your own space.",
     "xpCost": "-50 xp",
@@ -3376,7 +3552,7 @@
     "tags": "Limited, Limited Use, Flaw, Self"
   },
   {
-    "name": "Use Mode: Charge Attack",
+    "name": "Use Mode: Charge Up",
     "description": "When making an attack, if you spend a multiple of the AP required to make the attack, you may roll the check for the attack only once and combine the damage of those attacks into a single hit for purposes of overcoming damage resistances.\nBecause this becomes a single attack, any damage added by characteristics or +1 values is only added once.",
     "xpCost": "+50% xp",
     "category": "Activation",
@@ -3504,14 +3680,6 @@
     "tags": "Utility, RP"
   },
   {
-    "name": "Utility: Creatures Only",
-    "description": "Only applicable to Utility effects that can target creatures or objects. This ability may no longer target objects.",
-    "xpCost": "-20 xp",
-    "category": "Flaw",
-    "duration": null,
-    "tags": "Targeting, Utility, Flaw"
-  },
-  {
     "name": "Utility: Disguise",
     "description": "Your character temporarily takes on an alternate appearance via some means such as shapeshifting, illusion, or mundane disguise.\nIf you also have appearances obtained via Absorb Apperance, you may disguise yourself as an exact replica of that absorbed appearance, otherwise you may disguise yourself as generic non-specific individuals.",
     "xpCost": "10 xp",
@@ -3582,14 +3750,6 @@
     "category": "Extra",
     "duration": null,
     "tags": "Targeting, Mass, Size, Utility"
-  },
-  {
-    "name": "Utility: Objects Only",
-    "description": "Only applicable to Utility effects that can target creatures or objects. This ability may no longer target creatures.",
-    "xpCost": "-30 xp",
-    "category": "Flaw",
-    "duration": null,
-    "tags": "Targeting, Utility, Flaw"
   },
   {
     "name": "Utility: Slow Fall",
