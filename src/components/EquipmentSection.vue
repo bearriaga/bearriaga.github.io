@@ -139,6 +139,10 @@
                                                               required></v-text-field>
                                                 <v-row>
                                                     <v-col>
+                                                        <v-switch label="Immunity" inset
+                                                                  v-model="dm.isImmunity"></v-switch>
+                                                    </v-col>
+                                                    <v-col>
                                                         <v-switch label="Resistance" inset
                                                                   v-model="dm.isResistance"></v-switch>
                                                     </v-col>
@@ -451,6 +455,7 @@
                 this.equipment.damageModifications.push({
                     amount: 0,
                     isEquipment: true,
+                    isImmunity: false,
                     isVulnerability: false,
                     isResistance: false,
                     type: '',

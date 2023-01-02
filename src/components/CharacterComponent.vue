@@ -1542,6 +1542,7 @@
                             amount: adjustment.amount,
                             id: adjustment.id,
                             isBuff: true,
+                            isImmunity: adjustment.damageModifications.isImmunity,
                             isResistance: adjustment.damageModification.isResistance,
                             isVulnerability: adjustment.damageModification.isVulnerability,
                             key: adjustment.amount + adjustment.id,
@@ -2355,17 +2356,19 @@
                 }
             },
             takeDamage() {
-                var damage = this.damageToTake.amount
-                var type = this.damageToTake.type
-                var damageReductionAmount = 0;
-                var isResistant = false
-                var isVulnerable = false
+                let damage = this.damageToTake.amount
+                let type = this.damageToTake.type
+                let damageReductionAmount = 0;
+                let isImmune = false
+                let isResistant = false
+                let isVulnerable = false
 
                 this.damageGroups.forEach((group) => {
                     //check if type is in the group.types array
                     if (type == group.name || group.types.some(x => x.name == type)) {
                         let damageModifications = this.damageModifications
                             .filter(x => { return x.type == type || x.type == group.name })
+                        isImmune = damageModifications.some(x => x.isImmunity)
                         isResistant = damageModifications.some(x => x.isResistance)
                         isVulnerable = damageModifications.some(x => x.isVulnerability)
                         damageReductionAmount = damageModifications
@@ -2376,9 +2379,11 @@
                 })
 
                 var damageToTake = damage - damageReductionAmount
-                if (isResistant)
+                if (isImmune)
+                    damageToTake = 0
+                if (isResistant && !isVulnerable)
                     damageToTake = Math.floor(damageToTake / 2)
-                if (isVulnerable)
+                if (isVulnerable && !isResistant)
                     damageToTake = damageToTake * 2
 
                 if (damageToTake > 0) {

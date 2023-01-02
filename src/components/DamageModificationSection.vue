@@ -52,12 +52,16 @@
                                           required></v-text-field>
                             <v-row>
                                 <v-col>
+                                    <v-switch label="Immunity" inset
+                                              v-model="damageModification.isImmunity"></v-switch>
+                                </v-col>
+                                <v-col>
                                     <v-switch label="Resistance" inset
-                                                v-model="damageModification.isResistance"></v-switch>
+                                              v-model="damageModification.isResistance"></v-switch>
                                 </v-col>
                                 <v-col>
                                     <v-switch label="Vulnerability" inset
-                                                v-model="damageModification.isVulnerability"></v-switch>
+                                              v-model="damageModification.isVulnerability"></v-switch>
                                 </v-col>
                             </v-row>
                         </v-form>
@@ -107,15 +111,17 @@
                 clearDamageModification: {
                     amount: 1,
                     id: '',
-                    isVulnerability: false,
+                    isImmunity: false,
                     isResistance: false,
+                    isVulnerability: false,
                     type: ''
                 },
                 damageModification: {
                     amount: 1,
                     id: '',
-                    isVulnerability: false,
+                    isImmunity: false,
                     isResistance: false,
+                    isVulnerability: false,
                     type: ''
                 },
                 // Input Fields End

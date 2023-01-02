@@ -85,6 +85,11 @@
                                                 required></v-autocomplete>
                                 <v-row>
                                     <v-col>
+                                        <v-switch label="Immunity" inset
+                                                  v-model="a.damageModification.isImmunity"
+                                                  v-if="a.type == 'Damage Modification'"></v-switch>
+                                    </v-col>
+                                    <v-col>
                                         <v-switch label="Resistance" inset
                                                   v-model="a.damageModification.isResistance"
                                                   v-if="a.type == 'Damage Modification'"></v-switch>
@@ -190,6 +195,7 @@
                             characteristic: '',
                             classResource: '',
                             damageModification: {
+                                isImmunity: false,
                                 isResistance: false,
                                 isVulnerability: false,
                                 type: ''
@@ -228,6 +234,7 @@
                             characteristic: '',
                             classResource: '',
                             damageModification: {
+                                isImmunity: false,
                                 isResistance: false,
                                 isVulnerability: false,
                                 type: ''
@@ -273,6 +280,7 @@
                     characteristic: '',
                     classResource: '',
                     damageModification: {
+                        isImmunity: false,
                         isResistance: false,
                         isVulnerability: false,
                         type: ''
