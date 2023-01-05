@@ -35,10 +35,15 @@ const routes = [
         component: ResumeView
     },
     {
+        path: '/wiki',
+        name: 'Wiki',
+        component: () => import('../views/WikiView.vue')
+    },
+    {
         path: '/workout',
         name: 'Workout',
         component: () => import('../views/WorkoutView.vue')
-    }
+    },
 ]
 
 const router = new VueRouter({

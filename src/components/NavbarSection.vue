@@ -65,8 +65,12 @@
                 this.saveDarkTheme()
             }
 
-            if (this.userSignedIn && this.$userData.email == 'turro92@gmail.com')
-                this.links.push({icon:'mdi-arm-flex', text: 'Workout', route: '/workout'})
+            if (this.userSignedIn)
+                this.links.push({ icon: 'mdi-file-document', text: 'Wiki', route: '/wiki' })
+
+            if (this.userSignedIn && this.$userData.email == 'turro92@gmail.com') {
+                this.links.push({ icon: 'mdi-arm-flex', text: 'Workout', route: '/workout' })
+            }
         },
         methods: {
             navigate(link) {
