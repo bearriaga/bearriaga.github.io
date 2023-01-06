@@ -245,26 +245,8 @@
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"
                                       @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
-                    <div>
-                        <template>
-                            <v-expansion-panels>
-                                <v-expansion-panel>
-                                    <v-expansion-panel-header>
-                                        <h3 class="text-center">
-                                            Passives
-                                        </h3>
-                                    </v-expansion-panel-header>
-                                    <v-expansion-panel-content>
-                                        <v-form>
-                                            <v-switch label="Luck Favored" inset v-model="characterSheet.luckFavored"></v-switch>
-                                            <v-switch label="Luck Ill Favored" inset v-model="characterSheet.luckIllFavored"></v-switch>
-                                            <v-switch label="Luck Nothing to Chance" inset v-model="characterSheet.luckNothingToChance"></v-switch>
-                                        </v-form>
-                                    </v-expansion-panel-content>
-                                </v-expansion-panel>
-                            </v-expansion-panels>
-                        </template>
-                    </div>
+                    <PassivesSection :character-sheet="characterSheet" @updatePropEmit="updateProp($event)"></PassivesSection>
+
                     <div>
                         <v-text-field type="number" label="Character Tier" v-model="characterSheet.tier" min="0" max="9" disabled readonly>
                             <v-icon color="error" slot="append" @click="updateTier('subtract')">mdi-minus</v-icon>
@@ -525,26 +507,7 @@
                                               @deleteEntryEmit="deleteEntry($event)"
                                               @updateEntryEmit="updateEntry($event)"
                                               @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
-                            <div>
-                                <template>
-                                    <v-expansion-panels>
-                                        <v-expansion-panel>
-                                            <v-expansion-panel-header>
-                                                <h3 class="text-center">
-                                                    Passives
-                                                </h3>
-                                            </v-expansion-panel-header>
-                                            <v-expansion-panel-content>
-                                                <v-form>
-                                                    <v-switch label="Luck Favored" inset v-model="characterSheet.luckFavored"></v-switch>
-                                                    <v-switch label="Luck Ill Favored" inset v-model="characterSheet.luckIllFavored"></v-switch>
-                                                    <v-switch label="Luck Nothing to Chance" inset v-model="characterSheet.luckNothingToChance"></v-switch>
-                                                </v-form>
-                                            </v-expansion-panel-content>
-                                        </v-expansion-panel>
-                                    </v-expansion-panels>
-                                </template>
-                            </div>
+                            <PassivesSection :character-sheet="characterSheet" @updatePropEmit="updateProp($event)"></PassivesSection>
                             <div>
                                 <v-text-field type="number" label="Character Tier" v-model="characterSheet.tier" min="0" max="9" disabled readonly>
                                     <v-icon color="error" slot="append" @click="updateTier('subtract')">mdi-minus</v-icon>
@@ -777,7 +740,7 @@
                                  @updateEntryEmit="updateBuffEntry($event)"
                                  @updateEntryBypassEmit="updateEntry($event)"
                                  @updatePanelEmit="updatePanel($event)"></BuffSection>
-
+                    <PassivesSection :character-sheet="characterSheet" @updatePropEmit="updateProp($event)"></PassivesSection>
                 </v-col>
             </v-row>
         </form>
@@ -1078,6 +1041,7 @@
     import MassRoller from './MassRoller.vue'
     import MinionSection from './MinionSection.vue'
     import MovementSection from './MovementSection.vue'
+    import PassivesSection from './PassivesSection.vue'
     import ResourceSection from './ResourceSection.vue'
     import SkillSection from './SkillSection.vue'
     import StatusSection from './StatusSection.vue'
@@ -1100,6 +1064,7 @@
             MassRoller,
             MinionSection,
             MovementSection,
+            PassivesSection,
             ResourceSection,
             SkillSection,
             StatusSection,
@@ -2644,7 +2609,7 @@
                     return +previousValue + +entry.value
                 }, 0) + +damageObj.flatTotal
 
-                return damageObj                
+                return damageObj
             },
             //Reroll Functions End
             specialInputWithEditModal(valueName) {
