@@ -41,7 +41,7 @@
                                             :items="statuses.map((x) => ({ value: x, text: x.name }))"
                                             v-model="status.status"
                                             ref="status"
-                                            :rules="notNull"
+                                            :rules="statusNotNull"
                                             required>
                             </v-autocomplete>
                             <v-textarea label="Effect"
@@ -51,6 +51,12 @@
                             <v-text-field label="Type"
                                           v-model="status.status.type"
                                           :disabled="status.status.name != 'Other'"></v-text-field>
+                            <v-select label="Characteristic"
+                                      v-model="status.characteristic"
+                                      :items="characteristics"
+                                      v-if="status.status.name.includes('{CHAR}')"
+                                      :rules="notNull"
+                                      required></v-select>
                             <v-text-field label="Ranks"
                                           v-model="status.ranks"
                                           type="number"
@@ -92,6 +98,7 @@
         },
         props: {
             characterStatuses: Array,
+            characteristics: Array,
             panelProp: Number,
             statuses: Array
         },
@@ -103,6 +110,7 @@
                 },
                 // Input Fields Start
                 clearStatus: {
+                    characteristic: '',
                     description: '',
                     duration: 0,
                     id: '',
@@ -116,6 +124,7 @@
                     }
                 },
                 status: {
+                    characteristic: '',
                     description: '',
                     duration: 1,
                     id: '',
@@ -132,6 +141,9 @@
                panel: this.panelProp,
                 // Validation Start
                 notNull: [
+                    v => !!v || 'Field may not be empty'
+                ],
+                statusNotNull: [
                     v => !!v.name || 'Field may not be empty'
                 ],
                 valid: false
