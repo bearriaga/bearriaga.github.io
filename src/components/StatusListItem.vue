@@ -3,7 +3,7 @@
         <v-row>
             <v-col cols="12">
                 <v-switch label="Is Active" inset
-                            v-model="isActive"></v-switch>
+                          v-model="isActive"></v-switch>
                 <v-autocomplete label="Status"
                                 :items="statuses.map((x) => ({ value: x, text: x.name }))"
                                 v-model="selectedStatus"
@@ -22,6 +22,10 @@
                 <v-text-field label="Type"
                               v-model="selectedStatus.type"
                               :disabled="selectedStatus.name != 'Other'"></v-text-field>
+                <v-text-field label="Characteristic" v-model="characteristic"
+                              v-if="characteristic" disabled></v-text-field>
+                <v-text-field label="Damage Type" v-model="damageType"
+                              v-if="damageType" disabled></v-text-field>
                 <v-text-field label="Ranks"
                               v-model="ranks"
                               type="number"
@@ -48,6 +52,8 @@
         },
         data() {
             return {
+                characteristic: this.status.characteristic,
+                damageType: this.status.damageType,
                 description: this.status.description,
                 duration: this.status.duration,
                 isActive: this.status.isActive,

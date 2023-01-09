@@ -96,7 +96,7 @@
     "type": "Condition"
   },
   {
-    "name": "DoT {Rank}",
+    "name": "DoT {rank}",
     "cost": "20xp per rank + 10xp per previous rank to apply\nImmunity is only to one damage type",
     "effect": "Creature takes {rank} in damage at the start of its turn. This works the same way as an ability that deals damage and has a duration.",
     "type": "Condition"
@@ -174,7 +174,7 @@
     "type": "Condition"
   },
   {
-    "name": "HoT {Rank}",
+    "name": "HoT {rank}",
     "cost": "10 xp per rank",
     "effect": "Creature heals {rank} in HP at the start of its turn",
     "type": "Boon"

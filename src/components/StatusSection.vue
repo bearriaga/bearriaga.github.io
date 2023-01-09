@@ -57,6 +57,12 @@
                                       v-if="status.status.name.includes('{CHAR}')"
                                       :rules="notNull"
                                       required></v-select>
+                            <v-autocomplete label="Damage Type"
+                                            v-model="status.damageType"
+                                            :items="damageTypes"
+                                            v-if="status.status.name.includes('DoT')"
+                                            :rules="notNull"
+                                            required></v-autocomplete>
                             <v-text-field label="Ranks"
                                           v-model="status.ranks"
                                           type="number"
@@ -99,6 +105,7 @@
         props: {
             characterStatuses: Array,
             characteristics: Array,
+            damageTypes: Array,
             panelProp: Number,
             statuses: Array
         },
@@ -111,6 +118,7 @@
                 // Input Fields Start
                 clearStatus: {
                     characteristic: '',
+                    damageType: '',
                     description: '',
                     duration: 0,
                     id: '',
@@ -125,6 +133,7 @@
                 },
                 status: {
                     characteristic: '',
+                    damageType: '',
                     description: '',
                     duration: 1,
                     id: '',
