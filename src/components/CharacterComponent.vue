@@ -882,6 +882,9 @@
                             </b>
                         </div>
                         <div>
+                            <i v-if="abilityDialog.damage.atrophied">Damage halved from atrophied status</i>
+                        </div>
+                        <div>
                             <v-btn icon color="primary" @click="copyDamage">
                                 <v-icon>mdi-content-copy</v-icon>
                             </v-btn>
@@ -2494,6 +2497,7 @@
             },
             rollDamage(damage, isMeleeAttack, characteristic, isCrit) {
                 let damageObj = (isCrit) ? JSON.parse(JSON.stringify(this.abilityDialog.damage)) : {
+                    atrophied: false,
                     char: 0,
                     damage: damage,
                     diceResults: [],
@@ -2608,6 +2612,10 @@
                 damageObj.sum = +damageObj.diceResults.reduce((previousValue, entry) => {
                     return +previousValue + +entry.value
                 }, 0) + +damageObj.flatTotal
+
+                damageObj.atrophied = this.characterSheet.statuses.filter(x => { return x.status.name == 'Atrophied' && x.duration > 0 && x.isActive }).length > 0
+                if (damageObj.atrophied)
+                    damageObj.sum = Math.floor(damageObj.sum / 2)
 
                 return damageObj
             },
