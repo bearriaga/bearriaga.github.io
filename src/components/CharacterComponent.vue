@@ -61,8 +61,8 @@
                             <v-row>
                                 <v-col cols="6">
                                     <v-text-field type="number" min="0" v-model="damageToTake.amount">
-                                        <v-icon color="success" slot="append" @click="heal">mdi-plus</v-icon>
-                                        <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
+                                        <v-icon color="success" slot="append" @click="heal(null)">mdi-plus</v-icon>
+                                        <v-icon color="error" slot="append" @click="takeDamage(null)">mdi-liquid-spot</v-icon>
                                     </v-text-field>
                                 </v-col>
                                 <v-col cols="6">
@@ -375,8 +375,8 @@
                     <v-row>
                         <v-col cols="12" lg="6">
                             <v-text-field label="Take Damage/Heal" type="number" min="0" v-model="damageToTake.amount">
-                                <v-icon color="success" slot="append" @click="heal">mdi-plus</v-icon>
-                                <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
+                                <v-icon color="success" slot="append" @click="heal(null)">mdi-plus</v-icon>
+                                <v-icon color="error" slot="append" @click="takeDamage(null)">mdi-liquid-spot</v-icon>
                             </v-text-field>
                         </v-col>
                         <v-col cols="12" lg="6">
@@ -628,8 +628,8 @@
             <v-row>
                 <v-col cols="6">
                     <v-text-field type="number" min="0" v-model="damageToTake.amount">
-                        <v-icon color="success" slot="append" @click="heal">mdi-plus</v-icon>
-                        <v-icon color="error" slot="append" @click="takeDamage">mdi-liquid-spot</v-icon>
+                        <v-icon color="success" slot="append" @click="heal(null)">mdi-plus</v-icon>
+                        <v-icon color="error" slot="append" @click="takeDamage(null)">mdi-liquid-spot</v-icon>
                     </v-text-field>
                 </v-col>
                 <v-col cols="6">
@@ -2050,6 +2050,15 @@
         },
         methods: {
             apGain() {
+                //Take damage for all DoT statuses
+                this.characterSheet.statuses.filter(x => { return x.status.name.includes('DoT') && x.isActive && x.duration > 0 }).forEach(x => {
+                    this.takeDamage({amount: x.ranks, type: x.damageType})
+                })
+
+                this.characterSheet.statuses.filter(x => { return x.status.name.includes('HoT') && x.isActive && x.duration > 0 }).forEach(x => {
+                    this.heal({ amount: x.ranks, type: '' })
+                })
+
                 this.characterSheet.statuses.forEach(status => {
                     if (status.duration > 0) {
                         status.duration--
@@ -2366,15 +2375,16 @@
                 }
             },
             //Health Funcitons
-            heal() {
-                if (this.damageToTake.amount > 0) {
-                    this.characterSheet.hp = +this.characterSheet.hp + +this.damageToTake.amount
+            heal(damageObj) {
+                let damage = (damageObj) ? damageObj.amount : this.damageToTake.amount
+                if (damage) {
+                    this.characterSheet.hp = +this.characterSheet.hp + +damage
                     this.updateHP = this.updateHP + 1
                 }
             },
-            takeDamage() {
-                let damage = this.damageToTake.amount
-                let type = this.damageToTake.type
+            takeDamage(damageObj) {
+                let damage = (damageObj) ? damageObj.amount : this.damageToTake.amount
+                let type = (damageObj) ? damageObj.amount : this.damageToTake.type
                 let damageReductionAmount = 0;
                 let isImmune = false
                 let isResistant = false
