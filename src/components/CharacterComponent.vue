@@ -805,6 +805,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div v-if="cursed">
+                            <span style="color: red;">Cursed</span>: Die number {{abilityDialog.check.cursed.oldDiePosition}} rerolled from {{abilityDialog.check.cursed.oldDie}} to {{abilityDialog.check.cursed.newDie}}
+                        </div>
                         <div>
                             Fate: {{abilityDialog.check.fate}}
 
@@ -1533,6 +1536,9 @@
                 })
 
                 return classes
+            },
+            cursed() {
+                return this.characterSheet.statuses.filter(x => { return x.status.name == 'Cursed' && x.isActive && x.duration > 0 }).length > 0
             },
             damageModifications() {
                 let damageModifications = []
@@ -2288,6 +2294,13 @@
             rollCheck(diceCheckObject) {
                 var result = {
                     advantage: false,
+                    cursed: {
+                        newDie: 0,
+                        newSuccess: 0,
+                        oldDie: 0,
+                        oldDiePosition: 0,
+                        oldSuccess: 0
+                    },
                     diceCheckObject: diceCheckObject,
                     diceResults: [],
                     effects: JSON.parse(JSON.stringify(this.universalEffects)),
@@ -2309,6 +2322,20 @@
                     }
 
                     let rdResult = this.rollDice(diceCheckObject.diceToRoll)
+
+                    if (this.cursed && rdResult.successes) {
+                        result.cursed.oldDie = rdResult.diceResults.filter(x => { return x > 3 })[0]
+                        result.cursed.oldSuccess = (result.cursed.oldDie < 6) ? 1 : 2
+                        rdResult.successes -= +result.cursed.oldSuccess
+                        result.cursed.oldDiePosition = rdResult.diceResults.indexOf(result.cursed.oldDie) + 1
+
+                        let cursedResult = this.rollDice(1)
+                        result.cursed.newDie = cursedResult.diceResults[0]
+                        result.cursed.newSuccess = cursedResult.successes
+
+                        rdResult.diceResults[result.cursed.oldDiePosition - 1] = cursedResult.diceResults[0]
+                        rdResult.successes += +cursedResult.successes
+                    }
 
                     result.diceResults = rdResult.diceResults;
                     result.successes += +rdResult.successes
