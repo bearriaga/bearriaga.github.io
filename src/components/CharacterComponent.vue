@@ -805,8 +805,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="cursed">
-                            <span style="color: red;">Cursed</span>: Die number {{abilityDialog.check.cursed.oldDiePosition}} rerolled from {{abilityDialog.check.cursed.oldDie}} to {{abilityDialog.check.cursed.newDie}}
+                        <div v-if="cursed && !abilityDialog.check.isReroll">
+                            <span style="color: red;">Cursed</span>: Die number {{abilityDialog.check.cursed.oldDiePosition}} rerolled from {{abilityDialog.check.cursed.oldDie}} to {{abilityDialog.check.cursed.newDie}} and moved to end
                         </div>
                         <div>
                             Fate: {{abilityDialog.check.fate}}
@@ -859,8 +859,21 @@
                                           :disabled="characterSheet.rerolls <= 0">
                                     <v-icon color="primary"
                                             slot="prepend"
-                                            @click.stop="rerollSelectedCheck"
+                                            @click.stop="rerollSelectedCheck('luck')"
                                             :disabled="characterSheet.rerolls <= 0 || abilityDialog.check.selectedRerolls.length == 0">
+                                        mdi-dice-6
+                                    </v-icon>
+                                </v-select>
+                            </v-col>
+                            <v-col cols="12" v-if="blessed">
+                                <v-select v-model="abilityDialog.check.blessed.selectedReroll"
+                                          :items="abilityDialog.check.diceResults.map((x, i) => ({ value: i, text: x}))"
+                                          label="Select Blessed Reroll"
+                                          :disabled="abilityDialog.check.blessed.used">
+                                    <v-icon color="primary"
+                                            slot="prepend"
+                                            @click.stop="rerollSelectedCheck('blessed')"
+                                            :disabled="abilityDialog.check.blessed.selectedReroll == null || abilityDialog.check.blessed.used">
                                         mdi-dice-6
                                     </v-icon>
                                 </v-select>
@@ -1366,6 +1379,9 @@
                     valueMax: this.characterSheet.attunementSlotsMax,
                     valueName: 'attunementSlots'
                 }
+            },
+            blessed() {
+                return this.characterSheet.statuses.filter(x => { return x.status.name == 'Blessed' && x.isActive && x.duration > 0 }).length > 0
             },
             buffs() {
                 let buffs = []
@@ -2247,14 +2263,31 @@
                 this.characterSheet.rerolls--
                 this.updateRerolls++
             },
-            rerollSelectedCheck() {
-                let indexes = this.abilityDialog.check.selectedRerolls.sort().reverse()
+            rerollSelectedCheck(type) {
+                let indexes = []
+
+                if (type == 'blessed') {
+                    indexes = [this.abilityDialog.check.blessed.selectedReroll]
+                    this.abilityDialog.check.blessed.selectedReroll = null
+                    this.abilityDialog.check.blessed.used = true
+                }
+                if (type == 'cursed') {
+                    indexes = [+this.abilityDialog.check.cursed.oldDiePosition - 1]
+                }
+                if (type == 'luck') {
+                    indexes = this.abilityDialog.check.selectedRerolls.sort().reverse()
+                    this.abilityDialog.check.selectedRerolls = []
+                    this.characterSheet.rerolls--
+                    this.updateRerolls++
+                }
 
                 indexes.forEach(i => {
                     this.abilityDialog.check.diceResults.splice(i, 1)
                 })
 
-                let rdResults = this.rollDice(indexes.length)
+                let rdResults = this.rollDice(indexes.length)                
+                if (type == 'cursed')
+                    this.abilityDialog.check.cursed.newDie = rdResults.diceResults[0]
                 this.abilityDialog.check.diceResults = this.abilityDialog.check.diceResults.concat(rdResults.diceResults)
 
                 this.abilityDialog.check.successes = 0
@@ -2263,15 +2296,10 @@
                 this.abilityDialog.check.diceResults.forEach(d => {
                     this.abilityDialog.check.successes += +this.determineSuccesses(d)
                     this.abilityDialog.check.successesInput += +this.determineSuccesses(d)
-                })
-
-                this.abilityDialog.check.selectedRerolls = []
-
-                this.characterSheet.rerolls--
-                this.updateRerolls++
+                })                
             },
             rerollWholeCheck() {
-                this.rollCheck(this.abilityDialog.check.diceCheckObject)
+                this.rollCheck(this.abilityDialog.check.diceCheckObject, true)
                 this.characterSheet.rerolls--
                 this.updateRerolls++
             },
@@ -2285,26 +2313,30 @@
                     diceToRoll: diceToRoll,
                     isSkill: false,
                     successes: ability.successes
-                })
+                }, false)
                 this.abilityDialog.title = `${ability.name} Check Results`
                 this.abilityDialog.isAbility = false
                 this.abilityDialog.damage.show = false
                 this.abilityDialog.save.show = false
             },
-            rollCheck(diceCheckObject) {
+            rollCheck(diceCheckObject, isReroll) {
                 var result = {
                     advantage: false,
+                    blessed: {
+                        used: (isReroll) ? this.abilityDialog.check.blessed.used : false,
+                        selectedReroll: null
+                    },
                     cursed: {
                         newDie: 0,
                         newSuccess: 0,
                         oldDie: 0,
-                        oldDiePosition: 0,
-                        oldSuccess: 0
+                        oldDiePosition: 0
                     },
                     diceCheckObject: diceCheckObject,
                     diceResults: [],
                     effects: JSON.parse(JSON.stringify(this.universalEffects)),
                     fate: 0,
+                    isReroll: isReroll,
                     selectedRerolls: [],
                     show: true,
                     successes: 0,
@@ -2322,20 +2354,6 @@
                     }
 
                     let rdResult = this.rollDice(diceCheckObject.diceToRoll)
-
-                    if (this.cursed && rdResult.successes) {
-                        result.cursed.oldDie = rdResult.diceResults.filter(x => { return x > 3 })[0]
-                        result.cursed.oldSuccess = (result.cursed.oldDie < 6) ? 1 : 2
-                        rdResult.successes -= +result.cursed.oldSuccess
-                        result.cursed.oldDiePosition = rdResult.diceResults.indexOf(result.cursed.oldDie) + 1
-
-                        let cursedResult = this.rollDice(1)
-                        result.cursed.newDie = cursedResult.diceResults[0]
-                        result.cursed.newSuccess = cursedResult.successes
-
-                        rdResult.diceResults[result.cursed.oldDiePosition - 1] = cursedResult.diceResults[0]
-                        rdResult.successes += +cursedResult.successes
-                    }
 
                     result.diceResults = rdResult.diceResults;
                     result.successes += +rdResult.successes
@@ -2361,10 +2379,18 @@
                 }
 
                 this.abilityDialog.check = result
+
+                if (this.cursed && this.abilityDialog.check.successes && diceCheckObject.diceToRoll > 0 && !isReroll) {
+                    this.abilityDialog.check.cursed.oldDie = this.abilityDialog.check.diceResults.filter(x => { return x > 3 })[0]
+                    this.abilityDialog.check.cursed.oldDiePosition = this.abilityDialog.check.diceResults.indexOf(result.cursed.oldDie) + 1
+
+                    this.rerollSelectedCheck('cursed')
+                }
+
                 this.abilityDialog.show = true
             },
             rollStandAloneCheck(diceCheckObject) {
-                this.rollCheck(diceCheckObject)
+                this.rollCheck(diceCheckObject, false)
                 this.abilityDialog.effects = this.abilityDialog.check.effects
                 this.abilityDialog.selectedEffects = []
                 this.abilityDialog.usedEffects = []
