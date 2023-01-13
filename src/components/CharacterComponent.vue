@@ -1586,7 +1586,7 @@
                             amount: adjustment.amount,
                             id: adjustment.id,
                             isBuff: true,
-                            isImmunity: adjustment.damageModifications.isImmunity,
+                            isImmunity: adjustment.damageModification.isImmunity,
                             isResistance: adjustment.damageModification.isResistance,
                             isVulnerability: adjustment.damageModification.isVulnerability,
                             key: adjustment.amount + adjustment.id,
