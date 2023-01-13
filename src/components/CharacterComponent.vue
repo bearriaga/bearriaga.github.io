@@ -908,7 +908,7 @@
                             </b>
                         </div>
                         <div>
-                            <i v-if="abilityDialog.damage.atrophied">Damage halved from atrophied status</i>
+                            <i v-if="abilityDialog.damage.atrophied" style="color: red;">Damage halved from atrophied status</i>
                         </div>
                         <div>
                             <v-btn icon color="primary" @click="copyDamage">
