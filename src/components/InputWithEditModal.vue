@@ -106,6 +106,7 @@
             TooltipComponent
         },
         props: {
+            hastened: Number,
             hp: Number,
             propertyObject: Object,
             tier: Number,
@@ -169,7 +170,7 @@
                     let apGain = (this.propertyObject.valueIncreases) ? this.propertyObject.valueMax / 3 : this.propertyObject.valueMax / 2
                     if (this.hp <= 0)
                         apGain = Math.floor(apGain / 2)
-                    this.value = +this.value + apGain
+                    this.value = +this.value + apGain + this.hastened
                     this.$emit('apGainEmit')
                 }
                 if (this.propertyObject.valueName == 'initiative') {

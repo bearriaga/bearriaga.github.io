@@ -107,6 +107,7 @@
                                 <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                     @apGainEmit="apGain($event)"
                                                     @updatePropEmit="updateProp($event)"
+                                                    :hastened="hastened"
                                                     :hp="characterSheet.hp"
                                                     :property-object="input"
                                                     :tier="characterSheet.tier"
@@ -389,6 +390,7 @@
                 <v-col cols="6" md="3" v-for="input in inputWithEditModals" :key="input.key">
                     <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                         @apGainEmit="apGain($event)"
+                                        :hastened="hastened"
                                         @updatePropEmit="updateProp($event)"
                                         :hp="characterSheet.hp"
                                         :property-object="input"
@@ -643,12 +645,14 @@
                 <v-col cols="12" v-for="input in inputWithEditModals.filter(x => { return x.label == 'Action Points' })" :key="input.key">
                     <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                         @apGainEmit="apGain($event)"
+                                        :hastened="hastened"
                                         @updatePropEmit="updateProp($event)"
                                         :property-object="input"></InputWithEditModal>
                 </v-col>
                 <v-col cols="12" v-for="input in defenseInputWithEditModals.filter(x => { return x.label == 'DC to Hit' })" :key="input.key">
                     <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                         @apGainEmit="apGain($event)"
+                                        :hastened="hastened"
                                         @updatePropEmit="updateProp($event)"
                                         :property-object="input"></InputWithEditModal>
                 </v-col>
@@ -1429,14 +1433,15 @@
             characterStatuses() {
                 let statuses = []
 
-                this.characterSheet.statuses.forEach((s) => {
+                this.characterSheet.statuses.forEach((s, i) => {
                     let status = JSON.parse(JSON.stringify(s))
 
                     status.key =
                         JSON.stringify(status.status) +
                         status.isActive.toString() +
                         this.updateStatus +
-                        this.updateCharacter;
+                        this.updateCharacter +
+                        i;
                     statuses.push(status)
                 })
 
@@ -1658,6 +1663,14 @@
                 })
 
                 return flaws
+            },
+            hastened() {
+                let haste = this.characterSheet.statuses.filter(x => { return x.status.name.includes('Hastened') && x.isActive && x.duration > 0 })
+                    .reduce((previousValue, entry) => {
+                        return +previousValue + +entry.ranks
+                    }, 0)
+
+                return haste
             },
             healthInputWithEditModals() {
                 return [
@@ -2285,7 +2298,7 @@
                     this.abilityDialog.check.diceResults.splice(i, 1)
                 })
 
-                let rdResults = this.rollDice(indexes.length)                
+                let rdResults = this.rollDice(indexes.length)
                 if (type == 'cursed')
                     this.abilityDialog.check.cursed.newDie = rdResults.diceResults[0]
                 this.abilityDialog.check.diceResults = this.abilityDialog.check.diceResults.concat(rdResults.diceResults)
@@ -2296,7 +2309,7 @@
                 this.abilityDialog.check.diceResults.forEach(d => {
                     this.abilityDialog.check.successes += +this.determineSuccesses(d)
                     this.abilityDialog.check.successesInput += +this.determineSuccesses(d)
-                })                
+                })
             },
             rerollWholeCheck() {
                 this.rollCheck(this.abilityDialog.check.diceCheckObject, true)
