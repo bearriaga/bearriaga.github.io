@@ -1385,7 +1385,7 @@
                 }
             },
             blessed() {
-                return this.characterSheet.statuses.filter(x => { return x.status.name == 'Blessed' && x.isActive && x.duration > 0 }).length > 0
+                return this.characterStatuses.filter(x => { return x.status.name == 'Blessed' && x.isActive && x.duration > 0 }).length > 0
             },
             buffs() {
                 let buffs = []
@@ -1559,7 +1559,7 @@
                 return classes
             },
             cursed() {
-                return this.characterSheet.statuses.filter(x => { return x.status.name == 'Cursed' && x.isActive && x.duration > 0 }).length > 0
+                return this.characterStatuses.filter(x => { return x.status.name == 'Cursed' && x.isActive && x.duration > 0 }).length > 0
             },
             damageModifications() {
                 let damageModifications = []
@@ -1665,7 +1665,7 @@
                 return flaws
             },
             hastened() {
-                let haste = this.characterSheet.statuses.filter(x => { return x.status.name.includes('Hastened') && x.isActive && x.duration > 0 })
+                let haste = this.characterStatuses.filter(x => { return x.status.name.includes('Hastened') && x.isActive && x.duration > 0 })
                     .reduce((previousValue, entry) => {
                         return +previousValue + +entry.ranks
                     }, 0)
@@ -2086,15 +2086,15 @@
         methods: {
             apGain() {
                 //Take damage for all DoT statuses
-                this.characterSheet.statuses.filter(x => { return x.status.name.includes('DoT') && x.isActive && x.duration > 0 }).forEach(x => {
+                this.characterStatuses.filter(x => { return x.status.name.includes('DoT') && x.isActive && x.duration > 0 }).forEach(x => {
                     this.takeDamage({amount: x.ranks, type: x.damageType})
                 })
 
-                this.characterSheet.statuses.filter(x => { return x.status.name.includes('HoT') && x.isActive && x.duration > 0 }).forEach(x => {
+                this.characterStatuses.filter(x => { return x.status.name.includes('HoT') && x.isActive && x.duration > 0 }).forEach(x => {
                     this.heal({ amount: x.ranks, type: '' })
                 })
 
-                this.characterSheet.statuses.forEach(status => {
+                this.characterStatuses.forEach(status => {
                     if (status.duration > 0) {
                         status.duration--
                     }
@@ -2695,7 +2695,7 @@
                     return +previousValue + +entry.value
                 }, 0) + +damageObj.flatTotal
 
-                damageObj.atrophied = this.characterSheet.statuses.filter(x => { return x.status.name == 'Atrophied' && x.duration > 0 && x.isActive }).length > 0
+                damageObj.atrophied = this.characterStatuses.filter(x => { return x.status.name == 'Atrophied' && x.duration > 0 && x.isActive }).length > 0
                 if (damageObj.atrophied)
                     damageObj.sum = Math.floor(damageObj.sum / 2)
 
