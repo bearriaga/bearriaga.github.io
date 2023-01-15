@@ -316,6 +316,12 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
+                    this.buff.adjustments.forEach(a => {
+                        if (a.type == 'Status') {
+                            a.status.currentDuration = a.status.duration
+                            a.status.currentRanks = a.status.ranks
+                        }
+                    })
                     this.$emit('addEntryEmit', { arrayName: 'buffs', object: this.buff })
                 }
             },
