@@ -813,7 +813,14 @@
                             <span style="color: red;">Cursed</span>: Die number {{abilityDialog.check.cursed.oldDiePosition}} rerolled from {{abilityDialog.check.cursed.oldDie}} to {{abilityDialog.check.cursed.newDie}} and moved to end
                         </div>
                         <div>
-                            Fate: {{abilityDialog.check.fate}}
+                            Fate:
+                            <template v-if="!characterSheet.luckNothingToChance">
+                                {{abilityDialog.check.fate}}
+                            </template>
+
+                            <template v-if="characterSheet.luckNothingToChance">
+                                N/A
+                            </template>
 
                             <template v-if="abilityDialog.check.advantage">
                                 , Advantage
@@ -2239,7 +2246,7 @@
             copyCheckGet() {
                 var copyText =
                     '{{Successes= ' + this.abilityDialog.check.successes + '}}' +
-                    '{{Fate= ' + this.abilityDialog.check.fate + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '}}' +
+                    '{{Fate= ' + ((this.characterSheet.luckNothingToChance)? 'N/A': this.abilityDialog.check.fate) + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '}}' +
                     '{{Dice Results= [' + this.abilityDialog.check.diceResults + ']}}';
 
                 if (this.abilityDialog.check.successesFromIntelligence)
