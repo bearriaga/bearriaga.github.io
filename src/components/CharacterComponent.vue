@@ -2246,6 +2246,7 @@
             copyCheckGet() {
                 var copyText =
                     '{{Successes= ' + this.abilityDialog.check.successes + '}}' +
+                    ((this.abilityDialog.isAbility && this.abilityDialog.check.successes != this.abilityDialog.check.successesInput) ? '{{Remaining Successes= ' + this.abilityDialog.check.successesInput + '}}': '') +
                     '{{Fate= ' + ((this.characterSheet.luckNothingToChance)? 'N/A': this.abilityDialog.check.fate) + ((this.abilityDialog.check.advantage) ? ', Advantage' : '') + ((this.abilityDialog.check.threat) ? ', Threat' : '') + '}}' +
                     '{{Dice Results= [' + this.abilityDialog.check.diceResults + ']}}';
 
