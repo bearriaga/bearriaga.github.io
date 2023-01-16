@@ -2628,7 +2628,7 @@
                 }
 
                 //Add Flat
-                if ((!isCrit || (isCrit && damage.critFlat)) && (damage.flat > 0 && !isNaN(damage.flat))) {
+                if ((!isCrit || (isCrit && !damageObj.isCrit && damage.critFlat)) && (damage.flat > 0 && !isNaN(damage.flat))) {
                     damageObj.flat += +damage.flat
                     damageObj.flatTotal += +damage.flat
                 }
@@ -2654,7 +2654,7 @@
                     damageObj.flatTotalBreakdown = damageObj.flatTotalBreakdown.substring(0, damageObj.flatTotalBreakdown.length - 3)
 
                 //Add Crit Dice
-                if (isCrit && damage.critDice && !isNaN(damage.critDice)) {
+                if (isCrit && !damageObj.isCrit && damage.critDice && !isNaN(damage.critDice)) {
                     for (let i = 0; i < damage.critDice; i++) {
                         damageObj.diceResults.push({
                             value: this.getRandomIntInclusive(1, 6),
