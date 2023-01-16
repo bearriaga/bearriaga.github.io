@@ -1561,6 +1561,17 @@
             cursed() {
                 return this.characterStatuses.filter(x => { return x.status.name == 'Cursed' && x.isActive && x.duration > 0 }).length > 0
             },
+            damageConvertType() {
+                let type = ''
+
+                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Damage: Convert Damage Type') && b.isActive }).forEach(b => {
+                    b.adjustments.filter(a => { return a.type == 'Damage: Convert Damage Type' }).forEach(a => {
+                        type = a.damageConvertType
+                    })
+                })
+
+                return type
+            },
             damageModifications() {
                 let damageModifications = []
 
@@ -2254,7 +2265,7 @@
                 navigator.clipboard.writeText(`&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copyDamageGet()}`)
             },
             copyDamageGet() {
-                return `{{Damage= ${this.abilityDialog.damage.sum} ${this.abilityDialog.ability.damage.types.join(', ')}}}`
+                return `{{Damage= ${this.abilityDialog.damage.sum} ${this.abilityDialog.damage.types.map(x => x.text).join(', ')}}}`
             },
             copySave() {
                 navigator.clipboard.writeText(`&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copySaveGet()}`)
@@ -2591,6 +2602,10 @@
                     types: []
                 }
 
+                let damageTypes = JSON.parse(JSON.stringify(damage.types))
+                if (!damage.types.includes('Healing') && this.damageConvertType)
+                    damageTypes = [this.damageConvertType]                
+
                 //Roll Die
                 if (damage.dice && !isNaN(damage.dice)) {
                     for (let i = 0; i < damage.dice; i++) {
@@ -2614,7 +2629,7 @@
                 }
 
                 //Add Fit
-                if (!isCrit && isMeleeAttack && !damage.types.includes('Healing')) {
+                if (!isCrit && isMeleeAttack && !damageTypes.includes('Healing')) {
                     damageObj.fit = this.fitness
                     damageObj.flatTotal += +damageObj.fit
                 }
@@ -2651,7 +2666,7 @@
                 if (!isCrit) {
                     let types = []
                     let effects = []
-                    damage.types.forEach(type => {
+                    damageTypes.forEach(type => {
                         let color = ''
                         let icon = ''
                         let typeEffects = []

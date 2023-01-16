@@ -76,30 +76,35 @@
                                                 v-if="a.type == 'Movement'"
                                                 :rules="notNull"
                                                 required></v-autocomplete>
-                                <!-- Damage Modification Fields -->
-                                <v-autocomplete label="Damage Modification Type"
-                                                v-model="a.damageModification.type"
+                                <v-autocomplete label="Damage Convert Type"
+                                                v-model="a.damageConvertType"
                                                 :items="damageTypes"
-                                                v-if="a.type == 'Damage Modification'"
                                                 :rules="notNull"
+                                                v-if="a.type == 'Damage: Convert Damage Type'"
                                                 required></v-autocomplete>
-                                <v-row>
-                                    <v-col>
-                                        <v-switch label="Immunity" inset
-                                                  v-model="a.damageModification.isImmunity"
-                                                  v-if="a.type == 'Damage Modification'"></v-switch>
-                                    </v-col>
-                                    <v-col>
-                                        <v-switch label="Resistance" inset
-                                                  v-model="a.damageModification.isResistance"
-                                                  v-if="a.type == 'Damage Modification'"></v-switch>
-                                    </v-col>
-                                    <v-col>
-                                        <v-switch label="Vulnerability" inset
-                                                  v-model="a.damageModification.isVulnerability"
-                                                  v-if="a.type == 'Damage Modification'"></v-switch>
-                                    </v-col>
-                                </v-row>
+                                <!-- Damage Modification Fields -->
+                                <template v-if="a.type == 'Damage Modification'">
+                                    <v-autocomplete label="Damage Modification Type"
+                                                    v-model="a.damageModification.type"
+                                                    :items="damageTypes"
+                                                    :rules="notNull"
+                                                    required></v-autocomplete>
+                                    <v-row>
+                                        <v-col>
+                                            <v-switch label="Immunity" inset
+                                                      v-model="a.damageModification.isImmunity"></v-switch>
+                                        </v-col>
+                                        <v-col>
+                                            <v-switch label="Resistance" inset
+                                                      v-model="a.damageModification.isResistance"></v-switch>
+                                        </v-col>
+                                        <v-col>
+                                            <v-switch label="Vulnerability" inset
+                                                      v-model="a.damageModification.isVulnerability"></v-switch>
+                                        </v-col>
+                                    </v-row>
+
+                                </template>
                                 <!-- Damage Modification Fields End -->
                                 <v-combobox label="Skill"
                                             v-model="a.skill"
@@ -107,7 +112,7 @@
                                             v-if="a.type == 'Skill'"></v-combobox>
                                 <v-text-field label="Amount"
                                               v-model="a.amount"
-                                              v-if="a.type != 'Status' && a.type != 'Other'"
+                                              v-if="a.type != 'Status' && a.type != 'Other' && a.type != 'Damage: Convert Damage Type'"
                                               type="number"></v-text-field>
                                 <!-- Status Fields -->
                                 <v-autocomplete label="Status"
@@ -178,7 +183,7 @@
         },
         data() {
             return {
-                buffOptions: ['CHAR', 'Class Resource: Commited', 'Damage Modification', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
+                buffOptions: ['CHAR', 'Class Resource: Commited', 'Damage: Convert Damage Type', 'Damage Modification', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
                 dialog: {
                     show: false,
                     type: ''
@@ -194,6 +199,7 @@
                             amount: 0,
                             characteristic: '',
                             classResource: '',
+                            damageConvertType: '',
                             damageModification: {
                                 isImmunity: false,
                                 isResistance: false,
@@ -233,6 +239,7 @@
                             amount: 0,
                             characteristic: '',
                             classResource: '',
+                            damageConvertType: '',
                             damageModification: {
                                 isImmunity: false,
                                 isResistance: false,
@@ -279,6 +286,7 @@
                     amount: 0,
                     characteristic: '',
                     classResource: '',
+                    damageConvertType: '',
                     damageModification: {
                         isImmunity: false,
                         isResistance: false,

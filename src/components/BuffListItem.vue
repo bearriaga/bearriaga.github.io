@@ -14,8 +14,12 @@
             <div v-for="a, index in adjustments" :key="index">
                 <v-text-field :label="returnLabel(a)"
                               v-model="a.amount"
-                              v-if="a.type != 'Status' && a.type != 'Other'"
+                              v-if="a.type != 'Status' && a.type != 'Other' && a.type != 'Damage: Convert Damage Type'"
                               type="number"
+                              disabled></v-text-field>
+                <v-text-field :label="returnLabel(a)"
+                              v-model="a.damageConvertType"
+                              v-if="a.type == 'Damage: Convert Damage Type'"
                               disabled></v-text-field>
                 <v-text-field :label="returnLabel(a)"
                               v-model="a.status.duration"
