@@ -2560,10 +2560,6 @@
             rollCrit() {
                 let char = (this.abilityDialog.ability.damage.characteristic) ? this.abilityDialog.ability.damage.characteristic : this.abilityDialog.ability.characteristic
                 this.abilityDialog.damage = this.rollDamage(this.abilityDialog.damage.damage, false, char, true)
-                //let damage = this.rollDamage(this.abilityDialog.damage.damage, false, null, true)
-
-                //this.abilityDialog.damage.diceResults = this.abilityDialog.damage.diceResults.concat(damage.diceResults)
-                //this.abilityDialog.damage.sum += +damage.sum
             },
             rollAbilityDamage(ability) {
                 this.abilityDialog.ability = ability
@@ -2730,6 +2726,8 @@
                 this.abilityDialog.selectedEffects.forEach(selectedEffect => {
                     successes = +successes + +selectedEffect.cost
                     this.abilityDialog.usedEffects.push(selectedEffect)
+                    if (selectedEffect.description.includes('critical hit'))
+                        this.rollCrit()
                 })
 
                 this.abilityDialog.check.successesInput -= +successes
