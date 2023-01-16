@@ -1,6 +1,11 @@
 [
   {
     "cost": 1,
+    "description": "Convert attack into a called shot",
+    "type": "Universal"
+  },
+  {
+    "cost": 1,
     "description": "Gain 1 ReRoll for only your next roll",
     "type": "Universal"
   },

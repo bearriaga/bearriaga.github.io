@@ -2065,6 +2065,7 @@
                     valueMax: 15,
                     characteristic: false
                 },
+                hitLocations: this.gameDataStore.hitLocations,
                 moneyModifyAmount: 0,
                 movementTypes: [
                     'Burrowing',
@@ -2338,6 +2339,16 @@
                     isSkill: false,
                     successes: ability.successes
                 }, false)
+
+                this.hitLocations.forEach(h => {
+                    let type = `Called Shot ${h.name}`
+                    h.effects.forEach(e => {
+                        let effect = JSON.parse(JSON.stringify(e))
+                        effect.type = type
+                        this.abilityDialog.check.effects.push(effect)
+                    })
+                })
+
                 this.abilityDialog.title = `${ability.name} Check Results`
                 this.abilityDialog.isAbility = false
                 this.abilityDialog.damage.show = false
@@ -2382,12 +2393,7 @@
                     result.diceResults = rdResult.diceResults;
                     result.successes += +rdResult.successes
                     result.successesInput += +rdResult.successes
-                    result.fate = result.diceResults[0]
-
-                    if (diceCheckObject.successes) {
-                        result.successes += +diceCheckObject.successes
-                        result.successesInput += +diceCheckObject.successes
-                    }
+                    result.fate = result.diceResults[0]                    
 
                     let luck = diceCheckObject.luck ? diceCheckObject.luck : this.luck
                     if (!this.characterSheet.luckNothingToChance) {
@@ -2400,6 +2406,11 @@
                             result.threat = true
                         }
                     }
+                }
+
+                if (diceCheckObject.successes) {
+                    result.successes += +diceCheckObject.successes
+                    result.successesInput += +diceCheckObject.successes
                 }
 
                 this.abilityDialog.check = result
@@ -2604,7 +2615,7 @@
 
                 let damageTypes = JSON.parse(JSON.stringify(damage.types))
                 if (!damage.types.includes('Healing') && this.damageConvertType)
-                    damageTypes = [this.damageConvertType]                
+                    damageTypes = [this.damageConvertType]
 
                 //Roll Die
                 if (damage.dice && !isNaN(damage.dice)) {
@@ -2787,7 +2798,7 @@
                 } else
                     this.abilityDialog.ap = ''
 
-                if (ability.characteristic || ability.dice)
+                if (ability.characteristic || ability.dice || ability.successes)
                     this.rollAbility(ability)
 
                 if (ability.classResource && ability.crCost != 0) {
@@ -2816,7 +2827,7 @@
                     }
 
                 this.abilityDialog.ability = JSON.parse(JSON.stringify(ability))
-                this.abilityDialog.check.show = (ability.characteristic || ability.dice)
+                this.abilityDialog.check.show = (ability.characteristic || ability.dice || ability.successes)
                 this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0)
                 this.abilityDialog.isAbility = true
                 this.abilityDialog.selectedEffects = []

@@ -1,0 +1,150 @@
+[
+  {
+    "icon": "mdi-head-outline",
+    "name": "Head",
+    "effects": [
+      {
+        "cost": 1,
+        "description": "Target is blinded and deafened for 1 round"
+      },
+      {
+        "cost": 1,
+        "description": "DC4 RES save or take damage as critical hit"
+      },
+      {
+        "cost": 2,
+        "description": "DC3 RES save or be stunned for 1 round"
+      },
+      {
+        "cost": 2,
+        "description": "Slowed(3) for 2 rounds"
+      },
+      {
+        "cost": 2,
+        "description": "Dispel an active effect applied by the target"
+      },
+      {
+        "cost": 4,
+        "description": "Permanently destroy a sensory organ on the head, or otherwise maim the head"
+      }
+    ]
+  },
+  {
+    "icon": "",
+    "name": "Torso",
+    "effects": [
+      {
+        "cost": 1,
+        "description": "Apply damage to armor as well"
+      },
+      {
+        "cost": 1,
+        "description": "Sicken(1) for 1 round"
+      },
+      {
+        "cost": 2,
+        "description": "Apply Slow(1)  and Staggered(1) for 1 round"
+      },
+      {
+        "cost": 2,
+        "description": "Push back 1d4+FIT squares and knock prone"
+      },
+      {
+        "cost": 4,
+        "description": "Puncture a lung or rupture an organ, or otherwise maim the torso"
+      }
+    ]
+  },
+  {
+    "icon": "mdi-arm-flex-outline",
+    "name": "Arms",
+    "effects": [
+      {
+        "cost": 1,
+        "description": "Slow(3) for 1 round"
+      },
+      {
+        "cost": 1,
+        "description": "Wide Open for next turn"
+      },
+      {
+        "cost": 2,
+        "description": "Atrophied for next attack"
+      },
+      {
+        "cost": 2,
+        "description": "DC4 FIT save or be disarmed"
+      },
+      {
+        "cost": 4,
+        "description": "Sever or otherwise maim the arm"
+      }
+    ]
+  },
+  {
+    "icon": "",
+    "name": "Legs",
+    "effects": [
+      {
+        "cost": 1,
+        "description": "Hobbled(3) for 1 round"
+      },
+      {
+        "cost": 1,
+        "description": "Staggered(1) for next allied turn"
+      },
+      {
+        "cost": 2,
+        "description": "DC4 FIT save or be knocked prone and rooted for 1 round"
+      },
+      {
+        "cost": 2,
+        "description": "Staggered for 2 rounds"
+      },
+      {
+        "cost": 4,
+        "description": "Sever or otherwise maim the leg"
+      }
+    ]
+  },
+  {
+    "icon": "mdi-sword-cross",
+    "name": "Equipment",
+    "effects": [
+      {
+        "cost": 1,
+        "description": "DC3 FIT save or be disarmed"
+      },
+      {
+        "cost": 1,
+        "description": "Attack applies with Sunder to item"
+      },
+      {
+        "cost": 2,
+        "description": "DC5 FIT save or be disarmed"
+      },
+      {
+        "cost": 2,
+        "description": "Attack deals True damage to item"
+      },
+      {
+        "cost": 4,
+        "description": "Your attack destroys the item"
+      }
+    ]
+  },
+  {
+    "icon": "mdi-star-four-points-outline",
+    "name": "Flashing Red Weakpoint",
+    "effects": [
+      {
+        "cost": 1,
+        "description": "Inflict a critical hit"
+      },
+      {
+        "cost": 1,
+        "description": "DC4 RES save or be stunned for 1 round"
+      }
+    ]
+  }
+]
