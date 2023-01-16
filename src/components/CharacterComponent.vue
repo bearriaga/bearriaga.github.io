@@ -781,26 +781,19 @@
                                 <v-icon color="error" slot="append" @click="successesInputAdd(-1)">mdi-minus</v-icon>
                             </v-text-field>
                             <div v-if="abilityDialog.effects">
-                                <v-row>
-                                    <v-col cols="9">
-                                        <v-select v-model="abilityDialog.selectedEffects"
-                                                  :items="checkEffects.map(x => ({ value: x, text: x.cost + ' - ' + x.type + ' - ' + x.description}))"
-                                                  label="Selected Effects"
-                                                  multiple
-                                                  :disabled="abilityDialog.check.successesInput <= 0">
-                                            <v-icon color="error"
-                                                    slot="prepend"
-                                                    @click.stop="subtractSelectedEffects"
-                                                    :disabled="abilityDialog.check.successesInput <= 0 || abilityDialog.selectedEffects.length == 0 || abilityDialog.selectedEffects.reduce((previousValue, entry) => {return +previousValue + +entry.cost}, 0) > abilityDialog.check.successesInput">
-                                                mdi-minus
-                                            </v-icon>
-                                            <TooltipComponent slot="append" :text="'Effects can be purchased once per enemy'"></TooltipComponent>
-                                        </v-select>
-                                    </v-col>
-                                    <v-col cols="3">
-                                        <v-switch label="Multiple Targets?" inset v-model="abilityDialog.multipleTargets"></v-switch>
-                                    </v-col>
-                                </v-row>
+                                <v-select v-model="abilityDialog.selectedEffects"
+                                          :items="checkEffects.map(x => ({ value: x, text: x.cost + ' - ' + x.type + ' - ' + x.description}))"
+                                          label="Selected Effects"
+                                          multiple
+                                          :disabled="abilityDialog.check.successesInput <= 0">
+                                    <v-icon color="error"
+                                            slot="prepend"
+                                            @click.stop="subtractSelectedEffects"
+                                            :disabled="abilityDialog.check.successesInput <= 0 || abilityDialog.selectedEffects.length == 0 || abilityDialog.selectedEffects.reduce((previousValue, entry) => {return +previousValue + +entry.cost}, 0) > abilityDialog.check.successesInput">
+                                        mdi-minus
+                                    </v-icon>
+                                    <TooltipComponent slot="append" :text="'Effects can be purchased once per enemy'"></TooltipComponent>
+                                </v-select>
                             </div>
                             <div v-if="abilityDialog.usedEffects.length > 0">
                                 <div>Used Effects</div>
@@ -1995,7 +1988,6 @@
                     },
                     effects: [],
                     isAbility: false,
-                    multipleTargets: false,
                     save: {
                         amount: 0,
                         characteristic: '',
@@ -2737,15 +2729,7 @@
                 let successes = 0
                 this.abilityDialog.selectedEffects.forEach(selectedEffect => {
                     successes = +successes + +selectedEffect.cost
-                    if (selectedEffect.type == 'Universal' || (!selectedEffect.description.includes('this effect may be purchased multiple times') && !this.abilityDialog.multipleTargets)) {
-                        let index = this.abilityDialog.effects.findIndex(x => x.description == selectedEffect.description)
-                        if (index > -1) {
-                            let effect = this.abilityDialog.effects.splice(index, 1)
-                            this.abilityDialog.usedEffects = this.abilityDialog.usedEffects.concat(effect)
-                        }
-                    } else {
-                        this.abilityDialog.usedEffects.push(selectedEffect)
-                    }
+                    this.abilityDialog.usedEffects.push(selectedEffect)
                 })
 
                 this.abilityDialog.check.successesInput -= +successes
