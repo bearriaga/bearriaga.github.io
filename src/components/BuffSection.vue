@@ -82,6 +82,50 @@
                                                 :rules="notNull"
                                                 v-if="a.type == 'Damage: Convert Damage Type'"
                                                 required></v-autocomplete>
+                                <template v-if="a.type == 'Damage Additional'">
+                                    <v-card>
+                                        <v-col cols="12">
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <h3 class="text-center">
+                                                        Damage
+                                                    </h3>
+                                                </v-col>
+                                                <v-col cols="12" md="4">
+                                                    <v-text-field label="Dice" type="number" v-model="a.damage.dice"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" md="4">
+                                                    <v-text-field label="Flat" type="number" v-model="a.damage.flat"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" md="4">
+                                                    <v-text-field label="Crit Dice" type="number" v-model="a.damage.critDice"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12">
+                                                    <v-select label="Characteristic"
+                                                              :items="characteristics"
+                                                              v-model="a.damage.characteristic"
+                                                              clearable>
+                                                        <TooltipComponent slot="prepend" :text="'CHAR added to damage, overrides Characteristic on ability damage.'"></TooltipComponent>
+                                                    </v-select>
+                                                </v-col>
+                                                <v-col cols="12" md="6">
+                                                    <v-switch label="Flat Damage Crits" inset v-model="a.damage.critFlat"></v-switch>
+                                                </v-col>
+                                                <v-col cols="12" md="6">
+                                                    <v-switch label="Max Crit" inset v-model="a.damage.critMax"></v-switch>
+                                                </v-col>
+                                                <v-col cols="12">
+                                                    <v-select label="Damage Types"
+                                                              :items="damageTypes"
+                                                              v-model="a.damage.types"
+                                                              multiple>
+                                                        <TooltipComponent slot="prepend" :text="'Added in addition to ability`s damage types'"></TooltipComponent>
+                                                    </v-select>
+                                                </v-col>
+                                            </v-row>
+                                        </v-col>
+                                    </v-card>
+                                </template>
                                 <!-- Damage Modification Fields -->
                                 <template v-if="a.type == 'Damage Modification'">
                                     <v-autocomplete label="Damage Modification Type"
@@ -112,7 +156,7 @@
                                             v-if="a.type == 'Skill'"></v-combobox>
                                 <v-text-field label="Amount"
                                               v-model="a.amount"
-                                              v-if="a.type != 'Status' && a.type != 'Other' && a.type != 'Damage: Convert Damage Type'"
+                                              v-if="a.type != 'Status' && a.type != 'Other' && a.type != 'Damage: Convert Damage Type' && a.type != 'Damage Additional'"
                                               type="number"></v-text-field>
                                 <!-- Status Fields -->
                                 <v-autocomplete label="Status"
@@ -164,12 +208,14 @@
 
 <script>
     import BuffListItem from './BuffListItem.vue'
+    import TooltipComponent from './TooltipComponent.vue'
     import { v4 as uuidv4 } from 'uuid';
 
     export default {
         name: 'BuffSection',
         components: {
-            BuffListItem
+            BuffListItem,
+            TooltipComponent
         },
         props: {
             buffs: Array,
@@ -183,7 +229,7 @@
         },
         data() {
             return {
-                buffOptions: ['CHAR', 'Class Resource: Commited', 'Damage: Convert Damage Type', 'Damage Modification', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
+                buffOptions: ['CHAR', 'Class Resource: Commited', 'Damage Additional', 'Damage: Convert Damage Type', 'Damage Modification', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
                 dialog: {
                     show: false,
                     type: ''
@@ -200,6 +246,15 @@
                             characteristic: '',
                             classResource: '',
                             damageConvertType: '',
+                            damage: {
+                                characteristic: '',
+                                critDice: 0,
+                                critFlat: false,
+                                critMax: false,
+                                dice: 0,
+                                flat: 0,
+                                types: []
+                            },
                             damageModification: {
                                 isImmunity: false,
                                 isResistance: false,
@@ -240,6 +295,15 @@
                             characteristic: '',
                             classResource: '',
                             damageConvertType: '',
+                            damage: {
+                                characteristic: '',
+                                critDice: 0,
+                                critFlat: false,
+                                critMax: false,
+                                dice: 0,
+                                flat: 0,
+                                types: []
+                            },
                             damageModification: {
                                 isImmunity: false,
                                 isResistance: false,
@@ -287,6 +351,15 @@
                     characteristic: '',
                     classResource: '',
                     damageConvertType: '',
+                    damage: {
+                        characteristic: '',
+                        critDice: 0,
+                        critFlat: false,
+                        critMax: false,
+                        dice: 0,
+                        flat: 0,
+                        types: []
+                    },
                     damageModification: {
                         isImmunity: false,
                         isResistance: false,

@@ -14,9 +14,43 @@
             <div v-for="a, index in adjustments" :key="index">
                 <v-text-field :label="returnLabel(a)"
                               v-model="a.amount"
-                              v-if="a.type != 'Status' && a.type != 'Other' && a.type != 'Damage: Convert Damage Type'"
+                              v-if="a.type != 'Status' && a.type != 'Other' && a.type != 'Damage: Convert Damage Type' && a.type != 'Damage Additional'"
                               type="number"
                               disabled></v-text-field>
+                <v-form v-if="a.type == 'Damage Additional'" disabled>
+                    <v-card>
+                        <v-col cols="12">
+                            <v-row>
+                                <v-col cols="12">
+                                    <h3 class="text-center">
+                                        Damage Additional
+                                    </h3>
+                                </v-col>
+                                <v-col cols="12" md="4" v-if="a.damage.dice">
+                                    <v-text-field label="Dice" type="number" v-model="a.damage.dice"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="4" v-if="a.damage.flat">
+                                    <v-text-field label="Flat" type="number" v-model="a.damage.flat"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="4" v-if="a.damage.critDice">
+                                    <v-text-field label="Crit Dice" type="number" v-model="a.damage.critDice"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" v-if="a.damage.characteristic">
+                                    <v-text-field label="Characteristic" v-model="a.damage.characteristic"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="6" v-if="a.damage.critFlat">
+                                    <v-switch label="Flat Damage Crits" inset v-model="a.damage.critFlat"></v-switch>
+                                </v-col>
+                                <v-col cols="12" md="6" v-if="a.damage.critMax">
+                                    <v-switch label="Max Crit" inset v-model="a.damage.critMax"></v-switch>
+                                </v-col>
+                                <v-col cols="12" v-if="a.damage.types.length > 0">
+                                    <v-text-field label="Damage Types" v-model="a.damage.types"></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                    </v-card>
+                </v-form>
                 <v-text-field :label="returnLabel(a)"
                               v-model="a.damageConvertType"
                               v-if="a.type == 'Damage: Convert Damage Type'"

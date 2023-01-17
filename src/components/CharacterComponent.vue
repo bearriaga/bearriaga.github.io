@@ -1561,15 +1561,74 @@
             cursed() {
                 return this.characterStatuses.filter(x => { return x.status.name == 'Cursed' && x.isActive && x.duration > 0 }).length > 0
             },
+            damageAddDice() {
+                let dice = 0
+                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                    dice += +(b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.dice > 0 }).reduce((previousValue, entry) => {
+                        return +previousValue + +entry.damage.dice
+                    }, 0))
+                })
+                return dice
+            },
+            damageAddFlat() {
+                let flat = 0
+                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                    flat += +(b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.flat > 0 }).reduce((previousValue, entry) => {
+                        return +previousValue + +entry.damage.flat
+                    }, 0))
+                })
+                return flat
+            },
+            damageAddCritDice() {
+                let dice = 0
+                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                    dice += +(b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.critDice > 0 }).reduce((previousValue, entry) => {
+                        return +previousValue + +entry.damage.critDice
+                    }, 0))
+                })
+                return dice
+            },
+            damageAddChar() {
+                let char = ''
+                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                    b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.characteristic }).forEach(a => {
+                        char = a.damage.characteristic
+                    })
+                })
+                return char
+            },
+            damageAddCritFlat() {
+                let critFlat = false
+                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                    if (b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.critFlat }).length > 0)
+                        critFlat = true
+                })
+                return critFlat
+            },
+            damageAddCritMax() {
+                let critMax = false
+                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                    if (b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.critMax }).length > 0)
+                        critMax = true
+                })
+                return critMax
+            },
+            damageAddTypes() {
+                let types = []
+                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                    b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.types.length > 0 }).forEach(a => {
+                        types = types.concat(a.damage.types)
+                    })
+                })
+                return types
+            },
             damageConvertType() {
                 let type = ''
-
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Damage: Convert Damage Type') && b.isActive }).forEach(b => {
                     b.adjustments.filter(a => { return a.type == 'Damage: Convert Damage Type' }).forEach(a => {
                         type = a.damageConvertType
                     })
                 })
-
                 return type
             },
             damageModifications() {
@@ -2393,7 +2452,7 @@
                     result.diceResults = rdResult.diceResults;
                     result.successes += +rdResult.successes
                     result.successesInput += +rdResult.successes
-                    result.fate = result.diceResults[0]                    
+                    result.fate = result.diceResults[0]
 
                     let luck = diceCheckObject.luck ? diceCheckObject.luck : this.luck
                     if (!this.characterSheet.luckNothingToChance) {
@@ -2612,30 +2671,35 @@
                     sum: 0,
                     types: []
                 }
+                let char = (this.damageAddChar) ? this.damageAddChar : characteristic
 
-                let damageTypes = JSON.parse(JSON.stringify(damage.types))
-                if (!damage.types.includes('Healing') && this.damageConvertType)
+                let damageTypes = this.damageAddTypes.concat(JSON.parse(JSON.stringify(damage.types)))
+                if (!damageTypes.includes('Healing') && this.damageConvertType)
                     damageTypes = [this.damageConvertType]
 
                 //Roll Die
-                if (damage.dice && !isNaN(damage.dice)) {
+                if ((damage.dice && !isNaN(damage.dice)))
                     for (let i = 0; i < damage.dice; i++) {
-                        damageObj.diceResults.push({
-                            value: this.getRandomIntInclusive(1, 6),
-                            type: (!isCrit) ? 'normal' : 'crit'
-                        })
+                        damageObj.diceResults.push({ value: this.getRandomIntInclusive(1, 6), type: (!isCrit) ? 'normal' : 'crit' })
                     }
-                }
+                if (this.damageAddDice)
+                    for (let i = 0; i < this.damageAddDice; i++) {
+                        damageObj.diceResults.push({ value: this.getRandomIntInclusive(1, 6), type: (!isCrit) ? 'normal' : 'crit' })
+                    }
 
                 //Add Flat
-                if ((!isCrit || (isCrit && !damageObj.isCrit && damage.critFlat)) && (damage.flat > 0 && !isNaN(damage.flat))) {
+                if ((!isCrit || (isCrit && !damageObj.isCrit && (damage.critFlat || this.damageAddCritFlat))) && (damage.flat > 0 && !isNaN(damage.flat))) {
                     damageObj.flat += +damage.flat
                     damageObj.flatTotal += +damage.flat
                 }
+                if ((!isCrit || (isCrit && !damageObj.isCrit && (damage.critFlat || this.damageAddCritFlat))) && this.damageAddFlat) {
+                    damageObj.flat += +this.damageAddFlat
+                    damageObj.flatTotal += +this.damageAddFlat
+                }
 
                 //Add Char
-                if (!isCrit && characteristic) {
-                    damageObj.char = this[characteristic]
+                if (!isCrit && char) {
+                    damageObj.char = this[char]
                     damageObj.flatTotal += +damageObj.char
                 }
 
@@ -2648,7 +2712,7 @@
                 //Set info text
                 damageObj.flatTotalBreakdown = ''
                 damageObj.flatTotalBreakdown += (damageObj.flat) ? `Flat(${damageObj.flat}) + ` : ''
-                damageObj.flatTotalBreakdown += (damageObj.char) ? `${characteristic.toUpperCase()}(${damageObj.char}) + ` : ''
+                damageObj.flatTotalBreakdown += (damageObj.char) ? `${char.toUpperCase()}(${damageObj.char}) + ` : ''
                 damageObj.flatTotalBreakdown += (damageObj.fit) ? `Melee FIT(${damageObj.fit})` : ''
                 if (damageObj.flatTotalBreakdown.substring(damageObj.flatTotalBreakdown.length - 3) == ' + ')
                     damageObj.flatTotalBreakdown = damageObj.flatTotalBreakdown.substring(0, damageObj.flatTotalBreakdown.length - 3)
@@ -2656,10 +2720,12 @@
                 //Add Crit Dice
                 if (isCrit && !damageObj.isCrit && damage.critDice && !isNaN(damage.critDice)) {
                     for (let i = 0; i < damage.critDice; i++) {
-                        damageObj.diceResults.push({
-                            value: this.getRandomIntInclusive(1, 6),
-                            type: 'crit'
-                        })
+                        damageObj.diceResults.push({ value: this.getRandomIntInclusive(1, 6), type: 'crit' })
+                    }
+                }
+                if (isCrit && !damageObj.isCrit && this.damageAddCritDice) {
+                    for (let i = 0; i < this.damageAddCritDice; i++) {
+                        damageObj.diceResults.push({ value: this.getRandomIntInclusive(1, 6), type: 'crit' })
                     }
                 }
 
@@ -2667,10 +2733,7 @@
                 if (isCrit && !damageObj.isCrit) {
                     damageObj.isCrit = true
                     for (let i = 0; i < Math.floor(this.luck / 2); i++) {
-                        damageObj.diceResults.push({
-                            value: this.getRandomIntInclusive(1, 6),
-                            type: 'luck'
-                        })
+                        damageObj.diceResults.push({ value: this.getRandomIntInclusive(1, 6), type: 'luck' })
                     }
                 }
 
@@ -2710,7 +2773,7 @@
                     damageObj.effects = effects
                 }
 
-                if (isCrit && damage.critMax)
+                if (isCrit && (damage.critMax || this.damageAddCritMax))
                     damageObj.diceResults.forEach(d => { d.value = 6 })
 
                 damageObj.sum = +damageObj.diceResults.reduce((previousValue, entry) => {
