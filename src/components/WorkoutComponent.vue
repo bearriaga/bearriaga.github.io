@@ -127,7 +127,7 @@
                                         <v-expansion-panels multiple>
                                             <v-expansion-panel v-for="e, i in w.exercises" :key="i">
                                                 <v-expansion-panel-header>
-                                                    <h3 class="text-center">{{e.name}}</h3>
+                                                    <h3 class="text-center">{{e.name}} <v-icon color="primary" @click.stop="copyExercise(e)">mdi-content-copy</v-icon></h3>
                                                 </v-expansion-panel-header>
                                                 <v-expansion-panel-content>
                                                     <template>
@@ -223,10 +223,6 @@
                     reps: 0,
                     weight: 0
                 },
-                //snackbar: {
-                //    show: false,
-                //    text: ''
-                //},
                 workout: {
                     date: new Date(new Date().toLocaleDateString()).toISOString().substr(0, 10),
                     exercises: [],
@@ -246,6 +242,10 @@
             },
             addSet(i) {
                 this.workout.exercises[i].sets.push(JSON.parse(JSON.stringify(this.set)))
+            },
+            copyExercise(e) {
+                this.workout.exercises.push(e)
+                this.panel.push((+this.workout.exercises.length - 1))
             },
             copySet(i, j) {
                 let set = JSON.parse(JSON.stringify(this.workout.exercises[i].sets[j]))
