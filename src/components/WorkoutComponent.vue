@@ -17,7 +17,7 @@
                     <v-select label="Type" :items="workoutTypes" v-model="workout.type"></v-select>
                 </v-col>
             </v-row>
-            <v-textarea label="Notes" v-model="workout.notes" auto-grow outlined rows="1"></v-textarea>
+            <v-textarea label="Notes" v-model="workout.notes" auto-grow outlined rows="1" clearable></v-textarea>
             <template>
                 <h2 class="text-center">
                     Exercises
@@ -45,7 +45,7 @@
                                     <v-text-field label="Maxes" v-model="e.maxes"></v-text-field>
                                 </v-col>
                             </v-row>
-                            <v-textarea label="Notes" v-model="e.notes" auto-grow outlined rows="1"></v-textarea>
+                            <v-textarea label="Notes" v-model="e.notes" auto-grow outlined rows="1" clearable></v-textarea>
                             <template>
                                 <h3 class="text-center">
                                     Sets
@@ -72,7 +72,7 @@
                                                 </v-row>
                                             </v-col>
                                             <v-col cols="12" md="12">
-                                                <v-textarea label="Notes" v-model="s.notes" auto-grow outlined rows="1"></v-textarea>
+                                                <v-textarea label="Notes" v-model="s.notes" auto-grow outlined rows="1" clearable></v-textarea>
                                             </v-col>
                                             <v-col cols="12" class="text-center">
                                                 <v-icon color="primary" @click="copySet(i, j)">mdi-content-copy</v-icon>
