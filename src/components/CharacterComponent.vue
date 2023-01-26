@@ -2791,6 +2791,8 @@
                 if (valueName == 'initiative') {
                     this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.speed + +this.characterSheet.initiativeIncreases + +this.buffAmount({ type: 'Initiative' })
                     this.updateInitiative++
+                    navigator.clipboard.writeText(`&{template:default} {{name= Initiative}} {{Roll= ${this.characterSheet.initiative}}}`)
+                    this.showSnackbar('Copied Initiative to Clipboard')
                 }
                 if (valueName == 'bp') {
                     this.cleanseDialog.show = true
