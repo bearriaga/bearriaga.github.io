@@ -134,7 +134,7 @@
                     if (this.propertyObject.valueName == 'bp')
                         cost = 60 * (vi * (+vi + 1) / 2)
                     if (this.propertyObject.valueName == 'dc')
-                        cost = (Math.pow(2, vi) - 1) * 160
+                        cost = (Math.pow(2, vi) - 1) * 150
                     if (this.propertyObject.valueName == 'hp')
                         cost = 5 * (vi * (+vi + 1) / 2)
                     if (this.propertyObject.valueName == 'initiative')
