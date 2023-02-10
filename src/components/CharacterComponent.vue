@@ -1251,7 +1251,7 @@
                 return +this.xpTotal - +subtractedXP
             },
             xpBP() { return Math.floor(60 * (Math.abs(this.characterSheet.bpIncreases) * (+Math.abs(this.characterSheet.bpIncreases) + 1) / 2)) },
-            xpDC() { return (Math.pow(2, +Math.abs(this.characterSheet.dcToHitIncreases)) - 1) * 160 },
+            xpDC() { return (Math.pow(2, +Math.abs(this.characterSheet.dcToHitIncreases)) - 1) * 150 },
             xpHP() { return (Math.floor(5 * Math.abs(this.characterSheet.hpIncreases) * (+Math.abs(this.characterSheet.hpIncreases) + 1) / 2)) },
             xpInitiative() { return Math.floor(30 * (Math.abs(this.characterSheet.initiativeIncreases) * (+Math.abs(this.characterSheet.initiativeIncreases) + 1) / 2)) },
             xpRerolls() { return Math.floor(60 * Math.abs(this.characterSheet.rerollsIncreases)) },
@@ -1683,8 +1683,8 @@
                     {
                         bar: false,
                         color: '',
-                        dialogInfoText: 'Formula: (2^n - 1) * 160',
-                        dialogText: '160 xp, doubling for each purchase.',
+                        dialogInfoText: 'Formula: (2^n - 1) * 150',
+                        dialogText: '150 xp, doubling for each purchase.',
                         disabled: true,
                         infoText: '3 + DC Purchases (Natural Armor) + Highest Buff + Highest Armor/Shield Equipment.',
                         key: 'dc' + this.characterSheet.dcToHit,
