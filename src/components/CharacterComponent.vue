@@ -1181,7 +1181,7 @@
                 return (10 + +this.characterSheet.attunementSlotsIncreases)
             },
             bpMax() {
-                return +this.resistance + +this.characterSheet.bpIncreases
+                return Math.ceil(+this.resistance/2) + +this.characterSheet.bpIncreases
             },
             dcToHit() {
                 let adj = 0
