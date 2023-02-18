@@ -1178,7 +1178,7 @@
                 }, 0)
             },
             attunementSlotsMax() {
-                return (10 + +this.characterSheet.attunementSlotsIncreases)
+                return (3 + +this.characterSheet.attunementSlotsIncreases)
             },
             bpMax() {
                 return Math.ceil(+this.resistance/2) + +this.characterSheet.bpIncreases
@@ -1369,7 +1369,7 @@
                     color: 'primary',
                     dialogText: '',
                     disabled: true,
-                    infoText: '10 + Attunement Slot Purchases - Equipment Attunement Slots used',
+                    infoText: '3 + Attunement Slot Purchases - Equipment Attunement Slots used',
                     key: 'attunementSlots' + this.characterSheet.attunementSlots + this.characterSheet.attunementSlotsMax,
                     label: 'Attunement Slots',
                     minus: false,
