@@ -18,6 +18,7 @@
                     <v-data-table :headers="headers"
                                   :items="characterEquipment"
                                   :search="filterText"
+                                  item-key="key"
                                   show-expand
                                   dense>
                         <template v-slot:[`item.use`]="{ item }">
@@ -481,6 +482,10 @@
                         text: 'Actions',
                         value: 'actions',
                         sortable: false
+                    },
+                    {
+                        text: '',
+                        value: 'data-table-expand'
                     }
                 ],
                 movementsPanel: null,
