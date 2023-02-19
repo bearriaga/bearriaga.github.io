@@ -14,11 +14,17 @@
                     </h3>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="equipmentExpansionContent">
-                    <v-text-field label="Filter Equipment" v-model="filterText" clearable></v-text-field><v-data-table :headers="headers"
+                    <v-text-field label="Filter Equipment" v-model="filterText" clearable></v-text-field>
+                    <v-data-table :headers="headers"
                                   :items="characterEquipment"
                                   :search="filterText"
                                   show-expand
                                   dense>
+                        <template v-slot:[`item.use`]="{ item }">
+                            <v-btn :color="useButtonColor(item.ability)" @click="useAbility(item.ability)" x-small v-if="showUseButton(item)">
+                                Use
+                            </v-btn>
+                        </template>
                         <template v-slot:[`item.actions`]="{ item }">
                             <v-icon small
                                     color="primary"
@@ -32,7 +38,7 @@
                                 mdi-delete
                             </v-icon>
                         </template>
-                        <template v-slot:[`expanded-item`]=" { headers, item }">
+                        <template v-slot:[`expanded-item`]=" { item }">
                             <td :colspan="headers.length">
                                 <EquipmentListItem :ap="ap"
                                                    :characteristics="characteristics"
@@ -463,8 +469,13 @@
                         value: 'name'
                     },
                     {
-                        text: 'Amount',
+                        text: 'Qt',
                         value: 'amount'
+                    },
+                    {
+                        text: 'Use',
+                        value: 'use',
+                        sortable: false
                     },
                     {
                         text: 'Actions',
@@ -582,9 +593,54 @@
                 }
             },
             // Open Dialog Functions End
+            showUseButton(item) {
+                return (item.isActive && (                    
+                    item.ability.apCost != 0 ||
+                    item.ability.characteristic ||
+                    item.ability.classResource ||
+                    item.ability.damage.dice > 0 ||
+                    item.ability.damage.flat > 0 ||
+                    item.ability.dice ||
+                    (item.ability.save && item.ability.saveAmount && item.ability.saveCharacteristic)))
+            },
             toggleAdditionalPanel() {
                 if (this.equipment.isWeapon)
                     this.additionalAbilityInputsPanel = 0
+            },
+            useButtonColor(ability) {
+                let color = ''
+
+                let apColor = ''
+                if (ability.apCost > 0) {
+                    if (ability.apCost < this.ap)
+                        apColor = 'primary'
+                    else if (ability.apCost == this.ap)
+                        apColor = 'warning'
+                    else if (ability.apCost > this.ap)
+                        apColor = 'error'
+                }
+
+                let crColor = ''
+                if (this.crCost > 0) {
+                    let resource = this.resources.find(x => { return x.id == ability.classResource })
+                    if (resource) {
+                        if (ability.crCost < resource.amount)
+                            crColor = 'primary'
+                        if (ability.crCost == resource.amount)
+                            crColor = 'warning'
+                        if (ability.crCost > resource.amount)
+                            crColor = 'error'
+                    }
+                }
+
+                if (crColor == 'error' || apColor == 'error')
+                    color = 'error'
+                else if (crColor == 'warning' || apColor == 'warning')
+                    color = 'warning'
+                else
+                    color = 'primary'
+
+                return color
             },
             useAbility(ability) {
                 this.$emit('useAbilityEmit', ability)
