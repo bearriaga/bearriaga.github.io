@@ -2552,6 +2552,15 @@
                     }
                 })
 
+                let damageModificationsAllTypes = this.damageModifications.filter(x => x.type == 'All')
+                if (damageModificationsAllTypes.some(x => x.isImmunity)) isImmune = true
+                if (damageModificationsAllTypes.some(x => x.isResistance)) isResistant = true
+                if (damageModificationsAllTypes.some(x => x.isVulnerability)) isVulnerable = true
+                damageReductionAmount = +damageReductionAmount + +damageModificationsAllTypes
+                    .reduce((previousValue, entry) => {
+                        return +previousValue + +entry.amount
+                    }, 0)
+
                 var damageToTake = damage - damageReductionAmount
                 if (isImmune)
                     damageToTake = 0

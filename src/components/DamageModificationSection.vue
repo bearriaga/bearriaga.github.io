@@ -41,7 +41,7 @@
                         <v-form ref="form"
                                 v-model="valid">
                             <v-autocomplete label="Type"
-                                            :items="damageTypes"
+                                            :items="damageTypesWithAll"
                                             v-model="damageModification.type"
                                             :rules="textRules"
                                             required></v-autocomplete>
@@ -103,6 +103,7 @@
         },
         data() {
             return {
+                damageTypesWithAll: this.damageTypes.concat(['All']),
                 dialog: {
                     show: false,
                     type: ''
