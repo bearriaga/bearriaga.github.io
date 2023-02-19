@@ -19,148 +19,139 @@
             </v-col>
         </v-row>
         <v-form disabled>
-            <v-expansion-panels>
-                <v-expansion-panel>
-                    <v-expansion-panel-header>
-                        <h3 class="text-center">{{name}}</h3>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <v-row>
-                            <v-col cols="6">
-                                <v-text-field label="Name" v-model="name"></v-text-field>
-                            </v-col>
-                            <v-col cols="6">
-                                <v-text-field label="XP" v-model="xpCost"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" v-if="description">
-                                <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
-                            </v-col>
-                            <v-col cols="12" v-if="characteristic || dice" class="text-center">
-                                <v-btn color="primary" @click="rollAbility(ability)">Roll Check</v-btn>
-                            </v-col>
-                            <v-col cols="12" v-if="characteristic">
-                                <v-select label="Characteristic" :items="characteristics" v-model="characteristic" readonly>
-                                </v-select>
-                            </v-col>
-                            <v-col cols="12" v-if="dice">
-                                <v-text-field label="Ability Dice" v-model="dice"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" v-if="save">
-                                <v-text-field :label="saveCharacteristic + ' Save Amount'" v-model="saveAmount"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" v-if="damage.dice > 0 || damage.flat > 0">
-                                <template>
-                                    <v-expansion-panels>
-                                        <v-expansion-panel>
-                                            <v-expansion-panel-header>
-                                                <h3 class="text-center">
-                                                    Damage
-                                                    <v-icon @click.stop="rollDamage(ability)">mdi-dice-6</v-icon>
-                                                </h3>
-                                            </v-expansion-panel-header>
-                                            <v-expansion-panel-content>
-                                                <v-row>
-                                                    <v-col cols="12" md="4" v-if="damage.dice">
-                                                        <v-text-field label="Dice" v-model="damage.dice"></v-text-field>
-                                                    </v-col>
-                                                    <v-col cols="12" md="4" v-if="damage.flat">
-                                                        <v-text-field label="Flat" v-model="damage.flat"></v-text-field>
-                                                    </v-col>
-                                                    <v-col cols="12" md="4" v-if="damage.critDice">
-                                                        <v-text-field label="Crit Dice" v-model="damage.critDice"></v-text-field>
-                                                    </v-col>
-                                                    <v-col cols="12" v-if="damage.characteristic">
-                                                        <v-select label="Damage Characteristic" :items="characteristics" v-model="damage.characteristic" readonly></v-select>
-                                                    </v-col>
-                                                    <v-col cols="12" v-if="isMeleeAttack">
-                                                        <v-switch label="Melee Attack" inset v-model="isMeleeAttack"></v-switch>
-                                                    </v-col>
-                                                    <v-col cols="6" v-if="damage.critFlat">
-                                                        <v-switch label="Flat Damage to Crit" inset v-model="damage.critFlat"></v-switch>
-                                                    </v-col>
-                                                    <v-col cols="6" v-if="damage.critMax">
-                                                        <v-switch label="Max Crit" inset v-model="damage.critMax"></v-switch>
-                                                    </v-col>
-                                                    <v-col cols="12">
-                                                        <v-text-field label="Type" v-model="damage.types"></v-text-field>
-                                                    </v-col>
-                                                </v-row>
-                                            </v-expansion-panel-content>
-                                        </v-expansion-panel>
-                                    </v-expansion-panels>
-                                </template>
-                            </v-col>
-                            <v-col cols="4">
-                                <v-text-field label="AP Cost" type="number" v-model="apCost" readonly>
-                                    <v-icon :color="apIconColor"
-                                            slot="append"
-                                            @click="subtractAP(apCost)"
-                                            v-if="apCost">{{apIcon}}</v-icon>
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="4" v-if="crCost && classResource">
-                                <v-text-field :label="resources.find(x => x.id == classResource).name" type="number" v-model="crCost" readonly>
-                                    <v-icon :color="crIconColor"
-                                            slot="append"
-                                            @click="subtractCR({crCost:crCost, classResource: classResource})">{{crIcon}}</v-icon>
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="4">
-                                <v-text-field label="Duration" v-model="duration"></v-text-field>
-                            </v-col>
-                            <v-col cols="4">
-                                <v-text-field label="Range" v-model="range"></v-text-field>
-                            </v-col>
-                            <v-col cols="4" v-if="areaOfEffect">
-                                <v-text-field label="Area of Effect" v-model="areaOfEffect"></v-text-field>
-                            </v-col>
-                            <v-col cols="4">
-                                <v-select label="Physical/Meta"
-                                          :items="physMetaOptions"
-                                          v-model="physMeta"
-                                          required></v-select>
-                            </v-col>
-                            <v-col cols="4" v-if="successes">
-                                <v-text-field label="Successes" type="number" v-model="successes"></v-text-field>
-                            </v-col>
-                            <v-col cols="4" v-if="handedness">
-                                <v-text-field label="Handedness" type="number" v-model="handedness"></v-text-field>
-                            </v-col>
-                            <v-col cols="4" v-if="maxSizeCategoryOfMass">
-                                <v-text-field label="Max Size Category Of Mass" v-model="maxSizeCategoryOfMass"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" v-if="subEffects.length > 0">
-                                <template>
-                                    <v-expansion-panels>
-                                        <v-expansion-panel>
-                                            <v-expansion-panel-header>
-                                                <h3 class="text-center">Sub Effects</h3>
-                                            </v-expansion-panel-header>
-                                            <v-expansion-panel-content>
-                                                <AbilityListItem v-for="s in abilities" :key="s.key"
-                                                                 :ability="s"
-                                                                 :ap="ap"
-                                                                 :characteristics="characteristics"
-                                                                 :damage-types="damageTypes"
-                                                                 :resources="resources"
-                                                                 :successes-from-intelligence="successesFromIntelligence"
-                                                                 @deleteEntryEmit="deleteEntry($event)"
-                                                                 @updateDialogEmit="updateDialog($event)"
-                                                                 @updateEntryEmit="updateEntry($event)"
-                                                                 @rollAbilityEmit="rollAbility($event)"
-                                                                 @rollDamageEmit="rollDamage($event)"
-                                                                 @subtractAP="subtractAP($event)"
-                                                                 @subtractCR="subtractCR($event)"
-                                                                 @useAbility="useAbility($event)"></AbilityListItem>
-                                            </v-expansion-panel-content>
-                                        </v-expansion-panel>
-                                    </v-expansion-panels>
-                                </template>
-                            </v-col>
-                        </v-row>
-                    </v-expansion-panel-content>
-                </v-expansion-panel>
-            </v-expansion-panels>
+            <v-row>
+                <v-col cols="6">
+                    <v-text-field label="Name" v-model="name"></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                    <v-text-field label="XP" v-model="xpCost"></v-text-field>
+                </v-col>
+                <v-col cols="12" v-if="description">
+                    <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+                </v-col>
+                <v-col cols="12" v-if="characteristic || dice" class="text-center">
+                    <v-btn color="primary" @click="rollAbility(ability)">Roll Check</v-btn>
+                </v-col>
+                <v-col cols="12" v-if="characteristic">
+                    <v-select label="Characteristic" :items="characteristics" v-model="characteristic" readonly>
+                    </v-select>
+                </v-col>
+                <v-col cols="12" v-if="dice">
+                    <v-text-field label="Ability Dice" v-model="dice"></v-text-field>
+                </v-col>
+                <v-col cols="12" v-if="save">
+                    <v-text-field :label="saveCharacteristic + ' Save Amount'" v-model="saveAmount"></v-text-field>
+                </v-col>
+                <v-col cols="12" v-if="damage.dice > 0 || damage.flat > 0">
+                    <template>
+                        <v-expansion-panels>
+                            <v-expansion-panel>
+                                <v-expansion-panel-header>
+                                    <h3 class="text-center">
+                                        Damage
+                                        <v-icon @click.stop="rollDamage(ability)">mdi-dice-6</v-icon>
+                                    </h3>
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <v-row>
+                                        <v-col cols="12" md="4" v-if="damage.dice">
+                                            <v-text-field label="Dice" v-model="damage.dice"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="4" v-if="damage.flat">
+                                            <v-text-field label="Flat" v-model="damage.flat"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="4" v-if="damage.critDice">
+                                            <v-text-field label="Crit Dice" v-model="damage.critDice"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" v-if="damage.characteristic">
+                                            <v-select label="Damage Characteristic" :items="characteristics" v-model="damage.characteristic" readonly></v-select>
+                                        </v-col>
+                                        <v-col cols="12" v-if="isMeleeAttack">
+                                            <v-switch label="Melee Attack" inset v-model="isMeleeAttack"></v-switch>
+                                        </v-col>
+                                        <v-col cols="6" v-if="damage.critFlat">
+                                            <v-switch label="Flat Damage to Crit" inset v-model="damage.critFlat"></v-switch>
+                                        </v-col>
+                                        <v-col cols="6" v-if="damage.critMax">
+                                            <v-switch label="Max Crit" inset v-model="damage.critMax"></v-switch>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-text-field label="Type" v-model="damage.types"></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                    </template>
+                </v-col>
+                <v-col cols="4">
+                    <v-text-field label="AP Cost" type="number" v-model="apCost" readonly>
+                        <v-icon :color="apIconColor"
+                                slot="append"
+                                @click="subtractAP(apCost)"
+                                v-if="apCost">{{apIcon}}</v-icon>
+                    </v-text-field>
+                </v-col>
+                <v-col cols="4" v-if="crCost && classResource">
+                    <v-text-field :label="resources.find(x => x.id == classResource).name" type="number" v-model="crCost" readonly>
+                        <v-icon :color="crIconColor"
+                                slot="append"
+                                @click="subtractCR({crCost:crCost, classResource: classResource})">{{crIcon}}</v-icon>
+                    </v-text-field>
+                </v-col>
+                <v-col cols="4">
+                    <v-text-field label="Duration" v-model="duration"></v-text-field>
+                </v-col>
+                <v-col cols="4">
+                    <v-text-field label="Range" v-model="range"></v-text-field>
+                </v-col>
+                <v-col cols="4" v-if="areaOfEffect">
+                    <v-text-field label="Area of Effect" v-model="areaOfEffect"></v-text-field>
+                </v-col>
+                <v-col cols="4">
+                    <v-select label="Physical/Meta"
+                              :items="physMetaOptions"
+                              v-model="physMeta"
+                              required></v-select>
+                </v-col>
+                <v-col cols="4" v-if="successes">
+                    <v-text-field label="Successes" type="number" v-model="successes"></v-text-field>
+                </v-col>
+                <v-col cols="4" v-if="handedness">
+                    <v-text-field label="Handedness" type="number" v-model="handedness"></v-text-field>
+                </v-col>
+                <v-col cols="4" v-if="maxSizeCategoryOfMass">
+                    <v-text-field label="Max Size Category Of Mass" v-model="maxSizeCategoryOfMass"></v-text-field>
+                </v-col>
+                <v-col cols="12" v-if="subEffects.length > 0">
+                    <template>
+                        <v-expansion-panels>
+                            <v-expansion-panel>
+                                <v-expansion-panel-header>
+                                    <h3 class="text-center">Sub Effects</h3>
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <AbilityListItem v-for="s in abilities" :key="s.key"
+                                                     :ability="s"
+                                                     :ap="ap"
+                                                     :characteristics="characteristics"
+                                                     :damage-types="damageTypes"
+                                                     :resources="resources"
+                                                     :successes-from-intelligence="successesFromIntelligence"
+                                                     @deleteEntryEmit="deleteEntry($event)"
+                                                     @updateDialogEmit="updateDialog($event)"
+                                                     @updateEntryEmit="updateEntry($event)"
+                                                     @rollAbilityEmit="rollAbility($event)"
+                                                     @rollDamageEmit="rollDamage($event)"
+                                                     @subtractAP="subtractAP($event)"
+                                                     @subtractCR="subtractCR($event)"
+                                                     @useAbility="useAbility($event)"></AbilityListItem>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                    </template>
+                </v-col>
+            </v-row>
         </v-form>
     </div>
 </template>

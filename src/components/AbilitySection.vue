@@ -20,24 +20,52 @@
                                 <v-text-field label="Filter Abilities"
                                               v-model="filterText"
                                               clearable>
-                                    <TooltipComponent slot="prepend" :text="'Filter Abilities based on Name and Description.'"></TooltipComponent>
                                 </v-text-field>
                             </v-col>
-                            <v-col cols="12" :xl="extraLargeColumns(ability)" :md="mediumColumns(ability)" v-for="ability in filteredAbilities" :key="ability.key">
-                                <AbilityListItem :ability="ability"
-                                                 :ap="ap"
-                                                 :characteristics="characteristics"
-                                                 :damage-types="damageTypes"
-                                                 :resources="resources"
-                                                 :successes-from-intelligence="successesFromIntelligence"
-                                                 @deleteEntryEmit="deleteDialog($event)"
-                                                 @rollAbilityEmit="rollAbility($event)"
-                                                 @rollDamageEmit="rollDamage($event)"
-                                                 @subtractAP="subtractAP($event)"
-                                                 @subtractCR="subtractCR($event)"
-                                                 @updateDialogEmit="updateDialog($event)"
-                                                 @updateEntryEmit="updateEntryBypass($event)"
-                                                 @useAbility="useAbility($event)"></AbilityListItem>
+                            <v-col cols="12">
+                                <v-data-table :headers="headers"
+                                              :items="abilities"
+                                              :search="filterText"
+                                              item-key="key"
+                                              show-expand
+                                              dense>
+                                    <template v-slot:[`item.use`]="{ item }">
+                                        <v-btn :color="useButtonColor(item)" @click="useAbility(item)" x-small>
+                                            Use
+                                        </v-btn>
+                                    </template>
+                                    <template v-slot:[`item.actions`]="{ item }">
+                                        <v-icon small
+                                                color="primary"
+                                                class="mr-2"
+                                                @click="updateDialog(item)">
+                                            mdi-pencil
+                                        </v-icon>
+                                        <v-icon small
+                                                color="error"
+                                                @click="deleteDialog(item)">
+                                            mdi-delete
+                                        </v-icon>
+                                    </template>
+                                    <template v-slot:[`expanded-item`]=" { item }">
+                                        <td :colspan="headers.length">
+                                            <AbilityListItem :ability="item"
+                                                             :ap="ap"
+                                                             :characteristics="characteristics"
+                                                             :damage-types="damageTypes"
+                                                             :resources="resources"
+                                                             :successes-from-intelligence="successesFromIntelligence"
+                                                             @deleteEntryEmit="deleteDialog($event)"
+                                                             @rollAbilityEmit="rollAbility($event)"
+                                                             @rollDamageEmit="rollDamage($event)"
+                                                             @subtractAP="subtractAP($event)"
+                                                             @subtractCR="subtractCR($event)"
+                                                             @updateDialogEmit="updateDialog($event)"
+                                                             @updateEntryEmit="updateEntryBypass($event)"
+                                                             @useAbility="useAbility($event)"></AbilityListItem>
+                                        </td>
+                                    </template>
+                                </v-data-table>
                             </v-col>
                         </v-row>
                     </v-expansion-panel-content>
@@ -499,6 +527,42 @@
                     type: ''
                 },
                 filterText: '',
+                headers: [
+                    {
+                        text: 'Name',
+                        value: 'name'
+                    },
+                    {
+                        text: 'AP',
+                        value: 'apCost'
+                    },
+                    {
+                        text: 'Range',
+                        value: 'range'
+                    },
+                    {
+                        text: 'AoE',
+                        value: 'areaOfEffect'
+                    },
+                    {
+                        text: 'Description',
+                        value: 'description'
+                    },
+                    {
+                        text: 'Use',
+                        value: 'use',
+                        sortable: false
+                    },
+                    {
+                        text: 'Actions',
+                        value: 'actions',
+                        sortable: false
+                    },
+                    {
+                        text: '',
+                        value: 'data-table-expand'
+                    }
+                ],
                 panel: this.panelProp,
                 subEffectPanel: null,
                 // Validation Start
@@ -607,6 +671,41 @@
             },
             useAbility(ability) {
                 this.$emit('useAbilityEmit', ability)
+            },
+            useButtonColor(ability) {
+                let color = ''
+
+                let apColor = ''
+                if (ability.apCost > 0) {
+                    if (ability.apCost < this.ap)
+                        apColor = 'primary'
+                    else if (ability.apCost == this.ap)
+                        apColor = 'warning'
+                    else if (ability.apCost > this.ap)
+                        apColor = 'error'
+                }
+
+                let crColor = ''
+                if (this.crCost > 0) {
+                    let resource = this.resources.find(x => { return x.id == ability.classResource })
+                    if (resource) {
+                        if (ability.crCost < resource.amount)
+                            crColor = 'primary'
+                        if (ability.crCost == resource.amount)
+                            crColor = 'warning'
+                        if (ability.crCost > resource.amount)
+                            crColor = 'error'
+                    }
+                }
+
+                if (crColor == 'error' || apColor == 'error')
+                    color = 'error'
+                else if (crColor == 'warning' || apColor == 'warning')
+                    color = 'warning'
+                else
+                    color = 'primary'
+
+                return color
             },
             validate() {
                 return this.$refs.form.validate()
