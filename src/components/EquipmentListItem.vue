@@ -1,18 +1,5 @@
 <template>
     <div>
-        <h3 class="text-center">{{equipment.name}}</h3>
-        <v-row>
-            <v-col class="text-center">
-                <v-btn color="primary" @click="updateDialog">
-                    <v-icon>mdi-pen</v-icon>
-                </v-btn>
-            </v-col>
-            <v-col class="text-center">
-                <v-btn color="error" @click="deleteDialog">
-                    <v-icon>mdi-delete</v-icon>
-                </v-btn>
-            </v-col>
-        </v-row>
         <v-switch label="Is Equipped" inset
                     v-model="isActive"
                     v-if="!equipment.isItem"></v-switch>
@@ -116,9 +103,6 @@
             }
         },
         methods: {
-            deleteDialog() {
-                this.$emit('deleteDialogEmit', this.equipment)
-            },
             rollAbility(ability) {
                 this.$emit('rollAbilityEmit', ability)
             },
@@ -136,9 +120,6 @@
             },
             subtractCR(crCost) {
                 this.$emit('subtractCREmit', crCost)
-            },
-            updateDialog() {
-                this.$emit('updateDialogEmit', this.setObject())
             },
             updateEntry() {
                 this.$emit('updateEntryEmit', this.setObject())

@@ -14,32 +14,46 @@
                     </h3>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="equipmentExpansionContent">
-                    <v-row>
-                        <v-col cols="12" xl="6" v-for="e in characterEquipment" :key="e.key">
-                            <EquipmentListItem :ap="ap"
-                                               :characteristics="characteristics"
-                                               :damage-groups="damageGroups"
-                                               :damage-types="damageTypes"
-                                               :equipment="e"
-                                               :movement-ap-icon="movementApIcon"
-                                               :movement-ap-icon-color="movementApIconColor"
-                                               :movement-types="movementTypes"
-                                               :resources="resources"
-                                               :slots="slots"
-                                               :successes-from-intelligence="successesFromIntelligence"
-                                               @deleteDialogEmit="deleteDialog($event)"
-                                               @rollAbilityEmit="rollAbility($event)"
-                                               @rollDamageEmit="rollDamage($event)"
-                                               @subtractAPEmit="subtractAP($event)"
-                                               @subtractCREmit="subtractCR($event)"
-                                               @updateDialogEmit="updateDialog($event)"
-                                               @updateEntryEmit="updateEntryBypass($event)"
-                                               @useAbility="useAbility($event)"></EquipmentListItem>
-
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                    </v-row>
+                    <v-text-field label="Filter Equipment" v-model="filterText" clearable></v-text-field><v-data-table :headers="headers"
+                                  :items="characterEquipment"
+                                  :search="filterText"
+                                  show-expand
+                                  dense>
+                        <template v-slot:[`item.actions`]="{ item }">
+                            <v-icon small
+                                    color="primary"
+                                    class="mr-2"
+                                    @click="updateDialog(item)">
+                                mdi-pencil
+                            </v-icon>
+                            <v-icon small
+                                    color="error"
+                                    @click="deleteDialog(item)">
+                                mdi-delete
+                            </v-icon>
+                        </template>
+                        <template v-slot:[`expanded-item`]=" { headers, item }">
+                            <td :colspan="headers.length">
+                                <EquipmentListItem :ap="ap"
+                                                   :characteristics="characteristics"
+                                                   :damage-groups="damageGroups"
+                                                   :damage-types="damageTypes"
+                                                   :equipment="item"
+                                                   :movement-ap-icon="movementApIcon"
+                                                   :movement-ap-icon-color="movementApIconColor"
+                                                   :movement-types="movementTypes"
+                                                   :resources="resources"
+                                                   :slots="slots"
+                                                   :successes-from-intelligence="successesFromIntelligence"
+                                                   @rollAbilityEmit="rollAbility($event)"
+                                                   @rollDamageEmit="rollDamage($event)"
+                                                   @subtractAPEmit="subtractAP($event)"
+                                                   @subtractCREmit="subtractCR($event)"
+                                                   @updateEntryEmit="updateEntryBypass($event)"
+                                                   @useAbility="useAbility($event)"></EquipmentListItem>
+                            </td>
+                        </template>
+                    </v-data-table>
                 </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
@@ -438,6 +452,26 @@
                     show: false,
                     type: ''
                 },
+                filterText: '',
+                headers: [
+                    {
+                        text: 'Equipped',
+                        value: 'isActive'
+                    },
+                    {
+                        text: 'Name',
+                        value: 'name'
+                    },
+                    {
+                        text: 'Amount',
+                        value: 'amount'
+                    },
+                    {
+                        text: 'Actions',
+                        value: 'actions',
+                        sortable: false
+                    }
+                ],
                 movementsPanel: null,
                 physMetaOptions: ['Physical', 'Meta', 'Both'],
                 rollAbility(ability) {
@@ -534,11 +568,11 @@
                 }, 200)
             },
             deleteDialog(equipment) {
-                this.equipment = equipment
+                this.equipment = JSON.parse(JSON.stringify(equipment))
                 this.setDialog('Delete')
             },
             updateDialog(equipment) {
-                this.equipment = equipment
+                this.equipment = JSON.parse(JSON.stringify(equipment))
                 this.setDialog('Edit')
             },
             setDialog(type) {
