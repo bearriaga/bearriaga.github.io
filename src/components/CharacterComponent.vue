@@ -2453,10 +2453,13 @@
                     result.successes += +rdResult.successes
                     result.successesInput += +rdResult.successes
                     result.fate = result.diceResults[0]
+                    if (this.characterSheet.luckLovedByLuck)
+                        result.fate += +Math.floor(this.luck / 3)
+
 
                     let luck = diceCheckObject.luck ? diceCheckObject.luck : this.luck
                     if (!this.characterSheet.luckNothingToChance) {
-                        if (result.fate == 6 || (this.characterSheet.luckFavored && result.fate >= 5)) {
+                        if (result.fate >= 6 || (this.characterSheet.luckFavored && result.fate >= 5)) {
                             result.advantage = true
                             result.successesFromLuck = luck
                             result.successes += +result.successesFromLuck

@@ -2080,6 +2080,7 @@
     "level": 0,
     "luckFavored": false,
     "luckIllFavored": false,
+    "luckLovedByLuck": false,
     "luckNothingToChance": false,
     "money": 0,
     "movement": 0,
