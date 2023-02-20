@@ -28,7 +28,14 @@
                                               :search="filterText"
                                               item-key="key"
                                               show-expand
+                                              multi-sort
                                               dense>
+                                    <template v-slot:[`item.classResourceCombined`]="{ item }">
+                                        {{getClassResource(item)}}
+                                    </template>
+                                    <template v-slot:[`item.damageSection`]="{ item }">
+                                        {{getDamage(item)}} <TooltipComponent v-if="getDamage(item).length" slot="append" :text="getDamageTypes(item)"></TooltipComponent>
+                                    </template>
                                     <template v-slot:[`item.use`]="{ item }">
                                         <v-btn :color="useButtonColor(item)" @click="useAbility(item)" x-small>
                                             Use
@@ -537,8 +544,18 @@
                         value: 'apCost'
                     },
                     {
+                        text: 'Resource',
+                        value: 'classResourceCombined',
+                        sortable: false
+                    },
+                    {
                         text: 'Range',
                         value: 'range'
+                    },
+                    {
+                        text: 'Damage',
+                        value: 'damageSection',
+                        sortable: false
                     },
                     {
                         text: 'AoE',
@@ -627,6 +644,22 @@
                 if (ability.subEffects.length)
                     return 6
                 else return 3
+            },
+            getClassResource(ability) {                
+                return (ability.classResource) ? `${ability.crCost} ${this.resources.find(x => { return x.id == ability.classResource }).name}` : ''
+            },
+            getDamage(ability) {
+                let damage = ''
+                if (ability.damage.dice && ability.damage.dice != 0)
+                    damage += `${ability.damage.dice}d6 + `
+                if (ability.damage.flat && ability.damage.flat != 0)
+                    damage += `${ability.damage.flat}`
+                if (damage.substring(damage.length - 3) == ' + ')
+                    damage = damage.substring(0, damage.length - 3)
+                return damage
+            },
+            getDamageTypes(ability) {
+                return ability.damage.types.join(', ')
             },
             mediumColumns(ability) {
                 if (ability.subEffects.length || this.layout == 'Minion')
