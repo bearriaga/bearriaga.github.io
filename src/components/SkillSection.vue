@@ -42,9 +42,15 @@
                                           ref="name"
                                           :rules="textRules"
                                           required></v-text-field>
-                            <v-text-field label="Skill Purchases"
+                            <v-text-field label="Skill Dice Purchases"
                                           type="number"
                                           v-model="skill.skillIncreases"
+                                          ref="skillIncreases"
+                                          :rules="numberRules"
+                                          required></v-text-field>
+                            <v-text-field label="Skill Successes"
+                                          type="number"
+                                          v-model="skill.successes"
                                           ref="skillIncreases"
                                           :rules="numberRules"
                                           required></v-text-field>
@@ -101,6 +107,7 @@
                     id: '',
                     name: '',
                     skillIncreases: 0,
+                    successes: 0,
                     value: 0
                 },
                 skill: {
@@ -109,6 +116,7 @@
                     id: '',
                     name: '',
                     skillIncreases: 0,
+                    successes: 0,
                     value: 0
                 },
                 // Input Fields End
@@ -118,7 +126,7 @@
                     v => !!v || 'Field may not be empty'
                 ],
                 numberRules: [
-                    v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
+                    v => !isNaN(+v) || 'Field may not be empty'
                 ],
                 valid: false
                 // Validation End

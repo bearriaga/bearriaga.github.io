@@ -71,7 +71,7 @@
                 this.$emit('updateEntryEmit', JSON.parse(JSON.stringify(this.skill)))
             },
             rollDiceCheckEmit() {
-                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSkill: true, name: this.skill.name, successes: 0 })
+                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSkill: true, name: this.skill.name, successes: (this.skill.successes) ? this.skill.successes : 0 })
             }
         }
     }
