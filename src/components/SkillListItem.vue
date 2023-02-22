@@ -12,13 +12,13 @@
                       v-model="value"
                       @keyup.enter="rollDiceCheckEmit">
             <v-icon slot="append" @click="rollDiceCheckEmit">mdi-dice-6</v-icon>
-            <v-icon color="primary" 
-                    slot="append" 
+            <v-icon color="primary"
+                    slot="append"
                     @click="updateEntry"
                     v-if="!skill.isBuff">mdi-pen</v-icon>
-            <v-icon color="error" 
-                    slot="append" 
-                    @click="deleteEntry" 
+            <v-icon color="error"
+                    slot="append"
+                    @click="deleteEntry"
                     v-if="!skill.default && !skill.isBuff">mdi-delete</v-icon>
         </v-text-field>
     </div>
@@ -71,7 +71,13 @@
                 this.$emit('updateEntryEmit', JSON.parse(JSON.stringify(this.skill)))
             },
             rollDiceCheckEmit() {
-                this.$emit('rollDiceCheckEmit', { diceToRoll: this.adjustedAmount, isSkill: true, name: this.skill.name, successes: (this.skill.successes) ? this.skill.successes : 0 })
+                this.$emit('rollDiceCheckEmit', {
+                    chars: [this.skill.characteristic],
+                    diceToRoll: this.adjustedAmount,
+                    isSkill: true,
+                    name: this.skill.name,
+                    successes: (this.skill.successes) ? this.skill.successes : 0
+                })
             }
         }
     }

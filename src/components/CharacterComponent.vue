@@ -1466,6 +1466,8 @@
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Status') && b.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
                         let status = JSON.parse(JSON.stringify(adjustment.status))
+                        if (status.status.name.includes('{CHAR}'))
+                            status.characteristic = adjustment.characteristic
                         status.duration = status.currentDuration
                         status.isActive = status.currentIsActive
                         status.ranks = status.currentRanks
@@ -2412,6 +2414,7 @@
                 if (ability.dice)
                     diceToRoll += +ability.dice
                 this.rollCheck({
+                    chars: [ability.characteristic],
                     diceToRoll: diceToRoll,
                     isAbility: true,
                     isSkill: false,
@@ -2457,11 +2460,24 @@
                     successesFromLuck: 0,
                     successesInput: 0,
                     threat: false
-                }
-
-                console.log(diceCheckObject)
+                }                
 
                 if (diceCheckObject.diceToRoll > 0) {
+                    //Dice Down/Up Code Start
+                    if (this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == '{CHAR} Dice Down' && diceCheckObject.chars.includes(x.characteristic) })) {
+                        diceCheckObject.diceToRoll -= +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.status.name == '{CHAR} Dice Down' && diceCheckObject.chars.includes(x.characteristic) })
+                            .reduce((previousValue, entry) => {
+                                return +previousValue + +entry.ranks
+                            }, 0)
+                    }
+                    if (this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == '{CHAR} Dice Up' && diceCheckObject.chars.includes(x.characteristic) })) {
+                        diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.status.name == '{CHAR} Dice Up' && diceCheckObject.chars.includes(x.characteristic) })
+                            .reduce((previousValue, entry) => {
+                                return +previousValue + +entry.ranks
+                            }, 0)
+                    }
+                    //Dice Down/Up Code End
+
                     if (diceCheckObject.isSkill) {
                         result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
                         result.successes += +result.successesFromIntelligence

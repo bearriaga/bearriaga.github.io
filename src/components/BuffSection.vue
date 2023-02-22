@@ -63,7 +63,7 @@
                                 <v-select label="Characteristic"
                                           v-model="a.characteristic"
                                           :items="characteristics"
-                                          v-if="a.type == 'CHAR' || a.type == 'Skill'"
+                                          v-if="a.type == 'CHAR' || a.type == 'Skill' || (a.type == 'Status' && a.status.status.name.includes('{CHAR}'))"
                                           :rules="notNull"
                                           required></v-select>
                                 <v-select label="Class Resource"

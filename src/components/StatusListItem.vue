@@ -30,7 +30,7 @@
                               v-model="ranks"
                               type="number"
                               min="0"
-                              v-if="selectedStatus.name.includes('rank')"></v-text-field>
+                              v-if="selectedStatus.ranked"></v-text-field>
                 <v-text-field label="Duration (Rounds)"
                               v-model="duration"
                               type="number"
@@ -73,6 +73,7 @@
             updateEntry() {
                 let status = {
                     buffId: this.status.buffId,
+                    characteristic: this.status.characteristic,
                     description: this.description,
                     duration: this.duration,
                     isActive: this.isActive,
