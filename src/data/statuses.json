@@ -20,7 +20,7 @@
   {
     "name": "Boosted",
     "cost": "100 xp",
-    "effect": "All Abilities that cost at least 2 AP cost -1 AP",
+    "effect": "All Abilities that cost at least 2 AP cost 1 less AP",
     "hasScaling": false,
     "ranked": false,
     "scaling": null,
@@ -128,7 +128,7 @@
   {
     "name": "Hindered",
     "cost": "100 xp",
-    "effect": "All Abilities that cost at least 1 AP cost +1 AP",
+    "effect": "All Abilities that cost at least 1 AP cost 1 more AP",
     "hasScaling": false,
     "ranked": false,
     "scaling": null,
