@@ -1184,6 +1184,13 @@
                 return Math.ceil(+this.resistance/2) + +this.characterSheet.bpIncreases
             },
             dcToHit() {
+                let statusAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && (x.status.name == 'AC Down' || x.status.name == 'AC Up') })
+                    .reduce((previousValue, entry) => {
+                        if (entry.status.name == 'AC Up')
+                            return +previousValue + +entry.ranks
+                        else
+                            return +previousValue - +entry.ranks
+                    }, 0)
                 let adj = 0
                 this.characterSheet.buffs.filter(buff => { return JSON.stringify(buff.adjustments).includes('DC to Hit') && buff.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'DC to Hit' }).forEach(adjustment => {
@@ -1196,7 +1203,7 @@
                     if (equipment.dcToHit > armorShield)
                         armorShield = equipment.dcToHit
                 })
-                let dc = 3 + +this.characterSheet.dcToHitIncreases + +adj + +armorShield
+                let dc = 3 + +this.characterSheet.dcToHitIncreases + +statusAdj + +adj + +armorShield
                 return (dc > 0) ? dc : 0
             },
             hpMax() {
