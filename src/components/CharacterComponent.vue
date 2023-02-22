@@ -2395,6 +2395,7 @@
                     diceToRoll += +ability.dice
                 this.rollCheck({
                     diceToRoll: diceToRoll,
+                    isAbility: true,
                     isSkill: false,
                     successes: ability.successes
                 }, false)
@@ -2440,11 +2441,19 @@
                     threat: false
                 }
 
+                console.log(diceCheckObject)
+
                 if (diceCheckObject.diceToRoll > 0) {
                     if (diceCheckObject.isSkill) {
                         result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
                         result.successes += +result.successesFromIntelligence
                         result.successesInput += +result.successesFromIntelligence
+                    }
+                    if (diceCheckObject.isAbility) {
+                        if (this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Blinded' })) {
+                            result.successes -= 2
+                            result.successesInput -= 2
+                        }
                     }
 
                     let rdResult = this.rollDice(diceCheckObject.diceToRoll)

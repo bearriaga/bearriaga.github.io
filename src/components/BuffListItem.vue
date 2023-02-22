@@ -106,7 +106,7 @@
                     label += ' - ' + adjustment.skill
                 if (adjustment.type == 'Status') {
                     label += ' - ' + adjustment.status.status.name
-                    if (adjustment.status.status.name.includes('{rank}'))
+                    if (adjustment.status.status.ranked)
                         label += ' ' + adjustment.status.ranks
                     label += ' Duration'
                 }

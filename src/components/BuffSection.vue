@@ -170,7 +170,7 @@
                                               v-model="a.status.ranks"
                                               type="number"
                                               min="0"
-                                              v-if="a.type == 'Status' && a.status.status.name.includes('{rank}')"
+                                              v-if="a.type == 'Status' && a.status.status.ranked"
                                               required></v-text-field>
                                 <v-text-field label="Duration (Rounds)"
                                               v-model="a.status.duration"
