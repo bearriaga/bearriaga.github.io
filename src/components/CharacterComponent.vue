@@ -2467,22 +2467,17 @@
                     successesFromLuck: 0,
                     successesInput: 0,
                     threat: false
-                }                
+                }
 
                 if (diceCheckObject.diceToRoll > 0) {
                     //Dice Down/Up Code Start
-                    if (this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == '{CHAR} Dice Down' && diceCheckObject.chars.includes(x.characteristic) })) {
-                        diceCheckObject.diceToRoll -= +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.status.name == '{CHAR} Dice Down' && diceCheckObject.chars.includes(x.characteristic) })
-                            .reduce((previousValue, entry) => {
+                    diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && (x.status.name == '{CHAR} Dice Down' || x.status.name == '{CHAR} Dice Up') && diceCheckObject.chars.includes(x.characteristic) })
+                        .reduce((previousValue, entry) => {
+                            if (entry.status.name == '{CHAR} Dice Up')
                                 return +previousValue + +entry.ranks
-                            }, 0)
-                    }
-                    if (this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == '{CHAR} Dice Up' && diceCheckObject.chars.includes(x.characteristic) })) {
-                        diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.status.name == '{CHAR} Dice Up' && diceCheckObject.chars.includes(x.characteristic) })
-                            .reduce((previousValue, entry) => {
-                                return +previousValue + +entry.ranks
-                            }, 0)
-                    }
+                            else
+                                return +previousValue - +entry.ranks
+                        }, 0)
                     //Dice Down/Up Code End
 
                     if (diceCheckObject.isSkill) {
