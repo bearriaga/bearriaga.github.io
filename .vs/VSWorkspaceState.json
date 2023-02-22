@@ -2,10 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components",
     "\\src\\data",
     "\\src\\stores",
     "\\src\\views"
   ],
+  "SelectedNode": "\\src\\data\\effects.json",
   "PreviewInSolutionExplorer": false
 }
