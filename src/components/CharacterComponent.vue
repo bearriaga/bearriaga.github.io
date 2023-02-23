@@ -1196,7 +1196,7 @@
                 return Math.ceil(+this.resistance/2) + +this.characterSheet.bpIncreases
             },
             dcToHit() {
-                let statusAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && (x.status.name == 'AC Down' || x.status.name == 'AC Up') })
+                let statusAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && (x.status.name == 'AC Down' || x.status.name == 'AC Up') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name == 'AC Up')
                             return +previousValue + +entry.ranks
@@ -1216,6 +1216,22 @@
                         armorShield = equipment.dcToHit
                 })
                 let dc = 3 + +this.characterSheet.dcToHitIncreases + +statusAdj + +adj + +armorShield
+                let percentageAdjustment = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && (x.status.name == 'AC Down' || x.status.name == 'AC Up') })
+                    .reduce((previousValue, entry) => {
+                        if (entry.status.name == 'AC Up') {
+                            if (entry.rankType == '50%')
+                                return +previousValue + +(entry.ranks * 50)
+                            else
+                                return +previousValue + +(entry.ranks * 100)
+                        }
+                        else {
+                            if (entry.rankType == '50%')
+                                return +previousValue - +(entry.ranks * 50)
+                            else
+                                return +previousValue - +(entry.ranks * 100)
+                        }
+                    }, 0)
+                dc = Math.ceil(dc * (100 + percentageAdjustment) / 100)
                 return (dc > 0) ? dc : 0
             },
             hpMax() {
