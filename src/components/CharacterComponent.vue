@@ -1382,6 +1382,15 @@
 
                 return abilities
             },
+            accuracySuccesses() {
+                return this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && (x.status.name == 'Accuracy Down' || x.status.name == 'Accuracy Up') })
+                    .reduce((previousValue, entry) => {
+                        if (entry.status.name == 'Accuracy Up')
+                            return +previousValue + +entry.ranks
+                        else
+                            return +previousValue - +entry.ranks
+                    }, 0)
+            },
             attunementSlotsInputWithEditModal() {
                 return {
                     bar: true,
@@ -2358,7 +2367,7 @@
                 navigator.clipboard.writeText(`&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copySaveGet()}`)
             },
             copySaveGet() {
-                return `{{Save= ${this.abilityDialog.save.characteristic} ${this.abilityDialog.save.amount}}}`
+                return `{{Save= ${this.abilityDialog.save.characteristic} ${+this.abilityDialog.save.amount + +this.accuracySuccesses}}}`
             },
             //Dice Roll Functions
             rerollFailures() {
@@ -2486,6 +2495,10 @@
                         result.successesInput += +result.successesFromIntelligence
                     }
                     if (diceCheckObject.isAbility) {
+                        //Accuracy Down/Up Code Start                        
+                        result.successes += +this.accuracySuccesses
+                        result.successesInput += +this.accuracySuccesses
+                        //Accuracy Down/Up Code End
                         if (this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Blinded' })) {
                             result.successes -= 2
                             result.successesInput -= 2
@@ -2937,7 +2950,7 @@
 
                 if (ability.save && !isNaN(ability.saveAmount) && ability.saveCharacteristic)
                     this.abilityDialog.save = {
-                        amount: +ability.saveAmount + +this.successesFromIntelligence,
+                        amount: +ability.saveAmount + +this.accuracySuccesses + +this.successesFromIntelligence,
                         characteristic: this.characteristicViewItems.find(x => { return x.name == ability.saveCharacteristic }).abbreviation,
                         show: true
                     }
