@@ -338,6 +338,8 @@
             characterEquipment: Array,
             damageGroups: Array,
             damageTypes: Array,
+            isBoosted: Boolean,
+            isHindered: Boolean,
             movementApIcon: String,
             movementApIconColor: String,
             movementTypes: Array,
@@ -499,6 +501,8 @@
                 panel: this.panelProp,
                 slots: ['Head', 'Body', 'Arms', 'Legs', 'Boots', 'Clothes'],
                 subtractAP(apCost) {
+                    apCost = (this.isBoosted && apCost >= 2) ? apCost - 1 : apCost
+                    apCost = (this.isHindered && apCost >= 1) ? apCost + 1 : apCost
                     this.$emit('subtractAPEmit', apCost)
                 },
                 subtractCR(crCost) {
@@ -599,7 +603,7 @@
             },
             // Open Dialog Functions End
             showUseButton(item) {
-                return (item.isActive && (                    
+                return (item.isActive && (
                     item.ability.apCost != 0 ||
                     item.ability.characteristic ||
                     item.ability.classResource ||
@@ -648,6 +652,9 @@
                 return color
             },
             useAbility(ability) {
+                ability = JSON.parse(JSON.stringify(ability))
+                ability.apCost = (this.isBoosted && ability.apCost >= 2) ? +ability.apCost - 1 : ability.apCost
+                ability.apCost = (this.isHindered && ability.apCost >= 1) ? +ability.apCost + 1 : ability.apCost
                 this.$emit('useAbilityEmit', ability)
             },
             validate() {

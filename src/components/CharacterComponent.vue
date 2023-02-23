@@ -295,6 +295,8 @@
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
+                                      :is-boosted="isBoosted"
+                                      :is-hindered="isHindered"
                                       :movement-ap-icon="movementApIcon"
                                       :movement-ap-icon-color="movementApIconColor"
                                       :movement-types="movementTypes"
@@ -555,6 +557,8 @@
                                               :character-equipment="characterEquipment"
                                               :damage-groups="damageGroups"
                                               :damage-types="damageTypes"
+                                              :is-boosted="isBoosted"
+                                              :is-hindered="isHindered"
                                               :movement-ap-icon="movementApIcon"
                                               :movement-ap-icon-color="movementApIconColor"
                                               :movement-types="movementTypes"
@@ -717,6 +721,8 @@
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
+                                      :is-boosted="isBoosted"
+                                      :is-hindered="isHindered"
                                       :movement-ap-icon="movementApIcon"
                                       :movement-ap-icon-color="movementApIconColor"
                                       :movement-types="movementTypes"
@@ -1855,9 +1861,7 @@
                 ]
             },
             isBoosted() {
-                let test = this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Boosted' })
-                console.log(test)
-                return test
+                return this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Boosted' })
             },
             isHindered() {
                 return this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Hindered' })

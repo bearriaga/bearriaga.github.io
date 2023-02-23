@@ -164,8 +164,6 @@
             ap: Number,
             characteristics: Array,
             damageTypes: Array,
-            isBoosted: Boolean,
-            isHindered: Boolean,
             resources: Array,
             successesFromIntelligence: Number
         },
@@ -355,10 +353,6 @@
                 this.$emit('rollDamageEmit', ability)
             },
             subtractAP(apCost) {
-                if (this.isBoosted && apCost >= 2)
-                    apCost--
-                if (this.isHindered && apCost >= 1)
-                    apCost++
                 this.$emit('subtractAP', apCost)
             },
             subtractCR(crCost) {
@@ -398,9 +392,6 @@
             //    this.$emit('updateEntryEmit', object)
             //},
             useAbility(ability) {
-                ability = JSON.parse(JSON.stringify(ability))
-                ability.apCost = (this.isBoosted && ability.apCost >= 2) ? +ability.apCost - 1 : ability.apCost
-                ability.apCost = (this.isHindered && ability.apCost >= 1) ? +ability.apCost + 1 : ability.apCost
                 this.$emit('useAbility', ability)
             }
         },

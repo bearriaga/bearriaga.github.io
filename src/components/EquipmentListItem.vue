@@ -1,8 +1,8 @@
 <template>
     <div>
         <v-switch label="Is Equipped" inset
-                    v-model="isActive"
-                    v-if="!equipment.isItem"></v-switch>
+                  v-model="isActive"
+                  v-if="!equipment.isItem"></v-switch>
         <v-text-field label="Amount"
                       type="number"
                       v-model="amount"
@@ -82,11 +82,11 @@
             showAbility() {
                 let show = !this.equipment.isItem && this.isActive &&
                     (this.equipment.ability.apCost != 0 ||
-                    this.equipment.ability.classResource ||
-                    this.equipment.ability.damage.dice > 0 ||
-                    this.equipment.ability.damage.flat > 0 ||
-                    this.equipment.ability.characteristic ||
-                    (this.equipment.ability.save && this.equipment.ability.saveAmount && this.equipment.ability.saveCharacteristic))
+                        this.equipment.ability.classResource ||
+                        this.equipment.ability.damage.dice > 0 ||
+                        this.equipment.ability.damage.flat > 0 ||
+                        this.equipment.ability.characteristic ||
+                        (this.equipment.ability.save && this.equipment.ability.saveAmount && this.equipment.ability.saveCharacteristic))
 
                 return show
             }

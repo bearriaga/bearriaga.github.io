@@ -38,7 +38,7 @@
                                         <TooltipComponent v-if="getDamage(item).length" slot="append" :text="getDamageTypes(item)"></TooltipComponent>
                                     </template>
                                     <template v-slot:[`item.use`]="{ item }">
-                                        <v-btn :color="useButtonColor(item)" @click="useAbilityTable(item)" x-small>
+                                        <v-btn :color="useButtonColor(item)" @click="useAbility(item)" x-small>
                                             Use
                                         </v-btn>
                                     </template>
@@ -61,8 +61,6 @@
                                                              :ap="ap"
                                                              :characteristics="characteristics"
                                                              :damage-types="damageTypes"
-                                                             :is-boosted="isBoosted"
-                                                             :is-hindered="isHindered"
                                                              :resources="resources"
                                                              :successes-from-intelligence="successesFromIntelligence"
                                                              @deleteEntryEmit="deleteDialog($event)"
@@ -702,19 +700,18 @@
                 this.$emit('rollDamageEmit', ability)
             },
             subtractAP(apCost) {
+                apCost = (this.isBoosted && apCost >= 2) ? apCost - 1 : apCost
+                apCost = (this.isHindered && apCost >= 1) ? apCost + 1 : apCost
                 this.$emit('subtractAPEmit', apCost)
             },
             subtractCR(crCost) {
                 this.$emit('subtractCREmit', crCost)
             },
             useAbility(ability) {
-                this.$emit('useAbilityEmit', ability)
-            },
-            useAbilityTable(ability) {
                 ability = JSON.parse(JSON.stringify(ability))
                 ability.apCost = (this.isBoosted && ability.apCost >= 2) ? +ability.apCost - 1 : ability.apCost
                 ability.apCost = (this.isHindered && ability.apCost >= 1) ? +ability.apCost + 1 : ability.apCost
-                this.useAbility(ability)
+                this.$emit('useAbilityEmit', ability)
             },
             useButtonColor(ability) {
                 let color = ''
