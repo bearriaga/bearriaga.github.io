@@ -2480,13 +2480,29 @@
 
                 if (diceCheckObject.diceToRoll > 0) {
                     //Dice Down/Up Code Start
-                    diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && (x.status.name == '{CHAR} Dice Down' || x.status.name == '{CHAR} Dice Up') && diceCheckObject.chars.includes(x.characteristic) })
+                    diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && (x.status.name == '{CHAR} Dice Down' || x.status.name == '{CHAR} Dice Up') && diceCheckObject.chars.includes(x.characteristic) })
                         .reduce((previousValue, entry) => {
                             if (entry.status.name == '{CHAR} Dice Up')
                                 return +previousValue + +entry.ranks
                             else
                                 return +previousValue - +entry.ranks
                         }, 0)
+                    let percentageAdjustment = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && (x.status.name == '{CHAR} Dice Down' || x.status.name == '{CHAR} Dice Up') && diceCheckObject.chars.includes(x.characteristic) })
+                        .reduce((previousValue, entry) => {
+                            if (entry.status.name == '{CHAR} Dice Up') {
+                                if (entry.rankType == '50%')
+                                    return +previousValue + +(entry.ranks * 50)
+                                else
+                                    return +previousValue + +(entry.ranks * 100)
+                            }
+                            else {
+                                if (entry.rankType == '50%')
+                                    return +previousValue - +(entry.ranks * 50)
+                                else
+                                    return +previousValue - +(entry.ranks * 100)
+                            }
+                        }, 0)
+                    diceCheckObject.diceToRoll = Math.ceil(diceCheckObject.diceToRoll * (100 + percentageAdjustment) / 100)
                     //Dice Down/Up Code End
 
                     if (diceCheckObject.isSkill) {
