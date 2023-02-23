@@ -148,6 +148,8 @@
                                     :characteristics="characteristics"
                                     :damage-types="damageTypes"
                                     :effects="effects"
+                                    :is-boosted="isBoosted"
+                                    :is-hindered="isHindered"
                                     :layout="layout"
                                     :panel-prop="abilityPanel"
                                     :resources="resources"
@@ -439,6 +441,8 @@
                                             :characteristics="characteristics"
                                             :damage-types="damageTypes"
                                             :effects="effects"
+                                            :is-boosted="isBoosted"
+                                            :is-hindered="isHindered"
                                             :layout="layout"
                                             :panel-prop="abilityPanel"
                                             :resources="resources"
@@ -691,6 +695,8 @@
                                     :characteristics="characteristics"
                                     :damage-types="damageTypes"
                                     :effects="effects"
+                                    :is-boosted="isBoosted"
+                                    :is-hindered="isHindered"
                                     :layout="layout"
                                     :panel-prop="abilityPanel"
                                     :resources="resources"
@@ -1286,12 +1292,6 @@
                 this.characterSheet.abilities.forEach((a) => {
                     let ability = JSON.parse(JSON.stringify(a))
 
-                    if (a.apCost >= 2 && this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Boosted' }))
-                        ability.apCost--
-
-                    if (a.apCost >= 1 && this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Hindered' }))
-                        ability.apCost++
-
                     ability.key =
                         ability.apCost +
                         ability.areaOfEffect +
@@ -1336,12 +1336,6 @@
                             e.ability.characteristic ||
                             (e.ability.save && e.ability.saveAmount && e.ability.saveCharacteristic))) {
                         let ability = JSON.parse(JSON.stringify(e.ability))
-
-                        if (ability.apCost >= 2 && this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Boosted' }))
-                            ability.apCost--
-
-                        if (ability.apCost >= 1 && this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Hindered' }))
-                            ability.apCost++
 
                         ability.canEdit = false
                         ability.description = e.description
@@ -1436,12 +1430,6 @@
 
                 this.characterSheet.equipment.forEach(eq => {
                     let e = JSON.parse(JSON.stringify(eq))
-
-                    if (e.ability.apCost >= 2 && this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Boosted' }))
-                        e.ability.apCost--
-
-                    if (e.ability.apCost >= 1 && this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Hindered' }))
-                        e.ability.apCost++
 
                     e.key = e.id +
                         e.attunementSlots +
@@ -1865,6 +1853,14 @@
                         valueMax: this.characterSheet.rerollsMax
                     }
                 ]
+            },
+            isBoosted() {
+                let test = this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Boosted' })
+                console.log(test)
+                return test
+            },
+            isHindered() {
+                return this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Hindered' })
             },
             minions() {
                 let minions = []
@@ -2495,7 +2491,7 @@
                         result.successesInput += +result.successesFromIntelligence
                     }
                     if (diceCheckObject.isAbility) {
-                        //Accuracy Down/Up Code Start                        
+                        //Accuracy Down/Up Code Start
                         result.successes += +this.accuracySuccesses
                         result.successesInput += +this.accuracySuccesses
                         //Accuracy Down/Up Code End

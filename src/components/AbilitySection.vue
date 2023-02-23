@@ -34,10 +34,11 @@
                                         {{getClassResource(item)}}
                                     </template>
                                     <template v-slot:[`item.damageSection`]="{ item }">
-                                        {{getDamage(item)}} <TooltipComponent v-if="getDamage(item).length" slot="append" :text="getDamageTypes(item)"></TooltipComponent>
+                                        {{getDamage(item)}}
+                                        <TooltipComponent v-if="getDamage(item).length" slot="append" :text="getDamageTypes(item)"></TooltipComponent>
                                     </template>
                                     <template v-slot:[`item.use`]="{ item }">
-                                        <v-btn :color="useButtonColor(item)" @click="useAbility(item)" x-small>
+                                        <v-btn :color="useButtonColor(item)" @click="useAbilityTable(item)" x-small>
                                             Use
                                         </v-btn>
                                     </template>
@@ -60,6 +61,8 @@
                                                              :ap="ap"
                                                              :characteristics="characteristics"
                                                              :damage-types="damageTypes"
+                                                             :is-boosted="isBoosted"
+                                                             :is-hindered="isHindered"
                                                              :resources="resources"
                                                              :successes-from-intelligence="successesFromIntelligence"
                                                              @deleteEntryEmit="deleteDialog($event)"
@@ -205,7 +208,7 @@
                                 </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Duration" v-model="ability.duration"></v-text-field>
-                                </v-col>                                
+                                </v-col>
                                 <v-col cols="6" md="4">
                                     <v-text-field label="Range" type="number" v-model="ability.range"></v-text-field>
                                 </v-col>
@@ -399,6 +402,8 @@
             characteristics: Array,
             damageTypes: Array,
             effects: Array,
+            isBoosted: Boolean,
+            isHindered: Boolean,
             layout: String,
             panelProp: Number,
             resources: Array,
@@ -645,7 +650,7 @@
                     return 6
                 else return 3
             },
-            getClassResource(ability) {                
+            getClassResource(ability) {
                 return (ability.classResource) ? `${ability.crCost} ${this.resources.find(x => { return x.id == ability.classResource }).name}` : ''
             },
             getDamage(ability) {
@@ -704,6 +709,12 @@
             },
             useAbility(ability) {
                 this.$emit('useAbilityEmit', ability)
+            },
+            useAbilityTable(ability) {
+                ability = JSON.parse(JSON.stringify(ability))
+                ability.apCost = (this.isBoosted && ability.apCost >= 2) ? +ability.apCost - 1 : ability.apCost
+                ability.apCost = (this.isHindered && ability.apCost >= 1) ? +ability.apCost + 1 : ability.apCost
+                this.useAbility(ability)
             },
             useButtonColor(ability) {
                 let color = ''
