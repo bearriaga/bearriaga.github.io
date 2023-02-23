@@ -69,6 +69,12 @@
                                           min="0"
                                           v-if="status.status.ranked"
                                           required></v-text-field>
+                            <v-select label="Rank Type"
+                                            v-model="status.rankType"
+                                            :items="rankTypes"
+                                            v-if="status.status.ranked"
+                                            :rules="notNull"
+                                            required></v-select>
                             <v-text-field label="Duration (Rounds)"
                                           v-model="status.duration"
                                           type="number"
@@ -124,6 +130,7 @@
                     id: '',
                     isActive: true,
                     ranks: 0,
+                    rankType: '',
                     status: {
                         cost: '',
                         effect: '',
@@ -139,6 +146,7 @@
                     id: '',
                     isActive: true,
                     ranks: 1,
+                    rankType: '',
                     status: {
                         cost: '',
                         effect: '',
@@ -147,7 +155,8 @@
                     }
                 },
                 // Input Fields End
-               panel: this.panelProp,
+                panel: this.panelProp,
+                rankTypes: ['Flat', '50%', '100%'],
                 // Validation Start
                 notNull: [
                     v => !!v || 'Field may not be empty'
