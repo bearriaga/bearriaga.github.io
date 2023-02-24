@@ -2812,17 +2812,6 @@
                     }
 
                 //Add Flat
-                //All Damage Dealt Down/Up Flat Code Start
-                let allDmgFlat = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && x.status.name.includes('All Damage Dealt') })
-                    .reduce((previousValue, entry) => {
-                        if (entry.status.name.includes('Up'))
-                            return +previousValue + +entry.ranks
-                        else
-                            return +previousValue - +entry.ranks
-                    }, 0)
-                damageObj.flat += +allDmgFlat
-                damageObj.flatTotal += +allDmgFlat                
-                //All Damage Dealt Down/Up Flat Code End
                 if ((!isCrit || (isCrit && !damageObj.isCrit && (damage.critFlat || this.damageAddCritFlat))) && (damage.flat > 0 && !isNaN(damage.flat))) {
                     damageObj.flat += +damage.flat
                     damageObj.flatTotal += +damage.flat
@@ -2908,10 +2897,27 @@
                     damageObj.effects = effects
                 }
 
+                //All Damage Dealt Down/Up Flat Code Start
+                let allDmgFlat = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && x.status.name.includes('All Damage Dealt') })
+                    .reduce((previousValue, entry) => {
+                        if (entry.status.name.includes('Up'))
+                            return +previousValue + +entry.ranks
+                        else
+                            return +previousValue - +entry.ranks
+                    }, 0)
+                if (!(damageObj.types.some(x => x.text == 'True Damage') && allDmgFlat < 0)) {
+                    damageObj.flat += +allDmgFlat
+                    damageObj.flatTotal += +allDmgFlat
+                }
+                //All Damage Dealt Down/Up Flat Code End
+
                 if (isCrit && (damage.critMax || this.damageAddCritMax))
                     damageObj.diceResults.forEach(d => { d.value = 6 })
 
-                //All Damage Dealt Percentage
+                damageObj.sum = +damageObj.diceResults.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.value
+                }, 0) + +damageObj.flatTotal
+                //All Damage Dealt Percentage Start
                 let allDamageDealtPercentAdj = (100 + +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && x.status.name.includes('All Damage Dealt') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name.includes('Up')) {
@@ -2927,9 +2933,9 @@
                                 return +previousValue - +(entry.ranks * 100)
                         }
                     }, 0)) / 100
-                damageObj.sum = Math.ceil((+damageObj.diceResults.reduce((previousValue, entry) => {
-                    return +previousValue + +entry.value
-                }, 0) + +damageObj.flatTotal) * allDamageDealtPercentAdj)
+                if (!(damageObj.types.some(x => x.text == 'True Damage') && allDamageDealtPercentAdj < 1))
+                    damageObj.sum = Math.ceil(damageObj.sum * allDamageDealtPercentAdj)
+                //All Damage Dealt Percentage End
 
                 damageObj.atrophied = this.characterStatuses.filter(x => { return x.status.name == 'Atrophied' && x.duration > 0 && x.isActive }).length > 0
                 if (damageObj.atrophied)
