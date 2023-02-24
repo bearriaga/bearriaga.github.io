@@ -1196,7 +1196,7 @@
                 return Math.ceil(+this.resistance/2) + +this.characterSheet.bpIncreases
             },
             dcToHit() {
-                let statusAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && (x.status.name == 'AC Down' || x.status.name == 'AC Up') })
+                let statusAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && x.status.name.includes('AC ') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name.includes('Up'))
                             return +previousValue + +entry.ranks
@@ -1216,7 +1216,7 @@
                         armorShield = equipment.dcToHit
                 })
                 let dc = 3 + +this.characterSheet.dcToHitIncreases + +statusAdj + +adj + +armorShield
-                let percentageAdjustment = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && (x.status.name == 'AC Down' || x.status.name == 'AC Up') })
+                let percentageAdjustment = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && x.status.name.includes('AC ') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name.includes('Up')) {
                             if (entry.rankType == '50%')
@@ -1399,7 +1399,7 @@
                 return abilities
             },
             accuracyPercentageAdjustment() {
-                return (100 + +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && (x.status.name == 'Accuracy Down' || x.status.name == 'Accuracy Up') })
+                return (100 + +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && x.status.name.includes('Accuracy ') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name.includes('Up')) {
                             if (entry.rankType == '50%')
@@ -1416,7 +1416,7 @@
                     }, 0)) / 100
             },
             accuracySuccesses() {
-                return this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && (x.status.name == 'Accuracy Down' || x.status.name == 'Accuracy Up') })
+                return this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && x.status.name.includes('Accuracy ') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name.includes('Up'))
                             return +previousValue + +entry.ranks
@@ -2513,14 +2513,14 @@
 
                 if (diceCheckObject.diceToRoll > 0) {
                     //Dice Down/Up Code Start
-                    diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && (x.status.name == '{CHAR} Dice Down' || x.status.name == '{CHAR} Dice Up') && diceCheckObject.chars.includes(x.characteristic) })
+                    diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && x.status.name.includes('{CHAR} Dice ') && diceCheckObject.chars.includes(x.characteristic) })
                         .reduce((previousValue, entry) => {
                             if (entry.status.name.includes('Up'))
                                 return +previousValue + +entry.ranks
                             else
                                 return +previousValue - +entry.ranks
                         }, 0)
-                    let percentageAdjustment = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && (x.status.name == '{CHAR} Dice Down' || x.status.name == '{CHAR} Dice Up') && diceCheckObject.chars.includes(x.characteristic) })
+                    let percentageAdjustment = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && x.status.name.includes('{CHAR} Dice ') && diceCheckObject.chars.includes(x.characteristic) })
                         .reduce((previousValue, entry) => {
                             if (entry.status.name.includes('Up')) {
                                 if (entry.rankType == '50%')
@@ -2812,6 +2812,17 @@
                     }
 
                 //Add Flat
+                //All Damage Dealt Down/Up Flat Code Start
+                let allDmgFlat = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && x.status.name.includes('All Damage Dealt') })
+                    .reduce((previousValue, entry) => {
+                        if (entry.status.name.includes('Up'))
+                            return +previousValue + +entry.ranks
+                        else
+                            return +previousValue - +entry.ranks
+                    }, 0)
+                damageObj.flat += +allDmgFlat
+                damageObj.flatTotal += +allDmgFlat                
+                //All Damage Dealt Down/Up Flat Code End
                 if ((!isCrit || (isCrit && !damageObj.isCrit && (damage.critFlat || this.damageAddCritFlat))) && (damage.flat > 0 && !isNaN(damage.flat))) {
                     damageObj.flat += +damage.flat
                     damageObj.flatTotal += +damage.flat
@@ -2900,9 +2911,25 @@
                 if (isCrit && (damage.critMax || this.damageAddCritMax))
                     damageObj.diceResults.forEach(d => { d.value = 6 })
 
-                damageObj.sum = +damageObj.diceResults.reduce((previousValue, entry) => {
+                //All Damage Dealt Percentage
+                let allDamageDealtPercentAdj = (100 + +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && x.status.name.includes('All Damage Dealt') })
+                    .reduce((previousValue, entry) => {
+                        if (entry.status.name.includes('Up')) {
+                            if (entry.rankType == '50%')
+                                return +previousValue + +(entry.ranks * 50)
+                            else
+                                return +previousValue + +(entry.ranks * 100)
+                        }
+                        else {
+                            if (entry.rankType == '50%')
+                                return +previousValue - +(entry.ranks * 50)
+                            else
+                                return +previousValue - +(entry.ranks * 100)
+                        }
+                    }, 0)) / 100
+                damageObj.sum = Math.ceil((+damageObj.diceResults.reduce((previousValue, entry) => {
                     return +previousValue + +entry.value
-                }, 0) + +damageObj.flatTotal
+                }, 0) + +damageObj.flatTotal) * allDamageDealtPercentAdj)
 
                 damageObj.atrophied = this.characterStatuses.filter(x => { return x.status.name == 'Atrophied' && x.duration > 0 && x.isActive }).length > 0
                 if (damageObj.atrophied)
