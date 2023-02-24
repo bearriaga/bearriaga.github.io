@@ -46,7 +46,7 @@
                                         <v-icon small
                                                 color="primary"
                                                 class="mr-2"
-                                                @click="updateDialog(item)">
+                                                @click="updateDialog(JSON.parse(JSON.stringify(item)))">
                                             mdi-pencil
                                         </v-icon>
                                         <v-icon small

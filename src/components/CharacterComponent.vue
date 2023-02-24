@@ -1198,7 +1198,7 @@
             dcToHit() {
                 let statusAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && (x.status.name == 'AC Down' || x.status.name == 'AC Up') })
                     .reduce((previousValue, entry) => {
-                        if (entry.status.name == 'AC Up')
+                        if (entry.status.name.includes('Up'))
                             return +previousValue + +entry.ranks
                         else
                             return +previousValue - +entry.ranks
@@ -1218,7 +1218,7 @@
                 let dc = 3 + +this.characterSheet.dcToHitIncreases + +statusAdj + +adj + +armorShield
                 let percentageAdjustment = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && (x.status.name == 'AC Down' || x.status.name == 'AC Up') })
                     .reduce((previousValue, entry) => {
-                        if (entry.status.name == 'AC Up') {
+                        if (entry.status.name.includes('Up')) {
                             if (entry.rankType == '50%')
                                 return +previousValue + +(entry.ranks * 50)
                             else
@@ -1398,10 +1398,27 @@
 
                 return abilities
             },
-            accuracySuccesses() {
-                return this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && (x.status.name == 'Accuracy Down' || x.status.name == 'Accuracy Up') })
+            accuracyPercentageAdjustment() {
+                return (100 + +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && (x.status.name == 'Accuracy Down' || x.status.name == 'Accuracy Up') })
                     .reduce((previousValue, entry) => {
-                        if (entry.status.name == 'Accuracy Up')
+                        if (entry.status.name.includes('Up')) {
+                            if (entry.rankType == '50%')
+                                return +previousValue + +(entry.ranks * 50)
+                            else
+                                return +previousValue + +(entry.ranks * 100)
+                        }
+                        else {
+                            if (entry.rankType == '50%')
+                                return +previousValue - +(entry.ranks * 50)
+                            else
+                                return +previousValue - +(entry.ranks * 100)
+                        }
+                    }, 0)) / 100
+            },
+            accuracySuccesses() {
+                return this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && (x.status.name == 'Accuracy Down' || x.status.name == 'Accuracy Up') })
+                    .reduce((previousValue, entry) => {
+                        if (entry.status.name.includes('Up'))
                             return +previousValue + +entry.ranks
                         else
                             return +previousValue - +entry.ranks
@@ -2383,7 +2400,7 @@
                 navigator.clipboard.writeText(`&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copySaveGet()}`)
             },
             copySaveGet() {
-                return `{{Save= ${this.abilityDialog.save.characteristic} ${+this.abilityDialog.save.amount + +this.accuracySuccesses}}}`
+                return `{{Save= ${this.abilityDialog.save.characteristic} ${this.abilityDialog.save.amount}}}`
             },
             //Dice Roll Functions
             rerollFailures() {
@@ -2498,14 +2515,14 @@
                     //Dice Down/Up Code Start
                     diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && (x.status.name == '{CHAR} Dice Down' || x.status.name == '{CHAR} Dice Up') && diceCheckObject.chars.includes(x.characteristic) })
                         .reduce((previousValue, entry) => {
-                            if (entry.status.name == '{CHAR} Dice Up')
+                            if (entry.status.name.includes('Up'))
                                 return +previousValue + +entry.ranks
                             else
                                 return +previousValue - +entry.ranks
                         }, 0)
                     let percentageAdjustment = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && (x.status.name == '{CHAR} Dice Down' || x.status.name == '{CHAR} Dice Up') && diceCheckObject.chars.includes(x.characteristic) })
                         .reduce((previousValue, entry) => {
-                            if (entry.status.name == '{CHAR} Dice Up') {
+                            if (entry.status.name.includes('Up')) {
                                 if (entry.rankType == '50%')
                                     return +previousValue + +(entry.ranks * 50)
                                 else
@@ -2563,6 +2580,11 @@
                 if (diceCheckObject.successes) {
                     result.successes += +diceCheckObject.successes
                     result.successesInput += +diceCheckObject.successes
+                }
+
+                if (diceCheckObject.diceToRoll && diceCheckObject.isAbility) {
+                    result.successes = Math.ceil(result.successes * this.accuracyPercentageAdjustment)
+                    result.successesInput = result.successes
                 }
 
                 this.abilityDialog.check = result
@@ -2982,7 +3004,7 @@
 
                 if (ability.save && !isNaN(ability.saveAmount) && ability.saveCharacteristic)
                     this.abilityDialog.save = {
-                        amount: +ability.saveAmount + +this.accuracySuccesses + +this.successesFromIntelligence,
+                        amount: Math.ceil((+ability.saveAmount + +this.accuracySuccesses + +this.successesFromIntelligence) * this.accuracyPercentageAdjustment),
                         characteristic: this.characteristicViewItems.find(x => { return x.name == ability.saveCharacteristic }).abbreviation,
                         show: true
                     }
