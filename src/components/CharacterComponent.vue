@@ -2866,11 +2866,13 @@
                     let effects = []
                     damageTypes.forEach(type => {
                         let color = ''
+                        let groupName = ''
                         let icon = ''
                         let typeEffects = []
                         this.damageGroups.forEach((group) => {
                             if (type == group.name || group.types.some(x => x.name == type)) {
                                 color = group.color
+                                groupName = group.name
 
                                 if (type == group.name) {
                                     icon = group.icon
@@ -2889,6 +2891,7 @@
                         effects = effects.concat(typeEffects)
                         types.push({
                             color: color,
+                            group: groupName,
                             icon: icon,
                             text: type
                         })
@@ -2897,6 +2900,26 @@
                     damageObj.effects = effects
                 }
 
+                //Group/Type Damage Dealt Down/Up Flat Code Start
+                if (!damageObj.types.some(x => x.text == 'True Damage')) {
+                    let groupTypeDmgFlat = this.characterStatuses.filter(x => {
+                        return x.isActive && x.duration > 0 && x.rankType == 'Flat' &&
+                            (
+                                (x.status.name.includes('{Group} Damage Dealt') && damageObj.types.some(y => y.group == x.damageType))
+                                ||
+                                (x.status.name.includes('{Type} Damage Dealt') && damageObj.types.some(y => y.text == x.damageType))
+                            )
+                    })
+                        .reduce((previousValue, entry) => {
+                            if (entry.status.name.includes('Up'))
+                                return +previousValue + +entry.ranks
+                            else
+                                return +previousValue - +entry.ranks
+                        }, 0)
+                    damageObj.flat += +groupTypeDmgFlat
+                    damageObj.flatTotal += +groupTypeDmgFlat
+                }
+                //Group/Type Damage Dealt Down/Up Flat Code End
                 //All Damage Dealt Down/Up Flat Code Start
                 let allDmgFlat = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && x.status.name.includes('All Damage Dealt') })
                     .reduce((previousValue, entry) => {
@@ -2917,8 +2940,34 @@
                 damageObj.sum = +damageObj.diceResults.reduce((previousValue, entry) => {
                     return +previousValue + +entry.value
                 }, 0) + +damageObj.flatTotal
+
+                let percentageAdj = 0
+                //Group/Type Damage Dealt Down/Up Percentage Code Start
+                if (!damageObj.types.some(x => x.text == 'True Damage'))
+                    percentageAdj += +this.characterStatuses.filter(x => {
+                        return x.isActive && x.duration > 0 && x.rankType != 'Flat' &&
+                            (
+                                (x.status.name.includes('{Group} Damage Dealt') && damageObj.types.some(y => y.group == x.damageType))
+                                ||
+                                (x.status.name.includes('{Type} Damage Dealt') && damageObj.types.some(y => y.text == x.damageType))
+                            )
+                    }).reduce((previousValue, entry) => {
+                        if (entry.status.name.includes('Up')) {
+                            if (entry.rankType == '50%')
+                                return +previousValue + +(entry.ranks * 50)
+                            else
+                                return +previousValue + +(entry.ranks * 100)
+                        }
+                        else {
+                            if (entry.rankType == '50%')
+                                return +previousValue - +(entry.ranks * 50)
+                            else
+                                return +previousValue - +(entry.ranks * 100)
+                        }
+                    }, 0)
+                //Group/Type Damage Dealt Down/Up Percentage Code End
                 //All Damage Dealt Percentage Start
-                let allDamageDealtPercentAdj = (100 + +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && x.status.name.includes('All Damage Dealt') })
+                let allDamageDealtPercentAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && x.status.name.includes('All Damage Dealt') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name.includes('Up')) {
                             if (entry.rankType == '50%')
@@ -2932,10 +2981,11 @@
                             else
                                 return +previousValue - +(entry.ranks * 100)
                         }
-                    }, 0)) / 100
+                    }, 0)
                 if (!(damageObj.types.some(x => x.text == 'True Damage') && allDamageDealtPercentAdj < 1))
-                    damageObj.sum = Math.ceil(damageObj.sum * allDamageDealtPercentAdj)
+                    percentageAdj += +allDamageDealtPercentAdj
                 //All Damage Dealt Percentage End
+                    damageObj.sum = Math.ceil(damageObj.sum * (100 + +percentageAdj) / 100)
 
                 damageObj.atrophied = this.characterStatuses.filter(x => { return x.status.name == 'Atrophied' && x.duration > 0 && x.isActive }).length > 0
                 if (damageObj.atrophied)

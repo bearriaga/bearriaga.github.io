@@ -25,7 +25,7 @@
                 <v-text-field label="Characteristic" v-model="characteristic"
                               v-if="characteristic" disabled></v-text-field>
                 <v-text-field label="Damage Type" v-model="damageType"
-                              v-if="damageType" disabled></v-text-field>
+                              v-if="selectedStatus.name.includes('{Group}') || selectedStatus.name.includes('{Type}')" disabled></v-text-field>
                 <v-text-field label="Rank Type" v-model="rankType"
                               v-if="selectedStatus.ranked" disabled></v-text-field>
                 <v-text-field label="Ranks"
@@ -77,6 +77,7 @@
                 let status = {
                     buffId: this.status.buffId,
                     characteristic: this.status.characteristic,
+                    damageType: this.damageType,
                     description: this.description,
                     duration: this.duration,
                     isActive: this.isActive,
