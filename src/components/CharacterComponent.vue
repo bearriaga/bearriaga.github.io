@@ -1509,8 +1509,6 @@
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Status') && b.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
                         let status = JSON.parse(JSON.stringify(adjustment.status))
-                        if (status.status.name.includes('{CHAR}'))
-                            status.characteristic = adjustment.characteristic
                         status.duration = status.currentDuration
                         status.isActive = status.currentIsActive
                         status.ranks = status.currentRanks

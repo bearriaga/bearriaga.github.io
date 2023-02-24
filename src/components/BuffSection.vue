@@ -63,7 +63,7 @@
                                 <v-select label="Characteristic"
                                           v-model="a.characteristic"
                                           :items="characteristics"
-                                          v-if="a.type == 'CHAR' || a.type == 'Skill' || (a.type == 'Status' && a.status.status.name.includes('{CHAR}'))"
+                                          v-if="a.type == 'CHAR' || a.type == 'Skill'"
                                           :rules="notNull"
                                           required></v-select>
                                 <v-select label="Class Resource"
@@ -166,12 +166,30 @@
                                                 :rules="notNull"
                                                 required>
                                 </v-autocomplete>
+                                <v-autocomplete label="Damage Type"
+                                                v-model="a.status.damageType"
+                                                :items="damageTypes"
+                                                v-if="a.status.status.name.includes('{Group}') || a.status.status.name.includes('{Type}')"
+                                                :rules="notNull"
+                                                required></v-autocomplete>
+                                <v-select label="Characteristic"
+                                          v-model="a.status.characteristic"
+                                          :items="characteristics"
+                                          v-if="a.type == 'Status' && a.status.status.name.includes('{CHAR}')"
+                                          :rules="notNull"
+                                          required></v-select>
                                 <v-text-field label="Ranks"
                                               v-model="a.status.ranks"
                                               type="number"
                                               min="0"
                                               v-if="a.type == 'Status' && a.status.status.ranked"
                                               required></v-text-field>
+                                <v-select label="Rank Type"
+                                          v-model="a.status.rankType"
+                                          :items="rankTypes"
+                                          v-if="a.status.status.ranked"
+                                          :rules="notNull"
+                                          required></v-select>
                                 <v-text-field label="Duration (Rounds)"
                                               v-model="a.status.duration"
                                               v-if="a.type == 'Status'"
@@ -269,11 +287,13 @@
                                 currentDuration: 1,
                                 currentIsActive: true,
                                 currentRanks: 1,
+                                damageType: '',
                                 description: '',
                                 duration: 1,
                                 id: '',
                                 isActive: true,
                                 ranks: 1,
+                                rankType: '',
                                 status: {
                                     cost: '',
                                     effect: '',
@@ -318,11 +338,13 @@
                                 currentDuration: 1,
                                 currentIsActive: true,
                                 currentRanks: 1,
+                                damageType: '',
                                 description: '',
                                 duration: 1,
                                 id: '',
                                 isActive: true,
                                 ranks: 1,
+                                rankType: '',
                                 status: {
                                     cost: '',
                                     effect: '',
@@ -336,6 +358,7 @@
                 },
                 // Input Fields End
                 panel: this.panelProp,
+                rankTypes: ['Flat', '50%', '100%'],
                 // Validation Start
                 notNull: [
                     v => !!v || 'Field may not be empty'
@@ -375,11 +398,13 @@
                         currentDuration: 1,
                         currentIsActive: true,
                         currentRanks: 1,
+                        damageType: '',
                         description: '',
                         duration: 1,
                         id: uuidv4(),
                         isActive: true,
                         ranks: 1,
+                        rankType: '',
                         status: {
                             cost: '',
                             effect: '',
