@@ -128,7 +128,7 @@
                                 </template>
                                 <!-- Damage Modification Fields -->
                                 <template v-if="a.type == 'Damage Modification'">
-                                    <v-autocomplete label="Damage Modification Type"
+                                    <v-autocomplete label="Damage Type"
                                                     v-model="a.damageModification.type"
                                                     :items="damageTypesWithAll"
                                                     :rules="notNull"
@@ -147,7 +147,20 @@
                                                       v-model="a.damageModification.isVulnerability"></v-switch>
                                         </v-col>
                                     </v-row>
-
+                                    <v-row>
+                                        <v-col>
+                                            <v-select label="Amount Type"
+                                                      v-model="a.damageModification.amountType"
+                                                      :items="rankTypes"
+                                                      :rules="notNull"
+                                                      required></v-select>
+                                        </v-col>
+                                        <v-col>
+                                            <v-switch label="Override" inset v-model="a.damageModification.override">
+                                                <TooltipComponent slot="prepend" :text="'Will override and not stack with damage modfications of the same damage and amount type'"></TooltipComponent>
+                                            </v-switch>
+                                        </v-col>
+                                    </v-row>
                                 </template>
                                 <!-- Damage Modification Fields End -->
                                 <v-combobox label="Skill"
@@ -178,18 +191,27 @@
                                           v-if="a.type == 'Status' && a.status.status.name.includes('{CHAR}')"
                                           :rules="notNull"
                                           required></v-select>
-                                <v-text-field label="Ranks"
-                                              v-model="a.status.ranks"
-                                              type="number"
-                                              min="0"
-                                              v-if="a.type == 'Status' && a.status.status.ranked"
-                                              required></v-text-field>
-                                <v-select label="Rank Type"
-                                          v-model="a.status.rankType"
-                                          :items="rankTypes"
-                                          v-if="a.status.status.ranked"
-                                          :rules="notNull"
-                                          required></v-select>
+                                <v-row v-if="a.type == 'Status' && a.status.status.ranked">
+                                    <v-col>
+                                        <v-text-field label="Ranks"
+                                                      v-model="a.status.ranks"
+                                                      type="number"
+                                                      min="0"
+                                                      required></v-text-field>
+                                    </v-col>
+                                    <v-col>
+                                        <v-select label="Rank Type"
+                                                  v-model="a.status.rankType"
+                                                  :items="rankTypes"
+                                                  :rules="notNull"
+                                                  required></v-select>
+                                    </v-col>
+                                    <v-col>
+                                        <v-switch label="Override" inset v-model="a.status.override">
+                                            <TooltipComponent slot="prepend" :text="'Will override and not stack with damage modfications of the same damage and amount type'"></TooltipComponent>
+                                        </v-switch>
+                                    </v-col>
+                                </v-row>
                                 <v-text-field label="Duration (Rounds)"
                                               v-model="a.status.duration"
                                               v-if="a.type == 'Status'"
@@ -292,6 +314,7 @@
                                 duration: 1,
                                 id: '',
                                 isActive: true,
+                                override: false,
                                 ranks: 1,
                                 rankType: '',
                                 status: {
@@ -343,6 +366,7 @@
                                 duration: 1,
                                 id: '',
                                 isActive: true,
+                                override: false,
                                 ranks: 1,
                                 rankType: '',
                                 status: {
@@ -403,6 +427,7 @@
                         duration: 1,
                         id: uuidv4(),
                         isActive: true,
+                        override: false,
                         ranks: 1,
                         rankType: '',
                         status: {

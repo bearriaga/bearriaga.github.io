@@ -1711,15 +1711,33 @@
                     })
                 })
 
+                this.characterStatuses.filter(x => { return x.status.name.includes('Damage Taken') && x.isActive }).forEach(x => {
+                    let damageModification = {
+                        amount: (x.status.name.includes('Down')) ? x.ranks : x.ranks * -1,
+                        amountType: x.rankType,
+                        id: x.id,
+                        isImmunity: false,
+                        isResistance: false,
+                        isStatus: true,
+                        isVulnerability: false,
+                        override: x.override,
+                        key: x.id + x.ranks,
+                        type: (x.status.name.includes('All')) ? 'All' : x.damageType
+                    }
+                    damageModifications.push(damageModification)
+                })
+
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Damage Modification') && b.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'Damage Modification' }).forEach(adjustment => {
                         let damageModification = {
                             amount: adjustment.amount,
+                            amountType: adjustment.damageModification.amountType,
                             id: adjustment.id,
                             isBuff: true,
                             isImmunity: adjustment.damageModification.isImmunity,
                             isResistance: adjustment.damageModification.isResistance,
                             isVulnerability: adjustment.damageModification.isVulnerability,
+                            override: adjustment.damageModification.override,
                             key: adjustment.amount + adjustment.id,
                             type: adjustment.damageModification.type
                         }

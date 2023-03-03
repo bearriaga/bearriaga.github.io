@@ -70,6 +70,13 @@
                         label += ' - Debuff'
                 }
 
+                if (this.damageModification.isStatus) {
+                    if (this.amount > 0)
+                        label += ' - Status'
+                    if (this.amount < 0)
+                        label += ' - Status'
+                }
+
                 if (this.damageModification.isEquipment)
                     label += ' - Equipment'
 
@@ -78,7 +85,7 @@
             wrapperClass() {
                 let wrapperClass = ''
 
-                if (this.canEdit && !this.damageModification.isBuff && !this.damageModification.isEquipment)
+                if (this.canEdit && !this.damageModification.isBuff && !this.damageModification.isEquipment && !this.damageModification.isStatus)
                     wrapperClass = 'cursorPointer'
 
                 return wrapperClass

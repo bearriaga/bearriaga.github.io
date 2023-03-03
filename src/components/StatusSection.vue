@@ -63,18 +63,27 @@
                                             v-if="status.status.name.includes('{Group}') || status.status.name.includes('{Type}')"
                                             :rules="notNull"
                                             required></v-autocomplete>
-                            <v-text-field label="Ranks"
-                                          v-model="status.ranks"
-                                          type="number"
-                                          min="0"
-                                          v-if="status.status.ranked"
-                                          required></v-text-field>
-                            <v-select label="Rank Type"
-                                            v-model="status.rankType"
-                                            :items="rankTypes"
-                                            v-if="status.status.ranked"
-                                            :rules="notNull"
-                                            required></v-select>
+                            <v-row v-if="status.status.ranked">
+                                <v-col>
+                                    <v-text-field label="Ranks"
+                                                  v-model="status.ranks"
+                                                  type="number"
+                                                  min="0"
+                                                  required></v-text-field>
+                                </v-col>
+                                <v-col>
+                                    <v-select label="Rank Type"
+                                              v-model="status.rankType"
+                                              :items="rankTypes"
+                                              :rules="notNull"
+                                              required></v-select>
+                                </v-col>
+                                <v-col>
+                                    <v-switch label="Override" inset v-model="status.override">
+                                        <TooltipComponent slot="prepend" :text="'Will override and not stack with statuses of the same rank type'"></TooltipComponent>
+                                    </v-switch>
+                                </v-col>
+                            </v-row>
                             <v-text-field label="Duration (Rounds)"
                                           v-model="status.duration"
                                           type="number"
@@ -102,11 +111,13 @@
 
 <script>
     import StatusListItem from './StatusListItem.vue'
+    import TooltipComponent from './TooltipComponent.vue'
 
     export default {
         name: 'StatusSection',
         components: {
-            StatusListItem
+            StatusListItem,
+            TooltipComponent
         },
         props: {
             characterStatuses: Array,
@@ -129,6 +140,7 @@
                     duration: 0,
                     id: '',
                     isActive: true,
+                    override: false,
                     ranks: 0,
                     rankType: '',
                     status: {
@@ -145,6 +157,7 @@
                     duration: 1,
                     id: '',
                     isActive: true,
+                    override: false,
                     ranks: 1,
                     rankType: '',
                     status: {
@@ -172,7 +185,7 @@
             // CRUD Functions Start
             addEntry() {
                 if (this.validate()) {
-                    this.dialog.show = false                    
+                    this.dialog.show = false
                     this.$emit('addEntryEmit', { arrayName: 'statuses', object: this.status })
                 }
             },
