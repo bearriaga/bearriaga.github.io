@@ -1698,7 +1698,7 @@
                 this.characterSheet.damageModifications.forEach(dm => {
                     let damageModification = JSON.parse(JSON.stringify(dm))
 
-                    damageModification.key = damageModification.id + damageModification.amount + this.updateCharacter
+                    damageModification.key = damageModification.id + damageModification.amount + damageModification.amountType + this.updateCharacter
                     damageModifications.push(damageModification)
                 })
 
@@ -2645,7 +2645,7 @@
             takeDamage(damageObj) {
                 let damage = (damageObj) ? damageObj.amount : this.damageToTake.amount
                 let type = (damageObj) ? damageObj.amount : this.damageToTake.type
-                let damageReductionAmount = 0;
+                let flatDamageReductionAmount = 0;
                 let isImmune = false
                 let isResistant = false
                 let isVulnerable = false
@@ -2658,8 +2658,14 @@
                         isImmune = damageModifications.some(x => x.isImmunity)
                         isResistant = damageModifications.some(x => x.isResistance)
                         isVulnerable = damageModifications.some(x => x.isVulnerability)
-                        damageReductionAmount = damageModifications
-                            .reduce((previousValue, entry) => {
+                        
+                        let flatDamageModifications = damageModifications.filter(x => { return x.amountType == 'Flat' || !x.amountType })                        
+                        if (flatDamageModifications.some(x => x.override))
+                            flatDamageReductionAmount = flatDamageModifications.filter(x => {return x.override }).reduce((previous, current) => {
+                                return Math.abs(previous.amount) > Math.abs(current.amount) ? previous.amount : current.amount
+                            }, 0)
+                        else
+                            flatDamageReductionAmount = flatDamageModifications.reduce((previousValue, entry) => {
                                 return +previousValue + +entry.amount
                             }, 0)
                     }
@@ -2669,12 +2675,12 @@
                 if (damageModificationsAllTypes.some(x => x.isImmunity)) isImmune = true
                 if (damageModificationsAllTypes.some(x => x.isResistance)) isResistant = true
                 if (damageModificationsAllTypes.some(x => x.isVulnerability)) isVulnerable = true
-                damageReductionAmount = +damageReductionAmount + +damageModificationsAllTypes
+                flatDamageReductionAmount = +flatDamageReductionAmount + +damageModificationsAllTypes
                     .reduce((previousValue, entry) => {
                         return +previousValue + +entry.amount
                     }, 0)
 
-                var damageToTake = damage - damageReductionAmount
+                var damageToTake = damage - flatDamageReductionAmount
                 if (isImmune)
                     damageToTake = 0
                 if (isResistant && !isVulnerable)

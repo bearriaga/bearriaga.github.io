@@ -40,16 +40,31 @@
                     <v-card-text>
                         <v-form ref="form"
                                 v-model="valid">
-                            <v-autocomplete label="Type"
+                            <v-autocomplete label="Damage Type"
                                             :items="damageTypesWithAll"
                                             v-model="damageModification.type"
                                             :rules="textRules"
                                             required></v-autocomplete>
-                            <v-text-field label="Amount"
-                                          type="number"
-                                          v-model="damageModification.amount"
-                                          ref="amount"
-                                          required></v-text-field>
+                            <v-row>
+                                <v-col>
+                                    <v-text-field label="Amount"
+                                                  type="number"
+                                                  v-model="damageModification.amount"
+                                                  ref="amount"
+                                                  required></v-text-field>
+                                </v-col>
+                                <v-col>
+                                    <v-select label="Amount Type"
+                                              v-model="damageModification.amountType"
+                                              :items="amountTypes"
+                                              required></v-select>
+                                </v-col>
+                                <v-col>
+                                    <v-switch label="Override" inset v-model="damageModification.override">
+                                        <TooltipComponent slot="prepend" :text="'Will override and not stack with damage modfications of the same damage and amount type'"></TooltipComponent>
+                                    </v-switch>
+                                </v-col>
+                            </v-row>
                             <v-row>
                                 <v-col>
                                     <v-switch label="Immunity" inset
@@ -88,11 +103,13 @@
 
 <script>
     import DamageModificationListItem from './DamageModificationListItem.vue'
+    import TooltipComponent from './TooltipComponent.vue'
 
     export default {
         name: 'DamageModificationSection',
         components: {
-            DamageModificationListItem
+            DamageModificationListItem,
+            TooltipComponent
         },
         props: {
             canEdit: Boolean,
@@ -103,6 +120,7 @@
         },
         data() {
             return {
+                amountTypes: ['Flat', '50%', '100%'],
                 damageTypesWithAll: this.damageTypes.concat(['All']),
                 dialog: {
                     show: false,
@@ -111,22 +129,26 @@
                 // Input Fields Start
                 clearDamageModification: {
                     amount: 1,
+                    amountType: 'Flat',
                     id: '',
                     isImmunity: false,
                     isResistance: false,
                     isVulnerability: false,
+                    override: false,
                     type: ''
                 },
                 damageModification: {
                     amount: 1,
+                    amountType: 'Flat',
                     id: '',
                     isImmunity: false,
                     isResistance: false,
                     isVulnerability: false,
+                    override: false,
                     type: ''
                 },
                 // Input Fields End
-               panel: this.panelProp,
+                panel: this.panelProp,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -139,7 +161,7 @@
             // CRUD Functions Start
             addEntry() {
                 if (this.validate()) {
-                    this.dialog.show = false                    
+                    this.dialog.show = false
                     this.$emit('addEntryEmit', { arrayName: 'damageModifications', object: this.damageModification })
                 }
             },

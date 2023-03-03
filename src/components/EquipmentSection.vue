@@ -153,11 +153,27 @@
                                                                 required>
                                                     <v-icon color="error" slot="append" @click="deleteDamageModification(index)">mdi-delete</v-icon>
                                                 </v-autocomplete>
-                                                <v-text-field label="Amount"
-                                                              type="number"
-                                                              v-model="dm.amount"
-                                                              ref="amount"
-                                                              required></v-text-field>
+                                                <v-row>
+                                                    <v-col>
+                                                        <v-text-field label="Amount"
+                                                                      type="number"
+                                                                      v-model="dm.amount"
+                                                                      ref="amount"
+                                                                      required></v-text-field>
+                                                    </v-col>
+                                                    <v-col>
+                                                        <v-select label="Amount Type"
+                                                                  v-model="dm.amountType"
+                                                                  :items="amountTypes"
+                                                                  :rules="notNull"
+                                                                  required></v-select>
+                                                    </v-col>
+                                                    <v-col>
+                                                        <v-switch label="Override" inset v-model="dm.override">
+                                                            <TooltipComponent slot="prepend" :text="'Will override and not stack with damage modfications of the same damage and amount type'"></TooltipComponent>
+                                                        </v-switch>
+                                                    </v-col>
+                                                </v-row>
                                                 <v-row>
                                                     <v-col>
                                                         <v-switch label="Immunity" inset
@@ -349,6 +365,7 @@
         },
         data() {
             return {
+                amountTypes: ['Flat', '50%', '100%'],
                 // Input Fields Start
                 equipment: {
                     amount: 1,
@@ -533,10 +550,12 @@
                 this.damageModificationsPanel = 0
                 this.equipment.damageModifications.push({
                     amount: 0,
+                    amountType: 'Flat',
                     isEquipment: true,
                     isImmunity: false,
                     isVulnerability: false,
                     isResistance: false,
+                    override: false,
                     type: '',
                 })
             },

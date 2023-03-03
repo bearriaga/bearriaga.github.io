@@ -5,6 +5,7 @@
                       type="number"
                       :class="classColor"
                       disabled>
+            <v-icon v-if="damageModification.override" slot="append">mdi-shield-alert</v-icon>
             <v-icon v-if="damageModification.isImmunity" color="success" slot="append">mdi-shield-crown</v-icon>
             <v-icon v-if="damageModification.isResistance" color="success" slot="append">mdi-shield-plus</v-icon>
             <v-icon v-if="damageModification.isVulnerability" color="error" slot="append">mdi-shield-remove</v-icon>
@@ -59,6 +60,8 @@
             },
             label() {
                 let label = this.damageModification.type
+                if (this.damageModification.amountType)
+                    label += ` ${this.damageModification.amountType}`
 
                 if (this.damageModification.isBuff) {
                     if (this.amount > 0)
