@@ -2241,24 +2241,22 @@
         methods: {
             apGain() {
                 //Take damage for all DoT statuses
-                this.characterStatuses.filter(x => { return x.status.name.includes('DoT') && x.isActive && x.duration > 0 }).forEach(x => {
-                    this.takeDamage({amount: x.ranks, type: x.damageType})
-                })
+                //TODO: rework to work with new statuses
+                //this.characterStatuses.filter(x => { return x.status.name.includes('DoT') && x.isActive && x.duration > 0 }).forEach(x => {
+                //    this.takeDamage({amount: x.ranks, type: x.damageType})
+                //})
+                //this.characterStatuses.filter(x => { return x.status.name.includes('HoT') && x.isActive && x.duration > 0 }).forEach(x => {
+                //    this.heal({ amount: x.ranks, type: '' })
+                //})
 
-                this.characterStatuses.filter(x => { return x.status.name.includes('HoT') && x.isActive && x.duration > 0 }).forEach(x => {
-                    this.heal({ amount: x.ranks, type: '' })
-                })
-
-                this.characterStatuses.forEach(status => {
-                    if (status.duration > 0) {
-                        status.duration--
-                    }
+                this.characterSheet.statuses.filter(x => { return x.duration > 0 && x.isActive }).forEach(status => {
+                    status.duration--
                 })
 
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Status') && b.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
                         let status = adjustment.status
-                        if (status.duration > 0) {
+                        if (status.currentDuration > 0) {
                             status.currentDuration--
                         }
                     })
@@ -2676,8 +2674,8 @@
                         isImmune = damageModifications.some(x => x.isImmunity)
                         isResistant = damageModifications.some(x => x.isResistance)
                         isVulnerable = damageModifications.some(x => x.isVulnerability)
-                        
-                        let flatDamageModifications = damageModifications.filter(x => { return x.amountType == 'Flat' || !x.amountType })                        
+
+                        let flatDamageModifications = damageModifications.filter(x => { return x.amountType == 'Flat' || !x.amountType })
                         if (flatDamageModifications.some(x => x.override))
                             flatDamageReductionAmount = flatDamageModifications.filter(x => {return x.override }).reduce((previous, current) => {
                                 return Math.abs(previous.amount) > Math.abs(current.amount) ? previous.amount : current.amount
