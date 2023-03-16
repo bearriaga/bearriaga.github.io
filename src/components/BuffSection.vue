@@ -147,20 +147,6 @@
                                                       v-model="a.damageModification.isVulnerability"></v-switch>
                                         </v-col>
                                     </v-row>
-                                    <v-row>
-                                        <v-col>
-                                            <v-select label="Amount Type"
-                                                      v-model="a.damageModification.amountType"
-                                                      :items="rankTypes"
-                                                      :rules="notNull"
-                                                      required></v-select>
-                                        </v-col>
-                                        <v-col>
-                                            <v-switch label="Override" inset v-model="a.damageModification.override">
-                                                <TooltipComponent slot="prepend" :text="'Will override and not stack with damage modfications of the same damage and amount type'"></TooltipComponent>
-                                            </v-switch>
-                                        </v-col>
-                                    </v-row>
                                 </template>
                                 <!-- Damage Modification Fields End -->
                                 <v-combobox label="Skill"
@@ -191,27 +177,12 @@
                                           v-if="a.type == 'Status' && a.status.status.name.includes('{CHAR}')"
                                           :rules="notNull"
                                           required></v-select>
-                                <v-row v-if="a.type == 'Status' && a.status.status.ranked">
-                                    <v-col>
-                                        <v-text-field label="Ranks"
-                                                      v-model="a.status.ranks"
-                                                      type="number"
-                                                      min="0"
-                                                      required></v-text-field>
-                                    </v-col>
-                                    <v-col>
-                                        <v-select label="Rank Type"
-                                                  v-model="a.status.rankType"
-                                                  :items="rankTypes"
-                                                  :rules="notNull"
-                                                  required></v-select>
-                                    </v-col>
-                                    <v-col>
-                                        <v-switch label="Override" inset v-model="a.status.override">
-                                            <TooltipComponent slot="prepend" :text="'Will override and not stack with damage modfications of the same damage and amount type'"></TooltipComponent>
-                                        </v-switch>
-                                    </v-col>
-                                </v-row>
+                                <v-text-field v-if="a.type == 'Status' && a.status.status.ranked"
+                                              label="Ranks"
+                                              v-model="a.status.ranks"
+                                              type="number"
+                                              min="0"
+                                              required></v-text-field>
                                 <v-text-field label="Duration (Rounds)"
                                               v-model="a.status.duration"
                                               v-if="a.type == 'Status'"
@@ -314,9 +285,7 @@
                                 duration: 1,
                                 id: '',
                                 isActive: true,
-                                override: false,
                                 ranks: 1,
-                                rankType: '',
                                 status: {
                                     cost: '',
                                     effect: '',
@@ -366,9 +335,7 @@
                                 duration: 1,
                                 id: '',
                                 isActive: true,
-                                override: false,
                                 ranks: 1,
-                                rankType: '',
                                 status: {
                                     cost: '',
                                     effect: '',
@@ -382,7 +349,6 @@
                 },
                 // Input Fields End
                 panel: this.panelProp,
-                rankTypes: ['Flat', '50%', '100%'],
                 // Validation Start
                 notNull: [
                     v => !!v || 'Field may not be empty'
@@ -427,9 +393,7 @@
                         duration: 1,
                         id: uuidv4(),
                         isActive: true,
-                        override: false,
                         ranks: 1,
-                        rankType: '',
                         status: {
                             cost: '',
                             effect: '',

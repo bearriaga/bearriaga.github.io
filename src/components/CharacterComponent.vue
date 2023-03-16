@@ -1196,7 +1196,7 @@
                 return Math.ceil(+this.resistance/2) + +this.characterSheet.bpIncreases
             },
             dcToHit() {
-                let statusAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && x.status.name.includes('AC ') })
+                let statusAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.status.name.includes('AC ') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name.includes('Up'))
                             return +previousValue + +entry.ranks
@@ -1216,23 +1216,7 @@
                         armorShield = equipment.dcToHit
                 })
                 let dc = 3 + +this.characterSheet.dcToHitIncreases + +statusAdj + +adj + +armorShield
-                let percentageAdjustment = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && x.status.name.includes('AC ') })
-                    .reduce((previousValue, entry) => {
-                        if (entry.status.name.includes('Up')) {
-                            if (entry.rankType == '50%')
-                                return +previousValue + +(entry.ranks * 50)
-                            else
-                                return +previousValue + +(entry.ranks * 100)
-                        }
-                        else {
-                            if (entry.rankType == '50%')
-                                return +previousValue - +(entry.ranks * 50)
-                            else
-                                return +previousValue - +(entry.ranks * 100)
-                        }
-                    }, 0)
-                dc = Math.ceil(dc * (100 + percentageAdjustment) / 100)
-                return (dc > 0) ? dc : 0
+                return dc
             },
             hpMax() {
                 let adj = this.buffAmount({ type: 'Health' })
@@ -1397,32 +1381,6 @@
                 })
 
                 return abilities
-            },
-            accuracyPercentageAdjustment() {
-                return (100 + +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && x.status.name.includes('Accuracy ') })
-                    .reduce((previousValue, entry) => {
-                        if (entry.status.name.includes('Up')) {
-                            if (entry.rankType == '50%')
-                                return +previousValue + +(entry.ranks * 50)
-                            else
-                                return +previousValue + +(entry.ranks * 100)
-                        }
-                        else {
-                            if (entry.rankType == '50%')
-                                return +previousValue - +(entry.ranks * 50)
-                            else
-                                return +previousValue - +(entry.ranks * 100)
-                        }
-                    }, 0)) / 100
-            },
-            accuracySuccesses() {
-                return this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && x.status.name.includes('Accuracy ') })
-                    .reduce((previousValue, entry) => {
-                        if (entry.status.name.includes('Up'))
-                            return +previousValue + +entry.ranks
-                        else
-                            return +previousValue - +entry.ranks
-                    }, 0)
             },
             attunementSlotsInputWithEditModal() {
                 return {
@@ -1714,13 +1672,11 @@
                 this.characterStatuses.filter(x => { return x.status.name.includes('Damage Taken') && x.isActive }).forEach(x => {
                     let damageModification = {
                         amount: (x.status.name.includes('Down')) ? x.ranks : x.ranks * -1,
-                        amountType: x.rankType,
                         id: x.id,
                         isImmunity: false,
                         isResistance: false,
                         isStatus: true,
                         isVulnerability: false,
-                        override: x.override,
                         key: x.id + x.ranks,
                         type: (x.status.name.includes('All')) ? 'All' : x.damageType
                     }
@@ -1731,13 +1687,11 @@
                     buff.adjustments.filter(a => { return a.type == 'Damage Modification' }).forEach(adjustment => {
                         let damageModification = {
                             amount: adjustment.amount,
-                            amountType: adjustment.damageModification.amountType,
                             id: adjustment.id,
                             isBuff: true,
                             isImmunity: adjustment.damageModification.isImmunity,
                             isResistance: adjustment.damageModification.isResistance,
                             isVulnerability: adjustment.damageModification.isVulnerability,
-                            override: adjustment.damageModification.override,
                             key: adjustment.amount + adjustment.id,
                             type: adjustment.damageModification.type
                         }
@@ -2527,29 +2481,13 @@
 
                 if (diceCheckObject.diceToRoll > 0) {
                     //Dice Down/Up Code Start
-                    diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType == 'Flat' && x.status.name.includes('{CHAR} Dice ') && diceCheckObject.chars.includes(x.characteristic) })
+                    diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.status.name.includes('{CHAR} Dice ') && diceCheckObject.chars.includes(x.characteristic) })
                         .reduce((previousValue, entry) => {
                             if (entry.status.name.includes('Up'))
                                 return +previousValue + +entry.ranks
                             else
                                 return +previousValue - +entry.ranks
                         }, 0)
-                    let percentageAdjustment = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.rankType != 'Flat' && x.status.name.includes('{CHAR} Dice ') && diceCheckObject.chars.includes(x.characteristic) })
-                        .reduce((previousValue, entry) => {
-                            if (entry.status.name.includes('Up')) {
-                                if (entry.rankType == '50%')
-                                    return +previousValue + +(entry.ranks * 50)
-                                else
-                                    return +previousValue + +(entry.ranks * 100)
-                            }
-                            else {
-                                if (entry.rankType == '50%')
-                                    return +previousValue - +(entry.ranks * 50)
-                                else
-                                    return +previousValue - +(entry.ranks * 100)
-                            }
-                        }, 0)
-                    diceCheckObject.diceToRoll = Math.ceil(diceCheckObject.diceToRoll * (100 + percentageAdjustment) / 100)
                     //Dice Down/Up Code End
 
                     if (diceCheckObject.isSkill) {
@@ -2558,10 +2496,6 @@
                         result.successesInput += +result.successesFromIntelligence
                     }
                     if (diceCheckObject.isAbility) {
-                        //Accuracy Down/Up Code Start
-                        result.successes += +this.accuracySuccesses
-                        result.successesInput += +this.accuracySuccesses
-                        //Accuracy Down/Up Code End
                         if (this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Blinded' })) {
                             result.successes -= 2
                             result.successesInput -= 2
@@ -2596,10 +2530,8 @@
                     result.successesInput += +diceCheckObject.successes
                 }
 
-                if (diceCheckObject.diceToRoll && diceCheckObject.isAbility) {
-                    result.successes = Math.ceil(result.successes * this.accuracyPercentageAdjustment)
+                if (diceCheckObject.diceToRoll && diceCheckObject.isAbility)
                     result.successesInput = result.successes
-                }
 
                 this.abilityDialog.check = result
 
@@ -2675,15 +2607,9 @@
                         isResistant = damageModifications.some(x => x.isResistance)
                         isVulnerable = damageModifications.some(x => x.isVulnerability)
 
-                        let flatDamageModifications = damageModifications.filter(x => { return x.amountType == 'Flat' || !x.amountType })
-                        if (flatDamageModifications.some(x => x.override))
-                            flatDamageReductionAmount = flatDamageModifications.filter(x => {return x.override }).reduce((previous, current) => {
-                                return Math.abs(previous.amount) > Math.abs(current.amount) ? previous.amount : current.amount
-                            }, 0)
-                        else
-                            flatDamageReductionAmount = flatDamageModifications.reduce((previousValue, entry) => {
-                                return +previousValue + +entry.amount
-                            }, 0)
+                        flatDamageReductionAmount = damageModifications.reduce((previousValue, entry) => {
+                            return +previousValue + +entry.amount
+                        }, 0)
                     }
                 })
 
@@ -3107,7 +3033,7 @@
 
                 if (ability.save && !isNaN(ability.saveAmount) && ability.saveCharacteristic)
                     this.abilityDialog.save = {
-                        amount: Math.ceil((+ability.saveAmount + +this.accuracySuccesses + +this.successesFromIntelligence) * this.accuracyPercentageAdjustment),
+                        amount: (+ability.saveAmount + +this.successesFromIntelligence),
                         characteristic: this.characteristicViewItems.find(x => { return x.name == ability.saveCharacteristic }).abbreviation,
                         show: true
                     }

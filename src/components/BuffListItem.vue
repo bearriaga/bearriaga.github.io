@@ -107,7 +107,7 @@
                 if (adjustment.type == 'Status') {
                     label += ' - ' + adjustment.status.status.name
                     if (adjustment.status.status.ranked)
-                        label += ` ${adjustment.status.rankType} ${adjustment.status.ranks}`
+                        label += ` ${adjustment.status.ranks}`
                     label = label.replace('{CHAR}', adjustment.status.characteristic)
                     label = label.replace('{Type}', adjustment.status.damageType)
                     label = label.replace('{Group}', adjustment.status.damageType)

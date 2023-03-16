@@ -26,8 +26,6 @@
                               v-if="characteristic" disabled></v-text-field>
                 <v-text-field label="Damage Type" v-model="damageType"
                               v-if="selectedStatus.name.includes('{Group}') || selectedStatus.name.includes('{Type}')" disabled></v-text-field>
-                <v-text-field label="Rank Type" v-model="rankType"
-                              v-if="selectedStatus.ranked" disabled></v-text-field>
                 <v-text-field label="Ranks"
                               v-model="ranks"
                               type="number"
@@ -60,7 +58,6 @@
                 duration: this.status.duration,
                 isActive: this.status.isActive,
                 ranks: this.status.ranks,
-                rankType: this.status.rankType,
                 selectedStatus: this.status.status
             }
         },
@@ -83,7 +80,6 @@
                     isActive: this.isActive,
                     id: this.status.id,
                     ranks: this.ranks,
-                    rankType: this.rankType,
                     status: this.selectedStatus,
                 }
                 if (!this.status.buffId)

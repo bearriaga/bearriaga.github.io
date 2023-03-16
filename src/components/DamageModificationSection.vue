@@ -45,26 +45,11 @@
                                             v-model="damageModification.type"
                                             :rules="textRules"
                                             required></v-autocomplete>
-                            <v-row>
-                                <v-col>
-                                    <v-text-field label="Amount"
-                                                  type="number"
-                                                  v-model="damageModification.amount"
-                                                  ref="amount"
-                                                  required></v-text-field>
-                                </v-col>
-                                <v-col>
-                                    <v-select label="Amount Type"
-                                              v-model="damageModification.amountType"
-                                              :items="amountTypes"
-                                              required></v-select>
-                                </v-col>
-                                <v-col>
-                                    <v-switch label="Override" inset v-model="damageModification.override">
-                                        <TooltipComponent slot="prepend" :text="'Will override and not stack with damage modfications of the same damage and amount type'"></TooltipComponent>
-                                    </v-switch>
-                                </v-col>
-                            </v-row>
+                            <v-text-field label="Amount"
+                                          type="number"
+                                          v-model="damageModification.amount"
+                                          ref="amount"
+                                          required></v-text-field>
                             <v-row>
                                 <v-col>
                                     <v-switch label="Immunity" inset
@@ -103,13 +88,11 @@
 
 <script>
     import DamageModificationListItem from './DamageModificationListItem.vue'
-    import TooltipComponent from './TooltipComponent.vue'
 
     export default {
         name: 'DamageModificationSection',
         components: {
-            DamageModificationListItem,
-            TooltipComponent
+            DamageModificationListItem
         },
         props: {
             canEdit: Boolean,
@@ -129,22 +112,18 @@
                 // Input Fields Start
                 clearDamageModification: {
                     amount: 1,
-                    amountType: 'Flat',
                     id: '',
                     isImmunity: false,
                     isResistance: false,
                     isVulnerability: false,
-                    override: false,
                     type: ''
                 },
                 damageModification: {
                     amount: 1,
-                    amountType: 'Flat',
                     id: '',
                     isImmunity: false,
                     isResistance: false,
                     isVulnerability: false,
-                    override: false,
                     type: ''
                 },
                 // Input Fields End
