@@ -1,27 +1,22 @@
 [
   {
     "cost": 1,
-    "description": "Convert attack into a called shot",
-    "type": "Universal"
-  },
-  {
-    "cost": 1,
-    "description": "Gain 1 ReRoll for only your next roll",
+    "description": "You may re-roll one failed die on your next roll",
     "type": "Universal"
   },
   {
     "cost": 2,
-    "description": "Gain an additional 1d6 on your next roll",
+    "description": "Gain Dice +1 for your next roll",
     "type": "Universal"
   },
   {
     "cost": 3,
-    "description": "Gain +1 Success on your next roll",
+    "description": "Gain +1 Success for your next roll",
     "type": "Universal"
   },
   {
     "cost": 3,
-    "description": "Make a successful attack roll into a critical hit",
+    "description": "Convert the attack to a critical",
     "type": "Universal"
   }
 ]
