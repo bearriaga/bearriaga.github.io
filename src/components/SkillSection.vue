@@ -45,6 +45,7 @@
                             <v-text-field label="Skill Dice Purchases"
                                           type="number"
                                           v-model="skill.skillIncreases"
+                                          max="5"
                                           ref="skillIncreases"
                                           :rules="numberRules"
                                           required></v-text-field>
