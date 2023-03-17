@@ -349,7 +349,6 @@
         },
         data() {
             return {
-                amountTypes: ['Flat', '50%', '100%'],
                 // Input Fields Start
                 equipment: {
                     amount: 1,

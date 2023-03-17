@@ -103,7 +103,6 @@
         },
         data() {
             return {
-                amountTypes: ['Flat', '50%', '100%'],
                 damageTypesWithAll: this.damageTypes.concat(['All']),
                 dialog: {
                     show: false,
