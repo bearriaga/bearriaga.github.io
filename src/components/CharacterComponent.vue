@@ -795,14 +795,14 @@
                             <div v-if="abilityDialog.effects">
                                 <v-select v-model="abilityDialog.selectedEffects"
                                           :items="checkEffects.map(x => ({ value: x, text: x.cost + ' - ' + x.type + ' - ' + x.description}))"
-                                          label="Selected Effects"
+                                          label="Success Effects"
                                           multiple
                                           :disabled="abilityDialog.check.successesInput <= 0">
                                     <v-icon color="error"
                                             slot="prepend"
                                             @click.stop="subtractSelectedEffects"
                                             :disabled="abilityDialog.check.successesInput <= 0 || abilityDialog.selectedEffects.length == 0 || abilityDialog.selectedEffects.reduce((previousValue, entry) => {return +previousValue + +entry.cost}, 0) > abilityDialog.check.successesInput">
-                                        mdi-minus
+                                        mdi-minus-box
                                     </v-icon>
                                     <TooltipComponent slot="append" :text="'Effects can be purchased once per enemy'"></TooltipComponent>
                                 </v-select>
