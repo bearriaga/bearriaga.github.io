@@ -249,8 +249,8 @@
                                             <v-text-field label="Successes" type="number" v-model="equipment.ability.successes"></v-text-field>
                                             <v-text-field label="Handedness"
                                                           type="number"
-                                                          v-model="equipment.ability.handedness"></v-text-field>
-
+                                                          v-model="equipment.ability.handedness"></v-text-field>                                            
+                                            <v-select label="Use Modes" :items="useModes" v-model="equipment.ability.useModes" multiple clearable></v-select>                                            
                                         </v-expansion-panel-content>
                                     </v-expansion-panel>
                                 </v-expansion-panels>
@@ -395,6 +395,7 @@
                         saveAmount: 3,
                         saveCharacteristic: '',
                         successes: 0,
+                        useModes: [],
                         xpCost: 0,
                         components: [],
                         subEffects: []
@@ -447,6 +448,7 @@
                         saveAmount: 3,
                         saveCharacteristic: '',
                         successes: 0,
+                        useModes: [],
                         xpCost: 0,
                         components: [],
                         subEffects: []
@@ -508,6 +510,7 @@
                 subtractCR(crCost) {
                     this.$emit('subtractCREmit', crCost)
                 },
+                useModes: ['Charge Up', 'Flurry', 'Focused Strike', 'Full Auto', 'Lightning', 'Prepared'],
                 // Validation Start
                 numberRules: [
                     v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'

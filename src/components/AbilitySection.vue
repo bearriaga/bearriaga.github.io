@@ -236,6 +236,9 @@
                                     <v-text-field label="Max Size Category Of Mass" type="number" v-model="ability.maxSizeCategoryOfMass"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
+                                    <v-select label="Use Modes" :items="useModes" v-model="ability.useModes" multiple clearable></v-select>
+                                </v-col>
+                                <v-col cols="12">
                                     <template>
                                         <v-expansion-panels v-model="componentsPanel">
                                             <v-expansion-panel>
@@ -487,6 +490,7 @@
                     saveAmount: 3,
                     saveCharacteristic: '',
                     successes: 0,
+                    useModes: [],
                     xpCost: 0,
                     components: [],
                     subEffects: []
@@ -525,6 +529,7 @@
                     saveAmount: 3,
                     saveCharacteristic: '',
                     successes: 0,
+                    useModes: [],
                     xpCost: 0,
                     components: [],
                     subEffects: [],
@@ -585,6 +590,7 @@
                 ],
                 panel: this.panelProp,
                 subEffectPanel: null,
+                useModes: ['Charge Up', 'Flurry', 'Focused Strike', 'Full Auto', 'Lightning', 'Prepared'],
                 // Validation Start
                 numberRules: [
                     v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'

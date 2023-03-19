@@ -123,6 +123,9 @@
                 <v-col cols="4" v-if="maxSizeCategoryOfMass">
                     <v-text-field label="Max Size Category Of Mass" v-model="maxSizeCategoryOfMass"></v-text-field>
                 </v-col>
+                <v-col cols="12" v-if="abilityUseModes">
+                    <v-select label="Use Modes" :items="useModes" v-model="abilityUseModes" multiple clearable></v-select>
+                </v-col>
                 <v-col cols="12" v-if="subEffects.length > 0">
                     <template>
                         <v-expansion-panels>
@@ -312,6 +315,7 @@
         },
         data() {
             return {
+                abilityUseModes: this.ability.useModes,
                 apCost: this.ability.apCost,
                 areaOfEffect: this.ability.areaOfEffect,
                 boughtForFree: this.ability.boughtForFree,
@@ -339,7 +343,8 @@
                 components: this.ability.components,
                 damage: this.ability.damage,
                 subEffects: this.ability.subEffects,
-                physMetaOptions: ['Physical', 'Meta', 'Both']
+                physMetaOptions: ['Physical', 'Meta', 'Both'],
+                useModes: ['Charge Up', 'Flurry', 'Focused Strike', 'Full Auto', 'Lightning', 'Prepared'],
             }
         },
         methods: {
