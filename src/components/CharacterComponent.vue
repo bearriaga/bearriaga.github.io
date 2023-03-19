@@ -1196,7 +1196,7 @@
                 return Math.ceil(+this.resistance/2) + +this.characterSheet.bpIncreases
             },
             dcToHit() {
-                let statusAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.status.name.includes('AC ') })
+                let statusAdj = this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('AC ') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name.includes('Up'))
                             return +previousValue + +entry.ranks
@@ -1404,7 +1404,7 @@
                 }
             },
             blessed() {
-                return this.characterStatuses.filter(x => { return x.status.name == 'Blessed' && x.isActive && x.duration > 0 }).length > 0
+                return this.characterStatuses.filter(x => { return x.status.name == 'Blessed' && x.isActive && (x.duration > 0 || x.indefinite) }).length > 0
             },
             buffs() {
                 let buffs = []
@@ -1578,7 +1578,7 @@
                 return classes
             },
             cursed() {
-                return this.characterStatuses.filter(x => { return x.status.name == 'Cursed' && x.isActive && x.duration > 0 }).length > 0
+                return this.characterStatuses.filter(x => { return x.status.name == 'Cursed' && x.isActive && (x.duration > 0 || x.indefinite) }).length > 0
             },
             damageAddDice() {
                 let dice = 0
@@ -1768,7 +1768,7 @@
                 return flaws
             },
             hastened() {
-                let haste = this.characterStatuses.filter(x => { return x.status.name.includes('Hastened') && x.isActive && x.duration > 0 })
+                let haste = this.characterStatuses.filter(x => { return x.status.name.includes('Hastened') && x.isActive && (x.duration > 0 || x.indefinite) })
                     .reduce((previousValue, entry) => {
                         return +previousValue + +entry.ranks
                     }, 0)
@@ -1864,10 +1864,10 @@
                 ]
             },
             isBoosted() {
-                return this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Boosted' })
+                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Boosted' })
             },
             isHindered() {
-                return this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Hindered' })
+                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Hindered' })
             },
             minions() {
                 let minions = []
@@ -2203,14 +2203,14 @@
                 //    this.heal({ amount: x.ranks, type: '' })
                 //})
 
-                this.characterSheet.statuses.filter(x => { return x.duration > 0 && x.isActive }).forEach(status => {
+                this.characterSheet.statuses.filter(x => { return (x.duration > 0 || x.indefinite) && x.isActive }).forEach(status => {
                     status.duration--
                 })
 
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Status') && b.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
                         let status = adjustment.status
-                        if (status.currentDuration > 0) {
+                        if (status.currentDuration > 0 && !status.indefinite) {
                             status.currentDuration--
                         }
                     })
@@ -2481,7 +2481,7 @@
 
                 if (diceCheckObject.diceToRoll > 0) {
                     //Dice Down/Up Code Start
-                    diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.status.name.includes('{CHAR} Dice ') && diceCheckObject.chars.includes(x.characteristic) })
+                    diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('{CHAR} Dice ') && diceCheckObject.chars.includes(x.characteristic) })
                         .reduce((previousValue, entry) => {
                             if (entry.status.name.includes('Up'))
                                 return +previousValue + +entry.ranks
@@ -2496,7 +2496,7 @@
                         result.successesInput += +result.successesFromIntelligence
                     }
                     if (diceCheckObject.isAbility) {
-                        if (this.characterStatuses.some(x => { return x.isActive && x.duration > 0 && x.status.name == 'Blinded' })) {
+                        if (this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Blinded' })) {
                             result.successes -= 2
                             result.successesInput -= 2
                         }
@@ -2850,7 +2850,7 @@
                 //Group/Type Damage Dealt Down/Up Flat Code Start
                 if (!damageObj.types.some(x => x.text == 'True Damage')) {
                     let groupTypeDmgFlat = this.characterStatuses.filter(x => {
-                        return x.isActive && x.duration > 0 &&
+                        return x.isActive && (x.duration > 0 || x.indefinite) &&
                             (
                                 (x.status.name.includes('{Group} Damage Dealt') && damageObj.types.some(y => y.group == x.damageType))
                                 ||
@@ -2869,7 +2869,7 @@
                 //Group/Type Damage Dealt Down/Up Flat Code End
                 ///TODO: Delete this
                 //All Damage Dealt Down/Up Flat Code Start
-                let allDmgFlat = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.status.name.includes('All Damage Dealt') })
+                let allDmgFlat = this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('All Damage Dealt') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name.includes('Up'))
                             return +previousValue + +entry.ranks
@@ -2894,7 +2894,7 @@
                 //Group/Type Damage Dealt Down/Up Percentage Code Start
                 if (!damageObj.types.some(x => x.text == 'True Damage'))
                     percentageAdj += +this.characterStatuses.filter(x => {
-                        return x.isActive && x.duration > 0 &&
+                        return x.isActive && (x.duration > 0 || x.indefinite) &&
                             (
                                 (x.status.name.includes('{Group} Damage Dealt') && damageObj.types.some(y => y.group == x.damageType))
                                 ||
@@ -2916,7 +2916,7 @@
                     }, 0)
                 //Group/Type Damage Dealt Down/Up Percentage Code End
                 //All Damage Dealt Percentage Start
-                let allDamageDealtPercentAdj = this.characterStatuses.filter(x => { return x.isActive && x.duration > 0 && x.status.name.includes('All Damage Dealt') })
+                let allDamageDealtPercentAdj = this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('All Damage Dealt') })
                     .reduce((previousValue, entry) => {
                         if (entry.status.name.includes('Up')) {
                             if (entry.rankType == '50%')
@@ -2936,7 +2936,7 @@
                 //All Damage Dealt Percentage End
                     damageObj.sum = Math.ceil(damageObj.sum * (100 + +percentageAdj) / 100)
 
-                damageObj.atrophied = this.characterStatuses.filter(x => { return x.status.name == 'Atrophied' && x.duration > 0 && x.isActive }).length > 0
+                damageObj.atrophied = this.characterStatuses.filter(x => { return x.status.name == 'Atrophied' && (x.duration > 0 || x.indefinite) && x.isActive }).length > 0
                 if (damageObj.atrophied)
                     damageObj.sum = Math.floor(damageObj.sum / 2)
 

@@ -57,9 +57,13 @@
                               disabled></v-text-field>
                 <v-text-field :label="returnLabel(a)"
                               v-model="a.status.duration"
-                              v-if="a.type == 'Status'"
+                              v-if="a.type == 'Status' && !a.status.indefinite"
                               type="number"
                               disabled></v-text-field>
+                <v-switch :label="returnLabel(a)"
+                          v-model="a.status.indefinite"
+                          v-if="a.type == 'Status' && a.status.indefinite"
+                          disabled></v-switch>
                 <v-textarea label="Other"
                             v-model="a.description"
                             v-if="a.type == 'Other'"
@@ -112,6 +116,8 @@
                     label = label.replace('{Type}', adjustment.status.damageType)
                     label = label.replace('{Group}', adjustment.status.damageType)
                     label += ' Duration'
+                    if (adjustment.status.indefinite)
+                        label += ' Indefinite'
                 }
 
                 return label

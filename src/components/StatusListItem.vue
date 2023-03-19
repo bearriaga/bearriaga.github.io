@@ -31,7 +31,9 @@
                               type="number"
                               min="0"
                               v-if="selectedStatus.ranked"></v-text-field>
+                <v-switch label="Indefinite" v-if="indefinite" inset v-model="indefinite" disabled></v-switch>
                 <v-text-field label="Duration (Rounds)"
+                              v-if="!indefinite"
                               v-model="duration"
                               type="number"
                               min="0"></v-text-field>
@@ -56,6 +58,7 @@
                 damageType: this.status.damageType,
                 description: this.status.description,
                 duration: this.status.duration,
+                indefinite: this.status.indefinite,
                 isActive: this.status.isActive,
                 ranks: this.status.ranks,
                 selectedStatus: this.status.status

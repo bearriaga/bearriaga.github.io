@@ -158,37 +158,45 @@
                                               v-if="a.type != 'Status' && a.type != 'Other' && a.type != 'Damage: Convert Damage Type' && a.type != 'Damage Additional'"
                                               type="number"></v-text-field>
                                 <!-- Status Fields -->
-                                <v-autocomplete label="Status"
-                                                :items="statuses.map((x) => ({ value: x, text: x.name }))"
-                                                v-model="a.status.status"
-                                                v-if="a.type == 'Status'"
-                                                :rules="notNull"
-                                                required>
-                                </v-autocomplete>
-                                <v-autocomplete label="Damage Type"
-                                                v-model="a.status.damageType"
-                                                :items="damageTypes"
-                                                v-if="a.status.status.name.includes('{Group}') || a.status.status.name.includes('{Type}')"
-                                                :rules="notNull"
-                                                required></v-autocomplete>
-                                <v-select label="Characteristic"
-                                          v-model="a.status.characteristic"
-                                          :items="characteristics"
-                                          v-if="a.type == 'Status' && a.status.status.name.includes('{CHAR}')"
-                                          :rules="notNull"
-                                          required></v-select>
-                                <v-text-field v-if="a.type == 'Status' && a.status.status.ranked"
-                                              label="Ranks"
-                                              v-model="a.status.ranks"
-                                              type="number"
-                                              min="0"
-                                              required></v-text-field>
-                                <v-text-field label="Duration (Rounds)"
-                                              v-model="a.status.duration"
-                                              v-if="a.type == 'Status'"
-                                              type="number"
-                                              min="0"
-                                              required></v-text-field>
+                                <template v-if="a.type == 'Status'">
+                                    <v-autocomplete label="Status"
+                                                    :items="statuses.map((x) => ({ value: x, text: x.name }))"
+                                                    v-model="a.status.status"
+                                                    :rules="notNull"
+                                                    required>
+                                    </v-autocomplete>
+                                    <v-autocomplete label="Damage Type"
+                                                    v-model="a.status.damageType"
+                                                    :items="damageTypes"
+                                                    v-if="a.status.status.name.includes('{Group}') || a.status.status.name.includes('{Type}')"
+                                                    :rules="notNull"
+                                                    required></v-autocomplete>
+                                    <v-select label="Characteristic"
+                                              v-model="a.status.characteristic"
+                                              :items="characteristics"
+                                              v-if="a.status.status.name.includes('{CHAR}')"
+                                              :rules="notNull"
+                                              required></v-select>
+                                    <v-text-field v-if="a.status.status.ranked"
+                                                  label="Ranks"
+                                                  v-model="a.status.ranks"
+                                                  type="number"
+                                                  min="0"
+                                                  required></v-text-field>
+                                    <v-row>
+                                        <v-col cols="4">
+                                            <v-switch label="Indefinite" inset v-model="a.status.indefinite"></v-switch>
+                                        </v-col>
+                                        <v-col cols="8">
+                                            <v-text-field label="Duration (Rounds)"
+                                                          v-model="a.status.duration"
+                                                          v-if="!a.status.indefinite"
+                                                          type="number"
+                                                          min="0"
+                                                          required></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                </template>
                                 <!-- Status Fields End -->
                                 <v-textarea label="Description"
                                             v-model="a.description"
@@ -284,6 +292,7 @@
                                 description: '',
                                 duration: 1,
                                 id: '',
+                                indefinite: false,
                                 isActive: true,
                                 ranks: 1,
                                 status: {
@@ -334,6 +343,7 @@
                                 description: '',
                                 duration: 1,
                                 id: '',
+                                indefinite: false,
                                 isActive: true,
                                 ranks: 1,
                                 status: {
@@ -392,6 +402,7 @@
                         description: '',
                         duration: 1,
                         id: uuidv4(),
+                        indefinite: false,
                         isActive: true,
                         ranks: 1,
                         status: {

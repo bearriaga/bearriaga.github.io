@@ -69,11 +69,19 @@
                                           type="number"
                                           min="0"
                                           required></v-text-field>
-                            <v-text-field label="Duration (Rounds)"
-                                          v-model="status.duration"
-                                          type="number"
-                                          min="0"
-                                          required></v-text-field>
+                            <v-row>
+                                <v-col cols="4">
+                                    <v-switch label="Indefinite" inset v-model="status.indefinite"></v-switch>
+                                </v-col>
+                                <v-col cols="8">
+                                    <v-text-field label="Duration (Rounds)"
+                                                  v-if="!status.indefinite"
+                                                  v-model="status.duration"
+                                                  type="number"
+                                                  min="0"
+                                                  required></v-text-field>
+                                </v-col>
+                            </v-row>
                             <v-textarea label="Description" v-model="status.description" auto-grow outlined rows="1" required></v-textarea>
                         </v-form>
                     </v-card-text>
@@ -96,7 +104,7 @@
 
 <script>
     import StatusListItem from './StatusListItem.vue'
-    
+
     export default {
         name: 'StatusSection',
         components: {
@@ -122,6 +130,7 @@
                     description: '',
                     duration: 0,
                     id: '',
+                    indefinite: false,
                     isActive: true,
                     ranks: 0,
                     status: {
@@ -137,6 +146,7 @@
                     description: '',
                     duration: 1,
                     id: '',
+                    indefinite: false,
                     isActive: true,
                     ranks: 1,
                     status: {
