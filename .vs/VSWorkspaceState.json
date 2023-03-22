@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components"
+    "\\src\\components",
+    "\\src\\css"
   ],
-  "SelectedNode": "\\src\\components\\CharacteristicViewItem.vue",
+  "SelectedNode": "\\src\\css\\characterSheet.css",
   "PreviewInSolutionExplorer": false
 }

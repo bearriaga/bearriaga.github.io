@@ -164,7 +164,7 @@
                                     @subtractCREmit="subtractCR($event)"
                                     @updateEntryEmit="updateEntry($event)"
                                     @updatePanelEmit="updatePanel($event)"
-                                    @useAbilityEmit="useAbility($event)"></AbilitySection>
+                                    @useAbilityEmit="useModes($event)"></AbilitySection>
                 </v-col>
             </v-row>
             <v-row>
@@ -312,7 +312,7 @@
                                       @updateEntryEmit="updateEntry($event)"
                                       @updateEntryBypassEmit="updateEntry($event)"
                                       @updatePanelEmit="updatePanel($event)"
-                                      @useAbilityEmit="useAbility($event)"></EquipmentSection>
+                                      @useAbilityEmit="useModes($event)"></EquipmentSection>
                 </v-col>
             </v-row>
         </form>
@@ -459,7 +459,7 @@
                                             @subtractCREmit="subtractCR($event)"
                                             @updateEntryEmit="updateEntry($event)"
                                             @updatePanelEmit="updatePanel($event)"
-                                            @useAbilityEmit="useAbility($event)"></AbilitySection>
+                                            @useAbilityEmit="useModes($event)"></AbilitySection>
                         </v-tab-item>
                         <v-tab-item value="movements">
                             <MovementSection :ap="characterSheet.ap"
@@ -573,7 +573,7 @@
                                               @subtractCREmit="subtractCR($event)"
                                               @updateEntryEmit="updateEntry($event)"
                                               @updateEntryBypassEmit="updateEntry($event)"
-                                              @useAbilityEmit="useAbility($event)"
+                                              @useAbilityEmit="useModes($event)"
                                               @updatePanelEmit="updatePanel($event)"></EquipmentSection>
                         </v-tab-item>
                         <v-tab-item value="statusBuffs">
@@ -715,7 +715,7 @@
                                     @subtractCREmit="subtractCR($event)"
                                     @updateEntryEmit="updateEntry($event)"
                                     @updatePanelEmit="updatePanel($event)"
-                                    @useAbilityEmit="useAbility($event)"></AbilitySection>
+                                    @useAbilityEmit="useModes($event)"></AbilitySection>
                     <EquipmentSection :ap="characterSheet.ap"
                                       :characteristics="characteristics"
                                       :character-equipment="characterEquipment"
@@ -737,7 +737,7 @@
                                       @subtractCREmit="subtractCR($event)"
                                       @updateEntryEmit="updateEntry($event)"
                                       @updateEntryBypassEmit="updateEntry($event)"
-                                      @useAbilityEmit="useAbility($event)"
+                                      @useAbilityEmit="useModes($event)"
                                       @updatePanelEmit="updatePanel($event)"></EquipmentSection>
                     <StatusSection :character-statuses="characterStatuses"
                                    :characteristics="characteristics"
@@ -917,6 +917,7 @@
                                     <span v-if="index > 0">, </span>
                                     {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
                                 </span>
+                                <span v-if="useModeDialog.useMode == 'Flurry' || (useModeDialog.useMode == 'Full Auto' && useModeDialog.numberOfUses > 1)"> x {{useModeDialog.numberOfUses}}</span>
                             </b>
                         </div>
                         <div>
@@ -1032,6 +1033,92 @@
             </v-card>
         </v-dialog>
         <!-- Cleanse Dialog End -->
+        <!-- Use Mode Dialog -->
+        <v-dialog v-model="useModeDialog.show" width="500">
+            <v-card>
+                <v-card-title class="text-h5 grey lighten-2">
+                    Use Ability
+                </v-card-title>
+
+                <v-card-text>
+                    <v-form v-model="useModesValid">
+                        <v-row>
+                            <v-col cols="5" offset="1">
+                                <v-btn color="primary" @click="useMode('Use')" class="width100" :disabled="!useModesValid">Use</v-btn>
+                            </v-col>
+                        </v-row>
+                        <v-row v-if="useModeDialog.useModes.includes('Charge Up')">
+                            <v-col cols="1">
+                                <TooltipComponent :text="'Spend a multiple of the AP required to make the attack, multiply the damage dice by the multiple. Damage from characateristics and +1 are added once.'"></TooltipComponent>
+                            </v-col>
+                            <v-col cols="5">
+                                <v-btn color="primary" @click="useMode('Charge Up')" class="width100">Charge Up</v-btn>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-text-field label="Charges" v-model="useModeDialog.numberOfUses" type="number" min="1" v-if="useModeDialog.useModes.includes('Charge Up')" required></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row v-if="useModeDialog.useModes.includes('Flurry')">
+                            <v-col cols="1">
+                                <TooltipComponent slot="append" :text="'Each die of damage is treated separately and damage from characateristics or +1 are added for each. Enemy damage resistances, on hit effects, and damage type statuses apply once per die. Using this Use Mode temporarily deactivates cleaving effects like Cleaving Kills and Critical: Overkill'"></TooltipComponent>
+                            </v-col>
+                            <v-col cols="5">
+                                <v-btn color="primary" @click="useMode('Flurry')" class="width100">Flurry</v-btn>
+                            </v-col>
+                        </v-row>
+                        <v-row v-if="useModeDialog.useModes.includes('Focused Strike')">
+                            <v-col cols="1">
+                                <TooltipComponent slot="append" :text="'Spend a multiple of the AP required to make the attack, add 1 successes for each multiple of the attack`s you consumed past x1. If this ability is a save, instead of adding a success, you increase the DC of the save by 1 for each multiple of the attack`s you consumed past x1.'"></TooltipComponent>
+                            </v-col>
+                            <v-col cols="5">
+                                <v-btn color="primary" @click="useMode('Focused Strike')" class="width100">Focused Strike</v-btn>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-text-field label="Focus" v-model="useModeDialog.numberOfUses" type="number" required></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row v-if="useModeDialog.useModes.includes('Full Auto')">
+                            <v-col cols="1">
+                                <TooltipComponent slot="append" :text="'Requires: @Reloading and @Reloading: Magazine Extras. Attack`s damage may be applied once for each use'"></TooltipComponent>
+                            </v-col>
+                            <v-col cols="5">
+                                <v-btn color="primary" @click="useMode('Full Auto')" class="width100">Full Auto</v-btn>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-text-field label="Attacks" v-model="useModeDialog.numberOfUses" type="number" required></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row v-if="useModeDialog.useModes.includes('Lightning')">
+                            <v-col cols="1">
+                                <TooltipComponent slot="append" :text="'When using this ability, if you commit to using it multiple times in a row, you may reduce the AP cost by -1 for each consecutive use. If an ability costing 3 AP is used, it would cost 3 AP, then 2 AP, then 1 AP, then 0 or 1 AP. As soon as you use 0 AP, the ability follows normal 0 AP rules and may no longer be used again that turn.'"></TooltipComponent>
+                            </v-col>
+                            <v-col cols="5">
+                                <v-btn color="primary" @click="useMode('Lightning')" class="width100">Lightning</v-btn>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-text-field label="AP Override" v-model="useModeDialog.apOverride" type="number" required></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row v-if="useModeDialog.useModes.includes('Prepared')">
+                            <v-col cols="1">
+                                <TooltipComponent slot="append" :text="'When using this ability, it creates some effect in the world that waits to activate when a specified condition occurs. Differs from reaction in that you spend the AP up front, and don`t need to act when it triggers. The ability triggers automatically even without your character`s knowledge so long as the trigger is met. If it doesn`t become triggered, the effect dispels at the end of the current encounter if it is not an object or has an extended duration. You may only have up to your number of prepared instances active in this state at one time, default 1. Very useful for traps and ambushes.'"></TooltipComponent>
+                            </v-col>
+                            <v-col cols="5">
+                                <v-btn color="primary" @click="useMode('Prepared')" class="width100">Prepared</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-form>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions class="justify-end">
+                    <v-btn color="secondary"
+                           @click="useModeDialog.show = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <!-- Use Mode Dialog End -->
 
         <v-dialog v-model="generalDialog.show" width="500">
             <v-card>
@@ -2190,6 +2277,23 @@
                 updateMinions: 0,
                 updateStatus: 0,
                 updateRerolls: 0,
+                useModeDialog: {
+                    ability: null,
+                    apOverride: 0,
+                    numberOfUses: 2,
+                    show: false,
+                    useMode: '',
+                    useModes: []
+                },
+                useModesValid: false,
+                // Validation Start
+                notNull: [
+                    v => !!v || 'Field may not be empty'
+                ],
+                numberRules: [
+                    v => !isNaN(+v) && v >= 0 || 'Field may not be empty and value must be 0 or higher'
+                ]
+                // Validation End
             }
         },
         methods: {
@@ -3066,6 +3170,46 @@
                     title: this.abilityDialog.title,
                     type: 'Ability'
                 })
+            },
+            useMode(useMode) {
+                this.useModeDialog.show = false
+                this.useModeDialog.useMode = useMode
+                let ability = JSON.parse(JSON.stringify(this.useModeDialog.ability))
+                ability.name += ` - ${useMode}`
+
+                if (this.useModeDialog.useMode == 'Charge Up' || this.useModeDialog.useMode == 'Focused Strike' || this.useModeDialog.useMode == 'Full Auto')
+                    ability.apCost *= this.useModeDialog.numberOfUses
+
+                if (this.useModeDialog.useMode == 'Charge Up')
+                    ability.damage.dice *= this.useModeDialog.numberOfUses
+
+                if (this.useModeDialog.useMode == 'Flurry') {
+                    this.useModeDialog.numberOfUses = ability.damage.dice
+                    ability.damage.dice = 1
+                }
+
+                if (this.useModeDialog.useMode == 'Focused Strike')
+                    if (ability.save)
+                        ability.saveAmount = +ability.saveAmount + (+this.useModeDialog.numberOfUses - 1)
+                    else
+                        ability.successes = +ability.successes + (+this.useModeDialog.numberOfUses - 1)
+
+                if (this.useModeDialog.useMode == 'Lightning')
+                    ability.apCost = this.useModeDialog.apOverride
+
+                this.useAbility(ability)
+            },
+            useModes(ability) {
+                this.useModeDialog = {
+                    ability: ability,
+                    apOverride: ability.apCost,
+                    numberOfUses: 2,
+                    show: true,
+                    useMode: '',
+                    useModes: (ability.useModes) ? ability.useModes : []
+                }
+                if (!ability.useModes)
+                    this.useAbility(ability)
             }
         },
         watch: {
