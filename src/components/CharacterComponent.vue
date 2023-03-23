@@ -3192,7 +3192,7 @@
                     if (ability.save)
                         ability.saveAmount = +ability.saveAmount + (+this.useModeDialog.numberOfUses - 1)
                     else
-                        ability.successes = +ability.successes + (+this.useModeDialog.numberOfUses - 1)
+                        ability.successes = +ability.successes + ((+this.useModeDialog.numberOfUses - 1) * 2)
 
                 if (this.useModeDialog.useMode == 'Lightning')
                     ability.apCost = this.useModeDialog.apOverride
@@ -3200,6 +3200,7 @@
                 this.useAbility(ability)
             },
             useModes(ability) {
+                console.log(ability.useModes)
                 this.useModeDialog = {
                     ability: ability,
                     apOverride: ability.apCost,
@@ -3208,8 +3209,10 @@
                     useMode: '',
                     useModes: (ability.useModes) ? ability.useModes : []
                 }
-                if (!ability.useModes)
+                if (ability.useModes == undefined || !ability.useModes.length) {
+                    this.useModeDialog.show = false
                     this.useAbility(ability)
+                }
             }
         },
         watch: {
