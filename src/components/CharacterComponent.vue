@@ -917,9 +917,20 @@
                                     <span v-if="index > 0">, </span>
                                     {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
                                 </span>
-                                <span v-if="useModeDialog.useMode == 'Flurry' || (useModeDialog.useMode == 'Full Auto' && useModeDialog.numberOfUses > 1)"> x {{useModeDialog.numberOfUses}}</span>
+                                <span v-if="(useModeDialog.useMode == 'Full Auto' && useModeDialog.numberOfUses > 1)"> x {{useModeDialog.numberOfUses}}</span>
                             </b>
                         </div>
+                        <template v-if="useModeDialog.useMode == 'Flurry'">
+                            <div v-for="(damage, index) in abilityDialog.useModeDamage" :key="index">
+                                <b>
+                                    {{damage.sum}}
+                                    <span v-for="(type, jindex) in damage.types" :key="jindex">
+                                        <span v-if="jindex > 0">, </span>
+                                        {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
+                                    </span>
+                                </b>
+                            </div>
+                        </template>
                         <div>
                             <i v-if="abilityDialog.damage.atrophied" style="color: red;">Damage halved from atrophied status</i>
                         </div>
@@ -2183,6 +2194,7 @@
                         types: []
                     },
                     effects: [],
+                    useModeDamage: [],
                     isAbility: false,
                     save: {
                         amount: 0,
@@ -2821,6 +2833,16 @@
                 //TODO: move this char stuff to rollDamage function
                 let char = (ability.damage.characteristic) ? ability.damage.characteristic : ability.characteristic
                 this.abilityDialog.damage = this.rollDamage(ability.damage, ability.isMeleeAttack, char, false)
+                if (this.useModeDialog.useMode == 'Flurry') {                    
+                    this.abilityDialog.useModeDamage = []
+                    this.abilityDialog.useModeDamage.push(this.abilityDialog.damage)
+                    for (var i = 0; i < this.useModeDialog.numberOfUses; i++) {
+                        this.abilityDialog.useModeDamage.push(this.rollDamage(ability.damage, ability.isMeleeAttack, char, false))
+                    }
+                    this.abilityDialog.useModeDamage.sort((a, b) => b.sum - a.sum)
+                    this.abilityDialog.damage = this.abilityDialog.useModeDamage[0]
+                    this.abilityDialog.useModeDamage.shift()
+                }
                 this.abilityDialog.show = true
                 this.abilityDialog.check.show = false
                 this.abilityDialog.isAbility = false
@@ -3184,7 +3206,7 @@
                     ability.damage.dice *= this.useModeDialog.numberOfUses
 
                 if (this.useModeDialog.useMode == 'Flurry') {
-                    this.useModeDialog.numberOfUses = ability.damage.dice
+                    this.useModeDialog.numberOfUses = +ability.damage.dice - 1
                     ability.damage.dice = 1
                 }
 
@@ -3200,7 +3222,6 @@
                 this.useAbility(ability)
             },
             useModes(ability) {
-                console.log(ability.useModes)
                 this.useModeDialog = {
                     ability: ability,
                     apOverride: ability.apCost,
@@ -3210,6 +3231,7 @@
                     useModes: (ability.useModes) ? ability.useModes : []
                 }
                 if (ability.useModes == undefined || !ability.useModes.length) {
+                    this.useModeDialog.useMode = 'Use'
                     this.useModeDialog.show = false
                     this.useAbility(ability)
                 }
