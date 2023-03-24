@@ -917,10 +917,9 @@
                                     <span v-if="index > 0">, </span>
                                     {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
                                 </span>
-                                <span v-if="(useModeDialog.useMode == 'Full Auto' && useModeDialog.numberOfUses > 1)"> x {{useModeDialog.numberOfUses}}</span>
                             </b>
                         </div>
-                        <template v-if="useModeDialog.useMode == 'Flurry'">
+                        <template v-if="useModeDialog.useMode == 'Flurry' || useModeDialog.useMode == 'Full Auto'">
                             <div v-for="(damage, index) in abilityDialog.useModeDamage" :key="index">
                                 <b>
                                     {{damage.sum}}
@@ -2843,6 +2842,12 @@
                     this.abilityDialog.damage = this.abilityDialog.useModeDamage[0]
                     this.abilityDialog.useModeDamage.shift()
                 }
+                if (this.useModeDialog.useMode == 'Full Auto') {
+                    this.abilityDialog.useModeDamage = []
+                    for (var j = 0; j < (this.useModeDialog.numberOfUses - 1); j++) {
+                        this.abilityDialog.useModeDamage.push(this.abilityDialog.damage)
+                    }
+                }                
                 this.abilityDialog.show = true
                 this.abilityDialog.check.show = false
                 this.abilityDialog.isAbility = false
