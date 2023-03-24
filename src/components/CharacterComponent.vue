@@ -2005,35 +2005,34 @@
 
                 if (this.characterSheet.fitness) {
                     movements.push({
-                        amount: this.characterSheet.fitness,
-                        description: 'Default Movement from FIT',
+                        amount: this.characterSheet.fitness * 2,
+                        description: 'Default Movement from FIT, FIT x 2',
                         id: 'defaultMovement',
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovement' + this.characterSheet.fitness,
+                        key: 'defaultMovement' + (this.characterSheet.fitness * 2),
                         type: 'Land Speed'
                     })
 
-                    let halfFit = Math.floor(this.characterSheet.fitness / 2)
                     movements.push({
-                        amount: halfFit,
-                        description: 'Default Movement from FIT, FIT/2',
+                        amount: this.characterSheet.fitness,
+                        description: 'Default Movement from FIT',
                         id: 'defaultMovementClimb',
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovementClimb' + halfFit,
+                        key: 'defaultMovementClimb' + this.characterSheet.fitness,
                         type: 'Climb'
                     })
                     movements.push({
-                        amount: halfFit,
-                        description: 'Default Movement from FIT, FIT/2',
+                        amount: this.characterSheet.fitness,
+                        description: 'Default Movement from FIT',
                         id: 'defaultMovementSwim',
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovementSwim' + halfFit,
+                        key: 'defaultMovementSwim' + this.characterSheet.fitness,
                         type: 'Swim'
                     })
                 }
