@@ -2003,15 +2003,16 @@
             movements() {
                 let movements = []
 
+                let doubleCHAR = this.characterSheet.fitness * 2
                 if (this.characterSheet.fitness) {
                     movements.push({
-                        amount: this.characterSheet.fitness * 2,
+                        amount: doubleCHAR,
                         description: 'Default Movement from FIT, FIT x 2',
                         id: 'defaultMovement',
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovement' + (this.characterSheet.fitness * 2),
+                        key: 'defaultMovement' + doubleCHAR,
                         type: 'Land Speed'
                     })
 
