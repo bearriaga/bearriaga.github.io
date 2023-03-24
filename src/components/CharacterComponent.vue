@@ -1591,7 +1591,7 @@
                         key: 'fit' + this.characterSheet.id + this.characterSheet.fitnessAdjustment + this.updateCharacter,
                         name: 'fitness',
                         value: this.characterSheet.fitness,
-                        valueMax: 15,
+                        valueMax: 10,
                         characteristic: chars.includes('fitness')
                     },
                     {
@@ -1600,7 +1600,7 @@
                         key: 'res' + this.characterSheet.id + this.characterSheet.resistanceAdjustment + this.updateCharacter,
                         name: 'resistance',
                         value: this.characterSheet.resistance,
-                        valueMax: 15,
+                        valueMax: 10,
                         characteristic: chars.includes('resistance')
                     },
                     {
@@ -1609,7 +1609,7 @@
                         key: 'spd' + this.characterSheet.id + this.characterSheet.speedAdjustment + this.updateCharacter,
                         name: 'speed',
                         value: this.characterSheet.speed,
-                        valueMax: 15,
+                        valueMax: 10,
                         characteristic: chars.includes('speed')
                     },
                     {
@@ -1618,7 +1618,7 @@
                         key: 'int' + this.characterSheet.id + this.characterSheet.intelligenceAdjustment + this.updateCharacter,
                         name: 'intelligence',
                         value: this.characterSheet.intelligence,
-                        valueMax: 15,
+                        valueMax: 10,
                         characteristic: chars.includes('intelligence')
                     },
                     {
@@ -1627,7 +1627,7 @@
                         key: 'cun' + this.characterSheet.id + this.characterSheet.cunningAdjustment + this.updateCharacter,
                         name: 'cunning',
                         value: this.characterSheet.cunning,
-                        valueMax: 15,
+                        valueMax: 10,
                         characteristic: chars.includes('cunning')
                     },
                     {
@@ -1636,7 +1636,7 @@
                         key: 'lck' + this.characterSheet.id + this.characterSheet.luckAdjustment + this.updateCharacter,
                         name: 'luck',
                         value: this.characterSheet.luck,
-                        valueMax: 15,
+                        valueMax: 10,
                         characteristic: chars.includes('luck')
                     }
                 ]
