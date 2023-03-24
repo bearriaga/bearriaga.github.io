@@ -1966,6 +1966,9 @@
             isHindered() {
                 return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Hindered' })
             },
+            luckLovedByLuck() {
+                return (this.characterSheet.luckLovedByLuck) ? Math.ceil(this.luck / 2) : 0
+            },
             minions() {
                 let minions = []
 
@@ -2622,9 +2625,8 @@
                     result.diceResults = rdResult.diceResults;
                     result.successes += +rdResult.successes
                     result.successesInput += +rdResult.successes
-                    result.fate = result.diceResults[0]
-                    if (this.characterSheet.luckLovedByLuck)
-                        result.fate += +Math.ceil(this.luck / 2)
+                    result.fate = result.diceResults[0]                    
+                    result.fate += +this.luckLovedByLuck
 
                     let luck = diceCheckObject.luck ? diceCheckObject.luck : this.luck
                     if (!this.characterSheet.luckNothingToChance) {
