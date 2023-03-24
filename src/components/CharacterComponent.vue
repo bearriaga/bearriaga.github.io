@@ -2129,7 +2129,7 @@
                 return skills
             },
             successesFromIntelligence() {
-                return Math.floor(this.intelligence / 3)
+                return Math.ceil(this.intelligence / 2)
             },
             traits() {
                 let traits = []
