@@ -1290,7 +1290,7 @@
                 return (3 + +this.characterSheet.attunementSlotsIncreases)
             },
             bpMax() {
-                return Math.ceil(+this.resistance/2) + +this.characterSheet.bpIncreases
+                return +this.resistance + +this.characterSheet.bpIncreases
             },
             dcToHit() {
                 let statusAdj = this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('AC ') })
