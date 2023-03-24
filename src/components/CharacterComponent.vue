@@ -2624,8 +2624,7 @@
                     result.successesInput += +rdResult.successes
                     result.fate = result.diceResults[0]
                     if (this.characterSheet.luckLovedByLuck)
-                        result.fate += +Math.floor(this.luck / 3)
-
+                        result.fate += +Math.ceil(this.luck / 2)
 
                     let luck = diceCheckObject.luck ? diceCheckObject.luck : this.luck
                     if (!this.characterSheet.luckNothingToChance) {
