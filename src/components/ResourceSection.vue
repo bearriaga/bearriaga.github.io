@@ -55,9 +55,7 @@
                                           required></v-text-field>
                             <v-select label="Characteristic"
                                       v-model="resource.characteristic"
-                                      :items="characteristics"
-                                      :rules="textRules"
-                                      required></v-select>
+                                      :items="characteristics"></v-select>
                         </v-form>
                     </v-card-text>
 
