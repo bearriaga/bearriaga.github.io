@@ -3254,7 +3254,7 @@
 
                 if (ability.damage.dice > 0 || ability.damage.flat > 0) {
                     this.rollAbilityDamage(ability)
-                    this.abilityDialog.effects = this.abilityDialog.check.effects.concat(this.abilityDialog.damage.effects)
+                    this.abilityDialog.effects = this.abilityDialog.damage.effects.concat(this.abilityDialog.check.effects)
                 }
 
                 if (ability.save && !isNaN(ability.saveAmount) && ability.saveCharacteristic)
