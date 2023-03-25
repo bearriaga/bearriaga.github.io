@@ -733,7 +733,7 @@
                 }
 
                 let crColor = ''
-                if (this.crCost > 0) {
+                if (ability.crCost > 0) {
                     let resource = this.resources.find(x => { return x.id == ability.classResource })
                     if (resource) {
                         if (ability.crCost < resource.amount)
