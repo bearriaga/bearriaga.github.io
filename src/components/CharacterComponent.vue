@@ -1054,7 +1054,7 @@
                     <v-form v-model="useModesValid">
                         <v-row>
                             <v-col cols="5" offset="1">
-                                <v-btn color="primary" @click="useMode('Use')" class="width100" :disabled="!useModesValid">Use</v-btn>
+                                <v-btn :color="useButtonColor" @click="useMode('Use')" class="width100" :disabled="!useModesValid">Use</v-btn>
                             </v-col>
                         </v-row>
                         <v-row v-if="useModeDialog.useModes.includes('Charge Up')">
@@ -1062,7 +1062,7 @@
                                 <TooltipComponent :text="'Spend a multiple of the AP required to make the attack, multiply the damage dice by the multiple. Damage from characateristics and +1 are added once.'"></TooltipComponent>
                             </v-col>
                             <v-col cols="5">
-                                <v-btn color="primary" @click="useMode('Charge Up')" class="width100">Charge Up</v-btn>
+                                <v-btn :color="useButtonColorMultiAP" @click="useMode('Charge Up')" class="width100">Charge Up</v-btn>
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field label="Charges" v-model="useModeDialog.numberOfUses" type="number" min="1" v-if="useModeDialog.useModes.includes('Charge Up')" required></v-text-field>
@@ -1073,7 +1073,7 @@
                                 <TooltipComponent slot="append" :text="'Each die of damage is treated separately and damage from characateristics or +1 are added for each. Enemy damage resistances, on hit effects, and damage type statuses apply once per die. Using this Use Mode temporarily deactivates cleaving effects like Cleaving Kills and Critical: Overkill'"></TooltipComponent>
                             </v-col>
                             <v-col cols="5">
-                                <v-btn color="primary" @click="useMode('Flurry')" class="width100">Flurry</v-btn>
+                                <v-btn :color="useButtonColor" @click="useMode('Flurry')" class="width100">Flurry</v-btn>
                             </v-col>
                         </v-row>
                         <v-row v-if="useModeDialog.useModes.includes('Focused Strike')">
@@ -1081,7 +1081,7 @@
                                 <TooltipComponent slot="append" :text="'Spend a multiple of the AP required to make the attack, add 1 successes for each multiple of the attack`s you consumed past x1. If this ability is a save, instead of adding a success, you increase the DC of the save by 1 for each multiple of the attack`s you consumed past x1.'"></TooltipComponent>
                             </v-col>
                             <v-col cols="5">
-                                <v-btn color="primary" @click="useMode('Focused Strike')" class="width100">Focused Strike</v-btn>
+                                <v-btn :color="useButtonColorMultiAP" @click="useMode('Focused Strike')" class="width100">Focused Strike</v-btn>
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field label="Focus" v-model="useModeDialog.numberOfUses" type="number" required></v-text-field>
@@ -1092,7 +1092,7 @@
                                 <TooltipComponent slot="append" :text="'Requires: @Reloading and @Reloading: Magazine Extras. Attack`s damage may be applied once for each use'"></TooltipComponent>
                             </v-col>
                             <v-col cols="5">
-                                <v-btn color="primary" @click="useMode('Full Auto')" class="width100">Full Auto</v-btn>
+                                <v-btn :color="useButtonColor" @click="useMode('Full Auto')" class="width100">Full Auto</v-btn>
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field label="Attacks" v-model="useModeDialog.numberOfUses" type="number" required></v-text-field>
@@ -1103,7 +1103,7 @@
                                 <TooltipComponent slot="append" :text="'When using this ability, if you commit to using it multiple times in a row, you may reduce the AP cost by -1 for each consecutive use. If an ability costing 3 AP is used, it would cost 3 AP, then 2 AP, then 1 AP, then 0 or 1 AP. As soon as you use 0 AP, the ability follows normal 0 AP rules and may no longer be used again that turn.'"></TooltipComponent>
                             </v-col>
                             <v-col cols="5">
-                                <v-btn color="primary" @click="useMode('Lightning')" class="width100">Lightning</v-btn>
+                                <v-btn :color="useButtonColorOverrideAP" @click="useMode('Lightning')" class="width100">Lightning</v-btn>
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field label="AP Override" v-model="useModeDialog.apOverride" type="number" required></v-text-field>
@@ -1114,7 +1114,7 @@
                                 <TooltipComponent slot="append" :text="'When using this ability, it creates some effect in the world that waits to activate when a specified condition occurs. Differs from reaction in that you spend the AP up front, and don`t need to act when it triggers. The ability triggers automatically even without your character`s knowledge so long as the trigger is met. If it doesn`t become triggered, the effect dispels at the end of the current encounter if it is not an object or has an extended duration. You may only have up to your number of prepared instances active in this state at one time, default 1. Very useful for traps and ambushes.'"></TooltipComponent>
                             </v-col>
                             <v-col cols="5">
-                                <v-btn color="primary" @click="useMode('Prepared')" class="width100">Prepared</v-btn>
+                                <v-btn :color="useButtonColor" @click="useMode('Prepared')" class="width100">Prepared</v-btn>
                             </v-col>
                         </v-row>
                     </v-form>
@@ -2158,6 +2158,97 @@
                 })
 
                 return journalEntries
+            },
+            useButtonColor() {
+                let color = ''
+
+                if (this.useButtonCRColor == 'error' || this.useButtonAPColor == 'error')
+                    color = 'error'
+                else if (this.useButtonCRColor == 'warning' || this.useButtonAPColor == 'warning')
+                    color = 'warning'
+                else
+                    color = 'primary'
+
+                return color
+            },
+            useButtonAPColor() {
+                let color = ''
+                let ability = this.useModeDialog.ability
+
+                if (ability && ability.apCost > 0) {
+                    if (ability.apCost < this.characterSheet.ap)
+                        color = 'primary'
+                    else if (ability.apCost == this.characterSheet.ap)
+                        color = 'warning'
+                    else if (ability.apCost > this.characterSheet.ap)
+                        color = 'error'
+                }
+
+                return color
+            },
+            useButtonCRColor() {
+                let color = ''
+                let ability = this.useModeDialog.ability
+
+                if (ability && ability.crCost > 0) {
+                    let resource = this.resources.find(x => { return x.id == ability.classResource })
+                    if (resource) {
+                        if (ability.crCost < resource.amount)
+                            color = 'primary'
+                        if (ability.crCost == resource.amount)
+                            color = 'warning'
+                        if (ability.crCost > resource.amount)
+                            color = 'error'
+                    }
+                }
+
+                return color
+            },
+            useButtonColorMultiAP() {
+                let color = ''
+                let ability = this.useModeDialog.ability
+
+                let apColor = ''
+                let multiAP = (ability.apCost * this.useModeDialog.numberOfUses)
+                if (multiAP > 0) {
+                    if (multiAP < this.characterSheet.ap)
+                        apColor = 'primary'
+                    else if (multiAP == this.characterSheet.ap)
+                        apColor = 'warning'
+                    else if (multiAP > this.characterSheet.ap)
+                        apColor = 'error'
+                }
+
+                if (this.useButtonCRColor == 'error' || apColor == 'error')
+                    color = 'error'
+                else if (this.useButtonCRColor == 'warning' || apColor == 'warning')
+                    color = 'warning'
+                else
+                    color = 'primary'
+
+                return color
+            },
+            useButtonColorOverrideAP() {
+                let color = ''
+
+                let apColor = ''                
+                if (this.useModeDialog.apOverride > 0) {
+                    if (this.useModeDialog.apOverride < this.characterSheet.ap)
+                        apColor = 'primary'
+                    else if (this.useModeDialog.apOverride == this.characterSheet.ap)
+                        apColor = 'warning'
+                    else if (this.useModeDialog.apOverride > this.characterSheet.ap)
+                        apColor = 'error'
+                }
+
+                if (this.useButtonCRColor == 'error' || apColor == 'error')
+                    color = 'error'
+                else if (this.useButtonCRColor == 'warning' || apColor == 'warning')
+                    color = 'warning'
+                else
+                    color = 'primary'
+
+                return color
             }
         },
         data() {
@@ -2625,7 +2716,7 @@
                     result.diceResults = rdResult.diceResults;
                     result.successes += +rdResult.successes
                     result.successesInput += +rdResult.successes
-                    result.fate = result.diceResults[0]                    
+                    result.fate = result.diceResults[0]
                     result.fate += +this.luckLovedByLuck
 
                     let luck = diceCheckObject.luck ? diceCheckObject.luck : this.luck
@@ -2833,7 +2924,7 @@
                 //TODO: move this char stuff to rollDamage function
                 let char = (ability.damage.characteristic) ? ability.damage.characteristic : ability.characteristic
                 this.abilityDialog.damage = this.rollDamage(ability.damage, ability.isMeleeAttack, char, false)
-                if (this.useModeDialog.useMode == 'Flurry') {                    
+                if (this.useModeDialog.useMode == 'Flurry') {
                     this.abilityDialog.useModeDamage = []
                     this.abilityDialog.useModeDamage.push(this.abilityDialog.damage)
                     for (var i = 0; i < this.useModeDialog.numberOfUses; i++) {
@@ -2848,7 +2939,7 @@
                     for (var j = 0; j < (this.useModeDialog.numberOfUses - 1); j++) {
                         this.abilityDialog.useModeDamage.push(this.abilityDialog.damage)
                     }
-                }                
+                }
                 this.abilityDialog.show = true
                 this.abilityDialog.check.show = false
                 this.abilityDialog.isAbility = false
