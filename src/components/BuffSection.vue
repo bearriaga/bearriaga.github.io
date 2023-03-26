@@ -248,7 +248,7 @@
         },
         data() {
             return {
-                buffOptions: ['CHAR', 'Class Resource: Commited', 'Damage Additional', 'Damage: Convert Damage Type', 'Damage Modification', 'DC to Hit', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
+                buffOptions: ['CHAR', 'Class Resource: Commited', 'Damage Additional', 'Damage: Convert Damage Type', 'Damage Modification', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
                 damageTypesWithAll: this.damageTypes.concat(['All']),
                 dialog: {
                     show: false,

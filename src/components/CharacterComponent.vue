@@ -1301,29 +1301,6 @@
             bpMax() {
                 return +this.resistance + +this.characterSheet.bpIncreases
             },
-            dcToHit() {
-                let statusAdj = this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('AC ') })
-                    .reduce((previousValue, entry) => {
-                        if (entry.status.name.includes('Up'))
-                            return +previousValue + +entry.ranks
-                        else
-                            return +previousValue - +entry.ranks
-                    }, 0)
-                let adj = 0
-                this.characterSheet.buffs.filter(buff => { return JSON.stringify(buff.adjustments).includes('DC to Hit') && buff.isActive }).forEach(buff => {
-                    buff.adjustments.filter(a => { return a.type == 'DC to Hit' }).forEach(adjustment => {
-                        if (adjustment.amount > adj)
-                            adj = adjustment.amount
-                    })
-                })
-                let armorShield = 0
-                this.characterSheet.equipment.filter(x => { return x.isActive && x.isArmorShield && x.dcToHit > 0 }).forEach(equipment => {
-                    if (equipment.dcToHit > armorShield)
-                        armorShield = equipment.dcToHit
-                })
-                let dc = 3 + +this.characterSheet.dcToHitIncreases + +statusAdj + +adj + +armorShield
-                return dc
-            },
             hpMax() {
                 let adj = this.buffAmount({ type: 'Health' })
                 let hp = ((this.characterSheet.level * 3) + (+this.resistance * 5) + +this.characterSheet.hpIncreases + +adj)
@@ -1361,7 +1338,6 @@
                 }, 0)
                 let apXP = (this.characterSheet.speedPreperationIsKey) ? 50 : 0
                 let bpXP = (this.characterSheet.bpIncreases > 0) ? this.xpBP : 0
-                let dcXP = (this.characterSheet.dcToHitIncreases > 0) ? this.xpDC : 0
                 let hpXP = (this.characterSheet.hpIncreases > 0) ? this.xpHP : 0
                 let initiativeXP = (this.characterSheet.initiativeIncreases > 0) ? this.xpInitiative : 0
                 let rerollXP = (this.characterSheet.rerollsIncreases > 0) ? this.xpRerolls : 0
@@ -1369,14 +1345,13 @@
                     return +previousValue + +entry.amount
                 }, 0)
 
-                let spentXP = +abilityXP + apXP + +bpXP + +dcXP + +hpXP + +initiativeXP + +rerollXP + +traitsXP
+                let spentXP = +abilityXP + apXP + +bpXP + +hpXP + +initiativeXP + +rerollXP + +traitsXP
 
                 let subtractedXP = Math.floor((spentXP) / 100 * (100 - (10 * this.characterSheet.tier)))
 
                 return +this.xpTotal - +subtractedXP
             },
             xpBP() { return Math.floor(60 * (Math.abs(this.characterSheet.bpIncreases) * (+Math.abs(this.characterSheet.bpIncreases) + 1) / 2)) },
-            xpDC() { return (Math.pow(2, +Math.abs(this.characterSheet.dcToHitIncreases)) - 1) * 150 },
             xpHP() { return (Math.floor(5 * Math.abs(this.characterSheet.hpIncreases) * (+Math.abs(this.characterSheet.hpIncreases) + 1) / 2)) },
             xpInitiative() { return Math.floor(30 * (Math.abs(this.characterSheet.initiativeIncreases) * (+Math.abs(this.characterSheet.initiativeIncreases) + 1) / 2)) },
             xpRerolls() { return Math.floor(60 * Math.abs(this.characterSheet.rerollsIncreases)) },
@@ -1390,12 +1365,11 @@
                 }, 0)
 
                 let bpXP = (this.characterSheet.bpIncreases < 0) ? this.xpBP : 0
-                let dcXP = (this.characterSheet.dcToHitIncreases < 0) ? this.xpDC : 0
                 let hpXP = (this.characterSheet.hpIncreases < 0) ? this.xpHP : 0
                 let initiativeXP = (this.characterSheet.initiativeIncreases < 0) ? this.xpInitiative : 0
                 let rerollXP = (this.characterSheet.rerollsIncreases < 0) ? this.xpRerolls : 0
 
-                return +xpEarned + +flawsXP + +bpXP + +dcXP + +hpXP + +initiativeXP + +rerollXP
+                return +xpEarned + +flawsXP + +bpXP + +hpXP + +initiativeXP + +rerollXP
             },
             //Character Properties End
             abilities() {
@@ -1536,7 +1510,6 @@
 
                     e.key = e.id +
                         e.attunementSlots +
-                        e.dcToHit +
                         e.description +
                         e.isArmorShield +
                         e.isItem +
@@ -1819,26 +1792,6 @@
             },
             defenseInputWithEditModals() {
                 return [
-                    {
-                        bar: false,
-                        color: '',
-                        dialogInfoText: 'Formula: (2^n - 1) * 150',
-                        dialogText: '150 xp, doubling for each purchase.',
-                        disabled: true,
-                        infoText: '3 + DC Purchases (Natural Armor) + Highest Buff + Highest Armor/Shield Equipment.',
-                        key: 'dc' + this.characterSheet.dcToHit,
-                        label: 'DC to Hit',
-                        minus: false,
-                        plus: false,
-                        type: 'number',
-                        value: this.characterSheet.dcToHit,
-                        valueIncreases: this.characterSheet.dcToHitIncreases,
-                        valueIncreasesLabel: 'DC to Hit Purchases',
-                        valueIncreasesName: 'dcToHitIncreases',
-                        valueIncreasesType: 'number',
-                        valueMax: this.characterSheet.dcToHit,
-                        valueName: 'dc'
-                    },
                     {
                         bar: false,
                         color: '',
@@ -3379,9 +3332,6 @@
             },
             cunningAdjustment() {
                 this.characterSheet.cunningAdjustment = this.cunningAdjustment
-            },
-            dcToHit() {
-                this.characterSheet.dcToHit = this.dcToHit
             },
             fitnessAdjustment() {
                 this.characterSheet.fitnessAdjustment = this.fitnessAdjustment

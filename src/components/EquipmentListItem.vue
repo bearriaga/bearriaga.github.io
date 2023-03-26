@@ -8,9 +8,6 @@
                       v-model="amount"
                       min="0"></v-text-field>
         <v-form disabled>
-            <v-text-field label="DC to Hit" v-model="dcToHit" type="number" v-if="equipment.isArmorShield">
-                <v-icon slot="append">mdi-shield</v-icon>
-            </v-text-field>
             <DamageModificationSection v-if="equipment.damageModifications.length > 0"
                                        :can-edit="false"
                                        :damage-modifications="equipment.damageModifications"
@@ -95,7 +92,6 @@
             return {
                 amount: this.equipment.amount,
                 attunementSlots: this.equipment.attunementSlots,
-                dcToHit: this.equipment.dcToHit,
                 description: this.equipment.description,
                 handedness: this.equipment.handedness,
                 isActive: this.equipment.isActive,

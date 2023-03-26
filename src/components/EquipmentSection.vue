@@ -120,16 +120,6 @@
                                         </v-col>
                                     </template>
                                 </v-row>
-                                <!-- Armor Inputs -->
-                                <v-row>
-                                    <v-col>
-                                        <v-switch label="Is Armor/Shield" inset v-model="equipment.isArmorShield"></v-switch>
-                                    </v-col>
-                                    <v-col>
-                                        <v-text-field label="DC to Hit" v-model="equipment.dcToHit" type="number" v-if="equipment.isArmorShield"></v-text-field>
-                                    </v-col>
-                                </v-row>
-                                <!-- Armor Inputs End -->
                                 <!-- Damage Modification Inputs -->
                                 <v-expansion-panels v-model="damageModificationsPanel">
                                     <v-expansion-panel>
@@ -353,11 +343,9 @@
                 equipment: {
                     amount: 1,
                     attunementSlots: 0,
-                    dcToHit: 1,
                     description: '',
                     id: null,
                     isActive: true,
-                    isArmorShield: false,
                     isItem: false,
                     isWeapon: false,
                     name: '',
@@ -406,11 +394,9 @@
                 clearEquipment: {
                     amount: 1,
                     attunementSlots: 0,
-                    dcToHit: 1,
                     description: '',
                     id: null,
                     isActive: true,
-                    isArmorShield: false,
                     isItem: false,
                     isWeapon: false,
                     name: '',
