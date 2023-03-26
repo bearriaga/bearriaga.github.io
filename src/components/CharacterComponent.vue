@@ -2565,6 +2565,14 @@
                 if (this.abilityDialog.check.successesFromLuck)
                     copyText += '{{Successes From LCK= ' + this.abilityDialog.check.successesFromLuck + '}}'
 
+                if (this.abilityDialog.usedEffects.length) {
+                    let usedEffectsText = ''
+                    this.abilityDialog.usedEffects.forEach(e => {
+                        usedEffectsText += `Cost: ${e.cost} - Type: ${e.type} - ${e.description} \r\n`
+                    })
+                    copyText += `{{Used Effects = ${usedEffectsText}}}`
+                }
+
                 return copyText
             },
             copyDamage() {
