@@ -989,6 +989,15 @@
                         <div v-if="abilityDialog.cr">
                             <b>CR Used {{abilityDialog.cr}}</b>
                         </div>
+                        <div v-if="abilityDialog.ability.duration">
+                            <b>Duration {{abilityDialog.ability.duration}}</b>
+                        </div>
+                        <div v-if="abilityDialog.ability.range">
+                            <b>Range {{abilityDialog.ability.range}}</b>
+                        </div>
+                        <div v-if="abilityDialog.ability.areaOfEffect">
+                            <b>Area of Effect {{abilityDialog.ability.areaOfEffect}}</b>
+                        </div>
                         <div v-if="abilityDialog.ability.description">
                             <v-textarea label="Description" v-model="abilityDialog.ability.description" auto-grow outlined rows="1" disabled></v-textarea>
                         </div>
@@ -2543,6 +2552,15 @@
 
                 if (this.abilityDialog.cr)
                     copyText += `{{CR Used= ${this.abilityDialog.cr}}}`
+
+                if (this.abilityDialog.ability.duration)
+                    copyText += `{{Duration= ${this.abilityDialog.ability.duration}}}`
+
+                if (this.abilityDialog.ability.range)
+                    copyText += `{{Range= ${this.abilityDialog.ability.range}}}`
+
+                if (this.abilityDialog.ability.areaOfEffect)
+                    copyText += `{{Area of Effect= ${this.abilityDialog.ability.areaOfEffect}}}`
 
                 if (this.abilityDialog.ability.description)
                     copyText += `{{Description= ${this.abilityDialog.ability.description}}}`
