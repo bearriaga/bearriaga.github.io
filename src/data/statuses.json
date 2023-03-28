@@ -1,640 +1,247 @@
 [
   {
-    "0.5": "",
-    "1": "",
-    "name": "Banished",
+    "cost": "80xp",
+    "ranked": false,
+    "type": "Boon",
+    "effect": "Double all target’s movement speeds",
+    "name": "Accelerated"
+  },
+  {
     "cost": "200 xp",
-    "effect": "The creature is removed from existance temporarily, and thus cannot take actions or be targeted by any abilities. This status cannot be continuous or permanent in duration without some other condition that allows the creature to return to reality.",
-    "hasScaling": false,
     "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "type": "Condition",
+    "effect": "The creature is removed from existence temporarily, and thus cannot take actions or be targeted by any abilities. This status cannot be continuous or permanent in duration without some other condition that allows the creature to return to reality. ",
+    "name": "Banished"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Blinded",
-    "cost": "120 xp",
-    "effect": "Automatically fail attempts to see, increase difficulty to hit for attacks by 2",
-    "hasScaling": false,
+    "cost": "150 xp",
     "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "type": "Condition",
+    "effect": "Automatically fail attempts to see, treat all targets as ",
+    "name": "Blinded"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Boosted",
-    "cost": "100 xp",
-    "effect": "All Abilities that cost at least 2 AP cost 1 less AP",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Boon"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Charmed",
     "cost": "50 xp",
+    "ranked": false,
+    "type": "Condition",
     "effect": "Creature regards the charmer as a friendly entity",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "name": "Charmed"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Compel Truth",
-    "cost": "50 xp",
-    "effect": "Creature is unable to convey a known falsehood.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Confused",
     "cost": "100 xp",
-    "effect": "Creature is unable to distinguish friend from foe. When that creature uses an ability that targets another, roll a d8 to indicate a direction with 1 being straight North. The creature targets the nearest creature to that direction.",
-    "hasScaling": false,
     "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "type": "Condition",
+    "effect": "Creature is unable to distinguish friend from foe. When that creature uses an ability that targets a hostile creature, it targets nearest creature to that direction",
+    "name": "Confused"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Deafened",
-    "cost": "20 xp",
-    "effect": "Automatically fail attempts to hear",
-    "hasScaling": false,
+    "cost": "500xp for all damage\n300xp for a damage group\n100xp for specific type",
     "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "type": "Boon",
+    "effect": "Target deals double damage of the selected type",
+    "name": "Damage Buff"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Dominated",
+    "cost": "250xp for all damage\n150xp for a damage group\n50xp for specific type",
+    "ranked": false,
+    "type": "Condition",
+    "effect": "Target deals half damage of the selected type (round down)",
+    "name": "Damage Debuff"
+  },
+  {
+    "cost": "250xp for all damage\n150xp for a damage group\n50xp for specific type",
+    "ranked": false,
+    "type": "Boon",
+    "effect": "Target takes half damage of the selected type (round down)",
+    "name": "Damage Resistance"
+  },
+  {
+    "cost": "120xp per die",
+    "ranked": true,
+    "type": "Condition",
+    "effect": "Target rolls less dice on every roll",
+    "name": "Dice Down"
+  },
+  {
+    "cost": "120xp per die",
+    "ranked": true,
+    "type": "Boon",
+    "effect": "Target rolls additional dice on every roll",
+    "name": "Dice Up"
+  },
+  {
     "cost": "300 xp",
+    "ranked": false,
+    "type": "Condition",
     "effect": "Creature cannot disobey the commands of the Dominator, whenever the creature receives an order against its self preservation, the original roll (attack or save) must be reattempted. If the attack misses/target saves on the reattempt, this status ends.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "name": "Dominated"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Doomed",
-    "cost": "300 xp",
-    "effect": "The creature dies at the start of the caster's turn.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Emotionally Manipulated",
-    "cost": "20 xp",
-    "effect": "The creature is manipulated to be currently feeling a specified emotion and acts accordingly.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Enraged",
     "cost": "50 xp",
+    "ranked": false,
+    "type": "Condition",
     "effect": "The afflicted creature MUST make a damaging attack on each of its turns. If no enemy targets are available while the effect persists, the creature must target a friendly creature or object in its vicinity to deal damage to.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "name": "Enraged"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Enraptured / Fixated",
-    "cost": "30 xp",
-    "effect": "The afflicted creature must pay attention to and not move more than 10 squares away from the target of the enrapture specified when the status is applied.",
-    "hasScaling": false,
+    "cost": "700xp",
     "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "type": "Boon",
+    "effect": "All attacks against this target miss. This does not affect saves.",
+    "name": "Evasion"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Feared / Repelled",
+    "cost": "80xp per Success",
+    "ranked": true,
+    "type": "Condition",
+    "effect": "Attackers gain 1 bonus success per rank when attacking this target",
+    "name": "Exposed"
+  },
+  {
     "cost": "50 xp",
+    "ranked": false,
+    "type": "Condition",
     "effect": "Creature cannot approach or attack source of fear/repel.\nIf feared by an ally, may not heal or bestow targeted buffs to the source of the fear.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "name": "Feared / Repelled"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Hidden",
-    "cost": "30 xp",
-    "effect": "The creature will not be noticed by other creatures unless they succeed an opposed Stealth(DEX) vs Perception(CUN) check or the creature performs an action that reveals itself. Gain +1 die to attack creatures that don't know where you are. See Stealth rules.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Boon"
+    "cost": "80xp per AP",
+    "ranked": true,
+    "type": "Boon",
+    "effect": "Increase AP gained at start of turn",
+    "name": "Haste"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Hindered",
-    "cost": "100 xp",
-    "effect": "All Abilities that cost at least 1 AP cost 1 more AP",
-    "hasScaling": false,
+    "cost": "140xp for double healing",
     "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "type": "Boon",
+    "effect": "Target heals twice as much from all sources.",
+    "name": "Healing Increase"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Hyper-accelerated",
+    "cost": "70xp for half healing\n140xp for no healing\n280xp to convert healing to damage",
+    "ranked": false,
+    "type": "Condition",
+    "effect": "Reduce healing the target receives",
+    "name": "Healing Reduction"
+  },
+  {
+    "cost": "40xp",
+    "ranked": false,
+    "type": "Condition",
+    "effect": "Reduce all target’s movement speeds by half",
+    "name": "Hobbled"
+  },
+  {
     "cost": "50 xp",
+    "ranked": false,
+    "type": "Condition",
     "effect": "When the creature takes a move action or has movement applied to it, it may only move the maximum amount possible and in a straight line.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "name": "Hyper-accelerated"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Intangible",
     "cost": "80 xp",
-    "effect": "The creature’s movement is not impeded by physical objects",
-    "hasScaling": false,
     "ranked": false,
-    "scaling": null,
-    "type": "Boon"
+    "type": "Boon",
+    "effect": "The creature’s movement is not impeded by physical objects. This doesn’t affect your damage or damage resistances",
+    "name": "Intangible"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Invisible / Undetectable (Sense)",
     "cost": "100 xp",
+    "ranked": false,
+    "type": "Boon",
     "effect": "The creature cannot be detected using the specified sense, such as sight, sound, touch, thermal, smell, etc.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Boon"
+    "name": "Invisible / Undetectable (Sense)"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Isolated",
+    "cost": "500xp for all damage\n300xp for a damage group\n100xp for specific type",
+    "ranked": false,
+    "type": "Boon",
+    "effect": "Target is immune to damage of the selected type\nIf an ability applies this twice, damage of the selected type is converted to healing instead",
+    "name": "Invulnerable"
+  },
+  {
     "cost": "80 xp",
+    "ranked": false,
+    "type": "Condition",
     "effect": "Creature may not benefit from any duration-based buff effects bestowed to them by allies or bestow buff effects to allies. \nBuff effects the creature bestows to itself are unaffected.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "name": "Isolated"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Marked",
     "cost": "10 xp to apply\n-50 xp when required",
+    "ranked": false,
+    "type": "Condition",
     "effect": "By itself, this status does nothing, but it allows other abilities to require it to activate more cheaply.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "name": "Marked"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Muted",
+    "cost": "15xp per meter",
+    "ranked": true,
+    "type": "Condition",
+    "effect": "Reduce all target’s movement speeds",
+    "name": "Movement Down"
+  },
+  {
+    "cost": "15xp per meter",
+    "ranked": true,
+    "type": "Boon",
+    "effect": "Increase all target’s movement speeds",
+    "name": "Movement Up"
+  },
+  {
+    "cost": "120xp",
+    "ranked": false,
+    "type": "Boon",
+    "effect": "Directly attacking this target has a miss chance, AoEs do not get a miss chance.",
+    "name": "Obscured"
+  },
+  {
+    "cost": "500xp for all damage\n300xp for a damage group\n100xp for specific type",
+    "ranked": false,
+    "type": "Condition",
+    "effect": "Target deals no damage of the selected type",
+    "name": "Pacified"
+  },
+  {
     "cost": "30 xp",
-    "effect": "The creature cannot make any audible sounds.",
-    "hasScaling": false,
     "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "type": "Condition",
+    "effect": "Creature is unable to benefit from Stealth, Invisibility, Subtle, or similar effects. Any of these effects present are immediately ended, and the benefits of the Subtle Extra are temporarily suppressed.",
+    "name": "Revealed"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Panicked",
-    "cost": "30 xp",
-    "effect": "Target creature makes audible sounds of distress and must make at least one move action in a random direction where they move their full movement allowance in haphazard manner, but will avoid any terrain hazards they are aware of.",
-    "hasScaling": false,
+    "cost": "80xp",
     "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "type": "Condition",
+    "effect": "Target cannot move",
+    "name": "Rooted"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Prone",
+    "cost": "40xp per AP",
+    "ranked": true,
+    "type": "Condition",
+    "effect": "Reduce AP gained at start of turn",
+    "name": "Slowed"
+  },
+  {
     "cost": "50 xp",
-    "effect": "The creature is laying on the ground and must spend 1 AP to stand but provoke attacks of opportunity, or 2 AP to stand up without provoking any attack. While prone, a creature may still move, but treats their ground speed as 1. Lasts until the target spends the AP",
-    "hasScaling": false,
     "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Revealed",
-    "cost": "30 xp",
-    "effect": "Creature is unable to benefit from Stealth, Invisibility, Subtle, or similar effects. Any of these effects present are immediately ended, and the benefits of the Subtle Extra are temporarily supressed.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Sealed",
-    "cost": "120 xp",
-    "effect": "The creature may only spend AP to move",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Silenced",
-    "cost": "50 xp",
-    "effect": "Cannot use Active Abilities that cost class resources to activate.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Sleep",
-    "cost": "100 xp",
-    "effect": "The creature is asleep and may not take any actions that require being conscious, and ends any concentration effects. If the creature takes any damage, receives any healing, or is roused via a 2 AP action they wake up and lose this status.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Taunted",
-    "cost": "50 xp",
+    "type": "Condition",
     "effect": "Creatures must attack the taunting creature with any attack or debuff rolls it makes. It cannot target creatures other than the taunting creature.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
+    "name": "Taunted"
   },
   {
-    "0.5": "",
-    "1": "",
-    "name": "Terrified",
-    "cost": "100 xp",
-    "effect": "Creature cannot target enemies with abilities or attacks. It may aid allies as normal.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Unconscious",
-    "cost": "100 xp",
-    "effect": "Creature is unable to perform any action that requires being conscious. Creature can be restored via a 4 AP action to rouse.",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Unguarded / Unaware",
-    "cost": "120 xp",
-    "effect": "Damage to this target becomes a critical hit but removes this status from the damaged creature and any of its allies who notice the attack",
-    "hasScaling": false,
-    "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "0.5": "",
-    "1": "",
-    "name": "Wide Open",
     "cost": "200 xp",
-    "effect": "Any Action this creature takes that consumes AP provokes attacks of opportunity from threatening creatures, these attacks do not cost AP",
-    "hasScaling": false,
     "ranked": false,
-    "scaling": null,
-    "type": "Condition"
-  },
-  {
-    "1": "150",
-    "name": "{CHAR} Dice Down",
     "type": "Condition",
-    "cost": "30",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "90",
-    "effect": "Decrease dice rolled with one CHAR"
+    "effect": "Creature is unable to perform any action that requires being conscious.",
+    "name": "Unconscious "
   },
   {
-    "1": "150",
-    "name": "{CHAR} Dice Up",
-    "type": "Boon",
-    "cost": "30",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "90",
-    "effect": "Increase dice rolled with one CHAR"
-  },
-  {
-    "1": "300",
-    "name": "{Group} Damage Dealt Down",
+    "cost": "500xp for all damage\n300xp for a damage group\n100xp for specific type",
+    "ranked": false,
     "type": "Condition",
-    "cost": "30",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "150",
-    "effect": "Reduce damage dealt of a damage group. All groups are considered the same for scaling."
-  },
-  {
-    "1": "580",
-    "name": "{Group} Damage Dealt Up",
-    "type": "Boon",
-    "cost": "40",
-    "hasScaling": "Yes",
-    "ranked": true,
-    "scaling": "20",
-    "0.5": "280",
-    "effect": "Increase damage dealt of a damage group. All groups are considered the same for scaling."
-  },
-  {
-    "1": "300",
-    "name": "{Group} Damage Taken Down",
-    "type": "Boon",
-    "cost": "30",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "150",
-    "effect": "Reduce damage taken of a damage group. All groups are considered the same for scaling."
-  },
-  {
-    "1": "290",
-    "name": "{Group} Damage Taken Up",
-    "type": "Condition",
-    "cost": "20",
-    "hasScaling": "Yes",
-    "ranked": true,
-    "scaling": "10",
-    "0.5": "140",
-    "effect": "Increase damage taken of a damage group. All groups are considered the same for scaling."
-  },
-  {
-    "1": "100",
-    "name": "{Type} Damage Dealt Down",
-    "type": "Condition",
-    "cost": "10",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "50",
-    "effect": "Reduce damage dealt of a specific type, other than True damage. All types are considered the same for scaling (e.g. -2 fire and -2 force costs the same as -4 fire)"
-  },
-  {
-    "1": "290",
-    "name": "{Type} Damage Dealt Up",
-    "type": "Boon",
-    "cost": "20",
-    "hasScaling": "Yes",
-    "ranked": true,
-    "scaling": "10",
-    "0.5": "140",
-    "effect": "Increase damage dealt of a specific type. All types are considered the same for scaling (e.g. +2 fire and +2 force costs the same as +4 fire)"
-  },
-  {
-    "1": "100",
-    "name": "{Type} Damage Taken Down",
-    "type": "Boon",
-    "cost": "10",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "50",
-    "effect": "Reduce damage taken of a specific type, other than True damage. All types are considered the same for scaling (e.g. -2 fire and -2 force costs the same as -4 fire)"
-  },
-  {
-    "1": "145",
-    "name": "{Type} Damage Taken Up",
-    "type": "Condition",
-    "cost": "10",
-    "hasScaling": "Yes",
-    "ranked": true,
-    "scaling": "5",
-    "0.5": "70",
-    "effect": "Increase damage taken of a specific type. All types are considered the same for scaling (e.g. +2 fire and +2 force costs the same as +4 fire)"
-  },
-  {
-    "1": "930",
-    "name": "AC Down",
-    "type": "Condition",
-    "cost": "30",
-    "hasScaling": "Double",
-    "ranked": true,
-    "scaling": "x2",
-    "0.5": "210",
-    "effect": "Reduce the difficulty to hit the target"
-  },
-  {
-    "1": "930",
-    "name": "AC Up",
-    "type": "Boon",
-    "cost": "30",
-    "hasScaling": "Double",
-    "ranked": true,
-    "scaling": "x2",
-    "0.5": "210",
-    "effect": "Increase the difficult to hit the target"
-  },
-  {
-    "1": "250",
-    "name": "Accuracy Down",
-    "type": "Condition",
-    "cost": "50",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "150",
-    "effect": "When the target makes an attack roll, reduce the successes. When the target forces a save, reduce the DC"
-  },
-  {
-    "1": "250",
-    "name": "Accuracy Up",
-    "type": "Boon",
-    "cost": "50",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "150",
-    "effect": "When the target makes an attack roll, increase the successes. When the target forces a save, increase the DC"
-  },
-  {
-    "1": "500",
-    "name": "All Damage Dealt Down",
-    "type": "Condition",
-    "cost": "50",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "250",
-    "effect": "Reduce all damage dealt. True damage is only affected by the -100% modifier."
-  },
-  {
-    "1": "870",
-    "name": "All Damage Dealt Up",
-    "type": "Boon",
-    "cost": "60",
-    "hasScaling": "Yes",
-    "ranked": true,
-    "scaling": "30",
-    "0.5": "420",
-    "effect": "Increase all damage dealt."
-  },
-  {
-    "1": "500",
-    "name": "All Damage Taken Down",
-    "type": "Boon",
-    "cost": "50",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "250",
-    "effect": "Reduce all damage taken. True damage is only affected by the -100% modifier."
-  },
-  {
-    "1": "435",
-    "name": "All Damage Taken Up",
-    "type": "Condition",
-    "cost": "30",
-    "hasScaling": "Yes",
-    "ranked": true,
-    "scaling": "15",
-    "0.5": "210",
-    "effect": "Increase all damage taken."
-  },
-  {
-    "1": "200",
-    "name": "AP Gain Down",
-    "type": "Condition",
-    "cost": "40",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "120",
-    "effect": "Reduce AP generated at start of turn"
-  },
-  {
-    "1": "200",
-    "name": "AP Gain Up",
-    "type": "Boon",
-    "cost": "40",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "120",
-    "effect": "Increase AP generated at start of turn"
-  },
-  {
-    "1": "145",
-    "name": "Healing Down",
-    "type": "Condition",
-    "cost": "10",
-    "hasScaling": "Yes",
-    "ranked": true,
-    "scaling": "5",
-    "0.5": "70",
-    "effect": "Decrease healing target receives. Negative healing deals true damage instead of healing."
-  },
-  {
-    "1": "145",
-    "name": "Healing Up",
-    "type": "Boon",
-    "cost": "10",
-    "hasScaling": "Yes",
-    "ranked": true,
-    "scaling": "5",
-    "0.5": "70",
-    "effect": "Increase healing target receives"
-  },
-  {
-    "1": "75",
-    "name": "Movement Down",
-    "type": "Condition",
-    "cost": "15",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "45",
-    "effect": "Reduce all movement speeds"
-  },
-  {
-    "1": "75",
-    "name": "Movement Up",
-    "type": "Boon",
-    "cost": "15",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "45",
-    "effect": "Increase all movement speeds"
-  },
-  {
-    "1": "150",
-    "name": "ReRoll Down",
-    "type": "Condition",
-    "cost": "30",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "90",
-    "effect": "Once per roll, re-roll successful dice. May not re-roll dice that have already been re-rolled."
-  },
-  {
-    "1": "150",
-    "name": "ReRoll Up",
-    "type": "Boon",
-    "cost": "30",
-    "hasScaling": "No",
-    "ranked": true,
-    "scaling": null,
-    "0.5": "90",
-    "effect": "Once per roll, re-roll failed dice. May not re-roll dice that have already been re-rolled."
+    "effect": "Target takes double damage of the selected type",
+    "name": "Vulnerable"
   }
 ]
