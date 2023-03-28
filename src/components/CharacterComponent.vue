@@ -36,7 +36,9 @@
                             <v-col cols="6" xl="4" v-for="char in characteristicViewItems" :key="char.key">
                                 <CharacteristicViewItem @updatePropEmit="updateProp($event)"
                                                         @rollDiceCheckEmit="rollStandAloneCheck($event)"
-                                                        :characteristic="char"></CharacteristicViewItem>
+                                                        :characteristic="char"
+                                                        :tier="characterSheet.tier"
+                                                        :xp="xp"></CharacteristicViewItem>
                             </v-col>
                             <v-col cols="12">
                                 <CharacteristicViewItem @rollDiceCheckEmit="rollStandAloneCheck($event)"
@@ -344,10 +346,12 @@
             <v-row>
                 <v-col cols="12" md="6" class="charColumn mainColumn elevation-3" elevation="3">
                     <v-row>
-                        <v-col cols="4" md="6" lg="4" v-for="char in characteristicViewItems" :key="char.key">
+                        <v-col cols="6" lg="4" v-for="char in characteristicViewItems" :key="char.key">
                             <CharacteristicViewItem @updatePropEmit="updateProp($event)"
                                                     @rollDiceCheckEmit="rollStandAloneCheck($event)"
-                                                    :characteristic="char"></CharacteristicViewItem>
+                                                    :characteristic="char"
+                                                    :tier="characterSheet.tier"
+                                                    :xp="xp"></CharacteristicViewItem>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -631,7 +635,9 @@
                 <v-col cols="6" v-for="char in characteristicViewItems" :key="char.key">
                     <CharacteristicViewItem @updatePropEmit="updateProp($event)"
                                             @rollDiceCheckEmit="rollStandAloneCheck($event)"
-                                            :characteristic="char"></CharacteristicViewItem>
+                                            :characteristic="char"
+                                            :tier="characterSheet.tier"
+                                            :xp="xp"></CharacteristicViewItem>
                 </v-col>
             </v-row>
             <h3 class="text-center"> Health </h3>
@@ -1243,27 +1249,27 @@
             //Character Properties
             //CHAR Adjustments
             cunning() {
-                let char = +this.characterSheet.cunning + +this.characterSheet.cunningAdjustment
+                let char = +this.characterSheet.cunning + +this.characterSheet.cunningIncreases + +this.cunningAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             fitness() {
-                let char = +this.characterSheet.fitness + +this.characterSheet.fitnessAdjustment
+                let char = +this.characterSheet.fitness + +this.characterSheet.fitnessIncreases + +this.fitnessAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             intelligence() {
-                let char = +this.characterSheet.intelligence + +this.characterSheet.intelligenceAdjustment
+                let char = +this.characterSheet.intelligence + +this.characterSheet.intelligenceIncreases + +this.intelligenceAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             luck() {
-                let char = +this.characterSheet.luck + +this.characterSheet.luckAdjustment
+                let char = +this.characterSheet.luck + +this.characterSheet.luckIncreases + +this.luckAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             resistance() {
-                let char = +this.characterSheet.resistance + +this.characterSheet.resistanceAdjustment
+                let char = +this.characterSheet.resistance + +this.characterSheet.resistanceIncreases + +this.resistanceAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             speed() {
-                let char = +this.characterSheet.speed + +this.characterSheet.speedAdjustment
+                let char = +this.characterSheet.speed + +this.characterSheet.speedIncreases + +this.speedAdjustment
                 return (char > 10) ? 10 : (char < 0) ? 0 : char
             },
             cunningAdjustment() {
@@ -1330,6 +1336,11 @@
                 if (this.layout == 'Minion')
                     return 0
 
+                let charXP = 0
+                this.characteristicViewItems.forEach(c => {
+                    charXP += +this.charXP(c)
+                })
+
                 let abilityXP = this.characterSheet.abilities.reduce((previousValue, entry) => {
                     if (!entry.boughtForFree)
                         return +previousValue + +entry.xpCost
@@ -1345,7 +1356,7 @@
                     return +previousValue + +entry.amount
                 }, 0)
 
-                let spentXP = +abilityXP + apXP + +bpXP + +hpXP + +initiativeXP + +rerollXP + +traitsXP
+                let spentXP = +abilityXP + apXP + +bpXP + +charXP + +hpXP + +initiativeXP + +rerollXP + +traitsXP
 
                 let subtractedXP = Math.floor((spentXP) / 100 * (100 - (10 * this.characterSheet.tier)))
 
@@ -1569,57 +1580,75 @@
                 return [
                     {
                         abbreviation: 'FIT',
-                        adjustment: this.characterSheet.fitnessAdjustment,
-                        key: 'fit' + this.characterSheet.id + this.characterSheet.fitnessAdjustment + this.updateCharacter,
+                        adjustment: this.fitnessAdjustment,
+                        key: 'fit' + this.characterSheet.id + this.characterSheet.fitness + this.characterSheet.fitnessIncreases + this.fitnessAdjustment + this.updateCharacter,
                         name: 'fitness',
+                        primary: chars.includes('fitness'),
                         value: this.characterSheet.fitness,
                         valueMax: 10,
-                        characteristic: chars.includes('fitness')
+                        valueIncreases: this.characterSheet.fitnessIncreases,
+                        valueIncreasesLabel: 'Fitness Purchases',
+                        valueIncreasesName: 'fitnessIncreases',
                     },
                     {
                         abbreviation: 'RES',
-                        adjustment: this.characterSheet.resistanceAdjustment,
-                        key: 'res' + this.characterSheet.id + this.characterSheet.resistanceAdjustment + this.updateCharacter,
+                        adjustment: this.resistanceAdjustment,
+                        key: 'res' + this.characterSheet.id + this.characterSheet.resistance + this.characterSheet.resistanceIncreases + this.resistanceAdjustment + this.updateCharacter,
                         name: 'resistance',
+                        primary: chars.includes('resistance'),
                         value: this.characterSheet.resistance,
                         valueMax: 10,
-                        characteristic: chars.includes('resistance')
+                        valueIncreases: this.characterSheet.resistanceIncreases,
+                        valueIncreasesLabel: 'Resistance Purchases',
+                        valueIncreasesName: 'resistanceIncreases',
                     },
                     {
                         abbreviation: 'SPD',
-                        adjustment: this.characterSheet.speedAdjustment,
-                        key: 'spd' + this.characterSheet.id + this.characterSheet.speedAdjustment + this.updateCharacter,
+                        adjustment: this.speedAdjustment,
+                        key: 'spd' + this.characterSheet.id + this.characterSheet.speed + this.characterSheet.speedIncreases + this.speedAdjustment + this.updateCharacter,
                         name: 'speed',
+                        primary: chars.includes('speed'),
                         value: this.characterSheet.speed,
                         valueMax: 10,
-                        characteristic: chars.includes('speed')
+                        valueIncreases: this.characterSheet.speedIncreases,
+                        valueIncreasesLabel: 'Speed Purchases',
+                        valueIncreasesName: 'speedIncreases',
                     },
                     {
                         abbreviation: 'INT',
-                        adjustment: this.characterSheet.intelligenceAdjustment,
-                        key: 'int' + this.characterSheet.id + this.characterSheet.intelligenceAdjustment + this.updateCharacter,
+                        adjustment: this.intelligenceAdjustment,
+                        key: 'int' + this.characterSheet.id + this.characterSheet.intelligence + this.characterSheet.intelligenceIncreases + this.intelligenceAdjustment + this.updateCharacter,
                         name: 'intelligence',
+                        primary: chars.includes('intelligence'),
                         value: this.characterSheet.intelligence,
                         valueMax: 10,
-                        characteristic: chars.includes('intelligence')
+                        valueIncreases: this.characterSheet.intelligenceIncreases,
+                        valueIncreasesLabel: 'Intelligence Purchases',
+                        valueIncreasesName: 'intelligenceIncreases',
                     },
                     {
                         abbreviation: 'CUN',
-                        adjustment: this.characterSheet.cunningAdjustment,
-                        key: 'cun' + this.characterSheet.id + this.characterSheet.cunningAdjustment + this.updateCharacter,
+                        adjustment: this.cunningAdjustment,
+                        key: 'cun' + this.characterSheet.id + this.characterSheet.cunning + this.characterSheet.cunningIncreases + this.cunningAdjustment + this.updateCharacter,
                         name: 'cunning',
+                        primary: chars.includes('cunning'),
                         value: this.characterSheet.cunning,
                         valueMax: 10,
-                        characteristic: chars.includes('cunning')
+                        valueIncreases: this.characterSheet.cunningIncreases,
+                        valueIncreasesLabel: 'Cunning Purchases',
+                        valueIncreasesName: 'cunningIncreases',
                     },
                     {
                         abbreviation: 'LCK',
-                        adjustment: this.characterSheet.luckAdjustment,
-                        key: 'lck' + this.characterSheet.id + this.characterSheet.luckAdjustment + this.updateCharacter,
+                        adjustment: this.luckAdjustment,
+                        key: 'lck' + this.characterSheet.id + this.characterSheet.luck + this.characterSheet.luckIncreases + this.luckAdjustment + this.updateCharacter,
                         name: 'luck',
+                        primary: chars.includes('luck'),
                         value: this.characterSheet.luck,
                         valueMax: 10,
-                        characteristic: chars.includes('luck')
+                        valueIncreases: this.characterSheet.luckIncreases,
+                        valueIncreasesLabel: 'Luck Purchases',
+                        valueIncreasesName: 'luckIncreases',
                     }
                 ]
             },
@@ -1968,8 +1997,8 @@
             movements() {
                 let movements = []
 
-                let doubleCHAR = this.characterSheet.fitness * 2
-                if (this.characterSheet.fitness) {
+                let doubleCHAR = this.fitness * 2
+                if (this.fitness) {
                     movements.push({
                         amount: doubleCHAR,
                         description: 'Default Movement from FIT, FIT x 2',
@@ -1980,25 +2009,24 @@
                         key: 'defaultMovement' + doubleCHAR,
                         type: 'Land Speed'
                     })
-
                     movements.push({
-                        amount: this.characterSheet.fitness,
+                        amount: this.fitness,
                         description: 'Default Movement from FIT',
                         id: 'defaultMovementClimb',
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovementClimb' + this.characterSheet.fitness,
+                        key: 'defaultMovementClimb' + this.fitness,
                         type: 'Climb'
                     })
                     movements.push({
-                        amount: this.characterSheet.fitness,
+                        amount: this.fitness,
                         description: 'Default Movement from FIT',
                         id: 'defaultMovementSwim',
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovementSwim' + this.characterSheet.fitness,
+                        key: 'defaultMovementSwim' + this.fitness,
                         type: 'Swim'
                     })
                 }
@@ -2193,7 +2221,7 @@
             useButtonColorOverrideAP() {
                 let color = ''
 
-                let apColor = ''                
+                let apColor = ''
                 if (this.useModeDialog.apOverride > 0) {
                     if (this.useModeDialog.apOverride < this.characterSheet.ap)
                         apColor = 'primary'
@@ -2315,6 +2343,7 @@
                     name: '',
                     value: 0,
                     valueMax: 15,
+                    valueIncreases: 0,
                     characteristic: false
                 },
                 hitLocations: this.gameDataStore.hitLocations,
@@ -2468,6 +2497,23 @@
             characterInit() {
                 //By setting characterSheet here it forces all computed variables and watch methods to run
                 this.characterSheet = JSON.parse(JSON.stringify(this.character))
+            },
+            charXP(char) {
+                let cost = 0
+
+                if (char.valueIncreases > 0) {
+                    for (var i = +char.value + 1; i <= +char.value + +char.valueIncreases; i++) {
+                        cost += +(200 * i)
+                    }
+                    if (char.primary)
+                        cost *= .8
+                } else {
+                    for (var j = +char.value; j > +char.value + +char.valueIncreases; j--) {
+                        cost -= +(200 * j)
+                    }
+                }
+                
+                return cost
             },
             cleanseStatuses() {
                 if (this.cleanseDialog.selectedStatuses.length <= this.characterSheet.bp) {
@@ -3330,23 +3376,11 @@
             bpMax() {
                 this.characterSheet.bpMax = this.bpMax
             },
-            cunningAdjustment() {
-                this.characterSheet.cunningAdjustment = this.cunningAdjustment
-            },
-            fitnessAdjustment() {
-                this.characterSheet.fitnessAdjustment = this.fitnessAdjustment
-            },
             hpMax() {
                 this.characterSheet.hpMax = this.hpMax
             },
-            intelligenceAdjustment() {
-                this.characterSheet.intelligenceAdjustment = this.intelligenceAdjustment
-            },
             level() {
                 this.characterSheet.level = this.level
-            },
-            luckAdjustment() {
-                this.characterSheet.luckAdjustment = this.luckAdjustment
             },
             movement() {
                 this.characterSheet.movement = this.movement
@@ -3360,14 +3394,8 @@
             rerollsMax() {
                 this.characterSheet.rerollsMax = this.rerollsMax
             },
-            resistanceAdjustment() {
-                this.characterSheet.resistanceAdjustment = this.resistanceAdjustment
-            },
             size() {
                 this.updateCharacterSheet()
-            },
-            speedAdjustment() {
-                this.characterSheet.speedAdjustment = this.speedAdjustment
             },
             xp() {
                 this.characterSheet.xp = this.xp
