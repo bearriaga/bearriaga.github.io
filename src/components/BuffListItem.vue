@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-form>
-            <v-switch label="Is Active" inset
+            <v-switch label="Active" inset
                       v-model="isActive"></v-switch>
             <v-text-field label="Name" v-model="name">
                 <v-icon slot="append" color="primary"
