@@ -286,7 +286,7 @@
                                  @updateEntryEmit="updateBuffEntry($event)"
                                  @updateEntryBypassEmit="updateEntry($event)"
                                  @updatePanelEmit="updatePanel($event)"></BuffSection>
-                </v-col>                
+                </v-col>
                 <v-col cols="12" md="6">
                     <InputWithEditModal @updatePropEmit="updateProp($event)"
                                         :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
@@ -1009,7 +1009,7 @@
 
                         <template v-if="abilityDialog.ability.subEffects.length > 0">
                             <h3 class="text-center">Sub Effects/Array Elements</h3>
-                            <SubEffect v-for="ability in abilityDialog.ability.subEffects" :key="ability.id + ability.time" 
+                            <SubEffect v-for="ability in abilityDialog.ability.subEffects" :key="ability.id + ability.time"
                                        :sub-effect="ability"
                                        @useSubEffectEmit="useSubEffect($event)"></SubEffect>
                         </template>
@@ -2258,7 +2258,51 @@
                         advantage: false,
                         diceCheckObject: {},
                         diceResults: [],
+                        fate: 0,
+                        show: false,
+                        selectedRerolls: [],
+                        successes: 0,
+                        successesFromIntelligence: 0,
+                        successesFromLuck: 0,
+                        successesInput: 0,
+                        threat: false
+                    },
+                    cr: '',
+                    damage: {
+                        char: 0,
+                        damage: 0,
+                        diceResults: [],
                         effects: [],
+                        fit: 0,
+                        flat: 0,
+                        flatTotal: 0,
+                        flatTotalBreakdown: '',
+                        isCrit: false,
+                        selectedRerolls: [],
+                        show: false,
+                        sum: 0,
+                        types: []
+                    },
+                    effects: [],
+                    useModeDamage: [],
+                    isAbility: false,
+                    save: {
+                        amount: 0,
+                        characteristic: '',
+                        show: false
+                    },
+                    selectedEffects: [],
+                    show: false,
+                    title: '',
+                    usedEffects: []
+                },
+                abilityDialogClear: {
+                    ability: {},
+                    ap: '',
+                    check: {
+                        advantage: false,
+                        diceCheckObject: {},
+                        diceResults: [],
                         fate: 0,
                         show: false,
                         selectedRerolls: [],
@@ -2678,16 +2722,7 @@
                     isAbility: true,
                     isSkill: false,
                     successes: ability.successes
-                }, false)
-
-                this.hitLocations.forEach(h => {
-                    let type = `Called Shot ${h.name}`
-                    h.effects.forEach(e => {
-                        let effect = JSON.parse(JSON.stringify(e))
-                        effect.type = type
-                        this.abilityDialog.check.effects.push(effect)
-                    })
-                })
+                }, false)                
 
                 this.abilityDialog.title = `${ability.name} Check Results`
                 this.abilityDialog.isAbility = false
@@ -2709,7 +2744,6 @@
                     },
                     diceCheckObject: diceCheckObject,
                     diceResults: [],
-                    effects: JSON.parse(JSON.stringify(this.universalEffects)),
                     fate: 0,
                     isReroll: isReroll,
                     selectedRerolls: [],
@@ -2786,7 +2820,7 @@
             },
             rollStandAloneCheck(diceCheckObject) {
                 this.rollCheck(diceCheckObject, false)
-                this.abilityDialog.effects = this.abilityDialog.check.effects
+                this.abilityDialog.effects = []
                 this.abilityDialog.selectedEffects = []
                 this.abilityDialog.usedEffects = []
                 this.abilityDialog.damage.show = false
@@ -3275,8 +3309,20 @@
                 } else
                     this.abilityDialog.ap = ''
 
-                if (ability.characteristic || ability.dice || ability.successes)
+                if (ability.characteristic || ability.dice > 0 || ability.successes != 0) {
                     this.rollAbility(ability)
+                } else
+                    this.abilityDialog.check = JSON.parse(JSON.stringify(this.abilityDialogClear.check))
+
+                this.abilityDialog.effects = JSON.parse(JSON.stringify(this.universalEffects))
+                this.hitLocations.forEach(h => {
+                    let type = `Called Shot ${h.name}`
+                    h.effects.forEach(e => {
+                        let effect = JSON.parse(JSON.stringify(e))
+                        effect.type = type
+                        this.abilityDialog.effects.push(effect)
+                    })
+                })
 
                 if (ability.classResource && ability.crCost != 0) {
                     this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
@@ -3285,10 +3331,11 @@
                 } else
                     this.abilityDialog.cr = ''
 
-                if (ability.damage.dice > 0 || ability.damage.flat > 0) {
+                if (ability.damage.dice > 0 || ability.damage.flat > 0 || ability.isMeleeAttack) {
                     this.rollAbilityDamage(ability)
-                    this.abilityDialog.effects = this.abilityDialog.damage.effects.concat(this.abilityDialog.check.effects)
-                }
+                    this.abilityDialog.effects = this.abilityDialog.damage.effects.concat(this.abilityDialog.effects)
+                } else
+                    this.abilityDialog.damage = JSON.parse(JSON.stringify(this.abilityDialogClear.damage))
 
                 if (ability.save && !isNaN(ability.saveAmount) && ability.saveCharacteristic)
                     this.abilityDialog.save = {
@@ -3307,7 +3354,7 @@
                     s.time = Date.now()
                 })
                 this.abilityDialog.check.show = (ability.characteristic || ability.dice || ability.successes)
-                this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0)
+                this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0 || ability.isMeleeAttack)
                 this.abilityDialog.isAbility = true
                 this.abilityDialog.selectedEffects = []
                 this.abilityDialog.show = true
@@ -3368,39 +3415,51 @@
                     this.useAbility(ability)
                 }
             },
-            useSubEffect(ability) {
-                if (ability.apCost) {
-                    this.abilityDialog.ap = +this.abilityDialog.ap + +ability.apCost
-                    this.subtractAP(ability.apCost)
-                }
-                if (ability.classResource && ability.crCost != 0) {
-                    this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
-                    let resource = this.resources.find(x => { return x.id == ability.classResource })
-                    let cr = `${ability.crCost} ${resource.name}`
-                    this.abilityDialog.cr += `${(this.abilityDialog.cr) ? ' + ' : ''} ${cr}`
+            useSubEffect(ability) {                
+                if (!this.abilityDialog.ability.isAbilityArray) {
+                    if (ability.apCost) {
+                        this.abilityDialog.ap = +this.abilityDialog.ap + +ability.apCost
+                        this.subtractAP(ability.apCost)
+                    }
+                    if (ability.classResource && ability.crCost != 0) {
+                        this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
+                        let resource = this.resources.find(x => { return x.id == ability.classResource })
+                        let cr = `${ability.crCost} ${resource.name}`
+                        this.abilityDialog.cr += `${(this.abilityDialog.cr) ? ' + ' : ''} ${cr}`
 
-                }
-                if (ability.damage) {
-                    let char = (ability.damage.characteristic) ? ability.damage.characteristic : ability.characteristic
-                    let damage = this.rollDamage(ability.damage, ability.isMeleeAttack, char, false)
-                    damage.diceResults.forEach(d => {
-                        d.type = 'subEffect'
-                    })
-                    this.abilityDialog.damage.diceResults = this.abilityDialog.damage.diceResults.concat(damage.diceResults)
-                    this.abilityDialog.damage.sum = +this.abilityDialog.damage.sum + +damage.diceResults.reduce((previousValue, entry) => {
-                        return +previousValue + +entry.value
-                    }, 0)
-                    damage.types.forEach(t => {
-                        if (this.abilityDialog.damage.types.filter(at => at.text == t.text).length == 0)
-                            this.abilityDialog.damage.types.push(t)
-                    })
-                }
-                if (ability.description) {
-                    this.abilityDialog.ability.description += `\r\n${ability.name} - ${ability.description}`
-                }
-                if (ability.successes) {
-                    this.abilityDialog.check.successes = +this.abilityDialog.check.successes + +ability.successes
-                    this.abilityDialog.check.successesInput = +this.abilityDialog.check.successesInput + +ability.successes
+                    }
+                    if (ability.damage.dice > 0 || ability.damage.flat > 0) {
+                        this.abilityDialog.damage.show = true
+                        let char = (ability.damage.characteristic) ? ability.damage.characteristic : ability.characteristic
+                        let damage = this.rollDamage(ability.damage, ability.isMeleeAttack, char, false)
+                        damage.diceResults.forEach(d => {
+                            d.type = 'subEffect'
+                        })
+                        this.abilityDialog.damage.diceResults = this.abilityDialog.damage.diceResults.concat(damage.diceResults)
+                        this.abilityDialog.damage.flatTotal = +this.abilityDialog.damage.flatTotal + +damage.flatTotal
+                        this.abilityDialog.damage.flatTotalBreakdown += `${(this.abilityDialog.damage.flatTotalBreakdown) ? ' + ' : ''}${damage.flatTotalBreakdown}`
+                        this.abilityDialog.damage.sum = +this.abilityDialog.damage.sum + +damage.diceResults.reduce((previousValue, entry) => {
+                            return +previousValue + +entry.value
+                        }, 0) + +damage.flatTotal
+
+                        damage.types.forEach(t => {
+                            if (this.abilityDialog.damage.types.filter(at => at.text == t.text).length == 0) {
+                                this.abilityDialog.damage.types.push(t)
+                                let typeEffects = damage.effects.filter(e => e.type == t.text)
+                                this.abilityDialog.effects = typeEffects.concat(this.abilityDialog.effects)
+                            }
+                        })
+                    }
+                    if (ability.description) {
+                        this.abilityDialog.ability.description += `\r\n${ability.name} - ${ability.description}`
+                    }
+                    if (ability.successes != 0) {
+                        this.abilityDialog.check.show = true
+                        this.abilityDialog.check.successes = +this.abilityDialog.check.successes + +ability.successes
+                        this.abilityDialog.check.successesInput = +this.abilityDialog.check.successesInput + +ability.successes
+                    }
+                } else {
+                    this.useAbility(JSON.parse(JSON.stringify(ability)))
                 }
             }
         },
