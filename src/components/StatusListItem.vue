@@ -20,7 +20,7 @@
                               min="0"></v-text-field>
             </v-col>
             <v-col cols="3">
-                <v-switch label="Is Active" inset
+                <v-switch label="Active" inset
                           v-model="isActive"></v-switch>
             </v-col>
             <v-col cols="12" v-if="description">
