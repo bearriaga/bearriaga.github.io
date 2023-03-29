@@ -262,7 +262,7 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12" lg="3" md="6">
+                <v-col cols="12" md="6">
                     <StatusSection :character-statuses="characterStatuses"
                                    :characteristics="characteristics"
                                    :damage-types="damageTypes"
@@ -273,8 +273,6 @@
                                    @updateBuffEntryEmit="updateBuffStatus($event)"
                                    @updateEntryEmit="updateEntry($event)"
                                    @updatePanelEmit="updatePanel($event)"></StatusSection>
-                </v-col>
-                <v-col cols="12" lg="3" md="6">
                     <BuffSection :buffs="buffs"
                                  :characteristics="characteristics"
                                  :damage-types="damageTypes"
@@ -288,7 +286,7 @@
                                  @updateEntryEmit="updateBuffEntry($event)"
                                  @updateEntryBypassEmit="updateEntry($event)"
                                  @updatePanelEmit="updatePanel($event)"></BuffSection>
-                </v-col>
+                </v-col>                
                 <v-col cols="12" md="6">
                     <InputWithEditModal @updatePropEmit="updateProp($event)"
                                         :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>

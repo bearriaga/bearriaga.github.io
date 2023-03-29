@@ -1,42 +1,29 @@
 <template>
     <div>
         <v-row>
-            <v-col cols="12">
-                <v-switch label="Is Active" inset
-                          v-model="isActive"></v-switch>
-                <v-autocomplete label="Status"
-                                :items="statuses.map((x) => ({ value: x, text: x.name }))"
-                                v-model="selectedStatus"
-                                :disabled="isBuff()"
-                                required>
-                    <v-icon slot="prepend" color="error"
+            <v-col cols="6">
+                <v-text-field label="Status" v-model="statusName" disabled>
+                    <TooltipComponent slot="append" :text="selectedStatus.effect"></TooltipComponent>
+                    <v-icon slot="append" color="error"
                             v-if="!isBuff()"
                             @click="deleteEntry">
                         mdi-delete
                     </v-icon>
-                </v-autocomplete>
-                <v-textarea label="Effect"
-                            v-model="selectedStatus.effect"
-                            :disabled="selectedStatus.name != 'Other'"
-                            auto-grow outlined rows="1"></v-textarea>
-                <v-text-field label="Type"
-                              v-model="selectedStatus.type"
-                              :disabled="selectedStatus.name != 'Other'"></v-text-field>
-                <v-text-field label="Characteristic" v-model="characteristic"
-                              v-if="characteristic" disabled></v-text-field>
-                <v-text-field label="Damage Type" v-model="damageType"
-                              v-if="selectedStatus.name.includes('{Group}') || selectedStatus.name.includes('{Type}')" disabled></v-text-field>
-                <v-text-field label="Ranks"
-                              v-model="ranks"
-                              type="number"
-                              min="0"
-                              v-if="selectedStatus.ranked"></v-text-field>
+                </v-text-field>
+            </v-col>
+            <v-col cols="3">
                 <v-switch label="Indefinite" v-if="indefinite" inset v-model="indefinite" disabled></v-switch>
                 <v-text-field label="Duration (Rounds)"
                               v-if="!indefinite"
                               v-model="duration"
                               type="number"
                               min="0"></v-text-field>
+            </v-col>
+            <v-col cols="3">
+                <v-switch label="Is Active" inset
+                          v-model="isActive"></v-switch>
+            </v-col>
+            <v-col cols="12" v-if="description">
                 <v-textarea label="Description" v-model="description"
                             auto-grow outlined rows="1"
                             :disabled="isBuff()"></v-textarea>
@@ -46,8 +33,12 @@
 </template>
 
 <script>
+    import TooltipComponent from './TooltipComponent.vue'
     export default {
         name: 'StatusListItem',
+        components: {
+            TooltipComponent
+        },
         props: {
             status: Object,
             statuses: Array
@@ -61,7 +52,8 @@
                 indefinite: this.status.indefinite,
                 isActive: this.status.isActive,
                 ranks: this.status.ranks,
-                selectedStatus: this.status.status
+                selectedStatus: this.status.status,
+                statusName: this.status.status.name + ((this.status.status.name.includes('Damage')) ? ` - ${this.status.damageType}` : '') + ((this.status.status.ranked) ? ` - ${this.status.ranks}` : '')
             }
         },
         methods: {
@@ -82,6 +74,7 @@
                     duration: this.duration,
                     isActive: this.isActive,
                     id: this.status.id,
+                    indefinite: this.indefinite,
                     ranks: this.ranks,
                     status: this.selectedStatus,
                 }

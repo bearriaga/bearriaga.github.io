@@ -60,7 +60,7 @@
                             <v-autocomplete label="Damage Type"
                                             v-model="status.damageType"
                                             :items="damageTypes"
-                                            v-if="status.status.name.includes('{Group}') || status.status.name.includes('{Type}')"
+                                            v-if="status.status.name.includes('Damage')"
                                             :rules="notNull"
                                             required></v-autocomplete>
                             <v-text-field v-if="status.status.ranked"
