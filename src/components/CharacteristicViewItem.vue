@@ -1,14 +1,11 @@
 <template>
     <div>
-        <v-text-field :label="adjustedAmountLabel"
-                      v-model="adjustedAmount"
-                      v-if="characteristic.adjustment != 0"
-                      :class="adjustedAmountClass"
-                      disabled></v-text-field>
         <v-text-field :label="characteristic.abbreviation"
-                      v-model="displayValue"
+                      v-model="adjustedAmount"
                       @click="inputClick"
-                      v-if="characteristic.abbreviation != 'Generic Roller'">
+                      :class="adjustedAmountClass"
+                      v-if="!isGenericRoller"
+                      readonly>
             <v-icon slot="append" @click="rollCharCheck">mdi-dice-6</v-icon>
             <v-icon slot="append" @click="rollSaveCheck">mdi-shield</v-icon>
             <v-icon slot="append" @click="rollSkillCheck">mdi-alpha-s-circle</v-icon>
@@ -19,7 +16,7 @@
                       :max="characteristic.valueMax"
                       v-model="value"
                       @keyup.enter="rollCharCheck"
-                      v-if="characteristic.abbreviation == 'Generic Roller'">
+                      v-if="isGenericRoller">
             <v-icon slot="append" @click="rollCharCheck">mdi-dice-6</v-icon>
             <v-icon slot="append" @click="rollSaveCheck">mdi-shield</v-icon>
             <v-icon slot="append" @click="rollSkillCheck">mdi-alpha-s-circle</v-icon>
@@ -88,7 +85,7 @@
         },
         computed: {
             adjustedAmount() {
-                let amount = (this.characteristic.abbreviation != 'Generic Roller') ? +this.characteristic.value : +this.value
+                let amount = (!this.isGenericRoller) ? +this.characteristic.value : +this.value
                 amount += +this.characteristic.valueIncreases + +this.characteristic.adjustment
                 return (amount > this.characteristic.valueMax) ? this.characteristic.valueMax : (amount < 0) ? 0 : amount
             },
@@ -101,18 +98,6 @@
                     amountClass = 'text-red'
 
                 return amountClass
-            },
-            adjustedAmountLabel() {
-                let label = ''
-
-                if (this.characteristic.adjustment > 0)
-                    label = 'Buffed '
-                if (this.characteristic.adjustment < 0)
-                    label = 'Debuffed '
-
-                label += this.characteristic.abbreviation
-
-                return label
             },
             initialAmountLabel() {
                 let label = 'Initial ' + this.characteristic.abbreviation
@@ -141,7 +126,7 @@
         },
         data() {
             return {
-                displayValue: +this.characteristic.value + +this.characteristic.valueIncreases,
+                isGenericRoller: (this.characteristic.abbreviation == 'Generic Roller'),
                 value: +this.characteristic.value,
                 valueIncreases: this.characteristic.valueIncreases,
                 showDialog: false
@@ -149,7 +134,7 @@
         },
         methods: {
             inputClick() {
-                if (this.characteristic.abbreviation != 'Generic Roller')
+                if (!this.isGenericRoller)
                     this.showDialog = true
             },
             rollCharCheck() {
