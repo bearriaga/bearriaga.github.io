@@ -1009,7 +1009,7 @@
                             <v-textarea label="Description" v-model="abilityDialog.ability.description" auto-grow outlined rows="1" disabled></v-textarea>
                         </div>
 
-                        <template v-if="abilityDialog.ability.subEffects">
+                        <template v-if="abilityDialog.ability.subEffects.length > 0">
                             <h3 class="text-center">Sub Effects/Array Elements</h3>
                             <SubEffect v-for="ability in abilityDialog.ability.subEffects" :key="ability.id + ability.time" 
                                        :sub-effect="ability"
