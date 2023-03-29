@@ -955,10 +955,11 @@
                                     <span v-if="die.type=='normal'">{{die.value}}</span>
                                     <span v-if="die.type=='crit'"><b>{{die.value}}</b></span>
                                     <span v-if="die.type=='luck'" class="red--text"><b>{{die.value}}</b></span>
+                                    <span v-if="die.type=='subEffect'" class="blue--text"><b>{{die.value}}</b></span>
                                     <span v-if="i < abilityDialog.damage.diceResults.length - 1">, </span>
                                 </span>
                                 ]
-                                <TooltipComponent v-if="abilityDialog.damage.isCrit" :text="'Red = LCK, Bold = Crit'"></TooltipComponent>
+                                <TooltipComponent :text="'Black = Normal, Red = LCK, Bold = Crit, Blue = Sub'"></TooltipComponent>
                             </div>
                             <div v-if="abilityDialog.damage.flatTotal > 0">
                                 Flat Total: {{abilityDialog.damage.flatTotal}}
@@ -1007,6 +1008,13 @@
                         <div v-if="abilityDialog.ability.description">
                             <v-textarea label="Description" v-model="abilityDialog.ability.description" auto-grow outlined rows="1" disabled></v-textarea>
                         </div>
+
+                        <template v-if="abilityDialog.ability.subEffects">
+                            <h3 class="text-center">Sub Effects/Array Elements</h3>
+                            <SubEffect v-for="ability in abilityDialog.ability.subEffects" :key="ability.id + ability.time" 
+                                       :sub-effect="ability"
+                                       @useSubEffectEmit="useSubEffect($event)"></SubEffect>
+                        </template>
                     </template>
                 </v-card-text>
 
@@ -1198,6 +1206,7 @@
     import ResourceSection from './ResourceSection.vue'
     import SkillSection from './SkillSection.vue'
     import StatusSection from './StatusSection.vue'
+    import SubEffect from './SubEffect.vue'
     import TooltipComponent from './TooltipComponent.vue'
     import { useCharacterStore } from '@/stores/CharacterStore'
     import { useGameDataStore } from '@/stores/GameDataStore'
@@ -1221,6 +1230,7 @@
             ResourceSection,
             SkillSection,
             StatusSection,
+            SubEffect,
             TooltipComponent,
             JournalSection
         },
@@ -2512,7 +2522,7 @@
                         cost -= +(200 * j)
                     }
                 }
-                
+
                 return cost
             },
             cleanseStatuses() {
@@ -3294,8 +3304,10 @@
                         characteristic: '',
                         show: false
                     }
-
                 this.abilityDialog.ability = JSON.parse(JSON.stringify(ability))
+                this.abilityDialog.ability.subEffects.forEach(s => {
+                    s.time = Date.now()
+                })
                 this.abilityDialog.check.show = (ability.characteristic || ability.dice || ability.successes)
                 this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0)
                 this.abilityDialog.isAbility = true
@@ -3356,6 +3368,41 @@
                     this.useModeDialog.useMode = 'Use'
                     this.useModeDialog.show = false
                     this.useAbility(ability)
+                }
+            },
+            useSubEffect(ability) {
+                if (ability.apCost) {
+                    this.abilityDialog.ap = +this.abilityDialog.ap + +ability.apCost
+                    this.subtractAP(ability.apCost)
+                }
+                if (ability.classResource && ability.crCost != 0) {
+                    this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
+                    let resource = this.resources.find(x => { return x.id == ability.classResource })
+                    let cr = `${ability.crCost} ${resource.name}`
+                    this.abilityDialog.cr += `${(this.abilityDialog.cr) ? ' + ' : ''} ${cr}`
+
+                }
+                if (ability.damage) {
+                    let char = (ability.damage.characteristic) ? ability.damage.characteristic : ability.characteristic
+                    let damage = this.rollDamage(ability.damage, ability.isMeleeAttack, char, false)
+                    damage.diceResults.forEach(d => {
+                        d.type = 'subEffect'
+                    })
+                    this.abilityDialog.damage.diceResults = this.abilityDialog.damage.diceResults.concat(damage.diceResults)
+                    this.abilityDialog.damage.sum = +this.abilityDialog.damage.sum + +damage.diceResults.reduce((previousValue, entry) => {
+                        return +previousValue + +entry.value
+                    }, 0)
+                    damage.types.forEach(t => {
+                        if (this.abilityDialog.damage.types.filter(at => at.text == t.text).length == 0)
+                            this.abilityDialog.damage.types.push(t)
+                    })
+                }
+                if (ability.description) {
+                    this.abilityDialog.ability.description += `\r\n${ability.name} - ${ability.description}`
+                }
+                if (ability.successes) {
+                    this.abilityDialog.check.successes = +this.abilityDialog.check.successes + +ability.successes
+                    this.abilityDialog.check.successesInput = +this.abilityDialog.check.successesInput + +ability.successes
                 }
             }
         },
