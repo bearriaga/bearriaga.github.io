@@ -2177,6 +2177,14 @@
                         (x.damageType == 'All' || (this.abilityDialog.damage.types.some(y => y.text == x.damageType || y.group == x.damageType)))
                 })
             },
+            statusDiceUpDown() {
+                let adjustment = this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && (x.status.name.includes('Dice Up') || x.status.name.includes('Dice Down')) })
+                    .reduce((previousValue, entry) => {
+                        return +previousValue + +((entry.status.name.includes('Up')) ? entry.ranks : (entry.ranks * -1))
+                    }, 0)
+
+                return adjustment
+            },
             statusHastenedSlowed() {
                 let haste = this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && (x.status.name.includes('Haste') || x.status.name.includes('Slowed')) })
                     .reduce((previousValue, entry) => {
@@ -2821,23 +2829,8 @@
                     threat: false
                 }
 
+                diceCheckObject.diceToRoll = +diceCheckObject.diceToRoll + +this.statusDiceUpDown                    
                 if (diceCheckObject.diceToRoll > 0) {
-                    //Dice Down/Up Code Start
-                    diceCheckObject.diceToRoll += +this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('{CHAR} Dice ') && diceCheckObject.chars.includes(x.characteristic) })
-                        .reduce((previousValue, entry) => {
-                            if (entry.status.name.includes('Up'))
-                                return +previousValue + +entry.ranks
-                            else
-                                return +previousValue - +entry.ranks
-                        }, 0)
-                    //Dice Down/Up Code End
-
-                    if (diceCheckObject.isSkill) {
-                        result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
-                        result.successes += +result.successesFromIntelligence
-                        result.successesInput += +result.successesFromIntelligence
-                    }
-
                     let rdResult = this.rollDice(diceCheckObject.diceToRoll)
 
                     result.diceResults = rdResult.diceResults;
@@ -2857,6 +2850,12 @@
                             result.threat = true
                         }
                     }
+                }
+
+                if (diceCheckObject.isSkill) {
+                    result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
+                    result.successes += +result.successesFromIntelligence
+                    result.successesInput += +result.successesFromIntelligence
                 }
 
                 if (diceCheckObject.successes) {
