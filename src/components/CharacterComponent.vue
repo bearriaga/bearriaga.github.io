@@ -2193,6 +2193,18 @@
 
                 return haste
             },
+            statusHealingIncrease() {
+                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Healing Increase' })                
+            },
+            statusHealingReductionHalf() {
+                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Healing Reduction Half' })
+            },
+            statusHealingReductionFull() {
+                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Healing Reduction Full' })
+            },
+            statusHealingReductionDamage() {
+                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Healing Reduction Convert to Damage' })
+            },
             statusHobbled() {
                 return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Hobbled' })
             },
@@ -2917,10 +2929,20 @@
             },
             //Health Funcitons
             heal(damageObj) {
-                let damage = (damageObj) ? damageObj.amount : this.damageToTake.amount
-                if (damage) {
-                    this.characterSheet.hp = +this.characterSheet.hp + +damage
-                    this.updateHP = this.updateHP + 1
+                let healingAmount = (damageObj) ? damageObj.amount : this.damageToTake.amount
+
+                if (this.statusHealingIncrease)
+                    healingAmount *= 2
+                if (this.statusHealingReductionHalf)
+                    healingAmount = Math.floor(healingAmount / 2)
+                if (this.statusHealingReductionDamage)
+                    healingAmount *= -1
+                else if (this.statusHealingReductionFull)
+                    healingAmount = 0
+
+                if (healingAmount) {
+                    this.characterSheet.hp = +this.characterSheet.hp + +healingAmount
+                    this.updateHP++
                 }
             },
             takeDamage(damageObj) {
