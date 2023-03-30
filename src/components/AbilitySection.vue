@@ -118,7 +118,7 @@
                                     <v-textarea label="Description" v-model="ability.description" auto-grow outlined rows="1"></v-textarea>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-select label="Characteristic Check"
+                                    <v-select label="Check/Save Characteristic"
                                               :items="characteristics"
                                               v-model="ability.characteristic"
                                               clearable>
@@ -137,7 +137,7 @@
                                         <v-text-field label="Save Amount"
                                                       v-model="ability.saveAmount"
                                                       type="number">
-                                            <TooltipComponent slot="prepend" :text="'INT/3 automatically added to save amount.'"></TooltipComponent>
+                                            <TooltipComponent slot="prepend" :text="'2 + CHAR/2 rounded up automatically added to save amount.'"></TooltipComponent>
                                         </v-text-field>
                                     </v-col>
                                     <v-col cols="6">
@@ -169,7 +169,7 @@
                                                           :items="characteristics"
                                                           v-model="ability.damage.characteristic"
                                                           clearable>
-                                                    <TooltipComponent slot="prepend" :text="'CHAR added to damage, overrides Characteristic Check value.'"></TooltipComponent>
+                                                    <TooltipComponent slot="prepend" :text="'CHAR added to damage, overrides Check/Save Characteristic value.'"></TooltipComponent>
                                                 </v-select>
                                             </v-col>
                                             <v-col cols="12" md="6">
@@ -487,7 +487,7 @@
                     physMeta: 'Physical',
                     range: 0,
                     save: false,
-                    saveAmount: 3,
+                    saveAmount: 0,
                     saveCharacteristic: '',
                     successes: 0,
                     useModes: [],
@@ -526,7 +526,7 @@
                     physMeta: 'Physical',
                     range: 0,
                     save: false,
-                    saveAmount: 3,
+                    saveAmount: 0,
                     saveCharacteristic: '',
                     successes: 0,
                     useModes: [],

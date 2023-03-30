@@ -109,7 +109,7 @@
                                             <v-text-field label="Save Amount"
                                                           v-model="equipment.ability.saveAmount"
                                                           type="number">
-                                                <TooltipComponent slot="prepend" :text="'INT/3 automatically added to save amount.'"></TooltipComponent>
+                                                <TooltipComponent slot="prepend" :text="'2 + CHAR/2 rounded up automatically added to save amount.'"></TooltipComponent>
                                             </v-text-field>
                                         </v-col>
                                         <v-col cols="6">
@@ -194,7 +194,7 @@
                                                   :items="characteristics"
                                                   v-model="equipment.ability.damage.characteristic"
                                                   clearable>
-                                            <TooltipComponent slot="prepend" :text="'CHAR added to damage, overrides Characteristic Check value.'"></TooltipComponent>
+                                            <TooltipComponent slot="prepend" :text="'CHAR added to damage, overrides Check/Save Characteristic value.'"></TooltipComponent>
                                         </v-select>
                                     </v-col>
                                     <v-col cols="6">
@@ -380,7 +380,7 @@
                         physMeta: 'Physical',
                         range: 0,
                         save: false,
-                        saveAmount: 3,
+                        saveAmount: 0,
                         saveCharacteristic: '',
                         successes: 0,
                         useModes: [],
@@ -431,7 +431,7 @@
                         physMeta: 'Physical',
                         range: 0,
                         save: false,
-                        saveAmount: 3,
+                        saveAmount: 0,
                         saveCharacteristic: '',
                         successes: 0,
                         useModes: [],

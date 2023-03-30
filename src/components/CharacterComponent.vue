@@ -2797,18 +2797,21 @@
                 this.updateRerolls++
             },
             rollAbility(ability) {
-                let diceToRoll = 0
-                if (ability.characteristic)
-                    diceToRoll += +this[ability.characteristic]
-                if (ability.dice)
-                    diceToRoll += +ability.dice
-                this.rollCheck({
+                let diceCheckObject = {
                     chars: [ability.characteristic],
-                    diceToRoll: diceToRoll,
+                    diceToRoll: 0,
                     isAbility: true,
-                    isSkill: false,
-                    successes: ability.successes
-                }, false)
+                    isSaveSkill: (ability.save),
+                    successes: +ability.successes
+                }
+                if (ability.characteristic)
+                    diceCheckObject.diceToRoll += +this[ability.characteristic]
+                if (ability.dice)
+                    diceCheckObject.diceToRoll += +ability.dice
+                if (ability.save)
+                    diceCheckObject.diceToRoll = 0
+                
+                this.rollCheck(diceCheckObject, false)
 
                 this.abilityDialog.title = `${ability.name} Check Results`
                 this.abilityDialog.isAbility = false
@@ -2864,7 +2867,7 @@
                     }
                 }
 
-                if (diceCheckObject.isSkill) {
+                if (diceCheckObject.isSaveSkill) {
                     result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
                     result.successes += +result.successesFromIntelligence
                     result.successesInput += +result.successesFromIntelligence
@@ -3418,12 +3421,14 @@
                 } else
                     this.abilityDialog.damage = JSON.parse(JSON.stringify(this.abilityDialogClear.damage))
 
-                if (ability.save && !isNaN(ability.saveAmount) && ability.saveCharacteristic)
+                if (ability.save && ability.characteristic && ability.saveCharacteristic) {
+                    let saveAmount = 2 + +this[ability.characteristic] + +((!isNaN(ability.saveAmount)) ? ability.saveAmount : 0)
                     this.abilityDialog.save = {
-                        amount: (+ability.saveAmount + +this.successesFromIntelligence),
+                        amount: saveAmount,
                         characteristic: this.characteristicViewItems.find(x => { return x.name == ability.saveCharacteristic }).abbreviation,
                         show: true
                     }
+                }
                 else
                     this.abilityDialog.save = {
                         amount: 0,
