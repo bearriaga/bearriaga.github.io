@@ -109,7 +109,7 @@
                                 <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                     @apGainEmit="apGain($event)"
                                                     @updatePropEmit="updateProp($event)"
-                                                    :hastened="hastened"
+                                                    :hastened="statusHastened"
                                                     :hp="characterSheet.hp"
                                                     :property-object="input"
                                                     :tier="characterSheet.tier"
@@ -395,7 +395,7 @@
                 <v-col cols="6" md="3" v-for="input in inputWithEditModals" :key="input.key">
                     <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                         @apGainEmit="apGain($event)"
-                                        :hastened="hastened"
+                                        :hastened="statusHastened"
                                         @updatePropEmit="updateProp($event)"
                                         :hp="characterSheet.hp"
                                         :property-object="input"
@@ -655,14 +655,13 @@
                 <v-col cols="12" v-for="input in inputWithEditModals.filter(x => { return x.label == 'Action Points' })" :key="input.key">
                     <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                         @apGainEmit="apGain($event)"
-                                        :hastened="hastened"
+                                        :hastened="statusHastened"
                                         @updatePropEmit="updateProp($event)"
                                         :property-object="input"></InputWithEditModal>
                 </v-col>
                 <v-col cols="12" v-for="input in defenseInputWithEditModals.filter(x => { return x.label == 'DC to Hit' })" :key="input.key">
                     <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                         @apGainEmit="apGain($event)"
-                                        :hastened="hastened"
                                         @updatePropEmit="updateProp($event)"
                                         :property-object="input"></InputWithEditModal>
                 </v-col>
@@ -1863,15 +1862,7 @@
                 })
 
                 return flaws
-            },
-            hastened() {
-                let haste = this.characterStatuses.filter(x => { return x.status.name.includes('Hastened') && x.isActive && (x.duration > 0 || x.indefinite) })
-                    .reduce((previousValue, entry) => {
-                        return +previousValue + +entry.ranks
-                    }, 0)
-
-                return haste
-            },
+            },            
             healthInputWithEditModals() {
                 return [
                     {
@@ -2172,6 +2163,14 @@
                     return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('Damage Debuff') &&
                         (x.damageType == 'All' || (this.abilityDialog.damage.types.some(y => y.text == x.damageType || y.group == x.damageType)))
                 })
+            },
+            statusHastened() {
+                let haste = this.characterStatuses.filter(x => { return x.status.name.includes('Haste') && x.isActive && (x.duration > 0 || x.indefinite) })
+                    .reduce((previousValue, entry) => {
+                        return +previousValue + +entry.ranks
+                    }, 0)
+
+                return haste
             },
             statusPacified() {
                 return this.characterStatuses.some(x => {
