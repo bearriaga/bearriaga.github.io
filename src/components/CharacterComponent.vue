@@ -109,7 +109,7 @@
                                 <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                     @apGainEmit="apGain($event)"
                                                     @updatePropEmit="updateProp($event)"
-                                                    :hastened="statusHastened"
+                                                    :hastened-slowed="statusHastenedSlowed"
                                                     :hp="characterSheet.hp"
                                                     :property-object="input"
                                                     :tier="characterSheet.tier"
@@ -395,7 +395,7 @@
                 <v-col cols="6" md="3" v-for="input in inputWithEditModals" :key="input.key">
                     <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                         @apGainEmit="apGain($event)"
-                                        :hastened="statusHastened"
+                                        :hastened-slowed="statusHastenedSlowed"
                                         @updatePropEmit="updateProp($event)"
                                         :hp="characterSheet.hp"
                                         :property-object="input"
@@ -655,7 +655,7 @@
                 <v-col cols="12" v-for="input in inputWithEditModals.filter(x => { return x.label == 'Action Points' })" :key="input.key">
                     <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                         @apGainEmit="apGain($event)"
-                                        :hastened="statusHastened"
+                                        :hastened-slowed="statusHastenedSlowed"
                                         @updatePropEmit="updateProp($event)"
                                         :property-object="input"></InputWithEditModal>
                 </v-col>
@@ -2164,10 +2164,10 @@
                         (x.damageType == 'All' || (this.abilityDialog.damage.types.some(y => y.text == x.damageType || y.group == x.damageType)))
                 })
             },
-            statusHastened() {
-                let haste = this.characterStatuses.filter(x => { return x.status.name.includes('Haste') && x.isActive && (x.duration > 0 || x.indefinite) })
+            statusHastenedSlowed() {
+                let haste = this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && (x.status.name.includes('Haste') || x.status.name.includes('Slowed')) })
                     .reduce((previousValue, entry) => {
-                        return +previousValue + +entry.ranks
+                        return +previousValue + +((entry.status.name.includes('Haste')) ? entry.ranks : (entry.ranks * -1))
                     }, 0)
 
                 return haste
