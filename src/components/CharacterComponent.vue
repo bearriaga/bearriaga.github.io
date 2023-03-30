@@ -1997,7 +1997,7 @@
             movements() {
                 let movements = []
 
-                let doubleCHAR = this.fitness * 2 * ((this.statusAccelerated) ? 2 : 1)
+                let doubleCHAR = this.fitness * 2
                 if (this.fitness) {
                     movements.push({
                         amount: doubleCHAR,
@@ -2006,36 +2006,34 @@
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovement' + doubleCHAR + this.statusAccelerated,
+                        key: 'defaultMovement' + doubleCHAR,
                         type: 'Land Speed'
                     })
-                    let fitAmount = this.fitness * ((this.statusAccelerated) ? 2 : 1)
                     movements.push({
-                        amount: fitAmount,
+                        amount: this.fitness,
                         description: 'Default Movement from FIT',
                         id: 'defaultMovementClimb',
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovementClimb' + this.fitness + this.statusAccelerated,
+                        key: 'defaultMovementClimb' + this.fitness,
                         type: 'Climb'
                     })
                     movements.push({
-                        amount: fitAmount,
+                        amount: this.fitness,
                         description: 'Default Movement from FIT',
                         id: 'defaultMovementSwim',
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovementSwim' + this.fitness + this.statusAccelerated,
+                        key: 'defaultMovementSwim' + this.fitness,
                         type: 'Swim'
                     })
                 }
 
                 this.characterSheet.movements.forEach(m => {
                     let movement = JSON.parse(JSON.stringify(m))
-                    movement.amount *= ((this.statusAccelerated) ? 2 : 1)
-                    movement.key = movement.id + this.characterSheet.ap + this.statusAccelerated
+                    movement.key = movement.id + this.characterSheet.ap
                     movements.push(movement)
                 })
 
@@ -2047,10 +2045,9 @@
                             id: adjustment.id,
                             isBuff: true,
                             isDefault: false,
-                            key: adjustment.id + JSON.stringify(adjustment) + this.statusAccelerated,
+                            key: adjustment.id + JSON.stringify(adjustment),
                             type: adjustment.movementType
                         }
-                        movement.amount *= ((this.statusAccelerated) ? 2 : 1)
                         movements.push(movement)
                     })
                 })
@@ -2066,10 +2063,15 @@
                             key: JSON.stringify(m) + index,
                             type: m.type
                         }
-                        movement.amount *= ((this.statusAccelerated) ? 2 : 1)
                         movements.push(movement)
                     })
                 })
+
+                if (this.statusAccelerated || this.statusRooted)
+                    movements.forEach(m => {
+                        m.amount = (this.statusRooted) ? 0 : (this.statusAccelerated) ? m.amount * 2 : m.amount
+                        m.key += this.statusAccelerated + this.statusRooted
+                    })
 
                 return movements
             },
@@ -2177,6 +2179,9 @@
                     return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('Pacified') &&
                         (x.damageType == 'All' || (this.abilityDialog.damage.types.some(y => y.text == x.damageType || y.group == x.damageType)))
                 })
+            },
+            statusRooted() {
+                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Rooted' })
             },
             successesFromIntelligence() {
                 return Math.ceil(this.intelligence / 2)
