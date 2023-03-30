@@ -2067,17 +2067,21 @@
                     })
                 })
 
-                if (this.statusAccelerated || this.statusHobbled || this.statusRooted)
+                if (this.statusAccelerated || this.statusHobbled || this.statusMovementUpDown || this.statusRooted)
                     movements.forEach(m => {
                         if (this.statusRooted)
                             m.amount = 0
                         else {
-                            if (this.statusAccelerated)
+                            if (this.statusMovementUpDown)
+                                m.amount = +m.amount + +this.statusMovementUpDown
+                            if (m.amount < 0)
+                                m.amount = 0
+                            if (this.statusAccelerated && m.amount > 0)
                                 m.amount *= 2
-                            if (this.statusHobbled)
+                            if (this.statusHobbled && m.amount > 0)
                                 m.amount = Math.floor(m.amount / 2)
                         }
-                        m.key += this.statusAccelerated + this.statusHobbled + this.statusRooted
+                        m.key += this.statusAccelerated + this.statusHobbled + this.statusMovementUpDown + this.statusRooted
                     })
 
                 return movements
@@ -2183,6 +2187,14 @@
             },
             statusHobbled() {
                 return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Hobbled' })
+            },
+            statusMovementUpDown() {
+                let adjustment = this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && (x.status.name.includes('Movement Up') || x.status.name.includes('Movement Down')) })
+                    .reduce((previousValue, entry) => {
+                        return +previousValue + +((entry.status.name.includes('Up')) ? entry.ranks : (entry.ranks * -1))
+                    }, 0)
+
+                return adjustment
             },
             statusPacified() {
                 return this.characterStatuses.some(x => {
