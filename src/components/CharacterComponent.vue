@@ -2002,7 +2002,7 @@
             movements() {
                 let movements = []
 
-                let doubleCHAR = this.fitness * 2
+                let doubleCHAR = this.fitness * 2 * ((this.statusAccelerated) ? 2 : 1)
                 if (this.fitness) {
                     movements.push({
                         amount: doubleCHAR,
@@ -2011,35 +2011,36 @@
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovement' + doubleCHAR,
+                        key: 'defaultMovement' + doubleCHAR + this.statusAccelerated,
                         type: 'Land Speed'
                     })
+                    let fitAmount = this.fitness * ((this.statusAccelerated) ? 2 : 1)
                     movements.push({
-                        amount: this.fitness,
+                        amount: fitAmount,
                         description: 'Default Movement from FIT',
                         id: 'defaultMovementClimb',
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovementClimb' + this.fitness,
+                        key: 'defaultMovementClimb' + this.fitness + this.statusAccelerated,
                         type: 'Climb'
                     })
                     movements.push({
-                        amount: this.fitness,
+                        amount: fitAmount,
                         description: 'Default Movement from FIT',
                         id: 'defaultMovementSwim',
                         isBuff: false,
                         isDefault: true,
                         isUnique: false,
-                        key: 'defaultMovementSwim' + this.fitness,
+                        key: 'defaultMovementSwim' + this.fitness + this.statusAccelerated,
                         type: 'Swim'
                     })
                 }
 
                 this.characterSheet.movements.forEach(m => {
                     let movement = JSON.parse(JSON.stringify(m))
-
-                    movement.key = movement.id + this.characterSheet.ap
+                    movement.amount *= ((this.statusAccelerated) ? 2 : 1)
+                    movement.key = movement.id + this.characterSheet.ap + this.statusAccelerated
                     movements.push(movement)
                 })
 
@@ -2051,9 +2052,10 @@
                             id: adjustment.id,
                             isBuff: true,
                             isDefault: false,
-                            key: adjustment.id + JSON.stringify(adjustment),
+                            key: adjustment.id + JSON.stringify(adjustment) + this.statusAccelerated,
                             type: adjustment.movementType
                         }
+                        movement.amount *= ((this.statusAccelerated) ? 2 : 1)
                         movements.push(movement)
                     })
                 })
@@ -2069,6 +2071,7 @@
                             key: JSON.stringify(m) + index,
                             type: m.type
                         }
+                        movement.amount *= ((this.statusAccelerated) ? 2 : 1)
                         movements.push(movement)
                     })
                 })
@@ -2126,6 +2129,9 @@
                 })
 
                 return skills
+            },
+            statusAccelerated() {
+                return this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Accelerated' }).length > 0
             },
             successesFromIntelligence() {
                 return Math.ceil(this.intelligence / 2)
