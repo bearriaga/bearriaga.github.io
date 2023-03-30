@@ -60,6 +60,7 @@
                                             <AbilityListItem :ability="item"
                                                              :ap="ap"
                                                              :characteristics="characteristics"
+                                                             :characteristic-view-items="characteristicViewItems"
                                                              :damage-types="damageTypes"
                                                              :resources="resources"
                                                              :successes-from-intelligence="successesFromIntelligence"
@@ -141,9 +142,10 @@
                                         </v-text-field>
                                     </v-col>
                                     <v-col cols="6">
-                                        <v-select label="Save Characteristic"
+                                        <v-select label="Target Save Characteristic"
                                                   :items="characteristics"
                                                   v-model="ability.saveCharacteristic"
+                                                  :rules="textRules"
                                                   clearable></v-select>
                                     </v-col>
                                 </template>
@@ -401,6 +403,7 @@
             abilities: Array,
             ap: Number,
             characteristics: Array,
+            characteristicViewItems: Array,
             damageTypes: Array,
             effects: Array,
             isBoosted: Boolean,

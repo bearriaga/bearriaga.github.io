@@ -43,6 +43,7 @@
                             <td :colspan="headers.length">
                                 <EquipmentListItem :ap="ap"
                                                    :characteristics="characteristics"
+                                                   :characteristic-view-items="characteristicViewItems"
                                                    :damage-groups="damageGroups"
                                                    :damage-types="damageTypes"
                                                    :equipment="item"
@@ -113,8 +114,9 @@
                                             </v-text-field>
                                         </v-col>
                                         <v-col cols="6">
-                                            <v-select label="Save Characteristic"
+                                            <v-select label="Target Save Characteristic"
                                                       :items="characteristics"
+                                                      :rules="textRules"
                                                       v-model="equipment.ability.saveCharacteristic"
                                                       clearable></v-select>
                                         </v-col>
@@ -325,6 +327,7 @@
         props: {
             ap: Number,
             characteristics: Array,
+            characteristicViewItems: Array,
             characterEquipment: Array,
             damageGroups: Array,
             damageTypes: Array,

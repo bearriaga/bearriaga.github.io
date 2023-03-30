@@ -166,6 +166,7 @@
             ability: Object,
             ap: Number,
             characteristics: Array,
+            characteristicViewItems: Array,
             damageTypes: Array,
             resources: Array,
             successesFromIntelligence: Number
@@ -264,33 +265,22 @@
 
                 return color
             },
+            saveAmount() {
+                let amount = 2
+
+                let characteristic = this.characteristicViewItems.find(x => { return x.name == this.ability.characteristic })
+                let charAmount = characteristic.value + +characteristic.valueIncreases + +characteristic.adjustment
+                if (charAmount > 10)
+                    charAmount = 10
+                amount += +(Math.ceil(charAmount / 2))
+
+                if (!isNaN(this.ability.saveAmount))
+                    amount += +this.ability.saveAmount
+
+                return amount
+            },
             saveCharacteristic() {
-                let abr = ''
-
-                switch (this.ability.saveCharacteristic) {
-                    case 'fitness':
-                        abr = 'FIT'
-                        break
-                    case 'speed':
-                        abr = 'SPD'
-                        break
-                    case 'intelligence':
-                        abr = 'INT'
-                        break
-                    case 'cunning':
-                        abr = 'CUN'
-                        break
-                    case 'resistance':
-                        abr = 'RES'
-                        break
-                    case 'luck':
-                        abr = 'LCK'
-                        break
-                    default:
-                        break
-                }
-
-                return abr
+                return this.characteristicViewItems.find(x => { return x.name == this.ability.saveCharacteristic }).abbreviation
             },
             useButtonIcon() {
                 let icon = ''
@@ -337,7 +327,6 @@
                 physMeta: this.ability.physMeta,
                 range: this.ability.range,
                 save: this.ability.save,
-                saveAmount: +this.ability.saveAmount + +this.successesFromIntelligence,
                 successes: this.ability.successes,
                 xpCost: this.ability.xpCost,
                 components: this.ability.components,

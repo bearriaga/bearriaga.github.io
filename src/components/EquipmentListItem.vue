@@ -39,6 +39,7 @@
                              :ability="equipment.ability"
                              :ap="ap"
                              :characteristics="characteristics"
+                             :characteristic-view-items="characteristicViewItems"
                              :resources="resources"
                              :successes-from-intelligence="successesFromIntelligence"
                              @rollAbilityEmit="rollAbility($event)"
@@ -65,6 +66,7 @@
         props: {
             ap: Number,
             characteristics: Array,
+            characteristicViewItems: Array,
             damageGroups: Array,
             damageTypes: Array,
             equipment: Object,

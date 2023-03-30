@@ -148,6 +148,7 @@
                     <AbilitySection :abilities="abilities"
                                     :ap="characterSheet.ap"
                                     :characteristics="characteristics"
+                                    :characteristic-view-items="characteristicViewItems"
                                     :damage-types="damageTypes"
                                     :effects="effects"
                                     :is-boosted="isBoosted"
@@ -291,6 +292,7 @@
                                         :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
                     <EquipmentSection :ap="characterSheet.ap"
                                       :characteristics="characteristics"
+                                      :characteristic-view-items="characteristicViewItems"
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
@@ -442,6 +444,7 @@
                             <AbilitySection :abilities="abilities"
                                             :ap="characterSheet.ap"
                                             :characteristics="characteristics"
+                                            :characteristic-view-items="characteristicViewItems"
                                             :damage-types="damageTypes"
                                             :effects="effects"
                                             :is-boosted="isBoosted"
@@ -555,6 +558,7 @@
                                                 :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
                             <EquipmentSection :ap="characterSheet.ap"
                                               :characteristics="characteristics"
+                                              :characteristic-view-items="characteristicViewItems"
                                               :character-equipment="characterEquipment"
                                               :damage-groups="damageGroups"
                                               :damage-types="damageTypes"
@@ -698,6 +702,7 @@
                     <AbilitySection :abilities="abilities"
                                     :ap="characterSheet.ap"
                                     :characteristics="characteristics"
+                                    :characteristic-view-items="characteristicViewItems"
                                     :damage-types="damageTypes"
                                     :effects="effects"
                                     :is-boosted="isBoosted"
@@ -719,6 +724,7 @@
                                     @useAbilityEmit="useModes($event)"></AbilitySection>
                     <EquipmentSection :ap="characterSheet.ap"
                                       :characteristics="characteristics"
+                                      :characteristic-view-items="characteristicViewItems"
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
@@ -3422,7 +3428,7 @@
                     this.abilityDialog.damage = JSON.parse(JSON.stringify(this.abilityDialogClear.damage))
 
                 if (ability.save && ability.characteristic && ability.saveCharacteristic) {
-                    let saveAmount = 2 + +this[ability.characteristic] + +((!isNaN(ability.saveAmount)) ? ability.saveAmount : 0)
+                    let saveAmount = 2 + +(Math.ceil(this[ability.characteristic] / 2)) + +((!isNaN(ability.saveAmount)) ? ability.saveAmount : 0)
                     this.abilityDialog.save = {
                         amount: saveAmount,
                         characteristic: this.characteristicViewItems.find(x => { return x.name == ability.saveCharacteristic }).abbreviation,
