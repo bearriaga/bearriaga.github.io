@@ -264,7 +264,6 @@
             <v-row>
                 <v-col cols="12" md="6">
                     <StatusSection :character-statuses="characterStatuses"
-                                   :characteristics="characteristics"
                                    :damage-types="damageTypes"
                                    :panel-prop="statusPanel"
                                    :statuses="statuses"
@@ -580,7 +579,6 @@
                         </v-tab-item>
                         <v-tab-item value="statusBuffs">
                             <StatusSection :character-statuses="characterStatuses"
-                                           :characteristics="characteristics"
                                            :damage-types="damageTypes"
                                            :panel-prop="statusPanel"
                                            :statuses="statuses"
@@ -744,7 +742,6 @@
                                       @useAbilityEmit="useModes($event)"
                                       @updatePanelEmit="updatePanel($event)"></EquipmentSection>
                     <StatusSection :character-statuses="characterStatuses"
-                                   :characteristics="characteristics"
                                    :damage-types="damageTypes"
                                    :panel-prop="statusPanel"
                                    :statuses="statuses"

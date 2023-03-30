@@ -51,12 +51,6 @@
                             <v-text-field label="Type"
                                           v-model="status.status.type"
                                           :disabled="status.status.name != 'Other'"></v-text-field>
-                            <v-select label="Characteristic"
-                                      v-model="status.characteristic"
-                                      :items="characteristics"
-                                      v-if="status.status.name.includes('{CHAR}')"
-                                      :rules="notNull"
-                                      required></v-select>
                             <v-autocomplete label="Damage Type"
                                             v-model="status.damageType"
                                             :items="damageTypes"
@@ -112,7 +106,6 @@
         },
         props: {
             characterStatuses: Array,
-            characteristics: Array,
             damageTypes: Array,
             panelProp: Number,
             statuses: Array
@@ -125,7 +118,6 @@
                 },
                 // Input Fields Start
                 clearStatus: {
-                    characteristic: '',
                     damageType: '',
                     description: '',
                     duration: 0,
@@ -141,7 +133,6 @@
                     }
                 },
                 status: {
-                    characteristic: '',
                     damageType: '',
                     description: '',
                     duration: 1,

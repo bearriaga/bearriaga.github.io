@@ -171,12 +171,6 @@
                                                     v-if="a.status.status.name.includes('{Group}') || a.status.status.name.includes('{Type}')"
                                                     :rules="notNull"
                                                     required></v-autocomplete>
-                                    <v-select label="Characteristic"
-                                              v-model="a.status.characteristic"
-                                              :items="characteristics"
-                                              v-if="a.status.status.name.includes('{CHAR}')"
-                                              :rules="notNull"
-                                              required></v-select>
                                     <v-text-field v-if="a.status.status.ranked"
                                                   label="Ranks"
                                                   v-model="a.status.ranks"

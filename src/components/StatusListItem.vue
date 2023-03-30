@@ -45,7 +45,6 @@
         },
         data() {
             return {
-                characteristic: this.status.characteristic,
                 damageType: this.status.damageType,
                 description: this.status.description,
                 duration: this.status.duration,
@@ -68,7 +67,6 @@
             updateEntry() {
                 let status = {
                     buffId: this.status.buffId,
-                    characteristic: this.status.characteristic,
                     damageType: this.damageType,
                     description: this.description,
                     duration: this.duration,
