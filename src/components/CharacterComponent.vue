@@ -1862,7 +1862,7 @@
                 })
 
                 return flaws
-            },            
+            },
             healthInputWithEditModals() {
                 return [
                     {
@@ -2067,10 +2067,17 @@
                     })
                 })
 
-                if (this.statusAccelerated || this.statusRooted)
+                if (this.statusAccelerated || this.statusHobbled || this.statusRooted)
                     movements.forEach(m => {
-                        m.amount = (this.statusRooted) ? 0 : (this.statusAccelerated) ? m.amount * 2 : m.amount
-                        m.key += this.statusAccelerated + this.statusRooted
+                        if (this.statusRooted)
+                            m.amount = 0
+                        else {
+                            if (this.statusAccelerated)
+                                m.amount *= 2
+                            if (this.statusHobbled)
+                                m.amount = Math.floor(m.amount / 2)
+                        }
+                        m.key += this.statusAccelerated + this.statusHobbled + this.statusRooted
                     })
 
                 return movements
@@ -2173,6 +2180,9 @@
                     }, 0)
 
                 return haste
+            },
+            statusHobbled() {
+                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Hobbled' })
             },
             statusPacified() {
                 return this.characterStatuses.some(x => {
