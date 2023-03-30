@@ -37,13 +37,13 @@
                         <v-form ref="form"
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
-                            <v-autocomplete label="Status"
+                            <v-select label="Status"
                                             :items="statuses.map((x) => ({ value: x, text: x.name }))"
                                             v-model="status.status"
                                             ref="status"
                                             :rules="statusNotNull"
                                             required>
-                            </v-autocomplete>
+                            </v-select>
                             <v-textarea label="Effect"
                                         v-model="status.status.effect"
                                         :disabled="status.status.name != 'Other'"
