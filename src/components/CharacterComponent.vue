@@ -913,17 +913,19 @@
                     <template v-if="abilityDialog.damage.show">
                         <div>
                             <b>
-                                {{abilityDialog.damage.sum}}
-                                <span v-for="(type, index) in abilityDialog.damage.types" :key="index">
-                                    <span v-if="index > 0">, </span>
-                                    {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
-                                </span>
-                            </b>
+                                <span v-if="statusDamageAdjusted != abilityDialog.damage.sum">{{statusDamageAdjustedLabel}}</span>
+                                {{statusDamageAdjusted
+                                    }}
+                                    <span v-for="(type, index) in abilityDialog.damage.types" :key="index">
+                                        <span v-if="index > 0">, </span>
+                                        {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
+                                    </span>
+</b>
                         </div>
                         <template v-if="useModeDialog.useMode == 'Flurry' || useModeDialog.useMode == 'Full Auto'">
                             <div v-for="(damage, index) in abilityDialog.useModeDamage" :key="index">
                                 <b>
-                                    {{damage.sum}}
+                                    {{(statusDamageBuffed) ? damage.sum * 2 : damage.sum}}
                                     <span v-for="(type, jindex) in damage.types" :key="jindex">
                                         <span v-if="jindex > 0">, </span>
                                         {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
@@ -2130,8 +2132,50 @@
 
                 return skills
             },
-            statusAccelerated() {                
+            statusAccelerated() {
                 return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Accelerated' })
+            },
+            statusDamageAdjusted() {
+                let sum = this.abilityDialog.damage.sum
+
+                if (this.statusDamageBuffed)
+                    sum *= 2
+                if (this.statusDamageDebuffed)
+                    sum = Math.floor(sum / 2)
+                if (this.statusPacified)
+                    sum = 0
+
+                return sum
+            },
+            statusDamageAdjustedLabel() {
+                let label = ''
+
+                if (this.statusDamageBuffed && !this.statusDamageDebuffed)
+                    label = 'Buffed'
+                if (this.statusDamageDebuffed && !this.statusDamageBuffed)
+                    label = 'Debuffed'
+                if (this.statusPacified)
+                    label = 'Pacified'
+
+                return label
+            },
+            statusDamageBuffed() {
+                return this.characterStatuses.some(x => {
+                    return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('Damage Buff') &&
+                        (x.damageType == 'All' || (this.abilityDialog.damage.types.some(y => y.text == x.damageType || y.group == x.damageType)))
+                })
+            },
+            statusDamageDebuffed() {
+                return this.characterStatuses.some(x => {
+                    return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('Damage Debuff') &&
+                        (x.damageType == 'All' || (this.abilityDialog.damage.types.some(y => y.text == x.damageType || y.group == x.damageType)))
+                })
+            },
+            statusPacified() {
+                return this.characterStatuses.some(x => {
+                    return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name.includes('Pacified') &&
+                        (x.damageType == 'All' || (this.abilityDialog.damage.types.some(y => y.text == x.damageType || y.group == x.damageType)))
+                })
             },
             successesFromIntelligence() {
                 return Math.ceil(this.intelligence / 2)
@@ -2651,7 +2695,7 @@
                 navigator.clipboard.writeText(`&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copyDamageGet()}`)
             },
             copyDamageGet() {
-                return `{{Damage= ${this.abilityDialog.damage.sum} ${this.abilityDialog.damage.types.map(x => x.text).join(', ')}}}`
+                return `{{Damage= ${this.statusDamageAdjustedLabel} ${this.statusDamageAdjusted} ${this.abilityDialog.damage.types.map(x => x.text).join(', ')}}}`
             },
             copySave() {
                 navigator.clipboard.writeText(`&{template:default} {{name= ${this.abilityDialog.title}}} ${this.copySaveGet()}`)
@@ -2725,7 +2769,7 @@
                     isAbility: true,
                     isSkill: false,
                     successes: ability.successes
-                }, false)                
+                }, false)
 
                 this.abilityDialog.title = `${ability.name} Check Results`
                 this.abilityDialog.isAbility = false
@@ -3412,7 +3456,7 @@
                     this.useAbility(ability)
                 }
             },
-            useSubEffect(ability) {                
+            useSubEffect(ability) {
                 if (!this.abilityDialog.ability.isAbilityArray) {
                     if (ability.apCost) {
                         this.abilityDialog.ap = +this.abilityDialog.ap + +ability.apCost
