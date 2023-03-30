@@ -69,12 +69,8 @@
                         label += ' - Debuff'
                 }
 
-                if (this.damageModification.isStatus) {
-                    if (this.amount > 0)
-                        label += ' - Status'
-                    if (this.amount < 0)
-                        label += ' - Status'
-                }
+                if (this.damageModification.isStatus)
+                        label += ' - Status'                
 
                 if (this.damageModification.isEquipment)
                     label += ' - Equipment'
@@ -97,7 +93,7 @@
         },
         methods: {
             updateDialog() {
-                if (this.canEdit && !this.damageModification.isBuff && !this.damageModification.isEquipment)
+                if (this.canEdit && !this.damageModification.isBuff && !this.damageModification.isEquipment && !this.damageModification.isStatus)
                     this.$emit('updateDialogEmit', JSON.parse(JSON.stringify(this.damageModification)))
             }
         }

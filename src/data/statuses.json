@@ -119,11 +119,27 @@
     "name": "Healing Increase"
   },
   {
-    "cost": "70xp for half healing\n140xp for no healing\n280xp to convert healing to damage",
+    "cost": "70xp",
     "ranked": false,
     "type": "Condition",
-    "effect": "Reduce healing the target receives",
-    "name": "Healing Reduction"
+    "effect": "Reduce healing the target receives to half rounding down.",
+    "name": "Healing Reduction Half"
+  },
+
+  {
+    "cost": "140xp",
+    "ranked": false,
+    "type": "Condition",
+    "effect": "Reduce healing the target receives to zero.",
+    "name": "Healing Reduction Full"
+  },
+
+  {
+    "cost": "280xp",
+    "ranked": false,
+    "type": "Condition",
+    "effect": "Convert healing the target receives to True Damage.",
+    "name": "Healing Reduction Convert to Damage"
   },
   {
     "cost": "40xp",

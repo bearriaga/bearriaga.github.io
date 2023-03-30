@@ -914,13 +914,12 @@
                         <div>
                             <b>
                                 <span v-if="statusDamageAdjusted != abilityDialog.damage.sum">{{statusDamageAdjustedLabel}}</span>
-                                {{statusDamageAdjusted
-                                    }}
-                                    <span v-for="(type, index) in abilityDialog.damage.types" :key="index">
-                                        <span v-if="index > 0">, </span>
-                                        {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
-                                    </span>
-</b>
+                                {{statusDamageAdjusted}}
+                                <span v-for="(type, index) in abilityDialog.damage.types" :key="index">
+                                    <span v-if="index > 0">, </span>
+                                    {{type.text}} <v-icon :color="type.color">{{type.icon}}</v-icon>
+                                </span>
+                            </b>
                         </div>
                         <template v-if="useModeDialog.useMode == 'Flurry' || useModeDialog.useMode == 'Full Auto'">
                             <div v-for="(damage, index) in abilityDialog.useModeDamage" :key="index">
@@ -1784,16 +1783,19 @@
                     })
                 })
 
-                this.characterStatuses.filter(x => { return x.status.name.includes('Damage Taken') && x.isActive }).forEach(x => {
+                this.characterStatuses.filter(x => {
+                    return x.isActive && (x.duration > 0 || x.indefinite) &&
+                        (x.status.name.includes('Damage Resistance') || x.status.name.includes('Invulnerable') || x.status.name.includes('Vulnerable'))
+                }).forEach(x => {
                     let damageModification = {
-                        amount: (x.status.name.includes('Down')) ? x.ranks : x.ranks * -1,
+                        amount: 0,
                         id: x.id,
-                        isImmunity: false,
-                        isResistance: false,
+                        isImmunity: (x.status.name.includes('Invulnerable')),
+                        isResistance: (x.status.name.includes('Damage Resistance')),
                         isStatus: true,
-                        isVulnerability: false,
+                        isVulnerability: (x.status.name.includes('Vulnerable')),
                         key: x.id + x.ranks,
-                        type: (x.status.name.includes('All')) ? 'All' : x.damageType
+                        type: x.damageType
                     }
                     damageModifications.push(damageModification)
                 })
@@ -2493,15 +2495,6 @@
         },
         methods: {
             apGain() {
-                //Take damage for all DoT statuses
-                //TODO: rework to work with new statuses
-                //this.characterStatuses.filter(x => { return x.status.name.includes('DoT') && x.isActive && x.duration > 0 }).forEach(x => {
-                //    this.takeDamage({amount: x.ranks, type: x.damageType})
-                //})
-                //this.characterStatuses.filter(x => { return x.status.name.includes('HoT') && x.isActive && x.duration > 0 }).forEach(x => {
-                //    this.heal({ amount: x.ranks, type: '' })
-                //})
-
                 this.characterSheet.statuses.filter(x => { return (x.duration > 0 || x.indefinite) && x.isActive }).forEach(status => {
                     status.duration--
                 })

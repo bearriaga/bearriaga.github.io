@@ -43,6 +43,16 @@
             status: Object,
             statuses: Array
         },
+        computed: {
+            statusName() {
+                let label = this.status.status.name
+                if (this.status.status.name.includes('Damage') || this.status.status.name.includes('Invulnerable') || this.status.status.name.includes('Vulnerable'))
+                    label += ` - ${this.status.damageType}`
+                if (this.status.status.ranked)
+                    label += ` - ${this.status.ranks}`
+                return label
+            }
+        },
         data() {
             return {
                 damageType: this.status.damageType,
@@ -51,8 +61,7 @@
                 indefinite: this.status.indefinite,
                 isActive: this.status.isActive,
                 ranks: this.status.ranks,
-                selectedStatus: this.status.status,
-                statusName: this.status.status.name + ((this.status.status.name.includes('Damage')) ? ` - ${this.status.damageType}` : '') + ((this.status.status.ranked) ? ` - ${this.status.ranks}` : '')
+                selectedStatus: this.status.status
             }
         },
         methods: {
