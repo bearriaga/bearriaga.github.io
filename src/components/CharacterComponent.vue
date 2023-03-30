@@ -2130,8 +2130,8 @@
 
                 return skills
             },
-            statusAccelerated() {
-                return this.characterStatuses.filter(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Accelerated' }).length > 0
+            statusAccelerated() {                
+                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Accelerated' })
             },
             successesFromIntelligence() {
                 return Math.ceil(this.intelligence / 2)
@@ -2773,12 +2773,6 @@
                         result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
                         result.successes += +result.successesFromIntelligence
                         result.successesInput += +result.successesFromIntelligence
-                    }
-                    if (diceCheckObject.isAbility) {
-                        if (this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Blinded' })) {
-                            result.successes -= 2
-                            result.successesInput -= 2
-                        }
                     }
 
                     let rdResult = this.rollDice(diceCheckObject.diceToRoll)
