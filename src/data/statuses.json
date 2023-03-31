@@ -4,6 +4,13 @@
     "ranked": false,
     "type": "Boon",
     "effect": "Double all target’s movement speeds",
+    "name": "Blessed"
+  },
+  {
+    "cost": "80xp",
+    "ranked": false,
+    "type": "Boon",
+    "effect": "Double all target’s movement speeds",
     "name": "Accelerated"
   },
   {

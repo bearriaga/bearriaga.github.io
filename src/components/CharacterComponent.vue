@@ -861,7 +861,7 @@
                             <v-col cols="12">
                                 <v-select v-model="abilityDialog.check.selectedRerolls"
                                           :items="abilityDialog.check.diceResults.map((x, i) => ({ value: i, text: x}))"
-                                          label="Select Rerolls"
+                                          label="Select Luck Rerolls"
                                           multiple
                                           :disabled="characterSheet.rerolls <= 0">
                                     <v-icon color="primary"
@@ -872,15 +872,15 @@
                                     </v-icon>
                                 </v-select>
                             </v-col>
-                            <v-col cols="12" v-if="blessed">
-                                <v-select v-model="abilityDialog.check.blessed.selectedReroll"
+                            <v-col cols="12" v-if="abilityDialog.universalReroll.universalReroll && abilityDialog.universalReroll.show">
+                                <v-select v-model="abilityDialog.universalReroll.selectedReroll"
                                           :items="abilityDialog.check.diceResults.map((x, i) => ({ value: i, text: x}))"
-                                          label="Select Blessed Reroll"
-                                          :disabled="abilityDialog.check.blessed.used">
+                                          label="Select Universal Reroll"
+                                          :disabled="abilityDialog.universalReroll.used">
                                     <v-icon color="primary"
                                             slot="prepend"
-                                            @click.stop="rerollSelectedCheck('blessed')"
-                                            :disabled="abilityDialog.check.blessed.selectedReroll == null || abilityDialog.check.blessed.used">
+                                            @click.stop="rerollSelectedCheck('universalReroll')"
+                                            :disabled="abilityDialog.universalReroll.selectedReroll == null || abilityDialog.universalReroll.used">
                                         mdi-dice-6
                                     </v-icon>
                                 </v-select>
@@ -1489,9 +1489,6 @@
                     valueMax: this.characterSheet.attunementSlotsMax,
                     valueName: 'attunementSlots'
                 }
-            },
-            blessed() {
-                return this.characterStatuses.filter(x => { return x.status.name == 'Blessed' && x.isActive && (x.duration > 0 || x.indefinite) }).length > 0
             },
             buffs() {
                 let buffs = []
@@ -2176,7 +2173,7 @@
                 return haste
             },
             statusHealingIncrease() {
-                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Healing Increase' })                
+                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Healing Increase' })
             },
             statusHealingReductionHalf() {
                 return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Healing Reduction Half' })
@@ -2331,6 +2328,14 @@
                 abilityDialog: {
                     ability: {},
                     ap: '',
+                    universalReroll: {
+                        universalReroll: false,
+                        count: 0,
+                        selectedReroll: null,
+                        show: false,
+                        targetCount: 0,
+                        used: true
+                    },
                     check: {
                         advantage: false,
                         diceCheckObject: {},
@@ -2376,6 +2381,14 @@
                 abilityDialogClear: {
                     ability: {},
                     ap: '',
+                    universalReroll: {
+                        universalReroll: false,
+                        count: 0,
+                        selectedReroll: null,
+                        show: false,
+                        targetCount: 0,
+                        used: true
+                    },
                     check: {
                         advantage: false,
                         diceCheckObject: {},
@@ -2741,10 +2754,10 @@
             rerollSelectedCheck(type) {
                 let indexes = []
 
-                if (type == 'blessed') {
-                    indexes = [this.abilityDialog.check.blessed.selectedReroll]
-                    this.abilityDialog.check.blessed.selectedReroll = null
-                    this.abilityDialog.check.blessed.used = true
+                if (type == 'universalReroll') {
+                    indexes = [this.abilityDialog.universalReroll.selectedReroll]
+                    this.abilityDialog.universalReroll.selectedReroll = null
+                    this.abilityDialog.universalReroll.used = true
                 }
                 if (type == 'luck') {
                     indexes = this.abilityDialog.check.selectedRerolls.sort().reverse()
@@ -2787,7 +2800,7 @@
                     diceCheckObject.diceToRoll += +ability.dice
                 if (ability.save)
                     diceCheckObject.diceToRoll = 0
-                
+
                 this.rollCheck(diceCheckObject, false)
 
                 this.abilityDialog.title = `${ability.name} Check Results`
@@ -2798,10 +2811,6 @@
             rollCheck(diceCheckObject, isReroll) {
                 var result = {
                     advantage: false,
-                    blessed: {
-                        used: (isReroll) ? this.abilityDialog.check.blessed.used : false,
-                        selectedReroll: null
-                    },
                     diceCheckObject: diceCheckObject,
                     diceResults: [],
                     fate: 0,
@@ -2815,7 +2824,20 @@
                     threat: false
                 }
 
-                diceCheckObject.diceToRoll = +diceCheckObject.diceToRoll + +this.statusDiceUpDown                    
+                if (!isReroll) {
+                    this.abilityDialog.universalReroll.count++
+                    if (this.abilityDialog.universalReroll.universalReroll) {
+                        if (this.abilityDialog.universalReroll.count == this.abilityDialog.universalReroll.targetCount) {
+                            this.abilityDialog.universalReroll.show = true
+                            this.abilityDialog.universalReroll.used = false
+                        } else if (this.abilityDialog.universalReroll.count > this.abilityDialog.universalReroll.targetCount) {
+                            this.abilityDialog.universalReroll.universalReroll = false
+                            this.abilityDialog.universalReroll.show = false
+                        }
+                    }
+                }
+
+                diceCheckObject.diceToRoll = +diceCheckObject.diceToRoll + +this.statusDiceUpDown
                 if (diceCheckObject.diceToRoll > 0) {
                     let rdResult = this.rollDice(diceCheckObject.diceToRoll)
 
@@ -2852,7 +2874,7 @@
                 if (diceCheckObject.diceToRoll && diceCheckObject.isAbility)
                     result.successesInput = result.successes
 
-                this.abilityDialog.check = result                
+                this.abilityDialog.check = result
 
                 this.abilityDialog.show = true
             },
@@ -3226,6 +3248,10 @@
                     this.abilityDialog.usedEffects.push(selectedEffect)
                     if (selectedEffect.description.includes('critical hit'))
                         this.rollCrit()
+                    if (selectedEffect.description == 'You may re-roll one failed die on your next roll') {
+                        this.abilityDialog.universalReroll.universalReroll = true
+                        this.abilityDialog.universalReroll.targetCount = +this.abilityDialog.universalReroll.count + 1
+                    }
                 })
 
                 this.abilityDialog.check.successesInput -= +successes
