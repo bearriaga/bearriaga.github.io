@@ -3246,7 +3246,7 @@
                 this.abilityDialog.selectedEffects.forEach(selectedEffect => {
                     successes = +successes + +selectedEffect.cost
                     this.abilityDialog.usedEffects.push(selectedEffect)
-                    if (selectedEffect.description.includes('critical hit'))
+                    if (selectedEffect.description.includes('critical'))
                         this.rollCrit()
                     if (selectedEffect.description == 'You may re-roll one failed die on your next roll') {
                         this.abilityDialog.universalReroll.universalReroll = true
