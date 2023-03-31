@@ -406,8 +406,6 @@
             characteristicViewItems: Array,
             damageTypes: Array,
             effects: Array,
-            isBoosted: Boolean,
-            isHindered: Boolean,
             layout: String,
             panelProp: Number,
             resources: Array,
@@ -709,8 +707,6 @@
                 this.$emit('rollDamageEmit', ability)
             },
             subtractAP(apCost) {
-                apCost = (this.isBoosted && apCost >= 2) ? apCost - 1 : apCost
-                apCost = (this.isHindered && apCost >= 1) ? apCost + 1 : apCost
                 this.$emit('subtractAPEmit', apCost)
             },
             subtractCR(crCost) {
@@ -718,8 +714,6 @@
             },
             useAbility(ability) {
                 ability = JSON.parse(JSON.stringify(ability))
-                ability.apCost = (this.isBoosted && ability.apCost >= 2) ? +ability.apCost - 1 : ability.apCost
-                ability.apCost = (this.isHindered && ability.apCost >= 1) ? +ability.apCost + 1 : ability.apCost
                 this.$emit('useAbilityEmit', ability)
             },
             useButtonColor(ability) {

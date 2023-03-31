@@ -151,8 +151,6 @@
                                     :characteristic-view-items="characteristicViewItems"
                                     :damage-types="damageTypes"
                                     :effects="effects"
-                                    :is-boosted="isBoosted"
-                                    :is-hindered="isHindered"
                                     :layout="layout"
                                     :panel-prop="abilityPanel"
                                     :resources="resources"
@@ -296,8 +294,6 @@
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
-                                      :is-boosted="isBoosted"
-                                      :is-hindered="isHindered"
                                       :movement-ap-icon="movementApIcon"
                                       :movement-ap-icon-color="movementApIconColor"
                                       :movement-types="movementTypes"
@@ -447,8 +443,6 @@
                                             :characteristic-view-items="characteristicViewItems"
                                             :damage-types="damageTypes"
                                             :effects="effects"
-                                            :is-boosted="isBoosted"
-                                            :is-hindered="isHindered"
                                             :layout="layout"
                                             :panel-prop="abilityPanel"
                                             :resources="resources"
@@ -562,8 +556,6 @@
                                               :character-equipment="characterEquipment"
                                               :damage-groups="damageGroups"
                                               :damage-types="damageTypes"
-                                              :is-boosted="isBoosted"
-                                              :is-hindered="isHindered"
                                               :movement-ap-icon="movementApIcon"
                                               :movement-ap-icon-color="movementApIconColor"
                                               :movement-types="movementTypes"
@@ -705,8 +697,6 @@
                                     :characteristic-view-items="characteristicViewItems"
                                     :damage-types="damageTypes"
                                     :effects="effects"
-                                    :is-boosted="isBoosted"
-                                    :is-hindered="isHindered"
                                     :layout="layout"
                                     :panel-prop="abilityPanel"
                                     :resources="resources"
@@ -728,8 +718,6 @@
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
-                                      :is-boosted="isBoosted"
-                                      :is-hindered="isHindered"
                                       :movement-ap-icon="movementApIcon"
                                       :movement-ap-icon-color="movementApIconColor"
                                       :movement-types="movementTypes"
@@ -1950,12 +1938,6 @@
                         valueMax: this.characterSheet.rerollsMax
                     }
                 ]
-            },
-            isBoosted() {
-                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Boosted' })
-            },
-            isHindered() {
-                return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Hindered' })
             },
             luckLovedByLuck() {
                 return (this.characterSheet.luckLovedByLuck) ? Math.ceil(this.luck / 2) : 0
