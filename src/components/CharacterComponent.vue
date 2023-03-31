@@ -820,9 +820,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="cursed && !abilityDialog.check.isReroll">
-                            <span style="color: red;">Cursed</span>: Die number {{abilityDialog.check.cursed.oldDiePosition}} rerolled from {{abilityDialog.check.cursed.oldDie}} to {{abilityDialog.check.cursed.newDie}} and moved to end
-                        </div>
                         <div>
                             Fate:
                             <template v-if="!characterSheet.luckNothingToChance">
@@ -1695,9 +1692,6 @@
                 })
 
                 return classes
-            },
-            cursed() {
-                return this.characterStatuses.filter(x => { return x.status.name == 'Cursed' && x.isActive && (x.duration > 0 || x.indefinite) }).length > 0
             },
             damageAddDice() {
                 let dice = 0
@@ -2770,9 +2764,6 @@
                     this.abilityDialog.check.blessed.selectedReroll = null
                     this.abilityDialog.check.blessed.used = true
                 }
-                if (type == 'cursed') {
-                    indexes = [+this.abilityDialog.check.cursed.oldDiePosition - 1]
-                }
                 if (type == 'luck') {
                     indexes = this.abilityDialog.check.selectedRerolls.sort().reverse()
                     this.abilityDialog.check.selectedRerolls = []
@@ -2785,8 +2776,6 @@
                 })
 
                 let rdResults = this.rollDice(indexes.length)
-                if (type == 'cursed')
-                    this.abilityDialog.check.cursed.newDie = rdResults.diceResults[0]
                 this.abilityDialog.check.diceResults = this.abilityDialog.check.diceResults.concat(rdResults.diceResults)
 
                 this.abilityDialog.check.successes = 0
@@ -2830,12 +2819,6 @@
                     blessed: {
                         used: (isReroll) ? this.abilityDialog.check.blessed.used : false,
                         selectedReroll: null
-                    },
-                    cursed: {
-                        newDie: 0,
-                        newSuccess: 0,
-                        oldDie: 0,
-                        oldDiePosition: 0
                     },
                     diceCheckObject: diceCheckObject,
                     diceResults: [],
@@ -2887,14 +2870,7 @@
                 if (diceCheckObject.diceToRoll && diceCheckObject.isAbility)
                     result.successesInput = result.successes
 
-                this.abilityDialog.check = result
-
-                if (this.cursed && this.abilityDialog.check.successes && diceCheckObject.diceToRoll > 0 && !isReroll) {
-                    this.abilityDialog.check.cursed.oldDie = this.abilityDialog.check.diceResults.filter(x => { return x > 3 })[0]
-                    this.abilityDialog.check.cursed.oldDiePosition = this.abilityDialog.check.diceResults.indexOf(result.cursed.oldDie) + 1
-
-                    this.rerollSelectedCheck('cursed')
-                }
+                this.abilityDialog.check = result                
 
                 this.abilityDialog.show = true
             },
