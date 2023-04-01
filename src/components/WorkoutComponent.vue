@@ -25,7 +25,23 @@
                 <v-expansion-panels multiple v-model="panel">
                     <v-expansion-panel v-for="e, i in workout.exercises" :key="i">
                         <v-expansion-panel-header>
-                            <h3 class="text-center">{{e.name}}</h3>
+                            <h3 class="text-center">
+                                <v-row>
+                                    <v-col>
+                                        <v-btn icon color="primary" @click.stop="moveExercise(i, 'down')">
+                                            <v-icon>mdi-arrow-down-bold</v-icon>
+                                        </v-btn>
+                                    </v-col>
+                                    <v-col>
+                                        {{e.name}}
+                                    </v-col>
+                                    <v-col>
+                                        <v-btn icon color="primary" @click.stop="moveExercise(i, 'up')">
+                                            <v-icon>mdi-arrow-up-bold</v-icon>
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </h3>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
                             <v-row>
@@ -191,7 +207,7 @@
             if (!this.$signedIn || this.$userData.email != 'turro92@gmail.com')
                 this.$router.push({ name: 'Home' })
             else
-            this.getFitnessAccount()
+                this.getFitnessAccount()
         },
         data() {
             return {
@@ -294,6 +310,17 @@
                     let da = new Date(a.date), db = new Date(b.date)
                     return da - db
                 }).reverse()
+            },
+            moveExercise(index, direction) {
+                if (!(index == 0 && direction == 'up') && !(index == (+this.workout.exercises.length - 1) && direction == 'down')) {
+                    let targetIndex = (direction == 'up') ? +index - 1 : +index + 1
+                    let targetCopy = JSON.parse(JSON.stringify(this.workout.exercises[targetIndex]))
+                    this.workout.exercises[targetIndex] = this.workout.exercises[index]
+                    this.workout.exercises[index] = targetCopy
+                    let exercisesCopy = JSON.parse(JSON.stringify(this.workout.exercises))
+                    this.workout.exercises = []
+                    this.workout.exercises = exercisesCopy
+                }
             },
             async saveFitnessAccount() {
                 let snackbarText = ''
