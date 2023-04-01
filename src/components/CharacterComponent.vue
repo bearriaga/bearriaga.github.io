@@ -1810,6 +1810,8 @@
                         damageTypes.push(type.name)
                     })
                 })
+                damageTypes = damageTypes.sort()
+                damageTypes = ["All"].concat(damageTypes)
                 return damageTypes
             },
             defenseInputWithEditModals() {

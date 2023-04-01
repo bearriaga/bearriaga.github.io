@@ -130,7 +130,7 @@
                                 <template v-if="a.type == 'Damage Modification'">
                                     <v-autocomplete label="Damage Type"
                                                     v-model="a.damageModification.type"
-                                                    :items="damageTypesWithAll"
+                                                    :items="damageTypes"
                                                     :rules="notNull"
                                                     required></v-autocomplete>
                                     <v-row>
@@ -243,7 +243,6 @@
         data() {
             return {
                 buffOptions: ['CHAR', 'Class Resource: Commited', 'Damage Additional', 'Damage: Convert Damage Type', 'Damage Modification', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
-                damageTypesWithAll: this.damageTypes.concat(['All']),
                 dialog: {
                     show: false,
                     type: ''

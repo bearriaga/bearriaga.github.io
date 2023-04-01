@@ -53,7 +53,7 @@
                                           :disabled="status.status.name != 'Other'"></v-text-field>
                             <v-autocomplete label="Damage Type"
                                             v-model="status.damageType"
-                                            :items="damageTypesWithAll"
+                                            :items="damageTypes"
                                             v-if="status.status.name.includes('Damage') || status.status.name.includes('Invulnerable') || status.status.name.includes('Pacified') || status.status.name.includes('Vulnerable')"
                                             :rules="notNull"
                                             required></v-autocomplete>
@@ -112,7 +112,6 @@
         },
         data() {
             return {
-                damageTypesWithAll: this.damageTypes.concat(['All']),
                 dialog: {
                     show: false,
                     type: ''
