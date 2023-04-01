@@ -1,22 +1,24 @@
-[
-  {
-    "cost": 1,
-    "description": "You may re-roll one failed die on your next roll",
-    "type": "Universal"
-  },
-  {
-    "cost": 2,
-    "description": "Gain Dice +1 for your next roll",
-    "type": "Universal"
-  },
-  {
-    "cost": 3,
-    "description": "Gain +1 Success for your next roll",
-    "type": "Universal"
-  },
-  {
-    "cost": 3,
-    "description": "Convert the attack to a critical",
-    "type": "Universal"
-  }
-]
+{
+  "color": "",
+  "effects": [
+    {
+      "cost": 1,
+      "description": "You may re-roll one failed die on your next roll"
+    },
+    {
+      "cost": 2,
+      "description": "Gain Dice +1 for your next roll"
+    },
+    {
+      "cost": 3,
+      "description": "Gain +1 Success for your next roll"
+    },
+    {
+      "cost": 3,
+      "description": "Convert the attack to a critical"
+    }
+  ],
+  "icon": "mdi-vector-circle",
+  "name": "Universal Effects",
+  "types": []
+}

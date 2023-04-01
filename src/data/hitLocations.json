@@ -1,146 +1,152 @@
-[
-  {
-    "icon": "mdi-head-outline",
-    "name": "Head",
-    "effects": [
-      {
-        "cost": 1,
-        "description": "Target is Blinded for 1 round"
-      },
-      {
-        "cost": 1,
-        "description": "Resistance save or the attack becomes a critical"
-      },
-      {
-        "cost": 2,
-        "description": "Resistance save or be stunned for 1 round"
-      },
-      {
-        "cost": 2,
-        "description": "Dispel one effect applied on the target"
-      },
-      {
-        "cost": 4,
-        "description": "Permanently destroy a sensory organ on the head, or otherwise maim the head"
-      }
-    ]
-  },
-  {
-    "icon": "",
-    "name": "Torso",
-    "effects": [
-      {
-        "cost": 1,
-        "description": "Apply damage to armor as well"
-      },
-      {
-        "cost": 1,
-        "description": "FIT or RES Dice Down 1 for 1 round"
-      },
-      {
-        "cost": 2,
-        "description": "Slowed 1 and AC Down 1 for 1 round"
-      },
-      {
-        "cost": 2,
-        "description": "Push back 1d6+FIT squares and knock prone"
-      },
-      {
-        "cost": 4,
-        "description": "Puncture a lung or rupture an organ, or otherwise maim the torso"
-      }
-    ]
-  },
-  {
-    "icon": "mdi-arm-flex-outline",
-    "name": "Arms",
-    "effects": [
-      {
-        "cost": 1,
-        "description": "Slowed  3 for 1 round"
-      },
-      {
-        "cost": 1,
-        "description": "Target’s next attack provokes a free Attack of Opportunity"
-      },
-      {
-        "cost": 2,
-        "description": "Damage Debuff All for next attack"
-      },
-      {
-        "cost": 2,
-        "description": "Fitness save or be disarmed"
-      },
-      {
-        "cost": 4,
-        "description": "Sever or otherwise maim the arm"
-      }
-    ]
-  },
-  {
-    "icon": "",
-    "name": "Legs",
-    "effects": [
-      {
-        "cost": 1,
-        "description": "Hobbled for 1 round"
-      },
-      {
-        "cost": 1,
-        "description": "AC Down 1 for next allied turn"
-      },
-      {
-        "cost": 2,
-        "description": "Fitness save or gain Prone and Rooted for 1 round"
-      },
-      {
-        "cost": 2,
-        "description": "AC Down 1 for 2 rounds"
-      },
-      {
-        "cost": 4,
-        "description": "Sever or otherwise maim the leg"
-      }
-    ]
-  },
-  {
-    "icon": "mdi-sword-cross",
-    "name": "Equipment",
-    "effects": [
-      {
-        "cost": 1,
-        "description": "Fitness save or be disarmed"
-      },
-      {
-        "cost": 1,
-        "description": "Attack applies with Sundering to the item"
-      },
-      {
-        "cost": 2,
-        "description": "Be disarmed"
-      },
-      {
-        "cost": 2,
-        "description": "Attack deals True damage to item"
-      },
-      {
-        "cost": 4,
-        "description": "Your attack destroys the item"
-      }
-    ]
-  },
-  {
-    "icon": "mdi-star-four-points-outline",
-    "name": "Flashing Red Weakpoint",
-    "effects": [
-      {
-        "cost": 1,
-        "description": "The attack becomes a critical"
-      },
-      {
-        "cost": 1,
-        "description": "Resistance save or gain no AP at start of next turn"
-      }
-    ]
-  }
-]
+{
+  "color": "",
+  "effects": [],
+  "icon": "mdi-target",
+  "name": "Hit Locations",
+  "types": [
+    {
+      "icon": "mdi-head-outline",
+      "name": "Head",
+      "effects": [
+        {
+          "cost": 1,
+          "description": "Target is Blinded for 1 round"
+        },
+        {
+          "cost": 1,
+          "description": "Resistance save or the attack becomes a critical"
+        },
+        {
+          "cost": 2,
+          "description": "Resistance save or be stunned for 1 round"
+        },
+        {
+          "cost": 2,
+          "description": "Dispel one effect applied on the target"
+        },
+        {
+          "cost": 4,
+          "description": "Permanently destroy a sensory organ on the head, or otherwise maim the head"
+        }
+      ]
+    },
+    {
+      "icon": "mdi-human",
+      "name": "Torso",
+      "effects": [
+        {
+          "cost": 1,
+          "description": "Apply damage to armor as well"
+        },
+        {
+          "cost": 1,
+          "description": "FIT or RES Dice Down 1 for 1 round"
+        },
+        {
+          "cost": 2,
+          "description": "Slowed 1 and AC Down 1 for 1 round"
+        },
+        {
+          "cost": 2,
+          "description": "Push back 1d6+FIT squares and knock prone"
+        },
+        {
+          "cost": 4,
+          "description": "Puncture a lung or rupture an organ, or otherwise maim the torso"
+        }
+      ]
+    },
+    {
+      "icon": "mdi-arm-flex-outline",
+      "name": "Arms",
+      "effects": [
+        {
+          "cost": 1,
+          "description": "Slowed  3 for 1 round"
+        },
+        {
+          "cost": 1,
+          "description": "Target’s next attack provokes a free Attack of Opportunity"
+        },
+        {
+          "cost": 2,
+          "description": "Damage Debuff All for next attack"
+        },
+        {
+          "cost": 2,
+          "description": "Fitness save or be disarmed"
+        },
+        {
+          "cost": 4,
+          "description": "Sever or otherwise maim the arm"
+        }
+      ]
+    },
+    {
+      "icon": "mdi-seat-legroom-extra",
+      "name": "Legs",
+      "effects": [
+        {
+          "cost": 1,
+          "description": "Hobbled for 1 round"
+        },
+        {
+          "cost": 1,
+          "description": "AC Down 1 for next allied turn"
+        },
+        {
+          "cost": 2,
+          "description": "Fitness save or gain Prone and Rooted for 1 round"
+        },
+        {
+          "cost": 2,
+          "description": "AC Down 1 for 2 rounds"
+        },
+        {
+          "cost": 4,
+          "description": "Sever or otherwise maim the leg"
+        }
+      ]
+    },
+    {
+      "icon": "mdi-sword-cross",
+      "name": "Equipment",
+      "effects": [
+        {
+          "cost": 1,
+          "description": "Fitness save or be disarmed"
+        },
+        {
+          "cost": 1,
+          "description": "Attack applies with Sundering to the item"
+        },
+        {
+          "cost": 2,
+          "description": "Be disarmed"
+        },
+        {
+          "cost": 2,
+          "description": "Attack deals True damage to item"
+        },
+        {
+          "cost": 4,
+          "description": "Your attack destroys the item"
+        }
+      ]
+    },
+    {
+      "icon": "mdi-star-four-points-outline",
+      "name": "Flashing Red Weakpoint",
+      "effects": [
+        {
+          "cost": 1,
+          "description": "The attack becomes a critical"
+        },
+        {
+          "cost": 1,
+          "description": "Resistance save or gain no AP at start of next turn"
+        }
+      ]
+    }
+  ]
+}

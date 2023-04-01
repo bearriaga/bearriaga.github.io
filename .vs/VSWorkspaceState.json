@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components",
-    "\\src\\css"
+    "\\src\\components"
   ],
+  "SelectedNode": "\\src\\components\\AbilitySection.vue",
   "PreviewInSolutionExplorer": false
 }

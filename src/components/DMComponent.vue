@@ -60,18 +60,7 @@
             </v-card-title>
             <v-card-text>
                 <v-expansion-panels multiple>
-                    <v-expansion-panel>
-                        <v-expansion-panel-header>
-                            <h3 class="text-center">
-                                <v-icon>mdi-vector-circle</v-icon>
-                                Universal Effects
-                            </h3>
-                        </v-expansion-panel-header>
-                        <v-expansion-panel-content>
-                            <v-data-table :headers="effectHeaders" :items="universalEffects" dense :hide-default-footer="true"></v-data-table>
-                        </v-expansion-panel-content>
-                    </v-expansion-panel>
-                    <v-expansion-panel v-for="d in damageGroups" color="d.color" :key="d.name">
+                    <v-expansion-panel v-for="d in effects" color="d.color" :key="d.name">
                         <v-expansion-panel-header>
                             <h3 class="text-center">
                                 <v-icon :color="d.color">{{d.icon}}</v-icon>
@@ -158,6 +147,13 @@
             }
         },
         computed: {
+            effects() {
+                let effects = []
+                effects.push(this.universalEffects)
+                effects = effects.concat(this.hitLocations)
+                effects = effects.concat(this.damageGroups)
+                return effects
+            },
             minionsComp() {
                 let minions = []
 
@@ -195,6 +191,7 @@
                     text: '',
                     title: ''
                 },
+                hitLocations: this.gameDataStore.hitLocations,
                 massRoller: {
                     dice: 0,
                     enemies: 0,

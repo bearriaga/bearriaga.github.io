@@ -3301,8 +3301,13 @@
                 } else
                     this.abilityDialog.check = JSON.parse(JSON.stringify(this.abilityDialogClear.check))
 
-                this.abilityDialog.effects = JSON.parse(JSON.stringify(this.universalEffects))
-                this.hitLocations.forEach(h => {
+                this.abilityDialog.effects = []
+                this.universalEffects.effects.forEach(e => {
+                    let effect = JSON.parse(JSON.stringify(e))
+                    effect.type ='Universal'
+                    this.abilityDialog.effects.push(effect)
+                })
+                this.hitLocations.types.forEach(h => {
                     let type = `Called Shot ${h.name}`
                     h.effects.forEach(e => {
                         let effect = JSON.parse(JSON.stringify(e))
