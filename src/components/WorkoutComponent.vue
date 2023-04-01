@@ -1,9 +1,9 @@
-<template>
+﻿<template>
     <div>
         <v-form>
             <v-row>
                 <v-col class="text-center">
-                    <v-btn color="primary" @click="saveWorkout">Save Workout</v-btn>
+                    <v-btn color="primary" @click="saveFitnessAccount">Save Workout</v-btn>
                 </v-col>
             </v-row>
             <v-row>
@@ -98,7 +98,7 @@
                 <v-expansion-panel-header>
                     <h2 class="text-center">Previous Workouts</h2>
                 </v-expansion-panel-header>
-                <v-expansion-panel-content v-for="w, i in workouts" :key="i + w.id">
+                <v-expansion-panel-content v-for="w, i in fitnessAccount.workouts" :key="i + w.id">
 
                     <v-expansion-panels>
                         <v-expansion-panel>
@@ -182,7 +182,7 @@
 
 <script>
     import { db } from '@/stores/db'
-    import { collection, getDocs, doc, setDoc, query } from 'firebase/firestore';
+    import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
     import { v4 as uuidv4 } from 'uuid';
 
     export default {
@@ -191,7 +191,7 @@
             if (!this.$signedIn || this.$userData.email != 'turro92@gmail.com')
                 this.$router.push({ name: 'Home' })
             else
-            this.getWorkouts()
+            this.getFitnessAccount()
         },
         data() {
             return {
@@ -209,6 +209,12 @@
                     ]
                 },
                 exercises: [],
+                fitnessAccount: {
+                    id: '',
+                    name: '',
+                    user: this.$userData.email,
+                    workouts: []
+                },
                 muscleGroups: [
                     'Abdominals',
                     'Arms',
@@ -231,7 +237,6 @@
                     notes: '',
                     type: ''
                 },
-                workouts: [],
                 workoutTypes: ['Bro Split', 'Full Body']
             }
         },
@@ -252,7 +257,7 @@
                 this.workout.exercises[i].sets.push(set)
             },
             copyWorkout(i, isNew) {
-                this.workout = JSON.parse(JSON.stringify(this.workouts[i]))
+                this.workout = JSON.parse(JSON.stringify(this.fitnessAccount.workouts[i]))
 
                 let snackText = ''
                 if (isNew) {
@@ -279,28 +284,36 @@
             deleteSet(i, j) {
                 this.workout.exercises[i].sets.splice(j, 1)
             },
-            async getWorkouts() {
-                const q = query(collection(db, 'workouts'))
+            async getFitnessAccount() {
+                const q = query(collection(db, 'fitnessAccounts'), where('user', '==', this.$userData.email))
                 const querySnapshot = await getDocs(q)
                 querySnapshot.forEach((doc) => {
-                    this.workouts.push(doc.data())
+                    this.fitnessAccount = doc.data()
                 })
-                this.workouts.sort((a, b) => {
+                this.fitnessAccount.workouts.sort((a, b) => {
                     let da = new Date(a.date), db = new Date(b.date)
                     return da - db
                 }).reverse()
             },
-            async saveWorkout() {
+            async saveFitnessAccount() {
                 let snackbarText = ''
 
                 if (this.workout.id == '') {
                     this.workout.id = uuidv4()
+                    this.fitnessAccount.workouts.push(this.workout)
+                    this.fitnessAccount.workouts.sort((a, b) => {
+                        let da = new Date(a.date), db = new Date(b.date)
+                        return da - db
+                    }).reverse()
                     snackbarText = 'Workout Saved'
                 } else {
+                    let index = this.fitnessAccount.workouts.findIndex(x => { return x.id == this.workout.id })
+                    if (index > -1)
+                        this.fitnessAccount.workouts[index] = this.workout
                     snackbarText = 'Workout Updated'
                 }
 
-                await setDoc(doc(db, 'workouts', this.workout.id), this.workout)
+                await setDoc(doc(db, 'fitnessAccounts', this.fitnessAccount.id), this.fitnessAccount)
 
                 this.snackbar = {
                     show: true,
