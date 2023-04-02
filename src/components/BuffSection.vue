@@ -72,7 +72,7 @@
                                           v-if="a.type == 'Class Resource: Commited'"></v-select>
                                 <v-autocomplete label="Movement Type"
                                                 v-model="a.movementType"
-                                                :items="movementTypes"
+                                                :items="movementTypesWithAll"
                                                 v-if="a.type == 'Movement'"
                                                 :rules="notNull"
                                                 required></v-autocomplete>
@@ -351,6 +351,7 @@
                     ]
                 },
                 // Input Fields End
+                movementTypesWithAll: ['All'].concat(this.movementTypes),
                 panel: this.panelProp,
                 // Validation Start
                 notNull: [
