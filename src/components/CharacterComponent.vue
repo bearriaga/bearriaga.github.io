@@ -2834,7 +2834,7 @@
                     chars: [ability.characteristic],
                     diceToRoll: 0,
                     isAbility: true,
-                    isSaveSkill: (ability.save),
+                    isSave: false,
                     successes: +ability.successes
                 }
                 if (ability.characteristic)
@@ -2903,7 +2903,7 @@
                     }
                 }
 
-                if (diceCheckObject.isSaveSkill) {
+                if (!diceCheckObject.isSave) {
                     result.successesFromIntelligence = (!isNaN(diceCheckObject.successesFromIntelligence)) ? diceCheckObject.successesFromIntelligence : this.successesFromIntelligence
                     result.successes += +result.successesFromIntelligence
                     result.successesInput += +result.successesFromIntelligence

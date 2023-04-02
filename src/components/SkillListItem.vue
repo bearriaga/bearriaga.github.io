@@ -74,7 +74,7 @@
                 this.$emit('rollDiceCheckEmit', {
                     chars: [this.skill.characteristic],
                     diceToRoll: this.adjustedAmount,
-                    isSaveSkill: true,
+                    isSave: false,
                     name: this.skill.name,
                     successes: (this.skill.successes) ? this.skill.successes : 0
                 })

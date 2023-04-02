@@ -138,13 +138,13 @@
                     this.showDialog = true
             },
             rollCharCheck() {
-                this.$emit('rollDiceCheckEmit', { chars: [this.characteristic.name], diceToRoll: this.adjustedAmount, isSaveSkill: false, name: this.characteristic.abbreviation, successes: 0 })
+                this.$emit('rollDiceCheckEmit', { chars: [this.characteristic.name], diceToRoll: this.adjustedAmount, isSave: false, name: this.characteristic.abbreviation, successes: 0 })
             },
             rollSaveCheck() {
-                this.$emit('rollDiceCheckEmit', { chars: [this.characteristic.name], diceToRoll: this.adjustedAmount, isSaveSkill: false, name: this.characteristic.abbreviation + ' Save', successes: 0 })
+                this.$emit('rollDiceCheckEmit', { chars: [this.characteristic.name], diceToRoll: this.adjustedAmount, isSave: true, name: this.characteristic.abbreviation + ' Save', successes: 0 })
             },
             rollSkillCheck() {
-                this.$emit('rollDiceCheckEmit', { chars: [this.characteristic.name], diceToRoll: this.adjustedAmount, isSaveSkill: true, name: this.characteristic.abbreviation + ' Skill', successes: 0 })
+                this.$emit('rollDiceCheckEmit', { chars: [this.characteristic.name], diceToRoll: this.adjustedAmount, isSave: false, name: this.characteristic.abbreviation + ' Skill', successes: 0 })
             },
             updateProp() {
                 if (this.value < 0)
