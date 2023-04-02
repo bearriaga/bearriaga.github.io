@@ -762,7 +762,7 @@
         </form>
 
         <!-- Ability Dialog -->
-        <v-dialog v-model="abilityDialog.show" width="500" scrollable>
+        <v-dialog v-model="abilityDialog.show" scrollable>
             <v-card>
                 <v-card-title class="text-h5 grey lighten-2">
                     {{abilityDialog.title}}
@@ -786,27 +786,43 @@
                                 <v-icon color="success" slot="append" @click="successesInputAdd(1)">mdi-plus</v-icon>
                                 <v-icon color="error" slot="append" @click="successesInputAdd(-1)">mdi-minus</v-icon>
                             </v-text-field>
-                            <div v-if="abilityDialog.effects">
-                                <v-select v-model="abilityDialog.selectedEffects"
-                                          :items="checkEffects.map(x => ({ value: x, text: x.cost + ' - ' + x.type + ' - ' + x.description}))"
-                                          label="Success Effects"
-                                          multiple
-                                          :disabled="abilityDialog.check.successesInput <= 0">
-                                    <v-icon color="error"
-                                            slot="prepend"
-                                            @click.stop="subtractSelectedEffects"
-                                            :disabled="abilityDialog.check.successesInput <= 0 || abilityDialog.selectedEffects.length == 0 || abilityDialog.selectedEffects.reduce((previousValue, entry) => {return +previousValue + +entry.cost}, 0) > abilityDialog.check.successesInput">
-                                        mdi-minus-box
-                                    </v-icon>
-                                    <TooltipComponent slot="append" :text="'Effects can be purchased once per enemy'"></TooltipComponent>
-                                </v-select>
-                            </div>
-                            <div v-if="abilityDialog.usedEffects.length > 0">
-                                <div>Used Effects</div>
-                                <div v-for="effect, i in abilityDialog.usedEffects" :key="i">
-                                    Cost: {{effect.cost}} - Type: {{effect.type}} - {{effect.description}}
-                                </div>
-                            </div>
+                            <v-row>
+                                <v-col cols="6">
+                                    <div v-if="abilityDialog.effects">
+                                        <v-data-table :headers="successEffectHeaders"
+                                                      height="200"
+                                                      :items="checkEffects"
+                                                      item-key="key"
+                                                      :search="successEffectFilterText"
+                                                      dense>
+                                            <template v-slot:[`item.actions`]="{ item }">
+                                                <v-btn color="primary" @click="successEffectBuy(item)" x-small>
+                                                    Purchase
+                                                </v-btn>
+                                            </template>
+                                        </v-data-table>
+                                        <v-text-field label="Filter Success Effects" v-model="successEffectFilterText" clearable></v-text-field>
+                                    </div>
+                                </v-col>
+                                <v-col cols="6">
+                                    <v-data-table :headers="successEffectHeaders"
+                                                  height="200"
+                                                  :items="abilityDialog.usedEffects"
+                                                  item-key="key"
+                                                  dense>
+                                        <template v-slot:[`item.actions`]="{ item }">
+                                            <v-btn color="primary" @click="successEffectRefund(item)" :disabled="item.applied" x-small>
+                                                Refund
+                                            </v-btn>
+                                        </template>
+                                    </v-data-table>
+                                    <div class="text-center">
+                                        <v-btn color="primary" @click="successEffectsApply()">
+                                            Apply
+                                        </v-btn>
+                                    </div>
+                                </v-col>
+                            </v-row>
                         </div>
                         <div>
                             Fate:
@@ -848,13 +864,13 @@
                             <v-col cols="12" class="text-center">
                                 <b>Rerolls Left: {{characterSheet.rerolls}}</b>
                             </v-col>
-                            <v-col cols="6">
-                                <v-btn @click="rerollWholeCheck"
+                            <v-col cols="6" class="text-center">
+                                <v-btn color="primary" @click="rerollWholeCheck"
                                        :disabled="characterSheet.rerolls <= 0"
                                        width="200">Reroll Hand</v-btn>
                             </v-col>
-                            <v-col cols="6">
-                                <v-btn @click="rerollFailures"
+                            <v-col cols="6" class="text-center">
+                                <v-btn color="primary" @click="rerollFailures"
                                        :disabled="characterSheet.rerolls <= 0 || abilityDialog.check.diceResults.filter(x=>{ return x < 4 }).length == 0"
                                        width="200">Reroll Failures</v-btn>
                             </v-col>
@@ -931,7 +947,7 @@
                             </v-btn>
                         </div>
                         <div class="text-center">
-                            <v-btn @click="rollCrit" width="200">Roll Crit</v-btn>
+                            <v-btn color="primary" @click="rollCrit" width="200">Roll Crit</v-btn>
                         </div>
 
                         <div>
@@ -970,7 +986,7 @@
                             <div>
                                 <b>Rerolls Left: {{characterSheet.rerolls}}</b>
                             </div>
-                            <v-btn @click="rerollWholeDamage"
+                            <v-btn color="primary" @click="rerollWholeDamage"
                                    :disabled="characterSheet.rerolls <= 0"
                                    width="200">Reroll Hand</v-btn>
                         </div>
@@ -1003,9 +1019,6 @@
                         </template>
                     </template>
                 </v-card-text>
-
-
-
 
                 <v-divider></v-divider>
 
@@ -2505,6 +2518,25 @@
                     'Teleport'
                 ],
                 statuses: this.gameDataStore.statuses,
+                successEffectFilterText: '',
+                successEffectHeaders: [
+                    {
+                        text: '',
+                        value: 'actions'
+                    },
+                    {
+                        text: 'Cost',
+                        value: 'cost'
+                    },
+                    {
+                        text: 'Type',
+                        value: 'type'
+                    },
+                    {
+                        text: 'Description',
+                        value: 'description'
+                    }
+                ],
                 tab: 'abilities',
                 universalEffects: this.gameDataStore.universalEffects,
                 updateAP: 0,
@@ -3240,24 +3272,31 @@
                     this.updateCR++
                 }
             },
-            successesInputAdd(val) {
-                this.abilityDialog.check.successesInput = +this.abilityDialog.check.successesInput + +val
-            },
-            subtractSelectedEffects() {
-                let successes = 0
-                this.abilityDialog.selectedEffects.forEach(selectedEffect => {
-                    successes = +successes + +selectedEffect.cost
-                    this.abilityDialog.usedEffects.push(selectedEffect)
-                    if (selectedEffect.description.includes('critical'))
+            successEffectsApply() {
+                this.abilityDialog.usedEffects.forEach(e => {
+                    e.applied = true
+                    if (e.description.includes('critical'))
                         this.rollCrit()
-                    if (selectedEffect.description == 'You may re-roll one failed die on your next roll') {
+                    if (e.description == 'You may re-roll one failed die on your next roll') {
                         this.abilityDialog.universalReroll.universalReroll = true
                         this.abilityDialog.universalReroll.targetCount = +this.abilityDialog.universalReroll.count + 1
                     }
                 })
-
-                this.abilityDialog.check.successesInput -= +successes
-                this.abilityDialog.selectedEffects = []
+            },
+            successEffectBuy(item) {
+                let effect = JSON.parse(JSON.stringify(item))
+                effect.id = uuidv4()
+                effect.applied = false
+                this.abilityDialog.usedEffects.push(effect)
+                this.abilityDialog.check.successesInput -= +item.cost
+            },
+            successEffectRefund(item) {
+                this.abilityDialog.check.successesInput = +this.abilityDialog.check.successesInput + +item.cost
+                let i = this.abilityDialog.usedEffects.indexOf(item)
+                this.abilityDialog.usedEffects.splice(i, 1)
+            },            
+            successesInputAdd(val) {
+                this.abilityDialog.check.successesInput = +this.abilityDialog.check.successesInput + +val
             },
             updateBuffEntry(object) {
                 this.updateStatus++
