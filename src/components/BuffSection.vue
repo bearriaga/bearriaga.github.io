@@ -70,12 +70,17 @@
                                           :items="resources.map((x) => ({ value: x.id, text: x.name }))"
                                           v-model="a.classResource"
                                           v-if="a.type == 'Class Resource: Commited'"></v-select>
-                                <v-autocomplete label="Movement Type"
-                                                v-model="a.movementType"
-                                                :items="movementTypesWithAll"
-                                                v-if="a.type == 'Movement'"
-                                                :rules="notNull"
-                                                required></v-autocomplete>
+                                <template v-if="a.type == 'Movement'">
+                                    <v-autocomplete label="Movement Type"
+                                                    v-model="a.movementType"
+                                                    :items="movementTypesWithAll"
+                                                    :rules="notNull"
+                                                    required></v-autocomplete>
+                                    <v-select label="Characteristic"
+                                              v-model="a.characteristic"
+                                              :items="characteristics"
+                                              clearable></v-select>
+                                </template>
                                 <v-autocomplete label="Damage Convert Type"
                                                 v-model="a.damageConvertType"
                                                 :items="damageTypes"

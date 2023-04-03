@@ -2033,8 +2033,10 @@
 
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Movement') && b.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'Movement' && a.movementType != 'All' }).forEach(adjustment => {
+                        let amount = (adjustment.amount) ? adjustment.amount : 0;
+                        amount = +amount + +((adjustment.characteristic) ? this[adjustment.characteristic] * 2 : 0)
                         let movement = {
-                            amount: adjustment.amount,
+                            amount: amount,
                             description: buff.name + ' Buff Movement',
                             id: adjustment.id,
                             isBuff: true,
