@@ -3009,13 +3009,15 @@
                         return +previousValue + +entry.amount
                     }, 0)
 
-                var damageToTake = damage - flatDamageReductionAmount
                 if (isImmune)
                     damageToTake = 0
-                if (isResistant && !isVulnerable)
-                    damageToTake = Math.floor(damageToTake / 2)
-                if (isVulnerable && !isResistant)
-                    damageToTake = damageToTake * 2
+                else {
+                    if (isVulnerable)
+                        damageToTake = damageToTake * 2
+                    if (isResistant)
+                        damageToTake = Math.floor(damageToTake / 2)
+                    var damageToTake = damage - flatDamageReductionAmount
+                }
 
                 if (damageToTake > 0) {
                     this.characterSheet.hp = this.characterSheet.hp - damageToTake
