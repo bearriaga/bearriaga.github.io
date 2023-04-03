@@ -30,6 +30,8 @@
                 <v-card>
                     <v-card-title class="text-h5 grey lighten-2">
                         {{dialog.type}} Skill
+                        <v-spacer></v-spacer>
+                        Available XP: {{xp}}
                     </v-card-title>
 
                     <v-card-text>
@@ -62,6 +64,10 @@
                                       :rules="textRules"
                                       required></v-select>
                         </v-form>
+                        <div v-if="xpCost">
+                            <v-text-field label="XP Cost" v-model="xpCost" disabled readonly></v-text-field>
+                            <RefundedXP v-if="tier && xpCost > 0" :tier="tier" :xp-cost="xpCost"></RefundedXP>
+                        </div>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -83,17 +89,37 @@
 </template>
 
 <script>
+    import RefundedXP from './RefundedXP.vue'
     import SkillListItem from './SkillListItem.vue'
 
     export default {
         name: 'SkillSection',
         components: {
+            RefundedXP,
             SkillListItem
         },
         props: {
             characteristics: Array,
             panelProp: Number,
-            skills: Array
+            skills: Array,
+            tier: Number,
+            xp: Number
+        },
+        computed: {
+            xpCost() {
+                let cost = 0
+
+                if (this.skill.skillIncreases > 0)
+                    cost = +cost + +Math.floor(50 * (Math.abs(this.skill.skillIncreases) * (+this.skill.skillIncreases + 1) / 2))
+                if (this.skill.skillIncreases < 0)
+                    cost = +cost + +(this.skill.skillIncreases * 30)
+                if (this.skill.successes > 0)
+                    cost = +cost + +Math.floor(80 * (Math.abs(this.skill.successes) * (+this.skill.successes + 1) / 2))
+                if (this.skill.successes < 0)
+                    cost = +cost + +(this.skill.successes * 120)
+
+                return cost
+            }
         },
         data() {
             return {

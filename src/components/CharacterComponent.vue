@@ -48,6 +48,8 @@
                         <SkillSection :characteristics="characteristics"
                                       :panel-prop="skillPanel"
                                       :skills="skills"
+                                      :tier="characterSheet.tier"
+                                      :xp="xp"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"
@@ -416,6 +418,8 @@
                     <SkillSection :characteristics="characteristics"
                                   :panel-prop="skillPanel"
                                   :skills="skills"
+                                  :tier="characterSheet.tier"
+                                  :xp="xp"
                                   @addEntryEmit="addEntry($event)"
                                   @deleteEntryEmit="deleteEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"
@@ -1345,27 +1349,35 @@
                 if (this.layout == 'Minion')
                     return 0
 
-                let charXP = 0
-                this.characteristicViewItems.forEach(c => {
-                    charXP += +this.charXP(c)
-                })
-
                 let abilityXP = this.characterSheet.abilities.reduce((previousValue, entry) => {
                     if (!entry.boughtForFree)
                         return +previousValue + +entry.xpCost
                     else
                         return +previousValue
                 }, 0)
+
                 let apXP = (this.characterSheet.speedPreperationIsKey) ? 50 : 0
                 let bpXP = (this.characterSheet.bpIncreases > 0) ? this.xpBP : 0
+
+                let charXP = 0
+                this.characteristicViewItems.forEach(c => {
+                    charXP = +charXP + +this.charXP(c)
+                })
+
                 let hpXP = (this.characterSheet.hpIncreases > 0) ? this.xpHP : 0
                 let initiativeXP = (this.characterSheet.initiativeIncreases > 0) ? this.xpInitiative : 0
                 let rerollXP = (this.characterSheet.rerollsIncreases > 0) ? this.xpRerolls : 0
+
+                let skillXP = 0
+                this.skills.forEach(s => {
+                    skillXP = skillXP + +this.skillXP(s)
+                })
+
                 let traitsXP = this.characterSheet.traits.reduce((previousValue, entry) => {
                     return +previousValue + +entry.amount
                 }, 0)
 
-                let spentXP = +abilityXP + apXP + +bpXP + +charXP + +hpXP + +initiativeXP + +rerollXP + +traitsXP
+                let spentXP = +abilityXP + apXP + +bpXP + +charXP + +hpXP + +initiativeXP + +rerollXP + +skillXP + +traitsXP
 
                 let subtractedXP = Math.floor((spentXP) / 100 * (100 - (10 * this.characterSheet.tier)))
 
@@ -2111,9 +2123,8 @@
 
                 this.characterSheet.skills.forEach((s) => {
                     let skill = JSON.parse(JSON.stringify(s))
-
                     skill.adjustment = this.buffAmount({ type: 'Skill', propName: 'skill', propValue: skill.name })
-                    skill.value = +skill.skillIncreases + +this[skill.characteristic]
+                    skill.value = +skill.skillIncreases + +this[skill.characteristic] + skill.adjustment
                     skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value + skill.adjustment + this.updateCharacter
                     skills.push(skill)
                 })
@@ -2121,21 +2132,32 @@
                 let newSkills = []
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Skill') && b.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'Skill' && !this.characterSheet.skills.map(x => x.name).includes(a.skill) }).forEach(adjustment => {
-                        if (!newSkills.includes(adjustment.skill))
-                            newSkills.push({ characteristic: adjustment.characteristic, id: adjustment.id, name: adjustment.skill })
+                        let newSkill = {
+                            characteristic: adjustment.characteristic,
+                            id: adjustment.id,
+                            name: adjustment.skill,
+                            value: (+this[adjustment.characteristic] + +adjustment.amount)
+                        }
+                        let newSkillsCheck = newSkills.filter(s => { return s.name == adjustment.skill && s.characteristic == adjustment.characteristic })
+                        if (!newSkillsCheck.length)
+                            newSkills.push(newSkill)
+                        else if (newSkillsCheck[0].value < newSkill.value) {
+                            let i = newSkills.indexOf(newSkillsCheck[0])
+                            newSkills[i] = newSkill
+                        }
                     })
                 })
 
                 newSkills.forEach(newSkill => {
                     let skill = {
-                        adjustment: this.buffAmount({ type: 'Skill', propName: newSkill.name }),
+                        adjustment: newSkill.value,
                         characteristic: newSkill.characteristic,
                         default: false,
                         id: newSkill.id,
                         isBuff: true,
                         name: newSkill.name,
                         skillIncreases: 0,
-                        value: +this[newSkill.characteristic]
+                        value: newSkill.value
                     }
                     skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value + skill.adjustment + this.updateCharacter
                     skills.push(skill)
@@ -2660,6 +2682,7 @@
             },
             //Array CRUD Functions End
             buffAmount(options) {
+            //TODO: only the highest buff should apply
                 let adj = 0
                 this.characterSheet.buffs.filter(buff => { return JSON.stringify(buff.adjustments).includes(options.type) && buff.isActive }).forEach(buff => {
                     adj += +buff.adjustments.filter(a => {
@@ -3263,6 +3286,18 @@
                 return damageObj
             },
             //Reroll Functions End
+            skillXP(skill) {
+                let cost = 0
+                if (skill.skillIncreases > 0)
+                    cost = +cost + +Math.floor(50 * (Math.abs(skill.skillIncreases) * (+skill.skillIncreases + 1) / 2))
+                if (skill.skillIncreases < 0)
+                    cost = +cost + +(this.skill.skillIncreases * 30)
+                if (skill.successes > 0)
+                    cost = +cost + +Math.floor(80 * (Math.abs(skill.successes) * (+skill.successes + 1) / 2))
+                if (skill.successes < 0)
+                    cost = +cost + +(skill.successes * 120)
+                return cost
+            },
             specialInputWithEditModal(valueName) {
                 if (valueName == 'initiative') {
                     this.characterSheet.initiative = this.getRandomIntInclusive(1, 6) + +this.speed + +this.characterSheet.initiativeIncreases + +this.buffAmount({ type: 'Initiative' }) + `.${this.speed}`
@@ -3307,7 +3342,7 @@
                 this.abilityDialog.check.successesInput = +this.abilityDialog.check.successesInput + +item.cost
                 let i = this.abilityDialog.usedEffects.indexOf(item)
                 this.abilityDialog.usedEffects.splice(i, 1)
-            },            
+            },
             successesInputAdd(val) {
                 this.abilityDialog.check.successesInput = +this.abilityDialog.check.successesInput + +val
             },
