@@ -90,12 +90,12 @@
                 return (amount > this.characteristic.valueMax) ? this.characteristic.valueMax : (amount < 0) ? 0 : amount
             },
             adjustedAmountClass() {
-                let amountClass = ''
+                let amountClass = 'cursorPointer '
 
                 if (this.characteristic.adjustment > 0)
-                    amountClass = 'text-green'
+                    amountClass += 'text-green'
                 if (this.characteristic.adjustment < 0)
-                    amountClass = 'text-red'
+                    amountClass += 'text-red'
 
                 return amountClass
             },
