@@ -2107,6 +2107,7 @@
         "characteristic": "intelligence",
         "default": true,
         "id": "1654717712607",
+        "isSpecific": false,
         "name": "Analyze",
         "skillIncreases": 0,
         "value": 0,
@@ -2116,6 +2117,7 @@
         "characteristic": "fitness",
         "default": true,
         "id": "1",
+        "isSpecific": false,
         "name": "Athletics",
         "skillIncreases": 0,
         "value": 0
@@ -2124,6 +2126,7 @@
         "characteristic": "cunning",
         "default": true,
         "id": "2",
+        "isSpecific": false,
         "name": "Deception",
         "skillIncreases": 0,
         "value": 0
@@ -2132,6 +2135,7 @@
         "characteristic": "cunning",
         "default": true,
         "id": "3",
+        "isSpecific": false,
         "name": "Perception",
         "skillIncreases": 0,
         "value": 0
@@ -2140,6 +2144,7 @@
         "characteristic": "cunning",
         "default": true,
         "id": "4",
+        "isSpecific": false,
         "name": "Persuasion",
         "skillIncreases": 0,
         "value": 0
@@ -2148,6 +2153,7 @@
         "characteristic": "fitness",
         "default": true,
         "id": "5",
+        "isSpecific": false,
         "name": "Stealth",
         "skillIncreases": 0,
         "value": 0

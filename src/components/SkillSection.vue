@@ -63,6 +63,9 @@
                                       :items="characteristics"
                                       :rules="textRules"
                                       required></v-select>
+                            <v-switch label="Specific Skill (Requires GM Approval)" inset
+                                      v-model="skill.isSpecific" v-if="!skill.default">
+                            </v-switch>
                         </v-form>
                         <div v-if="xpCost">
                             <v-text-field label="XP Cost" v-model="xpCost" disabled readonly></v-text-field>
@@ -109,8 +112,10 @@
             xpCost() {
                 let cost = 0
 
-                if (this.skill.skillIncreases > 0)
+                if (this.skill.skillIncreases > 0 && !this.skill.isSpecific)
                     cost = +cost + +Math.floor(50 * (Math.abs(this.skill.skillIncreases) * (+this.skill.skillIncreases + 1) / 2))
+                if (this.skill.skillIncreases > 0 && this.skill.isSpecific)
+                    cost = +cost + +(30 * this.skill.skillIncreases)
                 if (this.skill.skillIncreases < 0)
                     cost = +cost + +(this.skill.skillIncreases * 30)
                 if (this.skill.successes > 0)
@@ -132,6 +137,7 @@
                     characteristic: '',
                     default: false,
                     id: '',
+                    isSpecific: false,
                     name: '',
                     skillIncreases: 0,
                     successes: 0,
@@ -141,6 +147,7 @@
                     characteristic: '',
                     default: false,
                     id: '',
+                    isSpecific: false,
                     name: '',
                     skillIncreases: 0,
                     successes: 0,

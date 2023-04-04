@@ -3275,8 +3275,10 @@
             //Reroll Functions End
             skillXP(skill) {
                 let cost = 0
-                if (skill.skillIncreases > 0)
+                if (skill.skillIncreases > 0 && !skill.isSpecific)
                     cost = +cost + +Math.floor(50 * (Math.abs(skill.skillIncreases) * (+skill.skillIncreases + 1) / 2))
+                if (skill.skillIncreases > 0 && skill.isSpecific)
+                    cost = +cost + +(30 * skill.skillIncreases)
                 if (skill.skillIncreases < 0)
                     cost = +cost + +(this.skill.skillIncreases * 30)
                 if (skill.successes > 0)
