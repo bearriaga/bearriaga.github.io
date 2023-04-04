@@ -2682,15 +2682,14 @@
             },
             //Array CRUD Functions End
             buffAmount(options) {
-            //TODO: only the highest buff should apply
                 let adj = 0
                 this.characterSheet.buffs.filter(buff => { return JSON.stringify(buff.adjustments).includes(options.type) && buff.isActive }).forEach(buff => {
-                    adj += +buff.adjustments.filter(a => {
+                    adj = buff.adjustments.filter(a => {
                         if (options.propName && options.propValue)
                             return a.type == options.type && a[options.propName] == options.propValue
                         return a.type == options.type
                     }).reduce((previousValue, entry) => {
-                        return +previousValue + +entry.amount
+                        return (previousValue > entry.amount) ? previousValue : entry.amount
                     }, 0)
                 })
                 return adj
