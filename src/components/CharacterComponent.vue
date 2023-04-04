@@ -3174,25 +3174,26 @@
                         damageObj.diceResults.push({ value: this.getRandomIntInclusive(1, 6), type: (!isCrit) ? 'normal' : 'crit' })
                     }
 
+                let addFlatChar = (!isCrit || (isCrit && (damage.critFlat || this.damageAddCritFlat)))
                 //Add Flat
-                if ((!isCrit || (isCrit && !damageObj.isCrit && (damage.critFlat || this.damageAddCritFlat))) && (damage.flat > 0 && !isNaN(damage.flat))) {
+                if (addFlatChar && (damage.flat > 0 && !isNaN(damage.flat))) {
                     damageObj.flat += +damage.flat
                     damageObj.flatTotal += +damage.flat
                 }
-                if ((!isCrit || (isCrit && !damageObj.isCrit && (damage.critFlat || this.damageAddCritFlat))) && this.damageAddFlat) {
+                if (addFlatChar && this.damageAddFlat) {
                     damageObj.flat += +this.damageAddFlat
                     damageObj.flatTotal += +this.damageAddFlat
                 }
 
                 //Add Char
-                if (!isCrit && char) {
-                    damageObj.char = this[char]
+                if (char && addFlatChar) {
+                    damageObj.char += +this[char]
                     damageObj.flatTotal += +damageObj.char
                 }
 
                 //Add Fit
-                if (!isCrit && isMeleeAttack && !damageTypes.includes('Healing')) {
-                    damageObj.fit = this.fitness
+                if (isMeleeAttack && !damageTypes.includes('Healing') && addFlatChar) {
+                    damageObj.fit += +this.fitness
                     damageObj.flatTotal += +damageObj.fit
                 }
 
