@@ -3158,7 +3158,6 @@
                     sum: 0,
                     types: []
                 }
-                let char = (this.damageAddChar) ? this.damageAddChar : characteristic
 
                 let damageTypes = this.damageAddTypes.concat(JSON.parse(JSON.stringify(damage.types)))
                 if (!damageTypes.includes('Healing') && this.damageConvertType)
@@ -3186,9 +3185,13 @@
                 }
 
                 //Add Char
-                if (char && addFlatChar) {
-                    damageObj.char += +this[char]
-                    damageObj.flatTotal += +damageObj.char
+                if (characteristic && addFlatChar) {
+                    damageObj.char += +this[characteristic]
+                    damageObj.flatTotal += +this[characteristic]
+                }
+                if (this.damageAddChar && addFlatChar) {
+                    damageObj.char += +this[this.damageAddChar]
+                    damageObj.flatTotal += +this[this.damageAddChar]
                 }
 
                 //Add Fit
@@ -3200,7 +3203,10 @@
                 //Set info text
                 damageObj.flatTotalBreakdown = ''
                 damageObj.flatTotalBreakdown += (damageObj.flat) ? `Flat(${damageObj.flat}) + ` : ''
-                damageObj.flatTotalBreakdown += (damageObj.char) ? `${char.toUpperCase()}(${damageObj.char}) + ` : ''
+                if (damageObj.char) {
+                    damageObj.flatTotalBreakdown += (characteristic) ? `${characteristic.toUpperCase()}(${this[characteristic]}) + ` : ''
+                    damageObj.flatTotalBreakdown += (this.damageAddChar) ? `${this.damageAddChar.toUpperCase()}(${this[this.damageAddChar]}) + ` : ''                    
+                }
                 damageObj.flatTotalBreakdown += (damageObj.fit) ? `Melee FIT(${damageObj.fit})` : ''
                 if (damageObj.flatTotalBreakdown.substring(damageObj.flatTotalBreakdown.length - 3) == ' + ')
                     damageObj.flatTotalBreakdown = damageObj.flatTotalBreakdown.substring(0, damageObj.flatTotalBreakdown.length - 3)
@@ -3402,7 +3408,7 @@
                 } else
                     this.abilityDialog.cr = ''
 
-                if (ability.damage.dice > 0 || ability.damage.flat > 0 || ability.isMeleeAttack) {
+                if (ability.damage.dice > 0 || ability.damage.flat > 0 || ability.isMeleeAttack || ability.damage.characteristic) {
                     this.rollAbilityDamage(ability)
                     this.abilityDialog.effects = this.abilityDialog.damage.effects.concat(this.abilityDialog.effects)
                 } else
@@ -3427,7 +3433,7 @@
                     s.time = Date.now()
                 })
                 this.abilityDialog.check.show = (ability.characteristic || ability.dice || ability.successes)
-                this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0 || ability.isMeleeAttack)
+                this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0 || ability.isMeleeAttack || ability.damage.characteristic)
                 this.abilityDialog.isAbility = true
                 this.abilityDialog.selectedEffects = []
                 this.abilityDialog.show = true
