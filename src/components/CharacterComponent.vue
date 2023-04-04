@@ -3003,35 +3003,23 @@
             },
             takeDamage(damageObj) {
                 let damage = (damageObj) ? damageObj.amount : this.damageToTake.amount
-                let type = (damageObj) ? damageObj.amount : this.damageToTake.type
-                let flatDamageReductionAmount = 0;
-                let isImmune = false
-                let isResistant = false
-                let isVulnerable = false
+                let damageModifications = this.damageModifications.filter(x => x.type == 'All')
+                let type = (damageObj) ? damageObj.amount : this.damageToTake.type                                
 
                 this.damageGroups.forEach((group) => {
-                    //check if type is in the group.types array
-                    if (type == group.name || group.types.some(x => x.name == type)) {
-                        let damageModifications = this.damageModifications
-                            .filter(x => { return x.type == type || x.type == group.name })
-                        isImmune = damageModifications.some(x => x.isImmunity)
-                        isResistant = damageModifications.some(x => x.isResistance)
-                        isVulnerable = damageModifications.some(x => x.isVulnerability)
-
-                        flatDamageReductionAmount = damageModifications.reduce((previousValue, entry) => {
-                            return +previousValue + +entry.amount
-                        }, 0)
-                    }
+                    if (type == group.name || group.types.some(x => x.name == type))
+                        damageModifications = damageModifications.concat(this.damageModifications.filter(x => { return x.type == type || x.type == group.name }))                    
                 })
 
-                let damageModificationsAllTypes = this.damageModifications.filter(x => x.type == 'All')
-                if (damageModificationsAllTypes.some(x => x.isImmunity)) isImmune = true
-                if (damageModificationsAllTypes.some(x => x.isResistance)) isResistant = true
-                if (damageModificationsAllTypes.some(x => x.isVulnerability)) isVulnerable = true
-                flatDamageReductionAmount = +flatDamageReductionAmount + +damageModificationsAllTypes
-                    .reduce((previousValue, entry) => {
-                        return +previousValue + +entry.amount
-                    }, 0)
+                let flatDamageReduction = +damageModifications.filter(x => { return x.isBuff }).reduce((previousValue, entry) => {
+                    return (previousValue > entry.amount) ? previousValue : entry.amount
+                }, 0) + +damageModifications.filter(x => { return !-x.isBuff }).reduce((previousValue, entry) => {
+                    return (previousValue > entry.amount) ? previousValue : entry.amount
+                }, 0)
+                                
+                let isImmune = (damageModifications.some(x => x.isImmunity))
+                let isResistant = (damageModifications.some(x => x.isResistance))
+                let isVulnerable = (damageModifications.some(x => x.isVulnerability))                
 
                 if (isImmune)
                     damageToTake = 0
@@ -3040,7 +3028,7 @@
                         damageToTake = damageToTake * 2
                     if (isResistant)
                         damageToTake = Math.floor(damageToTake / 2)
-                    var damageToTake = damage - flatDamageReductionAmount
+                    var damageToTake = damage - flatDamageReduction
                 }
 
                 if (damageToTake > 0) {
