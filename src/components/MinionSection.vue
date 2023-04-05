@@ -23,6 +23,11 @@
                                     </v-btn>
                                 </v-col>
                                 <v-col class="text-center">
+                                    <v-btn color="primary" @click="duplicateEntry(m)">
+                                        <v-icon>mdi-content-copy</v-icon>
+                                    </v-btn>
+                                </v-col>
+                                <v-col class="text-center">
                                     <v-btn color="error" @click="deleteDialog(m)">
                                         <v-icon>mdi-delete</v-icon>
                                     </v-btn>
@@ -157,6 +162,9 @@
                     this.dialog.show = false
                     this.$emit('addEntryEmit', { arrayName: 'minions', object: this.minion })
                 }
+            },
+            duplicateEntry(minion) {
+                this.$emit('addEntryEmit', { arrayName: 'minions', object: JSON.parse(JSON.stringify(minion)) })
             },
             deleteEntry() {
                 this.dialog.show = false
