@@ -1,9 +1,15 @@
 <template>
     <div>
-        <v-text-field label="Name" v-model="name">
-            <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
-        </v-text-field>
-        <v-text-field label="Amount" v-model="amount" type="number" min="1"></v-text-field>
+        <v-row>
+            <v-col>
+                <v-text-field label="Name" v-model="name">
+                    <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
+                </v-text-field>
+            </v-col>
+            <v-col>
+                <v-text-field label="Amount" v-model="amount" type="number" min="1"></v-text-field>
+            </v-col>
+        </v-row>
         <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
     </div>
 </template>
