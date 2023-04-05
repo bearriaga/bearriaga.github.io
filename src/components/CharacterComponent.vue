@@ -177,6 +177,7 @@
                                    :panel-prop="minionPanel"
                                    @addEntryEmit="addEntry($event)"
                                    @deleteEntryEmit="deleteEntry($event)"
+                                   @moveEntryEmit="moveEntry($event)"
                                    @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                    @updateEntryEmit="updateMinion($event)"
                                    @updateEntryBypassEmit="updateEntry($event)"
@@ -607,6 +608,7 @@
                                            :panel-prop="minionPanel"
                                            @addEntryEmit="addEntry($event)"
                                            @deleteEntryEmit="deleteEntry($event)"
+                                           @moveEntryEmit="moveEntry($event)"
                                            @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                            @updateEntryEmit="updateMinion($event)"
                                            @updateEntryBypassEmit="updateEntry($event)"
@@ -2644,6 +2646,17 @@
                         }
                     }
                 })
+            },
+            moveEntry(object) {
+                if (!(object.index == 0 && object.direction == 'up') && !(object.index == (+this.characterSheet[object.arrayName].length - 1) && object.direction == 'down')) {
+                    let targetIndex = (object.direction == 'up') ? +object.index - 1 : +object.index + 1
+                    let targetCopy = JSON.parse(JSON.stringify(this.characterSheet[object.arrayName][targetIndex]))
+                    this.characterSheet[object.arrayName][targetIndex] = this.characterSheet[object.arrayName][object.index]
+                    this.characterSheet[object.arrayName][object.index] = targetCopy
+                    let arrayCopy = JSON.parse(JSON.stringify(this.characterSheet[object.arrayName]))
+                    this.characterSheet[object.arrayName] = []
+                    this.characterSheet[object.arrayName] = arrayCopy
+                }
             },
             updateEntry(object) {
                 let entriesDup = this.characterSheet[object.arrayName]

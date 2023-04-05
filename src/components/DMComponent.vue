@@ -25,6 +25,7 @@
                                :key="updateMinions"
                                @addEntryEmit="addEntry($event)"
                                @deleteEntryEmit="deleteEntry($event)"
+                               @moveEntryEmit="moveEntry($event)"
                                @rollDiceCheckEmit="rollStandAloneCheck($event)"
                                @updateEntryEmit="updateMinion($event)"
                                @updateEntryBypassEmit="updateEntry($event)"
@@ -244,6 +245,17 @@
                 //TODO: do something with emitObject.logObject when setting up log
                 this.generalDialog = emitObject.generalDialog
                 this.showSnackbar(emitObject.snackbarText)
+            },
+            moveEntry(object) {
+                if (!(object.index == 0 && object.direction == 'up') && !(object.index == (+this[object.arrayName].length - 1) && object.direction == 'down')) {
+                    let targetIndex = (object.direction == 'up') ? +object.index - 1 : +object.index + 1
+                    let targetCopy = JSON.parse(JSON.stringify(this[object.arrayName][targetIndex]))
+                    this[object.arrayName][targetIndex] = this[object.arrayName][object.index]
+                    this[object.arrayName][object.index] = targetCopy
+                    let arrayCopy = JSON.parse(JSON.stringify(this[object.arrayName]))
+                    this[object.arrayName] = []
+                    this[object.arrayName] = arrayCopy
+                }
             },
             updateEntry(object) {
                 let entriesDup = this[object.arrayName]

@@ -15,8 +15,13 @@
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                     <v-row>
-                        <v-col cols="6" v-for="m in minions" :key="m.key">
+                        <v-col cols="6" v-for="(m, i) in minions" :key="m.key">
                             <v-row>
+                                <v-col>
+                                    <v-btn icon color="primary" @click.stop="moveEntry(i, 'up')">
+                                        <v-icon>mdi-arrow-left-bold</v-icon>
+                                    </v-btn>
+                                </v-col>
                                 <v-col class="text-center">
                                     <v-btn color="primary" @click="updateDialog(m)">
                                         <v-icon>mdi-pen</v-icon>
@@ -30,6 +35,11 @@
                                 <v-col class="text-center">
                                     <v-btn color="error" @click="deleteDialog(m)">
                                         <v-icon>mdi-delete</v-icon>
+                                    </v-btn>
+                                </v-col>
+                                <v-col>
+                                    <v-btn icon color="primary" @click.stop="moveEntry(i, 'down')">
+                                        <v-icon>mdi-arrow-right-bold</v-icon>
                                     </v-btn>
                                 </v-col>
                             </v-row>
@@ -169,6 +179,10 @@
             deleteEntry() {
                 this.dialog.show = false
                 this.$emit('deleteEntryEmit', { arrayName: 'minions', object: this.minion })
+            },
+            moveEntry(index, direction) {
+                if (!(index == 0 && direction == 'up') && !(index == (+this.minions.length - 1) && direction == 'down'))
+                    this.$emit('moveEntryEmit', { arrayName: 'minions', index: index, direction: direction })
             },
             updateEntry(object) {
                 this.dialog.show = false
