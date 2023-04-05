@@ -29,13 +29,17 @@
                                               item-key="key"
                                               show-expand
                                               multi-sort
-                                              dense>
+                                              dense>                                    
+                                    <template v-slot:[`item.minionName`]="{ item }">
+                                        <TooltipComponent :text="item.description"></TooltipComponent>
+                                        {{item.name}}
+                                    </template>
                                     <template v-slot:[`item.classResourceCombined`]="{ item }">
                                         {{getClassResource(item)}}
                                     </template>
                                     <template v-slot:[`item.damageSection`]="{ item }">
+                                        <TooltipComponent v-if="getDamage(item).length" :text="getDamageTypes(item)"></TooltipComponent>
                                         {{getDamage(item)}}
-                                        <TooltipComponent v-if="getDamage(item).length" slot="append" :text="getDamageTypes(item)"></TooltipComponent>
                                     </template>
                                     <template v-slot:[`item.use`]="{ item }">
                                         <v-btn :color="useButtonColor(item)" @click="useAbility(item)" x-small>
@@ -43,14 +47,13 @@
                                         </v-btn>
                                     </template>
                                     <template v-slot:[`item.actions`]="{ item }">
-                                        <v-icon small
-                                                color="primary"
-                                                class="mr-2"
+                                        <v-icon small color="primary" class="mr-2"
+                                                v-if="item.canEdit"
                                                 @click="updateDialog(JSON.parse(JSON.stringify(item)))">
                                             mdi-pencil
                                         </v-icon>
-                                        <v-icon small
-                                                color="error"
+                                        <v-icon small color="error"
+                                                v-if="item.canEdit"
                                                 @click="deleteDialog(item)">
                                             mdi-delete
                                         </v-icon>
@@ -439,6 +442,35 @@
                 }, 0)
                 return flatXpCosts < 10 ? 10 : flatXpCosts
             },
+            headers() {
+                let headers = []
+                if (this.layout != 'Minion')
+                    headers = [
+                        { text: 'Name', value: 'name' },
+                        { text: 'AP', value: 'apCost' },
+                        { text: 'Resource', value: 'classResourceCombined', sortable: false },
+                        { text: 'Range', value: 'range' },
+                        { text: 'Damage', value: 'damageSection', sortable: false },
+                        { text: 'AoE', value: 'areaOfEffect' },
+                        { text: 'Description', value: 'description' },
+                        { text: 'Use', value: 'use', sortable: false },
+                        { text: 'Actions', value: 'actions', sortable: false },
+                        { text: '', value: 'data-table-expand' }
+                    ]
+                else
+                    headers = [
+                        { text: 'Name', value: 'minionName' },
+                        { text: 'AP', value: 'apCost' },
+                        { text: 'Resource', value: 'classResourceCombined', sortable: false },
+                        { text: 'Range', value: 'range' },
+                        { text: 'Damage', value: 'damageSection', sortable: false },
+                        { text: 'AoE', value: 'areaOfEffect' },
+                        { text: 'Use', value: 'use', sortable: false },
+                        { text: 'Actions', value: 'actions', sortable: false },
+                        { text: '', value: 'data-table-expand' }
+                    ]
+                return headers
+            },
             upcharges() {
                 let upcharges = this.ability.components.reduce((previousValue, entry) => {
                     return +previousValue + +entry.upcharge
@@ -543,52 +575,6 @@
                     type: ''
                 },
                 filterText: '',
-                headers: [
-                    {
-                        text: 'Name',
-                        value: 'name'
-                    },
-                    {
-                        text: 'AP',
-                        value: 'apCost'
-                    },
-                    {
-                        text: 'Resource',
-                        value: 'classResourceCombined',
-                        sortable: false
-                    },
-                    {
-                        text: 'Range',
-                        value: 'range'
-                    },
-                    {
-                        text: 'Damage',
-                        value: 'damageSection',
-                        sortable: false
-                    },
-                    {
-                        text: 'AoE',
-                        value: 'areaOfEffect'
-                    },
-                    {
-                        text: 'Description',
-                        value: 'description'
-                    },
-                    {
-                        text: 'Use',
-                        value: 'use',
-                        sortable: false
-                    },
-                    {
-                        text: 'Actions',
-                        value: 'actions',
-                        sortable: false
-                    },
-                    {
-                        text: '',
-                        value: 'data-table-expand'
-                    }
-                ],
                 panel: this.panelProp,
                 subEffectPanel: null,
                 useModes: ['Charge Up', 'Flurry', 'Focused Strike', 'Full Auto', 'Lightning', 'Prepared'],

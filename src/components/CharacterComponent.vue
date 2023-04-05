@@ -628,141 +628,138 @@
         <form onsubmit="return false;" v-if="layout == 'Minion'">
             <h3 class="text-center">{{characterSheet.name}}</h3>
             <v-row>
-                <v-col cols="6" v-for="char in characteristicViewItems" :key="char.key">
-                    <CharacteristicViewItem @updatePropEmit="updateProp($event)"
-                                            @rollDiceCheckEmit="rollStandAloneCheck($event)"
-                                            :characteristic="char"
-                                            :tier="characterSheet.tier"
-                                            :xp="xp"></CharacteristicViewItem>
+                <v-col>
+                    <v-row>
+                        <v-col cols="6" v-for="char in characteristicViewItems" :key="char.key">
+                            <CharacteristicViewItem @updatePropEmit="updateProp($event)"
+                                                    @rollDiceCheckEmit="rollStandAloneCheck($event)"
+                                                    :characteristic="char"
+                                                    :tier="characterSheet.tier"
+                                                    :xp="xp"></CharacteristicViewItem>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col>
+                    <v-row>
+                        <v-col cols="6">
+                            <v-text-field type="number" min="0" v-model="damageToTake.amount">
+                                <v-icon color="success" slot="append" @click="heal(null)">mdi-plus</v-icon>
+                                <v-icon color="error" slot="append" @click="takeDamage(null)">mdi-liquid-spot</v-icon>
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="6">
+                            <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
+                        </v-col>
+                    </v-row>
+                    <div v-for="input in healthInputWithEditModals" :key="input.key">
+                        <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                            @updatePropEmit="updateProp($event)"
+                                            :property-object="input"></InputWithEditModal>
+                    </div>
+                    <div v-for="input in inputWithEditModals.filter(x => { return x.label == 'Action Points' })" :key="input.key">
+                        <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
+                                            @apGainEmit="apGain($event)"
+                                            :hastened-slowed="statusHastenedSlowed"
+                                            @updatePropEmit="updateProp($event)"
+                                            :property-object="input"></InputWithEditModal>
+                    </div>
                 </v-col>
             </v-row>
-            <h3 class="text-center"> Health </h3>
-            <v-row>
-                <v-col cols="6">
-                    <v-text-field type="number" min="0" v-model="damageToTake.amount">
-                        <v-icon color="success" slot="append" @click="heal(null)">mdi-plus</v-icon>
-                        <v-icon color="error" slot="append" @click="takeDamage(null)">mdi-liquid-spot</v-icon>
-                    </v-text-field>
-                </v-col>
-                <v-col cols="6">
-                    <v-select label="Type" :items="damageTypes" v-model="damageToTake.type"></v-select>
-                </v-col>
-                <v-col cols="12" v-for="input in healthInputWithEditModals" :key="input.key">
-                    <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
-                                        @updatePropEmit="updateProp($event)"
-                                        :property-object="input"></InputWithEditModal>
-                </v-col>
-                <v-col cols="12" v-for="input in inputWithEditModals.filter(x => { return x.label == 'Action Points' })" :key="input.key">
-                    <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
-                                        @apGainEmit="apGain($event)"
-                                        :hastened-slowed="statusHastenedSlowed"
-                                        @updatePropEmit="updateProp($event)"
-                                        :property-object="input"></InputWithEditModal>
-                </v-col>
-                <v-col cols="12" v-for="input in defenseInputWithEditModals.filter(x => { return x.label == 'DC to Hit' })" :key="input.key">
-                    <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
-                                        @apGainEmit="apGain($event)"
-                                        @updatePropEmit="updateProp($event)"
-                                        :property-object="input"></InputWithEditModal>
-                </v-col>
-                <v-col cols="12">
-                    <ResourceSection :characteristics="characteristics"
-                                     :panel-prop="resourcePanel"
-                                     :resources="resources"
-                                     @addEntryEmit="addEntry($event)"
-                                     @deleteEntryEmit="deleteEntry($event)"
-                                     @fillResourcesEmit="fillResources($event)"
-                                     @updateEntryEmit="updateEntry($event)"
-                                     @updatePanelEmit="updatePanel($event)"></ResourceSection>
-                    <MovementSection :ap="characterSheet.ap"
-                                     :can-edit="true"
-                                     :movements="movements"
-                                     :movement-ap-icon="movementApIcon"
-                                     :movement-ap-icon-color="movementApIconColor"
-                                     :movement-types="movementTypes"
-                                     :panel-prop="movementPanel"
-                                     @addEntryEmit="addEntry($event)"
-                                     @deleteEntryEmit="deleteEntry($event)"
-                                     @subtractAPEmit="subtractAP($event)"
-                                     @updateEntryEmit="updateEntry($event)"
-                                     @updatePanelEmit="updatePanel($event)"></MovementSection>
-                    <DamageModificationSection :can-edit="true"
-                                               :damage-modifications="damageModifications"
-                                               :damage-groups="damageGroups"
-                                               :damage-types="damageTypes"
-                                               :panel-prop="damageModificationPanel"
-                                               @addEntryEmit="addEntry($event)"
-                                               @deleteEntryEmit="deleteEntry($event)"
-                                               @updateEntryEmit="updateEntry($event)"
-                                               @updatePanelEmit="updatePanel($event)"></DamageModificationSection>
-                    <AbilitySection :abilities="abilities"
-                                    :ap="characterSheet.ap"
-                                    :characteristics="characteristics"
-                                    :characteristic-view-items="characteristicViewItems"
-                                    :damage-types="damageTypes"
-                                    :effects="effects"
-                                    :layout="layout"
-                                    :panel-prop="abilityPanel"
-                                    :resources="resources"
-                                    :successes-from-intelligence="successesFromIntelligence"
-                                    :tier="characterSheet.tier"
-                                    :xp="xp"
-                                    @addEntryEmit="addEntry($event)"
-                                    @deleteEntryEmit="deleteEntry($event)"
-                                    @rollAbilityEmit="rollAbility($event)"
-                                    @rollDamageEmit="rollAbilityDamage($event)"
-                                    @subtractAPEmit="subtractAP($event)"
-                                    @subtractCREmit="subtractCR($event)"
-                                    @updateEntryEmit="updateEntry($event)"
-                                    @updatePanelEmit="updatePanel($event)"
-                                    @useAbilityEmit="useModes($event)"></AbilitySection>
-                    <EquipmentSection :ap="characterSheet.ap"
-                                      :characteristics="characteristics"
-                                      :characteristic-view-items="characteristicViewItems"
-                                      :character-equipment="characterEquipment"
-                                      :damage-groups="damageGroups"
-                                      :damage-types="damageTypes"
-                                      :movement-ap-icon="movementApIcon"
-                                      :movement-ap-icon-color="movementApIconColor"
-                                      :movement-types="movementTypes"
-                                      :panel-prop="equipmentPanel"
-                                      :resources="resources"
-                                      :successes-from-intelligence="successesFromIntelligence"
-                                      @addEntryEmit="addEntry($event)"
-                                      @deleteEntryEmit="deleteEntry($event)"
-                                      @rollAbilityEmit="rollAbility($event)"
-                                      @rollDamageEmit="rollAbilityDamage($event)"
-                                      @subtractAPEmit="subtractAP($event)"
-                                      @subtractCREmit="subtractCR($event)"
-                                      @updateEntryEmit="updateEntry($event)"
-                                      @updateEntryBypassEmit="updateEntry($event)"
-                                      @useAbilityEmit="useModes($event)"
-                                      @updatePanelEmit="updatePanel($event)"></EquipmentSection>
-                    <StatusSection :character-statuses="characterStatuses"
-                                   :damage-types="damageTypes"
-                                   :panel-prop="statusPanel"
-                                   :statuses="statuses"
-                                   @addEntryEmit="addEntry($event)"
-                                   @deleteEntryEmit="deleteEntry($event)"
-                                   @updateBuffEntryEmit="updateBuffStatus($event)"
-                                   @updateEntryEmit="updateEntry($event)"
-                                   @updatePanelEmit="updatePanel($event)"></StatusSection>
-                    <BuffSection :buffs="buffs"
-                                 :characteristics="characteristics"
-                                 :damage-types="damageTypes"
-                                 :movement-types="movementTypes"
-                                 :panel-prop="buffPanel"
-                                 :skills="characterSheet.skills"
-                                 :statuses="statuses"
-                                 :resources="resources"
-                                 @addEntryEmit="addEntry($event)"
-                                 @deleteEntryEmit="deleteEntry($event)"
-                                 @updateEntryEmit="updateBuffEntry($event)"
-                                 @updateEntryBypassEmit="updateEntry($event)"
-                                 @updatePanelEmit="updatePanel($event)"></BuffSection>
-                    <PassivesSection :character-sheet="characterSheet" @updatePropEmit="updateProp($event)"></PassivesSection>
-                </v-col>
-            </v-row>
+            <AbilitySection :abilities="abilities"
+                            :ap="characterSheet.ap"
+                            :characteristics="characteristics"
+                            :characteristic-view-items="characteristicViewItems"
+                            :damage-types="damageTypes"
+                            :effects="effects"
+                            :layout="layout"
+                            :panel-prop="abilityPanel"
+                            :resources="resources"
+                            :successes-from-intelligence="successesFromIntelligence"
+                            :tier="characterSheet.tier"
+                            :xp="xp"
+                            @addEntryEmit="addEntry($event)"
+                            @deleteEntryEmit="deleteEntry($event)"
+                            @rollAbilityEmit="rollAbility($event)"
+                            @rollDamageEmit="rollAbilityDamage($event)"
+                            @subtractAPEmit="subtractAP($event)"
+                            @subtractCREmit="subtractCR($event)"
+                            @updateEntryEmit="updateEntry($event)"
+                            @updatePanelEmit="updatePanel($event)"
+                            @useAbilityEmit="useModes($event)"></AbilitySection>
+            <ResourceSection :characteristics="characteristics"
+                             :panel-prop="resourcePanel"
+                             :resources="resources"
+                             @addEntryEmit="addEntry($event)"
+                             @deleteEntryEmit="deleteEntry($event)"
+                             @fillResourcesEmit="fillResources($event)"
+                             @updateEntryEmit="updateEntry($event)"
+                             @updatePanelEmit="updatePanel($event)"></ResourceSection>
+            <MovementSection :ap="characterSheet.ap"
+                             :can-edit="true"
+                             :movements="movements"
+                             :movement-ap-icon="movementApIcon"
+                             :movement-ap-icon-color="movementApIconColor"
+                             :movement-types="movementTypes"
+                             :panel-prop="movementPanel"
+                             @addEntryEmit="addEntry($event)"
+                             @deleteEntryEmit="deleteEntry($event)"
+                             @subtractAPEmit="subtractAP($event)"
+                             @updateEntryEmit="updateEntry($event)"
+                             @updatePanelEmit="updatePanel($event)"></MovementSection>
+            <DamageModificationSection :can-edit="true"
+                                       :damage-modifications="damageModifications"
+                                       :damage-groups="damageGroups"
+                                       :damage-types="damageTypes"
+                                       :panel-prop="damageModificationPanel"
+                                       @addEntryEmit="addEntry($event)"
+                                       @deleteEntryEmit="deleteEntry($event)"
+                                       @updateEntryEmit="updateEntry($event)"
+                                       @updatePanelEmit="updatePanel($event)"></DamageModificationSection>
+            <EquipmentSection :ap="characterSheet.ap"
+                              :characteristics="characteristics"
+                              :characteristic-view-items="characteristicViewItems"
+                              :character-equipment="characterEquipment"
+                              :damage-groups="damageGroups"
+                              :damage-types="damageTypes"
+                              :movement-ap-icon="movementApIcon"
+                              :movement-ap-icon-color="movementApIconColor"
+                              :movement-types="movementTypes"
+                              :panel-prop="equipmentPanel"
+                              :resources="resources"
+                              :successes-from-intelligence="successesFromIntelligence"
+                              @addEntryEmit="addEntry($event)"
+                              @deleteEntryEmit="deleteEntry($event)"
+                              @rollAbilityEmit="rollAbility($event)"
+                              @rollDamageEmit="rollAbilityDamage($event)"
+                              @subtractAPEmit="subtractAP($event)"
+                              @subtractCREmit="subtractCR($event)"
+                              @updateEntryEmit="updateEntry($event)"
+                              @updateEntryBypassEmit="updateEntry($event)"
+                              @useAbilityEmit="useModes($event)"
+                              @updatePanelEmit="updatePanel($event)"></EquipmentSection>
+            <StatusSection :character-statuses="characterStatuses"
+                           :damage-types="damageTypes"
+                           :panel-prop="statusPanel"
+                           :statuses="statuses"
+                           @addEntryEmit="addEntry($event)"
+                           @deleteEntryEmit="deleteEntry($event)"
+                           @updateBuffEntryEmit="updateBuffStatus($event)"
+                           @updateEntryEmit="updateEntry($event)"
+                           @updatePanelEmit="updatePanel($event)"></StatusSection>
+            <BuffSection :buffs="buffs"
+                         :characteristics="characteristics"
+                         :damage-types="damageTypes"
+                         :movement-types="movementTypes"
+                         :panel-prop="buffPanel"
+                         :skills="characterSheet.skills"
+                         :statuses="statuses"
+                         :resources="resources"
+                         @addEntryEmit="addEntry($event)"
+                         @deleteEntryEmit="deleteEntry($event)"
+                         @updateEntryEmit="updateBuffEntry($event)"
+                         @updateEntryBypassEmit="updateEntry($event)"
+                         @updatePanelEmit="updatePanel($event)"></BuffSection>
+            <PassivesSection :character-sheet="characterSheet" @updatePropEmit="updateProp($event)"></PassivesSection>
         </form>
 
         <!-- Ability Dialog -->
@@ -2124,7 +2121,7 @@
                 this.characterSheet.skills.forEach((s) => {
                     let skill = JSON.parse(JSON.stringify(s))
                     skill.adjustment = this.buffAmount({ type: 'Skill', propName: 'skill', propValue: skill.name })
-                    skill.value = +skill.skillIncreases + +this[skill.characteristic] + skill.adjustment
+                    skill.value = +skill.skillIncreases + +this[skill.characteristic] + +skill.adjustment
                     skill.key = skill.name + skill.characteristic + skill.skillIncreases + skill.value + skill.adjustment + this.updateCharacter
                     skills.push(skill)
                 })
@@ -3004,11 +3001,11 @@
             takeDamage(damageObj) {
                 let damage = (damageObj) ? damageObj.amount : this.damageToTake.amount
                 let damageModifications = this.damageModifications.filter(x => x.type == 'All')
-                let type = (damageObj) ? damageObj.amount : this.damageToTake.type                                
+                let type = (damageObj) ? damageObj.amount : this.damageToTake.type
 
                 this.damageGroups.forEach((group) => {
                     if (type == group.name || group.types.some(x => x.name == type))
-                        damageModifications = damageModifications.concat(this.damageModifications.filter(x => { return x.type == type || x.type == group.name }))                    
+                        damageModifications = damageModifications.concat(this.damageModifications.filter(x => { return x.type == type || x.type == group.name }))
                 })
 
                 let flatDamageReduction = +damageModifications.filter(x => { return x.isBuff }).reduce((previousValue, entry) => {
@@ -3016,10 +3013,10 @@
                 }, 0) + +damageModifications.filter(x => { return !-x.isBuff }).reduce((previousValue, entry) => {
                     return (previousValue > entry.amount) ? previousValue : entry.amount
                 }, 0)
-                                
+
                 let isImmune = (damageModifications.some(x => x.isImmunity))
                 let isResistant = (damageModifications.some(x => x.isResistance))
-                let isVulnerable = (damageModifications.some(x => x.isVulnerability))                
+                let isVulnerable = (damageModifications.some(x => x.isVulnerability))
 
                 if (isImmune)
                     damageToTake = 0
@@ -3205,7 +3202,7 @@
                 damageObj.flatTotalBreakdown += (damageObj.flat) ? `Flat(${damageObj.flat}) + ` : ''
                 if (damageObj.char) {
                     damageObj.flatTotalBreakdown += (characteristic) ? `${characteristic.toUpperCase()}(${this[characteristic]}) + ` : ''
-                    damageObj.flatTotalBreakdown += (this.damageAddChar) ? `${this.damageAddChar.toUpperCase()}(${this[this.damageAddChar]}) + ` : ''                    
+                    damageObj.flatTotalBreakdown += (this.damageAddChar) ? `${this.damageAddChar.toUpperCase()}(${this[this.damageAddChar]}) + ` : ''
                 }
                 damageObj.flatTotalBreakdown += (damageObj.fit) ? `Melee FIT(${damageObj.fit})` : ''
                 if (damageObj.flatTotalBreakdown.substring(damageObj.flatTotalBreakdown.length - 3) == ' + ')

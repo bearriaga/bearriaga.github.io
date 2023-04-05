@@ -15,7 +15,7 @@
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                     <v-row>
-                        <v-col cols="3" v-for="m in minions" :key="m.key">
+                        <v-col cols="6" v-for="m in minions" :key="m.key">
                             <v-row>
                                 <v-col class="text-center">
                                     <v-btn color="primary" @click="updateDialog(m)">
