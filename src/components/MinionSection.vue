@@ -4,18 +4,19 @@
             <v-expansion-panel>
                 <v-expansion-panel-header>
                     <h3 class="text-center">
-                        Minions
+                        {{sectionTitle}}
                         <v-btn icon color="primary"
                                @click.stop="addDialog">
                             <v-icon>
                                 mdi-plus
                             </v-icon>
                         </v-btn>
+                        <v-file-input label="Import Character" ref="doc" accept=".txt,.json" v-model="characterFile" @change="readCharacterFromFile"></v-file-input>
                     </h3>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                     <v-row>
-                        <v-col cols="6" v-for="(m, i) in minions" :key="m.key">
+                        <v-col cols="6" v-for="(m, i) in minions" :key="m.id + m.name + updateMinions">
                             <v-row>
                                 <v-col>
                                     <v-btn icon color="primary" @click.stop="moveEntry(i, 'up')">
@@ -53,7 +54,6 @@
                 </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
-
         <div class="text-center">
             <v-dialog v-model="dialog.show" width="500">
                 <v-card>
@@ -126,12 +126,15 @@
     export default {
         name: 'MinionSection',
         props: {
+            arrayName: String,
             clearCharacter: Object,
             minions: Array,
-            panelProp: Number
+            panelProp: Number,
+            updateMinions: Number
         },
         data() {
             return {
+                characterFile: null,
                 dialog: {
                     show: false,
                     type: ''
@@ -156,7 +159,8 @@
                     statusPanel: 0,
                     traitPanel: 0,
                 },
-               panel: this.panelProp,
+                panel: this.panelProp,
+                sectionTitle: (this.arrayName == 'minions') ? 'Minions' : 'Party Members',
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -170,26 +174,25 @@
             addEntry() {
                 if (this.validate()) {
                     this.dialog.show = false
-                    this.$emit('addEntryEmit', { arrayName: 'minions', object: this.minion })
+                    this.$emit('addEntryEmit', { arrayName: this.arrayName, object: this.minion })
                 }
             },
             duplicateEntry(minion) {
-                this.$emit('addEntryEmit', { arrayName: 'minions', object: JSON.parse(JSON.stringify(minion)) })
+                this.$emit('addEntryEmit', { arrayName: this.arrayName, object: JSON.parse(JSON.stringify(minion)) })
             },
             deleteEntry() {
                 this.dialog.show = false
-                this.$emit('deleteEntryEmit', { arrayName: 'minions', object: this.minion })
+                this.$emit('deleteEntryEmit', { arrayName: this.arrayName, object: this.minion })
             },
             moveEntry(index, direction) {
-                if (!(index == 0 && direction == 'up') && !(index == (+this.minions.length - 1) && direction == 'down'))
-                    this.$emit('moveEntryEmit', { arrayName: 'minions', index: index, direction: direction })
+                this.$emit('moveEntryEmit', { arrayName: this.arrayName, index: index, direction: direction })
             },
             updateEntry(object) {
                 this.dialog.show = false
-                this.$emit('updateEntryEmit', { arrayName: 'minions', object: object })
+                this.$emit('updateEntryEmit', { arrayName: this.arrayName, object: object })
             },
             updateEntryBypass(object) {
-                this.$emit('updateEntryBypassEmit', { arrayName: 'minions', object: object })
+                this.$emit('updateEntryBypassEmit', { arrayName: this.arrayName, object: object })
             },
             // CRUD Functions End
             characterString(minion) {
@@ -219,10 +222,17 @@
                 this.setDialog('Edit')
             },
             // Open Dialog Functions End
-            //Not currently used, fix when fixing journal
-            //rollDiceCheck(object) {
-            //    this.$emit('rollDiceCheckEmit', object)
-            //},
+            readCharacterFromFile() {
+                if (this.characterFile) {
+                    var reader = new FileReader()
+                    reader.readAsText(this.characterFile)
+                    reader.onload = () => {
+                        this.minion = JSON.parse(reader.result)
+                        this.characterFile = null
+                        this.$emit('addEntryEmit', { arrayName: this.arrayName, object: this.minion })
+                    }
+                }
+            },
             validate() {
                 return this.$refs.form.validate()
             }

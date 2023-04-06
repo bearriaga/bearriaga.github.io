@@ -172,9 +172,11 @@
             </v-row>
             <v-row>
                 <v-col>
-                    <MinionSection :clear-character="clearCharacter"
-                                   :minions="minions"
+                    <MinionSection :array-name="'minions'"
+                                   :clear-character="clearCharacter"
+                                   :minions="characterSheet.minions"
                                    :panel-prop="minionPanel"
+                                   :update-minions="updateMinions"
                                    @addEntryEmit="addEntry($event)"
                                    @deleteEntryEmit="deleteEntry($event)"
                                    @moveEntryEmit="moveEntry($event)"
@@ -603,9 +605,11 @@
                                          @updatePanelEmit="updatePanel($event)"></BuffSection>
                         </v-tab-item>
                         <v-tab-item value="minions">
-                            <MinionSection :clear-character="clearCharacter"
-                                           :minions="minions"
+                            <MinionSection :array-name="'minions'"
+                                           :clear-character="clearCharacter"
+                                           :minions="characterSheet.minions"
                                            :panel-prop="minionPanel"
+                                           :update-minions="updateMinions"
                                            @addEntryEmit="addEntry($event)"
                                            @deleteEntryEmit="deleteEntry($event)"
                                            @moveEntryEmit="moveEntry($event)"
@@ -2648,15 +2652,20 @@
                 })
             },
             moveEntry(object) {
-                if (!(object.index == 0 && object.direction == 'up') && !(object.index == (+this.characterSheet[object.arrayName].length - 1) && object.direction == 'down')) {
-                    let targetIndex = (object.direction == 'up') ? +object.index - 1 : +object.index + 1
-                    let targetCopy = JSON.parse(JSON.stringify(this.characterSheet[object.arrayName][targetIndex]))
-                    this.characterSheet[object.arrayName][targetIndex] = this.characterSheet[object.arrayName][object.index]
-                    this.characterSheet[object.arrayName][object.index] = targetCopy
-                    let arrayCopy = JSON.parse(JSON.stringify(this.characterSheet[object.arrayName]))
-                    this.characterSheet[object.arrayName] = []
-                    this.characterSheet[object.arrayName] = arrayCopy
-                }
+                let targetIndex = 0
+                if (object.index == 0 && object.direction == 'up')
+                    targetIndex = +this.characterSheet[object.arrayName].length - 1
+                else if (object.index == (+this.characterSheet[object.arrayName].length - 1) && object.direction == 'down')
+                    targetIndex = 0
+                else
+                    targetIndex = (object.direction == 'up') ? +object.index - 1 : +object.index + 1
+
+                let targetCopy = JSON.parse(JSON.stringify(this.characterSheet[object.arrayName][targetIndex]))
+                this.characterSheet[object.arrayName][targetIndex] = this.characterSheet[object.arrayName][object.index]
+                this.characterSheet[object.arrayName][object.index] = targetCopy
+                let arrayCopy = JSON.parse(JSON.stringify(this.characterSheet[object.arrayName]))
+                this.characterSheet[object.arrayName] = []
+                this.characterSheet[object.arrayName] = arrayCopy
             },
             updateEntry(object) {
                 let entriesDup = this.characterSheet[object.arrayName]
