@@ -30,9 +30,8 @@
                                               show-expand
                                               multi-sort
                                               dense>
-                                    <template v-slot:[`item.minionName`]="{ item }">
-                                        <TooltipComponent :text="item.description"></TooltipComponent>
-                                        {{item.name}}
+                                    <template v-slot:[`item.descriptionTooltip`]="{ item }">
+                                        <TooltipComponent :text="item.description"></TooltipComponent>                                        
                                     </template>
                                     <template v-slot:[`item.classResourceCombined`]="{ item }">
                                         {{getClassResource(item)}}
@@ -470,7 +469,8 @@
                     ]
                 else
                     headers = [
-                        { text: 'Name', value: 'minionName' },
+                        {text:'', value: 'descriptionTooltip' },
+                        { text: 'Name', value: 'name' },
                         { text: 'AP', value: 'apCost' },
                         { text: 'Resource', value: 'classResourceCombined', sortable: false },
                         { text: 'Range', value: 'range' },
