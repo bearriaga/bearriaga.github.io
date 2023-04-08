@@ -29,7 +29,7 @@
                                               item-key="key"
                                               show-expand
                                               multi-sort
-                                              dense>                                    
+                                              dense>
                                     <template v-slot:[`item.minionName`]="{ item }">
                                         <TooltipComponent :text="item.description"></TooltipComponent>
                                         {{item.name}}
@@ -46,16 +46,25 @@
                                             Use
                                         </v-btn>
                                     </template>
-                                    <template v-slot:[`item.actions`]="{ item }">
+                                    <template v-slot:[`item.edit`]="{ item }">
                                         <v-icon small color="primary" class="mr-2"
                                                 v-if="item.canEdit"
                                                 @click="updateDialog(JSON.parse(JSON.stringify(item)))">
                                             mdi-pencil
                                         </v-icon>
+                                    </template>
+                                    <template v-slot:[`item.delete`]="{ item }">
                                         <v-icon small color="error"
                                                 v-if="item.canEdit"
                                                 @click="deleteDialog(item)">
                                             mdi-delete
+                                        </v-icon>
+                                    </template>
+                                    <template v-slot:[`item.copy`]="{ item }">
+                                        <v-icon small color="primary"
+                                                v-if="item.canEdit"
+                                                @click="duplicateAbility(item)">
+                                            mdi-content-copy
                                         </v-icon>
                                     </template>
                                     <template v-slot:[`expanded-item`]=" { item }">
@@ -454,7 +463,9 @@
                         { text: 'AoE', value: 'areaOfEffect' },
                         { text: 'Description', value: 'description' },
                         { text: 'Use', value: 'use', sortable: false },
-                        { text: 'Actions', value: 'actions', sortable: false },
+                        { text: '', value: 'edit', sortable: false },
+                        { text: '', value: 'delete', sortable: false },
+                        { text: '', value: 'copy', sortable: false },
                         { text: '', value: 'data-table-expand' }
                     ]
                 else
@@ -466,7 +477,9 @@
                         { text: 'Damage', value: 'damageSection', sortable: false },
                         { text: 'AoE', value: 'areaOfEffect' },
                         { text: 'Use', value: 'use', sortable: false },
-                        { text: 'Actions', value: 'actions', sortable: false },
+                        { text: '', value: 'edit', sortable: false },
+                        { text: '', value: 'delete', sortable: false },
+                        { text: '', value: 'copy', sortable: false },
                         { text: '', value: 'data-table-expand' }
                     ]
                 return headers
@@ -674,6 +687,15 @@
             deleteDialog(ability) {
                 this.ability = ability
                 this.setDialog('Delete')
+            },
+            duplicateAbility(item) {
+                this.panel = 0
+                this.setDialog('Add')
+                this.ability = JSON.parse(JSON.stringify(item))
+                this.ability.name += ' Copy'
+                setTimeout(() => {
+                    this.$refs.name.focus()
+                }, 200)
             },
             updateDialog(ability) {
                 this.ability = ability
