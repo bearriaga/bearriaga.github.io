@@ -2099,7 +2099,16 @@
     "equipment": [],
     "flaws": [],
     "minions": [],
-    "movements": [],
+    "movements": [
+      {
+        "amount": 0,
+        "characteristic": "",
+        "description": "",
+        "id": "1",
+        "isBuff": false,
+        "type": "Land Speed"
+      }
+    ],
     "damageModifications": [],
     "resources": [],
     "skills": [
