@@ -286,6 +286,7 @@
                                  :resources="resources"
                                  @addEntryEmit="addEntry($event)"
                                  @deleteEntryEmit="deleteEntry($event)"
+                                 @moveEntryEmit="moveEntry($event)"
                                  @updateEntryEmit="updateBuffEntry($event)"
                                  @updateEntryBypassEmit="updateEntry($event)"
                                  @updatePanelEmit="updatePanel($event)"></BuffSection>
@@ -600,6 +601,7 @@
                                          :resources="resources"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
+                                         @moveEntryEmit="moveEntry($event)"
                                          @updateEntryEmit="updateBuffEntry($event)"
                                          @updateEntryBypassEmit="updateEntry($event)"
                                          @updatePanelEmit="updatePanel($event)"></BuffSection>
@@ -762,6 +764,7 @@
                          :resources="resources"
                          @addEntryEmit="addEntry($event)"
                          @deleteEntryEmit="deleteEntry($event)"
+                         @moveEntryEmit="moveEntry($event)"
                          @updateEntryEmit="updateBuffEntry($event)"
                          @updateEntryBypassEmit="updateEntry($event)"
                          @updatePanelEmit="updatePanel($event)"></BuffSection>

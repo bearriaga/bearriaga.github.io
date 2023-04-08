@@ -15,10 +15,11 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <BuffListItem v-for="b in buffs" :key="b.key"
+                        <BuffListItem v-for="b, i in buffs" :key="b.key"
                                       :buff="b"
                                       :resources="resources"
                                       @deleteDialogEmit="deleteDialog($event)"
+                                      @moveEntryEmit="moveEntry($event, i)"
                                       @updateDialogEmit="updateDialog($event)"
                                       @updateEntryEmit="updateEntryBypass($event)"></BuffListItem>
                     </v-expansion-panel-content>
@@ -434,6 +435,9 @@
             deleteEntry() {
                 this.dialog.show = false
                 this.$emit('deleteEntryEmit', { arrayName: 'buffs', object: this.buff })
+            },
+            moveEntry(direction, index) {
+                this.$emit('moveEntryEmit', { arrayName: 'buffs', index: index, direction: direction })
             },
             updateEntry() {
                 if (this.validate()) {

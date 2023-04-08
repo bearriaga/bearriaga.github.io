@@ -1,8 +1,23 @@
 <template>
     <div>
         <v-form>
-            <v-switch label="Active" inset
+            <v-row>
+                <v-col class="text-center">
+                    <v-btn icon color="primary" @click.stop="moveEntry('down')">                          
+                        <v-icon>mdi-arrow-down-bold</v-icon>
+                    </v-btn>
+                </v-col>
+                <v-col>
+                    <v-switch label="Active" inset
                       v-model="isActive"></v-switch>
+                </v-col>
+                <v-col class="text-center">
+                    <v-btn icon color="primary" @click.stop="moveEntry('up')">                          
+                        <v-icon>mdi-arrow-up-bold</v-icon>
+                    </v-btn>
+                </v-col>
+            </v-row>
+            
             <v-text-field label="Name" v-model="name">
                 <v-icon slot="append" color="primary"
                         @click="updateDialog">mdi-pen</v-icon>
@@ -91,6 +106,9 @@
         methods: {
             deleteDialog() {
                 this.$emit('deleteDialogEmit', this.buff)
+            },
+            moveEntry(direction) {
+                this.$emit('moveEntryEmit', direction)
             },
             returnLabel(adjustment) {
                 let label = adjustment.type
