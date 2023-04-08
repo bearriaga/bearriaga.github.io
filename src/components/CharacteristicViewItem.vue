@@ -84,11 +84,6 @@
             xp: Number
         },
         computed: {
-            adjustedAmount() {
-                let amount = (!this.isGenericRoller) ? +this.characteristic.value : +this.value
-                amount += +this.characteristic.valueIncreases + +this.characteristic.adjustment
-                return (amount > this.characteristic.valueMax) ? this.characteristic.valueMax : (amount < 0) ? 0 : amount
-            },
             adjustedAmountClass() {
                 let amountClass = 'cursorPointer '
 
@@ -126,6 +121,7 @@
         },
         data() {
             return {
+                adjustedAmount: this.characteristic.adjustedAmount,
                 isGenericRoller: (this.characteristic.abbreviation == 'Generic Roller'),
                 value: +this.characteristic.value,
                 valueIncreases: this.characteristic.valueIncreases,

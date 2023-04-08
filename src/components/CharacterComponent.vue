@@ -1614,6 +1614,7 @@
                 let chars = this.characterSheet.classes.filter(x => { return x.active && !x.unlocked }).map(x => x.characteristic)
                 return [
                     {
+                        adjustedAmount: this.fitness,
                         abbreviation: 'FIT',
                         adjustment: this.fitnessAdjustment,
                         key: 'fit' + this.characterSheet.id + this.characterSheet.fitness + this.characterSheet.fitnessIncreases + this.fitnessAdjustment + this.updateCharacter,
@@ -1626,6 +1627,7 @@
                         valueIncreasesName: 'fitnessIncreases',
                     },
                     {
+                        adjustedAmount: this.resistance,
                         abbreviation: 'RES',
                         adjustment: this.resistanceAdjustment,
                         key: 'res' + this.characterSheet.id + this.characterSheet.resistance + this.characterSheet.resistanceIncreases + this.resistanceAdjustment + this.updateCharacter,
@@ -1638,6 +1640,7 @@
                         valueIncreasesName: 'resistanceIncreases',
                     },
                     {
+                        adjustedAmount: this.speed,
                         abbreviation: 'SPD',
                         adjustment: this.speedAdjustment,
                         key: 'spd' + this.characterSheet.id + this.characterSheet.speed + this.characterSheet.speedIncreases + this.speedAdjustment + this.updateCharacter,
@@ -1650,6 +1653,7 @@
                         valueIncreasesName: 'speedIncreases',
                     },
                     {
+                        adjustedAmount: this.intelligence,
                         abbreviation: 'INT',
                         adjustment: this.intelligenceAdjustment,
                         key: 'int' + this.characterSheet.id + this.characterSheet.intelligence + this.characterSheet.intelligenceIncreases + this.intelligenceAdjustment + this.updateCharacter,
@@ -1662,6 +1666,7 @@
                         valueIncreasesName: 'intelligenceIncreases',
                     },
                     {
+                        adjustedAmount: this.cunning,
                         abbreviation: 'CUN',
                         adjustment: this.cunningAdjustment,
                         key: 'cun' + this.characterSheet.id + this.characterSheet.cunning + this.characterSheet.cunningIncreases + this.cunningAdjustment + this.updateCharacter,
@@ -1674,6 +1679,7 @@
                         valueIncreasesName: 'cunningIncreases',
                     },
                     {
+                        adjustedAmount: this.luck,
                         abbreviation: 'LCK',
                         adjustment: this.luckAdjustment,
                         key: 'lck' + this.characterSheet.id + this.characterSheet.luck + this.characterSheet.luckIncreases + this.luckAdjustment + this.updateCharacter,
