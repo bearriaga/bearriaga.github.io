@@ -3,6 +3,12 @@
         <v-row>
             <v-col cols="6">
                 <v-text-field label="Status" v-model="statusName" disabled>
+                    <v-icon slot="append" color="primary" v-if="!isBuff()" @click="moveEntry('down')">
+                        mdi-arrow-down-bold
+                    </v-icon>
+                    <v-icon slot="append" color="primary" v-if="!isBuff()" @click="moveEntry('up')">
+                        mdi-arrow-up-bold
+                    </v-icon>
                     <TooltipComponent slot="append" :text="selectedStatus.effect"></TooltipComponent>
                     <v-icon slot="append" color="error"
                             v-if="!isBuff()"
@@ -72,6 +78,9 @@
                 if (this.status.buffId)
                     return true
                 return false
+            },
+            moveEntry(direction) {
+                this.$emit('moveEntryEmit', direction)
             },
             updateEntry() {
                 let status = {

@@ -273,6 +273,7 @@
                                    :statuses="statuses"
                                    @addEntryEmit="addEntry($event)"
                                    @deleteEntryEmit="deleteEntry($event)"
+                                   @moveEntryEmit="moveEntry($event)"
                                    @updateBuffEntryEmit="updateBuffStatus($event)"
                                    @updateEntryEmit="updateEntry($event)"
                                    @updatePanelEmit="updatePanel($event)"></StatusSection>
@@ -588,6 +589,7 @@
                                            :statuses="statuses"
                                            @addEntryEmit="addEntry($event)"
                                            @deleteEntryEmit="deleteEntry($event)"
+                                           @moveEntryEmit="moveEntry($event)"
                                            @updateBuffEntryEmit="updateBuffStatus($event)"
                                            @updateEntryEmit="updateEntry($event)"
                                            @updatePanelEmit="updatePanel($event)"></StatusSection>
@@ -751,6 +753,7 @@
                            :statuses="statuses"
                            @addEntryEmit="addEntry($event)"
                            @deleteEntryEmit="deleteEntry($event)"
+                           @moveEntryEmit="moveEntry($event)"
                            @updateBuffEntryEmit="updateBuffStatus($event)"
                            @updateEntryEmit="updateEntry($event)"
                            @updatePanelEmit="updatePanel($event)"></StatusSection>
