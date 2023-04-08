@@ -194,6 +194,7 @@
                                   :unlocked="false"
                                   @addEntryEmit="addEntry($event)"
                                   @deleteEntryEmit="deleteEntry($event)"
+                                  @moveEntryEmit="moveEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"
                                   @updatePanelEmit="updatePanel($event)"></ClassSection>
                 </v-col>
@@ -204,6 +205,7 @@
                                   :unlocked="true"
                                   @addEntryEmit="addEntry($event)"
                                   @deleteEntryEmit="deleteEntry($event)"
+                                  @moveEntryEmit="moveEntry($event)"
                                   @updateEntryEmit="updateEntry($event)"
                                   @updatePanelEmit="updatePanel($event)"></ClassSection>
                 </v-col>
@@ -502,6 +504,7 @@
                                           :unlocked="false"
                                           @addEntryEmit="addEntry($event)"
                                           @deleteEntryEmit="deleteEntry($event)"
+                                          @moveEntryEmit="moveEntry($event)"
                                           @updateEntryEmit="updateEntry($event)"
                                           @updatePanelEmit="updatePanel($event)"></ClassSection>
                             <ClassSection :characteristics="characteristics"
@@ -510,6 +513,7 @@
                                           :unlocked="true"
                                           @addEntryEmit="addEntry($event)"
                                           @deleteEntryEmit="deleteEntry($event)"
+                                          @moveEntryEmit="moveEntry($event)"
                                           @updateEntryEmit="updateEntry($event)"
                                           @updatePanelEmit="updatePanel($event)"></ClassSection>
                             <TraitFlawSection :is-flaw="true"

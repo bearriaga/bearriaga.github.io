@@ -1,6 +1,12 @@
 <template>
     <div>
         <v-text-field label="Class Name" v-model="name" :disabled="!active && !unlocked" :readonly="!active && !unlocked">
+            <v-icon slot="append" color="primary" @click="moveEntry('down')">
+                mdi-arrow-down-bold
+            </v-icon>
+            <v-icon slot="append" color="primary" @click="moveEntry('up')">
+                mdi-arrow-up-bold
+            </v-icon>
             <v-icon slot="append" color="error" @click="deleteEntry">mdi-delete</v-icon>
         </v-text-field>
         <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" :disabled="!active && !unlocked"></v-textarea>
@@ -46,6 +52,9 @@
         methods: {
             deleteEntry() {
                 this.$emit('deleteEntryEmit', this.classObj)
+            },
+            moveEntry(direction) {
+                this.$emit('moveEntryEmit', direction)
             },
             updateEntry() {
                 var object = {

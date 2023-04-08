@@ -14,9 +14,10 @@
                     </h3>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
-                    <ClassListItem v-for="c in classes" :key="c.key"
+                    <ClassListItem v-for="c, i in classes" :key="c.key"
                                    @updateEntryEmit="updateEntry($event)"
                                    @deleteEntryEmit="deleteDialog($event)"
+                                   @moveEntryEmit="moveEntry($event, i)"
                                    :characteristics="characteristics"
                                    :class-obj="c"></ClassListItem>
                 </v-expansion-panel-content>
@@ -109,7 +110,7 @@
                     unlocked: this.unlocked
                 },
                 // Input Fields End
-               panel: this.panelProp,
+                panel: this.panelProp,
                 // Validation Start
                 textRules: [
                     v => !!v || 'Field may not be empty'
@@ -129,6 +130,9 @@
             deleteEntry() {
                 this.dialog.show = false
                 this.$emit('deleteEntryEmit', { arrayName: 'classes', object: this.classObj })
+            },
+            moveEntry(direction, index) {
+                this.$emit('moveEntryEmit', { arrayName: 'classes', index: index, direction: direction })
             },
             updateEntry(object) {
                 this.$emit('updateEntryEmit', { arrayName: 'classes', object: object })
