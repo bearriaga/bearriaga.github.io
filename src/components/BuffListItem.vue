@@ -1,24 +1,15 @@
 <template>
     <div>
         <v-form>
-            <v-row>
-                <v-col class="text-center">
-                    <v-btn icon color="primary" @click.stop="moveEntry('down')">
-                        <v-icon>mdi-arrow-down-bold</v-icon>
-                    </v-btn>
-                </v-col>
-                <v-col>
-                    <v-switch label="Active" inset
+            <v-switch label="Active" inset
                       v-model="isActive"></v-switch>
-                </v-col>
-                <v-col class="text-center">
-                    <v-btn icon color="primary" @click.stop="moveEntry('up')">
-                        <v-icon>mdi-arrow-up-bold</v-icon>
-                    </v-btn>
-                </v-col>
-            </v-row>
-            
             <v-text-field label="Name" v-model="name">
+                <v-icon slot="append" color="primary" @click="moveEntry('down')">
+                    mdi-arrow-down-bold
+                </v-icon>
+                <v-icon slot="append" color="primary" @click="moveEntry('up')">
+                    mdi-arrow-up-bold
+                </v-icon>
                 <v-icon slot="append" color="primary"
                         @click="updateDialog">mdi-pen</v-icon>
                 <v-icon slot="append" color="error"
