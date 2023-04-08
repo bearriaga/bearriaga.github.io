@@ -3,6 +3,12 @@
         <v-row>
             <v-col>
                 <v-text-field label="Name" v-model="name">
+                    <v-icon slot="append" color="primary" @click="moveEntry('down')">
+                        mdi-arrow-down-bold
+                    </v-icon>
+                    <v-icon slot="append" color="primary" @click="moveEntry('up')">
+                        mdi-arrow-up-bold
+                    </v-icon>
                     <v-icon color="error" slot="append" @click="deleteEntry">mdi-delete</v-icon>
                 </v-text-field>
             </v-col>
@@ -30,6 +36,9 @@
         methods: {
             deleteEntry() {
                 this.$emit('deleteEntryEmit', this.item)
+            },
+            moveEntry(direction) {
+                this.$emit('moveEntryEmit', direction)
             },
             updateEntry() {
                 var object = {

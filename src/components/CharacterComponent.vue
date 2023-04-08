@@ -245,6 +245,7 @@
                                       :panel-prop="flawPanel"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
+                                      @moveEntryEmit="moveEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"
                                       @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
                     <TraitFlawSection :is-flaw="false"
@@ -252,6 +253,7 @@
                                       :panel-prop="traitPanel"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
+                                      @moveEntryEmit="moveEntry($event)"
                                       @updateEntryEmit="updateEntry($event)"
                                       @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
                     <PassivesSection :character-sheet="characterSheet" @updatePropEmit="updateProp($event)"></PassivesSection>
@@ -515,6 +517,7 @@
                                               :panel-prop="flawPanel"
                                               @addEntryEmit="addEntry($event)"
                                               @deleteEntryEmit="deleteEntry($event)"
+                                              @moveEntryEmit="moveEntry($event)"
                                               @updateEntryEmit="updateEntry($event)"
                                               @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
                             <TraitFlawSection :is-flaw="false"
@@ -522,6 +525,7 @@
                                               :panel-prop="traitPanel"
                                               @addEntryEmit="addEntry($event)"
                                               @deleteEntryEmit="deleteEntry($event)"
+                                              @moveEntryEmit="moveEntry($event)"
                                               @updateEntryEmit="updateEntry($event)"
                                               @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
                             <PassivesSection :character-sheet="characterSheet" @updatePropEmit="updateProp($event)"></PassivesSection>

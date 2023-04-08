@@ -15,9 +15,10 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <TraitFlawListItem v-for="item in items" :key="item.key"
+                        <TraitFlawListItem v-for="item, i in items" :key="item.key"
                                            :item="item"
                                            @deleteEntryEmit="deleteDialog($event)"
+                                           @moveEntryEmit="moveEntry($event, i)"
                                            @updateEntryEmit="updateEntry($event)"></TraitFlawListItem>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
@@ -131,6 +132,9 @@
             deleteEntry() {
                 this.dialog.show = false
                 this.$emit('deleteEntryEmit', { arrayName: this.arrayName, object: this.item })
+            },
+            moveEntry(direction, index) {
+                this.$emit('moveEntryEmit', { arrayName: this.arrayName, index: index, direction: direction })
             },
             updateEntry(item) {
                 this.$emit('updateEntryEmit', { arrayName: this.arrayName, object: item })
