@@ -30,11 +30,12 @@
                                 </h3>
                             </v-expansion-panel-header>
                             <v-expansion-panel-content>
-                                <MovementListItem v-for="m in movementListItems" :key="m.key"
+                                <MovementListItem v-for="m, i in movementListItems" :key="m.key"
                                                   :movement="m"
                                                   :movement-ap-icon="movementApIcon"
                                                   :movement-ap-icon-color="movementApIconColor"
                                                   @deleteEntryEmit="deleteDialog($event)"
+                                                  @moveEntryEmit="moveEntry($event, i)"
                                                   @subtractAP="subtractAP($event)"
                                                   @updateEntryEmit="updateDialog($event)"> </MovementListItem>
                             </v-expansion-panel-content>
@@ -149,7 +150,7 @@
                         }
                     }
                     m.canEdit = !m.isBuff
-                    m.key = m.id + this.ap + m.type + m.amount + this.statusAccelerated + this.statusHobbled + this.statusMovementUpDown + this.statusRooted
+                    m.key = m.amount + m.description + m.id + this.ap + m.type + this.statusAccelerated + this.statusHobbled + this.statusMovementUpDown + this.statusRooted
 
                     movements.push(m)
                 })
@@ -235,6 +236,9 @@
             deleteEntry() {
                 this.dialog.show = false
                 this.$emit('deleteEntryEmit', { arrayName: 'movements', object: this.movement })
+            },
+            moveEntry(direction, index) {
+                this.$emit('moveEntryEmit', { arrayName: 'movements', index: index, direction: direction })
             },
             updateEntry() {
                 this.dialog.show = false

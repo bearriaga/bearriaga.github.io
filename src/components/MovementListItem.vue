@@ -11,6 +11,12 @@
         <v-row v-if="!movement.isUnique">
             <v-col cols="12">
                 <v-text-field :label="movement.type" v-model="amount" type="number" readonly>
+                    <v-icon slot="append" color="primary" @click="moveEntry('down')" v-if="movement.canEdit">
+                        mdi-arrow-down-bold
+                    </v-icon>
+                    <v-icon slot="append" color="primary" @click="moveEntry('up')" v-if="movement.canEdit">
+                        mdi-arrow-up-bold
+                    </v-icon>
                     <v-icon :color="movementApIconColor"
                             slot="append"
                             @click="subtractAP()">{{movementApIcon}}</v-icon>
@@ -22,18 +28,20 @@
                             slot="append"
                             @click="deleteEntry"
                             v-if="movement.canEdit">mdi-delete</v-icon>
+                    <TooltipComponent slot="append" v-if="movement.description" :text="movement.description"></TooltipComponent>
                 </v-text-field>
-            </v-col>
-            <v-col cols="12">
-                <v-textarea label="Description" v-model="description" v-if="description" auto-grow outlined rows="1"></v-textarea>
             </v-col>
         </v-row>
     </v-form>
 </template>
 
 <script>
+    import TooltipComponent from './TooltipComponent.vue'
     export default {
         name: 'MovementListItem',
+        components: {
+            TooltipComponent
+        },
         props: {
             movementApIcon: String,
             movementApIconColor: String,
@@ -41,13 +49,15 @@
         },
         data() {
             return {
-                amount: this.movement.amount,
-                description: this.movement.description
+                amount: this.movement.amount
             }
         },
         methods: {
             deleteEntry() {
                 this.$emit('deleteEntryEmit', this.movement.id)
+            },
+            moveEntry(direction) {
+                this.$emit('moveEntryEmit', direction)
             },
             subtractAP() {
                 this.$emit('subtractAP', 1)

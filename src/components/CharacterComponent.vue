@@ -144,6 +144,7 @@
                                          :status-rooted="statusRooted"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
+                                         @moveEntryEmit="moveEntry($event)"
                                          @subtractAPEmit="subtractAP($event)"
                                          @updateEntryEmit="updateEntry($event)"
                                          @updatePanelEmit="updatePanel($event)"></MovementSection>
@@ -492,6 +493,7 @@
                                              :status-rooted="statusRooted"
                                              @addEntryEmit="addEntry($event)"
                                              @deleteEntryEmit="deleteEntry($event)"
+                                             @moveEntryEmit="moveEntry($event)"
                                              @subtractAPEmit="subtractAP($event)"
                                              @updateEntryEmit="updateEntry($event)"
                                              @updatePanelEmit="updatePanel($event)"></MovementSection>
@@ -736,6 +738,7 @@
                              :status-rooted="statusRooted"
                              @addEntryEmit="addEntry($event)"
                              @deleteEntryEmit="deleteEntry($event)"
+                             @moveEntryEmit="moveEntry($event)"
                              @subtractAPEmit="subtractAP($event)"
                              @updateEntryEmit="updateEntry($event)"
                              @updatePanelEmit="updatePanel($event)"></MovementSection>
