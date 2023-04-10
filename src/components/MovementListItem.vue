@@ -11,6 +11,7 @@
         <v-row v-if="!movement.isUnique">
             <v-col cols="12">
                 <v-text-field :label="movement.type" v-model="amount" type="number" readonly>
+                    <TooltipComponent slot="append" v-if="movement.description" :text="movement.description"></TooltipComponent>
                     <v-icon slot="append" color="primary" @click="moveEntry('down')" v-if="movement.canEdit">
                         mdi-arrow-down-bold
                     </v-icon>
@@ -28,7 +29,6 @@
                             slot="append"
                             @click="deleteEntry"
                             v-if="movement.canEdit">mdi-delete</v-icon>
-                    <TooltipComponent slot="append" v-if="movement.description" :text="movement.description"></TooltipComponent>
                 </v-text-field>
             </v-col>
         </v-row>
