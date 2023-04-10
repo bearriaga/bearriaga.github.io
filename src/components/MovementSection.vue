@@ -9,15 +9,11 @@
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                     <template>
-                        <MovementListItem v-for="movement in this.uniqueMovements" :key="movement.key"
-                                          :ap="ap"
-                                          :movement="movement"
-                                          :movement-types="movementTypes"
+                        <MovementListItem v-for="m in this.uniqueMovements" :key="m.key"
+                                          :movement="m"
                                           :movement-ap-icon="movementApIcon"
                                           :movement-ap-icon-color="movementApIconColor"
-                                          @deleteEntryEmit="deleteDialog($event)"
-                                          @subtractAP="subtractAP($event)"
-                                          @updateEntryEmit="updateEntry($event)"> </MovementListItem>
+                                          @subtractAP="subtractAP($event)"> </MovementListItem>
                     </template>
 
                     <v-expansion-panels v-model="subPanel" v-if="canEdit">
@@ -34,15 +30,13 @@
                                 </h3>
                             </v-expansion-panel-header>
                             <v-expansion-panel-content>
-                                <MovementListItem v-for="movement in movements" :key="movement.key"
-                                                  :ap="ap"
-                                                  :movement="movement"
-                                                  :movement-types="movementTypes"
+                                <MovementListItem v-for="m in movementListItems" :key="m.key"
+                                                  :movement="m"
                                                   :movement-ap-icon="movementApIcon"
                                                   :movement-ap-icon-color="movementApIconColor"
                                                   @deleteEntryEmit="deleteDialog($event)"
                                                   @subtractAP="subtractAP($event)"
-                                                  @updateEntryEmit="updateEntry($event)"> </MovementListItem>
+                                                  @updateEntryEmit="updateDialog($event)"> </MovementListItem>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
                     </v-expansion-panels>
@@ -66,11 +60,17 @@
                                           type="number"
                                           v-model="movement.amount"
                                           ref="amount"
-                                          :rules="numberRules"
                                           required></v-text-field>
+                            <!--:rules="numberRules"-->
+                            <v-select label="Characteristic x2"
+                                      :items="characteristics.map(x => x.name)"
+                                      v-model="movement.characteristic"
+                                      clearable>
+                            </v-select>
+                            <!--<TooltipComponent slot="prepend" :text="'CHAR used to make check and gets added to damage.'"></TooltipComponent>-->
                             <v-autocomplete label="Type"
                                             v-model="movement.type"
-                                            :items="movementTypes"
+                                            :items="movementTypesComp"
                                             :rules="textRules"
                                             required></v-autocomplete>
                             <v-text-field label="Description"
@@ -84,6 +84,8 @@
                     <v-card-actions class="justify-end">
                         <v-btn color="primary" v-if="dialog.type == 'Add'" :disabled="!valid"
                                @click="addEntry">Add</v-btn>
+                        <v-btn color="primary" v-if="dialog.type == 'Edit'" :disabled="!valid"
+                               @click="updateEntry">Save</v-btn>
                         <v-btn color="error" v-if="dialog.type == 'Delete'"
                                @click="deleteEntry">Delete</v-btn>
                         <v-btn color="secondary"
@@ -106,28 +108,77 @@
         props: {
             ap: Number,
             canEdit: Boolean,
+            characteristics: Array,
             movementApIcon: String,
             movementApIconColor: String,
             movements: Array,
             movementTypes: Array,
-            panelProp: Number
+            panelProp: Number,
+            statusAccelerated: Boolean,
+            statusHobbled: Boolean,
+            statusMovementUpDown: Number,
+            statusRooted: Boolean
         },
         computed: {
+            movementListItems() {
+                let movements = []
+
+                this.movements.forEach(movement => {
+                    let m = JSON.parse(JSON.stringify(movement))
+                    m.amount = (m.amount) ? m.amount : 0
+                    let doubleChar = (m.characteristic) ? (this.characteristics.find(x => x.name == m.characteristic).adjustedAmount * 2) : 0
+                    m.amount = +m.amount + +doubleChar
+                    if (m.type == 'Land Speed' && !m.isBuff) {
+                        let doubleFit = this.characteristics.find(x => x.name == 'fitness').adjustedAmount * 2
+                        m.amount = +m.amount + +doubleFit
+                    }
+                    if (this.statusAccelerated || this.statusHobbled || this.statusMovementUpDown || this.statusRooted) {
+                        if (this.statusRooted)
+                            m.amount = 0
+                        else {
+                            //if (buffAmount)
+                            //    m.amount = +m.amount + +buffAmount
+                            if (this.statusMovementUpDown)
+                                m.amount = +m.amount + +this.statusMovementUpDown
+                            if (m.amount < 0)
+                                m.amount = 0
+                            if (this.statusAccelerated && m.amount > 0)
+                                m.amount *= 2
+                            if (this.statusHobbled && m.amount > 0)
+                                m.amount = Math.floor(m.amount / 2)
+                        }
+                    }
+                    m.canEdit = !m.isBuff
+                    m.key = m.id + this.ap + m.type + m.amount + this.statusAccelerated + this.statusHobbled + this.statusMovementUpDown + this.statusRooted
+
+                    movements.push(m)
+                })
+
+                return movements
+            },
+            movementTypesComp() {
+                let usedMovements = this.movements.filter(x => { return !x.isBuff }).map(x => x.type)
+                let movementTypes = this.movementTypes.filter(t => !usedMovements.includes(t))
+                if (this.dialog.type == 'Edit')
+                    movementTypes.push(this.movement.type)
+                return movementTypes.sort()
+            },
             uniqueMovements() {
                 let movements = []
 
-                let uniqueMovementTypes = [...new Set(this.movements.map(x => (x.type)))].sort()
+                let uniqueMovementTypes = [...new Set(this.movementListItems.map(x => (x.type)))].sort()
 
-                uniqueMovementTypes.forEach((type, i) => {
-                    let amount = this.movements.filter(x => { return x.type == type }).reduce((previousValue, entry) => {
-                        return +previousValue + +entry.amount
-                    }, 0)
+                uniqueMovementTypes.forEach((type) => {
+                    let passiveMovement = this.movementListItems.filter(x => { return x.type == type && (!x.isBuff || x.isEquipment) })
+                        .reduce((max, movement) => max.amount > movement.amount ? max : movement, { amount: 0 })
+                    let buffMovement = this.movementListItems.filter(x => { return x.type == type && x.isBuff && !x.isEquipment })
+                        .reduce((max, movement) => max.amount > movement.amount ? max : movement, { amount: 0 })
+                    let amount = +passiveMovement.amount + +buffMovement.amount
                     let movement = {
                         amount: amount,
-                        isBuff: false,
-                        isDefault: false,
+                        canEdit: false,
                         isUnique: true,
-                        key: i.toString() + amount.toString(),
+                        key: amount + type,
                         type: `Combined ${type}`
                     }
                     movements.push(movement)
@@ -145,22 +196,22 @@
                 // Input Fields Start
                 clearMovement: {
                     amount: 0,
+                    characteristic: '',
                     description: '',
                     id: '',
                     isBuff: false,
-                    isDefault: false,
                     type: '',
                 },
                 movement: {
                     amount: 1,
+                    characteristic: '',
                     description: '',
                     id: '',
                     isBuff: false,
-                    isDefault: false,
                     type: ''
                 },
                 // Input Fields End
-               panel: this.panelProp,
+                panel: this.panelProp,
                 subPanel: null,
                 // Validation Start
                 textRules: [
@@ -177,7 +228,7 @@
             // CRUD Functions Start
             addEntry() {
                 if (this.validate()) {
-                    this.dialog.show = false                    
+                    this.dialog.show = false
                     this.$emit('addEntryEmit', { arrayName: 'movements', object: this.movement })
                 }
             },
@@ -185,8 +236,9 @@
                 this.dialog.show = false
                 this.$emit('deleteEntryEmit', { arrayName: 'movements', object: this.movement })
             },
-            updateEntry(object) {
-                this.$emit('updateEntryEmit', { arrayName: 'movements', object: object })
+            updateEntry() {
+                this.dialog.show = false
+                this.$emit('updateEntryEmit', { arrayName: 'movements', object: this.movement })
             },
             // CRUD Functions End
             // Open Dialog Functions
@@ -198,8 +250,8 @@
                     this.$refs.amount.focus()
                 }, 200)
             },
-            deleteDialog(movement) {
-                this.movement = movement
+            deleteDialog(id) {
+                this.movement = JSON.parse(JSON.stringify(this.movements.find(x => x.id == id)))
                 this.setDialog('Delete')
             },
             setDialog(type) {
@@ -207,6 +259,10 @@
                     show: true,
                     type: type
                 }
+            },
+            updateDialog(id) {
+                this.movement = JSON.parse(JSON.stringify(this.movements.find(x => x.id == id)))
+                this.setDialog('Edit')
             },
             // Open Dialog Functions End
             subtractAP(apCost) {

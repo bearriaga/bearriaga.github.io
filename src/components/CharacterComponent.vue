@@ -132,11 +132,16 @@
                                          @updatePanelEmit="updatePanel($event)"></ResourceSection>
                         <MovementSection :ap="characterSheet.ap"
                                          :can-edit="true"
+                                         :characteristics="characteristicViewItems"
                                          :movements="movements"
                                          :movement-ap-icon="movementApIcon"
                                          :movement-ap-icon-color="movementApIconColor"
                                          :movement-types="movementTypes"
                                          :panel-prop="movementPanel"
+                                         :status-accelerated="statusAccelerated"
+                                         :status-hobbled="statusHobbled"
+                                         :status-movement-up-down="statusMovementUpDown"
+                                         :status-rooted="statusRooted"
                                          @addEntryEmit="addEntry($event)"
                                          @deleteEntryEmit="deleteEntry($event)"
                                          @subtractAPEmit="subtractAP($event)"
@@ -475,11 +480,16 @@
                         <v-tab-item value="movements">
                             <MovementSection :ap="characterSheet.ap"
                                              :can-edit="true"
+                                             :characteristics="characteristicViewItems"
                                              :movements="movements"
                                              :movement-ap-icon="movementApIcon"
                                              :movement-ap-icon-color="movementApIconColor"
                                              :movement-types="movementTypes"
                                              :panel-prop="movementPanel"
+                                             :status-accelerated="statusAccelerated"
+                                             :status-hobbled="statusHobbled"
+                                             :status-movement-up-down="statusMovementUpDown"
+                                             :status-rooted="statusRooted"
                                              @addEntryEmit="addEntry($event)"
                                              @deleteEntryEmit="deleteEntry($event)"
                                              @subtractAPEmit="subtractAP($event)"
@@ -714,11 +724,16 @@
                              @updatePanelEmit="updatePanel($event)"></ResourceSection>
             <MovementSection :ap="characterSheet.ap"
                              :can-edit="true"
+                             :characteristics="characteristicViewItems"
                              :movements="movements"
                              :movement-ap-icon="movementApIcon"
                              :movement-ap-icon-color="movementApIconColor"
                              :movement-types="movementTypes"
                              :panel-prop="movementPanel"
+                             :status-accelerated="statusAccelerated"
+                             :status-hobbled="statusHobbled"
+                             :status-movement-up-down="statusMovementUpDown"
+                             :status-rooted="statusRooted"
                              @addEntryEmit="addEntry($event)"
                              @deleteEntryEmit="deleteEntry($event)"
                              @subtractAPEmit="subtractAP($event)"
@@ -2024,64 +2039,7 @@
                 return color
             },
             movements() {
-                let movements = []
-
-                let doubleCHAR = this.fitness * 2
-                if (this.fitness) {
-                    movements.push({
-                        amount: doubleCHAR,
-                        description: 'Default Movement from FIT, FIT x 2',
-                        id: 'defaultMovement',
-                        isBuff: false,
-                        isDefault: true,
-                        isUnique: false,
-                        key: 'defaultMovement' + doubleCHAR,
-                        type: 'Land Speed'
-                    })
-                    movements.push({
-                        amount: this.fitness,
-                        description: 'Default Movement from FIT',
-                        id: 'defaultMovementClimb',
-                        isBuff: false,
-                        isDefault: true,
-                        isUnique: false,
-                        key: 'defaultMovementClimb' + this.fitness,
-                        type: 'Climb'
-                    })
-                    movements.push({
-                        amount: this.fitness,
-                        description: 'Default Movement from FIT',
-                        id: 'defaultMovementSwim',
-                        isBuff: false,
-                        isDefault: true,
-                        isUnique: false,
-                        key: 'defaultMovementSwim' + this.fitness,
-                        type: 'Swim'
-                    })
-                }
-
-                this.characterSheet.movements.forEach(m => {
-                    let movement = JSON.parse(JSON.stringify(m))
-                    movement.key = movement.id + this.characterSheet.ap
-                    movements.push(movement)
-                })
-
-                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Movement') && b.isActive }).forEach(buff => {
-                    buff.adjustments.filter(a => { return a.type == 'Movement' && a.movementType != 'All' }).forEach(adjustment => {
-                        let amount = (adjustment.amount) ? adjustment.amount : 0;
-                        amount = +amount + +((adjustment.characteristic) ? this[adjustment.characteristic] * 2 : 0)
-                        let movement = {
-                            amount: amount,
-                            description: buff.name + ' Buff Movement',
-                            id: adjustment.id,
-                            isBuff: true,
-                            isDefault: false,
-                            key: adjustment.id + JSON.stringify(adjustment),
-                            type: adjustment.movementType
-                        }
-                        movements.push(movement)
-                    })
-                })
+                let movements = JSON.parse(JSON.stringify(this.characterSheet.movements))
 
                 this.characterSheet.equipment.filter(e => { return e.isActive && e.movements.length }).forEach((equipment, index) => {
                     equipment.movements.forEach(m => {
@@ -2090,7 +2048,7 @@
                             description: m.description,
                             id: JSON.stringify(m) + index,
                             isBuff: true,
-                            isDefault: false,
+                            isEquipment: true,
                             key: JSON.stringify(m) + index,
                             type: m.type
                         }
@@ -2098,31 +2056,46 @@
                     })
                 })
 
-                let buffAmount = 0
-                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Movement') && JSON.stringify(b.adjustments).includes('All') && b.isActive }).forEach(buff => {
-                    buffAmount = +buffAmount + +buff.adjustments.filter(a => { return a.type == 'Movement' && a.movementType == 'All' }).reduce((previousValue, entry) => {
-                        return +previousValue + +entry.amount
-                    }, 0)
+                this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Movement') && b.isActive }).forEach(buff => {
+                    buff.adjustments.filter(a => { return a.type == 'Movement' && a.movementType != 'All' }).forEach(adjustment => {
+                        let amount = (adjustment.amount) ? adjustment.amount : 0
+                        let movement = {
+                            amount: amount,
+                            characteristic: adjustment.characteristic,
+                            description: buff.name + ' Buff Movement',
+                            id: adjustment.id,
+                            isBuff: true,
+                            type: adjustment.movementType
+                        }
+                        movements.push(movement)
+                    })
                 })
 
-                if (buffAmount ||this.statusAccelerated || this.statusHobbled || this.statusMovementUpDown || this.statusRooted)
-                    movements.forEach(m => {
-                        if (this.statusRooted)
-                            m.amount = 0
-                        else {
-                            if (buffAmount)
-                                m.amount = +m.amount + +buffAmount
-                            if (this.statusMovementUpDown)
-                                m.amount = +m.amount + +this.statusMovementUpDown
-                            if (m.amount < 0)
-                                m.amount = 0
-                            if (this.statusAccelerated && m.amount > 0)
-                                m.amount *= 2
-                            if (this.statusHobbled && m.amount > 0)
-                                m.amount = Math.floor(m.amount / 2)
-                        }
-                        m.key += this.statusAccelerated + this.statusHobbled + this.statusMovementUpDown + this.statusRooted
-                    })
+                //let buffAmount = 0
+                //this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Movement') && JSON.stringify(b.adjustments).includes('All') && b.isActive }).forEach(buff => {
+                //    buffAmount = +buffAmount + +buff.adjustments.filter(a => { return a.type == 'Movement' && a.movementType == 'All' }).reduce((previousValue, entry) => {
+                //        return +previousValue + +entry.amount
+                //    }, 0)
+                //})
+
+                //if (buffAmount ||this.statusAccelerated || this.statusHobbled || this.statusMovementUpDown || this.statusRooted)
+                //    movements.forEach(m => {
+                //        if (this.statusRooted)
+                //            m.amount = 0
+                //        else {
+                //            if (buffAmount)
+                //                m.amount = +m.amount + +buffAmount
+                //            if (this.statusMovementUpDown)
+                //                m.amount = +m.amount + +this.statusMovementUpDown
+                //            if (m.amount < 0)
+                //                m.amount = 0
+                //            if (this.statusAccelerated && m.amount > 0)
+                //                m.amount *= 2
+                //            if (this.statusHobbled && m.amount > 0)
+                //                m.amount = Math.floor(m.amount / 2)
+                //        }
+                //        m.key += this.statusAccelerated + this.statusHobbled + this.statusMovementUpDown + this.statusRooted
+                //    })
 
                 return movements
             },
