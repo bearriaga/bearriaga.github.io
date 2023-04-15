@@ -11,7 +11,6 @@
                     <v-form>
                         <v-switch label="Luck Favored" inset v-model="luckFavored"></v-switch>
                         <v-switch label="Luck Ill Favored" inset v-model="luckIllFavored"></v-switch>
-                        <v-switch label="Luck Loved by Luck" inset v-model="luckLovedByLuck"></v-switch>
                         <v-switch label="Luck Nothing to Chance" inset v-model="luckNothingToChance"></v-switch>
                     </v-form>
                 </v-expansion-panel-content>
@@ -30,7 +29,6 @@
             return {
                 luckFavored: this.characterSheet.luckFavored,
                 luckIllFavored: this.characterSheet.luckIllFavored,
-                luckLovedByLuck: this.characterSheet.luckLovedByLuck,
                 luckNothingToChance: this.characterSheet.luckNothingToChance
             }
         },
@@ -42,7 +40,6 @@
         watch: {
             luckFavored() { this.updateProp('luckFavored', 'bool', this.luckFavored) },
             luckIllFavored() { this.updateProp('luckIllFavored', 'bool', this.luckIllFavored) },
-            luckLovedByLuck() { this.updateProp('luckLovedByLuck', 'bool', this.luckLovedByLuck) },
             luckNothingToChance() { this.updateProp('luckNothingToChance', 'bool', this.luckNothingToChance) }
         }
     }

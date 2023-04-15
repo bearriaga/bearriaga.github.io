@@ -2004,9 +2004,6 @@
                     }
                 ]
             },
-            luckLovedByLuck() {
-                return (this.characterSheet.luckLovedByLuck) ? Math.ceil(this.luck / 2) : 0
-            },
             minions() {
                 let minions = []
 
@@ -2901,7 +2898,6 @@
                     result.successes += +rdResult.successes
                     result.successesInput += +rdResult.successes
                     result.fate = result.diceResults[0]
-                    result.fate += +this.luckLovedByLuck
 
                     let luck = diceCheckObject.luck ? diceCheckObject.luck : this.luck
                     if (!this.characterSheet.luckNothingToChance) {
