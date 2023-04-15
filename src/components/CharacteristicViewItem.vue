@@ -84,6 +84,12 @@
             xp: Number
         },
         computed: {
+            adjustedAmount() {
+                if (!this.isGenericRoller)
+                    return this.characteristic.adjustedAmount
+                else
+                    return this.value
+            },
             adjustedAmountClass() {
                 let amountClass = 'cursorPointer '
 
@@ -121,7 +127,6 @@
         },
         data() {
             return {
-                adjustedAmount: this.characteristic.adjustedAmount,
                 isGenericRoller: (this.characteristic.abbreviation == 'Generic Roller'),
                 value: +this.characteristic.value,
                 valueIncreases: this.characteristic.valueIncreases,
