@@ -19,6 +19,7 @@
             <MovementSection v-if="equipment.movements.length"
                              :ap="ap"
                              :can-edit="false"
+                             :characteristics="characteristicViewItems"
                              :movements="equipment.movements"
                              :movement-types="movementTypes"
                              :movement-ap-icon="movementApIcon"
@@ -35,7 +36,7 @@
                           v-model="attunementSlots"
                           v-if="attunementSlots"></v-text-field>
             <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" v-if="description"></v-textarea>
-            <AbilityLIstItem v-if="showAbility"
+            <AbilityListItem v-if="showAbility"
                              :ability="equipment.ability"
                              :ap="ap"
                              :characteristics="characteristics"
@@ -46,20 +47,20 @@
                              @rollDamageEmit="rollDamage($event)"
                              @subtractAP="subtractAP($event)"
                              @subtractCR="subtractCR($event)"
-                             @useAbility="useAbility($event)"></AbilityLIstItem>
+                             @useAbility="useAbility($event)"></AbilityListItem>
         </v-form>
     </div>
 </template>
 
 <script>
-    import AbilityLIstItem from './AbilityListItem.vue'
+    import AbilityListItem from './AbilityListItem.vue'
     import DamageModificationSection from './DamageModificationSection.vue'
     import MovementSection from './MovementSection.vue'
 
     export default {
         name: 'EquipmentListItem',
         components: {
-            AbilityLIstItem,
+            AbilityListItem,
             DamageModificationSection,
             MovementSection
         },
