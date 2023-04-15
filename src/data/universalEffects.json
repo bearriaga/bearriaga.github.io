@@ -14,7 +14,7 @@
       "description": "Gain +1 Success for your next roll"
     },
     {
-      "cost": 3,
+      "cost": 4,
       "description": "Convert the attack to a critical"
     }
   ],
