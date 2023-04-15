@@ -137,8 +137,6 @@
                         if (this.statusRooted)
                             m.amount = 0
                         else {
-                            //if (buffAmount)
-                            //    m.amount = +m.amount + +buffAmount
                             if (this.statusMovementUpDown)
                                 m.amount = +m.amount + +this.statusMovementUpDown
                             if (m.amount < 0)
@@ -170,19 +168,21 @@
                 let uniqueMovementTypes = [...new Set(this.movementListItems.map(x => (x.type)))].sort()
 
                 uniqueMovementTypes.forEach((type) => {
-                    let passiveMovement = this.movementListItems.filter(x => { return x.type == type && (!x.isBuff || x.isEquipment) })
-                        .reduce((max, movement) => max.amount > movement.amount ? max : movement, { amount: 0 })
-                    let buffMovement = this.movementListItems.filter(x => { return x.type == type && x.isBuff && !x.isEquipment })
-                        .reduce((max, movement) => max.amount > movement.amount ? max : movement, { amount: 0 })
-                    let amount = +passiveMovement.amount + +buffMovement.amount
-                    let movement = {
-                        amount: amount,
-                        canEdit: false,
-                        isUnique: true,
-                        key: amount + type,
-                        type: `Combined ${type}`
+                    if (type != 'All') {
+                        let passiveMovement = this.movementListItems.filter(x => { return x.type == type && (!x.isBuff || x.isEquipment) })
+                            .reduce((max, movement) => max.amount > movement.amount ? max : movement, { amount: 0 })
+                        let buffMovement = this.movementListItems.filter(x => { return (x.type == type || x.type == 'All') && x.isBuff && !x.isEquipment })
+                            .reduce((max, movement) => max.amount > movement.amount ? max : movement, { amount: 0 })
+                        let amount = +passiveMovement.amount + +buffMovement.amount
+                        let movement = {
+                            amount: amount,
+                            canEdit: false,
+                            isUnique: true,
+                            key: amount + type,
+                            type: `Combined ${type}`
+                        }
+                        movements.push(movement)
                     }
-                    movements.push(movement)
                 })
 
                 return movements

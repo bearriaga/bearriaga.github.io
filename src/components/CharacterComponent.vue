@@ -2060,7 +2060,7 @@
                 })
 
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Movement') && b.isActive }).forEach(buff => {
-                    buff.adjustments.filter(a => { return a.type == 'Movement' && a.movementType != 'All' }).forEach(adjustment => {
+                    buff.adjustments.filter(a => { return a.type == 'Movement' }).forEach(adjustment => {
                         let amount = (adjustment.amount) ? adjustment.amount : 0
                         let movement = {
                             amount: amount,
@@ -2073,32 +2073,6 @@
                         movements.push(movement)
                     })
                 })
-
-                //let buffAmount = 0
-                //this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Movement') && JSON.stringify(b.adjustments).includes('All') && b.isActive }).forEach(buff => {
-                //    buffAmount = +buffAmount + +buff.adjustments.filter(a => { return a.type == 'Movement' && a.movementType == 'All' }).reduce((previousValue, entry) => {
-                //        return +previousValue + +entry.amount
-                //    }, 0)
-                //})
-
-                //if (buffAmount ||this.statusAccelerated || this.statusHobbled || this.statusMovementUpDown || this.statusRooted)
-                //    movements.forEach(m => {
-                //        if (this.statusRooted)
-                //            m.amount = 0
-                //        else {
-                //            if (buffAmount)
-                //                m.amount = +m.amount + +buffAmount
-                //            if (this.statusMovementUpDown)
-                //                m.amount = +m.amount + +this.statusMovementUpDown
-                //            if (m.amount < 0)
-                //                m.amount = 0
-                //            if (this.statusAccelerated && m.amount > 0)
-                //                m.amount *= 2
-                //            if (this.statusHobbled && m.amount > 0)
-                //                m.amount = Math.floor(m.amount / 2)
-                //        }
-                //        m.key += this.statusAccelerated + this.statusHobbled + this.statusMovementUpDown + this.statusRooted
-                //    })
 
                 return movements
             },
