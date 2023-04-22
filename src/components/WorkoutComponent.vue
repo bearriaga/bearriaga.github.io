@@ -3,7 +3,10 @@
         <v-form>
             <v-row>
                 <v-col class="text-center">
-                    <v-btn color="primary" @click="saveFitnessAccount">Save Workout</v-btn>
+                    <v-btn color="primary" @click="saveFitnessAccount">
+                        Save Workout
+                        <v-progress-circular indeterminate v-if="saving"></v-progress-circular>
+                    </v-btn>
                 </v-col>
             </v-row>
             <v-row>
@@ -243,6 +246,7 @@
                     'Shoulders'
                 ],
                 panel: [],
+                saving: false,
                 set: {
                     notes: '',
                     reps: 0,
@@ -327,6 +331,11 @@
             },
             async saveFitnessAccount() {
                 let snackbarText = ''
+                this.saving = true
+                this.snackbar = {
+                    show: true,
+                    text: 'Saving'
+                }
 
                 if (this.workout.id == '') {
                     this.workout.id = uuidv4()
@@ -349,6 +358,7 @@
                     show: true,
                     text: snackbarText
                 }
+                this.saving = false
             },
             skipExercise(exercise, index) {
                 this.workout.exercises.push(exercise)
