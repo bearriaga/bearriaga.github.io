@@ -62,6 +62,9 @@
                                 </v-col>
                             </v-row>
                             <v-textarea label="Notes" v-model="e.notes" auto-grow outlined rows="1" clearable></v-textarea>
+                            <div class="text-center">
+                                <v-btn color="primary" @click="skipExercise(e, i)">Skip</v-btn>
+                            </div>
                             <template>
                                 <h3 class="text-center">
                                     Sets
@@ -345,6 +348,17 @@
                 this.snackbar = {
                     show: true,
                     text: snackbarText
+                }
+            },
+            skipExercise(exercise, index) {
+                this.workout.exercises.push(exercise)
+                this.workout.exercises.splice(index, 1)
+                let notes = this.workout.exercises[this.workout.exercises.length - 1].notes
+                if (!notes.includes('Skipped')) {
+                    if (!notes)
+                        this.workout.exercises[this.workout.exercises.length - 1].notes = 'Skipped'
+                    else
+                        this.workout.exercises[this.workout.exercises.length - 1].notes += '\r\nSkipped'
                 }
             },
             updateRep(i, j, amount) {
