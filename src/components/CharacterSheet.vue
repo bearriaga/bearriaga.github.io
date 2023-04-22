@@ -24,7 +24,10 @@
                     <v-btn color="primary" @click="saveCharacterConfirm">Save Character</v-btn>
                 </div>
                 <div>
-                    <v-btn v-if="$signedIn" color="primary" @click="saveToFirebaseConfirm">Save Character to Database</v-btn>
+                    <v-btn v-if="$signedIn" color="primary" @click="saveToFirebaseConfirm">
+                        Save Character to Database
+                        <v-progress-circular indeterminate v-if="saving"></v-progress-circular>
+                    </v-btn>
                 </div>
             </v-col>
             <v-col>
@@ -243,7 +246,8 @@
                     },
                     show: false
                 },
-                options: null
+                options: null,
+                saving: false
             }
         },
         methods: {
@@ -377,6 +381,9 @@
                     }
             },
             async saveToFirebase(type) {
+                this.saving = true
+                this.showSnackbar('Saving')
+
                 if (this.characterSheet.id == 'default' || this.characterSheet.id == 'clear')
                     this.characterSheet.id = uuidv4()
 
@@ -384,6 +391,7 @@
                 character.user = this.$userData.email
                 await setDoc(doc(db, 'characters', character.id), character)
                 this.showSnackbar('Character Saved to Database')
+                this.saving = false
 
                 if (type == 'add')
                     this.characters.push(character)
