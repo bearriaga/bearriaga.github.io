@@ -2,10 +2,10 @@
     <div>
         <form onsubmit="return false;" v-if="layout == 'Expanded'">
             <v-row>
-                <v-col cols="4" md="2">
+                <v-col cols="4" md="3">
                     <v-text-field label="Name" v-model="characterSheet.name"></v-text-field>
                 </v-col>
-                <v-col cols="4" md="2">
+                <v-col cols="4" md="3">
                     <v-text-field label="Race" v-model="characterSheet.race"></v-text-field>
                 </v-col>
                 <v-col cols="4" md="2">
@@ -18,15 +18,7 @@
                     <v-text-field label="Level" v-model="characterSheet.level" disabled readonly>
                         <TooltipComponent slot="append" :text="'Level = non-class XP / 500 round down'"></TooltipComponent>
                     </v-text-field>
-                </v-col>
-                <v-col cols="4" md="2">
-                    <v-text-field label="Movement in Squares (Land Speed)" v-model="characterSheet.movement" type="number" disabled readonly>
-                        <v-icon :color="movementApIconColor"
-                                slot="append"
-                                @click="subtractAP(1)">{{movementApIcon}}</v-icon>
-                        <TooltipComponent slot="append" :text="'FIT + Land Speed Movement Entries'"></TooltipComponent>
-                    </v-text-field>
-                </v-col>
+                </v-col>                
             </v-row>
             <v-row>
                 <v-col cols="12" lg="3" md="6">
@@ -175,9 +167,33 @@
                                     @updatePanelEmit="updatePanel($event)"
                                     @useAbilityEmit="useModes($event)"></AbilitySection>
                 </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
+                <v-col cols="12">
+                    <InputWithEditModal @updatePropEmit="updateProp($event)"
+                                        :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
+                    <EquipmentSection :ap="characterSheet.ap"
+                                      :characteristics="characteristics"
+                                      :characteristic-view-items="characteristicViewItems"
+                                      :character-equipment="characterEquipment"
+                                      :damage-groups="damageGroups"
+                                      :damage-types="damageTypes"
+                                      :movement-ap-icon="movementApIcon"
+                                      :movement-ap-icon-color="movementApIconColor"
+                                      :movement-types="movementTypes"
+                                      :panel-prop="equipmentPanel"
+                                      :resources="resources"
+                                      :successes-from-intelligence="successesFromIntelligence"
+                                      @addEntryEmit="addEntry($event)"
+                                      @deleteEntryEmit="deleteEntry($event)"
+                                      @rollAbilityEmit="rollAbility($event)"
+                                      @rollDamageEmit="rollAbilityDamage($event)"
+                                      @subtractAPEmit="subtractAP($event)"
+                                      @subtractCREmit="subtractCR($event)"
+                                      @updateEntryEmit="updateEntry($event)"
+                                      @updateEntryBypassEmit="updateEntry($event)"
+                                      @updatePanelEmit="updatePanel($event)"
+                                      @useAbilityEmit="useModes($event)"></EquipmentSection>
+                </v-col>
+                <v-col cols="12">
                     <MinionSection :array-name="'minions'"
                                    :clear-character="clearCharacter"
                                    :minions="characterSheet.minions"
@@ -287,6 +303,8 @@
                                    @updateBuffEntryEmit="updateBuffStatus($event)"
                                    @updateEntryEmit="updateEntry($event)"
                                    @updatePanelEmit="updatePanel($event)"></StatusSection>
+                </v-col>
+                <v-col cols="12" md="6">
                     <BuffSection :buffs="buffs"
                                  :characteristics="characteristics"
                                  :damage-types="damageTypes"
@@ -300,33 +318,7 @@
                                  @moveEntryEmit="moveEntry($event)"
                                  @updateEntryEmit="updateBuffEntry($event)"
                                  @updateEntryBypassEmit="updateEntry($event)"
-                                 @updatePanelEmit="updatePanel($event)"></BuffSection>
-                </v-col>
-                <v-col cols="12" md="6">
-                    <InputWithEditModal @updatePropEmit="updateProp($event)"
-                                        :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
-                    <EquipmentSection :ap="characterSheet.ap"
-                                      :characteristics="characteristics"
-                                      :characteristic-view-items="characteristicViewItems"
-                                      :character-equipment="characterEquipment"
-                                      :damage-groups="damageGroups"
-                                      :damage-types="damageTypes"
-                                      :movement-ap-icon="movementApIcon"
-                                      :movement-ap-icon-color="movementApIconColor"
-                                      :movement-types="movementTypes"
-                                      :panel-prop="equipmentPanel"
-                                      :resources="resources"
-                                      :successes-from-intelligence="successesFromIntelligence"
-                                      @addEntryEmit="addEntry($event)"
-                                      @deleteEntryEmit="deleteEntry($event)"
-                                      @rollAbilityEmit="rollAbility($event)"
-                                      @rollDamageEmit="rollAbilityDamage($event)"
-                                      @subtractAPEmit="subtractAP($event)"
-                                      @subtractCREmit="subtractCR($event)"
-                                      @updateEntryEmit="updateEntry($event)"
-                                      @updateEntryBypassEmit="updateEntry($event)"
-                                      @updatePanelEmit="updatePanel($event)"
-                                      @useAbilityEmit="useModes($event)"></EquipmentSection>
+                                 @updatePanelEmit="updatePanel($event)"></BuffSection>                    
                 </v-col>
             </v-row>
         </form>
@@ -369,15 +361,7 @@
                 </v-col>
                 <v-col cols="6" md="3" class="charColumn mainColumn elevation-3" elevation="3">
                     <v-row>
-                        <v-col cols="12">
-                            <v-text-field label="Movement in Squares (Land Speed)" v-model="characterSheet.movement" type="number" disabled readonly>
-                                <v-icon :color="movementApIconColor"
-                                        slot="append"
-                                        @click="subtractAP(1)">{{movementApIcon}}</v-icon>
-                                <TooltipComponent slot="append" :text="'FIT + Land Speed Movement Entries'"></TooltipComponent>
-                            </v-text-field>
-                        </v-col>
-                        <v-col cols="12" lg="6" v-for="input in defenseInputWithEditModals" :key="input.key">
+                        <v-col v-for="input in defenseInputWithEditModals" :key="input.key">
                             <InputWithEditModal @specialInputWithEditModalEmit="specialInputWithEditModal($event)"
                                                 @updatePropEmit="updateProp($event)"
                                                 :property-object="input"
@@ -3549,9 +3533,6 @@
             },
             level() {
                 this.characterSheet.level = this.level
-            },
-            movement() {
-                this.characterSheet.movement = this.movement
             },
             name() {
                 this.updateCharacterSheet()
