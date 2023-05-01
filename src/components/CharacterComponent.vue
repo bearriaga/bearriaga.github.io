@@ -18,7 +18,7 @@
                     <v-text-field label="Level" v-model="characterSheet.level" disabled readonly>
                         <TooltipComponent slot="append" :text="'Level = non-class XP / 500 round down'"></TooltipComponent>
                     </v-text-field>
-                </v-col>                
+                </v-col>
             </v-row>
             <v-row>
                 <v-col cols="12" lg="3" md="6">
@@ -318,7 +318,7 @@
                                  @moveEntryEmit="moveEntry($event)"
                                  @updateEntryEmit="updateBuffEntry($event)"
                                  @updateEntryBypassEmit="updateEntry($event)"
-                                 @updatePanelEmit="updatePanel($event)"></BuffSection>                    
+                                 @updatePanelEmit="updatePanel($event)"></BuffSection>
                 </v-col>
             </v-row>
         </form>
@@ -972,7 +972,6 @@
                         <div class="text-center">
                             <v-btn color="primary" @click="rollCrit" width="200">Roll Crit</v-btn>
                         </div>
-
                         <div>
                             <div v-if="abilityDialog.damage.diceResults.length > 0">
                                 Die Results:  {{abilityDialog.damage.damage.dice}}d6 [
@@ -990,6 +989,14 @@
                                 Flat Total: {{abilityDialog.damage.flatTotal}}
                                 <TooltipComponent :text="abilityDialog.damage.flatTotalBreakdown"></TooltipComponent>
                             </div>
+                            <div v-if="abilityDialog.ability.linkToDamage">
+                                <v-select label="Link to Ability: Damage"
+                                          v-model="abilityDialog.linkToDamage.ability"
+                                          :items="linkToAbilityDamageItems"
+                                          :disabled="abilityDialog.linkToDamage.used">
+                                    <v-btn color="primary" slot="prepend" @click.stop="linkToAbilityDamage" :disabled="abilityDialog.linkToDamage.used">Use</v-btn>
+                                </v-select>
+                            </div>
                             <v-select v-model="abilityDialog.damage.selectedRerolls"
                                       v-if="abilityDialog.damage.diceResults.length > 0"
                                       :items="abilityDialog.damage.diceResults.map((x, i) => ({ value: i, text: x.value}))"
@@ -1004,7 +1011,6 @@
                                 </v-icon>
                             </v-select>
                         </div>
-
                         <div class="text-center">
                             <div>
                                 <b>Rerolls Left: {{characterSheet.rerolls}}</b>
@@ -1444,6 +1450,7 @@
                         ability.inClass +
                         ability.isAbilityArray +
                         ability.isMeleeAttack +
+                        ability.linkToDamage +
                         ability.maxSizeCategoryOfMass +
                         ability.name +
                         ability.physMeta +
@@ -1490,6 +1497,7 @@
                             ability.inClass +
                             ability.isAbilityArray +
                             ability.isMeleeAttack +
+                            ability.linkToDamage +
                             ability.maxSizeCategoryOfMass +
                             ability.name +
                             ability.physMeta +
@@ -1988,6 +1996,33 @@
                     }
                 ]
             },
+            linkToAbilityDamageItems() {
+                let abilities = JSON.parse(JSON.stringify(
+                    this.abilities.filter(x => { return (x.damage.dice > 0 || x.damage.flat > 0 || x.damage.isMeleeAttack) && x.id != this.abilityDialog.ability.id })
+                )).sort((a, b) => {
+                    const nameA = a.name.toUpperCase();
+                    const nameB = b.name.toUpperCase();
+                    if (nameA < nameB)
+                        return -1
+                    else
+                        return 1
+                })
+                let items = []
+
+                abilities.forEach(ability => {
+                    let text = ability.name + ' - '
+                    if (ability.damage.dice && ability.damage.dice != 0)
+                        text += `${ability.damage.dice}d6 + `
+                    if (ability.damage.flat && ability.damage.flat != 0)
+                        text += `${ability.damage.flat}`
+                    if (text.substring(text.length - 3) == ' + ')
+                        text = text.substring(0, text.length - 3)
+                    text += ' ' + ability.damage.types.join(', ')
+                    items.push({ value: ability.id, text: text })
+                })
+
+                return items
+            },
             minions() {
                 let minions = []
 
@@ -2370,6 +2405,10 @@
                     effects: [],
                     useModeDamage: [],
                     isAbility: false,
+                    linkToDamage: {
+                        ability: null,
+                        used: false,
+                    },
                     save: {
                         amount: 0,
                         characteristic: '',
@@ -2423,6 +2462,10 @@
                     effects: [],
                     useModeDamage: [],
                     isAbility: false,
+                    linkToDamage: {
+                        ability: null,
+                        used: false,
+                    },
                     save: {
                         amount: 0,
                         characteristic: '',
@@ -3026,6 +3069,10 @@
                 }
                 this.$emit('saveOptionsEmit', options)
             },
+            linkToAbilityDamage() {
+                this.addDamage(this.abilities.find(x => x.id == this.abilityDialog.linkToDamage.ability), 'normal')
+                this.abilityDialog.linkToDamage.used = true
+            },
             loadLog(log) {
                 navigator.clipboard.writeText(log.copyText)
                 this.showSnackbar(`Copied ${log.type} to Clipboard`)
@@ -3402,8 +3449,9 @@
                     s.time = Date.now()
                 })
                 this.abilityDialog.check.show = (ability.characteristic || ability.dice || ability.successes)
-                this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0 || ability.isMeleeAttack || ability.damage.characteristic)
+                this.abilityDialog.damage.show = (ability.damage.dice > 0 || ability.damage.flat > 0 || ability.isMeleeAttack || ability.linkToDamage || ability.damage.characteristic)
                 this.abilityDialog.isAbility = true
+                this.abilityDialog.linkToDamage = { ability: null, used: false }
                 this.abilityDialog.selectedEffects = []
                 this.abilityDialog.show = true
                 this.abilityDialog.title = ability.name
@@ -3477,26 +3525,7 @@
 
                     }
                     if (ability.damage.dice > 0 || ability.damage.flat > 0) {
-                        this.abilityDialog.damage.show = true
-                        let char = (ability.damage.characteristic) ? ability.damage.characteristic : ability.characteristic
-                        let damage = this.rollDamage(ability.damage, ability.isMeleeAttack, char, false)
-                        damage.diceResults.forEach(d => {
-                            d.type = 'subEffect'
-                        })
-                        this.abilityDialog.damage.diceResults = this.abilityDialog.damage.diceResults.concat(damage.diceResults)
-                        this.abilityDialog.damage.flatTotal = +this.abilityDialog.damage.flatTotal + +damage.flatTotal
-                        this.abilityDialog.damage.flatTotalBreakdown += `${(this.abilityDialog.damage.flatTotalBreakdown) ? ' + ' : ''}${damage.flatTotalBreakdown}`
-                        this.abilityDialog.damage.sum = +this.abilityDialog.damage.sum + +damage.diceResults.reduce((previousValue, entry) => {
-                            return +previousValue + +entry.value
-                        }, 0) + +damage.flatTotal
-
-                        damage.types.forEach(t => {
-                            if (this.abilityDialog.damage.types.filter(at => at.text == t.text).length == 0) {
-                                this.abilityDialog.damage.types.push(t)
-                                let typeEffects = damage.effects.filter(e => e.type == t.text)
-                                this.abilityDialog.effects = typeEffects.concat(this.abilityDialog.effects)
-                            }
-                        })
+                        this.addDamage(ability, 'subEffect')
                     }
                     if (ability.description) {
                         this.abilityDialog.ability.description += `\r\n${ability.name} - ${ability.description}`
@@ -3509,7 +3538,29 @@
                 } else {
                     this.useAbility(JSON.parse(JSON.stringify(ability)))
                 }
-            }
+            },
+            addDamage(ability, type) {
+                this.abilityDialog.damage.show = true
+                let char = (ability.damage.characteristic) ? ability.damage.characteristic : ability.characteristic
+                let damage = this.rollDamage(ability.damage, ability.isMeleeAttack, char, false)
+                damage.diceResults.forEach(d => {
+                    d.type = type
+                })
+                this.abilityDialog.damage.diceResults = this.abilityDialog.damage.diceResults.concat(damage.diceResults)
+                this.abilityDialog.damage.flatTotal = +this.abilityDialog.damage.flatTotal + +damage.flatTotal
+                this.abilityDialog.damage.flatTotalBreakdown += `${(this.abilityDialog.damage.flatTotalBreakdown) ? ' + ' : ''}${damage.flatTotalBreakdown}`
+                this.abilityDialog.damage.sum = +this.abilityDialog.damage.sum + +damage.diceResults.reduce((previousValue, entry) => {
+                    return +previousValue + +entry.value
+                }, 0) + +damage.flatTotal
+
+                damage.types.forEach(t => {
+                    if (this.abilityDialog.damage.types.filter(at => at.text == t.text).length == 0) {
+                        this.abilityDialog.damage.types.push(t)
+                        let typeEffects = damage.effects.filter(e => e.type == t.text)
+                        this.abilityDialog.effects = typeEffects.concat(this.abilityDialog.effects)
+                    }
+                })
+            },
         },
         watch: {
             // Character Sheet Watch Start

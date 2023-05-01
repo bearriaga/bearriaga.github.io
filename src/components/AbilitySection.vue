@@ -189,6 +189,11 @@
                                                 <v-switch label="Melee Attack" inset v-model="ability.isMeleeAttack"></v-switch>
                                             </v-col>
                                             <v-col cols="12" md="6">
+                                                <v-switch label="Link to Ability: Damage" inset v-model="ability.linkToDamage">
+                                                    <TooltipComponent slot="append" :text="'When using this ability, can choose to do damage from any other ability.'"></TooltipComponent>
+                                                </v-switch>
+                                            </v-col>
+                                            <v-col cols="12" md="6">
                                                 <v-switch label="Flat Damage Crits" inset v-model="ability.damage.critFlat"></v-switch>
                                             </v-col>
                                             <v-col cols="12" md="6">
@@ -528,6 +533,7 @@
                     inClass: true,
                     isAbilityArray: false,
                     isMeleeAttack: false,
+                    linkToDamage: false,
                     maxSizeCategoryOfMass: 0,
                     name: '',
                     physMeta: 'Physical',
@@ -567,6 +573,7 @@
                     inClass: true,
                     isAbilityArray: false,
                     isMeleeAttack: false,
+                    linkToDamage: false,
                     maxSizeCategoryOfMass: 0,
                     name: '',
                     physMeta: 'Physical',

@@ -6,7 +6,7 @@
                     <v-icon>mdi-pen</v-icon>
                 </v-btn>
             </v-col>
-            <v-col class="text-center" v-if="apCost != 0 || characteristic || classResource || damage.dice > 0 || damage.flat > 0 || dice || (save && saveAmount && saveCharacteristic)">
+            <v-col class="text-center" v-if="showUseButton">
                 <v-btn color="primary" @click="useAbility(ability)">
                     Use
                     <v-icon :color="useButtonIconColor">{{useButtonIcon}}</v-icon>
@@ -42,7 +42,7 @@
                 <v-col cols="12" v-if="save">
                     <v-text-field :label="saveCharacteristic + ' Save Amount'" v-model="saveAmount"></v-text-field>
                 </v-col>
-                <v-col cols="12" v-if="damage.dice > 0 || damage.flat > 0">
+                <v-col cols="12" v-if="showDamageSection">
                     <template>
                         <v-expansion-panels>
                             <v-expansion-panel>
@@ -66,8 +66,11 @@
                                         <v-col cols="12" v-if="damage.characteristic">
                                             <v-select label="Damage Characteristic" :items="characteristics" v-model="damage.characteristic" readonly></v-select>
                                         </v-col>
-                                        <v-col cols="12" v-if="isMeleeAttack">
+                                        <v-col cols="6" v-if="isMeleeAttack">
                                             <v-switch label="Melee Attack" inset v-model="isMeleeAttack"></v-switch>
+                                        </v-col>
+                                        <v-col cols="6" v-if="linkToDamage">
+                                            <v-switch label="Link to Ability: Damage" inset v-model="linkToDamage"></v-switch>
                                         </v-col>
                                         <v-col cols="6" v-if="damage.critFlat">
                                             <v-switch label="Flat Damage to Crit" inset v-model="damage.critFlat"></v-switch>
@@ -192,6 +195,7 @@
                         ability.inClass +
                         ability.isAbilityArray +
                         ability.isMeleeAttack +
+                        ability.linkToDamage +
                         ability.maxSizeCategoryOfMass +
                         ability.name +
                         ability.physMeta +
@@ -282,6 +286,23 @@
             saveCharacteristic() {
                 return this.characteristicViewItems.find(x => { return x.name == this.ability.saveCharacteristic }).abbreviation
             },
+            showDamageSection() {
+                return this.damage.dice > 0 ||
+                    this.damage.flat > 0 ||
+                    this.isMeleeAttack ||
+                    this.linkToDamage
+            },
+            showUseButton() {
+                return this.apCost != 0 ||
+                    this.characteristic ||
+                    this.classResource ||
+                    this.damage.dice > 0 ||
+                    this.damage.flat > 0 ||
+                    this.dice ||
+                    this.isMeleeAttack ||
+                    this.linkToDamage ||
+                    (this.save && this.saveAmount && this.saveCharacteristic)
+            },
             useButtonIcon() {
                 let icon = ''
 
@@ -322,6 +343,7 @@
                 inClass: this.ability.inClass,
                 isAbilityArray: this.ability.isAbilityArray,
                 isMeleeAttack: this.ability.isMeleeAttack,
+                linkToDamage: this.ability.linkToDamage,
                 maxSizeCategoryOfMass: this.ability.maxSizeCategoryOfMass,
                 name: this.ability.name,
                 physMeta: this.ability.physMeta,

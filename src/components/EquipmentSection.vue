@@ -203,6 +203,11 @@
                                         <v-switch label="Is Melee Attack" inset v-model="equipment.ability.isMeleeAttack"></v-switch>
                                     </v-col>
                                     <v-col cols="6">
+                                        <v-switch label="Is Melee Attack" inset v-model="equipment.ability.linkToDamage">
+                                            <TooltipComponent slot="append" :text="'When using this ability, can choose to do damage from any other ability.'"></TooltipComponent>
+                                        </v-switch>
+                                    </v-col>
+                                    <v-col cols="6">
                                         <v-switch label="Flat Damage to Crit" inset v-model="equipment.ability.damage.critFlat"></v-switch>
                                     </v-col>
                                     <v-col cols="6">
@@ -352,7 +357,7 @@
                     name: '',
                     slot: '',
                     ability: {
-                        apCost: 3,
+                        apCost: 0,
                         areaOfEffect: 'Single Target',
                         boughtForFree: true,
                         canEdit: false,
@@ -375,7 +380,8 @@
                         id: '',
                         inClass: true,
                         isAbilityArray: false,
-                        isMeleeAttack: true,
+                        isMeleeAttack: false,
+                        linkToDamage: false,
                         maxSizeCategoryOfMass: 0,
                         name: '',
                         physMeta: 'Physical',
@@ -403,7 +409,7 @@
                     name: '',
                     slot: '',
                     ability: {
-                        apCost: 3,
+                        apCost: 0,
                         areaOfEffect: 'Single Target',
                         boughtForFree: true,
                         canEdit: false,
@@ -426,7 +432,8 @@
                         id: '',
                         inClass: true,
                         isAbilityArray: false,
-                        isMeleeAttack: true,
+                        isMeleeAttack: false,
+                        linkToDamage: false,
                         maxSizeCategoryOfMass: 0,
                         name: '',
                         physMeta: 'Physical',
