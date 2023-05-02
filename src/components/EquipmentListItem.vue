@@ -39,6 +39,7 @@
             <AbilityListItem v-if="showAbility"
                              :ability="equipment.ability"
                              :ap="ap"
+                             :buffs="buffs"
                              :characteristics="characteristics"
                              :characteristic-view-items="characteristicViewItems"
                              :resources="resources"
@@ -66,6 +67,7 @@
         },
         props: {
             ap: Number,
+            buffs: Array,
             characteristics: Array,
             characteristicViewItems: Array,
             damageGroups: Array,

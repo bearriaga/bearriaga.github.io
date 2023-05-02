@@ -147,6 +147,7 @@
                 <v-col cols="12">
                     <AbilitySection :abilities="abilities"
                                     :ap="characterSheet.ap"
+                                    :buffs="characterSheet.buffs"
                                     :characteristics="characteristics"
                                     :characteristic-view-items="characteristicViewItems"
                                     :damage-types="damageTypes"
@@ -171,6 +172,7 @@
                     <InputWithEditModal @updatePropEmit="updateProp($event)"
                                         :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
                     <EquipmentSection :ap="characterSheet.ap"
+                                      :buffs="characterSheet.buffs"
                                       :characteristics="characteristics"
                                       :characteristic-view-items="characteristicViewItems"
                                       :character-equipment="characterEquipment"
@@ -442,6 +444,7 @@
                         <v-tab-item value="abilities">
                             <AbilitySection :abilities="abilities"
                                             :ap="characterSheet.ap"
+                                            :buffs="characterSheet.buffs"
                                             :characteristics="characteristics"
                                             :characteristic-view-items="characteristicViewItems"
                                             :damage-types="damageTypes"
@@ -564,6 +567,7 @@
                             <InputWithEditModal @updatePropEmit="updateProp($event)"
                                                 :property-object="attunementSlotsInputWithEditModal"></InputWithEditModal>
                             <EquipmentSection :ap="characterSheet.ap"
+                                              :buffs="characterSheet.buffs"
                                               :characteristics="characteristics"
                                               :characteristic-view-items="characteristicViewItems"
                                               :character-equipment="characterEquipment"
@@ -681,6 +685,7 @@
             </v-row>
             <AbilitySection :abilities="abilities"
                             :ap="characterSheet.ap"
+                            :buffs="characterSheet.buffs"
                             :characteristics="characteristics"
                             :characteristic-view-items="characteristicViewItems"
                             :damage-types="damageTypes"
@@ -736,6 +741,7 @@
                                        @updateEntryEmit="updateEntry($event)"
                                        @updatePanelEmit="updatePanel($event)"></DamageModificationSection>
             <EquipmentSection :ap="characterSheet.ap"
+                              :buffs="characterSheet.buffs"
                               :characteristics="characteristics"
                               :characteristic-view-items="characteristicViewItems"
                               :character-equipment="characterEquipment"
@@ -1035,6 +1041,9 @@
                         </div>
                         <div v-if="abilityDialog.ability.areaOfEffect">
                             <b>Area of Effect {{abilityDialog.ability.areaOfEffect}}</b>
+                        </div>
+                        <div v-if="abilityDialog.ability.buffs.length">
+                            <b>Activated Buffs: {{characterSheet.buffs.filter(buff => abilityDialog.ability.buffs.some(x => x == buff.id)).map(x => x.name).join(", ")}}</b>
                         </div>
                         <div v-if="abilityDialog.ability.description">
                             <v-textarea label="Description" v-model="abilityDialog.ability.description" auto-grow outlined rows="1" disabled></v-textarea>
@@ -2774,6 +2783,9 @@
                 if (this.abilityDialog.ability.areaOfEffect)
                     copyText += `{{Area of Effect= ${this.abilityDialog.ability.areaOfEffect}}}`
 
+                if (this.abilityDialog.ability.buffs.length)
+                    copyText += `{{Buffs= ${this.characterSheet.buffs.filter(buff => this.abilityDialog.ability.buffs.some(x => x == buff.id)).map(x => x.name).join(", ") }}}`
+
                 if (this.abilityDialog.ability.description)
                     copyText += `{{Description= ${this.abilityDialog.ability.description}}}`
 
@@ -3397,6 +3409,15 @@
                 } else
                     this.abilityDialog.ap = ''
 
+                if (ability.buffs.length) {
+                    ability.buffs.forEach(id => {
+                        let buff = this.characterSheet.buffs.find(x => x.id == id)
+                        buff.isActive = true
+                        this.updateEntry({ arrayName: 'buffs', object: buff })
+                    })
+                    this.updateCharacter++
+                }
+
                 if (ability.characteristic || ability.dice > 0 || ability.successes != 0) {
                     this.rollAbility(ability)
                 } else
@@ -3517,6 +3538,11 @@
                         this.abilityDialog.ap = +this.abilityDialog.ap + +ability.apCost
                         this.subtractAP(ability.apCost)
                     }
+                    ability.buffs.forEach(id => {
+                        let buff = this.characterSheet.buffs.find(x => x.id == id)
+                        buff.isActive = true
+                        this.updateEntry({ arrayName: 'buffs', object: buff })
+                    })
                     if (ability.classResource && ability.crCost != 0) {
                         this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
                         let resource = this.resources.find(x => { return x.id == ability.classResource })

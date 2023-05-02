@@ -70,6 +70,7 @@
                                         <td :colspan="headers.length">
                                             <AbilityListItem :ability="item"
                                                              :ap="ap"
+                                                             :buffs="buffs"
                                                              :characteristics="characteristics"
                                                              :characteristic-view-items="characteristicViewItems"
                                                              :damage-types="damageTypes"
@@ -257,6 +258,11 @@
                                     <v-select label="Use Modes" :items="useModes" v-model="ability.useModes" multiple clearable></v-select>
                                 </v-col>
                                 <v-col cols="12">
+                                    <v-select label="Buffs" :items="buffs.map(x => ({ value: x.id, text: x.name }))" v-model="ability.buffs" multiple clearable>
+                                        <TooltipComponent slot="prepend" text="Using ability turns on selected Buffs"></TooltipComponent>
+                                    </v-select>
+                                </v-col>
+                                <v-col cols="12">
                                     <template>
                                         <v-expansion-panels v-model="componentsPanel">
                                             <v-expansion-panel>
@@ -418,6 +424,7 @@
         props: {
             abilities: Array,
             ap: Number,
+            buffs: Array,
             characteristics: Array,
             characteristicViewItems: Array,
             damageTypes: Array,
@@ -511,6 +518,7 @@
                     apCost: 3,
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
+                    buffs: [],
                     canEdit: true,
                     classResource: '',
                     color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },
@@ -551,6 +559,7 @@
                     apCost: 3,
                     areaOfEffect: 'Single Target',
                     boughtForFree: false,
+                    buffs: [],
                     canEdit: true,
                     classResource: '',
                     color: { alpha: 1, hex: "#000000", hexa: "#000000FF", hsla: { h: 0, s: 0, l: 0, a: 1 }, hsva: { h: 0, s: 0, v: 0, a: 1 }, hue: 0, rgba: { r: 0, g: 0, b: 0, a: 1 } },

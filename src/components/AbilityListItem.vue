@@ -129,6 +129,9 @@
                 <v-col cols="12" v-if="abilityUseModes">
                     <v-select label="Use Modes" :items="useModes" v-model="abilityUseModes" multiple clearable></v-select>
                 </v-col>
+                <v-col cols="12" v-if="abilityBuffs.length">
+                    <v-select label="Buffs" :items="buffs.map(x => ({ value: x.id, text: x.name }))" v-model="abilityBuffs" multiple clearable></v-select>
+                </v-col>
                 <v-col cols="12" v-if="subEffects.length > 0">
                     <template>
                         <v-expansion-panels>
@@ -140,6 +143,7 @@
                                     <AbilityListItem v-for="s in abilities" :key="s.key"
                                                      :ability="s"
                                                      :ap="ap"
+                                                     :buffs="buffs"
                                                      :characteristics="characteristics"
                                                      :damage-types="damageTypes"
                                                      :resources="resources"
@@ -168,6 +172,7 @@
         props: {
             ability: Object,
             ap: Number,
+            buffs: Array,
             characteristics: Array,
             characteristicViewItems: Array,
             damageTypes: Array,
@@ -202,6 +207,7 @@
                         ability.range +
                         ability.successes +
                         ability.xpCost +
+                        JSON.stringify(ability.buffs) +
                         JSON.stringify(ability.components) +
                         JSON.stringify(ability.damage) +
                         JSON.stringify(ability.subEffects);
@@ -326,6 +332,7 @@
         },
         data() {
             return {
+                abilityBuffs: this.ability.buffs,
                 abilityUseModes: this.ability.useModes,
                 apCost: this.ability.apCost,
                 areaOfEffect: this.ability.areaOfEffect,

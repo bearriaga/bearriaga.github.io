@@ -42,6 +42,7 @@
                         <template v-slot:[`expanded-item`]=" { item }">
                             <td :colspan="headers.length">
                                 <EquipmentListItem :ap="ap"
+                                                   :buffs="buffs"
                                                    :characteristics="characteristics"
                                                    :characteristic-view-items="characteristicViewItems"
                                                    :damage-groups="damageGroups"
@@ -246,8 +247,11 @@
                                             <v-text-field label="Successes" type="number" v-model="equipment.ability.successes"></v-text-field>
                                             <v-text-field label="Handedness"
                                                           type="number"
-                                                          v-model="equipment.ability.handedness"></v-text-field>                                            
+                                                          v-model="equipment.ability.handedness"></v-text-field>
                                             <v-select label="Use Modes" :items="useModes" v-model="equipment.ability.useModes" multiple clearable></v-select>                                            
+                                            <v-select label="Buffs" :items="buffs.map(x => ({ value: x.id, text: x.name }))" v-model="equipment.ability.buffs" multiple clearable>
+                                                <TooltipComponent slot="prepend" text="Using ability turns on selected Buffs"></TooltipComponent>
+                                            </v-select>                                            
                                         </v-expansion-panel-content>
                                     </v-expansion-panel>
                                 </v-expansion-panels>
@@ -331,6 +335,7 @@
         },
         props: {
             ap: Number,
+            buffs: Array,
             characteristics: Array,
             characteristicViewItems: Array,
             characterEquipment: Array,
@@ -360,6 +365,7 @@
                         apCost: 0,
                         areaOfEffect: 'Single Target',
                         boughtForFree: true,
+                        buffs: [],
                         canEdit: false,
                         classResource: '',
                         color: {},
@@ -412,6 +418,7 @@
                         apCost: 0,
                         areaOfEffect: 'Single Target',
                         boughtForFree: true,
+                        buffs: [],
                         canEdit: false,
                         classResource: '',
                         color: {},
