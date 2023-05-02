@@ -307,9 +307,10 @@
                                    @updatePanelEmit="updatePanel($event)"></StatusSection>
                 </v-col>
                 <v-col cols="12" md="6">
-                    <BuffSection :buffs="buffs"
+                    <BuffSection :buffs="characterSheet.buffs"
                                  :characteristics="characteristics"
                                  :damage-types="damageTypes"
+                                 :key="updateBuff + updateCharacter"
                                  :movement-types="movementTypes"
                                  :panel-prop="buffPanel"
                                  :skills="characterSheet.skills"
@@ -601,9 +602,10 @@
                                            @updateBuffEntryEmit="updateBuffStatus($event)"
                                            @updateEntryEmit="updateEntry($event)"
                                            @updatePanelEmit="updatePanel($event)"></StatusSection>
-                            <BuffSection :buffs="buffs"
+                            <BuffSection :buffs="characterSheet.buffs"
                                          :characteristics="characteristics"
                                          :damage-types="damageTypes"
+                                         :key="updateBuff + updateCharacter"
                                          :movement-types="movementTypes"
                                          :panel-prop="buffPanel"
                                          :skills="characterSheet.skills"
@@ -773,9 +775,10 @@
                            @updateBuffEntryEmit="updateBuffStatus($event)"
                            @updateEntryEmit="updateEntry($event)"
                            @updatePanelEmit="updatePanel($event)"></StatusSection>
-            <BuffSection :buffs="buffs"
+            <BuffSection :buffs="characterSheet.buffs"
                          :characteristics="characteristics"
                          :damage-types="damageTypes"
+                         :key="updateBuff + updateCharacter"
                          :movement-types="movementTypes"
                          :panel-prop="buffPanel"
                          :skills="characterSheet.skills"
@@ -1042,7 +1045,7 @@
                         <div v-if="abilityDialog.ability.areaOfEffect">
                             <b>Area of Effect {{abilityDialog.ability.areaOfEffect}}</b>
                         </div>
-                        <div v-if="abilityDialog.ability.buffs.length">
+                        <div v-if="abilityDialog.ability.buffs && abilityDialog.ability.buffs.length">
                             <b>Activated Buffs: {{characterSheet.buffs.filter(buff => abilityDialog.ability.buffs.some(x => x == buff.id)).map(x => x.name).join(", ")}}</b>
                         </div>
                         <div v-if="abilityDialog.ability.description">
@@ -1551,22 +1554,6 @@
                     valueName: 'attunementSlots'
                 }
             },
-            buffs() {
-                let buffs = []
-
-                this.characterSheet.buffs.forEach((b) => {
-                    let buff = JSON.parse(JSON.stringify(b))
-
-                    buff.key =
-                        buff.id +
-                        this.updateBuff +
-                        JSON.stringify(buff.adjustments) +
-                        this.updateCharacter;
-                    buffs.push(buff)
-                })
-
-                return buffs
-            },
             characterEquipment() {
                 let equipment = []
 
@@ -1747,7 +1734,7 @@
             },
             damageAddDice() {
                 let dice = 0
-                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                this.characterSheet.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
                     dice += +(b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.dice > 0 }).reduce((previousValue, entry) => {
                         return +previousValue + +entry.damage.dice
                     }, 0))
@@ -1756,7 +1743,7 @@
             },
             damageAddFlat() {
                 let flat = 0
-                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                this.characterSheet.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
                     flat += +(b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.flat > 0 }).reduce((previousValue, entry) => {
                         return +previousValue + +entry.damage.flat
                     }, 0))
@@ -1765,7 +1752,7 @@
             },
             damageAddCritDice() {
                 let dice = 0
-                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                this.characterSheet.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
                     dice += +(b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.critDice > 0 }).reduce((previousValue, entry) => {
                         return +previousValue + +entry.damage.critDice
                     }, 0))
@@ -1774,7 +1761,7 @@
             },
             damageAddChar() {
                 let char = ''
-                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                this.characterSheet.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
                     b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.characteristic }).forEach(a => {
                         char = a.damage.characteristic
                     })
@@ -1783,7 +1770,7 @@
             },
             damageAddCritFlat() {
                 let critFlat = false
-                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                this.characterSheet.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
                     if (b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.critFlat }).length > 0)
                         critFlat = true
                 })
@@ -1791,7 +1778,7 @@
             },
             damageAddCritMax() {
                 let critMax = false
-                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                this.characterSheet.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
                     if (b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.critMax }).length > 0)
                         critMax = true
                 })
@@ -1799,7 +1786,7 @@
             },
             damageAddTypes() {
                 let types = []
-                this.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
+                this.characterSheet.buffs.filter(b => { return b.isActive && JSON.stringify(b.adjustments).includes('Damage Additional') }).forEach(b => {
                     b.adjustments.filter(a => { return a.type == 'Damage Additional' && a.damage.types.length > 0 }).forEach(a => {
                         types = types.concat(a.damage.types)
                     })
@@ -2637,6 +2624,15 @@
                 if (index == -1 && object.arrayName == 'abilities')
                     this.deleteEntryRecursive(this.characterSheet[object.arrayName], object.object)
 
+                if (object.arrayName == 'buffs') {
+                    this.characterSheet.abilities.filter(a => { return a.buffs && a.buffs.includes(object.object.id) }).forEach(ability => {
+                        ability.buffs = ability.buffs.filter(b => { return b != object.object.id })
+                    })
+                    this.characterSheet.equipment.filter(e => { return e.ability.buffs && e.ability.buffs.includes(object.object.id) }).forEach(equipment => {
+                        equipment.ability.buffs = equipment.ability.buffs.filter(b => { return b != object.object.id })
+                    })
+                }
+
                 this.characterSheet[object.arrayName] = this.characterSheet[object.arrayName].filter(x => { return x.id != object.object.id })
                 this.updateCharacterSheet()
             },
@@ -2783,7 +2779,7 @@
                 if (this.abilityDialog.ability.areaOfEffect)
                     copyText += `{{Area of Effect= ${this.abilityDialog.ability.areaOfEffect}}}`
 
-                if (this.abilityDialog.ability.buffs.length)
+                if (this.abilityDialog.ability.buffs && this.abilityDialog.ability.buffs.length)
                     copyText += `{{Buffs= ${this.characterSheet.buffs.filter(buff => this.abilityDialog.ability.buffs.some(x => x == buff.id)).map(x => x.name).join(", ") }}}`
 
                 if (this.abilityDialog.ability.description)
@@ -3409,11 +3405,13 @@
                 } else
                     this.abilityDialog.ap = ''
 
-                if (ability.buffs.length) {
+                if (ability.buffs) {
                     ability.buffs.forEach(id => {
                         let buff = this.characterSheet.buffs.find(x => x.id == id)
-                        buff.isActive = true
-                        this.updateEntry({ arrayName: 'buffs', object: buff })
+                        if (buff) {
+                            buff.isActive = true
+                            this.updateEntry({ arrayName: 'buffs', object: buff })
+                        }
                     })
                     this.updateCharacter++
                 }
@@ -3538,11 +3536,16 @@
                         this.abilityDialog.ap = +this.abilityDialog.ap + +ability.apCost
                         this.subtractAP(ability.apCost)
                     }
-                    ability.buffs.forEach(id => {
-                        let buff = this.characterSheet.buffs.find(x => x.id == id)
-                        buff.isActive = true
-                        this.updateEntry({ arrayName: 'buffs', object: buff })
-                    })
+                    if (ability.buffs) {
+                        ability.buffs.forEach(id => {
+                            let buff = this.characterSheet.buffs.find(x => x.id == id)
+                            if (buff) {
+                                buff.isActive = true
+                                this.updateEntry({ arrayName: 'buffs', object: buff })
+                            }
+                        })
+                        this.updateCharacter++
+                    }
                     if (ability.classResource && ability.crCost != 0) {
                         this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
                         let resource = this.resources.find(x => { return x.id == ability.classResource })

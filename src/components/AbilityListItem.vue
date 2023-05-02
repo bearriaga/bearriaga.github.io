@@ -129,7 +129,7 @@
                 <v-col cols="12" v-if="abilityUseModes">
                     <v-select label="Use Modes" :items="useModes" v-model="abilityUseModes" multiple clearable></v-select>
                 </v-col>
-                <v-col cols="12" v-if="abilityBuffs.length">
+                <v-col cols="12" v-if="abilityBuffs">
                     <v-select label="Buffs" :items="buffs.map(x => ({ value: x.id, text: x.name }))" v-model="abilityBuffs" multiple clearable></v-select>
                 </v-col>
                 <v-col cols="12" v-if="subEffects.length > 0">

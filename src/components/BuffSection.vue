@@ -15,7 +15,7 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <BuffListItem v-for="b, i in buffs" :key="b.key"
+                        <BuffListItem v-for="b, i in buffs" :key="b.id + JSON.stringify(b.adjustments)"
                                       :buff="b"
                                       :resources="resources"
                                       @deleteDialogEmit="deleteDialog($event)"

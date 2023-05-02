@@ -3,7 +3,7 @@
         <v-form>
             <v-switch label="Active" inset
                       v-model="isActive"></v-switch>
-            <v-text-field label="Name" v-model="name">
+            <v-text-field label="Name" v-model="name" disabled>
                 <v-icon slot="append" color="primary" @click="moveEntry('down')">
                     mdi-arrow-down-bold
                 </v-icon>
@@ -15,7 +15,7 @@
                 <v-icon slot="append" color="error"
                         @click="deleteDialog">mdi-delete</v-icon>
             </v-text-field>
-            <v-textarea label="Description" v-model="description" auto-grow outlined rows="1"></v-textarea>
+            <v-textarea label="Description" v-model="description" auto-grow outlined rows="1" disabled></v-textarea>
             <h3 class="text-center">Adjustments</h3>
             <div v-for="a, index in adjustments" :key="index">
                 <v-text-field :label="returnLabel(a)"
@@ -157,14 +157,8 @@
             }
         },
         watch: {
-            description() {
-                this.updateEntry()
-            },
             isActive() {
                 this.updateStatuses()
-                this.updateEntry()
-            },
-            name() {
                 this.updateEntry()
             }
         }
