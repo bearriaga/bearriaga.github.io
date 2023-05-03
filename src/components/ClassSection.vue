@@ -14,7 +14,7 @@
                     </h3>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
-                    <ClassListItem v-for="c, i in classes" :key="c.key"
+                    <ClassListItem v-for="c, i in classes" :key="c.id"
                                    @updateEntryEmit="updateEntry($event)"
                                    @deleteEntryEmit="deleteDialog($event)"
                                    @moveEntryEmit="moveEntry($event, i)"
@@ -93,7 +93,6 @@
                 // Input Fields Start
                 classObj: {
                     active: !this.unlocked,
-                    advanceRank: 0,
                     description: '',
                     id: '',
                     name: '',
@@ -102,7 +101,6 @@
                 },
                 clearClassObj: {
                     active: !this.unlocked,
-                    advanceRank: 0,
                     description: '',
                     id: '',
                     name: '',

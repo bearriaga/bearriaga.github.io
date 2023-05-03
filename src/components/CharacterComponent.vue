@@ -214,6 +214,7 @@
                 <v-col cols="12" lg="3" md="6">
                     <ClassSection :characteristics="characteristics"
                                   :classes="classes"
+                                  :key="updateCharacter"
                                   :panel-prop="classPanel"
                                   :unlocked="false"
                                   @addEntryEmit="addEntry($event)"
@@ -225,6 +226,7 @@
                 <v-col cols="12" lg="3" md="6">
                     <ClassSection :characteristics="characteristics"
                                   :classes="classesUnlocked"
+                                  :key="updateCharacter"
                                   :panel-prop="classUnlockedPanel"
                                   :unlocked="true"
                                   @addEntryEmit="addEntry($event)"
@@ -500,6 +502,7 @@
                         <v-tab-item value="classesAndTraits">
                             <ClassSection :characteristics="characteristics"
                                           :classes="classes"
+                                          :key="updateCharacter"
                                           :panel-prop="classPanel"
                                           :unlocked="false"
                                           @addEntryEmit="addEntry($event)"
@@ -509,6 +512,7 @@
                                           @updatePanelEmit="updatePanel($event)"></ClassSection>
                             <ClassSection :characteristics="characteristics"
                                           :classes="classesUnlocked"
+                                          :key="updateCharacter"
                                           :panel-prop="classUnlockedPanel"
                                           :unlocked="true"
                                           @addEntryEmit="addEntry($event)"
@@ -1709,28 +1713,10 @@
                 return effects
             },
             classes() {
-                let classes = []
-
-                this.characterSheet.classes.filter(x => { return !x.unlocked }).forEach(c => {
-                    let cl = JSON.parse(JSON.stringify(c))
-
-                    cl.key = cl.id + this.updateCharacter
-                    classes.push(cl)
-                })
-
-                return classes
+                return this.characterSheet.classes.filter(x => { return !x.unlocked })
             },
             classesUnlocked() {
-                let classes = []
-
-                this.characterSheet.classes.filter(x => { return x.unlocked }).forEach(c => {
-                    let cl = JSON.parse(JSON.stringify(c))
-
-                    cl.key = cl.id + this.updateCharacter
-                    classes.push(cl)
-                })
-
-                return classes
+                return this.characterSheet.classes.filter(x => { return x.unlocked })
             },
             damageAddDice() {
                 let dice = 0
@@ -3413,7 +3399,7 @@
                             this.updateEntry({ arrayName: 'buffs', object: buff })
                         }
                     })
-                    this.updateCharacter++
+                    this.updateBuff++
                 }
 
                 if (ability.characteristic || ability.dice > 0 || ability.successes != 0) {
@@ -3544,7 +3530,7 @@
                                 this.updateEntry({ arrayName: 'buffs', object: buff })
                             }
                         })
-                        this.updateCharacter++
+                        this.updateBuff++
                     }
                     if (ability.classResource && ability.crCost != 0) {
                         this.subtractCR({ crCost: ability.crCost, classResource: ability.classResource })
