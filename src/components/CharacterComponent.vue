@@ -178,6 +178,7 @@
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
+                                      :key="updateCharacter"
                                       :movement-ap-icon="movementApIcon"
                                       :movement-ap-icon-color="movementApIconColor"
                                       :movement-types="movementTypes"
@@ -299,6 +300,7 @@
                 <v-col cols="12" md="6">
                     <StatusSection :character-statuses="characterStatuses"
                                    :damage-types="damageTypes"
+                                   :key="updateStatus + updateCharacter"
                                    :panel-prop="statusPanel"
                                    :statuses="statuses"
                                    @addEntryEmit="addEntry($event)"
@@ -578,6 +580,7 @@
                                               :character-equipment="characterEquipment"
                                               :damage-groups="damageGroups"
                                               :damage-types="damageTypes"
+                                              :key="updateCharacter"
                                               :movement-ap-icon="movementApIcon"
                                               :movement-ap-icon-color="movementApIconColor"
                                               :movement-types="movementTypes"
@@ -598,6 +601,7 @@
                         <v-tab-item value="statusBuffs">
                             <StatusSection :character-statuses="characterStatuses"
                                            :damage-types="damageTypes"
+                                           :key="updateStatus + updateCharacter"
                                            :panel-prop="statusPanel"
                                            :statuses="statuses"
                                            @addEntryEmit="addEntry($event)"
@@ -753,6 +757,7 @@
                               :character-equipment="characterEquipment"
                               :damage-groups="damageGroups"
                               :damage-types="damageTypes"
+                              :key="updateCharacter"
                               :movement-ap-icon="movementApIcon"
                               :movement-ap-icon-color="movementApIconColor"
                               :movement-types="movementTypes"
@@ -771,6 +776,7 @@
                               @updatePanelEmit="updatePanel($event)"></EquipmentSection>
             <StatusSection :character-statuses="characterStatuses"
                            :damage-types="damageTypes"
+                           :key="updateStatus + updateCharacter"
                            :panel-prop="statusPanel"
                            :statuses="statuses"
                            @addEntryEmit="addEntry($event)"
