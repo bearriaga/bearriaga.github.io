@@ -184,7 +184,7 @@
             },
             // CRUD Functions End
             key(status, i) {
-                let key = JSON.stringify(status.status) + status.isActive.toString() + i
+                let key = status.id + JSON.stringify(status.status) + status.isActive.toString() + i
 
                 if (status.description.includes(' Buff Status'))
                     key += status.description
