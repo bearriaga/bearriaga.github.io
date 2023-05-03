@@ -15,7 +15,7 @@
                         </h3>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <StatusListItem v-for="s, i in characterStatuses" :key="key(s)"
+                        <StatusListItem v-for="s, i in characterStatuses" :key="key(s, i)"
                                         @deleteEntryEmit="deleteDialog($event)"
                                         @moveEntryEmit="moveEntry($event, i)"
                                         @updateBuffEntryEmit="updateBuffEntry($event)"
@@ -183,11 +183,13 @@
                 this.$emit('updateEntryEmit', { arrayName: 'statuses', object: object })
             },
             // CRUD Functions End
-            key(status) {
-                let key = JSON.stringify(status.status) + status.isActive.toString()
+            key(status, i) {
+                let key = JSON.stringify(status.status) + status.isActive.toString() + i
 
                 if (status.description.includes(' Buff Status'))
                     key += status.description
+                if (status.buffId)
+                    key += status.buffId
 
                 return key
             },

@@ -1591,19 +1591,7 @@
                 return equipment
             },
             characterStatuses() {
-                let statuses = []
-
-                this.characterSheet.statuses.forEach((s, i) => {
-                    let status = JSON.parse(JSON.stringify(s))
-
-                    status.key =
-                        JSON.stringify(status.status) +
-                        status.isActive.toString() +
-                        this.updateStatus +
-                        this.updateCharacter +
-                        i;
-                    statuses.push(status)
-                })
+                let statuses = this.characterSheet.statuses
 
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Status') && b.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
@@ -1612,14 +1600,7 @@
                         status.isActive = status.currentIsActive
                         status.ranks = status.currentRanks
                         status.buffId = buff.id
-                        status.buffName = buff.name
                         status.description = buff.name + ' Buff Status'
-                        status.key =
-                            buff.name +
-                            JSON.stringify(status.status) +
-                            status.isActive.toString() +
-                            this.updateStatus +
-                            this.updateCharacter;
                         statuses.push(status)
                     })
                 })
