@@ -677,7 +677,7 @@
             },
             // CRUD Functions End
             exportAbility(ability) {
-                let filename = `${ability.name}.txt`, type = 'type:text/plain;charset=utf-8'
+                let filename = `${ability.name} - Ability.txt`, type = 'type:text/plain;charset=utf-8'
                 let file = new Blob([JSON.stringify(ability)], { type: type });
                 if (window.navigator.msSaveOrOpenBlob) // IE10+
                     window.navigator.msSaveOrOpenBlob(file, filename);
@@ -722,16 +722,77 @@
                     var reader = new FileReader()
                     reader.readAsText(this.abilityFile)
                     reader.onload = () => {
-                        this.ability = JSON.parse(reader.result)
-                        if (!this.resources.includes(x => x.id == this.ability.classResource)) {
-                            this.ability.classResource = ''
-                            this.ability.crCost = 0
+                        let ability = JSON.parse(reader.result)
+                        if ('apCost' in ability)
+                            this.ability.apCost = ability.apCost
+                        if ('areaOfEffect' in ability)
+                            this.ability.areaOfEffect = ability.areaOfEffect
+                        if ('boughtForFree' in ability)
+                            this.ability.boughtForFree = ability.boughtForFree
+                        if ('buffs' in ability)
+                            this.ability.buffs = ability.buffs
+                        if ('canEdit' in ability)
+                            this.ability.canEdit = ability.canEdit
+                        if ('classResource' in ability && 'crCost' in ability) {
+                            this.ability.classResource = ability.classResource
+                            this.ability.crCost = ability.crCost
+                            if (!this.resources.includes(x => x.id == ability.classResource)) {
+                                this.ability.classResource = ''
+                                this.ability.crCost = 0
+                            }
                         }
+                        if ('color' in ability)
+                            this.ability.color = ability.color
+                        if ('characteristic' in ability)
+                            this.ability.characteristic = ability.characteristic
+                        if ('damage' in ability)
+                            this.ability.damage = ability.damage
+                        if ('description' in ability)
+                            this.ability.description = ability.description
+                        if ('dice' in ability)
+                            this.ability.dice = ability.dice
+                        if ('duration' in ability)
+                            this.ability.duration = ability.duration
+                        if ('handedness' in ability)
+                            this.ability.handedness = ability.handedness
+                        if ('id' in ability)
+                            this.ability.id = ability.id
+                        if ('inClass' in ability)
+                            this.ability.inClass = ability.inClass
+                        if ('isAbilityArray' in ability)
+                            this.ability.isAbilityArray = ability.isAbilityArray
+                        if ('isMeleeAttack' in ability)
+                            this.ability.isMeleeAttack = ability.isMeleeAttack
+                        if ('linkToDamage' in ability)
+                            this.ability.linkToDamage = ability.linkToDamage
+                        if ('maxSizeCategoryOfMass' in ability)
+                            this.ability.maxSizeCategoryOfMass = ability.maxSizeCategoryOfMass
+                        if ('name' in ability)
+                            this.ability.name = ability.name
+                        if ('physMeta' in ability)
+                            this.ability.physMeta = ability.physMeta
+                        if ('range' in ability)
+                            this.ability.range = ability.range
+                        if ('save' in ability)
+                            this.ability.save = ability.save
+                        if ('saveAmount' in ability)
+                            this.ability.saveAmount = ability.saveAmount
+                        if ('saveCharacteristic' in ability)
+                            this.ability.saveCharacteristic = ability.saveCharacteristic
+                        if ('successes' in ability)
+                            this.ability.successes = ability.successes
+                        if ('useModes' in ability)
+                            this.ability.useModes = ability.useModes
+                        if ('xpCost' in ability)
+                            this.ability.xpCost = ability.xpCost
+                        if ('components' in ability)
+                            this.ability.components = ability.components
+                        if ('subEffects' in ability)
+                            this.ability.subEffects = ability.subEffects
                         this.ability.buffs = this.buffs.map(x => x.id).filter(x => this.ability.buffs.includes(x))
                         this.ability.id = uuidv4()
-                        console.log(this.ability)
-                        this.abilityFile = null
                     }
+                    this.abilityFile = null
                 }
             },
             mediumColumns(ability) {
