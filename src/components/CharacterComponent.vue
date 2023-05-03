@@ -178,7 +178,7 @@
                                       :character-equipment="characterEquipment"
                                       :damage-groups="damageGroups"
                                       :damage-types="damageTypes"
-                                      :key="updateCharacter"
+                                      :key="'equip' + updateCharacter"
                                       :movement-ap-icon="movementApIcon"
                                       :movement-ap-icon-color="movementApIconColor"
                                       :movement-types="movementTypes"
@@ -215,7 +215,7 @@
                 <v-col cols="12" lg="3" md="6">
                     <ClassSection :characteristics="characteristics"
                                   :classes="classes"
-                                  :key="updateCharacter"
+                                  :key="'class' + updateCharacter"
                                   :panel-prop="classPanel"
                                   :unlocked="false"
                                   @addEntryEmit="addEntry($event)"
@@ -227,7 +227,7 @@
                 <v-col cols="12" lg="3" md="6">
                     <ClassSection :characteristics="characteristics"
                                   :classes="classesUnlocked"
-                                  :key="updateCharacter"
+                                  :key="'unlockedClass' + updateCharacter"
                                   :panel-prop="classUnlockedPanel"
                                   :unlocked="true"
                                   @addEntryEmit="addEntry($event)"
@@ -270,7 +270,8 @@
                 </v-col>
                 <v-col cols="12" lg="3" md="6">
                     <TraitFlawSection :is-flaw="true"
-                                      :items="flaws"
+                                      :items="characterSheet.flaws"
+                                      :key="'flaw' + updateCharacter"
                                       :panel-prop="flawPanel"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
@@ -278,7 +279,8 @@
                                       @updateEntryEmit="updateEntry($event)"
                                       @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
                     <TraitFlawSection :is-flaw="false"
-                                      :items="traits"
+                                      :items="characterSheet.traits"
+                                      :key="'trait' + updateCharacter"
                                       :panel-prop="traitPanel"
                                       @addEntryEmit="addEntry($event)"
                                       @deleteEntryEmit="deleteEntry($event)"
@@ -504,7 +506,7 @@
                         <v-tab-item value="classesAndTraits">
                             <ClassSection :characteristics="characteristics"
                                           :classes="classes"
-                                          :key="updateCharacter"
+                                          :key="'class' + updateCharacter"
                                           :panel-prop="classPanel"
                                           :unlocked="false"
                                           @addEntryEmit="addEntry($event)"
@@ -514,7 +516,7 @@
                                           @updatePanelEmit="updatePanel($event)"></ClassSection>
                             <ClassSection :characteristics="characteristics"
                                           :classes="classesUnlocked"
-                                          :key="updateCharacter"
+                                          :key="'unlockedClass' + updateCharacter"
                                           :panel-prop="classUnlockedPanel"
                                           :unlocked="true"
                                           @addEntryEmit="addEntry($event)"
@@ -523,7 +525,8 @@
                                           @updateEntryEmit="updateEntry($event)"
                                           @updatePanelEmit="updatePanel($event)"></ClassSection>
                             <TraitFlawSection :is-flaw="true"
-                                              :items="flaws"
+                                              :items="characterSheet.flaws"
+                                              :key="'flaw' + updateCharacter"
                                               :panel-prop="flawPanel"
                                               @addEntryEmit="addEntry($event)"
                                               @deleteEntryEmit="deleteEntry($event)"
@@ -531,7 +534,8 @@
                                               @updateEntryEmit="updateEntry($event)"
                                               @updatePanelEmit="updatePanel($event)"></TraitFlawSection>
                             <TraitFlawSection :is-flaw="false"
-                                              :items="traits"
+                                              :items="characterSheet.traits"
+                                              :key="'trait' + updateCharacter"
                                               :panel-prop="traitPanel"
                                               @addEntryEmit="addEntry($event)"
                                               @deleteEntryEmit="deleteEntry($event)"
@@ -580,7 +584,7 @@
                                               :character-equipment="characterEquipment"
                                               :damage-groups="damageGroups"
                                               :damage-types="damageTypes"
-                                              :key="updateCharacter"
+                                              :key="'equip' + updateCharacter"
                                               :movement-ap-icon="movementApIcon"
                                               :movement-ap-icon-color="movementApIconColor"
                                               :movement-types="movementTypes"
@@ -757,7 +761,7 @@
                               :character-equipment="characterEquipment"
                               :damage-groups="damageGroups"
                               :damage-types="damageTypes"
-                              :key="updateCharacter"
+                              :key="'equip' + updateCharacter"
                               :movement-ap-icon="movementApIcon"
                               :movement-ap-icon-color="movementApIconColor"
                               :movement-types="movementTypes"
@@ -1865,18 +1869,6 @@
                     }
                 ]
             },
-            flaws() {
-                let flaws = []
-
-                this.characterSheet.flaws.forEach(f => {
-                    let flaw = JSON.parse(JSON.stringify(f))
-
-                    flaw.key = flaw.id + this.updateCharacter
-                    flaws.push(flaw)
-                })
-
-                return flaws
-            },
             healthInputWithEditModals() {
                 return [
                     {
@@ -2212,18 +2204,6 @@
             },
             successesFromIntelligence() {
                 return Math.ceil(this.intelligence / 2)
-            },
-            traits() {
-                let traits = []
-
-                this.characterSheet.traits.forEach(t => {
-                    let trait = JSON.parse(JSON.stringify(t))
-
-                    trait.key = trait.id + this.updateCharacter
-                    traits.push(trait)
-                })
-
-                return traits
             },
             journalEntries() {
                 let journalEntries = []
