@@ -199,6 +199,7 @@
                 <v-col cols="12">
                     <MinionSection :array-name="'minions'"
                                    :clear-character="clearCharacter"
+                                   :key="'minion' + updateMinions"
                                    :minions="characterSheet.minions"
                                    :panel-prop="minionPanel"
                                    :update-minions="updateMinions"
@@ -302,7 +303,7 @@
                 <v-col cols="12" md="6">
                     <StatusSection :character-statuses="characterStatuses"
                                    :damage-types="damageTypes"
-                                   :key="updateStatus + updateCharacter"
+                                   :key="'status' + updateStatus + updateCharacter"
                                    :panel-prop="statusPanel"
                                    :statuses="statuses"
                                    @addEntryEmit="addEntry($event)"
@@ -316,7 +317,7 @@
                     <BuffSection :buffs="characterSheet.buffs"
                                  :characteristics="characteristics"
                                  :damage-types="damageTypes"
-                                 :key="updateBuff + updateCharacter"
+                                 :key="'buff' + updateBuff + updateCharacter"
                                  :movement-types="movementTypes"
                                  :panel-prop="buffPanel"
                                  :skills="characterSheet.skills"
@@ -605,7 +606,7 @@
                         <v-tab-item value="statusBuffs">
                             <StatusSection :character-statuses="characterStatuses"
                                            :damage-types="damageTypes"
-                                           :key="updateStatus + updateCharacter"
+                                           :key="'status' + updateStatus + updateCharacter"
                                            :panel-prop="statusPanel"
                                            :statuses="statuses"
                                            @addEntryEmit="addEntry($event)"
@@ -617,7 +618,7 @@
                             <BuffSection :buffs="characterSheet.buffs"
                                          :characteristics="characteristics"
                                          :damage-types="damageTypes"
-                                         :key="updateBuff + updateCharacter"
+                                         :key="'buff' + updateBuff + updateCharacter"
                                          :movement-types="movementTypes"
                                          :panel-prop="buffPanel"
                                          :skills="characterSheet.skills"
@@ -633,6 +634,7 @@
                         <v-tab-item value="minions">
                             <MinionSection :array-name="'minions'"
                                            :clear-character="clearCharacter"
+                                           :key="'minion' + updateMinions"
                                            :minions="characterSheet.minions"
                                            :panel-prop="minionPanel"
                                            :update-minions="updateMinions"
@@ -780,7 +782,7 @@
                               @updatePanelEmit="updatePanel($event)"></EquipmentSection>
             <StatusSection :character-statuses="characterStatuses"
                            :damage-types="damageTypes"
-                           :key="updateStatus + updateCharacter"
+                           :key="'status' + updateStatus + updateCharacter"
                            :panel-prop="statusPanel"
                            :statuses="statuses"
                            @addEntryEmit="addEntry($event)"
@@ -792,7 +794,7 @@
             <BuffSection :buffs="characterSheet.buffs"
                          :characteristics="characteristics"
                          :damage-types="damageTypes"
-                         :key="updateBuff + updateCharacter"
+                         :key="'buff' + updateBuff + updateCharacter"
                          :movement-types="movementTypes"
                          :panel-prop="buffPanel"
                          :skills="characterSheet.skills"
@@ -1983,18 +1985,6 @@
                 })
 
                 return items
-            },
-            minions() {
-                let minions = []
-
-                this.characterSheet.minions.forEach(m => {
-                    let minion = JSON.parse(JSON.stringify(m))
-
-                    minion.key = minion.id + minion.name + this.updateMinions
-                    minions.push(minion)
-                })
-
-                return minions
             },
             movementApIcon() {
                 let icon = ''
