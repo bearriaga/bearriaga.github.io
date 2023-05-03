@@ -31,7 +31,7 @@
                                               multi-sort
                                               dense>
                                     <template v-slot:[`item.descriptionTooltip`]="{ item }">
-                                        <TooltipComponent :text="item.description"></TooltipComponent>                                        
+                                        <TooltipComponent :text="item.description"></TooltipComponent>
                                     </template>
                                     <template v-slot:[`item.classResourceCombined`]="{ item }">
                                         {{getClassResource(item)}}
@@ -64,6 +64,13 @@
                                                 v-if="item.canEdit"
                                                 @click="duplicateAbility(item)">
                                             mdi-content-copy
+                                        </v-icon>
+                                    </template>
+                                    <template v-slot:[`item.export`]="{ item }">
+                                        <v-icon small color="primary"
+                                                v-if="item.canEdit"
+                                                @click="exportAbility(item)">
+                                            mdi-export-variant
                                         </v-icon>
                                     </template>
                                     <template v-slot:[`expanded-item`]=" { item }">
@@ -110,6 +117,9 @@
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
                             <v-row>
+                                <v-col cols="12" v-if="dialog.type == 'Add'">
+                                    <v-file-input label="Import Ability" ref="doc" accept=".txt,.json" v-model="abilityFile" @change="importAbilityFromFile"></v-file-input>
+                                </v-col>
                                 <v-col cols="12" md="6">
                                     <v-text-field label="Name *"
                                                   v-model="ability.name"
@@ -477,11 +487,12 @@
                         { text: '', value: 'edit', sortable: false },
                         { text: '', value: 'delete', sortable: false },
                         { text: '', value: 'copy', sortable: false },
+                        { text: '', value: 'export', sortable: false },
                         { text: '', value: 'data-table-expand' }
                     ]
                 else
                     headers = [
-                        {text:'', value: 'descriptionTooltip' },
+                        { text: '', value: 'descriptionTooltip' },
                         { text: 'Name', value: 'name' },
                         { text: 'AP', value: 'apCost' },
                         { text: 'Resource', value: 'classResourceCombined', sortable: false },
@@ -492,6 +503,7 @@
                         { text: '', value: 'edit', sortable: false },
                         { text: '', value: 'delete', sortable: false },
                         { text: '', value: 'copy', sortable: false },
+                        { text: '', value: 'export', sortable: false },
                         { text: '', value: 'data-table-expand' }
                     ]
                 return headers
@@ -555,6 +567,7 @@
                     components: [],
                     subEffects: []
                 },
+                abilityFile: null,
                 clearAbility: {
                     apCost: 3,
                     areaOfEffect: 'Single Target',
@@ -663,6 +676,24 @@
                 this.$emit('updateEntryEmit', { arrayName: 'abilities', object: ability })
             },
             // CRUD Functions End
+            exportAbility(ability) {
+                let filename = `${ability.name}.txt`, type = 'type:text/plain;charset=utf-8'
+                let file = new Blob([JSON.stringify(ability)], { type: type });
+                if (window.navigator.msSaveOrOpenBlob) // IE10+
+                    window.navigator.msSaveOrOpenBlob(file, filename);
+                else { // Others
+                    var a = document.createElement("a"),
+                        url = URL.createObjectURL(file);
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(function () {
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+                    }, 0);
+                }
+            },
             extraLargeColumns(ability) {
                 if (this.layout == 'Minion')
                     return 12
@@ -685,6 +716,23 @@
             },
             getDamageTypes(ability) {
                 return ability.damage.types.join(', ')
+            },
+            importAbilityFromFile() {
+                if (this.abilityFile) {
+                    var reader = new FileReader()
+                    reader.readAsText(this.abilityFile)
+                    reader.onload = () => {
+                        this.ability = JSON.parse(reader.result)
+                        if (!this.resources.includes(x => x.id == this.ability.classResource)) {
+                            this.ability.classResource = ''
+                            this.ability.crCost = 0
+                        }
+                        this.ability.buffs = this.buffs.map(x => x.id).filter(x => this.ability.buffs.includes(x))
+                        this.ability.id = uuidv4()
+                        console.log(this.ability)
+                        this.abilityFile = null
+                    }
+                }
             },
             mediumColumns(ability) {
                 if (ability.subEffects.length || this.layout == 'Minion')
