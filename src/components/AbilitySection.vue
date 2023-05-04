@@ -415,6 +415,18 @@
                 </v-card>
             </v-dialog>
         </div>
+        <v-snackbar v-model="snackbar.show">
+            {{ snackbar.text }}
+
+            <template v-slot:action="{ attrs }">
+                <v-btn color="pink"
+                       text
+                       v-bind="attrs"
+                       @click="snackbar.show = false">
+                    Close
+                </v-btn>
+            </template>
+        </v-snackbar>
     </div>
 </template>
 
@@ -739,6 +751,7 @@
                             if (!this.resources.includes(x => x.id == ability.classResource)) {
                                 this.ability.classResource = ''
                                 this.ability.crCost = 0
+                                this.showSnackbar('Class Resource not found, removed Class Resource')
                             }
                         }
                         if ('color' in ability)

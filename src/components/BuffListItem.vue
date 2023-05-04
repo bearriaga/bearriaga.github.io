@@ -11,6 +11,8 @@
                     mdi-arrow-up-bold
                 </v-icon>
                 <v-icon slot="append" color="primary"
+                        @click="exportBuff()">mdi-export-variant </v-icon>
+                <v-icon slot="append" color="primary"
                         @click="updateDialog">mdi-pen</v-icon>
                 <v-icon slot="append" color="error"
                         @click="deleteDialog">mdi-delete</v-icon>
@@ -95,6 +97,24 @@
             }
         },
         methods: {
+            exportBuff() {
+                let filename = `${this.buff.name} - Buff.txt`, type = 'type:text/plain;charset=utf-8'
+                let file = new Blob([JSON.stringify(this.buff)], { type: type });
+                if (window.navigator.msSaveOrOpenBlob) // IE10+
+                    window.navigator.msSaveOrOpenBlob(file, filename);
+                else { // Others
+                    var a = document.createElement("a"),
+                        url = URL.createObjectURL(file);
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(function () {
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+                    }, 0);
+                }
+            },
             deleteDialog() {
                 this.$emit('deleteDialogEmit', this.buff)
             },

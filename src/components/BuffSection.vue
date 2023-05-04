@@ -38,6 +38,7 @@
                         <v-form ref="form"
                                 v-model="valid"
                                 :disabled="dialog.type == 'Delete'">
+                            <v-file-input label="Import Buff" ref="doc" accept=".txt,.json" v-model="buffFile" @change="importBuffFromFile"></v-file-input>
                             <v-text-field label="Name"
                                           v-model="buff.name"
                                           ref="name"
@@ -222,6 +223,18 @@
                 </v-card>
             </v-dialog>
         </div>
+        <v-snackbar v-model="snackbar.show">
+            {{ snackbar.text }}
+
+            <template v-slot:action="{ attrs }">
+                <v-btn color="pink"
+                       text
+                       v-bind="attrs"
+                       @click="snackbar.show = false">
+                    Close
+                </v-btn>
+            </template>
+        </v-snackbar>
     </div>
 </template>
 
@@ -248,6 +261,7 @@
         },
         data() {
             return {
+                buffFile: null,
                 buffOptions: ['CHAR', 'Class Resource: Commited', 'Damage Additional', 'Damage: Convert Damage Type', 'Damage Modification', 'Health', 'Initiative', 'Movement', 'Skill', 'Status', 'Other'],
                 dialog: {
                     show: false,
@@ -449,6 +463,30 @@
                 this.$emit('updateEntryBypassEmit', { arrayName: 'buffs', object: object })
             },
             // CRUD Functions End
+            importBuffFromFile() {
+                if (this.buffFile) {
+                    var reader = new FileReader()
+                    reader.readAsText(this.buffFile)
+                    reader.onload = () => {
+                        let buff = JSON.parse(reader.result)
+                        if ('name' in buff)
+                            this.buff.name = buff.name
+                        if ('adjustments' in buff) {
+                            buff.adjustments.filter(a => { return a.type == 'Class Resource: Commited' }).forEach(a => {                                
+                                if (!this.resources.find(r => r.id == a.classResource)) {
+                                    buff.adjustments = buff.adjustments.filter(x => { return x.id != a.id })
+                                    this.showSnackbar('Class Resource not found, removed adjustment')
+                                }
+                            })
+                            this.buff.adjustments = buff.adjustments
+                        }
+                        if ('description' in buff)
+                            this.buff.description = buff.description
+                        this.buff.id = uuidv4()
+                    }
+                    this.buffFile = null
+                }
+            },
             // Open Dialog Functions
             addDialog() {
                 this.panel = 0
