@@ -690,7 +690,15 @@
             // CRUD Functions End
             exportAbility(ability) {
                 let filename = `${ability.name} - Ability.txt`, type = 'type:text/plain;charset=utf-8'
-                let file = new Blob([JSON.stringify(ability)], { type: type });
+                let abilityCopy = JSON.parse(JSON.stringify(ability))
+                if (abilityCopy.classResource) {
+                    let classResource = this.resources.find(x => { return x.id == ability.classResource })
+                    abilityCopy.classResourceName = classResource.name
+                    abilityCopy.classResourceCharacteristic = classResource.characteristic
+                }                    
+
+                let fileBody = JSON.stringify(abilityCopy)
+                let file = new Blob([fileBody], { type: type });
                 if (window.navigator.msSaveOrOpenBlob) // IE10+
                     window.navigator.msSaveOrOpenBlob(file, filename);
                 else { // Others
@@ -746,12 +754,23 @@
                         if ('canEdit' in ability)
                             this.ability.canEdit = ability.canEdit
                         if ('classResource' in ability && 'crCost' in ability) {
-                            this.ability.classResource = ability.classResource
                             this.ability.crCost = ability.crCost
-                            if (!this.resources.includes(x => x.id == ability.classResource)) {
-                                this.ability.classResource = ''
-                                this.ability.crCost = 0
-                                this.showSnackbar('Class Resource not found, removed Class Resource')
+                            let classResource = this.resources.find(x => x.name == ability.classResourceName)
+                            if (classResource) {
+                                this.ability.classResource = classResource.id
+                            }
+                            else {
+                                this.$emit('addEntryEmit', {
+                                    arrayName: 'resources', object: {
+                                        amount: 0,
+                                        amountMax: 0,
+                                        id: ability.classResource,
+                                        name: ability.classResourceName,
+                                        characteristic: ability.classResourceCharacteristic,
+                                        resourceIncreases: 0
+                                    }
+                                })
+                                this.ability.classResource = ability.classResource
                             }
                         }
                         if ('color' in ability)
