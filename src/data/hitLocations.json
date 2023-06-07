@@ -10,49 +10,15 @@
       "effects": [
         {
           "cost": 2,
-          "description": "Target is Blinded for 1 round"
-        },
-        {
-          "cost": 2,
-          "description": "Resistance save or the attack becomes a critical"
+          "description": "Target is Blinded for 1 round + 1 round per additional success"
         },
         {
           "cost": 3,
-          "description": "Resistance save or be stunned for 1 round"
-        },
-        {
-          "cost": 3,
-          "description": "Dispel one effect applied on the target"
+          "description": "Dispel one effect applied on the target. For every 3 additional successes spent, dispel one more effect. Target can make a RES save to ignore all but the first dispel."
         },
         {
           "cost": 5,
           "description": "Permanently destroy a sensory organ on the head, or otherwise maim the head"
-        }
-      ]
-    },
-    {
-      "icon": "mdi-human",
-      "name": "Torso",
-      "effects": [
-        {
-          "cost": 2,
-          "description": "Apply damage to armor as well"
-        },
-        {
-          "cost": 2,
-          "description": "FIT or RES Dice Down 1 for 1 round"
-        },
-        {
-          "cost": 3,
-          "description": "Slowed 1 and AC Down 1 for 1 round"
-        },
-        {
-          "cost": 3,
-          "description": "Push back 1d6+FIT squares and knock prone"
-        },
-        {
-          "cost": 5,
-          "description": "Puncture a lung or rupture an organ, or otherwise maim the torso"
         }
       ]
     },
@@ -62,19 +28,11 @@
       "effects": [
         {
           "cost": 2,
-          "description": "Slowed  3 for 1 round"
-        },
-        {
-          "cost": 2,
-          "description": "Target’s next attack provokes a free Attack of Opportunity"
+          "description": "Target’s next attack provokes Attacks of Opportunity"
         },
         {
           "cost": 3,
-          "description": "Damage Debuff All for next attack"
-        },
-        {
-          "cost": 3,
-          "description": "Fitness save or be disarmed"
+          "description": "Target loses 1 AP + 1 AP per 3 additional successes spent. This can reduce the target’s AP below 0"
         },
         {
           "cost": 5,
@@ -88,19 +46,11 @@
       "effects": [
         {
           "cost": 2,
-          "description": "Hobbled for 1 round"
-        },
-        {
-          "cost": 2,
-          "description": "AC Down 1 for next allied turn"
+          "description": "Knock the target Prone"
         },
         {
           "cost": 3,
-          "description": "Fitness save or gain Prone and Rooted for 1 round"
-        },
-        {
-          "cost": 3,
-          "description": "AC Down 1 for 2 rounds"
+          "description": "Hobbled for 1 round + 1 round per additional success"
         },
         {
           "cost": 5,
@@ -114,19 +64,11 @@
       "effects": [
         {
           "cost": 2,
-          "description": "Fitness save or be disarmed"
-        },
-        {
-          "cost": 2,
           "description": "Attack applies with Sundering to the item"
         },
         {
           "cost": 3,
-          "description": "Be disarmed"
-        },
-        {
-          "cost": 3,
-          "description": "Attack deals True damage to item"
+          "description": "Be disarmed. Item is moved 1m per additional success spent"
         },
         {
           "cost": 5,
@@ -136,15 +78,11 @@
     },
     {
       "icon": "mdi-star-four-points-outline",
-      "name": "Flashing Red Weakpoint",
+      "name": "Weakpoint",
       "effects": [
         {
-          "cost": 2,
-          "description": "The attack becomes a critical"
-        },
-        {
-          "cost": 2,
-          "description": "Resistance save or gain no AP at start of next turn"
+          "cost": 0,
+          "description": "Weakpoint attacks requires 2 less successes to Critical (minimum 1)"
         }
       ]
     }
