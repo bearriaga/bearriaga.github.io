@@ -8,20 +8,8 @@
       {
         "effects": [
           {
-            "cost": 2,
-            "description": "Apply 5 True damage to any item equipped on the target"
-          },
-          {
-            "cost": 2,
-            "description": "Inflict Healing Down (half healing) for 1 round"
-          },
-          {
             "cost": 3,
-            "description": "Apply 5 True damage to all items equipped on the target"
-          },
-          {
-            "cost": 3,
-            "description": "Target takes 5 additional damage from all sources for 2 rounds"
+            "description": "Deal 1 True Damage to target’s armor or handheld item. +1 damage per additional success"
           }
         ],
         "icon": "mdi-flask-outline",
@@ -31,19 +19,7 @@
         "effects": [
           {
             "cost": 2,
-            "description": "Inflict Hyper-accelerated and @Movement Up 3 for 1 round"
-          },
-          {
-            "cost": 2,
-            "description": "Creates a 1m circular AoE of difficult icy terrain under creature and knock them @Prone"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict @Rooted for 2 rounds"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict Slowed 2 for 2 rounds"
+            "description": "Inflict Movement Down 1 for 1 round + 1 round per additional success. Rank can be increased by 1 per additional success spent"
           }
         ],
         "icon": "mdi-snowflake",
@@ -52,20 +28,8 @@
       {
         "effects": [
           {
-            "cost": 2,
-            "description": "Damage chains to 1 target within 3 meters for half damage"
-          },
-          {
-            "cost": 2,
-            "description": "Inflict Dice Down  2 for next attack"
-          },
-          {
             "cost": 3,
-            "description": "Inflict Dice Down 1 for 1 round"
-          },
-          {
-            "cost": 3,
-            "description": "For the next round, any Action this creature takes that consumes AP provokes an Attack of Opportunity"
+            "description": "Damage chains to 1 target within 1/2 the original range"
           }
         ],
         "icon": "mdi-lightning-bolt",
@@ -75,19 +39,7 @@
         "effects": [
           {
             "cost": 2,
-            "description": "Inflict 1d6 Burning for the encounter Interruptible "
-          },
-          {
-            "cost": 2,
-            "description": "Create a 1 square fire pool dealing 1d6 fire damage at target creature’s feet that lasts for the encounter"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict 2d6 Burning for the encounter Interruptible"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict Healing Down 50% for the next healing target receives"
+            "description": "Create a 1 square fire pool dealing 2d6 fire damage at target creature’s feet that lasts for 1 round + 1 round per additional success. Can add additional contiguous squares for 2 additional successes each."
           }
         ],
         "icon": "mdi-fire",
@@ -96,20 +48,8 @@
       {
         "effects": [
           {
-            "cost": 2,
-            "description": "The next time you use the same ability that triggered this effect, it costs 1 less AP"
-          },
-          {
-            "cost": 2,
-            "description": "Grant AP Gain Up 1 to an ally within line of sight for 1 round"
-          },
-          {
-            "cost": 3,
-            "description": "Gain 3 AP. Each time this effect is chosen in one round, reduce it by 1 AP"
-          },
-          {
-            "cost": 3,
-            "description": "Burn 2 Class Resources from the target"
+            "cost": 1,
+            "description": "Burn 1 Class Resource from the target"
           }
         ],
         "icon": "mdi-laser-pointer",
@@ -126,20 +66,8 @@
       {
         "effects": [
           {
-            "cost": 2,
-            "description": "Increase damage dealt by this attack by 1d6"
-          },
-          {
-            "cost": 2,
-            "description": "Inflict Isolated for 1 round"
-          },
-          {
             "cost": 3,
-            "description": "Inflict Healing Reduction (convert to damage) for the next heal target receives"
-          },
-          {
-            "cost": 3,
-            "description": "For target’s next roll, they must roll twice and use the lower number of successes. They may not use re-rolls on that roll."
+            "description": "Dispel 1 effect on target. If no effect was dispelled inflict Atrophy All for 1 round + 1 round per additional success"
           }
         ],
         "icon": "mdi-skull",
@@ -148,20 +76,8 @@
       {
         "effects": [
           {
-            "cost": 2,
-            "description": "Inflict Prone "
-          },
-          {
-            "cost": 2,
-            "description": "Inflict Movement Down 3 for 1 round"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict Hobbled and Prone"
-          },
-          {
-            "cost": 3,
-            "description": "Target has an object in their hand or on their person knocked 1d6 squares away"
+            "cost": 1,
+            "description": "Push target 1m"
           }
         ],
         "icon": "mdi-rotate-orbit",
@@ -170,20 +86,8 @@
       {
         "effects": [
           {
-            "cost": 2,
-            "description": "Heal yourself or an ally you can see for 1d6"
-          },
-          {
-            "cost": 2,
-            "description": "All allies that can see the target gain Dice Up 1 for their next roll"
-          },
-          {
             "cost": 3,
-            "description": "Inflict Blinded for 1 round"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict Feared / Repelled for 1 round"
+            "description": "Overheal yourself or an ally within ability range for 1d6+1 per additional success"
           }
         ],
         "icon": "mdi-centos",
@@ -192,20 +96,12 @@
       {
         "effects": [
           {
-            "cost": 2,
-            "description": "Inflict Taunted for 1 round with you or any allied target as the taunting creature"
-          },
-          {
-            "cost": 2,
-            "description": "Make an opposed primary check vs the target. If you win, dispel one effect cast by the target."
+            "cost": 3,
+            "description": "Inflict Confused for 1 round + 1 round per additional success"
           },
           {
             "cost": 3,
-            "description": "Inflict Confused for 1 round"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict Pacified All or Taunted and Enraged with any creature as the taunter for 1 round"
+            "description": "Inflict Feared / Repelled for 1 round + 1 round per additional success"
           }
         ],
         "icon": "mdi-brain",
@@ -215,19 +111,7 @@
         "effects": [
           {
             "cost": 2,
-            "description": "Inflict Dice Down 1 for 2 rounds that applies to FIT or SPD"
-          },
-          {
-            "cost": 2,
-            "description": "Inflict Damage Debuff All for 1 round"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict Slowed 4 for 1 round"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict Dice Down 1 to RES for 2 rounds"
+            "description": "Inflict Dice Down 1 for 1 round + 1 round per additional success. Rank can be increased by 1 per 3 additional success spent"
           }
         ],
         "icon": "mdi-biohazard",
@@ -244,20 +128,8 @@
       {
         "effects": [
           {
-            "cost": 2,
-            "description": "Inflict AC Down 2 for the next attack"
-          },
-          {
-            "cost": 2,
-            "description": "Target is pushed up to FIT or Primary Stat squares backwards or sideways"
-          },
-          {
             "cost": 3,
-            "description": "Inflict AC Down 2 for 1 round and target is knocked Prone "
-          },
-          {
-            "cost": 3,
-            "description": "Target must pass a Resistance save or be Unconscious . Save can be repeated at the end of the target’s turn."
+            "description": "Inflict Exposed 1 for 1 round + 1 round per additional success. Rank can be increased by 1 per 3 additional success spent"
           }
         ],
         "icon": "mdi-gavel",
@@ -267,15 +139,7 @@
         "effects": [
           {
             "cost": 2,
-            "description": "Attack deals half damage to targets adjacent to the area of effect"
-          },
-          {
-            "cost": 3,
-            "description": "Target is pushed 1d6 squares or knocked prone"
-          },
-          {
-            "cost": 3,
-            "description": "Increase the radius of the AoE of the attack by 1 square, you may repeat this choice"
+            "description": "Increase the radius of the AoE of the attack by 1m"
           }
         ],
         "icon": "mdi-bomb",
@@ -284,20 +148,8 @@
       {
         "effects": [
           {
-            "cost": 2,
-            "description": "Add Damage: Pierce / Penetration FIT or Primary Stat to this attack"
-          },
-          {
-            "cost": 2,
-            "description": "Apply Movement Down 1 for the encounter"
-          },
-          {
-            "cost": 3,
-            "description": "Apply a Called Shot effect of your choice that costs 1 or 2 successes"
-          },
-          {
-            "cost": 3,
-            "description": "Convert the attack to a critical"
+            "cost": 0,
+            "description": "Converting to a critical costs 1 less success (minimum of 1)"
           }
         ],
         "icon": "mdi-arrow-projectile",
@@ -306,20 +158,8 @@
       {
         "effects": [
           {
-            "cost": 2,
-            "description": "Inflict Bleed 3 for 3 rounds"
-          },
-          {
-            "cost": 2,
-            "description": "You gain ReRoll Up 1 for any attacks against this target until the end of your next turn"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict Bleed 4 and @Dice Down 1 for 3 rounds"
-          },
-          {
-            "cost": 3,
-            "description": "Inflict 3 True damage to one natural armor or equipment"
+            "cost": 0,
+            "description": "Called Shot effects cost 1 less success"
           }
         ],
         "icon": "mdi-sword",
@@ -331,8 +171,8 @@
     "color": "yellow lighted-3",
     "effects": [
       {
-        "cost": 1,
-        "description": "Increase damage dealt by 1. You can take this multiple times."
+        "cost": 5,
+        "description": "Deal damage to a target with Invulnerable"
       }
     ],
     "icon": "mdi-decagram",

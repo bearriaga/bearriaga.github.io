@@ -3,7 +3,7 @@
   "effects": [
     {
       "cost": 1,
-      "description": "You may re-roll one failed die on your next roll"
+      "description": "Increase damage by 1"
     },
     {
       "cost": 2,
@@ -11,7 +11,11 @@
     },
     {
       "cost": 3,
-      "description": "Gain +1 Success for your next roll"
+      "description": "Gain Success +1 for your next roll"
+    },
+    {
+      "cost": 3,
+      "description": "Apply a DoT effect for 1 round + 1 round per additional success. Damage is 1d6+Primary Stat+1 per additional success and has the type of the triggering attack."
     },
     {
       "cost": 4,
