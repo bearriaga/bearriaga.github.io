@@ -278,7 +278,7 @@
                                             <v-expansion-panel>
                                                 <v-expansion-panel-header>
                                                     <h3 class="text-center">
-                                                        Components
+                                                        XP Calculations
                                                         <v-btn icon color="primary"
                                                                @click.stop="addComponent">
                                                             <v-icon>
