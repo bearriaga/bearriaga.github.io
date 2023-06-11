@@ -2965,6 +2965,7 @@
                 }
             },
             takeDamage(damageObj) {
+                console.log(damageObj)
                 let damage = (damageObj) ? damageObj.amount : this.damageToTake.amount
                 let damageModifications = this.damageModifications.filter(x => x.type == 'All')
                 let type = (damageObj) ? damageObj.amount : this.damageToTake.type
@@ -2982,7 +2983,10 @@
 
                 let isImmune = (damageModifications.some(x => x.isImmunity))
                 let isResistant = (damageModifications.some(x => x.isResistance))
+                console.log(isResistant)
                 let isVulnerable = (damageModifications.some(x => x.isVulnerability))
+
+                let damageToTake = damage
 
                 if (isImmune)
                     damageToTake = 0
@@ -2991,7 +2995,7 @@
                         damageToTake = damageToTake * 2
                     if (isResistant)
                         damageToTake = Math.floor(damageToTake / 2)
-                    var damageToTake = damage - flatDamageReduction
+                    damageToTake = +damageToTake - +flatDamageReduction
                 }
 
                 if (damageToTake > 0) {
