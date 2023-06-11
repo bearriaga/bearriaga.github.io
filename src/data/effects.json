@@ -800,6 +800,14 @@
     "tags": "Duration, Buff"
   },
   {
+    "name": "Forced Movement",
+    "description": "Move the target. By default, allows pushing in any direction, but you may apply a conditional for -30xp to only move in one specific direction (directly away from you, directly towards you, straight down only, etc).\n”Safe” movement can’t directly deal damage. If you push someone off a cliff they grab the edge, they automatically miss hazards like fire, just stop when hitting a wall, and can’t be moved into the air to just fall. “Harmful” movement can trigger damaging effects.\nCan be applied to self, may be a discount instead in certain situations (ask your GM).\nHow large a creature you can push with this effect depends on the Utility: Increase Size Limit of this ability, starting at size 1 creatures.",
+    "xpCost": "10 xp per meter of “safe” movement\n35 xp per meter of “harmful” movement",
+    "category": "Basic Effect",
+    "duration": "Instant",
+    "tags": "Movement, Environment"
+  },
+  {
     "name": "Grapple",
     "description": "This ability automatically grapples the target without the need to make a check. The target can still break the grapple using normal rules. Must be used in Melee Range. See grapple rules.",
     "xpCost": "80 xp",
@@ -814,14 +822,6 @@
     "category": "Basic Effect",
     "duration": "1 Round",
     "tags": "Healing, Limit, Buff"
-  },
-  {
-    "name": "Movement: Push",
-    "description": "Pushes the target of the ability in both a direction and for a distance. \nCan be applied to self, may be a discount instead in certain situations (ask your GM).\nBy default, allows pushing in any direction, but you may apply a conditional for -30xp to only push away from you.\nHow large a creature you can push with this effect depends on the Utility: Increase Size Limit of this ability, starting at size 1 creatures.",
-    "xpCost": "10 xp per square of horizontal only movement\n35 xp per square of vertical or horizontal movement",
-    "category": "Basic Effect",
-    "duration": "Instant",
-    "tags": "Movement, Environment"
   },
   {
     "name": "Polymorph: Baleful",
@@ -1363,7 +1363,7 @@
     "name": "Duration: Charges - Instant Effects",
     "description": "This is the version to use when all effects are Instant\nEach “charge” allows the effects of the ability to be used once when it would apply. Multiple charges can be used in a single turn.\nThe effect is considered dispellable while any charges remain, and any remaining charges are lost at the end of an encounter. When this is cast on a target with remaining charges, the number is reset to the original number of charges.",
     "xpCost": "25xp per charge",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff, Debuff, Limited Use"
   },
@@ -1371,7 +1371,7 @@
     "name": "Duration: Charges - Lingering",
     "description": "Instead of charges being lost at the end of the encounter, you can have them last for 1 day, or until all charges have been used.\nIf the charges last until used, all discounts are reduced by half, like Duration: Extended",
     "xpCost": "+50% xp (1 day)\n+100% xp (until used)",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff"
   },
@@ -1379,7 +1379,7 @@
     "name": "Duration: Charges - Round Based",
     "description": "Requires at least one 1 Round duration effect or one Passive effect with Duration: Non-passive applied. The ability must still be round based\nThe number of rounds the ability would have lasted are converted to charges. Each charge allows the effects of the ability to be used once when it would apply.\nThe effect is considered dispellable while any charges remain, and any remaining charges are lost at the end of an encounter. When this is cast on a target with remaining charges, the number is reset to the original number of charges.\nIf this ability has any Instant effects, you must also apply Duration: Constantly Repeating Effect",
     "xpCost": "-50% xp",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff, Debuff, Limited Use, Flaw"
   },
@@ -1387,7 +1387,7 @@
     "name": "Duration: Committed Resources",
     "description": "Requires another Duration effect that causes the ability to last longer than 1 round and a class resource cost for activation.\nWhen this ability is activated your maximum class resource pool is reduced by the class resource cost of this ability until this ability's duration ends. When the duration effect ends your max pool returns to normal.\nThis flaw is not selectable if you have no inherent means beyond resting to restore class resources.\nIf this ability has a channeled resource cost, they may also reduce your maximum pool when consumed to further refund additional xp. Ex: Each round your maximum CR reduces",
     "xpCost": "-10% xp per CR for base flaw\n-5% additional xp for channeled durations",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Flaw, Class Resource"
   },
@@ -1403,7 +1403,7 @@
     "name": "Duration: Conditional",
     "description": "Requires a Duration. \nThe duration on this ability may only remain so long as the condition chosen when this flaw is purchased is true. If the condition becomes false at any time, the duration ends early and immediately. \nThe false condition must be reasonably able to occur during normal circumstances of this ability's use for this flaw to be valid.\nEx: \"If all nine planets are perfectly aligned\" is not a valid condition to cancel your effects.",
     "xpCost": "-10% to -100% from the multiplier upcharges (can't reduce below 0).",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Flaw, Limited"
   },
@@ -1411,7 +1411,7 @@
     "name": "Duration: Constant Backfire",
     "description": "Requires Backfire Damage \nBackfire damage is dealt every turn this ability is active instead of just on activation",
     "xpCost": "-50%",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Flaw"
   },
@@ -1419,7 +1419,7 @@
     "name": "Duration: Constantly Repeating Effect",
     "description": "Instant effects become effects that are constantly active and repeat themselves over and over beyond even reactions. This modifier needs GM approval (e.g. constant Dispel is fine, constant Damage Negate All is not, constant Damage doesn't even make sense unless there’s a conditional modifier)",
     "xpCost": "+100% XP",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff, GM Approval"
   },
@@ -1427,15 +1427,15 @@
     "name": "Duration: Dispel Immune",
     "description": "Ability cannot be dispelled.",
     "xpCost": "+100% XP",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
-    "tags": "duration"
+    "tags": "Duration"
   },
   {
     "name": "Duration: Encounter",
     "description": "Convert Instant and 1 round effects to last until the end of the current encounter / scene. Instant effects can be triggered once on each of your turns.",
     "xpCost": "+200% XP",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff"
   },
@@ -1451,9 +1451,9 @@
     "name": "Duration: Extended",
     "description": "Ability lasts until dispelled, cancelled, or the death of you or the target. All flaws and discounts are reduced by half. If you add both Duration: Dispel Immune and Duration: Persists on Caster Death you must add some other end condition.\nInstant effects can be triggered once on each of your turns.",
     "xpCost": "+300% XP",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
-    "tags": "duration"
+    "tags": "Duration"
   },
   {
     "name": "Duration: Full Concentration",
@@ -1475,15 +1475,15 @@
     "name": "Duration: Non-passive",
     "description": "Convert a passive duration to 1 round duration that can be dispelled. Duration can be extended with more rounds/maintained as normal for 1 round abilities",
     "xpCost": "Effect only costs 25% of the passive",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
-    "tags": "duration"
+    "tags": "Duration"
   },
   {
     "name": "Duration: Overclocked",
     "description": "Requires a duration.\nCauses the attached duration effect to trigger at the start of every turn in the initiative order instead of on only one turn per round.",
     "xpCost": "+400% xp",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff"
   },
@@ -1491,7 +1491,7 @@
     "name": "Duration: Passive",
     "description": "Ability lasts forever. Only affects you but cannot be dispelled, and does not need to be recast if you die and revive. Activation flaws cannot be added.",
     "xpCost": "+300% XP",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff, Self Only"
   },
@@ -1499,7 +1499,7 @@
     "name": "Duration: Persists on Caster Death",
     "description": "The ability does not end on your death",
     "xpCost": "+50% xp",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff"
   },
@@ -1515,7 +1515,7 @@
     "name": "Duration: Rounds",
     "description": "Convert Instant and 1 round effects to a longer duration. Instant effects can be triggered once on each of your turns, and have a starting value of 0 rounds",
     "xpCost": "50xp per additional round",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff, Debuff, Class Resource, Dice Roll, Successes"
   },
@@ -1531,7 +1531,7 @@
     "name": "Duration: Skillful Start",
     "description": "When you make a skill check to begin a duration effect you may spend additional successes from that check to add additional rounds of duration that begin when the effect would normally end. Adds 1 round per additional success.",
     "xpCost": "50 xp",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff, Dice Roll, Successes"
   },
@@ -1539,7 +1539,7 @@
     "name": "Duration: Stackable",
     "description": "Requires a buff effect. When you cast this ability on a target that already has the buff, you can stack the effect once per round. Treat all instances as if they were one for dispel, channeled etc",
     "xpCost": "+50% XP",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff"
   },
@@ -1555,7 +1555,7 @@
     "name": "Duration: Until Rest / 24hr",
     "description": "Requires Duration: Encounter\nThe effect with this duration goes away when the character rests or 24hrs have passed which ever comes first.",
     "xpCost": "+50% XP",
-    "category": "duration",
+    "category": "Duration",
     "duration": null,
     "tags": "Duration, Buff"
   },
@@ -2416,6 +2416,238 @@
     "tags": null
   },
   {
+    "name": "Absorb Appearance",
+    "description": "Absorb the appearance of another creature or object and store it in your character's memory, allowing it to be used with any utility effect that requires knowing something else's apperance. \nWhen absorbing the appearance of an unwilling creature, make an attack roll.\nWorks well with Utility: Disguise.",
+    "xpCost": "50 xp",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Absorb, RP, Utility, Self"
+  },
+  {
+    "name": "Absorb Element: Damage Type",
+    "description": "Draw power from an elemental source in the world and set the damage type of all abilities with the \"Alternate Damage Type: Absorbed\" modifier to that damage type.\nThis damage type remains until overwritten unless a limited duration modifier is applied to this effect.\nFor example, fire damage from a campfire or ice damage from snow.\nIn combat, this is a 1 AP action.",
+    "xpCost": "30 xp",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Absorb, Damage Type, Buff, Combat, Self"
+  },
+  {
+    "name": "Absorb Element: Heal",
+    "description": "Draw power from an elemental source in the world and restore HP depending on the power and quantity of that source. Determine the applicable sources appropriate when this ability is first purchased. \nFor example, a pyromancer may draw 5 HP from a campfire, or any number of HP from a lava flow within an active volcano.\nIn combat, this is a 1 AP action.",
+    "xpCost": "50 xp",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Absorb, Self, Healing"
+  },
+  {
+    "name": "Absorb Element: Recharge",
+    "description": "Draw power from an elemental source in the world and restore class resources depending on the power and quantity of that source. Determine the applicable sources appropriate when this ability is first purchased. \nFor example, a pyromancer may draw 1 point from a campfire, or any number of points from a lava flow within an active volcano.\nIn combat, this is a 1 AP action.",
+    "xpCost": "30 xp",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Absorb, Class Resource, Self"
+  },
+  {
+    "name": "Absorb Personality",
+    "description": "Absorb the personality of a target so you can impersonate them later",
+    "xpCost": "50 xp",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "RP, Utility"
+  },
+  {
+    "name": "Absorb: Knowledge",
+    "description": "Requires Absorb: Mimic Ability - Corpses or Utility: Telepathy.\nMake an opposed INT check against the creature's INT CHAR while consuming its corpse or connected to its mind, if successful, absorb some of its memories chosen by the GM.",
+    "xpCost": "100 xp",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Absorb, INT, Knowledge"
+  },
+  {
+    "name": "Absorb: Mimic Ability",
+    "description": "When your character is afflicted by an enemy ability, consumes a signficant part of that creature, or otherwise absorbs from it in some meaningful way, you may make an opposed check based on the characteristic of the enemy's ability as a 0 AP reaction. If successful,  gain use of that enemy's ability for one round. This ability still must be activated using its normal activation conditions.\nYou still take the normal damage or other effects from any abilties you attempt to mimic.",
+    "xpCost": "100 xp",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Absorb, Ability, Buff"
+  },
+  {
+    "name": "Alter State",
+    "description": "When using this ability, alter the state of the attached creature or object to a new defined state (such as changing combat stance, shapeshifting, or transforming a weapon). \nAny ability that requires this state may use XP up to the amount spent on this effect without additional cost (if 300 xp is spent to transform into bear form, any abilities that require bear form up to 300 xp have no cost).\nDiscounts applied to this ability do not reduce the XP available to the abilities that require the altered state. Continung the above example, if the 300 xp were discounted to 50 xp by flaws, 300 xp is still available for purchasing abilities that require this state.  \nBy default, changing the state lasts until the end of the encounter and costs 3 AP to alter state.",
+    "xpCost": "Variable",
+    "category": "Advanced Effect",
+    "duration": "Encounter",
+    "tags": "Alter, Complex, Equipment, Limit, AP"
+  },
+  {
+    "name": "Bestow Ability",
+    "description": "Choose a separate ability. When you activate this ability you choose a creature within range and bestow them use of the attached ability while this ability lasts.\nYou do not need to own the selected ability, but if you don’t already own it, you only have access to it if you bestow it upon yourself",
+    "xpCost": "25% of the selected ability’s cost",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Bestow, Ability, Buff"
+  },
+  {
+    "name": "Buff: Remove Flaw",
+    "description": "Choose a specific flaw when this effect is first purchased. Whenever this buff is applied, it removes the requirement on the target that the flaw be satisfied. \nThis buff effect cannot have a duration of Encounter or any other longer duration.",
+    "xpCost": "80 xp",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Buff, Flaw"
+  },
+  {
+    "name": "Class Resource: Buff Pool",
+    "description": "Temporarily raise the maximum amount of resource you may store, does not grant any points of class resource in itself.\nThe duration may not be upgraded to passive or continuous.",
+    "xpCost": "10 xp per point max",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Class Resource, Self, Buff, Duration"
+  },
+  {
+    "name": "Class Resource: Burn",
+    "description": "Remove points from an enemy's resource pool after a successful attack",
+    "xpCost": "10 xp per point removed",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Combat, Debuff, Duration, Class Resource"
+  },
+  {
+    "name": "Class Resource: Burn Pool",
+    "description": "After a successful attack, reduce the maximum number of points in an enemy's resource pool, burning any points that no longer fit",
+    "xpCost": "30 xp per point reduced",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Combat, Debuff, Duration, Class Resource"
+  },
+  {
+    "name": "Class Resource: Drain",
+    "description": "Remove points from an enemy’s resource pool and gain a number equal to what was removed. The conversion should make sense, for example, you can’t drain “scrap” to refill “blood”, but you can do things like drain “stamina” to refill “mana” etc.",
+    "xpCost": "40 xp per point drained",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Combat, Debuff, Buff"
+  },
+  {
+    "name": "Crafting: Instant Crafting - Consumable",
+    "description": "When this ability activates, instantly create a consumable object up to this effect's gold value that your character knows to make and consume that amount of gold.",
+    "xpCost": "5 xp per 1 gold",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Wealth, Crafting"
+  },
+  {
+    "name": "Crafting: Instant Crafting - Equipment",
+    "description": "When this ability activates, instantly create a non-consumable object up to this effect's gold value that your character knows to make and consume that amount of gold.",
+    "xpCost": "50 xp per 1 gold",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Wealth, Crafting"
+  },
+  {
+    "name": "Critical: Ravenous",
+    "description": "Bestow a buff effect that while in effect causes all hits made by the target character to upgrade into critical hits.",
+    "xpCost": "300 xp",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Critical, Damage, Buff"
+  },
+  {
+    "name": "Damage: Convert Damage Type",
+    "description": "Applies a buff that converts all damage done by the character to the damage type chosen when this extra is purchased. Can only be used on allies.",
+    "xpCost": "30 xp",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Damage Type, Buff"
+  },
+  {
+    "name": "Equipment: Banish",
+    "description": "While this ability is active, the targets equipment is banished. The target cannot use active abilities from equipment, but benefits from any ongoing effects.",
+    "xpCost": "150 xp",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Equipment, Buff"
+  },
+  {
+    "name": "Equipment: Disable",
+    "description": "While this ability is active, the target cannot benefit from passive or active abilities from their equipment.",
+    "xpCost": "250 xp",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Equipment, Debuff"
+  },
+  {
+    "name": "Erase Memory",
+    "description": "Target forgets memories about a specific topic",
+    "xpCost": "20 xp",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "RP, Utility"
+  },
+  {
+    "name": "Initiative: Offensive Decrease",
+    "description": "Reduce the initiative of a target creature",
+    "xpCost": "20xp per decrease",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Initiative, Combat, Debuff"
+  },
+  {
+    "name": "Initiative: Tag Team (Command)",
+    "description": "Target an ally within range of this ability. That ally may immediately take an action before returning to your turn (provided you have any AP remaining).\nThe ally may refuse to take an action at no cost to themselves.",
+    "xpCost": "80 xp",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "Initiative, AP"
+  },
+  {
+    "name": "Possess",
+    "description": "Enter and take control of another creature, like a ghost possession or parasite control. While inside the other creature, you do not have your own turn and instead control the target’s turn. The cheaper version only allows you to use the targets abilities and passives, but the more expensive version allows you to retain your passive bonuses and use your abilities as if the target was the caster. This effect can be removed by dispel or cleanse.",
+    "xpCost": "150 xp for target abilities only\n250 xp to retain personal abilities",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Debuff, Complex, Combat, Utility"
+  },
+  {
+    "name": "Read Memory",
+    "description": "Read memories about a specific topic",
+    "xpCost": "80 xp",
+    "category": "Advanced Effect",
+    "duration": "Instant",
+    "tags": "RP, Utility"
+  },
+  {
+    "name": "Read Surface Thoughts",
+    "description": "Read the current surface thoughts of a target",
+    "xpCost": "50 xp",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "RP, Utility"
+  },
+  {
+    "name": "Soul Link: Health",
+    "description": "Choose a willing creature, for the duration of this effect you may elect to transfer up to the percentage bought of each HP damage you take to your soul-linked partner. You may choose which character's damage resist applies when the link is formed.\nWhen a soul link is formed, choose the percent of the damage that will be redirected up to 100%.",
+    "xpCost": "50 xp",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Buff, Defense, Duration, HP"
+  },
+  {
+    "name": "Soul Link: Statuses",
+    "description": "Choose a willing creature, for the duration of this effect you may elect to transfer up to the number of statuses bought to your soul-linked partner, default 1. Ranked statuses are still considered 1 status regardless of their ranks for this effect.\nTransferring statuses is by default a 3 AP action, any AP modification extra may be applied to it, with relevant multipliers applying to this ability in addition to any AP multipliers used for the action needed in creating the soul link.\nAny statuses held by your partner when this effect ends are automatically returned to you.",
+    "xpCost": "30 xp per max status transferrable at once",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "Buff, Defense, Duration, Statuses, Complex"
+  },
+  {
+    "name": "Utility: Compel Truth",
+    "description": "While under this effect, the target cannot convey a falsehood.",
+    "xpCost": "50 xp",
+    "category": "Advanced Effect",
+    "duration": "1 Round",
+    "tags": "RP, Utility"
+  },
+  {
     "name": "Absorb: Mimic Ability - Corpses",
     "description": "Requires Absorb: Mimic Ability . Allows you to absorb an ability using the corpse of a creature instead of being afflicted by their ability. Make an opposed check against the stat as though the creature was still alive.\nAllows obtaining buff and heal abilities the creature would not normally use against an opponent. By default, one use of one ability may be gained per corpse.",
     "xpCost": "50 xp",
@@ -2514,7 +2746,7 @@
   {
     "name": "CHAR -1 Flaw",
     "description": "Remove points from a characteristic as part of a debuff effect. Cost assumes base characteristic is 3, and you cannot go negative (ie you can take this buff up to 3 times per char for 150, 100, and 50 xp each time)",
-    "xpCost": "50 xp * (the number you lower the CHAR to + 1)",
+    "xpCost": "200 xp * (the number you lower the CHAR to + 1)",
     "category": "Flaw",
     "duration": null,
     "tags": "Debuff, Duration, Flaw, Characteristic"
@@ -2525,7 +2757,7 @@
     "xpCost": "+100% XP Cost",
     "category": "Extra",
     "duration": null,
-    "tags": "duration"
+    "tags": "Duration"
   },
   {
     "name": "Cleanse: Uncleansable (Duration)",
@@ -2718,6 +2950,14 @@
     "category": "Extra",
     "duration": null,
     "tags": "Damage Type, Buff"
+  },
+  {
+    "name": "Damage: Remove CHAR",
+    "description": "Remove your primary CHAR from the damage of this ability",
+    "xpCost": "-120 xp",
+    "category": "Flaw",
+    "duration": null,
+    "tags": "Flaw, Damage"
   },
   {
     "name": "Damage: Vampirism",
@@ -2942,14 +3182,6 @@
     "category": "Extra",
     "duration": null,
     "tags": "Movement, Flaw, Limit"
-  },
-  {
-    "name": "Movement: Decrease",
-    "description": "Duration effects: While the ability is in effect your movement is reduced for each move action taken\nInstant effects: for 1 round, your movement is reduced for each move action taken",
-    "xpCost": "-20 xp per square of reduction",
-    "category": "Flaw",
-    "duration": null,
-    "tags": "Movement, Flaw"
   },
   {
     "name": "Movement: Triggers Move",
@@ -3280,6 +3512,14 @@
     "tags": "Stealth"
   },
   {
+    "name": "Subeffect Uses",
+    "description": "Select a subeffect. For each purchase of this, that subeffect can be used an additional time",
+    "xpCost": "Cost of the subeffect",
+    "category": "Extra",
+    "duration": null,
+    "tags": "Complex, Limited Use"
+  },
+  {
     "name": "Successes +1",
     "description": "Using the ability guarantees one success, can stack",
     "xpCost": "80 xp * the number of times this extra has been purchased (the second purchase is 160 xp)",
@@ -3488,219 +3728,19 @@
     "tags": null
   },
   {
-    "name": "Absorb Appearance",
-    "description": "Absorb the appearance of another creature or object and store it in your character's memory, allowing it to be used with any utility effect that requires knowing something else's apperance. \nWhen absorbing the appearance of an unwilling creature, make an attack roll.\nWorks well with Utility: Disguise.",
-    "xpCost": "50 xp",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "Absorb, RP, Utility, Self"
+    "name": null,
+    "description": null,
+    "xpCost": null,
+    "category": null,
+    "duration": null,
+    "tags": null
   },
   {
-    "name": "Absorb Element: Damage Type",
-    "description": "Draw power from an elemental source in the world and set the damage type of all abilities with the \"Alternate Damage Type: Absorbed\" modifier to that damage type.\nThis damage type remains until overwritten unless a limited duration modifier is applied to this effect.\nFor example, fire damage from a campfire or ice damage from snow.\nIn combat, this is a 1 AP action.",
-    "xpCost": "30 xp",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "Absorb, Damage Type, Buff, Combat, Self"
-  },
-  {
-    "name": "Absorb Element: Heal",
-    "description": "Draw power from an elemental source in the world and restore HP depending on the power and quantity of that source. Determine the applicable sources appropriate when this ability is first purchased. \nFor example, a pyromancer may draw 5 HP from a campfire, or any number of HP from a lava flow within an active volcano.\nIn combat, this is a 1 AP action.",
-    "xpCost": "50 xp",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "Absorb, Self, Healing"
-  },
-  {
-    "name": "Absorb Element: Recharge",
-    "description": "Draw power from an elemental source in the world and restore class resources depending on the power and quantity of that source. Determine the applicable sources appropriate when this ability is first purchased. \nFor example, a pyromancer may draw 1 point from a campfire, or any number of points from a lava flow within an active volcano.\nIn combat, this is a 1 AP action.",
-    "xpCost": "30 xp",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "Absorb, Class Resource, Self"
-  },
-  {
-    "name": "Absorb Personality",
-    "description": "Absorb the personality of a target so you can impersonate them later",
-    "xpCost": "50 xp",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "RP, Utility"
-  },
-  {
-    "name": "Absorb: Knowledge",
-    "description": "Requires Absorb: Mimic Ability - Corpses or Utility: Telepathy.\nMake an opposed INT check against the creature's INT CHAR while consuming its corpse or connected to its mind, if successful, absorb some of its memories chosen by the GM.",
-    "xpCost": "100 xp",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "Absorb, INT, Knowledge"
-  },
-  {
-    "name": "Absorb: Mimic Ability",
-    "description": "When your character is afflicted by an enemy ability, consumes a signficant part of that creature, or otherwise absorbs from it in some meaningful way, you may make an opposed check based on the characteristic of the enemy's ability as a 0 AP reaction. If successful,  gain use of that enemy's ability for one round. This ability still must be activated using its normal activation conditions.\nYou still take the normal damage or other effects from any abilties you attempt to mimic.",
-    "xpCost": "100 xp",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "Absorb, Ability, Buff"
-  },
-  {
-    "name": "Alter State",
-    "description": "When using this ability, alter the state of the attached creature or object to a new defined state (such as changing combat stance, shapeshifting, or transforming a weapon). \nAny ability that requires this state may use XP up to the amount spent on this effect without additional cost (if 300 xp is spent to transform into bear form, any abilities that require bear form up to 300 xp have no cost).\nDiscounts applied to this ability do not reduce the XP available to the abilities that require the altered state. Continung the above example, if the 300 xp were discounted to 50 xp by flaws, 300 xp is still available for purchasing abilities that require this state.  \nBy default, changing the state lasts until the end of the encounter and costs 3 AP to alter state.",
-    "xpCost": "Variable",
-    "category": "Advanced Effect",
-    "duration": "Encounter",
-    "tags": "Alter, Complex, Equipment, Limit, AP"
-  },
-  {
-    "name": "Bestow Ability",
-    "description": "Choose a separate ability. When you activate this ability you choose a creature within range and bestow them use of the attached ability while this ability lasts.\nYou do not need to own the selected ability, but if you don’t already own it, you only have access to it if you bestow it upon yourself",
-    "xpCost": "25% of the selected ability’s cost",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Bestow, Ability, Buff"
-  },
-  {
-    "name": "Buff: Remove Flaw",
-    "description": "Choose a specific flaw when this effect is first purchased. Whenever this buff is applied, it removes the requirement on the target that the flaw be satisfied. \nThis buff effect cannot have a duration of Encounter or any other longer duration.",
-    "xpCost": "80 xp",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Buff, Flaw"
-  },
-  {
-    "name": "Class Resource: Buff Pool",
-    "description": "Temporarily raise the maximum amount of resource you may store, does not grant any points of class resource in itself.\nThe duration may not be upgraded to passive or continuous.",
-    "xpCost": "10 xp per point max",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Class Resource, Self, Buff, Duration"
-  },
-  {
-    "name": "Class Resource: Burn",
-    "description": "Remove points from an enemy's resource pool after a successful attack",
-    "xpCost": "15 xp per point removed",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "Combat, Debuff, Duration, Class Resource"
-  },
-  {
-    "name": "Class Resource: Burn Pool",
-    "description": "After a successful attack, reduce the maximum number of points in an enemy's resource pool, burning any points that no longer fit",
-    "xpCost": "30 xp per point reduced",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Combat, Debuff, Duration, Class Resource"
-  },
-  {
-    "name": "Crafting: Instant Crafting - Consumable",
-    "description": "When this ability activates, instantly create a consumable object up to this effect's gold value that your character knows to make and consume that amount of gold.",
-    "xpCost": "5 xp per 1 gold",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "Wealth, Crafting"
-  },
-  {
-    "name": "Crafting: Instant Crafting - Equipment",
-    "description": "When this ability activates, instantly create a non-consumable object up to this effect's gold value that your character knows to make and consume that amount of gold.",
-    "xpCost": "50 xp per 1 gold",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "Wealth, Crafting"
-  },
-  {
-    "name": "Critical: Ravenous",
-    "description": "Bestow a buff effect that while in effect causes all hits made by the target character to upgrade into critical hits.",
-    "xpCost": "300 xp",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Critical, Damage, Buff"
-  },
-  {
-    "name": "Damage: Convert Damage Type",
-    "description": "Applies a buff that converts all damage done by the character to the damage type chosen when this extra is purchased. Can only be used on allies.",
-    "xpCost": "30 xp",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Damage Type, Buff"
-  },
-  {
-    "name": "Equipment: Banish",
-    "description": "While this ability is active, the targets equipment is banished. The target cannot use active abilities from equipment, but benefits from any ongoing effects.",
-    "xpCost": "150 xp",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Equipment, Buff"
-  },
-  {
-    "name": "Equipment: Disable",
-    "description": "While this ability is active, the target cannot benefit from passive or active abilities from their equipment.",
-    "xpCost": "250 xp",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Equipment, Debuff"
-  },
-  {
-    "name": "Erase Memory",
-    "description": "Target forgets memories about a specific topic",
-    "xpCost": "20 xp",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "RP, Utility"
-  },
-  {
-    "name": "Initiative: Offensive Decrease",
-    "description": "Reduce the initiative of a target creature",
-    "xpCost": "20xp per decrease",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Initiative, Combat, Debuff"
-  },
-  {
-    "name": "Initiative: Tag Team (Command)",
-    "description": "Target an ally within range of this ability. That ally may immediately take an action before returning to your turn (provided you have any AP remaining).\nThe ally may refuse to take an action at no cost to themselves.",
-    "xpCost": "80 xp",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "Initiative, AP"
-  },
-  {
-    "name": "Read Memory",
-    "description": "Read memories about a specific topic",
-    "xpCost": "80 xp",
-    "category": "Advanced Effect",
-    "duration": "Instant",
-    "tags": "RP, Utility"
-  },
-  {
-    "name": "Read Surface Thoughts",
-    "description": "Read the current surface thoughts of a target",
-    "xpCost": "50 xp",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "RP, Utility"
-  },
-  {
-    "name": "Soul Link: Health",
-    "description": "Choose a willing creature, for the duration of this effect you may elect to transfer up to the percentage bought of each HP damage you take to your soul-linked partner. You may choose which character's damage resist applies when the link is formed.\nWhen a soul link is formed, choose the percent of the damage that will be redirected up to 100%.",
-    "xpCost": "50 xp",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Buff, Defense, Duration, HP"
-  },
-  {
-    "name": "Soul Link: Statuses",
-    "description": "Choose a willing creature, for the duration of this effect you may elect to transfer up to the number of statuses bought to your soul-linked partner, default 1. Ranked statuses are still considered 1 status regardless of their ranks for this effect.\nTransferring statuses is by default a 3 AP action, any AP modification extra may be applied to it, with relevant multipliers applying to this ability in addition to any AP multipliers used for the action needed in creating the soul link.\nAny statuses held by your partner when this effect ends are automatically returned to you.",
-    "xpCost": "30 xp per max status transferrable at once",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "Buff, Defense, Duration, Statuses, Complex"
-  },
-  {
-    "name": "Utility: Compel Truth",
-    "description": "While under this effect, the target cannot convey a falsehood.",
-    "xpCost": "50 xp",
-    "category": "Advanced Effect",
-    "duration": "1 Round",
-    "tags": "RP, Utility"
+    "name": null,
+    "description": null,
+    "xpCost": null,
+    "category": null,
+    "duration": null,
+    "tags": null
   }
 ]
