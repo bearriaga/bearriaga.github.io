@@ -17,6 +17,7 @@
                     <v-text-field label="Filter Equipment" v-model="filterText" clearable></v-text-field>
                     <v-data-table :headers="headers"
                                   :items="characterEquipment"
+                                  :items-per-page="-1"
                                   :search="filterText"
                                   item-key="key"
                                   show-expand

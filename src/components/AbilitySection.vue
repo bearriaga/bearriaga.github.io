@@ -25,6 +25,7 @@
                             <v-col cols="12">
                                 <v-data-table :headers="headers"
                                               :items="abilities"
+                                              :items-per-page="-1"
                                               :search="filterText"
                                               item-key="key"
                                               show-expand
