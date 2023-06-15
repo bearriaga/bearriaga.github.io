@@ -112,7 +112,7 @@
                 panel: this.panelProp,
                 // Validation Start
                 numberRules: [
-                    v => !isNaN(+v) && v >= 1 || 'Field may not be empty and value must be 1 or higher'
+                    v => !isNaN(+v) && !!v || 'Field may not be empty and value must be a number'
                 ],
                 textRules: [
                     v => !!v || 'Field may not be empty'
