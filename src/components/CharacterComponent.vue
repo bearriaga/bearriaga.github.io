@@ -2058,7 +2058,7 @@
 
                     let primaryCharValue = (resource.characteristic) ? this[resource.characteristic] : 0
                     let adj = this.buffAmount({ type: 'Class Resource: Commited', propName: 'classResource', propValue: resource.id })
-                    resource.amountMax = (primaryCharValue * 2) + +resource.resourceIncreases - +adj
+                    resource.amountMax = (primaryCharValue * 2) + +this.intelligence + +resource.resourceIncreases - +adj
                     resource.key = resource.name + resource.characteristic + resource.resourceIncreases + primaryCharValue + this.updateCR + this.updateCharacter
                     resources.push(resource)
                 })
