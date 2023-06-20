@@ -134,7 +134,7 @@
                 </v-col>
                 <v-col cols="12" v-if="subEffects.length > 0">
                     <template>
-                        <v-expansion-panels>
+                        <v-expansion-panels v-model="subEffectsPanel">
                             <v-expansion-panel>
                                 <v-expansion-panel-header>
                                     <h3 class="text-center">Sub Effects</h3>
@@ -361,6 +361,7 @@
                 components: this.ability.components,
                 damage: this.ability.damage,
                 subEffects: this.ability.subEffects,
+                subEffectsPanel: 0,
                 physMetaOptions: ['Physical', 'Meta', 'Both'],
                 useModes: ['Charge Up', 'Flurry', 'Focused Strike', 'Full Auto', 'Lightning', 'Prepared'],
             }
