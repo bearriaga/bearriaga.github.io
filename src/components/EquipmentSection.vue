@@ -216,7 +216,7 @@
                                         <v-switch label="Is Melee Attack" inset v-model="equipment.ability.isMeleeAttack"></v-switch>
                                     </v-col>
                                     <v-col cols="6">
-                                        <v-switch label="Is Melee Attack" inset v-model="equipment.ability.linkToDamage">
+                                        <v-switch label="Link to Ability: Damage" inset v-model="equipment.ability.linkToDamage">
                                             <TooltipComponent slot="append" :text="'When using this ability, can choose to do damage from any other ability.'"></TooltipComponent>
                                         </v-switch>
                                     </v-col>
