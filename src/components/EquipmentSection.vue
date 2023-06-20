@@ -83,11 +83,22 @@
                                           ref="name"
                                           :rules="textRules"
                                           required></v-text-field>
-                            <v-text-field label="Amount"
-                                          type="number"
-                                          v-model="equipment.amount"
-                                          min="0"
-                                          required></v-text-field>
+                            <v-row>
+                                <v-col>
+                                    <v-text-field label="Amount"
+                                                  type="number"
+                                                  v-model="equipment.amount"
+                                                  min="0"
+                                                  required></v-text-field>
+                                </v-col>
+                                <v-col>
+                                    <v-text-field label="Cost"
+                                                  type="number"
+                                                  v-model="equipment.cost"
+                                                  min="0"
+                                                  required></v-text-field>
+                                </v-col>
+                            </v-row>
                             <v-switch label="Is Item" inset
                                       v-model="equipment.isItem">
                                 <TooltipComponent slot="prepend" :text="'Limits fields to Name, Amount, and Description and hides ability section'"></TooltipComponent>
@@ -249,10 +260,10 @@
                                             <v-text-field label="Handedness"
                                                           type="number"
                                                           v-model="equipment.ability.handedness"></v-text-field>
-                                            <v-select label="Use Modes" :items="useModes" v-model="equipment.ability.useModes" multiple clearable></v-select>                                            
+                                            <v-select label="Use Modes" :items="useModes" v-model="equipment.ability.useModes" multiple clearable></v-select>
                                             <v-select label="Buffs" :items="buffs.map(x => ({ value: x.id, text: x.name }))" v-model="equipment.ability.buffs" multiple clearable>
                                                 <TooltipComponent slot="prepend" text="Using ability turns on selected Buffs"></TooltipComponent>
-                                            </v-select>                                            
+                                            </v-select>
                                         </v-expansion-panel-content>
                                     </v-expansion-panel>
                                 </v-expansion-panels>
@@ -355,6 +366,7 @@
                 equipment: {
                     amount: 1,
                     attunementSlots: 0,
+                    cost: 0,
                     description: '',
                     id: null,
                     isActive: true,
@@ -408,6 +420,7 @@
                 clearEquipment: {
                     amount: 1,
                     attunementSlots: 0,
+                    cost: 0,
                     description: '',
                     id: null,
                     isActive: true,

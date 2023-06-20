@@ -3,10 +3,19 @@
         <v-switch label="Is Equipped" inset
                   v-model="isActive"
                   v-if="!equipment.isItem"></v-switch>
+        <v-row>
+            <v-col>
         <v-text-field label="Amount"
                       type="number"
                       v-model="amount"
                       min="0"></v-text-field>
+            </v-col>
+            <v-col>
+                <v-text-field label="Cost"
+                              v-model="cost"
+                              disabled></v-text-field>
+            </v-col>
+        </v-row>
         <v-form disabled>
             <DamageModificationSection v-if="equipment.damageModifications.length > 0"
                                        :can-edit="false"
@@ -97,6 +106,7 @@
             return {
                 amount: this.equipment.amount,
                 attunementSlots: this.equipment.attunementSlots,
+                cost: this.equipment.cost,
                 description: this.equipment.description,
                 handedness: this.equipment.handedness,
                 isActive: this.equipment.isActive,
