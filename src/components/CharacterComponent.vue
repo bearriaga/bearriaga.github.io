@@ -2200,7 +2200,7 @@
                 return this.characterStatuses.some(x => { return x.isActive && (x.duration > 0 || x.indefinite) && x.status.name == 'Rooted' })
             },
             successesFromIntelligence() {
-                return Math.ceil(this.intelligence / 2)
+                return 0 //Math.ceil(this.intelligence / 2)
             },
             journalEntries() {
                 let journalEntries = []
