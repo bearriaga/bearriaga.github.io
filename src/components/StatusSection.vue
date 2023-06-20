@@ -109,7 +109,9 @@
             characterStatuses: Array,
             damageTypes: Array,
             panelProp: Number,
-            statuses: Array
+            statuses: Array,
+            updateCharacter: Number,
+            updateStatus: Number
         },
         data() {
             return {
@@ -184,7 +186,7 @@
             },
             // CRUD Functions End
             key(status, i) {
-                let key = status.id + JSON.stringify(status.status) + status.isActive.toString() + i
+                let key = status.id + JSON.stringify(status.status) + status.isActive.toString() + i + this.updateCharacter + this.updateStatus
 
                 if (status.description.includes(' Buff Status'))
                     key += status.description

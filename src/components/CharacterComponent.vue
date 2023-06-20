@@ -306,6 +306,8 @@
                                    :key="'status' + updateStatus + updateCharacter"
                                    :panel-prop="statusPanel"
                                    :statuses="statuses"
+                                   :update-character="updateCharacter"
+                                   :update-status="updateStatus"
                                    @addEntryEmit="addEntry($event)"
                                    @deleteEntryEmit="deleteEntry($event)"
                                    @moveEntryEmit="moveEntry($event)"
@@ -609,6 +611,8 @@
                                            :key="'status' + updateStatus + updateCharacter"
                                            :panel-prop="statusPanel"
                                            :statuses="statuses"
+                                           :update-character="updateCharacter"
+                                           :update-status="updateStatus"
                                            @addEntryEmit="addEntry($event)"
                                            @deleteEntryEmit="deleteEntry($event)"
                                            @moveEntryEmit="moveEntry($event)"
@@ -785,6 +789,8 @@
                            :key="'status' + updateStatus + updateCharacter"
                            :panel-prop="statusPanel"
                            :statuses="statuses"
+                           :update-character="updateCharacter"
+                           :update-status="updateStatus"
                            @addEntryEmit="addEntry($event)"
                            @deleteEntryEmit="deleteEntry($event)"
                            @moveEntryEmit="moveEntry($event)"
@@ -1597,7 +1603,8 @@
                 return equipment
             },
             characterStatuses() {
-                let statuses = this.characterSheet.statuses
+                console.log(this.updateCharacter + this.updateStatus) //This console log forces the section to rerender. ///TODO: look into this
+                let statuses = JSON.parse(JSON.stringify(this.characterSheet.statuses))
 
                 this.characterSheet.buffs.filter(b => { return JSON.stringify(b.adjustments).includes('Status') && b.isActive }).forEach(buff => {
                     buff.adjustments.filter(a => { return a.type == 'Status' }).forEach(adjustment => {
