@@ -112,6 +112,43 @@
                         Add Exercise
                     </v-btn>
                 </div>
+                <div class="text-center">
+                    <v-text-field label="Search Exercises" v-model="filterExercises" clearable></v-text-field>
+                    <v-form disabled>
+                        <h2 class="text-center">Exercises</h2>
+                        <v-expansion-panels multiple>
+                            <v-expansion-panel v-for="e, i in filteredExercises" :key="i">
+                                <v-expansion-panel-header>
+                                    <h3 class="text-center">{{e.name}} <v-icon color="primary" @click.stop="copyExercise(e)">mdi-content-copy</v-icon></h3>
+                                </v-expansion-panel-header>
+                                <v-expansion-panel-content>
+                                    <template>
+                                        <h3 class="text-center">Sets</h3>
+                                        <v-row>
+                                            <v-col v-for="s, j in e.sets" :key="j" class="text-center">
+                                                <b>{{s.weight}} lbs x {{s.reps}}</b>
+                                                <v-textarea label="Notes" v-model="s.notes" v-if="s.notes" auto-grow outlined rows="1"></v-textarea>
+                                            </v-col>
+                                        </v-row>
+                                    </template>
+                                    <v-row>
+                                        <v-col>
+                                            <v-text-field label="Maxes" v-model="e.maxes"></v-text-field>
+                                        </v-col>
+                                        <v-col>
+                                            <v-select v-model="e.muscleGroups"
+                                                      :items="muscleGroups"
+                                                      label="Muscle Groups"
+                                                      multiple>
+                                            </v-select>
+                                        </v-col>
+                                    </v-row>
+                                    <v-textarea label="Notes" v-model="e.notes" v-if="e.notes" auto-grow outlined rows="1"></v-textarea>
+                                </v-expansion-panel-content>
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                    </v-form>
+                </div>
             </template>
         </v-form>
 
@@ -209,6 +246,20 @@
 
     export default {
         name: 'WorkoutComponent',
+        computed: {
+            filteredExercises() {
+                let exercises = []
+
+                if (this.filterExercises && this.filterExercises.trim().length != 0) {
+                    this.fitnessAccount.workouts.filter(w => { return JSON.stringify(w.exercises).toLowerCase().includes(this.filterExercises.toLowerCase()) })
+                        .forEach(w => {
+                            exercises = exercises.concat(JSON.parse(JSON.stringify(w.exercises.filter(e => { return e.name.toLowerCase().includes(this.filterExercises.toLowerCase()) }))))
+                        });
+                }
+
+                return exercises
+            }
+        },
         created() {
             if (!this.$signedIn || this.$userData.email != 'turro92@gmail.com')
                 this.$router.push({ name: 'Home' })
@@ -231,6 +282,7 @@
                     ]
                 },
                 exercises: [],
+                filterExercises: '',
                 fitnessAccount: {
                     id: '',
                     name: '',
