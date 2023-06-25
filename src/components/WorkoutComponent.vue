@@ -93,7 +93,10 @@
                                                     </v-col>
                                                 </v-row>
                                             </v-col>
-                                            <v-col cols="12" md="12">
+                                            <v-col cols="12">
+                                                <v-text-field label="Time" type="text" v-model="s.time"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12">
                                                 <v-textarea label="Notes" v-model="s.notes" auto-grow outlined rows="1" clearable></v-textarea>
                                             </v-col>
                                             <v-col cols="12" class="text-center">
@@ -277,6 +280,7 @@
                         {
                             notes: '',
                             reps: 0,
+                            time: '',
                             weight: 0
                         }
                     ]
@@ -302,6 +306,7 @@
                 set: {
                     notes: '',
                     reps: 0,
+                    time: '',
                     weight: 0
                 },
                 workout: {
