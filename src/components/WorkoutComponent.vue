@@ -76,32 +76,31 @@
                                     </v-btn>
                                 </h3>
                                 <v-row>
-                                    <v-col cols="4" v-for="s, j in e.sets" :key="j">
+                                    <v-col cols="12" v-for="s, j in e.sets" :key="j">
                                         <v-row>
-                                            <v-col cols="12" md="6">
+                                            <v-col cols="3">
                                                 <v-text-field label="Weight" type="number" v-model="s.weight"></v-text-field>
                                             </v-col>
-                                            <v-col cols="12" md="6">
+                                            <v-col cols="3">
                                                 <v-text-field label="Reps" type="number" v-model="s.reps">
+                                                    <v-icon slot="prepend" color="error" @click="updateRep(i, j, -1)" :disabled="s.reps <= 0">mdi-minus</v-icon>
+                                                    <v-icon slot="append" color="success" @click="updateRep(i, j, 1)">mdi-plus</v-icon>
                                                 </v-text-field>
-                                                <v-row>
-                                                    <v-col>
-                                                        <v-icon color="error" @click="updateRep(i, j, -1)" :disabled="s.reps <= 0">mdi-minus</v-icon>
-                                                    </v-col>
-                                                    <v-col>
-                                                        <v-icon color="success" @click="updateRep(i, j, 1)">mdi-plus</v-icon>
-                                                    </v-col>
-                                                </v-row>
                                             </v-col>
-                                            <v-col cols="12">
+                                            <v-col cols="6">
                                                 <v-text-field label="Time" type="text" v-model="s.time"></v-text-field>
                                             </v-col>
-                                            <v-col cols="12">
+                                            <v-col cols="10" md="12">
                                                 <v-textarea label="Notes" v-model="s.notes" auto-grow outlined rows="1" clearable></v-textarea>
                                             </v-col>
-                                            <v-col cols="12" class="text-center">
+                                            <v-col cols="1" md="6" class="text-center">
                                                 <v-icon color="primary" @click="copySet(i, j)">mdi-content-copy</v-icon>
+                                            </v-col>
+                                            <v-col cols="1" md="6" class="text-center">
                                                 <v-icon color="error" @click="deleteSet(i, j)">mdi-delete</v-icon>
+                                            </v-col>
+                                            <v-col cols="12">
+                                                <hr v-if="j < (e.sets.length - 1)" />
                                             </v-col>
                                         </v-row>
                                     </v-col>
