@@ -10,7 +10,7 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12" md="4">
+                <v-col cols="12">
                     <v-text-field label="Name" v-model="workout.name"></v-text-field>
                 </v-col>
                 <v-col cols="6">
@@ -23,7 +23,21 @@
             <v-textarea label="Notes" v-model="workout.notes" auto-grow outlined rows="1" clearable></v-textarea>
             <template>
                 <h2 class="text-center">
-                    Exercises
+                    <v-row>
+                        <v-col>
+                            <v-btn icon color="primary" @click="panel = []">
+                                <v-icon>mdi-collapse-all</v-icon>
+                            </v-btn>
+                        </v-col>
+                        <v-col>
+                            Exercises
+                        </v-col>
+                        <v-col>
+                            <v-btn icon color="primary" @click="expandAll()">
+                                <v-icon>mdi-expand-all</v-icon>
+                            </v-btn>
+                        </v-col>
+                    </v-row>
                 </h2>
                 <v-expansion-panels multiple v-model="panel">
                     <v-expansion-panel v-for="e, i in workout.exercises" :key="i">
@@ -368,6 +382,12 @@
             },
             deleteSet(i, j) {
                 this.workout.exercises[i].sets.splice(j, 1)
+            },
+            expandAll() {
+                this.panel = []
+                for (var i = 0; i < this.workout.exercises.length; i++) {
+                    this.panel.push(i)
+                }                
             },
             async getFitnessAccount() {
                 const q = query(collection(db, 'fitnessAccounts'), where('user', '==', this.$userData.email))
