@@ -83,25 +83,19 @@
                                 <v-btn color="primary" @click="skipExercise(e, i)">Skip</v-btn>
                             </div>
                             <template>
-                                <h3 class="text-center">
-                                    Sets
-                                    <v-btn icon color="primary" @click.stop="addSet(i)">
-                                        <v-icon>mdi-plus</v-icon>
-                                    </v-btn>
-                                </h3>
                                 <v-row>
                                     <v-col cols="12" v-for="s, j in e.sets" :key="j">
                                         <v-row>
-                                            <v-col cols="3">
+                                            <v-col cols="6">
                                                 <v-text-field label="Weight" type="number" v-model="s.weight"></v-text-field>
                                             </v-col>
-                                            <v-col cols="3">
+                                            <v-col cols="6">
                                                 <v-text-field label="Reps" type="number" v-model="s.reps">
                                                     <v-icon slot="prepend" color="error" @click="updateRep(i, j, -1)" :disabled="s.reps <= 0">mdi-minus</v-icon>
                                                     <v-icon slot="append" color="success" @click="updateRep(i, j, 1)">mdi-plus</v-icon>
                                                 </v-text-field>
                                             </v-col>
-                                            <v-col cols="6">
+                                            <v-col cols="12">
                                                 <v-text-field label="Time" type="text" v-model="s.time"></v-text-field>
                                             </v-col>
                                             <v-col cols="10" md="12">
@@ -118,13 +112,15 @@
                                             </v-col>
                                         </v-row>
                                     </v-col>
-                                </v-row>
-                                <h3 class="text-center" v-if="e.sets.length > 0">
-                                    Sets
-                                    <v-btn icon color="primary" @click.stop="addSet(i)">
-                                        <v-icon>mdi-plus</v-icon>
-                                    </v-btn>
-                                </h3>
+                                    <v-col cols="12">
+                                        <h3 class="text-center">
+                                            Sets
+                                            <v-btn icon color="primary" @click.stop="addSet(i)">
+                                                <v-icon>mdi-plus</v-icon>
+                                            </v-btn>
+                                        </h3>
+                                    </v-col>
+                                </v-row>                                
                             </template>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
@@ -387,7 +383,7 @@
                 this.panel = []
                 for (var i = 0; i < this.workout.exercises.length; i++) {
                     this.panel.push(i)
-                }                
+                }
             },
             async getFitnessAccount() {
                 const q = query(collection(db, 'fitnessAccounts'), where('user', '==', this.$userData.email))
