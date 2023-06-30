@@ -105,6 +105,12 @@
                                         </v-row>
                                     </v-col>
                                 </v-row>
+                                <h3 class="text-center" v-if="e.sets.length > 0">
+                                    Sets
+                                    <v-btn icon color="primary" @click.stop="addSet(i)">
+                                        <v-icon>mdi-plus</v-icon>
+                                    </v-btn>
+                                </h3>
                             </template>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
