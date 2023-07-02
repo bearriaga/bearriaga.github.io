@@ -87,7 +87,9 @@
                                     <v-col cols="12" v-for="s, j in e.sets" :key="j">
                                         <v-row>
                                             <v-col cols="6">
-                                                <v-text-field label="Weight" type="number" v-model="s.weight"></v-text-field>
+                                                <v-text-field label="Weight" type="number" v-model="s.weight">
+                                                    <v-icon slot="prepend">mdi-numeric-{{j + 1}}</v-icon>
+                                                </v-text-field>
                                             </v-col>
                                             <v-col cols="6">
                                                 <v-text-field label="Reps" type="number" v-model="s.reps">
@@ -98,14 +100,11 @@
                                             <v-col cols="12">
                                                 <v-text-field label="Time" type="text" v-model="s.time"></v-text-field>
                                             </v-col>
-                                            <v-col cols="10" md="12">
-                                                <v-textarea label="Notes" v-model="s.notes" auto-grow outlined rows="1" clearable></v-textarea>
-                                            </v-col>
-                                            <v-col cols="1" md="6" class="text-center">
-                                                <v-icon color="primary" @click="copySet(i, j)">mdi-content-copy</v-icon>
-                                            </v-col>
-                                            <v-col cols="1" md="6" class="text-center">
-                                                <v-icon color="error" @click="deleteSet(i, j)">mdi-delete</v-icon>
+                                            <v-col cols="12">
+                                                <v-textarea label="Notes" v-model="s.notes" auto-grow outlined rows="1" clearable>
+                                                    <v-icon slot="prepend" color="primary" @click="copySet(i, j)">mdi-content-copy</v-icon>
+                                                    <v-icon slot="prepend" color="error" @click="deleteSet(i, j)">mdi-delete</v-icon>
+                                                </v-textarea>
                                             </v-col>
                                             <v-col cols="12">
                                                 <hr v-if="j < (e.sets.length - 1)" />
