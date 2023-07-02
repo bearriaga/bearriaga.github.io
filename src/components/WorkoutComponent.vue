@@ -143,7 +143,12 @@
                                         <h3 class="text-center">Sets</h3>
                                         <v-row>
                                             <v-col v-for="s, j in e.sets" :key="j" class="text-center">
-                                                <b>{{s.weight}} lbs x {{s.reps}}</b>
+                                                <div v-if="s.weight != 0 || s.reps != 0">
+                                                    <b>{{s.weight}} lbs x {{s.reps}}</b>
+                                                </div>
+                                                <div v-if="s.time">
+                                                    <b>{{s.time}}</b>
+                                                </div>
                                                 <v-textarea label="Notes" v-model="s.notes" v-if="s.notes" auto-grow outlined rows="1"></v-textarea>
                                             </v-col>
                                         </v-row>
@@ -210,7 +215,12 @@
                                                         <h3 class="text-center">Sets</h3>
                                                         <v-row>
                                                             <v-col v-for="s, j in e.sets" :key="j" class="text-center">
-                                                                <b>{{s.weight}} lbs x {{s.reps}}</b>
+                                                                <div v-if="s.weight != 0 || s.reps != 0">
+                                                                    <b>{{s.weight}} lbs x {{s.reps}}</b>
+                                                                </div>
+                                                                <div v-if="s.time">
+                                                                    <b>{{s.time}}</b>
+                                                                </div>
                                                                 <v-textarea label="Notes" v-model="s.notes" v-if="s.notes" auto-grow outlined rows="1"></v-textarea>
                                                             </v-col>
                                                         </v-row>
