@@ -191,6 +191,7 @@
                                     <v-row>
                                         <v-col>
                                             <v-text-field label="Name" v-model="w.name" readonly>
+                                                <v-icon slot="prepend" color="error" @click="deleteWorkout(i)">mdi-delete</v-icon>
                                                 <v-icon slot="append" color="primary" @click="copyWorkout(i, true)">mdi-content-copy</v-icon>
                                                 <v-icon slot="append" color="primary" @click="copyWorkout(i, false)">mdi-pen</v-icon>
                                             </v-text-field>
@@ -387,6 +388,9 @@
             },
             deleteSet(i, j) {
                 this.workout.exercises[i].sets.splice(j, 1)
+            },
+            deleteWorkout(i) {
+                this.fitnessAccount.workouts.splice(i, 1)
             },
             expandAll() {
                 this.panel = []

@@ -3,7 +3,8 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\data"
+    "\\src\\views"
   ],
+  "SelectedNode": "\\src\\components\\AbilityListItem.vue",
   "PreviewInSolutionExplorer": false
 }
